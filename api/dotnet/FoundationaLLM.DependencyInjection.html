@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class DependencyInjection | FoundationaLLM ">
       
-      <meta name="description" content="Provides extension methods used to configure dependency injection.">
+      <meta name="description" content="Data Source resource provider service implementation of resource provider dependency injection extensions.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -89,15 +89,15 @@
 
 
   <h1 id="FoundationaLLM_DependencyInjection" data-uid="FoundationaLLM.DependencyInjection" class="text-break">
-Class DependencyInjection  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/DependencyInjection.cs/#L22"><i class="bi bi-code-slash"></i></a>
+Class DependencyInjection  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/DependencyInjection.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
     <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>FoundationaLLM.Authorization.dll</dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Attachment.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides extension methods used to configure dependency injection.</p>
+  <div class="markdown summary"><p>Data Source resource provider service implementation of resource provider dependency injection extensions.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -166,6 +166,39 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddAgentResourceProvider(this IHostApplicationBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostapplicationbuilder">IHostApplicationBuilder</a></dt>
+    <dd><p>The application builder.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_DependencyInjection_AddAttachmentResourceProvider_" data-uid="FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddAttachmentResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
+  AddAttachmentResourceProvider(IHostApplicationBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/DependencyInjection.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Add the Attachment resource provider and its related services the the dependency injection container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddAttachmentResourceProvider(this IHostApplicationBuilder builder)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -951,7 +984,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/DependencyInjection.cs/#L22" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/DependencyInjection.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

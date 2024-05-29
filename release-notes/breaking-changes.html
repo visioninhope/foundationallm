@@ -77,7 +77,7 @@
 <h5>Note</h5>
 <p>This section is for changes that are not yet released but will affect future releases.</p>
 </div>
-<h2 id="breaking-changes-that-will-affect-future-releases">Breaking changes that will affect future releases.</h2>
+<h2 id="breaking-changes-that-will-affect-future-releases">Breaking changes that will affect future releases</h2>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
 </li>
@@ -196,6 +196,14 @@
 <p>These entries do not need to be created as part of the deployment process.</p>
 </div>
 <ol start="12">
+<li><p>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</p>
+</li>
+<li><p>New app config entries required:</p>
+<ul>
+<li><code>FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType</code></li>
+<li><code>FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName</code></li>
+</ul>
+</li>
 <li><p>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</p>
 </li>
 <li><p>The following App Config setting needs to be added as key-values:</p>

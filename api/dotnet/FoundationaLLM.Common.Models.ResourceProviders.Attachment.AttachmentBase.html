@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class ResourceReference | FoundationaLLM </title>
+      <title>Class AttachmentBase | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class ResourceReference | FoundationaLLM ">
+      <meta name="title" content="Class AttachmentBase | FoundationaLLM ">
       
-      <meta name="description" content="Resource reference used by resource providers to index the resources they manage.">
+      <meta name="description" content="Basic attachment.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProviders_ResourceReference.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProviders.ResourceReference%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,27 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference">
+        <article data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase">
 
 
 
-  <h1 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference" class="text-break">
-Class ResourceReference  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase" class="text-break">
+Class AttachmentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.html">ResourceProviders</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.html">ResourceProviders</a>.<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Attachment.html">Attachment</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Resource reference used by resource providers to index the resources they manage.</p>
+  <div class="markdown summary"><p>Basic attachment.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ResourceReference</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;type&quot;)]
+[JsonDerivedType(typeof(AudioAttachment), &quot;audio&quot;)]
+public class AttachmentBase : ResourceBase</code></pre>
   </div>
 
 
@@ -112,7 +114,9 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">ResourceReference</span></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceName.html">ResourceName</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a></div>
+      <div><span class="xref">AttachmentBase</span></div>
     </dd>
   </dl>
 
@@ -120,17 +124,43 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
   <dl class="typelist derived">
     <dt>Derived</dt>
     <dd>
-      <div><a class="xref" href="FoundationaLLM.Agent.Models.Resources.AgentReference.html">AgentReference</a></div>
-      <div><a class="xref" href="FoundationaLLM.Attachment.Models.AttachmentReference.html">AttachmentReference</a></div>
-      <div><a class="xref" href="FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html">ExternalOrchestrationServiceReference</a></div>
-      <div><a class="xref" href="FoundationaLLM.DataSource.Models.DataSourceReference.html">DataSourceReference</a></div>
-      <div><a class="xref" href="FoundationaLLM.Prompt.Models.Resources.PromptReference.html">PromptReference</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html">AudioAttachment</a></div>
     </dd>
   </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_ObjectId">ResourceBase.ObjectId</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_DisplayName">ResourceBase.DisplayName</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_Description">ResourceBase.Description</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CostCenter">ResourceBase.CostCenter</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CreatedOn">ResourceBase.CreatedOn</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_UpdatedOn">ResourceBase.UpdatedOn</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_CreatedBy">ResourceBase.CreatedBy</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_UpdatedBy">ResourceBase.UpdatedBy</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_Deleted">ResourceBase.Deleted</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceName.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceName_Name">ResourceName.Name</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -170,51 +200,20 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Deleted_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Deleted*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Deleted" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Deleted">
-  Deleted
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType">
+  ContentType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Indicates whether the resource has been logically deleted.</p>
+  <div class="markdown level1 summary"><p>The mime content type of the attachment.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Deleted { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Filename_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Filename*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Filename" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Filename">
-  Filename
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L16"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The filename of the resource.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Filename { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;content_type&quot;)]
+public string? ContentType { get; set; }</code></pre>
   </div>
 
 
@@ -234,19 +233,20 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Name_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Name*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Name" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Name">
-  Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path">
+  Path
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The name of the resource.</p>
+  <div class="markdown level1 summary"><p>Path for the attachment.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Name { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;path&quot;)]
+public string Path { get; set; }</code></pre>
   </div>
 
 
@@ -266,11 +266,11 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Type_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Type*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Type">
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the resource.</p>
@@ -278,7 +278,8 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required string Type { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public override string? Type { get; set; }</code></pre>
   </div>
 
 
@@ -302,7 +303,7 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

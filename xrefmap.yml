@@ -352,6 +352,308 @@ references:
   fullName.vb: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.New
   nameWithType: KnowledgeManagementAgentValidator.KnowledgeManagementAgentValidator
   nameWithType.vb: KnowledgeManagementAgentValidator.New
+- uid: FoundationaLLM.Attachment
+  name: FoundationaLLM.Attachment
+  href: api/dotnet/FoundationaLLM.Attachment.html
+- uid: FoundationaLLM.Attachment.Models
+  name: FoundationaLLM.Attachment.Models
+  href: api/dotnet/FoundationaLLM.Attachment.Models.html
+  commentId: N:FoundationaLLM.Attachment.Models
+  fullName: FoundationaLLM.Attachment.Models
+  nameWithType: FoundationaLLM.Attachment.Models
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference
+  name: AttachmentReference
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html
+  commentId: T:FoundationaLLM.Attachment.Models.AttachmentReference
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference
+  nameWithType: AttachmentReference
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType
+  name: AttachmentType
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_AttachmentType
+  commentId: P:FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType
+  nameWithType: AttachmentReference.AttachmentType
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType*
+  name: AttachmentType
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_AttachmentType_
+  commentId: Overload:FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.AttachmentType
+  nameWithType: AttachmentReference.AttachmentType
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.ContentType
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_ContentType
+  commentId: P:FoundationaLLM.Attachment.Models.AttachmentReference.ContentType
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.ContentType
+  nameWithType: AttachmentReference.ContentType
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.ContentType*
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_ContentType_
+  commentId: Overload:FoundationaLLM.Attachment.Models.AttachmentReference.ContentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.ContentType
+  nameWithType: AttachmentReference.ContentType
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename
+  name: OriginalFilename
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_OriginalFilename
+  commentId: P:FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename
+  nameWithType: AttachmentReference.OriginalFilename
+- uid: FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename*
+  name: OriginalFilename
+  href: api/dotnet/FoundationaLLM.Attachment.Models.AttachmentReference.html#FoundationaLLM_Attachment_Models_AttachmentReference_OriginalFilename_
+  commentId: Overload:FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.Models.AttachmentReference.OriginalFilename
+  nameWithType: AttachmentReference.OriginalFilename
+- uid: FoundationaLLM.Attachment.ResourceProviders
+  name: FoundationaLLM.Attachment.ResourceProviders
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.html
+  commentId: N:FoundationaLLM.Attachment.ResourceProviders
+  fullName: FoundationaLLM.Attachment.ResourceProviders
+  nameWithType: FoundationaLLM.Attachment.ResourceProviders
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService
+  name: AttachmentResourceProviderService
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html
+  commentId: T:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService
+  nameWithType: AttachmentResourceProviderService
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: AttachmentResourceProviderService(IOptions<InstanceSettings>, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IOptions(Of InstanceSettings), IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.AttachmentResourceProviderService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>, FoundationaLLM.Common.Interfaces.IAuthorizationService, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings), FoundationaLLM.Common.Interfaces.IAuthorizationService, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.IEventService, FoundationaLLM.Common.Interfaces.IResourceValidatorFactory, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: AttachmentResourceProviderService.AttachmentResourceProviderService(IOptions<InstanceSettings>, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: AttachmentResourceProviderService.New(IOptions(Of InstanceSettings), IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILoggerFactory)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.#ctor*
+  name: AttachmentResourceProviderService
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService__ctor_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.AttachmentResourceProviderService
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.New
+  nameWithType: AttachmentResourceProviderService.AttachmentResourceProviderService
+  nameWithType.vb: AttachmentResourceProviderService.New
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AttachmentResourceProviderService.DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync
+  nameWithType: AttachmentResourceProviderService.DeleteResourceAsync
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ExecuteActionAsync(ResourcePath, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AttachmentResourceProviderService.ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
+  nameWithType.vb: AttachmentResourceProviderService.ExecuteActionAsync(ResourcePath, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync*
+  name: ExecuteActionAsync
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_ExecuteActionAsync_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync
+  nameWithType: AttachmentResourceProviderService.ExecuteActionAsync
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal*
+  name: GetResourceInternal
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceInternal_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal
+  nameWithType: AttachmentResourceProviderService.GetResourceInternal
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)
+  name: GetResourceInternal<T>(ResourcePath)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)
+  name.vb: GetResourceInternal(Of T)(ResourcePath)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)
+  nameWithType: AttachmentResourceProviderService.GetResourceInternal<T>(ResourcePath)
+  nameWithType.vb: AttachmentResourceProviderService.GetResourceInternal(Of T)(ResourcePath)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes
+  name: GetResourceTypes()
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceTypes
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes()
+  nameWithType: AttachmentResourceProviderService.GetResourceTypes()
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes*
+  name: GetResourceTypes
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceTypes_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes
+  nameWithType: AttachmentResourceProviderService.GetResourceTypes
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AttachmentResourceProviderService.GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync
+  nameWithType: AttachmentResourceProviderService.GetResourcesAsync
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  name: HandleEvents(EventSetEventArgs)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)
+  nameWithType: AttachmentResourceProviderService.HandleEvents(EventSetEventArgs)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents*
+  name: HandleEvents
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_HandleEvents_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents
+  nameWithType: AttachmentResourceProviderService.HandleEvents
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal
+  name: InitializeInternal()
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_InitializeInternal
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal()
+  nameWithType: AttachmentResourceProviderService.InitializeInternal()
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal*
+  name: InitializeInternal
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_InitializeInternal_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal
+  nameWithType: AttachmentResourceProviderService.InitializeInternal
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: UpsertResourceAsync(ResourcePath, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AttachmentResourceProviderService.UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
+  nameWithType.vb: AttachmentResourceProviderService.UpsertResourceAsync(ResourcePath, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync*
+  name: UpsertResourceAsync
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_UpsertResourceAsync_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync
+  nameWithType: AttachmentResourceProviderService.UpsertResourceAsync
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0)
+  name: UpsertResourceAsync<T>(ResourcePath, T)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_UpsertResourceAsync__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0)
+  name.vb: UpsertResourceAsync(Of T)(ResourcePath, T)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, T)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, T)
+  nameWithType: AttachmentResourceProviderService.UpsertResourceAsync<T>(ResourcePath, T)
+  nameWithType.vb: AttachmentResourceProviderService.UpsertResourceAsync(Of T)(ResourcePath, T)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name
+  name: _name
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService__name
+  commentId: P:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name
+  nameWithType: AttachmentResourceProviderService._name
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name*
+  name: _name
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService__name_
+  commentId: Overload:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name
+  nameWithType: AttachmentResourceProviderService._name
+- uid: FoundationaLLM.Attachment.Validation
+  name: FoundationaLLM.Attachment.Validation
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.html
+  commentId: N:FoundationaLLM.Attachment.Validation
+  fullName: FoundationaLLM.Attachment.Validation
+  nameWithType: FoundationaLLM.Attachment.Validation
+- uid: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator
+  name: AttachmentBaseValidator
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.html
+  commentId: T:FoundationaLLM.Attachment.Validation.AttachmentBaseValidator
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator
+  nameWithType: AttachmentBaseValidator
+- uid: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.#ctor
+  name: AttachmentBaseValidator()
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.html#FoundationaLLM_Attachment_Validation_AttachmentBaseValidator__ctor
+  commentId: M:FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.AttachmentBaseValidator()
+  fullName.vb: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.New()
+  nameWithType: AttachmentBaseValidator.AttachmentBaseValidator()
+  nameWithType.vb: AttachmentBaseValidator.New()
+- uid: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.#ctor*
+  name: AttachmentBaseValidator
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.html#FoundationaLLM_Attachment_Validation_AttachmentBaseValidator__ctor_
+  commentId: Overload:FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.AttachmentBaseValidator
+  fullName.vb: FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.New
+  nameWithType: AttachmentBaseValidator.AttachmentBaseValidator
+  nameWithType.vb: AttachmentBaseValidator.New
+- uid: FoundationaLLM.Attachment.Validation.AttachmentValidator`1
+  name: AttachmentValidator<T>
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentValidator-1.html
+  commentId: T:FoundationaLLM.Attachment.Validation.AttachmentValidator`1
+  name.vb: AttachmentValidator(Of T)
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentValidator<T>
+  fullName.vb: FoundationaLLM.Attachment.Validation.AttachmentValidator(Of T)
+  nameWithType: AttachmentValidator<T>
+  nameWithType.vb: AttachmentValidator(Of T)
+- uid: FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase)
+  name: ValidConfigurationReference(AttachmentBase)
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentValidator-1.html#FoundationaLLM_Attachment_Validation_AttachmentValidator_1_ValidConfigurationReference_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_
+  commentId: M:FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase)
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentValidator<T>.ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase)
+  fullName.vb: FoundationaLLM.Attachment.Validation.AttachmentValidator(Of T).ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase)
+  nameWithType: AttachmentValidator<T>.ValidConfigurationReference(AttachmentBase)
+  nameWithType.vb: AttachmentValidator(Of T).ValidConfigurationReference(AttachmentBase)
+- uid: FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference*
+  name: ValidConfigurationReference
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentValidator-1.html#FoundationaLLM_Attachment_Validation_AttachmentValidator_1_ValidConfigurationReference_
+  commentId: Overload:FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference
+  isSpec: "True"
+  fullName: FoundationaLLM.Attachment.Validation.AttachmentValidator<T>.ValidConfigurationReference
+  fullName.vb: FoundationaLLM.Attachment.Validation.AttachmentValidator(Of T).ValidConfigurationReference
+  nameWithType: AttachmentValidator<T>.ValidConfigurationReference
+  nameWithType.vb: AttachmentValidator(Of T).ValidConfigurationReference
+- uid: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator
+  name: AudioAttachmentValidator
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.html
+  commentId: T:FoundationaLLM.Attachment.Validation.AudioAttachmentValidator
+  fullName: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator
+  nameWithType: AudioAttachmentValidator
+- uid: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.#ctor
+  name: AudioAttachmentValidator()
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.html#FoundationaLLM_Attachment_Validation_AudioAttachmentValidator__ctor
+  commentId: M:FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.AudioAttachmentValidator()
+  fullName.vb: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.New()
+  nameWithType: AudioAttachmentValidator.AudioAttachmentValidator()
+  nameWithType.vb: AudioAttachmentValidator.New()
+- uid: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.#ctor*
+  name: AudioAttachmentValidator
+  href: api/dotnet/FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.html#FoundationaLLM_Attachment_Validation_AudioAttachmentValidator__ctor_
+  commentId: Overload:FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.AudioAttachmentValidator
+  fullName.vb: FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.New
+  nameWithType: AudioAttachmentValidator.AudioAttachmentValidator
+  nameWithType.vb: AudioAttachmentValidator.New
 - uid: FoundationaLLM.Authorization
   name: FoundationaLLM.Authorization
   href: api/dotnet/FoundationaLLM.Authorization.html
@@ -2060,6 +2362,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Agent_Agents_Write
   fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Agent_Agents_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Agent_Agents_Write
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete
+  name: FoundationaLLM_Attachment_Attachments_Delete
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Attachment_Attachments_Delete
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read
+  name: FoundationaLLM_Attachment_Attachments_Read
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Attachment_Attachments_Read
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write
+  name: FoundationaLLM_Attachment_Attachments_Write
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Attachment_Attachments_Write
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write
 - uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Delete
   name: FoundationaLLM_Authorization_RoleAssignments_Delete
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Authorization_RoleAssignments_Delete
@@ -2372,6 +2692,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.CacheCategories.Agent
   fullName: FoundationaLLM.Common.Constants.CacheCategories.Agent
   nameWithType: CacheCategories.Agent
+- uid: FoundationaLLM.Common.Constants.CacheCategories.Attachment
+  name: Attachment
+  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_Attachment
+  commentId: F:FoundationaLLM.Common.Constants.CacheCategories.Attachment
+  fullName: FoundationaLLM.Common.Constants.CacheCategories.Attachment
+  nameWithType: CacheCategories.Attachment
 - uid: FoundationaLLM.Common.Constants.CacheCategories.DataSource
   name: DataSource
   href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_DataSource
@@ -2426,6 +2752,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Agent
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Agent
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Agent
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachment
+  name: FoundationaLLM_Attachment
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Attachment
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachment
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachment
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Attachment
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachments
+  name: FoundationaLLM_Attachments
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Attachments
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachments
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachments
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Attachments
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureAI
   name: FoundationaLLM_AzureAI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureAI
@@ -2654,6 +2992,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Agent_ResourceProviderService_Storage
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Agent_ResourceProviderService_Storage
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Agent_ResourceProviderService_Storage
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachment_ResourceProviderService_Storage
+  name: FoundationaLLM_Attachment_ResourceProviderService_Storage
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Attachment_ResourceProviderService_Storage
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachment_ResourceProviderService_Storage
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachment_ResourceProviderService_Storage
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Attachment_ResourceProviderService_Storage
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachments
+  name: FoundationaLLM_Attachments
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Attachments
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachments
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Attachments
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Attachments
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_AzureAIStudio
   name: FoundationaLLM_AzureAIStudio
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_AzureAIStudio
@@ -3122,6 +3472,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_Agent_ResourceProviderService_Storage_ConnectionString
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+  name: FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+  name: FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
+  name: FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIKey
   name: FoundationaLLM_AzureContentSafety_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_AzureContentSafety_APIKey
@@ -3860,6 +4228,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
   fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
   nameWithType: DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent
+- uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Attachment
+  name: FoundationaLLM_ResourceProvider_Attachment
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_ResourceProvider_Attachment
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Attachment
+  fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Attachment
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Attachment
 - uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization
   name: FoundationaLLM_ResourceProvider_Authorization
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_ResourceProvider_Authorization
@@ -4268,6 +4642,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
   nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
+- uid: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment
+  name: FoundationaLLM_ResourceProvider_Attachment
+  href: api/dotnet/FoundationaLLM.Common.Constants.EventSetEventNamespaces.html#FoundationaLLM_Common_Constants_EventSetEventNamespaces_FoundationaLLM_ResourceProvider_Attachment
+  commentId: F:FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment
+  fullName: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment
+  nameWithType: EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment
 - uid: FoundationaLLM.Common.Constants.EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
   name: FoundationaLLM_ResourceProvider_Configuration
   href: api/dotnet/FoundationaLLM.Common.Constants.EventSetEventNamespaces.html#FoundationaLLM_Common_Constants_EventSetEventNamespaces_FoundationaLLM_ResourceProvider_Configuration
@@ -4316,6 +4696,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Markdown
   fullName: FoundationaLLM.Common.Constants.FileExtensions.Markdown
   nameWithType: FileExtensions.Markdown
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Mp3
+  name: Mp3
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Mp3
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Mp3
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Mp3
+  nameWithType: FileExtensions.Mp3
 - uid: FoundationaLLM.Common.Constants.FileExtensions.PDF
   name: PDF
   href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_PDF
@@ -4334,6 +4720,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Text
   fullName: FoundationaLLM.Common.Constants.FileExtensions.Text
   nameWithType: FileExtensions.Text
+- uid: FoundationaLLM.Common.Constants.FileExtensions.Wav
+  name: Wav
+  href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Wav
+  commentId: F:FoundationaLLM.Common.Constants.FileExtensions.Wav
+  fullName: FoundationaLLM.Common.Constants.FileExtensions.Wav
+  nameWithType: FileExtensions.Wav
 - uid: FoundationaLLM.Common.Constants.FileExtensions.Word
   name: Word
   href: api/dotnet/FoundationaLLM.Common.Constants.FileExtensions.html#FoundationaLLM_Common_Constants_FileExtensions_Word
@@ -4627,6 +5019,61 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceTypeNames.Agents
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.AgentResourceTypeNames.Agents
   nameWithType: AgentResourceTypeNames.Agents
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderActions
+  name: AttachmentResourceProviderActions
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderActions.html
+  commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderActions
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderActions
+  nameWithType: AttachmentResourceProviderActions
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata
+  name: AttachmentResourceProviderMetadata
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.html
+  commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata
+  nameWithType: AttachmentResourceProviderMetadata
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.html#FoundationaLLM_Common_Constants_ResourceProviders_AttachmentResourceProviderMetadata_AllowedResourceTypes
+  commentId: P:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: AttachmentResourceProviderMetadata.AllowedResourceTypes
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes*
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.html#FoundationaLLM_Common_Constants_ResourceProviders_AttachmentResourceProviderMetadata_AllowedResourceTypes_
+  commentId: Overload:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: AttachmentResourceProviderMetadata.AllowedResourceTypes
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames
+  name: AttachmentResourceTypeNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.html
+  commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames
+  nameWithType: AttachmentResourceTypeNames
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.html#FoundationaLLM_Common_Constants_ResourceProviders_AttachmentResourceTypeNames_Attachments
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.Attachments
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.Attachments
+  nameWithType: AttachmentResourceTypeNames.Attachments
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes
+  name: AttachmentTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes
+  nameWithType: AttachmentTypes
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Audio
+  name: Audio
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_AttachmentTypes_Audio
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Audio
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Audio
+  nameWithType: AttachmentTypes.Audio
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Basic
+  name: Basic
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_AttachmentTypes_Basic
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Basic
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.Basic
+  nameWithType: AttachmentTypes.Basic
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions
   name: AuthorizationResourceProviderActions
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions.html
@@ -4893,6 +5340,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Agent
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Agent
   nameWithType: ResourceProviderNames.FoundationaLLM_Agent
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Attachment
+  name: FoundationaLLM_Attachment
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ResourceProviderNames_FoundationaLLM_Attachment
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Attachment
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Attachment
+  nameWithType: ResourceProviderNames.FoundationaLLM_Attachment
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.FoundationaLLM_Authorization
   name: FoundationaLLM_Authorization
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ResourceProviderNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ResourceProviderNames_FoundationaLLM_Authorization
@@ -5929,6 +6382,28 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization
   nameWithType: ResourceProviderServiceExtensions.WaitForInitialization
+- uid: FoundationaLLM.Common.Extensions.StringExtensions
+  name: StringExtensions
+  href: api/dotnet/FoundationaLLM.Common.Extensions.StringExtensions.html
+  commentId: T:FoundationaLLM.Common.Extensions.StringExtensions
+  fullName: FoundationaLLM.Common.Extensions.StringExtensions
+  nameWithType: StringExtensions
+- uid: FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName(System.String)
+  name: GenerateValidResourceName(string)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.StringExtensions.html#FoundationaLLM_Common_Extensions_StringExtensions_GenerateValidResourceName_System_String_
+  commentId: M:FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName(System.String)
+  name.vb: GenerateValidResourceName(String)
+  fullName: FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName(string)
+  fullName.vb: FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName(String)
+  nameWithType: StringExtensions.GenerateValidResourceName(string)
+  nameWithType.vb: StringExtensions.GenerateValidResourceName(String)
+- uid: FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName*
+  name: GenerateValidResourceName
+  href: api/dotnet/FoundationaLLM.Common.Extensions.StringExtensions.html#FoundationaLLM_Common_Extensions_StringExtensions_GenerateValidResourceName_
+  commentId: Overload:FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName
+  nameWithType: StringExtensions.GenerateValidResourceName
 - uid: FoundationaLLM.Common.Extensions.SwaggerGenOptionsExtensions
   name: SwaggerGenOptionsExtensions
   href: api/dotnet/FoundationaLLM.Common.Extensions.SwaggerGenOptionsExtensions.html
@@ -13199,6 +13674,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
   nameWithType: OrchestrationRequest.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Attachments
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
+  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
+  nameWithType: OrchestrationRequest.Attachments
+- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments*
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Attachments_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
+  nameWithType: OrchestrationRequest.Attachments
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
   name: GatekeeperOptions
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_GatekeeperOptions
@@ -13723,6 +14211,95 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.Vectorization
   nameWithType: KnowledgeManagementAgent.Vectorization
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment
+  name: FoundationaLLM.Common.Models.ResourceProviders.Attachment
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.html
+  commentId: N:FoundationaLLM.Common.Models.ResourceProviders.Attachment
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment
+  nameWithType: FoundationaLLM.Common.Models.ResourceProviders.Attachment
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase
+  name: AttachmentBase
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase
+  nameWithType: AttachmentBase
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType
+  nameWithType: AttachmentBase.ContentType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType*
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType
+  nameWithType: AttachmentBase.ContentType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path
+  name: Path
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path
+  nameWithType: AttachmentBase.Path
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path*
+  name: Path
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path
+  nameWithType: AttachmentBase.Path
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type
+  nameWithType: AttachmentBase.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type
+  nameWithType: AttachmentBase.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment
+  name: AudioAttachment
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment
+  nameWithType: AudioAttachment
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.#ctor
+  name: AudioAttachment()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AudioAttachment__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.AudioAttachment()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.New()
+  nameWithType: AudioAttachment.AudioAttachment()
+  nameWithType.vb: AudioAttachment.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.#ctor*
+  name: AudioAttachment
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AudioAttachment__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.AudioAttachment
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.New
+  nameWithType: AudioAttachment.AudioAttachment
+  nameWithType.vb: AudioAttachment.New
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AudioAttachment_Content
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content
+  nameWithType: AudioAttachment.Content
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html#FoundationaLLM_Common_Models_ResourceProviders_Attachment_AudioAttachment_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.Content
+  nameWithType: AudioAttachment.Content
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration
   name: FoundationaLLM.Common.Models.ResourceProviders.Configuration
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.html
@@ -19285,6 +19862,12 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.AgentHub
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.AgentHub
   nameWithType: AppConfigurationCatalog.AgentHub
+- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Attachment
+  name: Attachment
+  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_Attachment
+  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Attachment
+  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Attachment
+  nameWithType: AppConfigurationCatalog.Attachment
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.AzureContentSafety
   name: AzureContentSafety
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_AzureContentSafety
@@ -19851,6 +20434,57 @@ references:
   commentId: N:FoundationaLLM.Core.API.Controllers
   fullName: FoundationaLLM.Core.API.Controllers
   nameWithType: FoundationaLLM.Core.API.Controllers
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController
+  name: AttachmentsController
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html
+  commentId: T:FoundationaLLM.Core.API.Controllers.AttachmentsController
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController
+  nameWithType: AttachmentsController
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.AttachmentsController})
+  name: AttachmentsController(IEnumerable<IResourceProviderService>, ILogger<AttachmentsController>)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_AttachmentsController__
+  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.AttachmentsController})
+  name.vb: New(IEnumerable(Of IResourceProviderService), ILogger(Of AttachmentsController))
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.AttachmentsController(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.API.Controllers.AttachmentsController>)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.AttachmentsController.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.API.Controllers.AttachmentsController))
+  nameWithType: AttachmentsController.AttachmentsController(IEnumerable<IResourceProviderService>, ILogger<AttachmentsController>)
+  nameWithType.vb: AttachmentsController.New(IEnumerable(Of IResourceProviderService), ILogger(Of AttachmentsController))
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.#ctor*
+  name: AttachmentsController
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController__ctor_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.AttachmentsController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.AttachmentsController
+  fullName.vb: FoundationaLLM.Core.API.Controllers.AttachmentsController.New
+  nameWithType: AttachmentsController.AttachmentsController
+  nameWithType.vb: AttachmentsController.New
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
+  name: Index()
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Index
+  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index()
+  nameWithType: AttachmentsController.Index()
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index*
+  name: Index
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Index_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
+  nameWithType: AttachmentsController.Index
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
+  name: Upload(IFormFile)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Upload_Microsoft_AspNetCore_Http_IFormFile_
+  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
+  nameWithType: AttachmentsController.Upload(IFormFile)
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload*
+  name: Upload
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Upload_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload
+  nameWithType: AttachmentsController.Upload
 - uid: FoundationaLLM.Core.API.Controllers.BrandingController
   name: BrandingController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html
@@ -22000,6 +22634,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider
   nameWithType: DependencyInjection.AddAgentResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddAttachmentResourceProvider(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAttachmentResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddAttachmentResourceProvider(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider*
+  name: AddAttachmentResourceProvider
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAttachmentResourceProvider_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider
+  nameWithType: DependencyInjection.AddAttachmentResourceProvider
 - uid: FoundationaLLM.DependencyInjection.AddAuthenticationConfiguration(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)
   name: AddAuthenticationConfiguration(IHostApplicationBuilder, string, string, string, string?, string, bool, bool)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthenticationConfiguration_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_System_String_System_String_System_String_System_String_System_Boolean_System_Boolean_
