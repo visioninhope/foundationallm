@@ -132,7 +132,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             else
             {
                 AttachmentBase? attachment;
-                if (!_attachmentReferences.TryGetValue(instance.ResourceId, out var AttachmentReference))
+                if (!_attachmentReferences.TryGetValue(instance.ResourceId, out var attachmentReference))
                 {
                     attachment = await LoadAttachment(null, instance.ResourceId);
                     if (attachment != null)
@@ -140,12 +140,12 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 }
                 else
                 {
-                    if (AttachmentReference.Deleted)
+                    if (attachmentReference.Deleted)
                         throw new ResourceProviderException(
                             $"Could not locate the {instance.ResourceId} attachment resource.",
                             StatusCodes.Status404NotFound);
 
-                    attachment = await LoadAttachment(AttachmentReference);
+                    attachment = await LoadAttachment(attachmentReference);
                     if (attachment != null)
                         attachments.Add(attachment);
                 }
@@ -153,31 +153,31 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             return attachments.Select(attachment => new ResourceProviderGetResult<AttachmentBase>() { Resource = attachment, Actions = [], Roles = [] }).ToList();
         }
 
-        private async Task<AttachmentBase?> LoadAttachment(AttachmentReference? AttachmentReference, string? resourceId = null)
+        private async Task<AttachmentBase?> LoadAttachment(AttachmentReference? attachmentReference, string? resourceId = null)
         {
-            if (AttachmentReference != null || !string.IsNullOrWhiteSpace(resourceId))
+            if (attachmentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
-                AttachmentReference ??= new AttachmentReference
+                attachmentReference ??= new AttachmentReference
                 {
                     Name = resourceId!,
                     Type = AttachmentTypes.Basic,
                     Filename = $"/{_name}/{resourceId}.wav",
                     Deleted = false
                 };
-                if (await _storageService.FileExistsAsync(_storageContainerName, AttachmentReference.Filename, default))
+                if (await _storageService.FileExistsAsync(_storageContainerName, attachmentReference.Filename, default))
                 {
-                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, AttachmentReference.Filename, default);
+                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, attachmentReference.Filename, default);
                     var attachment = JsonSerializer.Deserialize(
                                Encoding.UTF8.GetString(fileContent.ToArray()),
-                               AttachmentReference.AttachmentType,
+                               attachmentReference.AttachmentType,
                                _serializerSettings) as AttachmentBase
-                           ?? throw new ResourceProviderException($"Failed to load the attachment {AttachmentReference.Name}.",
+                           ?? throw new ResourceProviderException($"Failed to load the attachment {attachmentReference.Name}.",
                                StatusCodes.Status400BadRequest);
 
                     if (!string.IsNullOrWhiteSpace(resourceId))
                     {
-                        AttachmentReference.Type = attachment.Type!;
-                        _attachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
+                        attachmentReference.Type = attachment.Type!;
+                        _attachmentReferences.AddOrUpdate(attachmentReference.Name, attachmentReference, (k, v) => attachmentReference);
                     }
 
                     return attachment;
@@ -186,11 +186,11 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 if (string.IsNullOrWhiteSpace(resourceId))
                 {
                     // Remove the reference from the dictionary since the file does not exist.
-                    _attachmentReferences.TryRemove(AttachmentReference.Name, out _);
+                    _attachmentReferences.TryRemove(attachmentReference.Name, out _);
                     return null;
                 }
             }
-            throw new ResourceProviderException($"Could not locate the {AttachmentReference.Name} attachment resource.",
+            throw new ResourceProviderException($"Could not locate the {attachmentReference.Name} attachment resource.",
                 StatusCodes.Status404NotFound);
         }
 
@@ -199,7 +199,6 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         protected override async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
         {
-
             //TODO: generalize for other attachment types
             var audioAttachment = resource as AudioAttachment;
             if (audioAttachment == null)
@@ -233,7 +232,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
-            var AttachmentReference = new AttachmentReference
+            var attachmentReference = new AttachmentReference
             {
                 Name = attachment.Name!,
                 Type = attachment.Type!,
@@ -243,7 +242,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
             attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
-            var validator = _resourceValidatorFactory.GetValidator(AttachmentReference.AttachmentType);
+            var validator = _resourceValidatorFactory.GetValidator(attachmentReference.AttachmentType);
             if (validator is IValidator attachmentValidator)
             {
                 var context = new ValidationContext<object>(attachment);
@@ -257,12 +256,12 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
-                AttachmentReference.Filename,
+                attachmentReference.Filename,
                 attachment.Content,
                 default,
                 default);
 
-            _attachmentReferences.AddOrUpdate(AttachmentReference.Name, AttachmentReference, (k, v) => AttachmentReference);
+            _attachmentReferences.AddOrUpdate(attachmentReference.Name, attachmentReference, (k, v) => attachmentReference);
 
             await _storageService.WriteFileAsync(
                     _storageContainerName,
@@ -302,15 +301,15 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         private async Task DeleteAttachment(List<ResourceTypeInstance> instances)
         {
-            if (_attachmentReferences.TryGetValue(instances.Last().ResourceId!, out var AttachmentReference))
+            if (_attachmentReferences.TryGetValue(instances.Last().ResourceId!, out var attachmentReference))
             {
-                if (!AttachmentReference.Deleted)
+                if (!attachmentReference.Deleted)
                 {
-                    AttachmentReference.Deleted = true;
+                    attachmentReference.Deleted = true;
 
                     await _storageService.DeleteFileAsync(
                         _storageContainerName,
-                        AttachmentReference.Filename);
+                        attachmentReference.Filename);
 
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
@@ -340,11 +339,11 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             if (typeof(T) != typeof(AttachmentBase))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var AttachmentReference);
-            if (AttachmentReference == null || AttachmentReference.Deleted)
+            _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
+            if (attachmentReference == null || attachmentReference.Deleted)
                 throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
 
-            var attachment = LoadAttachment(AttachmentReference).Result;
+            var attachment = LoadAttachment(attachmentReference).Result;
             return attachment as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
@@ -382,7 +381,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
                 fileName, _name);
 
-            var AttachmentReference = new AttachmentReference
+            var attachmentReference = new AttachmentReference
             {
                 Name = Path.GetFileNameWithoutExtension(fileName),
                 Filename = $"/{_name}/{fileName}",
@@ -390,17 +389,17 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 Deleted = false
             };
 
-            var attachment = await LoadAttachment(AttachmentReference);
-            AttachmentReference.Name = attachment.Name;
-            AttachmentReference.Type = attachment.Type!;
+            var attachment = await LoadAttachment(attachmentReference);
+            attachmentReference.Name = attachment.Name;
+            attachmentReference.Type = attachment.Type!;
 
             _attachmentReferences.AddOrUpdate(
-                AttachmentReference.Name,
-                AttachmentReference,
+                attachmentReference.Name,
+                attachmentReference,
                 (k, v) => v);
 
             _logger.LogInformation("The attachment reference for the [{AttachmentName}] agent or type [{AttachmentType}] was loaded.",
-                AttachmentReference.Name, AttachmentReference.Type);
+                attachmentReference.Name, attachmentReference.Type);
         }
 
         #endregion
