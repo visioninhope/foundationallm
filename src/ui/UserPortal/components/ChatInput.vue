@@ -165,7 +165,7 @@ export default {
 				this.$toast.add({ severity: 'success', summary: 'Success', detail: 'File uploaded successfully.' });
 				this.showFileUploadDialog = false;
 			} catch (error) {
-				this.$toast.add({ severity: 'error', summary: 'Error', detail: 'File upload failed.' });
+				this.$toast.add({ severity: 'error', summary: 'Error', detail: `File upload failed. ${error.message}` });
 			}
 		}
 	},
