@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     UserPrompt = completionRequest.UserPrompt!,
                     Agent = _agent,
                     MessageHistory = completionRequest.MessageHistory,
-                    Attachments = completionRequest.Attachments == null ? [] : GetAttachmentPaths(completionRequest.Attachments),
+                    Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
                     Settings = completionRequest.Settings
                 });
 
@@ -67,14 +68,18 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             };
         }
 
-        private List<string> GetAttachmentPaths(List<string> attachmentObjectIds)
+        private async Task<List<string>> GetAttachmentPaths(List<string> attachmentObjectIds)
         {
             if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Attachment, out var attachmentResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Attachment} was not loaded.");
 
-            var result = attachmentObjectIds
-                .Select(x => attachmentResourceProvider.GetResource<AttachmentBase>(x, _callContext.CurrentUserIdentity!).Path)
-                .ToList();
+            var attachments = attachmentObjectIds
+                .ToAsyncEnumerable()
+                .SelectAwait(async x => await attachmentResourceProvider.GetResource<AttachmentBase>(x, _callContext.CurrentUserIdentity!));
+
+            List<string> result = [];
+            await foreach (var attachment in attachments)
+                result.Add(attachment.Path);
 
             return result;
         }
