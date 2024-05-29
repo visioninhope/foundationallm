@@ -184,4 +184,16 @@ export default {
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
 	},
+
+	/**
+	 * Uploads attachment to the API.
+	 * @param file The file to upload.
+	 * @returns The ID of the uploaded attachment.
+	 */
+	async uploadAttachment(file: File) {
+		return (await this.fetch('/attachments', {
+			method: 'POST',
+			body: file,
+		})) as string;
+	},
 };

@@ -2,6 +2,18 @@
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
 			<i class="pi pi-info-circle tooltip-component" v-tooltip="'Use Shift+Enter to add a new line'"></i>
+			<Button
+				icon="pi pi-paperclip"
+				class="file-upload-button"
+				style="height: 100%;"
+				@click="showFileUploadDialog = true"
+			/>
+			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal>
+				<FileUpload
+					accept="audio/mpeg,audio/wav"
+					@upload="handleUpload"
+				/>
+			</Dialog>
 			<Mentionable
 				:keys="['@']"
 				:items="agents"
@@ -49,6 +61,7 @@
 <script lang="ts">
 import { Mentionable } from 'vue-mention';
 import 'floating-vue/dist/style.css';
+import FileUpload from 'primevue/fileupload';
 
 export default {
 	name: 'ChatInput',
@@ -74,6 +87,7 @@ export default {
 			inputRef: null as HTMLElement | null,
 			agents: [],
 			agentListOpen: false,
+			showFileUploadDialog: false,
 		};
 	},
 
@@ -129,6 +143,10 @@ export default {
 			this.$emit('send', this.text);
 			this.text = '';
 		},
+
+		handleUpload() {
+			console.log('File uploaded');
+		}
 	},
 };
 </script>
@@ -153,12 +171,14 @@ export default {
 
 .chat-input .input-wrapper {
     display: flex;
-    align-items: center;
+	align-items: stretch;
 	width: 100%;
 }
 
 .tooltip-component {
 	margin-right: 0.5rem;
+	display: flex;
+	align-items: center;
 }
 
 .mentionable {
@@ -214,6 +234,10 @@ export default {
 	flex: 0 0 10%;
 	text-align: left;
 	flex-basis: auto;
+}
+
+.file-upload-button {
+	height: 100%;
 }
 </style>
 

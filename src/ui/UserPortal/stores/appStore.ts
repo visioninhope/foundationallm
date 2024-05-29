@@ -13,6 +13,7 @@ export const useAppStore = defineStore('app', {
 		agents: [] as ResourceProviderGetResult<Agent>[],
 		selectedAgents: new Map(),
 		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
+		attachments: [] as String[],
 	}),
 
 	getters: {},
@@ -221,6 +222,12 @@ export const useAppStore = defineStore('app', {
 		async getAgents() {
 			this.agents = await api.getAllowedAgents();
 			return this.agents;
+		},
+
+		async uploadAttachment(file: File) {
+			const id = await api.uploadAttachment(file);
+			this.attachments.push(id);
+			return id;
 		},
 	},
 });
