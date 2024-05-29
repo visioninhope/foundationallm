@@ -58,6 +58,7 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -89,6 +90,7 @@ namespace FoundationaLLM.Core.API
             // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.AddAgentResourceProvider();
+            builder.AddAttachmentResourceProvider();
 
             // Activate all resource providers (give them a chance to initialize).
             builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();

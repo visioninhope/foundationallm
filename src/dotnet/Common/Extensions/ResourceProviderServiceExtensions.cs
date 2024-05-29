@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using System.Security.Cryptography;
+using System.Text;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
