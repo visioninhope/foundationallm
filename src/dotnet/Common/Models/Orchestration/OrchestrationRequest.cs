@@ -30,7 +30,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The values should be the ObjectID of the attachment(s).
         /// </summary>
         [JsonPropertyName("attachments")]
-        public string[]? Attachments { get; set; }
+        public List<string>? Attachments { get; set; }
 
         /// <summary>
         /// A list of Gatekeeper feature names used by the orchestration request.

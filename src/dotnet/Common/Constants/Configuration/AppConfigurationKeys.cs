@@ -869,11 +869,6 @@
         /// </summary>
         public const string FoundationaLLM_Attachment = "FoundationaLLM:Attachment:*";
         /// <summary>
-        /// The key filter for the FoundationaLLM:Attachments:* app configuration settings.
-        /// This supports data source settings created by the Management API.
-        /// </summary>
-        public const string FoundationaLLM_Attachments = "FoundationaLLM:Attachments:*";
-        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
