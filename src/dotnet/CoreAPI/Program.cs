@@ -92,9 +92,6 @@ namespace FoundationaLLM.Core.API
             builder.AddAgentResourceProvider();
             builder.AddAttachmentResourceProvider();
 
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
-
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
 
