@@ -171,12 +171,13 @@ export default {
 	 * @param agent The agent object.
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
-	async sendMessage(sessionId: string, text: string, agent: Agent) {
+	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
 		const orchestrationRequest: OrchestrationRequest = {
 			session_id: sessionId,
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
+			attachments: attachments
 		};
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',

@@ -170,6 +170,7 @@ export const useAppStore = defineStore('app', {
 				this.currentSession!.id,
 				text,
 				this.getSessionAgent(this.currentSession!).resource,
+				[...this.attachments.map(String)], // Convert attachments to an array of strings
 			);
 			await this.getMessages();
 
