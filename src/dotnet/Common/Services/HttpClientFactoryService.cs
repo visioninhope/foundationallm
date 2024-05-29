@@ -11,6 +11,7 @@ namespace FoundationaLLM.Common.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ICallContext _callContext;
         private readonly IDownstreamAPISettings _apiSettings;
+        private readonly int _timeoutInSeconds = 600;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HttpClientFactoryService"/> class.
@@ -35,7 +36,7 @@ namespace FoundationaLLM.Common.Services
         public HttpClient CreateClient(string clientName)
         {
             var httpClient = _httpClientFactory.CreateClient(clientName);
-            httpClient.Timeout = TimeSpan.FromSeconds(600);
+            httpClient.Timeout = TimeSpan.FromSeconds(_timeoutInSeconds);
 
             // Add the API key header.
             if (_apiSettings.DownstreamAPIs.TryGetValue(clientName, out var settings))
@@ -50,6 +51,14 @@ namespace FoundationaLLM.Common.Services
                 httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.UserIdentity, serializedIdentity);
             }
 
+            return httpClient;
+        }
+
+        /// <inheritdoc/>
+        public HttpClient CreateEmptyClientWithDefaultTimeout(string clientName)
+        {
+            var httpClient = _httpClientFactory.CreateClient(clientName);
+            httpClient.Timeout = TimeSpan.FromSeconds(_timeoutInSeconds);
             return httpClient;
         }
     }
