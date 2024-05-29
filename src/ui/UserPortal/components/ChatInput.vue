@@ -11,8 +11,18 @@
 			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal>
 				<FileUpload
 					accept="audio/mpeg,audio/wav"
-					@upload="handleUpload"
-				/>
+					:auto="true"
+					:custom-upload="true"
+					mode="advanced"
+					@uploader="handleUpload"
+				>
+					<template #content>
+						<p class="p-m-0">
+							Use the <strong>+ Choose</strong> button to browse for a file or drag and drop a file here to upload.
+							The file will be used as an attachment for this chat as a context for the agent.
+						</p>
+					</template>
+				</FileUpload>
 			</Dialog>
 			<Mentionable
 				:keys="['@']"
@@ -144,8 +154,19 @@ export default {
 			this.text = '';
 		},
 
-		handleUpload() {
-			console.log('File uploaded');
+		async handleUpload(event: any) {
+			try {
+				const formData = new FormData();
+				formData.append("file", event.files[0]);
+
+				const objectId = await this.$appStore.uploadAttachment(formData);
+
+				console.log(`File uploaded: ObjectId: ${objectId}`);
+				this.$toast.add({ severity: 'success', summary: 'Success', detail: 'File uploaded successfully.' });
+				this.showFileUploadDialog = false;
+			} catch (error) {
+				this.$toast.add({ severity: 'error', summary: 'Error', detail: 'File upload failed.' });
+			}
 		}
 	},
 };
