@@ -6,7 +6,9 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
@@ -84,6 +86,13 @@ namespace FoundationaLLM.SemanticKernel.API
             #endregion
 
             builder.Services.AddHttpClient();
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+            };
+            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+            builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services
