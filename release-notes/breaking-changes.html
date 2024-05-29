@@ -195,9 +195,15 @@
 <h5>Note</h5>
 <p>These entries do not need to be created as part of the deployment process.</p>
 </div>
-<ol start="11">
-<li>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</li>
+<ol start="12">
+<li><p>App Config key namespace that was previously <code>FoundationaLLM:Vectorization:ContentSources:*</code> has been moved to <code>FoundationaLLM:DataSources:*</code>. All existing keys need to be moved to the new namespace.</p>
+</li>
+<li><p>The following App Config setting needs to be added as key-values:</p>
+</li>
 </ol>
+<ul>
+<li><code>FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield</code> (By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.)</li>
+</ul>
 
 </article>
 
