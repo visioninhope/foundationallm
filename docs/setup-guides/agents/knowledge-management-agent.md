@@ -127,16 +127,67 @@ where:
 | `gatekeeper.use_system_setting` | Indicates if the system settings are used for the gatekeeper. |
 | `gatekeeper.options` | Contains the list of gatekeeper options. The sample provided overrides the system setting for gatekeeper and enables Azure Content Safety and MS Presidio in the messaging pipeline. |
 | `orchestration_settings` | The settings for the agent orchestrator. |
-| `orchestration_settings.orchestrator` | FoundationaLLM currently supports `LangChain` and `SemanticKernel` for both types of Knowledge Management agents; however, Knowledge Management agents with an Inline Context can also use the `AzureOpenAIDirect` and `AzureAIDirect` orchestrators. |
+| `orchestration_settings.orchestrator` | FoundationaLLM currently supports `LangChain` and `SemanticKernel` for both types of Knowledge Management agents; however, Knowledge Management agents with an Inline Context can also use the [`AzureOpenAIDirect`](#azureopenaidirect-orchestrator) and [`AzureAIDirect`](#azureaidirect-orchestrator) orchestrators. |
 | `orchestration_settings.endpoint_configuration` | The endpoint configuration of the hosted LLM. FoundationaLLM currently supports Azure OpenAI and OpenAI. |
-| `orchestration_settings.endpoint_configuration.endpoint` | The endpoint URL of the hosted LLM. |
-| `orchestration_settings.endpoint_configuration.api_version` | The API version of the hosted LLM. For Azure OpenAI, this value should be set to the [latest GA version.](https://learn.microsoft.com/en-us/azure/ai-services/openai/api-version-deprecation#latest-ga-api-release) |
+| `orchestration_settings.endpoint_configuration.endpoint` | The endpoint URL of the hosted LLM. The URL should be provided directly for the `LangChain` or `SemanticKernel` orchestrators; it should be provided as an Azure App Configuration key reference for the `AzureOpenAIDirect` or `AzureAIDirect` orchestrators. |
+| `orchestration_settings.endpoint_configuration.api_version` | The API version of the hosted LLM. For Azure OpenAI, this value should be set to the [latest GA version.](https://learn.microsoft.com/en-us/azure/ai-services/openai/api-version-deprecation#latest-ga-api-release) The API version should be provided directly for the `LangChain` or `SemanticKernel` orchestrators; it should be provided as an Azure App Configuration key reference for the `AzureOpenAIDirect` or `AzureAIDirect` orchestrators. |
 | `orchestration_settings.endpoint_configuration.auth_type` | The authentication method of the hosted LLM. This value can either be `token` or `key`. For Azure OpenAI deployments, this value should be `token`, which configures the orchestrator to use Managed Identities for authentication. `key`-based authentication uses API keys. |
 | `orchestration_settings.endpoint_configuration.api_key` | The name of the Azure App Configuration key storing the LLM endpoint API key. This parameter is required if `auth_type` is set to `key`. |
 | `orchestration_settings.endpoint_configuration.provider` | The provider of the hosted LLM. FoundationaLLM currently supports `microsoft` (Azure OpenAI) or `openai`. |
 | `orchestration_settings.endpoint_configuration.operation_type` | This field is set to `chat` by default and can be omitted. |
 | `orchestration_settings.model_parameters` | Endpoint-specific model parameters. This field must be non-null if the `provider` is `microsoft`. |
 | `orchestration_settings.model_parameters.deployment_name` | This field should be set to the name of the Azure OpenAI model deployment if the `provider` is `microsoft`. |
+
+## AzureOpenAIDirect Orchestrator
+
+The `AzureOpenAIDirect` orchestrator passes the user's prompt to an LLM deployed in an instance of Azure OpenAI Service, bypassing LangChain or Semantic Kernel.
+
+Example Configuration:
+
+```json
+{
+  "orchestration_settings": {
+    "orchestrator": "AzureOpenAIDirect",
+    "endpoint_configuration": {
+      "endpoint": "FoundationaLLM:AzureOpenAI:API:Endpoint",
+      "api_version": "FoundationaLLM:AzureOpenAI:API:Version",
+      "auth_type": "key",
+      "api_key": "FoundationaLLM:AzureOpenAI:API:Key",
+      "operation_type": "chat"
+    },
+    "model_parameters": {
+      "deployment_name": "completions"
+    }
+  }
+}
+```
+
+>**Note:** `AzureOpenAIDirect` is only compatible with Knowledge Management agents with an Inline Context.
+
+## AzureAIDirect Orchestrator
+
+The `AzureAIDirect` orchestrator passes the user's prompt to an LLM deployed as an [Azure AI Studio real-time endpoint.](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/deploy-models-open) This orchestrator allows customers to use a wider range of LLMs with FLLM agents.
+
+Example Configuration:
+
+```json
+{
+  "orchestration_settings": {
+    "orchestrator": "AzureAIDirect",
+    "endpoint_configuration": {
+      "endpoint": "<AZURE APP CONFIGURATION KEY>",
+      "api_key": "<AZURE APP CONFIGURATION KEY>"
+    },
+    "model_parameters": {
+      "temperature": 0.8,
+      "max_new_tokens": 1000,
+      "deployment_name": "<AZURE AI STUDIO DEPLOYMENT NAME>"
+    }
+  }
+}
+```
+
+>**Note:** `AzureAIDirect` is only compatible with Knowledge Management agents with an Inline Context.
 
 ## Managing Knowledge Management Agents
 
