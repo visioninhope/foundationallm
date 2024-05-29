@@ -187,13 +187,16 @@ export default {
 
 	/**
 	 * Uploads attachment to the API.
-	 * @param file The file to upload.
-	 * @returns The ID of the uploaded attachment.
+	 * @param file The file formData to upload.
+	 * @returns The ObjectID of the uploaded attachment.
 	 */
-	async uploadAttachment(file: File) {
-		return (await this.fetch('/attachments', {
+	async uploadAttachment(file: FormData) {
+		return (await this.fetch('/attachments/upload', {
 			method: 'POST',
 			body: file,
+			// headers: {
+			// 	'Content-Type': 'multipart/form-data',
+			// }
 		})) as string;
 	},
 };
