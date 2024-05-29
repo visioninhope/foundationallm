@@ -164,6 +164,15 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     Filename = $"/{_name}/{resourceId}.wav",
                     Deleted = false
                 };
+
+
+                return new AttachmentBase
+                {
+                    Name = attachmentReference.Name,
+                    Type = attachmentReference.Type,
+                    Path = attachmentReference.Filename
+                };
+
                 if (await _storageService.FileExistsAsync(_storageContainerName, attachmentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, attachmentReference.Filename, default);
