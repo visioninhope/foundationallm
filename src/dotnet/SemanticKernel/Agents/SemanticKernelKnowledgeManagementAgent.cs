@@ -188,8 +188,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             var builder = Kernel.CreateBuilder();
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
 
-            //create http client with the system default timeout to pass into AddAzureOpenAIChatCompletion           
-            var httpClient = httpClientFactoryService.CreateEmptyClientWithDefaultTimeout("AzureOpenAI");
+            // Create an HTTP client with to pass into AddAzureOpenAIChatCompletion           
+            var httpClient = httpClientFactoryService.CreateUnregisteredClient(TimeSpan.FromMinutes(20));
 
             builder.AddAzureOpenAIChatCompletion(
                 _deploymentName,

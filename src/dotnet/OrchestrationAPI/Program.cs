@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
@@ -212,13 +213,14 @@ namespace FoundationaLLM.Orchestration.API
 
             var downstreamAPISettings = new DownstreamAPISettings
             {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>()
+                DownstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>()
             };
 
-            var langChainAPISettings = new DownstreamAPIKeySettings
+            var langChainAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!,
+                Timeout = Timeout.InfiniteTimeSpan
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
 
@@ -232,10 +234,11 @@ namespace FoundationaLLM.Orchestration.API
                             strategyBuilder.AddRetry(retryOptions);
                         });
 
-            var semanticKernelAPISettings = new DownstreamAPIKeySettings
+            var semanticKernelAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!,
+                Timeout = Timeout.InfiniteTimeSpan
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
 
