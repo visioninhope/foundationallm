@@ -184,4 +184,19 @@ export default {
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
 	},
+
+	/**
+	 * Uploads attachment to the API.
+	 * @param file The file formData to upload.
+	 * @returns The ObjectID of the uploaded attachment.
+	 */
+	async uploadAttachment(file: FormData) {
+		return (await this.fetch('/attachments/upload', {
+			method: 'POST',
+			body: file,
+			// headers: {
+			// 	'Content-Type': 'multipart/form-data',
+			// }
+		})) as string;
+	},
 };
