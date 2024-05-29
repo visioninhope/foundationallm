@@ -15,6 +15,12 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
         public override string? Type { get; set; }
 
         /// <summary>
+        /// The mime content type of the attachment.
+        /// </summary>
+        [JsonPropertyName("content_type")]
+        public string? ContentType { get; set; }
+
+        /// <summary>
         /// Path for the attachment.
         /// </summary>
         [JsonPropertyName("path")]
