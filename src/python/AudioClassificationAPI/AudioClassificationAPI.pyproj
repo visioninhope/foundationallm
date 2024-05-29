@@ -47,8 +47,6 @@
     <Compile Include="app\classification\__init__.py" />
     <Compile Include="app\dependencies.py" />
     <Compile Include="app\main.py" />
-    <Compile Include="app\models\prediction_request.py" />
-    <Compile Include="app\models\prediction_response.py" />
     <Compile Include="app\routers\classification.py" />
     <Compile Include="app\routers\status.py" />
     <Compile Include="app\routers\__init__.py" />
@@ -57,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
-    <Folder Include="app\models\" />
     <Folder Include="app\classification\" />
     <Folder Include="app\routers\" />
   </ItemGroup>
