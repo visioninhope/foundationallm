@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using System.Security.Cryptography;
+using System.Text;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -29,8 +31,12 @@ namespace FoundationaLLM.Common.Extensions
 
             var result = await resourceProviderService.HandleGetAsync(
                 objectId,
-                userIdentity);
-            return (result as List<ResourceProviderGetResult<T>>)!.First().Resource;
+                userIdentity) as List<ResourceProviderGetResult<T>>;
+
+            if (result == null || result.Count == 0)
+                throw new ResourceProviderException($"The resource provider {resourceProviderService.Name} is unable to retrieve the {objectId} resource.");
+
+            return result.First().Resource;
         }
 
         /// <summary>

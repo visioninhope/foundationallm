@@ -21,7 +21,7 @@
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">
-					No special characters or spaces, lowercase letters with dashes and underscores only.
+					No special characters or spaces, use letters and numbers with dashes and underscores only.
 				</div>
 				<div class="input-wrapper">
 					<InputText

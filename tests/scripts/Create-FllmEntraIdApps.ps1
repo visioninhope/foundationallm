@@ -109,7 +109,8 @@ function New-FllmEntraIdApps {
         $appConfig.identifierUris = @($($fllmAppRegMetaData.Api.Uri))
         $appConfigUpdate = $appConfig | ConvertTo-Json -Depth 20
         Write-Host "Final Update to API App Registration $($fllmAppRegMetaData.Api.Name)"
-        az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Api.ObjectId)" --header "Content-Type=application/json" --body $appConfigUpdate
+        Set-Content -Path "$($fllmAppRegMetaData.Api.Name)`.json" $appConfigUpdate
+        az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Api.ObjectId)" --header "Content-Type=application/json" --body "@$($fllmAppRegMetaData.Api.Name)`.json"
 
         # Update the ClientApp Registration
         if ($createClientApp) {     
@@ -126,7 +127,8 @@ function New-FllmEntraIdApps {
             $appConfig.requiredResourceAccess = $apiPermissions
             $appConfigUpdate = $appConfig | ConvertTo-Json -Depth 20
             Write-Host "Final Update to ClientApp Registration $($fllmAppRegMetaData.Client.Name)"
-            az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Client.ObjectId)" --header "Content-Type=application/json" --body $appConfigUpdate
+            Set-Content -Path "$($fllmAppRegMetaData.Client.Name)`.json" $appConfigUpdate
+            az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Client.ObjectId)" --header "Content-Type=application/json" --body "@$($fllmAppRegMetaData.Client.Name)`.json"
         }
     }
     catch {

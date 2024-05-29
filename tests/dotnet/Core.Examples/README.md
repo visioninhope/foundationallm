@@ -170,8 +170,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
@@ -215,8 +215,8 @@ The vectorization api and vectorization job managed identities need to have `Con
 ##### App Config settings
 | Key | Value | Description |
 | --- | --- | --- |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
-| `FoundationaLLM:DataSources:datalake_vectorization_input:AccountName` | `onelake` | Account name - this will always be `onelake`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AuthenticationType` | `AzureIdentity` | The authentication method for the vectorization api and vectorization job managed identities. This will always be `AzureIdentity`. |
+| `FoundationaLLM:DataSources:onelake_fllm:AccountName` | `onelake` | Account name - this will always be `onelake`. |
 
 #### Running the example
 
@@ -383,6 +383,61 @@ Delete the vectorization text embedding profile: text_embedding_profile_generic 
 Delete the vectorization indexing profile: indexing_profile_pdf via the Management API and delete the created index
 ```
 
+### Example 11: Knowledge Management agent with Semantic Kernel on the SDZWA journal
+
+**Purpose**: Verify that the Knowledge Management agent with Semantic Kernel can respond to user queries using the SDZWA journals.
+
+**File**: [Example0011_KnowledgeManagementAgentWithSemanticKernel.cs](Example0011_KnowledgeManagementAgentWithSemanticKernel.cs)
+
+This example demonstrates how to use the Management API to create an the agent and how to use the Core API to send user prompts to the agent and receive completions.
+
+#### Running the example
+
+Run the example by running a test on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Knowledge Management agent with Lang Chain on SDZWA ============
+Send questions to the KMAgentWithLangChainSDZWA agent.
+Agent conversation history:
+- User: Who are you?
+- Assistant: I am Sandy, the San Diego Zoo assistant.
+- User: Tell me one interesting facts about the San Diego Zoo?
+- Assistant: One interesting fact about the San Diego Zoo is that between the botanical gardens at the San Diego Zoo and the Safari Park, they care for 2 million plants.
+- User: How many animals does the San Diego Zoo host?
+- Assistant: The journal does not provide information about the number of animals hosted by the San Diego Zoo.
+- User: What does the San Diego Zoo do to treat illness among it's inhabitants?
+- Assistant: The journal mentions that the San Diego Zoo provides efficient and effective health care for its animals. The care and health decisions are based on the best available scientific data.
+```
+
+### Example 12: Knowledge Management agent with Lang Chain on the SDZWA journal
+
+**Purpose**: Verify that the Knowledge Management agent with Lang Chain can respond to user queries using the SDZWA journals.
+
+**File**: [Example0012_KnowledgeManagementAgentWithLangChain.cs](Example0012_KnowledgeManagementAgentWithLangChain.cs)
+
+This example demonstrates how to use the Management API to create an the agent and how to use the Core API to send user prompts to the agent and receive completions.
+
+#### Running the example
+
+Run the example by running a test on the `Example0012_KnowledgeManagementAgentWithLangChain.cs` file. You can run the test using the Visual Studio Test Explorer, the command line, or by simply right-clicking anywhere on the `Example0011_KnowledgeManagementAgentWithSemanticKernel.cs` file and selecting **Run Tests**.
+
+You will see an output similar to the following after the test is completed:
+
+```text
+============ Knowledge Management agent with Lang Chain on SDZWA ============
+Send questions to the KMAgentWithLangChainSDZWA agent.
+Agent conversation history:
+- User: Who are you?
+- Assistant: I am Sandy, the San Diego Zoo assistant.
+- User: Tell me one interesting facts about the San Diego Zoo?
+- Assistant: One interesting fact about the San Diego Zoo is that between the botanical gardens at the San Diego Zoo and the Safari Park, they care for 2 million plants.
+- User: How many animals does the San Diego Zoo host?
+- Assistant: The journal does not provide information about the number of animals hosted by the San Diego Zoo.
+- User: What does the San Diego Zoo do to treat illness among it's inhabitants?
+- Assistant: The journal mentions that the San Diego Zoo provides efficient and effective health care for its animals. The care and health decisions are based on the best available scientific data.
+```
 
 ### Example 16: Completion quality measurements with Azure AI Studio
 

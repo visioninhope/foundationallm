@@ -280,6 +280,18 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield,
+                minimumVersion: "0.7.0",
+                defaultValue: "true",
+                description:
+                "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio,
                 minimumVersion: "0.3.0",
                 defaultValue: "true",
@@ -538,6 +550,39 @@ namespace FoundationaLLM.Configuration.Catalog
                 contentType: "text/plain",
                 sampleObject: null
             ),
+        ];
+
+        #endregion
+
+        #region Attachment
+
+        /// <summary>
+        /// The Attachment resource provider configuration entries for the solution.
+        /// </summary>
+        public static readonly List<AppConfigurationEntry> Attachment =
+        [
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description:
+                "The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description:
+                "This is the name of the storage account used when the authentication type is `AzureIdentity`, which is the default.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            )
         ];
 
         #endregion
@@ -1796,6 +1841,7 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(Agent);
             allEntries.AddRange(AgentHub);
             allEntries.AddRange(APIs);
+            allEntries.AddRange(Attachment);
             allEntries.AddRange(AzureContentSafety);
             allEntries.AddRange(AzureOpenAI);
             allEntries.AddRange(BlobStorageMemorySource);

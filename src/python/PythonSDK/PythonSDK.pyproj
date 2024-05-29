@@ -109,6 +109,8 @@
     <Compile Include="foundationallm\models\resource_providers\vectorization\profile_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\settings_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\__init__.py" />
+    <Compile Include="foundationallm\models\utils\object_utils.py" />
+    <Compile Include="foundationallm\models\utils\__init__.py" />
     <Compile Include="foundationallm\models\__init__.py" />
     <Compile Include="foundationallm\config\configuration.py" />
     <Compile Include="foundationallm\config\__init__.py" />
@@ -149,6 +151,7 @@
     <Folder Include="foundationallm\models\language_models\" />
     <Folder Include="foundationallm\models\agents\" />
     <Folder Include="foundationallm\models\authentication\" />
+    <Folder Include="foundationallm\models\utils\" />
     <Folder Include="foundationallm\models\classification\" />
     <Folder Include="foundationallm\models\resource_providers\" />
     <Folder Include="foundationallm\models\orchestration\" />
