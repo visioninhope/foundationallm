@@ -225,9 +225,13 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async uploadAttachment(file: FormData) {
-			const id = await api.uploadAttachment(file);
-			this.attachments.push(id);
-			return id;
+			try {
+				const id = await api.uploadAttachment(file);
+				this.attachments.push(id);
+				return id;
+			} catch (error) {
+				throw error;
+			}
 		},
 	},
 });

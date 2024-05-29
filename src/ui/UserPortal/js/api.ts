@@ -59,7 +59,16 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
 
-		return await $fetch(`${this.apiUrl}${url}`, options);
+		try {
+			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			return response;
+		} catch (error) {
+			// If the error is an HTTP error, extract the message directly.
+			if (error.data) {
+				throw new Error(error.data.message || error.data || 'Unknown error occurred');
+			}
+			throw error;
+		}
 	},
 
 	/**
@@ -191,12 +200,19 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData) {
-		return (await this.fetch('/attachments/upload', {
-			method: 'POST',
-			body: file,
-			// headers: {
-			// 	'Content-Type': 'multipart/form-data',
-			// }
-		})) as string;
+		try {
+			const response = await this.fetch('/attachments/upload', {
+				method: 'POST',
+				body: file,
+			});
+	
+			if (response.error || response.status >= 400) {
+				throw new Error(response.message || 'Unknown error occurred');
+			}
+	
+			return response;
+		} catch (error) {
+			throw error;
+		}
 	},
 };
