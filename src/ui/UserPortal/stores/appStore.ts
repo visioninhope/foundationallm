@@ -228,7 +228,9 @@ export const useAppStore = defineStore('app', {
 		async uploadAttachment(file: FormData) {
 			try {
 				const id = await api.uploadAttachment(file);
-				this.attachments.push(id);
+				// this.attachments.push(id);
+				// For now, we want to just replace the attachments with the new one.
+				this.attachments = [id as string];
 				return id;
 			} catch (error) {
 				throw error;
