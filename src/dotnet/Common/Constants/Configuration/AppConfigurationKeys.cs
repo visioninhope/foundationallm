@@ -165,6 +165,12 @@
         /// </summary>
         public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType";
         /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName app configuration setting.
+        /// This is the name of the storage account used when the authentication type is `AzureIdentity`, which is the default.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName =
+            "FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName";
+        /// <summary>
         /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString app configuration setting.
         /// The connection string to the Azure Storage account used for the data source resource provider.
         /// </summary>
