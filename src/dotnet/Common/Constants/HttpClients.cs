@@ -43,11 +43,6 @@ public static class HttpClients
     /// </summary>
     public const string DataSourceHubAPI = "DataSourceHubAPI";
 
-        /// <summary>
-    /// Named client with matching configuration for the Attachment Hub API.
-    /// </summary>
-    public const string AttachmentHubAPI = "AttachmentHubAPI";
-
     /// <summary>
     /// Named client with matching configuration for the Vectorization API.
     /// </summary>

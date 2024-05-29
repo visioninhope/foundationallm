@@ -28,10 +28,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIs_DataSourceHubAPI_APIKey = "foundationallm-apis-datasourcehubapi-apikey";
         /// <summary>
-        /// The foundationallm-apis-attachmenthubapi-apikey Key Vault secret name.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AttachmentHubAPI_APIKey = "foundationallm-apis-attachmenthubapi-apikey";
-        /// <summary>
         /// The foundationallm-apis-gatekeeperapi-apikey Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_APIKey = "foundationallm-apis-gatekeeperapi-apikey";

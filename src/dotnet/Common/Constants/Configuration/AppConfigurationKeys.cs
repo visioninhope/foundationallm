@@ -170,20 +170,6 @@
         /// </summary>
         public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString";
         /// <summary>
-        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:APIKey app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AttachmentHubAPI_APIKey = "FoundationaLLM:APIs:AttachmentHubAPI:APIKey";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:APIUrl app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AttachmentHubAPI_APIUrl = "FoundationaLLM:APIs:AttachmentHubAPI:APIUrl";
-        /// <summary>
-        /// The key for the FoundationaLLM:APIs:AttachmentHubAPI:AppInsightsConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AttachmentHubAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:AttachmentHubAPI:AppInsightsConnectionString";
-        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -531,20 +517,6 @@
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_DataSources_AboutFoundationaLLM_BlobStorage_ConnectionString = "FoundationaLLM:DataSources:AboutFoundationaLLM:BlobStorage:ConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:AttachmentHub:AttachmentMetadata:StorageContainer app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AttachmentHub_AttachmentMetadata_StorageContainer = "FoundationaLLM:AttachmentHub:AttachmentMetadata:StorageContainer";
-        /// <summary>
-        /// The key for the FoundationaLLM:AttachmentHub:StorageManager:BlobStorage:ConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AttachmentHub_StorageManager_BlobStorage_ConnectionString = "FoundationaLLM:AttachmentHub:StorageManager:BlobStorage:ConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:Attachments:AboutFoundationaLLM:BlobStorage:ConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_Attachments_AboutFoundationaLLM_BlobStorage_ConnectionString = "FoundationaLLM:Attachments:AboutFoundationaLLM:BlobStorage:ConnectionString";
         /// <summary>
         /// The key for the FoundationaLLM:LangChain:CSVFile:URL app configuration setting.
         /// This is a Key Vault reference.

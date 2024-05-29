@@ -56,7 +56,7 @@ namespace FoundationaLLM.Core.API.Controllers
                 return BadRequest("File not selected.");
 
             var fileName = file.FileName;
-            var name = _attachmentResourceProvider.GenerateValidResourceName(fileName);
+            var name = fileName.GenerateValidResourceName();
             var contentType = file.ContentType;
 
             using (var stream = file.OpenReadStream())

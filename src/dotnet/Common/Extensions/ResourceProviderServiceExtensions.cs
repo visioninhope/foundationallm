@@ -94,33 +94,6 @@ namespace FoundationaLLM.Common.Extensions
         }
 
         /// <summary>
-        /// Generates a valid resource name from the provided name.
-        /// A good example use for this method is generating a valid
-        /// resource name from an uploaded file name.
-        /// </summary>
-        /// <param name="resourceProviderService">The <see cref="IResourceProviderService"/> providing the resource provider services.</param>
-        /// <param name="name">The original resource name to convert.</param>
-        /// <returns></returns>
-        public static string GenerateValidResourceName(
-            this IResourceProviderService resourceProviderService,
-            string name)
-        {
-            var hash = SHA256.HashData(Encoding.UTF8.GetBytes(name));
-            var base64Hash = Convert.ToBase64String(hash);
-
-            // Replace invalid characters.
-            base64Hash = base64Hash.Replace("+", "-")
-                .Replace("/", "_")
-                .Replace("=", ""); // Remove padding characters.
-
-            // Prefix with a letter to ensure it starts with a letter.
-            var validName = "a" + base64Hash;
-
-            // Ensure the name length is within a reasonable limit, e.g., 50 characters.
-            return validName.Length > 50 ? validName[..50] : validName;
-        }
-
-        /// <summary>
         /// Waits for the resource provider service to be initialized.
         /// </summary>
         /// <param name="resourceProviderService">The <see cref="IResourceProviderService"/> providing the resource provider services.</param>
