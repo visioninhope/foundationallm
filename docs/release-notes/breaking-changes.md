@@ -113,7 +113,14 @@
 > These entries do not need to be created as part of the deployment process. 
 
 
-11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
-12. New app config entries required: 
+12. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+13. New app config entries required: 
 - `FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType`
 - `FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName`
+
+14. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+
+15. The following App Config setting needs to be added as key-values:
+
+   - `FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield` (By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.)
+
