@@ -1,11 +1,10 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
+using FoundationaLLM.Attachment.Models;
 using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -13,7 +12,6 @@ using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Attachment.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,7 +19,6 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Attachment.ResourceProviders
 {
@@ -115,9 +112,9 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<ResourceProviderGetResult<AttachmentBase>>> LoadAttachments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        private async Task<List<ResourceProviderGetResult<AttachmentFile>>> LoadAttachments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
-            var attachments = new List<AttachmentBase>();
+            var attachments = new List<AttachmentFile>();
 
             if (instance.ResourceId == null)
             {
@@ -131,7 +128,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             }
             else
             {
-                AttachmentBase? attachment;
+                AttachmentFile? attachment;
                 if (!_attachmentReferences.TryGetValue(instance.ResourceId, out var attachmentReference))
                 {
                     attachment = await LoadAttachment(null, instance.ResourceId);
@@ -150,27 +147,27 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         attachments.Add(attachment);
                 }
             }
-            return attachments.Select(attachment => new ResourceProviderGetResult<AttachmentBase>() { Resource = attachment, Actions = [], Roles = [] }).ToList();
+            return attachments.Select(attachment => new ResourceProviderGetResult<AttachmentFile>() { Resource = attachment, Actions = [], Roles = [] }).ToList();
         }
 
-        private async Task<AttachmentBase?> LoadAttachment(AttachmentReference? attachmentReference, string? resourceId = null)
+        private async Task<AttachmentFile?> LoadAttachment(AttachmentReference? attachmentReference, string? resourceId = null)
         {
             if (attachmentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
                 attachmentReference ??= new AttachmentReference
                 {
                     Name = resourceId!,
-                    Type = AttachmentTypes.Basic,
-                    Filename = $"/{_name}/{resourceId}.wav",
+                    Type = nameof(AttachmentFile),
+                    Filename = $"/{_name}/{resourceId}",
                     Deleted = false
                 };
 
 
-                return new AttachmentBase
+                return new AttachmentFile
                 {
                     Name = attachmentReference.Name,
                     Type = attachmentReference.Type,
-                    Path = attachmentReference.Filename
+                    Path = $"{_storageContainerName}{attachmentReference.Filename}"
                 };
 
                 if (await _storageService.FileExistsAsync(_storageContainerName, attachmentReference.Filename, default))
@@ -178,8 +175,8 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, attachmentReference.Filename, default);
                     var attachment = JsonSerializer.Deserialize(
                                Encoding.UTF8.GetString(fileContent.ToArray()),
-                               attachmentReference.AttachmentType,
-                               _serializerSettings) as AttachmentBase
+                               typeof(AttachmentFile),
+                               _serializerSettings) as AttachmentFile
                            ?? throw new ResourceProviderException($"Failed to load the attachment {attachmentReference.Name}.",
                                StatusCodes.Status400BadRequest);
 
@@ -208,9 +205,8 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         protected override async Task<object> UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
         {
-            //TODO: generalize for other attachment types
-            var audioAttachment = resource as AudioAttachment;
-            if (audioAttachment == null)
+            var attachment = resource as AttachmentFile;
+            if (attachment == null)
                 throw new ResourceProviderException($"Invalid resource type");
 
             if (resourcePath.ResourceTypeInstances[0].ResourceType != AttachmentResourceTypeNames.Attachments)
@@ -219,7 +215,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         $"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest);
             }
-            return await UpdateAttachment(resourcePath, audioAttachment);
+            return await UpdateAttachment(resourcePath, attachment);
         }
 
 
@@ -229,7 +225,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AudioAttachment attachment)
+        private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AttachmentFile attachment)
         {
 
             if (_attachmentReferences.TryGetValue(attachment.Name!, out var existingAttachmentReference)
@@ -249,14 +245,14 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 OriginalFilename = attachment.DisplayName!,
                 ContentType = attachment.ContentType!,
                 Name = attachment.Name,
-                Type = attachment.Type!,
-                Filename = $"/{_name}/{fullName}", // expect name to contain file extension to support multiple file types.
+                Type = nameof(AttachmentFile),
+                Filename = $"/{_name}/{fullName}",
                 Deleted = false
             };
 
             attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
-            var validator = _resourceValidatorFactory.GetValidator(attachmentReference.AttachmentType);
+            var validator = _resourceValidatorFactory.GetValidator(typeof(AttachmentFile));
             if (validator is IValidator attachmentValidator)
             {
                 var context = new ValidationContext<object>(attachment);
@@ -286,7 +282,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = (attachment as AttachmentBase)!.ObjectId
+                ObjectId = (attachment as AttachmentFile)!.ObjectId
             };
         }
 
@@ -353,7 +349,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
 
-            if (typeof(T) != typeof(AttachmentBase))
+            if (typeof(T) != typeof(AttachmentFile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
             _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
@@ -402,7 +398,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             {
                 Name = Path.GetFileNameWithoutExtension(fileName),
                 Filename = $"/{_name}/{fileName}",
-                Type = AttachmentTypes.Basic,
+                Type =nameof(AttachmentFile),
                 Deleted = false
             };
 
