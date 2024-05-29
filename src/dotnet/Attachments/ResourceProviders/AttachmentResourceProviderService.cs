@@ -197,7 +197,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         #endregion
 
 
-        protected override async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
+        protected override async Task<object> UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
         {
             //TODO: generalize for other attachment types
             var audioAttachment = resource as AudioAttachment;
@@ -210,7 +210,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         $"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest);
             }
-            await UpdateAttachment(resourcePath, audioAttachment);
+            return await UpdateAttachment(resourcePath, audioAttachment);
         }
 
 
@@ -232,11 +232,16 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
+            var extension = GetFileExtension(attachment.DisplayName!);
+            var fullName = $"{attachment.Name}{extension}";
+
             var attachmentReference = new AttachmentReference
             {
-                Name = attachment.Name!,
+                OriginalFilename = attachment.DisplayName!,
+                ContentType = attachment.ContentType!,
+                Name = attachment.Name,
                 Type = attachment.Type!,
-                Filename = $"/{_name}/{attachment.Name}", // expect name to contain file extension to support multiple file types
+                Filename = $"/{_name}/{fullName}", // expect name to contain file extension to support multiple file types.
                 Deleted = false
             };
 
@@ -258,7 +263,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 _storageContainerName,
                 attachmentReference.Filename,
                 attachment.Content,
-                default,
+                attachment.ContentType ?? default,
                 default);
 
             _attachmentReferences.AddOrUpdate(attachmentReference.Name, attachmentReference, (k, v) => attachmentReference);
@@ -275,6 +280,9 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 ObjectId = (attachment as AttachmentBase)!.ObjectId
             };
         }
+
+        private string GetFileExtension(string fileName) =>
+            Path.GetExtension(fileName);
 
         #endregion
 
