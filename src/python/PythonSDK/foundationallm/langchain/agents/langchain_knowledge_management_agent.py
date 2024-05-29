@@ -30,6 +30,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if attachments is None:
             return None
 
+        if len(attachments) == 0:
+            return None
+        
         file = attachments[0].lstrip('/')
         container_name = file.split('/')[0]
         blob_path = file.replace(container_name, '').lstrip('/')
@@ -94,7 +97,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             os.remove(local_file_path)
         except Exception as e:
             raise e
-     
+
         return response['label']
     
     def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
@@ -145,7 +148,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 # Get the vector document retriever, if it exists.
                 retriever = None
-                if request.agent.vectorization is not None:
+                if request.agent.vectorization is not None and not request.agent.inline_context:
                     indexing_profile = AzureAISearchIndexingProfile.from_object(
                         agent.orchestration_settings.agent_parameters[
                             agent.vectorization.indexing_profile_object_id])
@@ -174,17 +177,15 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
-                output_parser = StrOutputParser()
-
                 # Compose LCEL chain
                 chain = (
                     chain_context
                     | prompt_template
                     | RunnableLambda(self._record_full_prompt)
                     | self._get_language_model(agent.orchestration_settings, request.settings)
-                    | output_parser
+                    | StrOutputParser()
                 )
-
+                
                 completion = chain.invoke(request.user_prompt)
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
