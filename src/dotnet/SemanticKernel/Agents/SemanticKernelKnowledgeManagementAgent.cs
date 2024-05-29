@@ -186,6 +186,10 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             var builder = Kernel.CreateBuilder();
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
+
+            // Create an HTTP client with to pass into AddAzureOpenAIChatCompletion           
+            var httpClient = httpClientFactoryService.CreateUnregisteredClient(TimeSpan.FromMinutes(20));
+
             builder.AddAzureOpenAIChatCompletion(
                 _deploymentName,
                 _endpoint,
