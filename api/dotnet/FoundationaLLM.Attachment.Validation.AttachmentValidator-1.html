@@ -102,7 +102,7 @@ Class AttachmentValidator&lt;T&gt;  <a class="header-action link-secondary" titl
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AttachmentValidator&lt;T&gt; : AbstractValidator&lt;T&gt;, IValidator&lt;T&gt;, IValidator, IEnumerable&lt;IValidationRule&gt;, IEnumerable where T : AttachmentBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class AttachmentValidator&lt;T&gt; : AbstractValidator&lt;T&gt;, IValidator&lt;T&gt;, IValidator, IEnumerable&lt;IValidationRule&gt;, IEnumerable where T : AttachmentFile</code></pre>
   </div>
 
 
@@ -133,12 +133,6 @@ Class AttachmentValidator&lt;T&gt;  <a class="header-action link-secondary" titl
     </dd>
   </dl>
 
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.html">AudioAttachmentValidator</a></div>
-    </dd>
-  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -274,8 +268,8 @@ Class AttachmentValidator&lt;T&gt;  <a class="header-action link-secondary" titl
 
   <a id="FoundationaLLM_Attachment_Validation_AttachmentValidator_1_ValidConfigurationReference_" data-uid="FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference*"></a>
 
-  <h3 id="FoundationaLLM_Attachment_Validation_AttachmentValidator_1_ValidConfigurationReference_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_" data-uid="FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase)">
-  ValidConfigurationReference(AttachmentBase)
+  <h3 id="FoundationaLLM_Attachment_Validation_AttachmentValidator_1_ValidConfigurationReference_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_" data-uid="FoundationaLLM.Attachment.Validation.AttachmentValidator`1.ValidConfigurationReference(FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile)">
+  ValidConfigurationReference(AttachmentFile)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/Validation/AttachmentValidator`1.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -284,12 +278,12 @@ Class AttachmentValidator&lt;T&gt;  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool ValidConfigurationReference(AttachmentBase attachment)</code></pre>
+    <pre><code class="lang-csharp hljs">protected bool ValidConfigurationReference(AttachmentFile attachment)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>attachment</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html">AttachmentBase</a></dt>
+    <dt><code>attachment</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.html">AttachmentFile</a></dt>
     <dd><p>The attachment object being validated.</p>
 </dd>
   </dl>

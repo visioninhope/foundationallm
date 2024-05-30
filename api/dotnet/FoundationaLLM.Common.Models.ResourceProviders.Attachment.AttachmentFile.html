@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class AttachmentBase | FoundationaLLM </title>
+      <title>Class AttachmentFile | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class AttachmentBase | FoundationaLLM ">
+      <meta name="title" content="Class AttachmentFile | FoundationaLLM ">
       
-      <meta name="description" content="Basic attachment.">
+      <meta name="description" content="Attachment resource.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase">
+        <article data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile">
 
 
 
-  <h1 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase" class="text-break">
-Class AttachmentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile" class="text-break">
+Class AttachmentFile  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,14 +97,12 @@ Class AttachmentBase  <a class="header-action link-secondary" title="View source
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Basic attachment.</p>
+  <div class="markdown summary"><p>Attachment resource.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;type&quot;)]
-[JsonDerivedType(typeof(AudioAttachment), &quot;audio&quot;)]
-public class AttachmentBase : ResourceBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class AttachmentFile : ResourceBase</code></pre>
   </div>
 
 
@@ -116,17 +114,11 @@ public class AttachmentBase : ResourceBase</code></pre>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceName.html">ResourceName</a></div>
       <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a></div>
-      <div><span class="xref">AttachmentBase</span></div>
+      <div><span class="xref">AttachmentFile</span></div>
     </dd>
   </dl>
 
 
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html">AudioAttachment</a></div>
-    </dd>
-  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -200,11 +192,44 @@ public class AttachmentBase : ResourceBase</code></pre>
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Content_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Content*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_ContentType" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.ContentType">
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Content" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Content">
+  Content
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>File stream of the attachment contents.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;content&quot;)]
+public Stream? Content { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_ContentType_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.ContentType*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_ContentType" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.ContentType">
   ContentType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The mime content type of the attachment.</p>
@@ -233,14 +258,14 @@ public string? ContentType { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Path_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Path*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Path" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Path">
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Path" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Path">
   Path
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Path for the attachment.</p>
+  <div class="markdown level1 summary"><p>Path for the attachment, starting with the container name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -266,11 +291,11 @@ public string Path { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Type_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Type*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentBase_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.Type">
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the resource.</p>
@@ -303,7 +328,7 @@ public override string? Type { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentBase.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Attachment/AttachmentFile.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

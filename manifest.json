@@ -172,10 +172,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentFileValidator.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentBaseValidator.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentFileValidator.html"
         }
       },
       "version": ""
@@ -186,16 +186,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AttachmentValidator-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Attachment.Validation.AudioAttachmentValidator.html"
         }
       },
       "version": ""
@@ -986,16 +976,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentResourceTypeNames.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AttachmentTypes.html"
         }
       },
       "version": ""
@@ -3042,20 +3022,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AudioAttachment.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile.html"
         }
       },
       "version": ""
