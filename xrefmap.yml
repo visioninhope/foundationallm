@@ -2077,57 +2077,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
   nameWithType: DefaultAuthentication.ServiceIdentity
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
-  name: DownstreamAPIKeySettings
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html
-  commentId: T:FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings
-  nameWithType: DownstreamAPIKeySettings
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html#FoundationaLLM_Common_Authentication_DownstreamAPIKeySettings_APIKey
-  commentId: P:FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey
-  nameWithType: DownstreamAPIKeySettings.APIKey
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html#FoundationaLLM_Common_Authentication_DownstreamAPIKeySettings_APIKey_
-  commentId: Overload:FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIKey
-  nameWithType: DownstreamAPIKeySettings.APIKey
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html#FoundationaLLM_Common_Authentication_DownstreamAPIKeySettings_APIUrl
-  commentId: P:FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl
-  nameWithType: DownstreamAPIKeySettings.APIUrl
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl*
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html#FoundationaLLM_Common_Authentication_DownstreamAPIKeySettings_APIUrl_
-  commentId: Overload:FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.APIUrl
-  nameWithType: DownstreamAPIKeySettings.APIUrl
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPISettings
-  name: DownstreamAPISettings
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPISettings.html
-  commentId: T:FoundationaLLM.Common.Authentication.DownstreamAPISettings
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPISettings
-  nameWithType: DownstreamAPISettings
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPISettings.html#FoundationaLLM_Common_Authentication_DownstreamAPISettings_DownstreamAPIs
-  commentId: P:FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs
-  nameWithType: DownstreamAPISettings.DownstreamAPIs
-- uid: FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs*
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Authentication.DownstreamAPISettings.html#FoundationaLLM_Common_Authentication_DownstreamAPISettings_DownstreamAPIs_
-  commentId: Overload:FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs
-  nameWithType: DownstreamAPISettings.DownstreamAPIs
 - uid: FoundationaLLM.Common.Constants
   name: FoundationaLLM.Common.Constants
   href: api/dotnet/FoundationaLLM.Common.Constants.html
@@ -7012,6 +6961,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient
   nameWithType: IHttpClientFactoryService.CreateClient
+- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
+  name: CreateUnregisteredClient(TimeSpan?)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateUnregisteredClient_System_Nullable_System_TimeSpan__
+  commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient(System.TimeSpan?)
+  nameWithType: IHttpClientFactoryService.CreateUnregisteredClient(TimeSpan?)
+- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient*
+  name: CreateUnregisteredClient
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateUnregisteredClient_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient
+  nameWithType: IHttpClientFactoryService.CreateUnregisteredClient
 - uid: FoundationaLLM.Common.Interfaces.IHubAPIService
   name: IHubAPIService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IHubAPIService.html
@@ -9865,6 +9827,70 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
   nameWithType: APISettingsBase.APIUrl
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
+  name: DownstreamAPIClientConfiguration
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
+  nameWithType: DownstreamAPIClientConfiguration
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
+  nameWithType: DownstreamAPIClientConfiguration.APIKey
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
+  nameWithType: DownstreamAPIClientConfiguration.APIKey
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
+  nameWithType: DownstreamAPIClientConfiguration.APIUrl
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl*
+  name: APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
+  nameWithType: DownstreamAPIClientConfiguration.APIUrl
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
+  name: Timeout
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
+  nameWithType: DownstreamAPIClientConfiguration.Timeout
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout*
+  name: Timeout
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
+  nameWithType: DownstreamAPIClientConfiguration.Timeout
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
+  name: DownstreamAPISettings
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
+  nameWithType: DownstreamAPISettings
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
+  name: DownstreamAPIs
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPISettings_DownstreamAPIs
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
+  nameWithType: DownstreamAPISettings.DownstreamAPIs
+- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs*
+  name: DownstreamAPIs
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPISettings_DownstreamAPIs_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
+  nameWithType: DownstreamAPISettings.DownstreamAPIs
 - uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   name: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.html
@@ -17995,6 +18021,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient
   nameWithType: HttpClientFactoryService.CreateClient
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
+  name: CreateUnregisteredClient(TimeSpan?)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateUnregisteredClient_System_Nullable_System_TimeSpan__
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient(System.TimeSpan?)
+  nameWithType: HttpClientFactoryService.CreateUnregisteredClient(TimeSpan?)
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient*
+  name: CreateUnregisteredClient
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateUnregisteredClient_
+  commentId: Overload:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient
+  nameWithType: HttpClientFactoryService.CreateUnregisteredClient
 - uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService
   name: IAzureAppConfigurationService
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html
@@ -26614,15 +26653,15 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent
   fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent
   nameWithType: SemanticKernelKnowledgeManagementAgent
-- uid: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory)
-  name: SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable<IResourceProviderService>, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html#FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(LLMCompletionRequest, IEnumerable(Of IResourceProviderService), ILoggerFactory)
-  fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.SemanticKernelKnowledgeManagementAgent(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.New(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: SemanticKernelKnowledgeManagementAgent.SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable<IResourceProviderService>, ILoggerFactory)
-  nameWithType.vb: SemanticKernelKnowledgeManagementAgent.New(LLMCompletionRequest, IEnumerable(Of IResourceProviderService), ILoggerFactory)
+- uid: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable<IResourceProviderService>, ILoggerFactory, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html#FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILoggerFactory_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(LLMCompletionRequest, IEnumerable(Of IResourceProviderService), ILoggerFactory, IHttpClientFactoryService)
+  fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.SemanticKernelKnowledgeManagementAgent(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILoggerFactory, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.New(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILoggerFactory, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: SemanticKernelKnowledgeManagementAgent.SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable<IResourceProviderService>, ILoggerFactory, IHttpClientFactoryService)
+  nameWithType.vb: SemanticKernelKnowledgeManagementAgent.New(LLMCompletionRequest, IEnumerable(Of IResourceProviderService), ILoggerFactory, IHttpClientFactoryService)
 - uid: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor*
   name: SemanticKernelKnowledgeManagementAgent
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html#FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_
@@ -27059,15 +27098,15 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService
   nameWithType: SemanticKernelService
-- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name: SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name.vb: New(ILoggerFactory, IEnumerable(Of IResourceProviderService))
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
-  nameWithType: SemanticKernelService.SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>)
-  nameWithType.vb: SemanticKernelService.New(ILoggerFactory, IEnumerable(Of IResourceProviderService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(ILoggerFactory, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: SemanticKernelService.SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>, IHttpClientFactoryService)
+  nameWithType.vb: SemanticKernelService.New(ILoggerFactory, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService)
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor*
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_

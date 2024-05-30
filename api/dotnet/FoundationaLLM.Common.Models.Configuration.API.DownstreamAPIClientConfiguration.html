@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class DownstreamAPISettings | FoundationaLLM </title>
+      <title>Class DownstreamAPIClientConfiguration | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DownstreamAPISettings | FoundationaLLM ">
+      <meta name="title" content="Class DownstreamAPIClientConfiguration | FoundationaLLM ">
       
-      <meta name="description" content="Supports all classes in the .NET class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all .NET classes; it is the root of the type hierarchy.">
+      <meta name="description" content="Represents settings for downstream API clients.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Authentication_DownstreamAPISettings.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Authentication.DownstreamAPISettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Authentication.DownstreamAPISettings">
+        <article data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration">
 
 
 
-  <h1 id="FoundationaLLM_Common_Authentication_DownstreamAPISettings" data-uid="FoundationaLLM.Common.Authentication.DownstreamAPISettings" class="text-break">
-Class DownstreamAPISettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/DownstreamAPIKeySettings.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration" class="text-break">
+Class DownstreamAPIClientConfiguration  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/API/DownstreamAPIClientConfiguration.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Authentication.html">Authentication</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.Configuration.html">Configuration</a>.<a class="xref" href="FoundationaLLM.Common.Models.Configuration.API.html">API</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Supports all classes in the .NET class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all .NET classes; it is the root of the type hierarchy.</p>
+  <div class="markdown summary"><p>Represents settings for downstream API clients.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public record DownstreamAPISettings : IDownstreamAPISettings, IEquatable&lt;DownstreamAPISettings&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public record DownstreamAPIClientConfiguration : IEquatable&lt;DownstreamAPIClientConfiguration&gt;</code></pre>
   </div>
 
 
@@ -112,15 +112,14 @@ Class DownstreamAPISettings  <a class="header-action link-secondary" title="View
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">DownstreamAPISettings</span></div>
+      <div><span class="xref">DownstreamAPIClientConfiguration</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html">IDownstreamAPISettings</a></div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Authentication.DownstreamAPISettings.html">DownstreamAPISettings</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html">DownstreamAPIClientConfiguration</a>&gt;</div>
     </dd>
   </dl>
 
@@ -167,19 +166,19 @@ Class DownstreamAPISettings  <a class="header-action link-secondary" title="View
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Authentication_DownstreamAPISettings_DownstreamAPIs_" data-uid="FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs*"></a>
+  <a id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey_" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey*"></a>
 
-  <h3 id="FoundationaLLM_Common_Authentication_DownstreamAPISettings_DownstreamAPIs" data-uid="FoundationaLLM.Common.Authentication.DownstreamAPISettings.DownstreamAPIs">
-  DownstreamAPIs
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/DownstreamAPIKeySettings.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey">
+  APIKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/API/DownstreamAPIClientConfiguration.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A dictionary of downstream APIs with a base URL and API key for authentication.</p>
+  <div class="markdown level1 summary"><p>The value of the API key.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required Dictionary&lt;string, DownstreamAPIKeySettings&gt; DownstreamAPIs { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public required string APIKey { get; init; }</code></pre>
   </div>
 
 
@@ -188,7 +187,73 @@ Class DownstreamAPISettings  <a class="header-action link-secondary" title="View
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="FoundationaLLM.Common.Authentication.DownstreamAPIKeySettings.html">DownstreamAPIKeySettings</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl_" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl">
+  APIUrl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/API/DownstreamAPIClientConfiguration.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The URL of the downstream API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required string APIUrl { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout_" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout" data-uid="FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout">
+  Timeout
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/API/DownstreamAPIClientConfiguration.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Specifies the timeout for the downstream API HTTP client.
+If this value is null, the default timeout is used.
+For an infinite waiting period, use <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.timeout.infinitetimespan">InfiniteTimeSpan</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan? Timeout { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</dt>
     <dd></dd>
   </dl>
 
@@ -203,7 +268,7 @@ Class DownstreamAPISettings  <a class="header-action link-secondary" title="View
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Authentication/DownstreamAPIKeySettings.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Configuration/API/DownstreamAPIClientConfiguration.cs/#L20" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -190,8 +190,8 @@ Class SemanticKernelKnowledgeManagementAgent  <a class="header-action link-secon
 
   <a id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory)">
-  SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable&lt;IResourceProviderService&gt;, ILoggerFactory)
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent__ctor_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILoggerFactory_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.#ctor(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILoggerFactory,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)">
+  SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest, IEnumerable&lt;IResourceProviderService&gt;, ILoggerFactory, IHttpClientFactoryService)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelKnowledgeManagementAgent.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -200,7 +200,7 @@ Class SemanticKernelKnowledgeManagementAgent  <a class="header-action link-secon
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest request, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public SemanticKernelKnowledgeManagementAgent(LLMCompletionRequest request, IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, ILoggerFactory loggerFactory, IHttpClientFactoryService httpClientFactoryService)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -214,6 +214,8 @@ Class SemanticKernelKnowledgeManagementAgent  <a class="header-action link-secon
     <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
     <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a> used to create loggers for logging.</p>
 </dd>
+    <dt><code>httpClientFactoryService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html">IHttpClientFactoryService</a></dt>
+    <dd></dd>
   </dl>
 
 
@@ -235,7 +237,7 @@ Class SemanticKernelKnowledgeManagementAgent  <a class="header-action link-secon
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent_BuildResponseWithAzureOpenAI" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.BuildResponseWithAzureOpenAI">
   BuildResponseWithAzureOpenAI()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelKnowledgeManagementAgent.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelKnowledgeManagementAgent.cs/#L144"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Builds the completion response using Azure OpenAI.</p>
@@ -273,7 +275,7 @@ Class SemanticKernelKnowledgeManagementAgent  <a class="header-action link-secon
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent_ExpandAndValidateAgent" data-uid="FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ExpandAndValidateAgent">
   ExpandAndValidateAgent()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelKnowledgeManagementAgent.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Agents/SemanticKernelKnowledgeManagementAgent.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the agent-specific details from the agent properties payload.</p>
