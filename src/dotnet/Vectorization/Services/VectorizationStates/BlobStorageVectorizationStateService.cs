@@ -38,7 +38,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         public async Task<bool> HasState(VectorizationRequest request) =>
             await _storageService.FileExistsAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request)}.json",
                 default);
 
 
@@ -47,7 +47,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         {
             var content = await _storageService.ReadFileAsync(
                 BLOB_STORAGE_CONTAINER_NAME,
-                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request.ContentIdentifier)}.json",
+                $"{EXECUTION_STATE_DIRECTORY}/{GetPersistenceIdentifier(request)}.json",
                 default);
 
             return JsonSerializer.Deserialize<VectorizationState>(content)!;
@@ -60,7 +60,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                 // This artifact type has already been loaded.
                 return;
 
-            var persistenceIdentifier = GetPersistenceIdentifier(state.ContentIdentifier);
+            var persistenceIdentifier = GetPersistenceIdentifier(state);
 
             switch (artifactType)
             {
@@ -97,7 +97,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
-            var persistenceIdentifier = GetPersistenceIdentifier(state.ContentIdentifier);
+            var persistenceIdentifier = GetPersistenceIdentifier(state);
 
             // ExtractedText is persisted as a text file
             var extractedTextArtifact = state.Artifacts.SingleOrDefault(a => a.Type == VectorizationArtifactType.ExtractedText);
@@ -174,6 +174,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     .DefaultIfEmpty()
                 select new VectorizationStateItem
                 {
+                    PipelineName = state.PipelineName,
                     Position = tp.Position,
                     TextPartitionContent = tp.Content!,
                     TextPartitionHash = tp.ContentHash,
