@@ -726,7 +726,7 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: 'ContentSafety',
+					value: 'AzureContentSafety',
 				},
 			],
 
@@ -737,7 +737,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: 'Presidio',
+					value: 'MicrosoftPresidio',
 				},
 			],
 		};
