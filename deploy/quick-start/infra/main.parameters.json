@@ -163,7 +163,7 @@
           },
           {
             "name": "gateway-api",
-            "useEndpoint": true,
+            "useEndpoint": false,
             "hasIngress": true,
             "image": "${SERVICE_GATEWAYAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
