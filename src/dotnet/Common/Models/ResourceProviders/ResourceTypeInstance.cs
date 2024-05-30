@@ -32,15 +32,16 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (ResourceId == null || other.ResourceId == null)
+            if ((ResourceId == null && other.ResourceId != null) || (ResourceId != null && other.ResourceId == null))
                 return false;
-            if (Action == null || other.Action == null)
+
+            if ((Action == null && other.Action != null) || (Action != null && other.Action == null))
                 return false;
 
             return
                 ResourceType.Equals(other.ResourceType)
-                && ResourceId.Equals(other.ResourceId)
-                && Action.Equals(other.Action);
+                && ((ResourceId == null && other.ResourceId == null) || ResourceId!.Equals(other.ResourceId))
+                && ((Action == null && other.Action == null) || Action!.Equals(other.Action));
         }
     }
 }
