@@ -584,6 +584,7 @@ import type {
 	AgentIndex,
 	AgentDataSource,
 	CreateAgentRequest,
+	ExternalOrchestrationService,
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
@@ -689,6 +690,7 @@ export default {
 
 			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
+			externalOrchestratorOptions: [] as ExternalOrchestrationService[],
 
 			orchestratorOptions: [
 				{
@@ -771,6 +773,19 @@ export default {
 			this.loadingStatusText = 'Retrieving data sources...';
 			const agentDataSourcesResult = await api.getAgentDataSources(true);
 			this.dataSources = agentDataSourcesResult.map(result => result.resource);
+			
+			this.loadingStatusText = 'Retrieving external orchestration services...';
+            const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
+			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
+
+			// Update the orchestratorOptions with the externalOrchestratorOptions.
+			this.orchestratorOptions = this.orchestratorOptions.concat(
+				this.externalOrchestratorOptions.map((service) => ({
+					label: service.name,
+					value: service.name,
+				})),
+			);
+
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',

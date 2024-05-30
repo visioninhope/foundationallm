@@ -94,6 +94,17 @@ export type AgentDataSource = ResourceBase & {
 	object_id: string;
 };
 
+export type ExternalOrchestrationService = ResourceBase & {
+	type: string;
+	name: string;
+	api_url_configuration_name: string;
+	api_key_configuration_name: string;
+	// The resolved value of the API URL configuration reference for displaying in the UI and updating the configuration.
+	resolved_api_url: string;
+	// The resolved value of the API key configuration reference for displaying in the UI and updating the configuration.
+	resolved_api_key: string;
+};
+
 export interface ConfigurationReferenceMetadata {
 	isKeyVaultBacked: boolean;
 }
