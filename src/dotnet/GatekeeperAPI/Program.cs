@@ -82,15 +82,15 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
             builder.Services.AddOptions<LakeraGuardServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_LakeraGuard));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_LakeraGuard));
             builder.Services.AddScoped<ILakeraGuardService, LakeraGuardService>();
 
             builder.Services.AddOptions<EnkryptGuardrailsServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_EnkryptGuardrails));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails));
             builder.Services.AddScoped<IEnkryptGuardrailsService, EnkryptGuardrailsService>();
 
             builder.Services.AddOptions<AzureContentSafetySettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureContentSafety));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety));
             builder.Services.AddScoped<IContentSafetyService, AzureContentSafetyService>();
             builder.Services.AddScoped<IGatekeeperIntegrationAPIService, GatekeeperIntegrationAPIService>();
 

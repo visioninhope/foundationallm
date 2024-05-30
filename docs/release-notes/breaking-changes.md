@@ -120,6 +120,24 @@
 
 14. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
 
-15. The following App Config setting needs to be added as key-values:
+15. The following App Config setting needs to be added/updated as key-values:
 
    - `FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield` (By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.)
+   - `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard`
+   - ` FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails`
+
+   - Rename `FoundationaLLM:AzureContentSafety:APIKey` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey`
+   - Rename `FoundationaLLM:AzureContentSafety:APIUrl` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl`
+   - Rename `FoundationaLLM:AzureContentSafety:HateSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:SelfHarmSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:SexualSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:ViolenceSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity`
+   - Add `FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey`
+   - Add `FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl`
+   - Add `FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey`
+   - Add `FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl`
+
+16. The following Key Vault secret is needed:
+
+    - `lakera-guard-api-key`
+    - `enkrypt-guardrails-apikey`
