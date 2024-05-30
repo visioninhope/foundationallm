@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
@@ -264,10 +265,11 @@ namespace FoundationaLLM.Core.API
                 DownstreamAPIs = []
             };
 
-            var gatekeeperAPISettings = new DownstreamAPIKeySettings
+            var gatekeeperAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(40)
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperAPI] = gatekeeperAPISettings;
 
@@ -275,7 +277,7 @@ namespace FoundationaLLM.Core.API
                     .AddHttpClient(HttpClients.GatekeeperAPI,
                         client => {
                             client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl);
-                            client.Timeout = TimeSpan.FromSeconds(800);
+                            client.Timeout = gatekeeperAPISettings.Timeout.Value;
                         })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
@@ -284,10 +286,11 @@ namespace FoundationaLLM.Core.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var orchestrationAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(35)
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
@@ -296,7 +299,7 @@ namespace FoundationaLLM.Core.API
                     .AddHttpClient(HttpClients.OrchestrationAPI,
                         client => {
                             client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl);
-                            client.Timeout = TimeSpan.FromSeconds(800);
+                            client.Timeout = orchestrationAPISettings.Timeout.Value;
                         })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
