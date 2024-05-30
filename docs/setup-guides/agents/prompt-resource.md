@@ -63,4 +63,14 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Prompt
 ```
 
 > [!NOTE]
-> FLLM currently implements logical deletes for Prompts. This means that users cannot create a Prompt with the same name as a deleted Prompt. Support for purging Prompts will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Prompt, call the `/purge` endpoint after deleting the Prompt.
+
+### Purge
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Prompt/prompts/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
