@@ -13,6 +13,7 @@ import type {
 	TextEmbeddingProfile,
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest,
+	ExternalOrchestrationService,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
 // import { mockAzureDataLakeDataSource1 } from './mock';
@@ -502,5 +503,36 @@ export default {
 				body: request,
 			},
 		);
+	},
+
+	async getExternalOrchestrationServices(resolveApiKey: boolean = false): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
+		const data = await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/externalOrchestrationServices?api-version=${this.apiVersion}`,
+		) as ResourceProviderGetResult<ExternalOrchestrationService>[];
+		
+		// Retrieve all the app config values for the external orchestration services..
+		const appConfigFilter = `FoundationaLLM:ExternalAPIs:*`;
+		const appConfigResults = await this.getAppConfigs(appConfigFilter);
+
+		// Loop through the external orchestration services and replace the app config keys with the real values.
+		for (const externalOrchestrationService of data) {
+			externalOrchestrationService.resource.resolved_api_url = '';
+			externalOrchestrationService.resource.resolved_api_key = '';
+			// Find a matching app config for the API URL. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIUrl
+			const apiUrlAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIUrl`);
+			if (apiUrlAppConfig) {
+				externalOrchestrationService.resource.resolved_api_url = apiUrlAppConfig.resource.value;
+			}
+			if (resolveApiKey) {
+				// Find a matching app config for the API Key. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIKey
+				const apiKeyAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIKey`);
+				if (apiKeyAppConfig) {
+					externalOrchestrationService.resource.resolved_api_key = apiKeyAppConfig.resource.value;
+				}
+			}
+		}
+
+		// Return the updated external orchestration services.
+		return data;
 	},
 };
