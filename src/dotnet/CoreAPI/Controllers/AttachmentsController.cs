@@ -65,14 +65,12 @@ namespace FoundationaLLM.Core.API.Controllers
                 {
                     var result = await _attachmentResourceProvider.UpsertResourceAsync(
                         $"attachments/{name}",
-                        new AudioAttachment
+                        new AttachmentFile
                         {
                             Name = name,
-                            Type = AttachmentTypes.Audio,
                             Content = stream,
                             DisplayName = fileName,
-                            ContentType = contentType,
-                            Path = $"attachments/{name}"
+                            ContentType = contentType
                         });
                     return Ok(result);
                 }

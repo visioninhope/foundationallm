@@ -4,15 +4,17 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
 {
     /// <summary>
-    /// Basic attachment.
+    /// Attachment resource.
     /// </summary>
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-    [JsonDerivedType(typeof(AudioAttachment), AttachmentTypes.Audio)]
-    public class AttachmentBase : ResourceBase
+    public class AttachmentFile : ResourceBase
     {
-        /// <inheritdoc/>
-        [JsonIgnore]
-        public override string? Type { get; set; }
+        [JsonIgnore] public override string? Type { get; set; } = nameof(AttachmentFile);
+
+        /// <summary>
+        /// File stream of the attachment contents.
+        /// </summary>
+        [JsonPropertyName("content")]
+        public Stream? Content { get; set; }
 
         /// <summary>
         /// The mime content type of the attachment.
@@ -21,7 +23,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Attachment
         public string? ContentType { get; set; }
 
         /// <summary>
-        /// Path for the attachment.
+        /// Path for the attachment, starting with the container name.
         /// </summary>
         [JsonPropertyName("path")]
         public string Path { get; set; } = "";

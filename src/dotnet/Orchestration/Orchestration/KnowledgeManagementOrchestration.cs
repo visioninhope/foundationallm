@@ -75,7 +75,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             var attachments = attachmentObjectIds
                 .ToAsyncEnumerable()
-                .SelectAwait(async x => await attachmentResourceProvider.GetResource<AttachmentBase>(x, _callContext.CurrentUserIdentity!));
+                .SelectAwait(async x => await attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
 
             List<string> result = [];
             await foreach (var attachment in attachments)

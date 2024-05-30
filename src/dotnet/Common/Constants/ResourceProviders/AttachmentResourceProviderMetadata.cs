@@ -19,8 +19,8 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         AttachmentResourceTypeNames.Attachments)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<AttachmentBase>)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AttachmentBase)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<AttachmentFile>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AttachmentFile)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [

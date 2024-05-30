@@ -22,17 +22,5 @@ namespace FoundationaLLM.Attachment.Models
         /// The mime content type of the attachment.
         /// </summary>
         public string ContentType { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The object type of the attachment.
-        /// </summary>
-        [JsonIgnore]
-        public Type AttachmentType =>
-            Type switch
-            {
-                AttachmentTypes.Basic => typeof(AttachmentBase),
-                AttachmentTypes.Audio => typeof(AudioAttachment),
-                _ => throw new ResourceProviderException($"The attachment type {Type} is not supported.")
-            };
     }
 }

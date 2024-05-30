@@ -46,7 +46,7 @@ namespace FoundationaLLM
             });
 
             // Register validators.
-            builder.Services.AddSingleton<IValidator<AudioAttachment>, AudioAttachmentValidator>();
+            builder.Services.AddSingleton<IValidator<AttachmentFile>, AttachmentFileValidator>();
 
             builder.Services.AddSingleton<IResourceProviderService, AttachmentResourceProviderService>(sp =>
                 new AttachmentResourceProviderService(
