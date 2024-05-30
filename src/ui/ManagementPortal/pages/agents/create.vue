@@ -726,7 +726,19 @@ export default {
 				},
 				{
 					label: 'Azure Content Safety',
-					value: 'ContentSafety',
+					value: 'AzureContentSafety',
+				},
+				{
+					label: 'Azure Content Safety Prompt Shield',
+					value: 'AzureContentSafetyPromptShield',
+				},
+				{
+					label: 'Lakera Guard',
+					value: 'LakeraGuard',
+				},
+				{
+					label: 'Enkrypt Guardrails',
+					value: 'EnkryptGuardrails',
 				},
 			],
 
@@ -737,7 +749,7 @@ export default {
 				},
 				{
 					label: 'Microsoft Presidio',
-					value: 'Presidio',
+					value: 'MicrosoftPresidio',
 				},
 			],
 		};
