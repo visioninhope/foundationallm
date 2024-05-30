@@ -1,6 +1,27 @@
 {
   "items": [
     {
+      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
+      "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
+      "value": "AzureIdentity",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer",
+      "value": "agents",
+      "label": null,
+      "content_type": "",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:AgentHubAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-agenthubapi-apikey\"}",
       "label": null,
@@ -323,22 +344,15 @@
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
+      "key": "FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName",
       "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
       "label": null,
       "content_type": "",
       "tags": {}
     },
     {
-      "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType",
+      "key": "FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType",
       "value": "AzureIdentity",
-      "label": null,
-      "content_type": "",
-      "tags": {}
-    },
-    {
-      "key": "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer",
-      "value": "agents",
       "label": null,
       "content_type": "",
       "tags": {}
