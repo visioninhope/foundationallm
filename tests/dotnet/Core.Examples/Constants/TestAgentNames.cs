@@ -45,5 +45,9 @@
         /// The name of the Dune semantic kernel agent.
         /// </summary>
         public const string SemanticKernelDune = "KMAgentWithSemanticKernelDune";
+        /// <summary>
+        /// The name of the Dune semantic kernel agent.
+        /// </summary>
+        public const string LangChainDune = "KMAgentWithLangChainDune";
     }
 }
