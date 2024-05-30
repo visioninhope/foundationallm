@@ -141,7 +141,29 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSo
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Data Sources. This means that users cannot create a Data Source with the same name as a deleted Data Source. Support for purging Data Sources will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Data Source, call the `/purge` endpoint after deleting the Data Source.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
+
+**Check Name**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/checkname
+Content-Type: application/json
+
+BODY
+{
+  "name": "<name>"
+}
+```
 
 ## Text partitioning profiles
 
@@ -221,7 +243,17 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vector
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Text Partitioning Profile, call the `/purge` endpoint after deleting the Text Partitioning Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
 
 ## Text embedding profiles
 
@@ -231,7 +263,7 @@ The structure of a text embedding profile is the following:
 {
     "type": "text-embedding-profile",
     "name": "<name>",
-    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>",
+    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>",
     "display_name": null,
     "description": "<description>",
     "text_embedding": "<text_embedding>",
@@ -301,13 +333,13 @@ This section describes how to manage text embedding profiles using the Managemen
 **Retrieve**
 
 ```
-HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles
 ```
 
 **Create or update**
 
 ```
-HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>
 Content-Type: application/json
 
 BODY
@@ -319,11 +351,21 @@ where `<text embedding profile>` is a JSON object with the structure described a
 **Delete**
 
 ```
-HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Text Embedding Profile, call the `/purge` endpoint after deleting the Text Embedding Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
 
 ## Indexing profiles
 
@@ -333,7 +375,7 @@ The structure of an indexing profile is the following:
 {
     "type": "indexing-profile",
     "name": "<name>",
-    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>",
+    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>",
     "display_name": null,
     "description": "<description>",
     "deleted": false,
@@ -396,13 +438,13 @@ This section describes how to manage indexing profiles using the Management API.
 **Retrieve**
 
 ```
-HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles
 ```
 
 **Create or update**
 
 ```
-HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>
 Content-Type: application/json
 
 BODY
@@ -414,11 +456,33 @@ where `<indexing profile>` is a JSON object with the structure described above.
 **Delete**
 
 ```
-HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge an Indexing Profile, call the `/purge` endpoint after deleting the Indexing Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
+
+**Check Name**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/checkname
+Content-Type: application/json
+
+BODY
+{
+  "name": "<name>"
+}
+```
 
 ## Additional configuration steps
 
