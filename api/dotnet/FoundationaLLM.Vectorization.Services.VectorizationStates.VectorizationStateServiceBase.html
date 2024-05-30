@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase" class="text-break">
-Class VectorizationStateServiceBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class VectorizationStateServiceBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,23 +169,62 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
 
   <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)">
-  GetPersistenceIdentifier(ContentIdentifier)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
+  GetPersistenceIdentifier(VectorizationRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the persistence identifier of the vectorization state based on the content identifier.</p>
+  <div class="markdown level1 summary"><p>Gets the persistence identifier of the vectorization state based on the vectorization request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected string GetPersistenceIdentifier(ContentIdentifier contentIdentifier)</code></pre>
+    <pre><code class="lang-csharp hljs">protected string GetPersistenceIdentifier(VectorizationRequest vectorizationRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>contentIdentifier</code> <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html">ContentIdentifier</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.ContentIdentifier.html">ContentIdentifier</a> holding the content identification information.</p>
+    <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a> for which the persistence identifier is being built.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The string version of the persistence identifier.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationState_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationState)">
+  GetPersistenceIdentifier(VectorizationState)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the persistence identifier of the vectorization state based on the vectorization state itself.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetPersistenceIdentifier(VectorizationState vectorizationState)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vectorizationState</code> <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Vectorization.Models.VectorizationState.html">VectorizationState</a> for which the persistence identifier is being built.</p>
 </dd>
   </dl>
 
@@ -210,7 +249,7 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashContentIdentifier_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashContentIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)">
   HashContentIdentifier(ContentIdentifier)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Computes the MD5 hash of the content identifier.</p>
@@ -249,7 +288,7 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
 
   <h3 id="FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_HashText_System_String_" data-uid="FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.HashText(System.String)">
   HashText(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Computes the MD5 hash of a specified chunk of text.</p>
@@ -288,7 +327,7 @@ Class VectorizationStateServiceBase  <a class="header-action link-secondary" tit
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/VectorizationStates/VectorizationStateServiceBase.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -16244,6 +16244,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineExecutionId
   nameWithType: VectorizationRequest.PipelineExecutionId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_PipelineName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName
+  nameWithType: VectorizationRequest.PipelineName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName*
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_PipelineName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineName
+  nameWithType: VectorizationRequest.PipelineName
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.PipelineObjectId
   name: PipelineObjectId
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_PipelineObjectId
@@ -29181,6 +29194,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.Models.VectorizationState.LogHandlerStart
   nameWithType: VectorizationState.LogHandlerStart
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_PipelineName
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName
+  nameWithType: VectorizationState.PipelineName
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName*
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_PipelineName_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineName
+  nameWithType: VectorizationState.PipelineName
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId
+  name: PipelineObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_PipelineObjectId
+  commentId: P:FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId
+  nameWithType: VectorizationState.PipelineObjectId
+- uid: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId*
+  name: PipelineObjectId
+  href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_PipelineObjectId_
+  commentId: Overload:FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Models.VectorizationState.PipelineObjectId
+  nameWithType: VectorizationState.PipelineObjectId
 - uid: FoundationaLLM.Vectorization.Models.VectorizationState.Requests
   name: Requests
   href: api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationState.html#FoundationaLLM_Vectorization_Models_VectorizationState_Requests
@@ -30744,6 +30783,19 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem
   nameWithType: VectorizationStateItem
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_PipelineName
+  commentId: P:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName
+  nameWithType: VectorizationStateItem.PipelineName
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName*
+  name: PipelineName
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_PipelineName_
+  commentId: Overload:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.PipelineName
+  nameWithType: VectorizationStateItem.PipelineName
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.Position
   name: Position
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateItem.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateItem_Position
@@ -30841,12 +30893,18 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase
   nameWithType: VectorizationStateServiceBase
-- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
-  name: GetPersistenceIdentifier(ContentIdentifier)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_Vectorization_ContentIdentifier_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.Vectorization.ContentIdentifier)
-  nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(ContentIdentifier)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
+  name: GetPersistenceIdentifier(VectorizationRequest)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
+  nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationState)
+  name: GetPersistenceIdentifier(VectorizationState)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_FoundationaLLM_Vectorization_Models_VectorizationState_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationState)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier(FoundationaLLM.Vectorization.Models.VectorizationState)
+  nameWithType: VectorizationStateServiceBase.GetPersistenceIdentifier(VectorizationState)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.GetPersistenceIdentifier*
   name: GetPersistenceIdentifier
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationStates.VectorizationStateServiceBase.html#FoundationaLLM_Vectorization_Services_VectorizationStates_VectorizationStateServiceBase_GetPersistenceIdentifier_
