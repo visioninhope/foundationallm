@@ -308,7 +308,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.7.0",
                 defaultValue: "false",
                 description:
-                "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration disabled. To enable this feature, set this value to true.",
+                "By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
@@ -320,19 +320,7 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.7.0",
                 defaultValue: "false",
                 description:
-                "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration disabled. To enable this feature, set this value to true.",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys
-                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableEnkryptGuardrails,
-                minimumVersion: "0.7.0",
-                defaultValue: "false",
-                description:
-                "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration disabled. To enable this feature, set this value to true.",
+                "By default, the Gatekeeper API has Ekrypt Guardrails integration disabled. To enable this feature, set this value to true.",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
