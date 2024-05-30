@@ -110,8 +110,8 @@ export default {
 
 .api-status-card .loading,
 .api-status-card .error {
-  color: #ff3333;
-  font-weight: bold;
+  color: #672525;
+  font-weight: normal;
 }
 
 .api-status-card .status.ready {
