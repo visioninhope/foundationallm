@@ -18,14 +18,14 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
             await Task.CompletedTask;
 
             return _vectorizationStateDictionary.ContainsKey(
-                GetPersistenceIdentifier(request.ContentIdentifier));
+                GetPersistenceIdentifier(request));
         }
 
         /// <inheritdoc/>
         public async Task<VectorizationState> ReadState(VectorizationRequest request)
         {
             await Task.CompletedTask;
-            var id = GetPersistenceIdentifier(request.ContentIdentifier);
+            var id = GetPersistenceIdentifier(request);
 
             if (!_vectorizationStateDictionary.TryGetValue(id, out VectorizationState? value))
                 throw new ArgumentException($"Vectorization state for content id [{id}] could not be found.");
@@ -41,7 +41,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         public async Task SaveState(VectorizationState state)
         {
             await Task.CompletedTask;
-            var id = GetPersistenceIdentifier(state.ContentIdentifier);
+            var id = GetPersistenceIdentifier(state);
 
             ArgumentNullException.ThrowIfNull(state);
 
