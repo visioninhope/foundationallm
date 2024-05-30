@@ -60,10 +60,7 @@ export type Agent = ResourceBase & {
 	};
 	gatekeeper: {
 		use_system_setting: boolean;
-		options: {
-			content_safety: number;
-			data_protection: number;
-		};
+		options: string[];
 	};
 	language_model: {
 		type: string;

@@ -417,12 +417,12 @@
 
 				<div>
 					<span class="step-option__header">Content Safety:</span>
-					<span>{{ gatekeeperContentSafety.label }}</span>
+					<span>{{ Array.isArray(selectedGatekeeperContentSafety) ? selectedGatekeeperContentSafety.map(item => item.name).join(', ') : '' }}</span>
 				</div>
 
 				<div>
 					<span class="step-option__header">Data Protection:</span>
-					<span>{{ gatekeeperDataProtection.label }}</span>
+					<span>{{ Array.isArray(selectedGatekeeperDataProtection) ? selectedGatekeeperDataProtection.map(item => item.name).join(', ') : '' }}</span>
 				</div>
 
 				<template #edit>
@@ -443,24 +443,26 @@
 
 					<div class="mt-2">
 						<span class="step-option__header">Content Safety:</span>
-						<Dropdown
-							v-model="gatekeeperContentSafety"
+						<MultiSelect
+							v-model="selectedGatekeeperContentSafety"
 							class="dropdown--agent"
 							:options="gatekeeperContentSafetyOptions"
-							option-label="label"
+							option-label="name"
 							placeholder="--Select--"
+							display="chip"
 						/>
 					</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
-						<Dropdown
-							v-model="gatekeeperDataProtection"
+						<MultiSelect
+							v-model="selectedGatekeeperDataProtection"
 							class="dropdown--agent"
 							:options="gatekeeperDataProtectionOptions"
-							option-label="label"
+							option-label="name"
 							placeholder="--Select--"
+							display="chip"
 						/>
 					</div>
 				</template>
@@ -576,6 +578,7 @@
 <script lang="ts">
 import '@vue-js-cron/light/dist/light.css';
 import type { PropType } from 'vue';
+import { ref } from 'vue';
 import { debounce } from 'lodash';
 import { CronLight } from '@vue-js-cron/light';
 import api from '@/js/api';
@@ -623,6 +626,9 @@ const getDefaultFormValues = () => {
 		conversationMaxMessages: 5 as number,
 
 		gatekeeperEnabled: false as boolean,
+
+		selectedGatekeeperContentSafety: ref(),
+		selectedGatekeeperDataProtection: ref(),
 		gatekeeperContentSafety: { label: 'None', value: null },
 		gatekeeperDataProtection: { label: 'None', value: null },
 
@@ -645,10 +651,10 @@ const getDefaultFormValues = () => {
 		},
 
 		api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
+		api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+		api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+		version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+		deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 
 		// resolved_orchestration_settings: {
 		// 	endpoint_configuration: {
@@ -721,39 +727,39 @@ export default {
 				'Daily',
 			],
 
-			gatekeeperContentSafetyOptions: [
+			gatekeeperContentSafetyOptions: ref([
 				{
-					label: 'None',
-					value: null,
+					name: 'None',
+					code: null,
 				},
 				{
-					label: 'Azure Content Safety',
-					value: 'AzureContentSafety',
+					name: 'Azure Content Safety',
+					code: 'AzureContentSafety',
 				},
 				{
-					label: 'Azure Content Safety Prompt Shield',
-					value: 'AzureContentSafetyPromptShield',
+					name: 'Azure Content Safety Prompt Shield',
+					code: 'AzureContentSafetyPromptShield',
 				},
 				{
-					label: 'Lakera Guard',
-					value: 'LakeraGuard',
+					name: 'Lakera Guard',
+					code: 'LakeraGuard',
 				},
 				{
-					label: 'Enkrypt Guardrails',
-					value: 'EnkryptGuardrails',
+					name: 'Enkrypt Guardrails',
+					code: 'EnkryptGuardrails',
 				},
-			],
+			]),
 
-			gatekeeperDataProtectionOptions: [
+			gatekeeperDataProtectionOptions: ref([
 				{
-					label: 'None',
-					value: null,
+					name: 'None',
+					code: null,
 				},
 				{
-					label: 'Microsoft Presidio',
-					value: 'MicrosoftPresidio',
+					name: 'Microsoft Presidio',
+					code: 'MicrosoftPresidio',
 				},
-			],
+			]),
 		};
 	},
 
@@ -900,15 +906,14 @@ export default {
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
 
-			this.gatekeeperContentSafety =
-				this.gatekeeperContentSafetyOptions.find((localOption) =>
-					agent.gatekeeper.options.find((option) => option === localOption.value),
-				) || this.gatekeeperContentSafety;
+			this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
+				agent.gatekeeper.options.includes(localOption.code)
+			) || this.selectedGatekeeperContentSafety;
 
-			this.gatekeeperDataProtection =
-				this.gatekeeperDataProtectionOptions.find((localOption) =>
-					agent.gatekeeper.options.find((option) => option === localOption.value),
-				) || this.gatekeeperDataProtection;
+			this.selectedGatekeeperDataProtection =
+				this.gatekeeperDataProtectionOptions.filter((localOption) =>
+					agent.gatekeeper.options.includes(localOption.code)
+				) || this.selectedGatekeeperDataProtection;
 		},
 
 		async checkName() {
@@ -1100,8 +1105,8 @@ export default {
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
 						options: [
-							this.gatekeeperContentSafety.value as unknown as string,
-							this.gatekeeperDataProtection.value as unknown as string,
+							...this.selectedGatekeeperContentSafety.map((option: any) => option.code),
+							...this.selectedGatekeeperDataProtection.map((option: any) => option.code),
 						].filter((option) => option !== null),
 					},
 
