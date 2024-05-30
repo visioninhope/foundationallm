@@ -220,7 +220,7 @@ namespace FoundationaLLM.Orchestration.API
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!,
-                Timeout = Timeout.InfiniteTimeSpan
+                Timeout = TimeSpan.FromMinutes(30)
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
 
@@ -238,7 +238,7 @@ namespace FoundationaLLM.Orchestration.API
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!,
-                Timeout = Timeout.InfiniteTimeSpan
+                Timeout = TimeSpan.FromMinutes(30)
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
 
