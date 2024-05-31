@@ -14,6 +14,10 @@
         /// </summary>
         public required string Database { get; set; }
         /// <summary>
+        /// The name of the Azure Cosmos DB vector database.
+        /// </summary>
+        public string? VectorDatabase { get; set; }
+        /// <summary>
         /// Comma-separated list of Azure Cosmos DB container names.
         /// </summary>
         public required string Containers { get; set; }
