@@ -59,7 +59,7 @@ elseif ($IsLinux) {
     $os = "linux"
 }
 
-$AZCOPY_VERSION = "10.24.0"
+$AZCOPY_VERSION = "10.25.0"
 
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
