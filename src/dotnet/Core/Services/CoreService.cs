@@ -128,10 +128,10 @@ public partial class CoreService(
                 Attachments = orchestrationRequest.Attachments
             };
 
-            var agentRequiresGatekeeperBypass = await ProcessGatekeeperOptions(completionRequest);
+            var agentOption = await ProcessGatekeeperOptions(completionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentRequiresGatekeeperBypass).GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
@@ -162,10 +162,10 @@ public partial class CoreService(
     {
         try
         {
-            var agentRequiresGatekeeperBypass = await ProcessGatekeeperOptions(directCompletionRequest);
+            var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentRequiresGatekeeperBypass).GetCompletion(directCompletionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(directCompletionRequest);
 
             return new Completion { Text = result.Completion };
         }
@@ -199,7 +199,7 @@ public partial class CoreService(
                         UserPrompt = prompt
                     };
 
-                    var summaryResponse = await GetDownstreamAPIService(false).GetSummary(summaryRequest);
+                    var summaryResponse = await GetDownstreamAPIService(AgentGatekeeperOverrideOption.UseSystemOption).GetSummary(summaryRequest);
 
                     // Remove any punctuation from the summary.
                     sessionNameSummary = ChatSessionNameReplacementRegex().Replace(summaryResponse.Summary!, string.Empty);
@@ -219,12 +219,13 @@ public partial class CoreService(
         }
     }
 
-    private IDownstreamAPIService GetDownstreamAPIService(bool agentRequiresGatekeeperBypass) =>
-        agentRequiresGatekeeperBypass || _settings.BypassGatekeeper
+    private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
+        ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
+        || (agentOption == AgentGatekeeperOverrideOption.MustBypass)
             ? _orchestrationAPIService
             : _gatekeeperAPIService;
 
-    private async Task<bool> ProcessGatekeeperOptions(CompletionRequest completionRequest)
+    private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
         if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
             throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
@@ -237,13 +238,13 @@ public partial class CoreService(
             // Agent does not want to use system settings, however it does not have any Gatekeeper options either
             // Consequently, a request to bypass Gatekeeper will be returned.
             if (agentBase!.Gatekeeper!.Options == null || agentBase.Gatekeeper.Options.Length == 0)
-                return true;
+                return AgentGatekeeperOverrideOption.MustBypass;
 
             completionRequest.GatekeeperOptions = agentBase.Gatekeeper.Options;
-            return false;
+            return AgentGatekeeperOverrideOption.MustCall;
         }
 
-        return false;
+        return AgentGatekeeperOverrideOption.UseSystemOption;
     }
 
     /// <summary>
