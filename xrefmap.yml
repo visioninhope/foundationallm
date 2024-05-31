@@ -15740,22 +15740,22 @@ references:
   commentId: F:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Action
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Action
   nameWithType: ResourceTypeInstance.Action
-- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
-  name: EqualTo(ResourceTypeInstance?)
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_EqualTo_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_
-  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
-  name.vb: EqualTo(ResourceTypeInstance)
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance?)
-  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
-  nameWithType: ResourceTypeInstance.EqualTo(ResourceTypeInstance?)
-  nameWithType.vb: ResourceTypeInstance.EqualTo(ResourceTypeInstance)
-- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo*
-  name: EqualTo
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_EqualTo_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
+  name: Includes(ResourceTypeInstance?)
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_Includes_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
+  name.vb: Includes(ResourceTypeInstance)
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance?)
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes(FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance)
+  nameWithType: ResourceTypeInstance.Includes(ResourceTypeInstance?)
+  nameWithType.vb: ResourceTypeInstance.Includes(ResourceTypeInstance)
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes*
+  name: Includes
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_Includes_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.EqualTo
-  nameWithType: ResourceTypeInstance.EqualTo
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.Includes
+  nameWithType: ResourceTypeInstance.Includes
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.ResourceId
   name: ResourceId
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_ResourceId
@@ -25703,15 +25703,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration
   fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration
   nameWithType: KnowledgeManagementOrchestration
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase},System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name: KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>, Dictionary<string, IResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase__System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase},System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name.vb: New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase), Dictionary(Of String, IResourceProviderService))
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase>, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase), System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService))
-  nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>, Dictionary<string, IResourceProviderService>)
-  nameWithType.vb: KnowledgeManagementOrchestration.New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase), Dictionary(Of String, IResourceProviderService))
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase},System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Boolean)
+  name: KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>, Dictionary<string, IResourceProviderService>, bool)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration__ctor_FoundationaLLM_Common_Models_ResourceProviders_Agent_KnowledgeManagementAgent_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase__System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__System_Boolean_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase},System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},System.Boolean)
+  name.vb: New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase), Dictionary(Of String, IResourceProviderService), Boolean)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase>, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, bool)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New(FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase), System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), Boolean)
+  nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger<OrchestrationBase>, Dictionary<string, IResourceProviderService>, bool)
+  nameWithType.vb: KnowledgeManagementOrchestration.New(KnowledgeManagementAgent, ICallContext, ILLMOrchestrationService, ILogger(Of OrchestrationBase), Dictionary(Of String, IResourceProviderService), Boolean)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.#ctor*
   name: KnowledgeManagementOrchestration
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration__ctor_
