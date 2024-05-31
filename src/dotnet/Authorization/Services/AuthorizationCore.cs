@@ -216,7 +216,8 @@ namespace FoundationaLLM.Authorization.Services
                     if (!exists)
                     {
                         var roleAssignment = new RoleAssignment()
-                        { 
+                        {
+                            Type = $"{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleAssignments}",
                             Name = roleAssignmentRequest.Name,
                             Description = roleAssignmentRequest.Description,
                             ObjectId = roleAssignmentRequest.ObjectId,

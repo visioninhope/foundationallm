@@ -280,11 +280,47 @@ namespace FoundationaLLM.Configuration.Catalog
 
             new(
                 key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield,
+                minimumVersion: "0.7.0",
+                defaultValue: "true",
+                description:
+                "By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
                     .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio,
                 minimumVersion: "0.3.0",
                 defaultValue: "true",
                 description:
                 "By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableLakeraGuard,
+                minimumVersion: "0.7.0",
+                defaultValue: "false",
+                description:
+                "By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableEnkryptGuardrails,
+                minimumVersion: "0.7.0",
+                defaultValue: "false",
+                description:
+                "By default, the Gatekeeper API has Ekrypt Guardrails integration disabled. To enable this feature, set this value to true.",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
@@ -542,6 +578,39 @@ namespace FoundationaLLM.Configuration.Catalog
 
         #endregion
 
+        #region Attachment
+
+        /// <summary>
+        /// The Attachment resource provider configuration entries for the solution.
+        /// </summary>
+        public static readonly List<AppConfigurationEntry> Attachment =
+        [
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description:
+                "The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description:
+                "This is the name of the storage account used when the authentication type is `AzureIdentity`, which is the default.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            )
+        ];
+
+        #endregion
+
         #region Prompt
 
         /// <summary>
@@ -562,6 +631,64 @@ namespace FoundationaLLM.Configuration.Catalog
             )
         ];
 
+        #endregion
+
+        #region LakeraGuard
+
+        /// <summary>
+        /// The Lakera Guard configuration entries for the solution.
+        /// </summary>
+        public static readonly List<AppConfigurationEntry> LakeraGuard =
+        [
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
+                minimumVersion: "0.7.0",
+                defaultValue: "Key Vault secret name: `foundationallm-lakera-guard-api-key`",
+                description: "This is a Key Vault reference.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIUrl,
+                minimumVersion: "0.7.0",
+                defaultValue: "Enter the URL to the service.",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+        ];
+        #endregion
+
+        #region Enkrypt Guardrails
+
+        /// <summary>
+        /// The Enkrypt Guardrails configuration entries for the solution.
+        /// </summary>
+        public static readonly List<AppConfigurationEntry> EnkryptGuardrails =
+        [
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
+                minimumVersion: "0.7.0",
+                defaultValue: "Key Vault secret name: `foundationallm-enkrypt-guardrails-apikey`",
+                description: "This is a Key Vault reference.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIUrl,
+                minimumVersion: "0.7.0",
+                defaultValue: "Enter the URL to the service.",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+        ];
         #endregion
 
         #region AzureContentSafety
@@ -624,6 +751,66 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_ViolenceSeverity,
                 minimumVersion: "0.3.0",
+                defaultValue: "2",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
+                minimumVersion: "0.7.0",
+                defaultValue: "Key Vault secret name: `foundationallm-azurecontentsafety-apikey`",
+                description: "This is a Key Vault reference.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIUrl,
+                minimumVersion: "0.7.0",
+                defaultValue: "Enter the URL to the service.",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_HateSeverity,
+                minimumVersion: "0.7.0",
+                defaultValue: "2",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SelfHarmSeverity,
+                minimumVersion: "0.7.0",
+                defaultValue: "2",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SexualSeverity,
+                minimumVersion: "0.7.0",
+                defaultValue: "2",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_ViolenceSeverity,
+                minimumVersion: "0.7.0",
                 defaultValue: "2",
                 description: "",
                 keyVaultSecretName: "",
@@ -1330,26 +1517,6 @@ namespace FoundationaLLM.Configuration.Catalog
 
         #endregion
 
-        #region LangChainAPI
-
-        /// <summary>
-        /// The LangChain API configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> LangChainAPI =
-        [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_LangChainAPI_Key,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-apis-langchainapi-apikey`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            )
-        ];
-
-        #endregion
-
         #region Management
 
         /// <summary>
@@ -1816,7 +1983,10 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(Agent);
             allEntries.AddRange(AgentHub);
             allEntries.AddRange(APIs);
+            allEntries.AddRange(Attachment);
             allEntries.AddRange(AzureContentSafety);
+            allEntries.AddRange(LakeraGuard);
+            allEntries.AddRange(EnkryptGuardrails);
             allEntries.AddRange(AzureOpenAI);
             allEntries.AddRange(BlobStorageMemorySource);
             allEntries.AddRange(Branding);
@@ -1828,7 +1998,6 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(Event);
             allEntries.AddRange(Instance);
             allEntries.AddRange(LangChain);
-            allEntries.AddRange(LangChainAPI);
             allEntries.AddRange(Management);
             allEntries.AddRange(ManagementAPI);
             allEntries.AddRange(OpenAI);

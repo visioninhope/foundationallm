@@ -41,6 +41,20 @@ namespace FoundationaLLM.Vectorization.Models
         public List<VectorizationIndexReference> IndexReferences { get; set; } = [];
 
         /// <summary>
+        /// The resource name of the vectorization pipeline that generated the request.
+        /// </summary>
+        [JsonPropertyOrder(17)]
+        [JsonPropertyName("pipeline_name")]
+        public string? PipelineName { get; set; }
+
+        /// <summary>
+        /// The resource object id of the vectorization pipeline that generated the request.
+        /// </summary>
+        [JsonPropertyOrder(18)]
+        [JsonPropertyName("pipeline_object_id")]
+        public string? PipelineObjectId { get; set; }
+
+        /// <summary>
         /// The list of vectorization requests associated with the content identified by <see cref="ContentIdentifier"/>.
         /// </summary>
         [JsonPropertyOrder(19)]
@@ -111,8 +125,10 @@ namespace FoundationaLLM.Vectorization.Models
         public static VectorizationState FromRequest(VectorizationRequest request) =>
             new()
             {
-                CurrentRequestId = request.Id!,
-                ContentIdentifier = request.ContentIdentifier
+                CurrentRequestId = request.Name!,
+                ContentIdentifier = request.ContentIdentifier,
+                PipelineName = request.PipelineName,
+                PipelineObjectId = request.PipelineObjectId
             };
 
         /// <summary>

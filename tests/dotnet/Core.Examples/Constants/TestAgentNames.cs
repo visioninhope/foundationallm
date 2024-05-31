@@ -29,6 +29,21 @@
         /// The name of the lang chain agent.
         /// </summary>
         public const string LangChainAgentName = "KMAgentWithLangChain";
-
+        /// <summary>
+        /// The name of the SDZWA semantic kernel agent.
+        /// </summary>
+        public const string SemanticKernelSDZWA = "KMAgentWithSemanticKernelSDZWA";
+        /// <summary>
+        /// The name of the SDZWA lang chain agent.
+        /// </summary>
+        public const string LangChainSDZWA = "KMAgentWithLangChainSDZWA";
+        /// <summary>
+        /// The name of the agent that is used to generate conversations about products.
+        /// </summary>
+        public const string ConversationGeneratorAgent = "ConversationGeneratorAgent";
+        /// <summary>
+        /// The name of the Dune semantic kernel agent.
+        /// </summary>
+        public const string SemanticKernelDune = "KMAgentWithSemanticKernelDune";
     }
 }
