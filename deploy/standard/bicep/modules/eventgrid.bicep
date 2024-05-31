@@ -54,10 +54,13 @@ var name = '${serviceType}-${resourceSuffix}'
 @description('The Resource Service Type token')
 var serviceType = 'eg'
 
+var eventGridLocations = {
+  westus: 'westus3'
+}
 
 resource main 'Microsoft.EventGrid/namespaces@2023-12-15-preview' = {
   name: name
-  location: location
+  location: eventGridLocations[?location] ?? location
   sku: {
     name: 'Standard'
     capacity: 1

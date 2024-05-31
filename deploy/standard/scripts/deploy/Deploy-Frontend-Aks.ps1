@@ -7,7 +7,8 @@ Param(
     [parameter(Mandatory = $false)][string]$resourceGroup,
     [parameter(Mandatory = $false)][string]$secretProviderClassManifest,
     [parameter(Mandatory = $false)][string]$serviceNamespace = "fllm",
-    [parameter(Mandatory = $false)][string]$version = "0.5.1"
+    [parameter(Mandatory = $false)][string]$registry = "ghcr.io/solliancenet",
+    [parameter(Mandatory = $false)][string]$version = "0.7.0"
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
@@ -34,7 +35,7 @@ function Invoke-AndRequireSuccess {
 }
 
 Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${aksName}" {
-    az aks get-credentials --name $aksName --resource-group $resourceGroup
+    az aks get-credentials --name $aksName --resource-group $resourceGroup --overwrite-existing
 }
 
 # **** Service Namespace ****
@@ -60,9 +61,11 @@ foreach ($chart in $chartsToInstall.GetEnumerator()) {
 
         helm upgrade `
             --version $version `
-            --install $releaseName oci://ghcr.io/solliancenet/foundationallm/helm/$($chart.Key) `
+            --install $releaseName oci://$($registry)/helm/$($chart.Key) `
             --namespace ${serviceNamespace} `
             --values $valuesFile `
+            --set image.repository=$($registry)/$($chart.Key) `
+            --set image.tag=$version
     }
 }
 
@@ -92,6 +95,8 @@ Invoke-AndRequireSuccess "Deploy ingress-nginx" {
         --namespace ${gatewayNamespace} `
         --values ${ingressNginxValues}
 }
+
+Start-Sleep -Seconds 60
 
 $ingressNames = @{
     "chat-ui"       = "../config/helm/chatui-ingress.yml"
