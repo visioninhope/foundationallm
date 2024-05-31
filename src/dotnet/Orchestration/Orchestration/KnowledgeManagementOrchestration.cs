@@ -43,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
                 {
-                    Completion = "I have no knowledge that can be used to used to answer this question.",
+                    Completion = "I have no knowledge that can be used to answer this question.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
                 };
