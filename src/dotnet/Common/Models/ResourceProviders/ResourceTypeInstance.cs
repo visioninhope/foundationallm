@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.AspNetCore.Mvc.Abstractions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders
 {
@@ -29,18 +30,53 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
             if (other == null)
                 return false;
 
+            // Identical resource type instances
             if (ReferenceEquals(this, other))
                 return true;
 
-            if (ResourceId == null || other.ResourceId == null)
-                return false;
-            if (Action == null || other.Action == null)
+            // Resource type instances with different resource types
+            if (!ResourceType.Equals(other.ResourceType))
                 return false;
 
-            return
-                ResourceType.Equals(other.ResourceType)
-                && ResourceId.Equals(other.ResourceId)
-                && Action.Equals(other.Action);
+            if (this.ResourceId == null)
+            {
+                // The other resource type instance refers to a specific resource,
+                // so it's more specific than the current one.
+                if (other.ResourceId != null)
+                    return false;
+
+                if (this.Action == null)
+                {
+                    // If the other action is not null, it will be more specific than the current one
+                    return other.Action == null;
+                }
+                else
+                {
+                    // If the other action is not null and different than the current, then there is a difference
+                    return (other.Action == null) || this.Action.Equals(other.Action);
+                }    
+            }
+            else
+            {
+                if (this.Action == null)
+                {
+                    // If the other action is not null, it will be more specific than the current one.
+                    // If the other resource id is not null and different from the current one, then there is a difference
+                    return (other.Action == null) && ((other.ResourceId == null) || this.ResourceId.Equals(other.ResourceId));
+                }
+                else
+                {
+                    if (other.Action == null)
+                    {
+                        // If the other resource id exists and is different from the current resource id, then there is a difference
+                        return (other.ResourceId == null) || this.ResourceId.Equals(other.ResourceId);
+                    }
+                    else
+                    {
+                        return this.Action.Equals(other.Action) && (other.ResourceId != null) && this.ResourceId.Equals(other.ResourceId);
+                    }
+                }
+            };
         }
     }
 }
