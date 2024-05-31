@@ -195,6 +195,16 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafety = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard app configuration setting.
+        /// By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableLakeraGuard = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails app configuration setting.
+        /// By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableEnkryptGuardrails = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield app configuration setting.
         /// By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.
         /// </summary>
@@ -204,6 +214,18 @@
         /// By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableMicrosoftPresidio";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -299,6 +321,49 @@
         /// The key for the FoundationaLLM:AzureContentSafety:ViolenceSeverity app configuration setting.
         /// </summary>
         public const string FoundationaLLM_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:AzureContentSafety:ViolenceSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIUrl = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_HateSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SelfHarmSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SexualSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIUrl = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIUrl = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl";
         /// <summary>
         /// The key for the FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName app configuration setting.
         /// </summary>
@@ -974,15 +1039,15 @@
         /// <summary>
         /// The key section for the FoundationaLLM:AzureContentSafety app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety";
-        /// <summary>
-        /// The key section for the FoundationaLLM:LakeraGuard app configuration settings.
-        /// </summary>
-        public const string FoundationaLLM_LakeraGuard = "FoundationaLLM:LakeraGuard";
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety";
         /// <summary>
         /// The key section for the FoundationaLLM:EnkryptGuardrails app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_EnkryptGuardrails = "FoundationaLLM:EnkryptGuardrails";
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails";
+        /// <summary>
+        /// The key section for the FoundationaLLM:LakeraGuard app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard";
         /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>

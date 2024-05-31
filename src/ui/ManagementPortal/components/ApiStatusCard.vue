@@ -6,6 +6,7 @@
     <div v-else>
       <div class="api-detail">
         <p><strong>Name:</strong> {{ apiStatus.name }}</p>
+        <p><strong>Description:</strong> {{ description }}</p>
         <p><strong>Instance:</strong> {{ apiStatus.instance }}</p>
         <p><strong>Version:</strong> {{ apiStatus.version }}</p>
         <p><strong>Status:</strong> {{ apiStatus.status }}</p>
@@ -38,6 +39,10 @@ export default {
     apiUrl: {
       type: String,
       required: true,
+    },
+    description: {
+      type: String,
+      required: false,
     },
   },
   data() {
@@ -105,8 +110,8 @@ export default {
 
 .api-status-card .loading,
 .api-status-card .error {
-  color: #ff3333;
-  font-weight: bold;
+  color: #672525;
+  font-weight: normal;
 }
 
 .api-status-card .status.ready {

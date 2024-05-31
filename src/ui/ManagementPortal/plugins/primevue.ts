@@ -11,6 +11,7 @@ import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
+import MultiSelect from 'primevue/multiselect';
 import Avatar from 'primevue/avatar';
 import RadioButton from 'primevue/radiobutton';
 import ToggleButton from 'primevue/togglebutton';
@@ -31,6 +32,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Chips', Chips);
 	nuxtApp.vueApp.component('Divider', Divider);
 	nuxtApp.vueApp.component('Dropdown', Dropdown);
+	nuxtApp.vueApp.component('MultiSelect', MultiSelect);
 	nuxtApp.vueApp.component('Avatar', Avatar);
 	nuxtApp.vueApp.component('RadioButton', RadioButton);
 	nuxtApp.vueApp.component('ToggleButton', ToggleButton);
