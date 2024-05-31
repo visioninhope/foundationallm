@@ -20,11 +20,11 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         public string? Action;
 
         /// <summary>
-        /// Checks whether the current instance is equal to another <see cref="ResourceTypeInstance"/> instance.
+        /// Checks whether the current instance includes another <see cref="ResourceTypeInstance"/> instance.
         /// </summary>
-        /// <param name="other">The <see cref="ResourceTypeInstance"/> to check for equality.</param>
-        /// <returns>True if the two instances are equal.</returns>
-        public bool EqualTo(ResourceTypeInstance? other)
+        /// <param name="other">The <see cref="ResourceTypeInstance"/> to check for inclusion.</param>
+        /// <returns>True if the current instance includes the other instance.</returns>
+        public bool Includes(ResourceTypeInstance? other)
         {
             if (other == null)
                 return false;
@@ -32,16 +32,15 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
             if (ReferenceEquals(this, other))
                 return true;
 
-            if ((ResourceId == null && other.ResourceId != null) || (ResourceId != null && other.ResourceId == null))
+            if (ResourceId == null || other.ResourceId == null)
                 return false;
-
-            if ((Action == null && other.Action != null) || (Action != null && other.Action == null))
+            if (Action == null || other.Action == null)
                 return false;
 
             return
                 ResourceType.Equals(other.ResourceType)
-                && ((ResourceId == null && other.ResourceId == null) || ResourceId!.Equals(other.ResourceId))
-                && ((Action == null && other.Action == null) || Action!.Equals(other.Action));
+                && ResourceId.Equals(other.ResourceId)
+                && Action.Equals(other.Action);
         }
     }
 }
