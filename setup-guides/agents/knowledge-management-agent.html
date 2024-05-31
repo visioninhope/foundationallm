@@ -73,16 +73,21 @@
         <article data-uid="">
 <h1 id="knowledge-management-agent">Knowledge management agent</h1>
 
-<p>The FoundationaLLM (FLLM) knowledge management agent supports retrieval augmented generation (RAG).</p>
-<h2 id="retrieval-augmented-generation-rag">Retrieval Augmented Generation (RAG)</h2>
-<p>The RAG flow augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.</p>
-<p>The creation of a Knowledge Management agent requires an existing knowledge base, such as a vector store. If it does not exist, use the <a href="../vectorization/index.html">vectorization</a> API to create a vector store prior to the creation of the agent.</p>
+<p>The FoundationaLLM (FLLM) Knowledge Management agent type supports the following scenarios:</p>
+<ul>
+<li><strong>With an Inline Context:</strong> Knowledge Management agents with an Inline Context pass the user's prompt directly to the Large Language Model (LLM).</li>
+<li><strong>Without an Inline Context:</strong> Knowledge Management agents without an Inline Context implement the <em>Retrieval Augmented Generation</em> (RAG) design pattern. RAG augments the user prompt with additional context to generate a more accurate response. The RAG flow uses a retrieval model to retrieve relevant documents from a knowledge base, such as a vector store, and then uses the retrieved documents to augment the user prompt before sending it to the LLM.
+<ul>
+<li>The creation of a Knowledge Management agent without an Inline Context requires an existing knowledge base, such as a vector store. Use the <a href="../vectorization/index.html">Vectorization</a> API to create a vector store prior to the creation of the agent.</li>
+</ul>
+</li>
+</ul>
 <h2 id="knowledge-management-agent-configuration">Knowledge Management Agent Configuration</h2>
 <p>The Knowledge Management agent configuration may reference the following resources:</p>
 <ul>
-<li><p><a href="../vectorization/vectorization-profiles.html#text-embedding-profiles">Vectorization text embedding profile</a>: The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to index the knowledge base.</p>
+<li><p><a href="../vectorization/vectorization-profiles.html#text-embedding-profiles">Vectorization text embedding profile</a>: The text embedding profile contains the configuration of the text embedding model used to embed the user prompt and perform a vector search in the knowledge base. This must match the text embedding profile used to populate the knowledge base.</p>
 </li>
-<li><p><a href="../vectorization/vectorization-profiles.html#indexing-profiles">Vectorization indexing profile</a>: The indexing profile contains the configuration of the service hosting the index that is to be searched.</p>
+<li><p><a href="../vectorization/vectorization-profiles.html#indexing-profiles">Vectorization indexing profile</a>: The indexing profile contains the configuration of the service hosting the index.</p>
 </li>
 <li><p><a href="prompt-resource.html">Prompt</a>: The system prompt of the agent, describing the persona of the agent.</p>
 </li>
@@ -97,6 +102,7 @@
   &quot;object_id&quot;: &quot;/instances/&lt;instance_id&gt;/providers/FoundationaLLM.Agent/agents/&lt;name&gt;&quot;,
   &quot;description&quot;: &quot;&lt;description&gt;&quot;,
   &quot;display_name&quot;: &quot;&lt;display_name&gt;&quot;,
+  &quot;inline_context&quot;: true,
   &quot;vectorization&quot;: {
     &quot;dedicated_pipeline&quot;: &quot;&quot;,
     &quot;data_source_object_id&quot;: &quot;&lt;data_source_object_id&gt;&quot;,
@@ -189,12 +195,16 @@
 <td>The title of the agent in the Chat UI dropdown menu. This field is optional.</td>
 </tr>
 <tr>
+<td><code>inline_context</code></td>
+<td>Whether or not the agent has an Inline Context.</td>
+</tr>
+<tr>
 <td><code>vectorization</code></td>
-<td>The <code>vectorization</code> object is only required for Knowledge Management agents without an Inline Context. If the <code>vectorization</code> object is included, the <code>indexing_profile_object_id</code> and <code>text_embedding_profile_object_id</code> keys are required.</td>
+<td>The <code>vectorization</code> object is only required for Knowledge Management agents without an Inline Context (<code>inline_context</code> is <code>false</code>). If the <code>vectorization</code> object is included, the <code>indexing_profile_object_id</code> and <code>text_embedding_profile_object_id</code> keys are required.</td>
 </tr>
 <tr>
 <td><code>vectorization.dedicated_pipeline</code></td>
-<td>A boolean indicating whether or not the agent has a dedicated Vectorization pipeline (0.7.0).</td>
+<td>A boolean indicating whether or not the agent has a dedicated Vectorization pipeline (implemented in an upcoming release).</td>
 </tr>
 <tr>
 <td><code>vectorization.data_source_object_id</code></td>
@@ -214,15 +224,15 @@
 </tr>
 <tr>
 <td><code>vectorization.vectorization_data_pipeline_object_id</code></td>
-<td>The resource ID of the agent's Vectorization pipeline (0.7.0).</td>
+<td>The resource ID of the agent's Vectorization pipeline (implemented in an upcoming release).</td>
 </tr>
 <tr>
 <td><code>vectorization.trigger_type</code></td>
-<td>The trigger type of the agent's Vectorization pipeline (0.7.0). Permissible values are <code>Manual</code>, <code>Schedule</code>, and <code>Event</code>.</td>
+<td>The trigger type of the agent's Vectorization pipeline (implemented in an upcoming release). Permissible values are <code>Manual</code>, <code>Schedule</code>, and <code>Event</code>.</td>
 </tr>
 <tr>
 <td><code>vectorization.trigger_cron_schedule</code></td>
-<td>The schedule of the trigger in Cron format (0.7.0). This property is valid only when <code>trigger_type</code> is <code>Schedule</code>.</td>
+<td>The schedule of the trigger in Cron format (implemented in an upcoming release). This property is valid only when <code>trigger_type</code> is <code>Schedule</code>.</td>
 </tr>
 <tr>
 <td><code>prompt_object_id</code></td>
@@ -302,7 +312,7 @@
 </tr>
 <tr>
 <td><code>orchestration_settings.orchestrator</code></td>
-<td>FoundationaLLM currently supports <code>LangChain</code> and <code>SemanticKernel</code>.</td>
+<td>FoundationaLLM currently supports <code>LangChain</code> and <code>SemanticKernel</code> for both types of Knowledge Management agents; however, Knowledge Management agents with an Inline Context can also use the <a href="#azureopenaidirect-orchestrator"><code>AzureOpenAIDirect</code></a> and <a href="#azureaidirect-orchestrator"><code>AzureAIDirect</code></a> orchestrators.</td>
 </tr>
 <tr>
 <td><code>orchestration_settings.endpoint_configuration</code></td>
@@ -310,11 +320,11 @@
 </tr>
 <tr>
 <td><code>orchestration_settings.endpoint_configuration.endpoint</code></td>
-<td>The endpoint URL of the hosted LLM.</td>
+<td>The endpoint URL of the hosted LLM. The URL should be provided directly for the <code>LangChain</code> or <code>SemanticKernel</code> orchestrators; it should be provided as an Azure App Configuration key reference for the <code>AzureOpenAIDirect</code> or <code>AzureAIDirect</code> orchestrators.</td>
 </tr>
 <tr>
 <td><code>orchestration_settings.endpoint_configuration.api_version</code></td>
-<td>The API version of the hosted LLM. For Azure OpenAI, this value should be set to the <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/api-version-deprecation#latest-ga-api-release">latest GA version.</a></td>
+<td>The API version of the hosted LLM. For Azure OpenAI, this value should be set to the <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/api-version-deprecation#latest-ga-api-release">latest GA version.</a> The API version should be provided directly for the <code>LangChain</code> or <code>SemanticKernel</code> orchestrators; it should be provided as an Azure App Configuration key reference for the <code>AzureOpenAIDirect</code> or <code>AzureAIDirect</code> orchestrators.</td>
 </tr>
 <tr>
 <td><code>orchestration_settings.endpoint_configuration.auth_type</code></td>
@@ -342,6 +352,49 @@
 </tr>
 </tbody>
 </table>
+<h2 id="azureopenaidirect-orchestrator">AzureOpenAIDirect Orchestrator</h2>
+<p>The <code>AzureOpenAIDirect</code> orchestrator passes the user's prompt to an LLM deployed in an instance of Azure OpenAI Service, bypassing LangChain or Semantic Kernel.</p>
+<p>Example Configuration:</p>
+<pre><code class="lang-json">{
+  &quot;orchestration_settings&quot;: {
+    &quot;orchestrator&quot;: &quot;AzureOpenAIDirect&quot;,
+    &quot;endpoint_configuration&quot;: {
+      &quot;endpoint&quot;: &quot;FoundationaLLM:AzureOpenAI:API:Endpoint&quot;,
+      &quot;api_version&quot;: &quot;FoundationaLLM:AzureOpenAI:API:Version&quot;,
+      &quot;auth_type&quot;: &quot;key&quot;,
+      &quot;api_key&quot;: &quot;FoundationaLLM:AzureOpenAI:API:Key&quot;,
+      &quot;operation_type&quot;: &quot;chat&quot;
+    },
+    &quot;model_parameters&quot;: {
+      &quot;deployment_name&quot;: &quot;completions&quot;
+    }
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> <code>AzureOpenAIDirect</code> is only compatible with Knowledge Management agents with an Inline Context.</p>
+</blockquote>
+<h2 id="azureaidirect-orchestrator">AzureAIDirect Orchestrator</h2>
+<p>The <code>AzureAIDirect</code> orchestrator passes the user's prompt to an LLM deployed as an <a href="https://learn.microsoft.com/en-us/azure/ai-studio/how-to/deploy-models-open">Azure AI Studio real-time endpoint.</a> This orchestrator allows customers to use a wider range of LLMs with FLLM agents.</p>
+<p>Example Configuration:</p>
+<pre><code class="lang-json">{
+  &quot;orchestration_settings&quot;: {
+    &quot;orchestrator&quot;: &quot;AzureAIDirect&quot;,
+    &quot;endpoint_configuration&quot;: {
+      &quot;endpoint&quot;: &quot;&lt;AZURE APP CONFIGURATION KEY&gt;&quot;,
+      &quot;api_key&quot;: &quot;&lt;AZURE APP CONFIGURATION KEY&gt;&quot;
+    },
+    &quot;model_parameters&quot;: {
+      &quot;temperature&quot;: 0.8,
+      &quot;max_new_tokens&quot;: 1000,
+      &quot;deployment_name&quot;: &quot;&lt;AZURE AI STUDIO DEPLOYMENT NAME&gt;&quot;
+    }
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> <code>AzureAIDirect</code> is only compatible with Knowledge Management agents with an Inline Context.</p>
+</blockquote>
 <h2 id="managing-knowledge-management-agents">Managing Knowledge Management Agents</h2>
 <p>This section describes how to manage knowledge management agents using the Management API. <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <h3 id="retrieve">Retrieve</h3>

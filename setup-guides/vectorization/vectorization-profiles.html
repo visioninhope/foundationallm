@@ -107,11 +107,11 @@
 <li><code>&lt;data_source_type&gt;</code> is the type of the data source. The supported types are <code>AzureDataLake</code>, <code>SharePointOnline</code>, <code>WebSite</code> and <code>AzureSQLDatabase</code>.</li>
 <li><code>&lt;name&gt;</code> is the name of the data source.</li>
 <li><code>&lt;instance_id&gt;</code> is the unique identifier of the FLLM instance.</li>
-<li><code>&lt;description&gt;</code> is the description of the content source profile.</li>
+<li><code>&lt;description&gt;</code> is the description of the Data Source.</li>
 <li><code>&lt;settings&gt;</code> is a JSON object containing the data source settings, the name of the property varies by data source type.</li>
 <li><code>&lt;configuration_references&gt;</code> is a JSON object containing the profile configuration references. The content of this object also varies by data source type.</li>
 </ul>
-<p>The reminder of this section describes the configuration parameters for each of the supported content source types.</p>
+<p>The reminder of this section describes the configuration parameters for each of the supported Data Source types.</p>
 <h3 id="azuredatalake"><code>AzureDataLake</code></h3>
 <pre><code class="lang-json">  &quot;folders&quot;: [
     &quot;/vectorization-input/sdzwa/journals/2024&quot;
@@ -142,7 +142,7 @@
 </tr>
 <tr>
 <td><code>configuration_references.ConnectionString</code></td>
-<td>The connection string to the Azure Storage account used for the the Azure Data Lake vectorization content source.</td>
+<td>The connection string to the Azure Storage account used for the the Azure Data Lake vectorization Data Source.</td>
 </tr>
 </tbody>
 </table>
@@ -185,7 +185,7 @@
 </tr>
 <tr>
 <td><code>configuration_references.ClientId</code></td>
-<td>The Application (client) Id of the Microsoft Entra ID App Registration. See <a href="#entra-id-app-registration-for-sharepoint-online-content-source">Entra ID app registration for SharePoint Online content source</a>.</td>
+<td>The Application (client) Id of the Microsoft Entra ID App Registration. See <a href="#entra-id-app-registration-for-sharepoint-online-data-source">Entra ID app registration for SharePoint Online Data Source</a>.</td>
 </tr>
 <tr>
 <td><code>configuration_references.TenantId</code></td>
@@ -217,7 +217,7 @@
 </tr>
 <tr>
 <td><code>configuration_references.ConnectionString</code></td>
-<td>The connection string to the Azure SQL database used for the Azure SQL Database vectorization content source.</td>
+<td>The connection string to the Azure SQL database used for the Azure SQL Database vectorization Data Source.</td>
 </tr>
 <tr>
 <td><code>configuration_references.AuthenticationType</code></td>
@@ -225,8 +225,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="managing-content-source-profiles">Managing content source profiles</h3>
-<p>This section describes how to manage content source profiles using the Management API.
+<h3 id="managing-data-sources">Managing Data Sources</h3>
+<p>This section describes how to manage Data Sources using the Management API.
 <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <p><strong>Retrieve</strong></p>
 <pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources
@@ -244,8 +244,24 @@ BODY
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>FLLM implements a <em>logical delete</em> for Content Source profiles. This means that users cannot create a Content Source profile with the same name as a deleted profile. Support for purging Content Source profiles will be added in a future release.</p>
+<p>The delete operation is a <em>logical delete</em>. To purge a Data Source, call the <code>/purge</code> endpoint after deleting the Data Source.</p>
 </div>
+<p><strong>Purge</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/&lt;name&gt;/purge
+Content-Type: application/json
+
+BODY
+{}
+</code></pre>
+<p><strong>Check Name</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/checkname
+Content-Type: application/json
+
+BODY
+{
+  &quot;name&quot;: &quot;&lt;name&gt;&quot;
+}
+</code></pre>
 <h2 id="text-partitioning-profiles">Text partitioning profiles</h2>
 <p>The structure of a text partitioning profile is the following:</p>
 <pre><code class="lang-json">{
@@ -323,26 +339,38 @@ BODY
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>FLLM implements a <em>logical delete</em> for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.</p>
+<p>The delete operation is a <em>logical delete</em>. To purge a Text Partitioning Profile, call the <code>/purge</code> endpoint after deleting the Text Partitioning Profile.</p>
 </div>
+<p><strong>Purge</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/&lt;name&gt;/purge
+Content-Type: application/json
+
+BODY
+{}
+</code></pre>
 <h2 id="text-embedding-profiles">Text embedding profiles</h2>
 <p>The structure of a text embedding profile is the following:</p>
 <pre><code class="lang-json">{
     &quot;type&quot;: &quot;text-embedding-profile&quot;,
     &quot;name&quot;: &quot;&lt;name&gt;&quot;,
-    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textembeddingprofiles/&lt;name&gt;&quot;,
+    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/&lt;name&gt;&quot;,
+    &quot;display_name&quot;: null,
     &quot;description&quot;: &quot;&lt;description&gt;&quot;,
-    &quot;deleted&quot;: false,
     &quot;text_embedding&quot;: &quot;&lt;text_embedding&gt;&quot;,
     &quot;settings&quot;: {&lt;profile_settings&gt;},
-    &quot;configuration_references&quot;: {&lt;profile_configuration_references&gt;}
+    &quot;configuration_references&quot;: {&lt;profile_configuration_references&gt;},
+    &quot;created_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;updated_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;created_by&quot;: null,
+    &quot;updated_by&quot;: null,
+    &quot;deleted&quot;: false
 }
 </code></pre>
 <p>where:</p>
 <ul>
 <li><code>&lt;name&gt;</code> is the name of the text embedding profile.</li>
 <li><code>&lt;description&gt;</code> is the description of the text embedding profile.</li>
-<li><code>&lt;text_embedding&gt;</code> is the type of the text embedder. The supported types are <code>SemanticKernelTextEmbedding</code>.</li>
+<li><code>&lt;text_embedding&gt;</code> is the type of the text embedder. The supported types are <code>SemanticKernelTextEmbedding</code> and <code>GatewayTextEmbedding</code>. <code>SemanticKernelTextEmbedding</code> supports synchronous and asynchronous vectorization, while <code>GatewayTextEmbedding</code> only supports asynchronous vectorization.</li>
 <li><code>&lt;profile_settings&gt;</code> is a JSON object containing the profile settings.</li>
 <li><code>&lt;profile_configuration_references&gt;</code> is a JSON object containing the profile configuration references.</li>
 </ul>
@@ -388,14 +416,35 @@ BODY
 </tr>
 </tbody>
 </table>
+<h3 id="gatewaytextembedding"><code>GatewayTextEmbedding</code></h3>
+<pre><code class="lang-json">&quot;settings&quot;: {
+  &quot;model_name&quot;: &quot;embeddings&quot;
+},
+&quot;configuration_references&quot;: {}
+</code></pre>
+<p>The settings for <code>GatewayTextEmbedding</code> are the following:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>settings.model_name</code></td>
+<td>The name of the embeddings model deployment in Azure OpenAI Service.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="managing-text-embedding-profiles">Managing text embedding profiles</h3>
 <p>This section describes how to manage text embedding profiles using the Management API.
 <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <p><strong>Retrieve</strong></p>
-<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles
+<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles
 </code></pre>
 <p><strong>Create or update</strong></p>
-<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/&lt;name&gt;
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/&lt;name&gt;
 Content-Type: application/json
 
 BODY
@@ -403,23 +452,36 @@ BODY
 </code></pre>
 <p>where <code>&lt;text embedding profile&gt;</code> is a JSON object with the structure described above.</p>
 <p><strong>Delete</strong></p>
-<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/&lt;name&gt;
+<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/&lt;name&gt;
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>FLLM implements a <em>logical delete</em> for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.</p>
+<p>The delete operation is a <em>logical delete</em>. To purge a Text Embedding Profile, call the <code>/purge</code> endpoint after deleting the Text Embedding Profile.</p>
 </div>
+<p><strong>Purge</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/&lt;name&gt;/purge
+Content-Type: application/json
+
+BODY
+{}
+</code></pre>
 <h2 id="indexing-profiles">Indexing profiles</h2>
 <p>The structure of an indexing profile is the following:</p>
 <pre><code class="lang-json">{
     &quot;type&quot;: &quot;indexing-profile&quot;,
     &quot;name&quot;: &quot;&lt;name&gt;&quot;,
-    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingprofiles/&lt;name&gt;&quot;,
+    &quot;object_id&quot;: &quot;/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingProfiles/&lt;name&gt;&quot;,
+    &quot;display_name&quot;: null,
     &quot;description&quot;: &quot;&lt;description&gt;&quot;,
     &quot;deleted&quot;: false,
     &quot;indexer&quot;: &quot;&lt;indexer&gt;&quot;,
     &quot;settings&quot;: {&lt;profile_settings&gt;},
-    &quot;configuration_references&quot;: {&lt;profile_configuration_references&gt;}
+    &quot;configuration_references&quot;: {&lt;profile_configuration_references&gt;},
+    &quot;created_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;updated_on&quot;: &quot;0001-01-01T00:00:00+00:00&quot;,
+    &quot;created_by&quot;: null,
+    &quot;updated_by&quot;: null,
+    &quot;deleted&quot;: false
 }
 </code></pre>
 <p>where:</p>
@@ -492,10 +554,10 @@ BODY
 <p>This section describes how to manage indexing profiles using the Management API.
 <code>{{baseUrl}}</code> is the base URL of the Management API. <code>{{instanceId}}</code> is the unique identifier of the FLLM instance.</p>
 <p><strong>Retrieve</strong></p>
-<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles
+<pre><code>HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles
 </code></pre>
 <p><strong>Create or update</strong></p>
-<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/&lt;name&gt;
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/&lt;name&gt;
 Content-Type: application/json
 
 BODY
@@ -503,14 +565,30 @@ BODY
 </code></pre>
 <p>where <code>&lt;indexing profile&gt;</code> is a JSON object with the structure described above.</p>
 <p><strong>Delete</strong></p>
-<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/&lt;name&gt;
+<pre><code>HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/&lt;name&gt;
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>FLLM implements a <em>logical delete</em> for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.</p>
+<p>The delete operation is a <em>logical delete</em>. To purge an Indexing Profile, call the <code>/purge</code> endpoint after deleting the Indexing Profile.</p>
 </div>
+<p><strong>Purge</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/&lt;name&gt;/purge
+Content-Type: application/json
+
+BODY
+{}
+</code></pre>
+<p><strong>Check Name</strong></p>
+<pre><code>HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/checkname
+Content-Type: application/json
+
+BODY
+{
+  &quot;name&quot;: &quot;&lt;name&gt;&quot;
+}
+</code></pre>
 <h2 id="additional-configuration-steps">Additional configuration steps</h2>
-<h3 id="entra-id-app-registration-for-sharepoint-online-content-source">Entra ID app registration for SharePoint Online content source</h3>
+<h3 id="entra-id-app-registration-for-sharepoint-online-data-source">Entra ID app registration for SharePoint Online Data Source</h3>
 <p>Apps typically access SharePoint Online through certificates: Anyone having the certificate and its private key can use the app with the permissions granted to it.</p>
 <ol>
 <li><p>Create a new <strong>App registration</strong> in your <strong>Microsoft Entra ID</strong> tenant. Next, provide a <strong>Name</strong> for your application and click on <strong>Register</strong> at the bottom of the blade.</p>

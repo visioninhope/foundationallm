@@ -9034,16 +9034,6 @@
       "version": ""
     },
     {
-      "type": "Conceptual",
-      "source_relative_path": "setup-guides/agents/knowledge-management-with-inline-context.md",
-      "output": {
-        ".html": {
-          "relative_path": "setup-guides/agents/knowledge-management-with-inline-context.html"
-        }
-      },
-      "version": ""
-    },
-    {
       "type": "Resource",
       "source_relative_path": "setup-guides/agents/media/add-kv-reference.png",
       "output": {
