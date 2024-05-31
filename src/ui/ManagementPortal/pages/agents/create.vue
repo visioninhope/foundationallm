@@ -429,7 +429,7 @@
 					<div class="step-container__header">Gatekeeper</div>
 
 					<div class="d-flex align-center mt-2">
-						<span class="step-option__header">System Default::</span>
+						<span class="step-option__header">System Default:</span>
 						<span>
 							<ToggleButton
 								v-model="gatekeeperEnabled"
