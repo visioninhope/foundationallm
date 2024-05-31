@@ -214,10 +214,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         /// <returns>The built kernel.</returns>
         private Kernel BuildKernel(IKernelBuilder builder)
         {
-            var credential = DefaultAuthentication.AzureCredential;
-
-            var builder = Kernel.CreateBuilder();
-            builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
+            var credential = DefaultAuthentication.AzureCredential;                        
 
             // Create an HTTP client with to pass into AddAzureOpenAIChatCompletion           
             var httpClient = httpClientFactoryService.CreateUnregisteredClient(TimeSpan.FromMinutes(20));
