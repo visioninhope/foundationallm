@@ -21489,6 +21489,30 @@ references:
   commentId: N:FoundationaLLM.Core.Models
   fullName: FoundationaLLM.Core.Models
   nameWithType: FoundationaLLM.Core.Models
+- uid: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption
+  name: AgentGatekeeperOverrideOption
+  href: api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html
+  commentId: T:FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption
+  fullName: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption
+  nameWithType: AgentGatekeeperOverrideOption
+- uid: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustBypass
+  name: MustBypass
+  href: api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html#FoundationaLLM_Core_Models_AgentGatekeeperOverrideOption_MustBypass
+  commentId: F:FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustBypass
+  fullName: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustBypass
+  nameWithType: AgentGatekeeperOverrideOption.MustBypass
+- uid: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustCall
+  name: MustCall
+  href: api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html#FoundationaLLM_Core_Models_AgentGatekeeperOverrideOption_MustCall
+  commentId: F:FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustCall
+  fullName: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.MustCall
+  nameWithType: AgentGatekeeperOverrideOption.MustCall
+- uid: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.UseSystemOption
+  name: UseSystemOption
+  href: api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html#FoundationaLLM_Core_Models_AgentGatekeeperOverrideOption_UseSystemOption
+  commentId: F:FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.UseSystemOption
+  fullName: FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.UseSystemOption
+  nameWithType: AgentGatekeeperOverrideOption.UseSystemOption
 - uid: FoundationaLLM.Core.Models.Configuration
   name: FoundationaLLM.Core.Models.Configuration
   href: api/dotnet/FoundationaLLM.Core.Models.Configuration.html

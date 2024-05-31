@@ -4452,6 +4452,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Core.Models.Configuration.ChatSessionNameSummarizationType.yml",
       "output": {
         ".html": {

@@ -2219,6 +2219,11 @@
     "title": "Namespace FoundationaLLM.Core.Interfaces | FoundationaLLM",
     "keywords": "Namespace FoundationaLLM.Core.Interfaces Interfaces ICoreService Contains methods for managing chat sessions and messages, and for getting completions from the orchestrator. ICosmosDbChangeFeedService Contains Azure Cosmos DB change feed methods. ICosmosDbService Contains methods for accessing Azure Cosmos DB for NoSQL. IGatekeeperAPIService Contains methods for interacting with the Gatekeeper API. IUserProfileService Provides methods for working with user profiles."
   },
+  "api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html": {
+    "href": "api/dotnet/FoundationaLLM.Core.Models.AgentGatekeeperOverrideOption.html",
+    "title": "Enum AgentGatekeeperOverrideOption | FoundationaLLM",
+    "keywords": "Enum AgentGatekeeperOverrideOption Namespace FoundationaLLM.Core.Models Assembly FoundationaLLM.Core.dll Gatekeeper override options expressed by an agent. public enum AgentGatekeeperOverrideOption Extension Methods ObjectExtensions.GetPropertyValues(object, List<string>) Fields MustBypass = 1 The agent requires an explicit bypass of the Gatekeeper, regardless of the system option. MustCall = 2 The agent requires an explicit call to the Gatekeeper, regardless of the system option. UseSystemOption = 0 The agent deferrs to the system option."
+  },
   "api/dotnet/FoundationaLLM.Core.Models.Configuration.ChatSessionNameSummarizationType.html": {
     "href": "api/dotnet/FoundationaLLM.Core.Models.Configuration.ChatSessionNameSummarizationType.html",
     "title": "Enum ChatSessionNameSummarizationType | FoundationaLLM",
@@ -2242,7 +2247,7 @@
   "api/dotnet/FoundationaLLM.Core.Models.html": {
     "href": "api/dotnet/FoundationaLLM.Core.Models.html",
     "title": "Namespace FoundationaLLM.Core.Models | FoundationaLLM",
-    "keywords": "Namespace FoundationaLLM.Core.Models Namespaces FoundationaLLM.Core.Models.Configuration Classes SessionTypes Constants for chat session types."
+    "keywords": "Namespace FoundationaLLM.Core.Models Namespaces FoundationaLLM.Core.Models.Configuration Classes SessionTypes Constants for chat session types. Enums AgentGatekeeperOverrideOption Gatekeeper override options expressed by an agent."
   },
   "api/dotnet/FoundationaLLM.Core.Services.CoreService.html": {
     "href": "api/dotnet/FoundationaLLM.Core.Services.CoreService.html",
