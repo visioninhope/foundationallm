@@ -199,7 +199,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
 
             for (int i = 0; i < other.ResourceTypeInstances.Count; i++)
             {
-                if (!other.ResourceTypeInstances[i].EqualTo(_resourceTypeInstances[i]))
+                if (!_resourceTypeInstances[i].Includes(other.ResourceTypeInstances[i]))
                     return false;
             }
 
