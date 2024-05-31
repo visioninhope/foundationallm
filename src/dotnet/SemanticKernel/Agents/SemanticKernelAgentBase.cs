@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
@@ -110,7 +110,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     UserId = "SemanticKernelAPI",
                     Username = "SemanticKernelAPI"
                 });
-            return (result as List<ResourceProviderGetResult<T>>)!.First().Resource;
+            var resource = (result as List<ResourceProviderGetResult<T>>)!.First().Resource;
+            return resource;
         }
 
         private void ValidateRequest()

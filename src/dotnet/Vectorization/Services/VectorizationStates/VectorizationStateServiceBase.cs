@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Vectorization.Models;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,12 +12,20 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
     public abstract class VectorizationStateServiceBase
     {
         /// <summary>
-        /// Gets the persistence identifier of the vectorization state based on the content identifier.
+        /// Gets the persistence identifier of the vectorization state based on the vectorization request.
         /// </summary>
-        /// <param name="contentIdentifier">The <see cref="ContentIdentifier"/> holding the content identification information.</param>
+        /// <param name="vectorizationRequest">The <see cref="VectorizationRequest"/> for which the persistence identifier is being built.</param>
         /// <returns>The string version of the persistence identifier.</returns>
-        protected string GetPersistenceIdentifier(ContentIdentifier contentIdentifier) =>
-            $"{contentIdentifier.CanonicalId}_state_{HashContentIdentifier(contentIdentifier)}";
+        protected string GetPersistenceIdentifier(VectorizationRequest vectorizationRequest) =>
+            $"{vectorizationRequest.ContentIdentifier.CanonicalId}_{vectorizationRequest.PipelineName}_state_{HashContentIdentifier(vectorizationRequest.ContentIdentifier)}";
+
+        /// <summary>
+        /// Gets the persistence identifier of the vectorization state based on the vectorization state itself.
+        /// </summary>
+        /// <param name="vectorizationState">The <see cref="VectorizationState"/> for which the persistence identifier is being built.</param>
+        /// <returns>The string version of the persistence identifier.</returns>
+        protected string GetPersistenceIdentifier(VectorizationState vectorizationState) =>
+            $"{vectorizationState.ContentIdentifier.CanonicalId}_{vectorizationState.PipelineName}_state_{HashContentIdentifier(vectorizationState.ContentIdentifier)}";
 
         /// <summary>
         /// Computes the MD5 hash of the content identifier.

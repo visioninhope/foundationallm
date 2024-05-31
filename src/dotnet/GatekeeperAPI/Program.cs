@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
@@ -80,16 +81,16 @@ namespace FoundationaLLM.Gatekeeper.API
 
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
-            builder.Services.AddOptions<RefinementServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Refinement));
-            builder.Services.AddScoped<IRefinementService, RefinementService>();
-
             builder.Services.AddOptions<LakeraGuardServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_LakeraGuard));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_LakeraGuard));
             builder.Services.AddScoped<ILakeraGuardService, LakeraGuardService>();
 
+            builder.Services.AddOptions<EnkryptGuardrailsServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails));
+            builder.Services.AddScoped<IEnkryptGuardrailsService, EnkryptGuardrailsService>();
+
             builder.Services.AddOptions<AzureContentSafetySettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureContentSafety));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety));
             builder.Services.AddScoped<IContentSafetyService, AzureContentSafetyService>();
             builder.Services.AddScoped<IGatekeeperIntegrationAPIService, GatekeeperIntegrationAPIService>();
 
@@ -188,10 +189,11 @@ namespace FoundationaLLM.Gatekeeper.API
                 DownstreamAPIs = []
             };
 
-            var orchestrationAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(35)
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
@@ -206,10 +208,11 @@ namespace FoundationaLLM.Gatekeeper.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var gatekeeperIntegrationAPISettings = new DownstreamAPIKeySettings
+            var gatekeeperIntegrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(30)
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperIntegrationAPI] = gatekeeperIntegrationAPISettings;

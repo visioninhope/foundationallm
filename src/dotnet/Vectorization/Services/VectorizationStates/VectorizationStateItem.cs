@@ -9,6 +9,12 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
     public class VectorizationStateItem
     {
         /// <summary>
+        /// The name of the pipeline the item relates to.
+        /// </summary>
+        [ParquetRequired]
+        public string? PipelineName { get; set; }
+
+        /// <summary>
         /// The position of the item in the list of vectorization artifacts.
         /// </summary>
         [ParquetRequired]

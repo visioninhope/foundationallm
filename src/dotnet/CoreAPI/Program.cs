@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
@@ -58,6 +59,7 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -89,9 +91,7 @@ namespace FoundationaLLM.Core.API
             // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.AddAgentResourceProvider();
-
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
+            builder.AddAttachmentResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
@@ -117,11 +117,16 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
             // Add authentication configuration.
+            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
+            var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
             builder.AddAuthenticationConfiguration(
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
                 AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
-                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes);
+                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
+                requireScopes: !isE2ETestEnvironment,
+                allowACLAuthorization: isE2ETestEnvironment
+            );
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
@@ -257,16 +262,20 @@ namespace FoundationaLLM.Core.API
                 DownstreamAPIs = []
             };
 
-            var gatekeeperAPISettings = new DownstreamAPIKeySettings
+            var gatekeeperAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(40)
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperAPI] = gatekeeperAPISettings;
 
             builder.Services
                     .AddHttpClient(HttpClients.GatekeeperAPI,
-                        client => { client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl); })
+                        client => {
+                            client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl);
+                            client.Timeout = gatekeeperAPISettings.Timeout.Value;
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -274,17 +283,21 @@ namespace FoundationaLLM.Core.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var orchestrationAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(35)
             };
 
             downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
                     .AddHttpClient(HttpClients.OrchestrationAPI,
-                        client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
+                        client => {
+                            client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl);
+                            client.Timeout = orchestrationAPISettings.Timeout.Value;
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
