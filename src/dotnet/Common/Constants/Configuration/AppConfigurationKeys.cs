@@ -1016,6 +1016,10 @@
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
         /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
+        /// <summary>
         /// The key section for the FoundationaLLM:Gateway app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway";
