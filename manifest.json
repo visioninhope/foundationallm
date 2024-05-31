@@ -8104,6 +8104,16 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/vpn-client.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/vpn-client.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "deployment/soft-delete.md",
       "output": {

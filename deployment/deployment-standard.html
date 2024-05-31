@@ -178,11 +178,17 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <h2 id="configure-and-deploy">Configure and Deploy</h2>
 <ol start="10">
 <li><p>Connect to VPN</p>
-<p>First visit the VPN gateway in the networking resource group and follow the following instructions to download the configuration, client and connect to VPN.</p>
+<p>First, download and install the Azure VPN client and connect to the VPN gateway.</p>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client">Windows</a></li>
 <li><a href="https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client-mac">MacOS</a></li>
 </ul>
+<p>Next, using the Azure portal download and then import the VPN configuration. Locate the VPN gateway in the networking resource group, click Point-to-Site, then <em>Download VPN Client</em> and follow the following instructions to download the configuration, client and connect to VPN.</p>
+<p><img src="media/vpn-client.png" alt="Download the VPN Configuration from the Azure Portal."></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Make sure to connect to the VPN before proceeding to the next step.</p>
+</div>
 </li>
 <li><p>Execute the second post-provision script:</p>
 </li>
@@ -192,6 +198,12 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <pre><code>The post-deployment script will upload the certificates to the Azure Key Vault.
 </code></pre>
 <ol start="12">
+<li>Run the bootstrap script to prepare download and install Azcopy:</li>
+</ol>
+<pre><code class="lang-powershell">  ./Bootstrap.ps1
+</code></pre>
+<p>When prompted, sign in to your Azcopy with your Azure account. This should be the same account you used to log in to the Azure CLI.</p>
+<ol start="13">
 <li>Execute the deployment script:</li>
 </ol>
 <pre><code class="lang-powershell">  ./Deploy.ps1
