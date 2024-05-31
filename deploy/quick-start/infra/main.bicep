@@ -247,6 +247,12 @@ var searchWriterRoleTargets = [
   'vectorization-job'
 ]
 
+var openAiRoleTargets = [
+  'gateway-api'
+  'semantic-kernel-api'
+  'langchain-api'
+]
+
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
@@ -607,17 +613,19 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   }
 ]
 
-module openAiRoles './shared/roleAssignments.bicep' = {
-  scope: rg
-  name: 'gateway-api-openai-roles'
-  params: {
-    principalId: acaServices[indexOf(serviceNames, 'gateway-api')].outputs.miPrincipalId
-    roleDefinitionNames: [
-      'Cognitive Services OpenAI User'
-      'Reader'
-    ]
+module openAiRoles './shared/roleAssignments.bicep' = [
+  for target in openAiRoleTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services OpenAI User'
+        'Reader'
+      ]
+    }
   }
-}
+]
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
