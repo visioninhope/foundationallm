@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FoundationaLLM.SemanticKernel.Core.Models.Configuration
 {
     /// <summary>
-    /// Provides configuration settings for the PostgreSQL indexing service.
+    /// Provides configuration settings for the PostgreSQL vector indexing service.
     /// </summary>
     public record PostgresIndexingServiceSettings
     {
