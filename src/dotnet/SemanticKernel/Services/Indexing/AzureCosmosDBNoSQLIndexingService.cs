@@ -1,7 +1,9 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using Azure.ResourceManager;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,12 +11,7 @@ using Microsoft.SemanticKernel.Connectors.AzureCosmosDBNoSQL;
 using Microsoft.SemanticKernel.Memory;
 using System.Collections.ObjectModel;
 using System.Text.Json;
-using Azure.ResourceManager;
-using Azure.ResourceManager.CosmosDB;
 using Embedding = Microsoft.Azure.Cosmos.Embedding;
-using FoundationaLLM.Common.Authentication;
-using Azure.Core;
-using Microsoft.Graph.Models;
 
 #pragma warning disable SKEXP0001, SKEXP0020
 
@@ -25,11 +22,9 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
     /// </summary>
     public class AzureCosmosDBNoSQLIndexingService : IIndexingService
     {
-        private readonly CosmosDbSettings _settings;
+        private readonly AzureCosmosDBNoSQLIndexingServiceSettings _settings;
         private readonly ILogger<AzureCosmosDBNoSQLIndexingService> _logger;
         private readonly AzureCosmosDBNoSQLMemoryStore _memoryStore;
-        private readonly CosmosClient _client;
-        private readonly ArmClient _armClient;
 
         /// <summary>
         /// Creates a new <see cref="AzureCosmosDBNoSQLIndexingService"/> instance.
@@ -37,18 +32,12 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         /// <param name="options">The <see cref="IOptions{TOptions}"/> providing configuration settings.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public AzureCosmosDBNoSQLIndexingService(
-            IOptions<CosmosDbSettings> options,
-            CosmosClient client,
+            IOptions<AzureCosmosDBNoSQLIndexingServiceSettings> options,
             ILogger<AzureCosmosDBNoSQLIndexingService> logger)
         {
             _settings = options.Value;
             _logger = logger;
-            _client = client;
             _memoryStore = CreateMemoryStore();
-
-            //_armClient = new ArmClient(DefaultAuthentication.AzureCredential);
-            //var cosmosDBSqlContainerResourceId = CosmosDBSqlContainerResource.CreateResourceIdentifier();
-            //var cosmosDBSqlContainer = _armClient.GetCosmosDBSqlContainerResource(cosmosDBSqlContainerResourceId);
         }
 
         /// <inheritdoc/>
@@ -78,9 +67,15 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
             return indexIds;
         }
 
-        private void ValidateDatabase(string? value)
+        private void ValidateSettings(string connectionString, string? databaseName)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                _logger.LogCritical("The Azure Cosmos DB connection string is invalid.");
+                throw new ConfigurationValueException("The Azure Cosmos DB connection string is invalid.");
+            }
+
+            if (string.IsNullOrWhiteSpace(databaseName))
             {
                 _logger.LogCritical("The Azure Cosmos DB vector database name is invalid.");
                 throw new ConfigurationValueException("The Azure Cosmos DB vector database name is invalid.");
@@ -94,9 +89,9 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         /// <returns></returns>
         private AzureCosmosDBNoSQLMemoryStore CreateMemoryStore()
         {
-            ValidateDatabase(_settings.VectorDatabase);
+            ValidateSettings(_settings.ConnectionString, _settings.VectorDatabase);
             return new AzureCosmosDBNoSQLMemoryStore(
-                _client,
+                _settings.ConnectionString,
                 _settings.VectorDatabase!,
                 new VectorEmbeddingPolicy(
                     new Collection<Embedding>(

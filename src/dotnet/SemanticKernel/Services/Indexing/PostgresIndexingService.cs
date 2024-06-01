@@ -67,7 +67,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
             return indexIds;
         }
 
-        private void ValidateEndpoint(string? connectionString, string? vectorSize)
+        private void ValidateSettings(string? connectionString, string? vectorSize)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
@@ -84,7 +84,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
 
         private PostgresMemoryStore CreateMemoryStore()
         {
-            ValidateEndpoint(_settings.ConnectionString, _settings.VectorSize);
+            ValidateSettings(_settings.ConnectionString, _settings.VectorSize);
             int.TryParse(_settings.VectorSize, out var vectorSize);
             return !string.IsNullOrWhiteSpace(_settings.Schema) ?
                 new PostgresMemoryStore(_settings.ConnectionString, vectorSize, _settings.Schema) :

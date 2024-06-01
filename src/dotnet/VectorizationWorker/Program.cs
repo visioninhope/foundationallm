@@ -47,7 +47,6 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
@@ -88,9 +87,6 @@ builder.Services.AddAzureEventGridEvents(
     builder.Configuration,
     AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
 
-builder.Services.AddOptions<CosmosDbSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
-
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
 
@@ -103,6 +99,9 @@ builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
 
 builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+
+builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService));
 
 builder.Services.AddOptions<PostgresIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
