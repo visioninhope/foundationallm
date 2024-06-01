@@ -25,18 +25,60 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         private readonly AzureCosmosDBNoSQLIndexingServiceSettings _settings;
         private readonly ILogger<AzureCosmosDBNoSQLIndexingService> _logger;
         private readonly AzureCosmosDBNoSQLMemoryStore _memoryStore;
+        private readonly CosmosClient _cosmosClient;
+        private readonly Database _database;
+        private readonly VectorEmbeddingPolicy _vectorEmbeddingPolicy;
+        private readonly IndexingPolicy _indexingPolicy;
 
         /// <summary>
         /// Creates a new <see cref="AzureCosmosDBNoSQLIndexingService"/> instance.
         /// </summary>
         /// <param name="options">The <see cref="IOptions{TOptions}"/> providing configuration settings.</param>
+        /// <param name="cosmosClient">An instance of the <see cref="CosmosClient"/> used for completing
+        /// vectorization-related requests and workspace management.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public AzureCosmosDBNoSQLIndexingService(
             IOptions<AzureCosmosDBNoSQLIndexingServiceSettings> options,
+            CosmosClient cosmosClient,
             ILogger<AzureCosmosDBNoSQLIndexingService> logger)
         {
             _settings = options.Value;
             _logger = logger;
+            _cosmosClient = cosmosClient;
+            
+            // Create the database if it does not exist.
+            var databaseResponse = _cosmosClient.CreateDatabaseIfNotExistsAsync(_settings.VectorDatabase).Result;
+            if (!databaseResponse.StatusCode.Equals(System.Net.HttpStatusCode.OK) &&
+                !databaseResponse.StatusCode.Equals(System.Net.HttpStatusCode.Created))
+            {
+                _logger.LogCritical("The Azure Cosmos DB vector database could not be created.");
+                throw new ConfigurationValueException("The Azure Cosmos DB vector database could not be created.");
+            }
+            _database = databaseResponse.Database;
+
+            _vectorEmbeddingPolicy = new VectorEmbeddingPolicy(
+                new Collection<Embedding>(
+                [
+                    new Embedding()
+                    {
+                        Path = "/embedding",
+                        DataType = VectorDataType.Float32,
+                        DistanceFunction = DistanceFunction.Cosine,
+                        Dimensions = 3072
+                    }
+                ]));
+            _indexingPolicy = new IndexingPolicy
+            {
+                VectorIndexes =
+                [
+                    new VectorIndexPath()
+                    {
+                        Path = "/embedding",
+                        Type = VectorIndexType.QuantizedFlat
+                    }
+                ]
+            };
+
             _memoryStore = CreateMemoryStore();
         }
 
@@ -45,7 +87,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         {
             if (!await _memoryStore.DoesCollectionExistAsync(indexName, default).ConfigureAwait(false))
             {
-                await _memoryStore.CreateCollectionAsync(indexName, default).ConfigureAwait(false);
+                // Use the internal method to create the collection instead of the _memoryStore method. Doing so allows us to set the throughput properties.
+                await CreateCollectionAsync(indexName, default).ConfigureAwait(false);
             }
 
             var indexIds = new List<string>();
@@ -65,6 +108,31 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
             }
 
             return indexIds;
+        }
+
+        /// <summary>
+        /// Creates a new collection in the Azure Cosmos DB database for the vector embeddings.
+        /// </summary>
+        /// <param name="collectionName">The name of the collection to create.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        private async Task<bool> CreateCollectionAsync(string collectionName, CancellationToken cancellationToken = default)
+        {
+            _ = int.TryParse(_settings.AutoscaleMaxThroughput, out var autoscaleMaxThroughput);
+            var throughputProperties = ThroughputProperties.CreateAutoscaleThroughput(autoscaleMaxThroughput);
+
+            // Define new container properties including the vector indexing policy
+            ContainerProperties properties = new(id: collectionName, partitionKeyPath: "/key")
+            {
+                // Define the vector embedding container policy
+                VectorEmbeddingPolicy = _vectorEmbeddingPolicy,
+                IndexingPolicy = _indexingPolicy
+            };
+
+            // Create the container
+            var response = await _database.CreateContainerIfNotExistsAsync(properties, throughputProperties, cancellationToken: cancellationToken);
+            return response.StatusCode.Equals(System.Net.HttpStatusCode.OK) ||
+                response.StatusCode.Equals(System.Net.HttpStatusCode.Created);
         }
 
         private void ValidateSettings(string connectionString, string? databaseName)
@@ -91,30 +159,10 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         {
             ValidateSettings(_settings.ConnectionString, _settings.VectorDatabase);
             return new AzureCosmosDBNoSQLMemoryStore(
-                _settings.ConnectionString,
+                _cosmosClient,
                 _settings.VectorDatabase!,
-                new VectorEmbeddingPolicy(
-                    new Collection<Embedding>(
-                    [
-                        new Embedding()
-                        {
-                            Path = "/embedding",
-                            DataType = VectorDataType.Float32,
-                            DistanceFunction = DistanceFunction.Cosine,
-                            Dimensions = 3072
-                        }
-                    ])),
-                new IndexingPolicy()
-                {
-                    VectorIndexes =
-                    [
-                        new VectorIndexPath()
-                        {
-                            Path = "/embedding",
-                            Type = VectorIndexType.QuantizedFlat
-                        }
-                    ]
-                }
+                _vectorEmbeddingPolicy,
+                _indexingPolicy
             );
         }
     }

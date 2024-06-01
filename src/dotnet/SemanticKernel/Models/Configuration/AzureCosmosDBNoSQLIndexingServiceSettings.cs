@@ -27,5 +27,11 @@ namespace FoundationaLLM.SemanticKernel.Core.Models.Configuration
         /// the FoundationaLLM platform, as it is used for vectorization purposes.
         /// </summary>
         public string? VectorDatabase { get; set; }
+
+        /// <summary>
+        /// Sets the maximum authoscale throughput for new containers automatically created
+        /// for this vector database. The default value is 4000 RU/s.
+        /// </summary>
+        public string AutoscaleMaxThroughput { get; set; } = "4000";
     }
 }

@@ -106,8 +106,8 @@ builder.Services.AddKeyedSingleton(
 
 builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
 {
-    var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
-    return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
+    var settings = serviceProvider.GetRequiredService<IOptions<AzureCosmosDBNoSQLIndexingServiceSettings>>().Value;
+    return new CosmosClientBuilder(settings.ConnectionString)
         .WithCustomSerializer(new CosmosSystemTextJsonSerializer(JsonSerializerOptions.Default))
         .WithConnectionModeGateway()
         .Build();
