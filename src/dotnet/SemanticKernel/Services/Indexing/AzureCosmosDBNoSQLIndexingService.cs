@@ -27,8 +27,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         private readonly AzureCosmosDBNoSQLMemoryStore _memoryStore;
         private readonly CosmosClient _cosmosClient;
         private readonly Database _database;
-        private readonly VectorEmbeddingPolicy _vectorEmbeddingPolicy;
-        private readonly IndexingPolicy _indexingPolicy;
 
         /// <summary>
         /// Creates a new <see cref="AzureCosmosDBNoSQLIndexingService"/> instance.
@@ -55,29 +53,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
                 throw new ConfigurationValueException("The Azure Cosmos DB vector database could not be created.");
             }
             _database = databaseResponse.Database;
-
-            _vectorEmbeddingPolicy = new VectorEmbeddingPolicy(
-                new Collection<Embedding>(
-                [
-                    new Embedding()
-                    {
-                        Path = "/embedding",
-                        DataType = VectorDataType.Float32,
-                        DistanceFunction = DistanceFunction.Cosine,
-                        Dimensions = 3072
-                    }
-                ]));
-            _indexingPolicy = new IndexingPolicy
-            {
-                VectorIndexes =
-                [
-                    new VectorIndexPath()
-                    {
-                        Path = "/embedding",
-                        Type = VectorIndexType.QuantizedFlat
-                    }
-                ]
-            };
 
             _memoryStore = CreateMemoryStore();
         }
@@ -125,8 +100,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
             ContainerProperties properties = new(id: collectionName, partitionKeyPath: "/key")
             {
                 // Define the vector embedding container policy
-                VectorEmbeddingPolicy = _vectorEmbeddingPolicy,
-                IndexingPolicy = _indexingPolicy
+                VectorEmbeddingPolicy = _settings.VectorEmbeddingPolicy,
+                IndexingPolicy = _settings.IndexingPolicy
             };
 
             // Create the container
@@ -161,8 +136,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
             return new AzureCosmosDBNoSQLMemoryStore(
                 _cosmosClient,
                 _settings.VectorDatabase!,
-                _vectorEmbeddingPolicy,
-                _indexingPolicy
+                _settings.VectorEmbeddingPolicy,
+                _settings.IndexingPolicy
             );
         }
     }
