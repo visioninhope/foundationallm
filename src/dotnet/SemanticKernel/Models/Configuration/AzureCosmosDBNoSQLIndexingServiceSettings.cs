@@ -1,10 +1,12 @@
 ﻿using FoundationaLLM.Common.Settings;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.Azure.Cosmos;
 
 namespace FoundationaLLM.SemanticKernel.Core.Models.Configuration
 {
@@ -33,5 +35,35 @@ namespace FoundationaLLM.SemanticKernel.Core.Models.Configuration
         /// for this vector database. The default value is 4000 RU/s.
         /// </summary>
         public string AutoscaleMaxThroughput { get; set; } = "4000";
+
+        /// <summary>
+        /// Defines the default indexing policy for the vector database.
+        /// </summary>
+        public VectorEmbeddingPolicy VectorEmbeddingPolicy => new (
+        new Collection<Embedding>(
+            [
+                new Embedding()
+            {
+                Path = "/embedding",
+                DataType = VectorDataType.Float32,
+                DistanceFunction = DistanceFunction.Cosine,
+                Dimensions = 3072
+            }
+            ]));
+
+        /// <summary>
+        /// Defines the default indexing policy for the vector database.
+        /// </summary>
+        public IndexingPolicy IndexingPolicy => new()
+        {
+            VectorIndexes =
+            [
+                new VectorIndexPath()
+                {
+                    Path = "/embedding",
+                    Type = VectorIndexType.QuantizedFlat
+                }
+            ]
+        };
     }
 }
