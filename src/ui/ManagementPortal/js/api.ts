@@ -23,8 +23,6 @@ async function wait(milliseconds: number = 1000): Promise<void> {
 }
 
 export default {
-	mockLoadTime: 1000,
-
 	apiVersion: '2024-02-16',
 	apiUrl: null as string | null,
 	setApiUrl(apiUrl: string) {
@@ -237,8 +235,6 @@ export default {
 
 	// App Configuration
 	async getAppConfig(key: string): Promise<ResourceProviderGetResult<AppConfigUnion>> {
-		// await wait(this.mockLoadTime);
-		// return mockAzureDataLakeDataSource1;
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`,
 		);
@@ -459,11 +455,6 @@ export default {
 				method: 'DELETE',
 			},
 		);
-	},
-
-	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
-		await wait(this.mockLoadTime);
-		return [];
 	},
 
 	// Prompts
