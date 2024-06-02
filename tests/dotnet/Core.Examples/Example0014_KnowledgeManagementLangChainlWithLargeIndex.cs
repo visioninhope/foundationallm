@@ -37,7 +37,7 @@ namespace FoundationaLLM.Core.Examples
             {
                 "Who are you?",
                 "Who is the enemy of Paul Atreides?",
-                "Who is 'Paul-Muad'Dib' and what is his relationship to the Fremen?"
+                "What is a sand worm?"
             };
 
             WriteLine($"Send questions to the {agentName} agent.");
