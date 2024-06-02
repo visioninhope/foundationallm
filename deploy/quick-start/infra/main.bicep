@@ -247,6 +247,12 @@ var searchWriterRoleTargets = [
   'vectorization-job'
 ]
 
+var openAiRoleTargets = [
+  'gateway-api'
+  'semantic-kernel-api'
+  'langchain-api'
+]
+
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
@@ -607,28 +613,31 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   }
 ]
 
-module openAiRoles './shared/roleAssignments.bicep' = {
-  scope: rg
-  name: 'gateway-api-openai-roles'
-  params: {
-    principalId: acaServices[indexOf(serviceNames, 'gateway-api')].outputs.miPrincipalId
-    roleDefinitionNames: [
-      'Cognitive Services OpenAI User'
-      'Reader'
-    ]
+module openAiRoles './shared/roleAssignments.bicep' = [
+  for target in openAiRoleTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services OpenAI User'
+        'Reader'
+      ]
+    }
   }
-}
+]
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
+output AZURE_COGNITIVE_SEARCH_NAME string = cogSearch.outputs.name
 output AZURE_CONTENT_SAFETY_ENDPOINT string = contentSafety.outputs.endpoint
-output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_COSMOS_DB_ENDPOINT string = cosmosDb.outputs.endpoint
+output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_EVENT_GRID_ENDPOINT string = eventgrid.outputs.endpoint
 output AZURE_EVENT_GRID_ID string = eventgrid.outputs.id
-output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
+output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_OPENAI_ENDPOINT string = azureOpenAiEndpoint
 output AZURE_OPENAI_ID string = azureOpenAiId
 output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name

@@ -128,11 +128,10 @@ public partial class CoreService(
                 Attachments = orchestrationRequest.Attachments
             };
 
-            if (!_settings.BypassGatekeeper)
-                completionRequest.GatekeeperOptions = await GetGatekeeperOptions(completionRequest.AgentName);
+            var agentOption = await ProcessGatekeeperOptions(completionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService().GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
@@ -163,11 +162,10 @@ public partial class CoreService(
     {
         try
         {
-            if (!_settings.BypassGatekeeper)
-                directCompletionRequest.GatekeeperOptions = await GetGatekeeperOptions(directCompletionRequest.AgentName);
+            var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService().GetCompletion(directCompletionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(directCompletionRequest);
 
             return new Completion { Text = result.Completion };
         }
@@ -201,7 +199,7 @@ public partial class CoreService(
                         UserPrompt = prompt
                     };
 
-                    var summaryResponse = await GetDownstreamAPIService().GetSummary(summaryRequest);
+                    var summaryResponse = await GetDownstreamAPIService(AgentGatekeeperOverrideOption.UseSystemOption).GetSummary(summaryRequest);
 
                     // Remove any punctuation from the summary.
                     sessionNameSummary = ChatSessionNameReplacementRegex().Replace(summaryResponse.Summary!, string.Empty);
@@ -221,28 +219,32 @@ public partial class CoreService(
         }
     }
 
-    private IDownstreamAPIService GetDownstreamAPIService() =>
-        _settings.BypassGatekeeper
+    private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
+        ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
+        || (agentOption == AgentGatekeeperOverrideOption.MustBypass)
             ? _orchestrationAPIService
             : _gatekeeperAPIService;
 
-    private async Task<string[]?> GetGatekeeperOptions(string? agentName)
+    private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
         if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
             throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
 
-        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{agentName}", _callContext.CurrentUserIdentity ??
+        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.Gatekeeper?.UseSystemSetting == false)
         {
+            // Agent does not want to use system settings, however it does not have any Gatekeeper options either
+            // Consequently, a request to bypass Gatekeeper will be returned.
             if (agentBase!.Gatekeeper!.Options == null || agentBase.Gatekeeper.Options.Length == 0)
-                _settings.BypassGatekeeper = true;
+                return AgentGatekeeperOverrideOption.MustBypass;
 
-            return agentBase.Gatekeeper.Options;
+            completionRequest.GatekeeperOptions = agentBase.Gatekeeper.Options;
+            return AgentGatekeeperOverrideOption.MustCall;
         }
 
-        return null;
+        return AgentGatekeeperOverrideOption.UseSystemOption;
     }
 
     /// <summary>

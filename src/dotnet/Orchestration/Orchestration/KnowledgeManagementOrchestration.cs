@@ -22,21 +22,32 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <param name="orchestrationService"></param>
     /// <param name="logger">The logger used for logging.</param>
     /// <param name="resourceProviderServices">The dictionary of <see cref="IResourceProviderService"/></param>
+    /// <param name="dataSourceAccessDenied">Inidicates that access was denied to all underlying data sources.</param>
     public class KnowledgeManagementOrchestration(
         KnowledgeManagementAgent agent,
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
         ILogger<OrchestrationBase> logger,
-        Dictionary<string, IResourceProviderService> resourceProviderServices) : OrchestrationBase(orchestrationService)
+        Dictionary<string, IResourceProviderService> resourceProviderServices,
+        bool dataSourceAccessDenied) : OrchestrationBase(orchestrationService)
     {
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
         private readonly KnowledgeManagementAgent _agent = agent;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices;
+        private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
         /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
+            if (_dataSourceAccessDenied)
+                return new CompletionResponse
+                {
+                    Completion = "I have no knowledge that can be used to answer this question.",
+                    UserPrompt = completionRequest.UserPrompt!,
+                    AgentName = _agent.Name
+                };
+
             var result = await _orchestrationService.GetCompletion(
                 new LLMCompletionRequest
                 {

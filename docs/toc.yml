@@ -70,8 +70,6 @@ items:
       href: setup-guides/agents/index.md
     - name: Knowledge management agents
       href: setup-guides/agents/knowledge-management-agent.md
-    - name: Knowledge Management with Inline Context
-      href: setup-guides/agents/knowledge-management-with-inline-context.md
     - name: Prompt resources
       href: setup-guides/agents/prompt-resource.md
   - name: Exposed APIs

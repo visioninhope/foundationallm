@@ -57,6 +57,14 @@
 
 		<div class="sidebar__item">Identity & Access Management (IAM)</div>
 
+		<!-- FLLM Deployment -->
+		<div class="sidebar__section-header">
+			<span class="pi pi-cloud"></span>
+			<span>FLLM Platform</span>
+		</div>
+
+		<NuxtLink to="/info" class="sidebar__item">Deployment Information</NuxtLink>
+
 		<!-- Logged in user -->
 		<div v-if="$authStore.currentAccount?.name" class="sidebar__account">
 			<Avatar icon="pi pi-user" class="sidebar__avatar" size="large" />

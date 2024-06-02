@@ -23,7 +23,9 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
                 _agent,
                 _callContext,
                 _orchestrationService,
-                _logger);
+                _logger,
+                null,
+                false);
         }
 
         [Fact]

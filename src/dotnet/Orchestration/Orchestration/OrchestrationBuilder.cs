@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
@@ -42,23 +43,24 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
 
-            var agentBase = await LoadAgent(agentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
-            if (agentBase == null) return null;
+            var result = await LoadAgent(agentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
+            if (result.Agent == null) return null;
             
-            if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
+            if (result.Agent.AgentType == typeof(KnowledgeManagementAgent))
             {
-                var orchestrationName = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
+                var orchestrationName = string.IsNullOrWhiteSpace(result.Agent.OrchestrationSettings?.Orchestrator)
                     ? LLMOrchestrationServiceNames.LangChain
-                    : agentBase.OrchestrationSettings?.Orchestrator;
+                    : result.Agent.OrchestrationSettings?.Orchestrator;
 
                 var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
-                    (KnowledgeManagementAgent)agentBase,
+                    (KnowledgeManagementAgent)result.Agent,
                     callContext,
                     orchestrationService,
                     loggerFactory.CreateLogger<OrchestrationBase>(),
-                    resourceProviderServices);
+                    resourceProviderServices,
+                    result.DataSourceAccessDenied);
 
                 return kmOrchestration;
             }
@@ -66,7 +68,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return null;
         }
 
-        private static async Task<AgentBase?> LoadAgent(
+        private static async Task<(AgentBase? Agent, bool DataSourceAccessDenied)> LoadAgent(
             string? agentName,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             UnifiedUserIdentity currentUserIdentity,
@@ -110,9 +112,27 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {
-                // check for inline-context/internal-context agents, they are valid KM agents that do not have a vectorization section.
+                // check for inline-context agents, they are valid KM agents that do not have a vectorization section.
                 if(kmAgent.Vectorization != null)
                 {
+                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.DataSourceObjectId))
+                    {
+                        try
+                        {
+                            var dataSource = await dataSourceResourceProvider.GetResource<DataSourceBase>(
+                                kmAgent.Vectorization.DataSourceObjectId,
+                                currentUserIdentity);
+
+                            if (dataSource == null)
+                                return (null, false);
+                        }
+                        catch (ResourceProviderException ex) when (ex.StatusCode == (int)HttpStatusCode.Forbidden)
+                        {
+                            // Access is denied to the underlying data source.
+                            return (agentBase, true);
+                        }
+                    }
+
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
                     {
                         var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
@@ -130,20 +150,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                         kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
                     }
-
-                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.DataSourceObjectId))
-                    {
-                        var dataSource = await dataSourceResourceProvider.GetResource<DataSourceBase>(
-                            kmAgent.Vectorization.DataSourceObjectId,
-                            currentUserIdentity);
-
-                        if (dataSource == null)
-                            return null;
-                    }
                 }
             }
 
-            return agentBase;
+            return (agentBase, false);
         }
     }
 }

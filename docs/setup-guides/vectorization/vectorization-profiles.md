@@ -38,11 +38,11 @@ where:
 - `<data_source_type>` is the type of the data source. The supported types are `AzureDataLake`, `SharePointOnline`, `WebSite` and `AzureSQLDatabase`.
 - `<name>` is the name of the data source.
 - `<instance_id>` is the unique identifier of the FLLM instance.
-- `<description>` is the description of the content source profile.
+- `<description>` is the description of the Data Source.
 - `<settings>` is a JSON object containing the data source settings, the name of the property varies by data source type.
 - `<configuration_references>` is a JSON object containing the profile configuration references. The content of this object also varies by data source type.
 
-The reminder of this section describes the configuration parameters for each of the supported content source types.
+The reminder of this section describes the configuration parameters for each of the supported Data Source types.
 
 ### `AzureDataLake`
 
@@ -64,7 +64,7 @@ The configuration parameters for `AzureDataLake` are the following:
 | --- | --- |
 | `folders` | The list of folders in the Azure Data Lake storage account that contain the data to be vectorized. |
 | `configuration_references.AuthenticationType` | The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`. |
-| `configuration_references.ConnectionString` | The connection string to the Azure Storage account used for the the Azure Data Lake vectorization content source. |
+| `configuration_references.ConnectionString` | The connection string to the Azure Storage account used for the the Azure Data Lake vectorization Data Source. |
 
 ### `SharePointOnline`
 
@@ -89,7 +89,7 @@ The configuration parameters for `SharePointOnline` are the following:
 | `document_libraries` | The list of document libraries in the SharePoint Online site collection that contain the data to be vectorized. |
 | `configuration_references.CertificateName` | The name of the X.509 Certificate. The certificate must be valid and be uploaded into an Azure Key Vault certificate store. |
 | `configuration_references.KeyVaultURL` | The URL of the KeyVault where the X.509 Certificate is stored. |
-| `configuration_references.ClientId` | The Application (client) Id of the Microsoft Entra ID App Registration. See [Entra ID app registration for SharePoint Online content source](#entra-id-app-registration-for-sharepoint-online-content-source). |
+| `configuration_references.ClientId` | The Application (client) Id of the Microsoft Entra ID App Registration. See [Entra ID app registration for SharePoint Online Data Source](#entra-id-app-registration-for-sharepoint-online-data-source). |
 | `configuration_references.TenantId` | The unique identifier of the SharePoint Online tenant. |
 
 ### `AzureSQLDatabase`
@@ -109,12 +109,12 @@ The configuration parameters for `AzureSQLDatabase` are the following:
 | Parameter | Description |
 | --- | --- |
 | `tables` | The list of tables in the Azure SQL database that contain the data to be vectorized. |
-| `configuration_references.ConnectionString` | The connection string to the Azure SQL database used for the Azure SQL Database vectorization content source. |
+| `configuration_references.ConnectionString` | The connection string to the Azure SQL database used for the Azure SQL Database vectorization Data Source. |
 | `configuration_references.AuthenticationType` | The authentication type used to connect to the Azure SQL database. Can be one of `AzureIdentity` or `ConnectionString`. |
 
-### Managing content source profiles
+### Managing Data Sources
 
-This section describes how to manage content source profiles using the Management API.
+This section describes how to manage Data Sources using the Management API.
 `{{baseUrl}}` is the base URL of the Management API. `{{instanceId}}` is the unique identifier of the FLLM instance.
 
 **Retrieve**
@@ -141,7 +141,29 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSo
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Content Source profiles. This means that users cannot create a Content Source profile with the same name as a deleted profile. Support for purging Content Source profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Data Source, call the `/purge` endpoint after deleting the Data Source.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
+
+**Check Name**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.DataSource/dataSources/checkname
+Content-Type: application/json
+
+BODY
+{
+  "name": "<name>"
+}
+```
 
 ## Text partitioning profiles
 
@@ -221,7 +243,17 @@ HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vector
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Partitioning profiles. This means that users cannot create a Text Partitioning profile with the same name as a deleted profile. Support for purging Text Partitioning profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Text Partitioning Profile, call the `/purge` endpoint after deleting the Text Partitioning Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textPartitioningProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
 
 ## Text embedding profiles
 
@@ -231,12 +263,17 @@ The structure of a text embedding profile is the following:
 {
     "type": "text-embedding-profile",
     "name": "<name>",
-    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>",
+    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>",
+    "display_name": null,
     "description": "<description>",
-    "deleted": false,
     "text_embedding": "<text_embedding>",
     "settings": {<profile_settings>},
-    "configuration_references": {<profile_configuration_references>}
+    "configuration_references": {<profile_configuration_references>},
+    "created_on": "0001-01-01T00:00:00+00:00",
+    "updated_on": "0001-01-01T00:00:00+00:00",
+    "created_by": null,
+    "updated_by": null,
+    "deleted": false
 }
 ```
 
@@ -244,7 +281,7 @@ where:
 
 - `<name>` is the name of the text embedding profile.
 - `<description>` is the description of the text embedding profile.
-- `<text_embedding>` is the type of the text embedder. The supported types are `SemanticKernelTextEmbedding`.
+- `<text_embedding>` is the type of the text embedder. The supported types are `SemanticKernelTextEmbedding` and `GatewayTextEmbedding`. `SemanticKernelTextEmbedding` supports synchronous and asynchronous vectorization, while `GatewayTextEmbedding` only supports asynchronous vectorization.
 - `<profile_settings>` is a JSON object containing the profile settings.
 - `<profile_configuration_references>` is a JSON object containing the profile configuration references.
 
@@ -273,6 +310,21 @@ The configuration parameters for `SemanticKernelTextEmbedding` are the following
 | `configuration_references.DeploymentName` | The name of the Azure OpenAI model deployment. The default value is `embeddings`.|
 | `configuration_references.Endpoint` | The endpoint of the Azure OpenAI service. By default, this maps to the Azure OpenAI service deployed by FLLM. |
 
+### `GatewayTextEmbedding`
+
+```json
+"settings": {
+  "model_name": "embeddings"
+},
+"configuration_references": {}
+```
+
+The settings for `GatewayTextEmbedding` are the following:
+
+| Parameter | Description |
+| --- | --- |
+| `settings.model_name` | The name of the embeddings model deployment in Azure OpenAI Service. |
+
 ### Managing text embedding profiles
 
 This section describes how to manage text embedding profiles using the Management API.
@@ -281,13 +333,13 @@ This section describes how to manage text embedding profiles using the Managemen
 **Retrieve**
 
 ```
-HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles
 ```
 
 **Create or update**
 
 ```
-HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>
 Content-Type: application/json
 
 BODY
@@ -299,11 +351,21 @@ where `<text embedding profile>` is a JSON object with the structure described a
 **Delete**
 
 ```
-HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textembeddingprofiles/<name>
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Embedding profiles. This means that users cannot create a Text Embedding profile with the same name as a deleted profile. Support for purging Text Embedding profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge a Text Embedding Profile, call the `/purge` endpoint after deleting the Text Embedding Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
 
 ## Indexing profiles
 
@@ -313,12 +375,18 @@ The structure of an indexing profile is the following:
 {
     "type": "indexing-profile",
     "name": "<name>",
-    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>",
+    "object_id": "/instances/[INSTANCE ID]/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>",
+    "display_name": null,
     "description": "<description>",
     "deleted": false,
     "indexer": "<indexer>",
     "settings": {<profile_settings>},
-    "configuration_references": {<profile_configuration_references>}
+    "configuration_references": {<profile_configuration_references>},
+    "created_on": "0001-01-01T00:00:00+00:00",
+    "updated_on": "0001-01-01T00:00:00+00:00",
+    "created_by": null,
+    "updated_by": null,
+    "deleted": false
 }
 ```
 
@@ -370,13 +438,13 @@ This section describes how to manage indexing profiles using the Management API.
 **Retrieve**
 
 ```
-HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles
+HTTP GET {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles
 ```
 
 **Create or update**
 
 ```
-HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>
 Content-Type: application/json
 
 BODY
@@ -388,15 +456,37 @@ where `<indexing profile>` is a JSON object with the structure described above.
 **Delete**
 
 ```
-HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingprofiles/<name>
+HTTP DELETE {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>
 ```
 
 > [!NOTE]
-> FLLM implements a *logical delete* for Text Indexing profiles. This means that users cannot create a Text Indexing profile with the same name as a deleted profile. Support for purging Text Indexing profiles will be added in a future release.
+> The delete operation is a *logical delete*. To purge an Indexing Profile, call the `/purge` endpoint after deleting the Indexing Profile.
+
+**Purge**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/<name>/purge
+Content-Type: application/json
+
+BODY
+{}
+```
+
+**Check Name**
+
+```
+HTTP POST {{baseUrl}}/instances/{{instanceId}}/providers/FoundationaLLM.Vectorization/indexingProfiles/checkname
+Content-Type: application/json
+
+BODY
+{
+  "name": "<name>"
+}
+```
 
 ## Additional configuration steps
 
-### Entra ID app registration for SharePoint Online content source
+### Entra ID app registration for SharePoint Online Data Source
 
 Apps typically access SharePoint Online through certificates: Anyone having the certificate and its private key can use the app with the permissions granted to it.
 
