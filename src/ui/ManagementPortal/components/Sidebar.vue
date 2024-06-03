@@ -55,6 +55,7 @@
 			<span>Security</span>
 		</div>
 
+		<NuxtLink to="/security/role-assignments" class="sidebar__item">Role Assignments</NuxtLink>
 		<div class="sidebar__item">Identity & Access Management (IAM)</div>
 
 		<!-- FLLM Deployment -->

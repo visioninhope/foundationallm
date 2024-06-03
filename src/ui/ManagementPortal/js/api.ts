@@ -14,9 +14,11 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest,
 	ExternalOrchestrationService,
+	Role,
+	RoleAssignment,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
-// import { mockAzureDataLakeDataSource1 } from './mock';
+import { mockRoles, mockRoleAssignmentsResponse } from './mock';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -525,5 +527,30 @@ export default {
 
 		// Return the updated external orchestration services.
 		return data;
+	},
+
+	async getRoles(): Roles[] {
+		await wait(1000);
+		return mockRoles;
+	},
+
+	async getRoleAssignments(): RoleAssignment[] {
+		await wait(1000);
+		return mockRoleAssignmentsResponse;
+	},
+
+	async getRoleAssignment(roleAssignmentId): RoleAssignment {
+		await wait(1000);
+		return mockRoleAssignmentsResponse.role_assignments.find((roleAssignment) => roleAssignment.name === roleAssignmentId);
+	},
+
+	async updateRoleAssignment(roleAssignment: RoleAssignment) {
+		await wait(1000);
+		return roleAssignment;
+	},
+
+	async deleteRoleAssignment(roleAssignmentId): void {
+		await wait(1000);
+		return roleAssignmentId;
 	},
 };
