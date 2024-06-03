@@ -44,6 +44,32 @@ on:
           - sandbox
           - e2e
         default: e2e
+  workflow_call:
+    inputs:
+      environment:
+        description: AZD Environment Name
+        type: string
+      deployOpenAi:
+        description: Deploy a new OpenAI Instance
+        type: boolean
+      openAiName:
+        description: Shared OpenAI Instance Name
+        type: string
+      openAiResourceGroup:
+        description: Shared OpenAI Resource Group
+        type: string
+      location:
+        description: AZD Target Location
+        type: string
+      enableTeardown:
+        description: Enable teardown of environment
+        type: boolean
+      bypassAndTeardown:
+        description: Bypass Tests and Force Teardown
+        type: boolean
+      target:
+        description: Select target tenant/subscription
+        type: string
 
 jobs:
   generate_matrix:
