@@ -190,6 +190,12 @@ azd env set OPENAI_RESOURCE_GROUP &lt;OpenAI Resource Group&gt;
 azd env set OPENAI_SUBSCRIPTION_ID &lt;OpenAI Subscription ID&gt;
 </code></pre>
 </li>
+</ol>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Deploying with <code>Bring Your Own Azure OpenAI</code>, customers need to make sure that the relevant Managed Identities (LangChain API, Semantic Kernel API, and Gateway API) are assigned the <code>Open AI reader role</code> on the Azure OpenAI account object.</p>
+</div>
+<ol start="2">
 <li><p>Deploy the solution</p>
 <p>After setting the OIDC-specific settings in the AZD environment above, run <code>azd up</code> in the same folder location to provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.</p>
 <pre><code class="lang-pwsh">azd up
