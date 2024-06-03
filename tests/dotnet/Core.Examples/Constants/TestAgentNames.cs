@@ -45,5 +45,13 @@
         /// The name of the Dune semantic kernel agent.
         /// </summary>
         public const string SemanticKernelDune = "KMAgentWithSemanticKernelDune";
+        /// <summary>
+        /// The name of the Dune semantic kernel agent.
+        /// </summary>
+        public const string SemanticKernelInlineContextDune = "DuneAgentWithSemanticKernelInlineContext";
+        /// <summary>
+        /// The name of the Dune Authority semantic kernel agent.
+        /// </summary>
+        public const string SemanticKernelInlineContextDuneAuthority = "DuneAuthorityAgentWithSemanticKernelInlineContext";
     }
 }
