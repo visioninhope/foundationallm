@@ -643,9 +643,9 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-lakera-guard-api-key`",
+                defaultValue: "Key Vault secret name: `lakera-guard-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -672,9 +672,9 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-enkrypt-guardrails-apikey`",
+                defaultValue: "Key Vault secret name: `enkrypt-guardrails-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),
@@ -761,9 +761,9 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-azurecontentsafety-apikey`",
+                defaultValue: "Key Vault secret name: `content-safety-apikey`",
                 description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
                 contentType: "text/plain",
                 sampleObject: null
             ),

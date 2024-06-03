@@ -31,6 +31,20 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The foundationallm-apis-gatekeeperapi-apikey Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_APIKey = "foundationallm-apis-gatekeeperapi-apikey";
+
+        /// <summary>
+        /// The lakera-guard-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey = "lakera-guard-apikey";
+        /// <summary>
+        /// The enkrypt-guardrails-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey = "enkrypt-guardrails-apikey";
+        /// <summary>
+        /// The content-safety-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey = "content-safety-apikey";
+
         /// <summary>
         /// The foundationallm-apis-gatekeeperintegrationapi-apikey Key Vault secret name.
         /// </summary>
