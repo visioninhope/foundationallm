@@ -100,7 +100,7 @@
       "authService": {
         "value": {
           "name": "auth-api",
-          "image": "${SERVICE_AUTHORIZATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/authorization-api:${FLLM_VERSION}}"
+          "image": "${SERVICE_AUTHORIZATIONAPI_IMAGE=ghcr.io/solliancenet/foundationallm/authorization-api:${FLLM_VERSION}}"
         }
       },
       "services": {
@@ -109,7 +109,7 @@
             "name": "agent-hub-api",
             "useEndpoint": true,
             "hasIngress": true,
-            "image": "${SERVICE_AGENTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/agent-hub-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_AGENTHUBAPI_IMAGE=ghcr.io/solliancenet/foundationallm/agent-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-agenthubapi-apikey"
           },
@@ -117,7 +117,7 @@
             "name": "chat-ui",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_CHATUI_IMAGE=cropseastus2svinternal.azurecr.io/chat-ui:${FLLM_VERSION}}",
+            "image": "${SERVICE_CHATUI_IMAGE=ghcr.io/solliancenet/foundationallm/chat-ui:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT",
             "apiKeySecretName": "foundationallm-apis-chatui-apikey"
           },
@@ -125,7 +125,7 @@
             "name": "core-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_COREAPI_IMAGE=cropseastus2svinternal.azurecr.io/core-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_COREAPI_IMAGE=ghcr.io/solliancenet/foundationallm/core-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-coreapi-apikey"
           },
@@ -133,7 +133,7 @@
             "name": "core-job",
             "useEndpoint": false,
             "hasIngress": false,
-            "image": "${SERVICE_COREJOB_IMAGE=cropseastus2svinternal.azurecr.io/core-job:${FLLM_VERSION}}",
+            "image": "${SERVICE_COREJOB_IMAGE=ghcr.io/solliancenet/foundationallm/core-job:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-corejob-apikey"
           },
@@ -141,7 +141,7 @@
             "name": "data-source-hub-api",
             "useEndpoint": true,
             "hasIngress": true,
-            "image": "${SERVICE_DATASOURCEHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/data-source-hub-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_DATASOURCEHUBAPI_IMAGE=ghcr.io/solliancenet/foundationallm/data-source-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-datasourcehubapi-apikey"
           },
@@ -149,7 +149,7 @@
             "name": "gatekeeper-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_GATEKEEPERAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_GATEKEEPERAPI_IMAGE=ghcr.io/solliancenet/foundationallm/gatekeeper-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-gatekeeperapi-apikey"
           },
@@ -157,7 +157,7 @@
             "name": "gatekeeper-integration-api",
             "useEndpoint": true,
             "hasIngress": true,
-            "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=ghcr.io/solliancenet/foundationallm/gatekeeper-integration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-gatekeeperintegrationapi-apikey"
           },
@@ -165,7 +165,7 @@
             "name": "gateway-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_GATEWAYAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_GATEWAYAPI_IMAGE=ghcr.io/solliancenet/foundationallm/gateway-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-gatewayapi-apikey"
           },
@@ -173,7 +173,7 @@
             "name": "langchain-api",
             "useEndpoint": true,
             "hasIngress": true,
-            "image": "${SERVICE_LANGCHAINAPI_IMAGE=cropseastus2svinternal.azurecr.io/langchain-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_LANGCHAINAPI_IMAGE=ghcr.io/solliancenet/foundationallm/langchain-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-langchainapi-apikey"
           },
@@ -181,7 +181,7 @@
             "name": "management-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_MANAGEMENTAPI_IMAGE=cropseastus2svinternal.azurecr.io/management-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_MANAGEMENTAPI_IMAGE=ghcr.io/solliancenet/foundationallm/management-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-managementapi-apikey"
           },
@@ -189,7 +189,7 @@
             "name": "management-ui",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_MANAGEMENTUI_IMAGE=cropseastus2svinternal.azurecr.io/management-ui:${FLLM_VERSION}}",
+            "image": "${SERVICE_MANAGEMENTUI_IMAGE=ghcr.io/solliancenet/foundationallm/management-ui:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT",
             "apiKeySecretName": "foundationallm-apis-managementui-apikey"
           },
@@ -197,7 +197,7 @@
             "name": "orchestration-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_ORCHESTRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/orchestration-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_ORCHESTRATIONAPI_IMAGE=ghcr.io/solliancenet/foundationallm/orchestration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-orchestrationapi-apikey"
           },
@@ -205,7 +205,7 @@
             "name": "prompt-hub-api",
             "useEndpoint": true,
             "hasIngress": true,
-            "image": "${SERVICE_PROMPTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/prompt-hub-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_PROMPTHUBAPI_IMAGE=ghcr.io/solliancenet/foundationallm/prompt-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "foundationallm-app-configuration-uri",
             "apiKeySecretName": "foundationallm-apis-prompthubapi-apikey"
           },
@@ -213,7 +213,7 @@
             "name": "semantic-kernel-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_SEMANTICKERNELAPI_IMAGE=cropseastus2svinternal.azurecr.io/semantic-kernel-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_SEMANTICKERNELAPI_IMAGE=ghcr.io/solliancenet/foundationallm/semantic-kernel-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-semantickernelapi-apikey"
           },
@@ -221,7 +221,7 @@
             "name": "vectorization-api",
             "useEndpoint": false,
             "hasIngress": true,
-            "image": "${SERVICE_VECTORIZATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/vectorization-api:${FLLM_VERSION}}",
+            "image": "${SERVICE_VECTORIZATIONAPI_IMAGE=ghcr.io/solliancenet/foundationallm/vectorization-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-vectorizationapi-apikey"
           },
@@ -229,7 +229,7 @@
             "name": "vectorization-job",
             "useEndpoint": false,
             "hasIngress": false,
-            "image": "${SERVICE_VECTORIZATIONJOB_IMAGE=cropseastus2svinternal.azurecr.io/vectorization-job:${FLLM_VERSION}}",
+            "image": "${SERVICE_VECTORIZATIONJOB_IMAGE=ghcr.io/solliancenet/foundationallm/vectorization-job:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
             "apiKeySecretName": "foundationallm-apis-vectorizationworker-apikey"
           }
