@@ -39,8 +39,8 @@
 
 				<!-- Name -->
 				<Column
-					field="principal_type"
-					header="Principal Type"
+					field="display_name"
+					header="Name"
 					sortable
 					style="min-width: 200px"
 					:pt="{
@@ -53,8 +53,8 @@
 
 				<!-- Type -->
 				<Column
-					field="type"
-					header="Type"
+					field="description"
+					header="Description"
 					sortable
 					style="min-width: 200px"
 					:pt="{
