@@ -2,14 +2,22 @@ name: Daily End to End Testing
 
 on:
   schedule:
-  - cron: '0 0 * * *'
+  - cron: '0 0 3 * *'
   workflow_dispatch: {}
 
 jobs:
+  fetch_timestamp:
+    name: Fetching Timestamp
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch Timestamp
+      run: |
+        echo "$(date +'%Y%m%dT%H%M%SZ')" >> ${TIMESTAMP}
+
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
     with:
-      environment: fllm-e2e-aca-daily
+      environment: fllm-e2e-aca-daily-${TIMESTAMP}
       deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
