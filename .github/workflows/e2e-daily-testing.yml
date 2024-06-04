@@ -15,7 +15,7 @@ jobs:
     - name: Fetch Timestamp
       id: fetch_current_timestamp
       run: |
-        $CURRENT_TIMESTAMP=$(date +'%Y%m%dT%H%M%SZ')
+        CURRENT_TIMESTAMP=$(date +'%Y%m%dT%H%M%SZ')
         echo "current_timestamp: $CURRENT_TIMESTAMP"
         echo "current_timestamp=$CURRENT_TIMESTAMP" >> $GIHUB_OUTPUT
 
