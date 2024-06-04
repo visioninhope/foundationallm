@@ -1,10 +1,6 @@
-﻿    using FoundationaLLM.Vectorization.Models;
-using System.Threading.Tasks;
-using System;
-using FoundationaLLM.Vectorization.Interfaces;
+﻿using FoundationaLLM.Vectorization.Interfaces;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 
@@ -39,12 +35,12 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
 
             for (int i = 0; i < count; i++)
             {
-                if (_requests.TryDequeue(out var request))                    
-                    result.Add(new (request, string.Empty, string.Empty, 0));
+                if (_requests.TryDequeue(out var request))
+                    result.Add(new(request, string.Empty, string.Empty, 0));
                 else
                     break;
             }
-            
+
             return Task.FromResult<IEnumerable<(VectorizationRequest, string, string, long)>>(result);
         }
 
@@ -59,10 +55,10 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public Task UpdateRequest(string requestId, string popReceipt, VectorizationRequest request)
+        public Task<string> UpdateRequest(string requestId, string popReceipt, VectorizationRequest request)
         {
             _requests.Single(r => r.Name == request.Name).ErrorCount = request.ErrorCount;
-            return Task.CompletedTask;
+            return Task.FromResult(string.Empty);
         }
     }
 }

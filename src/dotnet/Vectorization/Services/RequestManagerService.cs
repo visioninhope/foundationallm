@@ -172,8 +172,12 @@ namespace FoundationaLLM.Vectorization.Services
                                         {
                                             PayloadId = r.Request.Name!,
                                             Task = Task.Run(
-                                            () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
-                                            _cancellationToken)
+                                            async () => {                                                
+                                                var updatedPopReceipt = await ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false);
+                                                _taskPool.UpdatePopReceipt(r.Request.Name!, updatedPopReceipt);
+                                            },
+                                            _cancellationToken),
+                                            PopReceipt = r.PopReceipt
                                         }));
                             }
                         }                          
@@ -195,7 +199,15 @@ namespace FoundationaLLM.Vectorization.Services
             _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] finished processing requests.", _settings.RequestSourceName);
         }
 
-        private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt, CancellationToken cancellationToken)
+        /// <summary>
+        /// Processes a vectorization request.
+        /// </summary>
+        /// <param name="request">The vectorization request being processed.</param>
+        /// <param name="messageId">The associated message id.</param>
+        /// <param name="popReceipt">The current pop receipt for the message.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>The current/updated pop receipt value.</returns>
+        private async Task<string> ProcessRequest(VectorizationRequest request, string messageId, string popReceipt, CancellationToken cancellationToken)
         {            
             try
             {
@@ -204,9 +216,12 @@ namespace FoundationaLLM.Vectorization.Services
                     // If the request was handled successfully, remove it from the current source and advance it to the next step.
                     await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
                     await AdvanceRequest(request).ConfigureAwait(false);
+                    return popReceipt;
                 }
                 else
-                    await UpdateRequest(request, messageId, popReceipt);
+                {
+                    return await UpdateRequest(request, messageId, popReceipt);                    
+                }
 
                
             }
@@ -215,21 +230,29 @@ namespace FoundationaLLM.Vectorization.Services
                 _logger.LogError(ex, "Error processing request with id {RequestId}.", request.Name);
 
                 request.ErrorCount++;
-                await UpdateRequest(request, messageId, popReceipt);               
+                return await UpdateRequest(request, messageId, popReceipt);               
                 // don't need to record the error on the vectorization request state as the threshold for errors hasn't been exceeded yet.
             }
         }
 
-        private async Task UpdateRequest(VectorizationRequest request, string messageId, string popReceipt)
+        /// <summary>
+        /// Updates the request in the request source service.
+        /// </summary>
+        /// <param name="request">The vectorization request.</param>
+        /// <param name="messageId">The message identifier value.</param>
+        /// <param name="popReceipt">The current pop receipt for the message.</param>
+        /// <returns>The new pop receipt for the message after the update.</returns>
+        private async Task<string> UpdateRequest(VectorizationRequest request, string messageId, string popReceipt)
         {
             try
             {
-                await _incomingRequestSourceService.UpdateRequest(messageId, popReceipt, request);
+                return await _incomingRequestSourceService.UpdateRequest(messageId, popReceipt, request);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error updating the request with id {RequestId}.", request.Name);
             }
+            return popReceipt;
         }
 
         private async Task<bool> HandleRequest(VectorizationRequest request, string messageId, CancellationToken cancellationToken)
