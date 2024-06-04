@@ -129,7 +129,12 @@ jobs:
       - name: Set Git and Helm Tag
         id: docker-tag
         run: |
-          DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
+          if [ ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }} ]; then
+            DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
+          else
+            DOCKER_TAG=0.0.0-main
+          fi
+
           DOCKER_TAG=$DOCKER_TAG-$(date +'%Y%m%dT%H%M%SZ')
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
           echo "docker_tag: Latest Tag is : $DOCKER_TAG"
