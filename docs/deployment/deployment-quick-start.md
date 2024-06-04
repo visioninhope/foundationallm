@@ -60,11 +60,12 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     ./scripts/bootstrap.ps1
     ```
 
-4. Run the following commands to log into the Azure and Azure Developer CLIs:
+4. Run the following commands to log into Azure CLI, Azure Developer CLI and AzCopy:
 
     ```azurecli
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
+    azcopy login        # Log into AzCopy
     ```
 
 5. Set up an `azd` environment targeting your Azure subscription and desired deployment region:
@@ -158,7 +159,7 @@ The syntax for running the script from the `deploy\common\scripts` folder is:
 ```
 
 > [!IMPORTANT]
-> For this release, you will need to restart the Auth API container in the resource group to allow the changes to take effect.
+> For this release, you will need to restart the `CORE API` container and the `MANAGEMENT API` container in the resource group to allow the changes to take effect.
 
 # Teardown
 
