@@ -74,7 +74,6 @@ on:
 jobs:
   generate_matrix:
     name: Generate Configuration Matrix
-    if: ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
@@ -138,7 +137,7 @@ jobs:
 
   helm_build:
     name: Package Helm Charts
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -155,7 +154,7 @@ jobs:
 
   docker_build:
     name: Build Docker Images
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -173,7 +172,7 @@ jobs:
     secrets: inherit
 
   deploy_quickstart:
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     name: Deploy Quick Start
     needs: [generate_matrix, docker_build]
     runs-on: ubuntu-latest
@@ -423,7 +422,7 @@ jobs:
         shell: pwsh
 
   add_test_data:
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     name: Add Test Data
     needs: [deploy_quickstart]
     runs-on: ubuntu-latest # this may need to change to windows
@@ -550,7 +549,7 @@ jobs:
 
   run_e2e_tests:
     name: Run End to End Tests
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
@@ -654,7 +653,7 @@ jobs:
 
   teardown_quickstart:
     name: Tear Down Quick Start
-    if: ${{ (cancelled() && inputs.bypassAndTeardown) || (inputs.enableTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/'))) }}
+    if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
     runs-on: ubuntu-latest
     env:
       AZURE_ENV_NAME: ${{ inputs.environment }}
