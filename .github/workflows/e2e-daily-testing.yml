@@ -10,12 +10,12 @@ jobs:
     name: Fetching Timestamp
     runs-on: ubuntu-latest
     outputs:
-      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.name }}
+      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.timestamp }}
     steps:
     - name: Fetch Timestamp
       id: fetch_current_timestamp
       run: |
-        echo "::set-output name=date::$(date +'%Y%m%dT%H%M%SZ')"
+        echo "timestamp=$(date +'%Y%m%dT%H%M%SZ')" >> $GIHUB_OUTPUT
 
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
