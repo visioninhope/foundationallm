@@ -9,7 +9,7 @@ jobs:
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
     with:
-      environment: "fllm-e2e-aca-daily-${{ github.event.repository.updated_at }}"
+      environment: "fllm-e2e-aca-daily-${{ github.run_id }}"
       deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
@@ -18,4 +18,3 @@ jobs:
       bypassAndTeardown: false
       target: e2e
     secrets: inherit
-    
