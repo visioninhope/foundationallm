@@ -9,15 +9,19 @@ jobs:
   fetch_timestamp:
     name: Fetching Timestamp
     runs-on: ubuntu-latest
+    outputs:
+      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.name }}
     steps:
     - name: Fetch Timestamp
+      id: fetch_current_timestamp
       run: |
-        echo "$(date +'%Y%m%dT%H%M%SZ')" >> ${TIMESTAMP}
+        echo "::set-output name=date::$(date +'%Y%m%dT%H%M%SZ')"
 
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
+    needs: [fetch_timestamp]
     with:
-      environment: fllm-e2e-aca-daily-${TIMESTAMP}
+      environment: fllm-e2e-aca-daily-${{ needs.fetch_timestamp.outputs.current_timestamp }}
       deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
