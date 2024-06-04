@@ -132,7 +132,7 @@ jobs:
           if [ ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }} ]; then
             DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           else
-            DOCKER_TAG=0.0.0-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+            DOCKER_TAG='0.0.0-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}'
           fi
 
           DOCKER_TAG=$DOCKER_TAG-$(date +'%Y%m%dT%H%M%SZ')
