@@ -2,8 +2,7 @@ name: Daily End to End Testing
 
 on:
   schedule:
-  - cron: '0 0 3 * *'
-  workflow_dispatch: {}
+  - cron: '0 3 * * *'
 
 jobs:
   daily_e2e_test:
