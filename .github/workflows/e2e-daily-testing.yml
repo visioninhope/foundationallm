@@ -17,7 +17,7 @@ jobs:
       run: |
         CURRENT_TIMESTAMP=$(date +'%Y%m%dT%H%M%SZ')
         echo "current_timestamp: $CURRENT_TIMESTAMP"
-        echo "current_timestamp=$CURRENT_TIMESTAMP" >> $env:GIHUB_OUTPUT
+        echo "current_timestamp=$CURRENT_TIMESTAMP" >> $GIHUB_OUTPUT
 
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
