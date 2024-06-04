@@ -6,24 +6,10 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  fetch_timestamp:
-    name: Fetching Timestamp
-    runs-on: ubuntu-latest
-    outputs:
-      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.current_timestamp }}
-    steps:
-    - name: Fetch Timestamp
-      id: fetch_current_timestamp
-      run: |
-        CURRENT_TIMESTAMP=$(date +'%Y%m%dT%H%M%SZ')
-        echo "current_timestamp: $CURRENT_TIMESTAMP"
-        echo "current_timestamp=$CURRENT_TIMESTAMP" >> $GIHUB_OUTPUT
-
   daily_e2e_test:
     uses: ./.github/workflows/e2e-testing.yml
-    needs: [fetch_timestamp]
     with:
-      environment: "fllm-e2e-aca-daily-${{ needs.fetch_timestamp.outputs.current_timestamp }}"
+      environment: "fllm-e2e-aca-daily-${{ github.event.repository.updated_at }}"
       deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
@@ -32,3 +18,4 @@ jobs:
       bypassAndTeardown: false
       target: e2e
     secrets: inherit
+    
