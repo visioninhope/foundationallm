@@ -10,7 +10,7 @@ jobs:
     name: Fetching Timestamp
     runs-on: ubuntu-latest
     outputs:
-      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.timestamp }}
+      current_timestamp: ${{ steps.fetch_current_timestamp.outputs.current_timestamp }}
     steps:
     - name: Fetch Timestamp
       id: fetch_current_timestamp
