@@ -21,7 +21,7 @@ jobs:
     uses: ./.github/workflows/e2e-testing.yml
     needs: [fetch_timestamp]
     with:
-      environment: fllm-e2e-aca-daily-${{ needs.fetch_timestamp.outputs.current_timestamp }}
+      environment: "fllm-e2e-aca-daily-${{ needs.fetch_timestamp.outputs.current_timestamp }}"
       deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
