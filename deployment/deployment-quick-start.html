@@ -123,16 +123,17 @@ If you are upgrading from a previous version, like <code>0.5.0</code>, please re
 <li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
 <pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
 cd foundationallm/deploy/quick-start
-git checkout release/0.6.0
+git checkout release/0.7.0
 </code></pre>
 </li>
 <li><p><strong>For release 0.7.0+:</strong> Run the following script to install the deployment utilities, including <code>AzCopy</code>, locally.</p>
 <pre><code class="lang-cmd">./scripts/bootstrap.ps1
 </code></pre>
 </li>
-<li><p>Run the following commands to log into the Azure and Azure Developer CLIs:</p>
+<li><p>Run the following commands to log into Azure CLI, Azure Developer CLI and AzCopy:</p>
 <pre><code class="lang-azurecli">az login            # Log into Azure CLI
 azd auth login      # Log into Azure Developer CLI
+azcopy login        # Log into AzCopy
 </code></pre>
 </li>
 <li><p>Set up an <code>azd</code> environment targeting your Azure subscription and desired deployment region:</p>
@@ -220,7 +221,7 @@ This script will need to be executed twice for the principal IDs of the followin
 </code></pre>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>For this release, you will need to restart the Auth API container in the resource group to allow the changes to take effect.</p>
+<p>For this release, you will need to restart the <code>CORE API</code> container and the <code>MANAGEMENT API</code> container in the resource group to allow the changes to take effect.</p>
 </div>
 <h1 id="teardown">Teardown</h1>
 <p>To tear down the environment, execute <code>azd down</code> in the same folder location.</p>
