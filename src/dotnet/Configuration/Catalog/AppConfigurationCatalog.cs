@@ -1926,9 +1926,7 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(AgentHub);
             allEntries.AddRange(APIs);
             allEntries.AddRange(Attachment);
-            allEntries.AddRange(AzureContentSafety);
-            allEntries.AddRange(LakeraGuard);
-            allEntries.AddRange(EnkryptGuardrails);
+            allEntries.AddRange(AzureContentSafety);            
             allEntries.AddRange(AzureOpenAI);
             allEntries.AddRange(BlobStorageMemorySource);
             allEntries.AddRange(Branding);
