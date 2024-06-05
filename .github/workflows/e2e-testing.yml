@@ -131,7 +131,7 @@ jobs:
         run: |
           echo "${{ github.ref }}"
           echo "${{ github.ref_name }}"
-          if [ '${{ (startsWith(github.ref_name, 'refs/heads/release/') || startsWith(github.ref_name, 'refs/heads/poc/')) }}' -eq 'true' ]; then
+          if [ '${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}' -eq 'true' ]; then
             DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           else
             DOCKER_TAG=0.0.0-${GITHUB_REF#refs/heads/}
