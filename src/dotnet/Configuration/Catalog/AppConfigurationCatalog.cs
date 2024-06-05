@@ -643,7 +643,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `lakera-guard-apikey`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeper-lakeraguard-apikey`",
                 description: "This is a Key Vault reference.",
                 keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
                 contentType: "text/plain",
@@ -672,7 +672,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `enkrypt-guardrails-apikey`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeper-enkryptguardrails-apikey`",
                 description: "This is a Key Vault reference.",
                 keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
                 contentType: "text/plain",
@@ -761,7 +761,7 @@ namespace FoundationaLLM.Configuration.Catalog
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
                 minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `content-safety-apikey`",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeper-azurecontentsafety-apikey`",
                 description: "This is a Key Vault reference.",
                 keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
                 contentType: "text/plain",
