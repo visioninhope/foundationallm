@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Authorization;
+﻿using FoundationaLLM.Authorization.Models;
+using FoundationaLLM.Common.Models.Authorization;
 
 namespace FoundationaLLM.Authorization.Interfaces
 {
@@ -46,5 +47,12 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
         Dictionary<string, RoleAssignmentsWithactionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request);
+
+        /// <summary>
+        /// Returns a list of role assignments for the specified instance.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
+        /// <returns>The list of all role assignments for the specified instance.</returns>
+        List<RoleAssignment> GetRoleAssingments(string instanceId);
     }
 }
