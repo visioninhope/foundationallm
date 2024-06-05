@@ -42,7 +42,7 @@
 					field="display_name"
 					header="Name"
 					sortable
-					style="min-width: 200px"
+					style="min-width: 120px"
 					:pt="{
 						headerCell: {
 							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
@@ -63,7 +63,19 @@
 						},
 						sortIcon: { style: { color: 'var(--primary-text)' } },
 					}"
-				></Column>
+				>
+					<template #body="slotProps">
+						<span
+							v-tooltip.bottom="{
+								value: slotProps.data.description,
+								autoHide: false,
+							}"
+							class="description__column"
+						>
+							{{ slotProps.data.description }}
+						</span>
+					</template>
+				</Column>
 
 				<!-- Edit -->
 				<Column
@@ -206,5 +218,12 @@ export default {
 	z-index: 10;
 	background-color: rgba(255, 255, 255, 0.9);
 	pointer-events: none;
+}
+
+.description__column {
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 </style>
