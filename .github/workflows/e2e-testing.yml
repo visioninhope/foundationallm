@@ -129,6 +129,8 @@ jobs:
       - name: Set Git and Helm Tag
         id: docker-tag
         run: |
+          echo "${{ github.ref }}"
+          echo "${{ github.ref_name }}"
           if [ '${{ (startsWith(github.ref_name, 'refs/heads/release/') || startsWith(github.ref_name, 'refs/heads/poc/')) }}' -eq 'true' ]; then
             DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           else
