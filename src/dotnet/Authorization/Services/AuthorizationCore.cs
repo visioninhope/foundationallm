@@ -248,7 +248,26 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment) => throw new NotImplementedException();
+        public async Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment)
+        {
+            var existingRoleAssignment = _roleAssignmentStores[instanceId].RoleAssignments.SingleOrDefault(x => x.Name == roleAssignment);
+            if (existingRoleAssignment != null)
+            {
+                _roleAssignmentCaches[instanceId].RemoveRoleAssignment(roleAssignment);
+                _roleAssignmentStores[instanceId].RoleAssignments.Remove(existingRoleAssignment);
+
+                await _storageService.WriteFileAsync(
+                   ROLE_ASSIGNMENTS_CONTAINER_NAME,
+                   $"/{instanceId.ToLower()}.json",
+                   JsonSerializer.Serialize(_roleAssignmentStores[instanceId]),
+                   default,
+                   default);
+
+                return new RoleAssignmentResult() { Success = true };
+            }
+            
+            return new RoleAssignmentResult() { Success = false };
+        }
 
         /// <inheritdoc/>
         public List<RoleAssignment> GetRoleAssingments(string instanceId) => _roleAssignmentStores[instanceId].RoleAssignments;

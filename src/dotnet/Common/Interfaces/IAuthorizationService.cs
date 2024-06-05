@@ -43,5 +43,13 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
         Task<List<object>> GetRoleAssignments(string instanceId);
+
+        /// <summary>
+        /// Revokes a role from an Entra ID user or group.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
+        /// <param name="roleAssignment">The role assignment object identifier.</param>
+        /// <returns>The role assignment result.</returns>
+        Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment);
     }
 }
