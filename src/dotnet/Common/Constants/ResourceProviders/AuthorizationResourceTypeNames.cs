@@ -14,5 +14,9 @@
         /// Role definitions.
         /// </summary>
         public const string RoleDefinitions = "roleDefinitions";
+        /// <summary>
+        /// Role definitions.
+        /// </summary>
+        public const string AuthorizableActions = "authorizableActions";
     }
 }

@@ -16,6 +16,16 @@
 				"name": "FoundationaLLM.Authorization/roleAssignments/delete",
 				"description": "Delete role assignments.",
 				"field_name": "FoundationaLLM_Authorization_RoleAssignments_Delete"
+			},
+			{
+				"name": "FoundationaLLM.Authorization/roleDefinitions/read",
+				"description": "Read role definitions.",
+				"field_name": "FoundationaLLM_Authorization_RoleDefinitions_Read"
+			},
+			{
+				"name": "FoundationaLLM.Authorization/authorizableActions/read",
+				"description": "Read authorizable actions.",
+				"field_name": "FoundationaLLM_Authorization_AuthorizableActions_Read"
 			}
 		]
 	},

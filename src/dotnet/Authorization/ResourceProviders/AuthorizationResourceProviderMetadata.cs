@@ -20,8 +20,34 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         AuthorizationResourceTypeNames.RoleAssignments)
                 {
                     AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(RoleAssignment)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<RoleAssignment>)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignment)], [typeof(ResourceProviderUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    Actions = []
+                }
+            },
+            {
+                AuthorizationResourceTypeNames.RoleDefinitions,
+                new ResourceTypeDescriptor(
+                        AuthorizationResourceTypeNames.RoleDefinitions)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(RoleDefinition)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], []),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    Actions = []
+                }
+            },
+            {
+                AuthorizationResourceTypeNames.AuthorizableActions,
+                new ResourceTypeDescriptor(
+                        AuthorizationResourceTypeNames.AuthorizableActions)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AuthorizableAction)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], []),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
                     ],
                     Actions = []
