@@ -44,14 +44,14 @@
         /// <summary>
         /// The name of the Dune semantic kernel agent.
         /// </summary>
-        public const string SemanticKernelDune = "KMAgentWithSemanticKernelDune";
+        public const string SemanticKernelDune = "Dune-01";
         /// <summary>
         /// The name of the Dune semantic kernel agent.
         /// </summary>
-        public const string SemanticKernelInlineContextDune = "DuneAgentWithSemanticKernelInlineContext";
+        public const string SemanticKernelInlineContextDune = "Dune-02";
         /// <summary>
         /// The name of the Dune Authority semantic kernel agent.
         /// </summary>
-        public const string SemanticKernelInlineContextDuneAuthority = "DuneAuthorityAgentWithSemanticKernelInlineContext";
+        public const string SemanticKernelInlineContextDuneAuthority = "Dune-03";
     }
 }
