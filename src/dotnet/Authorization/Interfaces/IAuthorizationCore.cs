@@ -45,6 +45,6 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
-        Dictionary<string, RoleAssignmentsWithactionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request);
+        Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request);
     }
 }
