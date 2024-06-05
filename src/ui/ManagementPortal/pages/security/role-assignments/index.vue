@@ -56,7 +56,7 @@
 					field="description"
 					header="Description"
 					sortable
-					style="min-width: 200px"
+					style="min-width: 200px; max-width: 500px;"
 					:pt="{
 						headerCell: {
 							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
@@ -222,6 +222,7 @@ export default {
 
 .description__column {
 	max-width: 100%;
+	display: inline-block;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
