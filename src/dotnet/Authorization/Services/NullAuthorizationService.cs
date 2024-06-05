@@ -17,18 +17,27 @@ namespace FoundationaLLM.Authorization.Services
             return new ActionAuthorizationResult { AuthorizationResults = defaultResults };
         }
 
+        /// <inheritdoc/>
         public async Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest)
         {
             await Task.CompletedTask;
             return new RoleAssignmentResult { Success = true };
         }
 
+        /// <inheritdoc/>
         public async Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
         {
             var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
 
             await Task.CompletedTask;
             return defaultResults;
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<object>> GetRoleAssignments(string instanceId)
+        {
+            await Task.CompletedTask;
+            return [];
         }
     }
 }

@@ -118,6 +118,36 @@ namespace FoundationaLLM.Authorization.Services
             }
         }
 
+
+        /// <summary>
+        /// Returns a list of role assignments for the specified instance.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
+        /// <returns>The list of all role assignments for the specified instance.</returns>
+        public async Task<List<object>> GetRoleAssignments(string instanceId)
+        {
+            try
+            {
+                var httpClient = await CreateHttpClient();
+                var response = await httpClient.GetAsync(
+                    $"/instances/{instanceId}/roleassignments");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<object>>(responseContent)!;
+                }
+
+                _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
+                return [];
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was an error calling the Authorization API");
+                return [];
+            }
+        }
+
         private async Task<HttpClient> CreateHttpClient()
         {
             var httpClient = _httpClientFactory.CreateClient();
