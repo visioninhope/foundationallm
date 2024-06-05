@@ -70,5 +70,17 @@ namespace FoundationaLLM.Management.API.Controllers
             var user = await accountService.GetUserByIdAsync(userId);
             return new OkObjectResult(user);
         }
+
+        /// <summary>
+        /// Retrieves user and group objects by the passed in list of IDs.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpGet("objects/getByIds", Name = "GetObjectsByIds")]
+        public async Task<IActionResult> GetObjectsByIds(ObjectQueryParameters parameters)
+        {
+            var objects = await accountService.GetObjectsByIdsAsync(parameters);
+            return new OkObjectResult(objects);
+        }
     }
 }

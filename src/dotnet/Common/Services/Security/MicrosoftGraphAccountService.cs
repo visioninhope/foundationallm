@@ -9,6 +9,7 @@ using Microsoft.Graph.Groups;
 using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
+using Microsoft.Graph.DirectoryObjects.GetByIds;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -56,6 +57,53 @@ namespace FoundationaLLM.Common.Services.Security
             return groupMembership.Count == 0
                 ? []
                 : groupMembership.Where(x => x.Id != null).Select(x => x.Id!).ToList();
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<ObjectQueryResult>> GetObjectsByIdsAsync(ObjectQueryParameters parameters)
+        {
+            var requestBody = new GetByIdsPostRequestBody
+            {
+                Ids = new List<string>(parameters.Ids),
+                Types =
+                [
+                    "user",
+                    "group",
+                ],
+            };
+            
+            var objects =
+                await graphServiceClient.DirectoryObjects.GetByIds.PostAsGetByIdsPostResponseAsync(requestBody);
+
+            if (objects?.Value == null || objects.Value.Count == 0)
+            {
+                return [];
+            }
+
+            var results = new List<ObjectQueryResult>();
+
+            foreach (var directoryObject in objects.Value)
+            {
+                string? displayName = null;
+
+                if (directoryObject is User user)
+                {
+                    displayName = user.DisplayName;
+                }
+                else if (directoryObject is Group group)
+                {
+                    displayName = group.DisplayName;
+                }
+
+                results.Add(new ObjectQueryResult
+                {
+                    Id = directoryObject.Id,
+                    ObjectType = directoryObject.OdataType,
+                    DisplayName = displayName
+                });
+            }
+
+            return results;
         }
 
         /// <inheritdoc/>

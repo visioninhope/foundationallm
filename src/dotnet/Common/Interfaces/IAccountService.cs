@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Collections;
+using Microsoft.Graph.Models;
 
 namespace FoundationaLLM.Common.Interfaces
 {
@@ -14,6 +15,13 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="userIdentifier">The user identifier for which group membership is retrieved. Can be either an object id or a user principal name (UPN).</param>
         /// <returns></returns>
         Task<List<string>> GetGroupsForPrincipalAsync(string userIdentifier);
+
+        /// <summary>
+        /// Retrieves user and group objects by the passed in list of IDs.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        Task<List<ObjectQueryResult>> GetObjectsByIdsAsync(ObjectQueryParameters parameters);
 
         /// <summary>
         /// Retrieves a list of group accounts with filtering and paging options.
