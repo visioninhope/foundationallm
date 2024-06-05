@@ -10,6 +10,7 @@ using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
 using System.Collections.Generic;
 using Microsoft.Graph.DirectoryObjects.GetByIds;
+using FoundationaLLM.Common.Constants.Authentication;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -85,20 +86,23 @@ namespace FoundationaLLM.Common.Services.Security
             foreach (var directoryObject in objects.Value)
             {
                 string? displayName = null;
+                var objectType = ObjectTypes.Other;
 
                 if (directoryObject is User user)
                 {
                     displayName = user.DisplayName;
+                    objectType = ObjectTypes.User;
                 }
                 else if (directoryObject is Group group)
                 {
                     displayName = group.DisplayName;
+                    objectType = ObjectTypes.Group;
                 }
 
                 results.Add(new ObjectQueryResult
                 {
                     Id = directoryObject.Id,
-                    ObjectType = directoryObject.OdataType,
+                    ObjectType = objectType,
                     DisplayName = displayName
                 });
             }
