@@ -35,7 +35,7 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
-            var agentName = TestAgentNames.SemanticKernelInlineContextDuneAuthority;
+            var agentName = TestAgentNames.Dune03;
             var userPrompts = new List<string>
             {
                 "Who is 'Paul-Muad'Dib' and what is his relationship to the Fremen?",
@@ -47,8 +47,8 @@ namespace FoundationaLLM.Core.Examples
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileName);
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
 
-            await _managementAPITestManager.CreateAgent(TestAgentNames.SemanticKernelDune, indexingProfileName, textEmbeddingProfileName);
-            await _managementAPITestManager.CreateAgent(TestAgentNames.SemanticKernelInlineContextDune);
+            await _managementAPITestManager.CreateAgent(TestAgentNames.Dune01, indexingProfileName, textEmbeddingProfileName);
+            await _managementAPITestManager.CreateAgent(TestAgentNames.Dune02);
 
             var response = await _agentConversationTestService.RunAgentConversationWithSession(
                 agentName, userPrompts, null, true, indexingProfileName, textEmbeddingProfileName);
@@ -67,8 +67,8 @@ namespace FoundationaLLM.Core.Examples
                 }
             }
 
-            await _managementAPITestManager.DeleteAgent(TestAgentNames.SemanticKernelDune);
-            await _managementAPITestManager.DeleteAgent(TestAgentNames.SemanticKernelInlineContextDune);
+            await _managementAPITestManager.DeleteAgent(TestAgentNames.Dune01);
+            await _managementAPITestManager.DeleteAgent(TestAgentNames.Dune02);
 
             Assert.True(invalidAgentResponsesFound == 0, $"{invalidAgentResponsesFound} invalid agent responses found.");
         }

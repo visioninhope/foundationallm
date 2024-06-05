@@ -294,7 +294,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             },
             new KnowledgeManagementAgent
             {
-                Name = TestAgentNames.SemanticKernelDune,
+                Name = TestAgentNames.Dune01,
                 Description = "Knowledge Management Agent that queries the Dune books using SemanticKernel.",
                 InlineContext = false,
                 SessionsEnabled = true,
@@ -333,7 +333,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             },
             new KnowledgeManagementAgent
             {
-                Name = TestAgentNames.SemanticKernelInlineContextDune,
+                Name = TestAgentNames.Dune02,
                 Description = "Inline Context Agent that writes poems about Dune suitable for being used in wartime songs.",
                 InlineContext = true,
                 SessionsEnabled = true,
@@ -372,7 +372,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
             },
             new KnowledgeManagementAgent
             {
-                Name = TestAgentNames.SemanticKernelInlineContextDuneAuthority,
+                Name = TestAgentNames.Dune03,
                 Description = "Answers questions about Dune by asking for help from other agents.",
                 InlineContext = true,
                 SessionsEnabled = true,

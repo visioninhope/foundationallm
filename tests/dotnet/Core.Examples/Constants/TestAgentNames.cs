@@ -42,16 +42,16 @@
         /// </summary>
         public const string ConversationGeneratorAgent = "ConversationGeneratorAgent";
         /// <summary>
-        /// The name of the Dune semantic kernel agent.
+        /// The name of the agent that answers questions about the Dune books.
         /// </summary>
-        public const string SemanticKernelDune = "Dune-01";
+        public const string Dune01 = "Dune-01";
         /// <summary>
-        /// The name of the Dune semantic kernel agent.
+        /// The name of the agent that writes poems about Dune.
         /// </summary>
-        public const string SemanticKernelInlineContextDune = "Dune-02";
+        public const string Dune02 = "Dune-02";
         /// <summary>
-        /// The name of the Dune Authority semantic kernel agent.
+        /// The name of the Dune Authority agent that interacts with other agents.
         /// </summary>
-        public const string SemanticKernelInlineContextDuneAuthority = "Dune-03";
+        public const string Dune03 = "Dune-03";
     }
 }
