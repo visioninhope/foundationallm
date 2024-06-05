@@ -1,4 +1,4 @@
-name: Daily End to End Testing
+name: Release End to End Testing
 
 on:
   push:
