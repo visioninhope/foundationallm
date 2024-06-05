@@ -123,7 +123,7 @@
 		<Dialog
 			:visible="roleAssignmentToDelete !== null"
 			modal
-			header="Delete Data Source"
+			header="Delete Role Assignment"
 			:closable="false"
 		>
 			<p>Do you want to delete the role assignment "{{ roleAssignmentToDelete.name }}" ?</p>
