@@ -4,9 +4,9 @@ using FoundationaLLM.Common.Models.Collections;
 namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
-    /// Provides group membership services.
+    /// Provides user and group account services.
     /// </summary>
-    public interface IGroupService
+    public interface IAccountService
     {
         /// <summary>
         /// Retrieves the group identifiers list of the groups where the specified user principal is a member.
@@ -28,5 +28,19 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="groupId">The group account identifier used to retrieve a single group account.</param>
         /// <returns></returns>
         Task<GroupAccount> GetUserGroupByIdAsync(string groupId);
+
+        /// <summary>
+        /// Retrieves a list of user accounts with filtering and paging options.
+        /// </summary>
+        /// <param name="queryParams">The filtering and paging options used when retrieving users.</param>
+        /// <returns></returns>
+        Task<PagedResponse<UserAccount>> GetUsersAsync(AccountQueryParameters queryParams);
+
+        /// <summary>
+        /// Retrieves a user account by its identifier.
+        /// </summary>
+        /// <param name="groupId">The user identifier used to retrieve a single user account.</param>
+        /// <returns></returns>
+        Task<UserAccount> GetUserByIdAsync(string userId);
     }
 }

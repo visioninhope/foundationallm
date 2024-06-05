@@ -8,6 +8,7 @@ using Microsoft.Graph;
 using Microsoft.Graph.Groups;
 using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
+using System.Collections.Generic;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -15,15 +16,15 @@ namespace FoundationaLLM.Common.Services.Security
     /// Implements group membership services using the Microsoft Graph API.
     /// </summary>
     /// <remarks>
-    /// Initializes a new instance of the <see cref="MicrosoftGraphGroupService"/> class.
+    /// Initializes a new instance of the <see cref="MicrosoftGraphAccountService"/> class.
     /// </remarks>
     /// <param name="graphServiceClient">The GraphServiceClient to be used for API interactions.</param>
     /// <param name="logger">The logger used for logging.</param>
-    public class MicrosoftGraphGroupService(
+    public class MicrosoftGraphAccountService(
         GraphServiceClient graphServiceClient,
-        ILogger<MicrosoftGraphGroupService> logger) : IGroupService
+        ILogger<MicrosoftGraphAccountService> logger) : IAccountService
     {
-        private readonly ILogger<MicrosoftGraphGroupService> _logger = logger;
+        private readonly ILogger<MicrosoftGraphAccountService> _logger = logger;
 
         /// <inheritdoc/>
         public async Task<List<string>> GetGroupsForPrincipalAsync(string userIdentifier)
@@ -68,12 +69,10 @@ namespace FoundationaLLM.Common.Services.Security
                 Name = group?.DisplayName
             };
         }
+
         /// <inheritdoc/>
         public async Task<PagedResponse<GroupAccount>> GetUserGroupsAsync(AccountQueryParameters queryParams)
         {
-            // TODO: Authorize the user to access this endpoint via the AuthorizationService.
-            // A user must be assigned the "Role Based Access Control Administrator" role (/providers/FoundationaLLM.Authorization/roleDefinitions/17ca4b59-3aee-497d-b43b-95dd7d916f99) to access this endpoint.
-
             var pageSize = queryParams.PageSize ?? 100;
             var userGroups = new List<GroupAccount>();
 
@@ -119,6 +118,71 @@ namespace FoundationaLLM.Common.Services.Security
                 Items = userGroups,
                 TotalItems = groupsPage?.OdataCount,
                 HasNextPage = groupsPage?.OdataNextLink != null
+            };
+        }
+
+        /// <inheritdoc/>
+        public async Task<UserAccount> GetUserByIdAsync(string userId)
+        {
+            var user = await graphServiceClient.Users[userId].GetAsync();
+
+            return new UserAccount
+            {
+                Id = user?.Id,
+                Name = user?.DisplayName,
+                Email = user?.Mail
+            };
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResponse<UserAccount>> GetUsersAsync(AccountQueryParameters queryParams)
+        {
+            var pageSize = queryParams.PageSize ?? 100;
+            var users = new List<UserAccount>();
+
+            var currentPage = 1;
+
+            // Retrieve users with filtering and paging options.
+            var usersPage = await graphServiceClient.Users
+                .GetAsync(requestConfiguration =>
+                {
+                    requestConfiguration.QueryParameters.Select = ["id", "displayName", "mail"];
+                    requestConfiguration.QueryParameters.Filter = "accountEnabled eq true";
+                    if (!string.IsNullOrEmpty(queryParams.Name))
+                    {
+                        requestConfiguration.QueryParameters.Search = $"\"displayName:{queryParams.Name}\"";
+                    }
+                    requestConfiguration.QueryParameters.Orderby = ["displayName"];
+                    requestConfiguration.QueryParameters.Top = pageSize;
+                    requestConfiguration.QueryParameters.Count = true;
+                    requestConfiguration.Headers.Add("ConsistencyLevel", "eventual");
+                });
+
+            // Skip pages until we reach the desired page.
+            while (usersPage?.OdataNextLink != null && currentPage < queryParams.PageNumber)
+            {
+                usersPage = await graphServiceClient.Users
+                    .WithUrl(usersPage.OdataNextLink)
+                    .GetAsync();
+                currentPage++;
+            }
+
+            // Process the desired page.
+            if (usersPage?.Value != null)
+            {
+                users.AddRange(usersPage.Value.Select(x => new UserAccount
+                {
+                    Id = x.Id,
+                    Name = x.DisplayName,
+                    Email = x.Mail
+                }));
+            }
+
+            return new PagedResponse<UserAccount>
+            {
+                Items = users,
+                TotalItems = usersPage?.OdataCount,
+                HasNextPage = usersPage?.OdataNextLink != null
             };
         }
     }
