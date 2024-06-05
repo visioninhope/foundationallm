@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using FoundationaLLM.Authorization.Models;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
@@ -48,6 +50,78 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         /// <inheritdoc/>
         protected override async Task InitializeInternal() =>
             await Task.CompletedTask;
+
+        #region Support for Management API
+
+        /// <inheritdoc/>
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
+            {
+                AuthorizationResourceTypeNames.RoleAssignments => await LoadRoleAssignments(resourcePath.ResourceTypeInstances[0], userIdentity),
+                AuthorizationResourceTypeNames.RoleDefinitions => LoadRoleDefinitions(resourcePath.ResourceTypeInstances[0], userIdentity),
+                AuthorizationResourceTypeNames.AuthorizableActions => LoadAuthorizableActions(resourcePath.ResourceTypeInstances[0], userIdentity),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
+            };
+
+        #region Helpers for GetResourcesAsyncInternal
+
+        private static List<RoleDefinition> LoadRoleDefinitions(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        {
+            if (instance.ResourceId == null)
+                return RoleDefinitions.All.Values.ToList();
+            else
+            {
+                if (RoleDefinitions.All.TryGetValue(instance.ResourceId, out var roleDefinition))
+                    return [roleDefinition];
+                else
+                    return [];
+            }
+        }
+
+        private static List<AuthorizableAction> LoadAuthorizableActions(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        {
+            if (instance.ResourceId == null)
+                return [.. AuthorizableActions.Actions.Values];
+            else
+            {
+                if (AuthorizableActions.Actions.TryGetValue(instance.ResourceId, out var authorizableAction))
+                    return [authorizableAction];
+                else
+                    return [];
+            }
+        }
+
+        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> LoadRoleAssignments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        {
+            var roleAssignments = new List<RoleAssignment>();
+            var allRoleAssignments = new List<RoleAssignment>();
+
+            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
+            foreach (var obj in roleAssignmentObjects)
+                allRoleAssignments.Add(JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!);
+
+            allRoleAssignments = allRoleAssignments.Where(r => !r.Deleted).ToList();
+
+            if (instance.ResourceId == null)
+                roleAssignments = allRoleAssignments;
+            else
+            {
+                var roleAssignment = roleAssignments.Where(roleAssignment => roleAssignment.ObjectId == instance.ResourceId).SingleOrDefault();
+
+                if (roleAssignment == null)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} role assignment resource.",
+                        StatusCodes.Status404NotFound);
+                else
+                    roleAssignments = [roleAssignment];
+            }
+
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+               _instanceSettings.Id, userIdentity, roleAssignments,
+               AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Read);
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
@@ -102,6 +176,8 @@ namespace FoundationaLLM.Authorization.ResourceProviders
 
             throw new ResourceProviderException("The role assignment failed.");
         }
+
+        #endregion
 
         #endregion
     }
