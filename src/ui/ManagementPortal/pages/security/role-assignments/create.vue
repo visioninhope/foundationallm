@@ -39,7 +39,7 @@
 			<div class="span-2">
 				<div class="mb-2">Principal type:</div>
 				<Dropdown
-					v-model="roleAssignment.principial_type"
+					v-model="roleAssignment.principal_type"
 					:options="principalTypeOptions"
 					option-label="label"
 					option-value="value"
