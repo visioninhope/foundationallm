@@ -72,7 +72,8 @@ namespace FoundationaLLM.Common.Services.Security
                     "group",
                 ],
             };
-            
+
+            // The maximum number of IDs that can be passed in a single request is 1000.
             var objects =
                 await graphServiceClient.DirectoryObjects.GetByIds.PostAsGetByIdsPostResponseAsync(requestBody);
 
