@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Models.Collections
         /// The list of items to return.
         /// </summary>
         [JsonPropertyName("items")]
-        public IEnumerable<T> Items { get; set; }
+        public IEnumerable<T>? Items { get; set; }
 
         /// <summary>
         /// The total number of items available. This is the total count, not necessarily the number of items returned in the response.
