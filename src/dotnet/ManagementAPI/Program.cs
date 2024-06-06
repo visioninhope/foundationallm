@@ -10,9 +10,19 @@ using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Services.ContentSources;
+using FoundationaLLM.Vectorization.Services.RequestSources;
+using FoundationaLLM.Vectorization.Services.Text;
+using FoundationaLLM.Vectorization.Services.VectorizationServices;
+using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Polly;
@@ -51,10 +61,11 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);                
             });
 
             if (builder.Environment.IsDevelopment())
@@ -84,6 +95,17 @@ namespace FoundationaLLM.Management.API
                 builder.Configuration,
                 AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
 
+            // Add vectorization worker settings
+            builder.Services.AddOptions<VectorizationWorkerSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
+
+            builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
+
+            builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+
+
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddHttpClient();
@@ -97,6 +119,29 @@ namespace FoundationaLLM.Management.API
             // Resource validation.
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
+            // Add queue and step configurations
+            builder.Services.AddKeyedSingleton(
+                typeof(IConfigurationSection),
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues,
+                builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues));
+
+            builder.Services.AddKeyedSingleton(
+                typeof(IConfigurationSection),
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps,
+                builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps));
+
+            // Request sources cache
+            builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
+            builder.Services.ActivateSingleton<IRequestSourcesCache>();
+
+            // Vectorization state
+            builder.Services.AddSingleton<MemoryVectorizationStateService, MemoryVectorizationStateService>(); //for sync requests
+            builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>(); //for async requests
+
+            // Register the Vectorization Service Factory.
+            builder.Services.AddSingleton<VectorizationServiceFactory>();
+
+
             //----------------------------
             // Resource providers
             //----------------------------
@@ -107,6 +152,27 @@ namespace FoundationaLLM.Management.API
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();
             builder.AddAttachmentResourceProvider();
+
+
+            // Service factories
+            builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
+            builder.Services.AddSingleton<IVectorizationServiceFactory<ITextSplitterService>, TextSplitterServiceFactory>();
+            builder.Services.AddSingleton<IVectorizationServiceFactory<ITextEmbeddingService>, TextEmbeddingServiceFactory>();
+            builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, IndexingServiceFactory>();
+
+            // Tokenizer
+            builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
+            builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
+
+            // Gateway text embedding
+            builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
+            builder.AddGatewayService();
+            builder.Services.AddHttpClient();
+
+            // Indexing
+            builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
 
             // Add authentication configuration.
             var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
