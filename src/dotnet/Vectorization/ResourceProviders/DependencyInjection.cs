@@ -1,5 +1,4 @@
 using FluentValidation;
-using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
@@ -12,11 +11,7 @@ using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
-using FoundationaLLM.Vectorization.Client;
-using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.Extensions.Configuration;
