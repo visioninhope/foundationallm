@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Services.VectorizationServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoundationaLLM.Vectorization.API.Controllers
@@ -12,14 +11,14 @@ namespace FoundationaLLM.Vectorization.API.Controllers
     /// <remarks>
     /// Constructor for the vectorization request controller.
     /// </remarks>
-    /// <param name="vectorizationService"></param>
+    /// <param name="vectorizationServiceFactory">The factory responsible for determining the approprate vectorization service for the request.</param>
     [ApiController]
     [APIKeyAuthentication]
     [Route("[controller]")]
     public class VectorizationRequestController(
-        IVectorizationService vectorizationService) : ControllerBase
+        VectorizationServiceFactory vectorizationServiceFactory) : ControllerBase
     {
-        readonly IVectorizationService _vectorizationService = vectorizationService;
+        readonly VectorizationServiceFactory _vectorizationServiceFactory = vectorizationServiceFactory;
 
         /// <summary>
         /// Handles an incoming vectorization request by starting a new vectorization pipeline.
@@ -27,7 +26,11 @@ namespace FoundationaLLM.Vectorization.API.Controllers
         /// <param name="vectorizationRequest"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> ProcessRequest([FromBody] VectorizationRequest vectorizationRequest) =>
-            new OkObjectResult(await _vectorizationService.ProcessRequest(vectorizationRequest));
+        public async Task<IActionResult> ProcessRequest([FromBody] VectorizationRequest vectorizationRequest)
+        {
+            var vectorizationService = _vectorizationServiceFactory.GetService(vectorizationRequest);
+            return new OkObjectResult(await vectorizationService.ProcessRequest(vectorizationRequest));
+        }
+            
     }
 }

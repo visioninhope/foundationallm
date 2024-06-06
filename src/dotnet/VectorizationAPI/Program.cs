@@ -13,10 +13,10 @@ using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.RequestSources;
 using FoundationaLLM.Vectorization.Services.Text;
+using FoundationaLLM.Vectorization.Services.VectorizationServices;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -93,7 +93,11 @@ builder.Services.AddKeyedSingleton(
     builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps));
 
 // Vectorization state
-builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+builder.Services.AddSingleton<MemoryVectorizationStateService, MemoryVectorizationStateService>(); //for sync requests
+builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>(); //for async requests
+
+// Vectorization factory
+builder.Services.AddSingleton<VectorizationServiceFactory, VectorizationServiceFactory>();
 
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
@@ -130,7 +134,7 @@ builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
 builder.Services.ActivateSingleton<IRequestSourcesCache>();
 
 // Vectorization
-builder.Services.AddScoped<IVectorizationService, VectorizationService>();
+builder.Services.AddScoped<IVectorizationService, AsynchronousVectorizationService>();
 
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
