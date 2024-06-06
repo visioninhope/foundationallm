@@ -14,25 +14,32 @@ namespace FoundationaLLM.Vectorization.Services.Text
     /// <summary>
     /// Creates text splitter service instances.
     /// </summary>
-    /// <param name="vectorizationResourceProviderService">The vectorization resource provider service.</param>
+    /// <param name="resourceProviderServices">The collection of registered resource providers.</param>
     /// <param name="configuration">The global configuration provider.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> providing dependency injection services.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class IndexingServiceFactory(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IResourceProviderService vectorizationResourceProviderService,
+        IEnumerable<IResourceProviderService> resourceProviderServices,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationServiceFactory<IIndexingService>
-    {
-        private readonly IResourceProviderService _vectorizationResourceProviderService = vectorizationResourceProviderService;
+    {        
         private readonly IConfiguration _configuration = configuration;
         private readonly IServiceProvider _serviceProvider = serviceProvider;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
+        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
+            resourceProviderServices.ToDictionary<IResourceProviderService, string>(
+                rps => rps.Name);
+
         /// <inheritdoc/>
         public IIndexingService GetService(string serviceName)
         {
-            var indexingProfile = _vectorizationResourceProviderService.GetResource<IndexingProfile>(
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
+            if (vectorizationResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
+
+            var indexingProfile = vectorizationResourceProviderService.GetResource<IndexingProfile>(
                 $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");
 
             return indexingProfile.Indexer switch
@@ -45,7 +52,11 @@ namespace FoundationaLLM.Vectorization.Services.Text
         /// <inheritdoc/>
         public (IIndexingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
-            var indexingProfile = _vectorizationResourceProviderService.GetResource<IndexingProfile>(
+            _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
+            if (vectorizationResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
+
+            var indexingProfile = vectorizationResourceProviderService.GetResource<IndexingProfile>(
                 $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");
 
             return indexingProfile.Indexer switch

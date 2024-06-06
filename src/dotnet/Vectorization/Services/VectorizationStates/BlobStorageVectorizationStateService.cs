@@ -174,7 +174,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
                     .DefaultIfEmpty()
                 select new VectorizationStateItem
                 {
-                    PipelineName = state.PipelineName,
+                    PipelineName = state.PipelineName ?? "NoPipeline",
                     Position = tp.Position,
                     TextPartitionContent = tp.Content!,
                     TextPartitionHash = tp.ContentHash,
