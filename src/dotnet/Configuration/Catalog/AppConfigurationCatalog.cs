@@ -633,64 +633,6 @@ namespace FoundationaLLM.Configuration.Catalog
 
         #endregion
 
-        #region LakeraGuard
-
-        /// <summary>
-        /// The Lakera Guard configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> LakeraGuard =
-        [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
-                minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-lakera-guard-api-key`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIUrl,
-                minimumVersion: "0.7.0",
-                defaultValue: "Enter the URL to the service.",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-        ];
-        #endregion
-
-        #region Enkrypt Guardrails
-
-        /// <summary>
-        /// The Enkrypt Guardrails configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> EnkryptGuardrails =
-        [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
-                minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-enkrypt-guardrails-apikey`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIUrl,
-                minimumVersion: "0.7.0",
-                defaultValue: "Enter the URL to the service.",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-        ];
-        #endregion
-
         #region AzureContentSafety
 
         /// <summary>
@@ -1984,9 +1926,7 @@ namespace FoundationaLLM.Configuration.Catalog
             allEntries.AddRange(AgentHub);
             allEntries.AddRange(APIs);
             allEntries.AddRange(Attachment);
-            allEntries.AddRange(AzureContentSafety);
-            allEntries.AddRange(LakeraGuard);
-            allEntries.AddRange(EnkryptGuardrails);
+            allEntries.AddRange(AzureContentSafety);            
             allEntries.AddRange(AzureOpenAI);
             allEntries.AddRange(BlobStorageMemorySource);
             allEntries.AddRange(Branding);

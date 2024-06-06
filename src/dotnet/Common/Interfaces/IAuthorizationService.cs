@@ -33,7 +33,7 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="request">The get roles with actions request.</param>
         /// <returns>The get roles and actions result.</returns>
-        Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(
+        Task<Dictionary<string, RoleAssignmentsWithActionsResult>> ProcessRoleAssignmentsWithActionsRequest(
             string instanceId,
             RoleAssignmentsWithActionsRequest request);
 

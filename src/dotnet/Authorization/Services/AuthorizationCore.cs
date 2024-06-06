@@ -273,9 +273,9 @@ namespace FoundationaLLM.Authorization.Services
         public List<RoleAssignment> GetRoleAssingments(string instanceId) => _roleAssignmentStores[instanceId].RoleAssignments;
 
         /// <inheritdoc/>
-        public Dictionary<string, RoleAssignmentsWithactionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
+        public Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
         {
-            var result = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
+            var result = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithActionsResult() { Actions = [], Roles = [] });
 
             foreach (var scope in request.Scopes)
             {
