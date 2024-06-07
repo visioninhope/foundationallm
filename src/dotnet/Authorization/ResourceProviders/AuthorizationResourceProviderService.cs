@@ -99,18 +99,9 @@ namespace FoundationaLLM.Authorization.ResourceProviders
 
         private async Task<List<ResourceProviderGetResult<RoleAssignment>>> LoadRoleAssignments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
-            var roleAssignments = new List<RoleAssignment>();
-            var allRoleAssignments = new List<RoleAssignment>();
+            var roleAssignments = await GetAllRoleAssignments();
 
-            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
-            foreach (var obj in roleAssignmentObjects)
-                allRoleAssignments.Add(JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!);
-
-            allRoleAssignments = allRoleAssignments.Where(r => !r.Deleted).ToList();
-
-            if (instance.ResourceId == null)
-                roleAssignments = allRoleAssignments;
-            else
+            if (instance.ResourceId != null)
             {
                 var roleAssignment = roleAssignments.Where(roleAssignment => roleAssignment.ObjectId == instance.ResourceId).SingleOrDefault();
 
@@ -212,10 +203,29 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
+                AuthorizationResourceTypeNames.RoleAssignments => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    AuthorizationResourceProviderActions.Filter => await FilterRoleAssignmentsByScope(serializedAction),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
+                },
                 _ => throw new ResourceProviderException()
             };
 
         #region Helpers for ExecuteActionAsync
+        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignmentsByScope(string serializedAction)
+        {
+            var parameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
+
+            if (string.IsNullOrWhiteSpace(parameters.Scope))
+                throw new ResourceProviderException();
+            else
+            {
+                var roleAssignments = (await GetAllRoleAssignments()).Where(x => x.Scope == parameters.Scope);
+
+                return roleAssignments.Select(ra => new ResourceProviderGetResult<RoleAssignment>() { Resource = ra, Actions = [], Roles = [] }).ToList();
+            }
+        }
 
         private async Task<List<ObjectQueryResult>> LoadAccounts(string serializedAction) =>
             await _accountService.GetObjectsByIdsAsync(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
@@ -247,5 +257,19 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         }
 
         #endregion
+
+        private async Task<List<RoleAssignment>> GetAllRoleAssignments()
+        {
+            var roleAssignments = new List<RoleAssignment>();
+            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
+            foreach (var obj in roleAssignmentObjects)
+            {
+                var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
+                if (!roleAssignment.Deleted)
+                    roleAssignments.Add(roleAssignment);
+            }
+
+            return roleAssignments;
+        }
     }
 }

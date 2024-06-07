@@ -26,7 +26,11 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignment)], [typeof(ResourceProviderUpsertResult)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
                     ],
-                    Actions = []
+                    Actions = [
+                        new ResourceTypeAction(AuthorizationResourceProviderActions.Filter, false, true, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AccountQueryParameters)], [typeof(ResourceProviderGetResult<RoleAssignment>)])
+                        ])
+                    ]
                 }
             },
             {
@@ -35,9 +39,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         AuthorizationResourceTypeNames.RoleDefinitions)
                 {
                     AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(RoleDefinition)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], []),
-                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(RoleDefinition)])
                     ],
                     Actions = []
                 }
@@ -48,9 +50,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         AuthorizationResourceTypeNames.AuthorizableActions)
                 {
                     AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AuthorizableAction)]),
-                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], []),
-                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AuthorizableAction)])
                     ],
                     Actions = []
                 }
