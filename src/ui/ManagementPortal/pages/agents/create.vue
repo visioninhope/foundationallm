@@ -72,8 +72,8 @@
 				>
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" />
-							<div class="step-container__header">Knowledge Management</div>
+							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" aria-labelledby="type-knowledge" />
+							<div id="type-knowledge" class="step-container__header">Knowledge Management</div>
 						</div>
 						<div>Best for Q&A, summarization and reasoning over textual data.</div>
 					</div>
@@ -85,8 +85,8 @@
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="analytics" />
-							<div class="step-container__header">Analytics</div>
+							<RadioButton v-model="agentType" name="agentType" value="analytics" aria-labelledby="type-analytics" />
+							<div id="type-analytics" class="step-container__header">Analytics</div>
 						</div>
 						<div>Best to query, analyze, calculate and report on tabular data.</div>
 					</div>
@@ -96,7 +96,7 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header span-2">Does this agent have an inline context?</div>
+			<div id="agent-inline-context" class="step-header span-2">Does this agent have an inline context?</div>
 			<div class="span-2">
 				<div class="d-flex align-center mt-2">
 					<span>
@@ -106,13 +106,14 @@
 							on-icon="pi pi-check-circle"
 							off-label="No"
 							off-icon="pi pi-times-circle"
+							aria-labelledby="agent-inline-context"
 						/>
 					</span>
 				</div>
 			</div>
 
 			<template v-if="!inline_context">
-				<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+				<div id="agent-dedicated-pipeline" class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
 				<div class="span-2">
 					<div class="d-flex align-center mt-2">
 						<span>
@@ -122,6 +123,7 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="agent-dedicated-pipeline"
 							/>
 						</span>
 					</div>
@@ -372,10 +374,10 @@
 				</div>
 
 				<template #edit>
-					<div class="step-container__header">Conversation History</div>
+					<div id="conversation-history" class="step-container__header">Conversation History</div>
 
 					<div class="d-flex align-center mt-2">
-						<span class="step-option__header">Enabled:</span>
+						<span id="conversation-history-enabled" class="step-option__header">Enabled:</span>
 						<span>
 							<ToggleButton
 								v-model="conversationHistory"
@@ -383,6 +385,7 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="conversation-history conversation-history-enabled"
 							/>
 						</span>
 					</div>
@@ -426,10 +429,10 @@
 				</div>
 
 				<template #edit>
-					<div class="step-container__header">Gatekeeper</div>
+					<div id="gatekeeper" class="step-container__header">Gatekeeper</div>
 
 					<div class="d-flex align-center mt-2">
-						<span class="step-option__header">Enabled:</span>
+						<span id="gatekeeper-enabled" class="step-option__header">Enabled:</span>
 						<span>
 							<ToggleButton
 								v-model="gatekeeperEnabled"
@@ -437,6 +440,7 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="gatekeeper gatekeeper-enabled"
 							/>
 						</span>
 					</div>
