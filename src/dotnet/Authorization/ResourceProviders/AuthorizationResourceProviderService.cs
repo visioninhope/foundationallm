@@ -205,7 +205,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                 },
                 AuthorizationResourceTypeNames.RoleAssignments => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AuthorizationResourceProviderActions.Filter => await FilterRoleAssignmentsByScope(serializedAction),
+                    AuthorizationResourceProviderActions.Filter => await FilterRoleAssignments(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -213,18 +213,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             };
 
         #region Helpers for ExecuteActionAsync
-        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignmentsByScope(string serializedAction)
+        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignments(ResourceTypeInstance resourceTypeInstance, string serializedAction, UnifiedUserIdentity userIdentity)
         {
             var parameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
 
             if (string.IsNullOrWhiteSpace(parameters.Scope))
                 throw new ResourceProviderException();
             else
-            {
-                var roleAssignments = (await GetAllRoleAssignments()).Where(x => x.Scope == parameters.Scope);
-
-                return roleAssignments.Select(ra => new ResourceProviderGetResult<RoleAssignment>() { Resource = ra, Actions = [], Roles = [] }).ToList();
-            }
+                return (await LoadRoleAssignments(resourceTypeInstance, userIdentity)).Where(x => x.Resource.Scope == parameters.Scope).ToList();
         }
 
         private async Task<List<ObjectQueryResult>> LoadAccounts(string serializedAction) =>
