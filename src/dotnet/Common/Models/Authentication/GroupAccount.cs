@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FoundationaLLM.Common.Constants.Authentication;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Common.Models.Authentication
 {
     /// <summary>
     /// Stores security group account information.
     /// </summary>
-    public class GroupAccount
+    public class GroupAccount : AccountBase
     {
-        /// <summary>
-        /// User account identifier.
-        /// </summary>
-        [JsonPropertyName("id")]
-        public string? Id { get; set; }
-
-        /// <summary>
-        /// Group name.
-        /// </summary>
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        /// <inheritdoc/>
+        [JsonPropertyName("object_type")]
+        public override string ObjectType => ObjectTypes.Group;
     }
 }

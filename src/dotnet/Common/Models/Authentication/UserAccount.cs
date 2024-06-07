@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FoundationaLLM.Common.Constants.Authentication;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Common.Models.Authentication
 {
     /// <summary>
     /// Stores user account information.
     /// </summary>
-    public class UserAccount
+    public class UserAccount : AccountBase
     {
-        /// <summary>
-        /// User account identifier.
-        /// </summary>
-        [JsonPropertyName("id")]
-        public string? Id { get; set; }
-
-        /// <summary>
-        /// User account name.
-        /// </summary>
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        /// <inheritdoc/>
+        [JsonPropertyName("object_type")]
+        public override string ObjectType => ObjectTypes.User;
 
         /// <summary>
         /// User account email address.
