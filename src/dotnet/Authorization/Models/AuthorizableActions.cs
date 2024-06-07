@@ -48,9 +48,9 @@ namespace FoundationaLLM.Authorization.Models
                         "Authorization")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Authorization_Accounts_Read,
+                    AuthorizableActionNames.FoundationaLLM_Authorization_Accounts_Write,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Authorization_Accounts_Read,
+                        AuthorizableActionNames.FoundationaLLM_Authorization_Accounts_Write,
                         "Perform account actions.",
                         "Authorization")
                 },

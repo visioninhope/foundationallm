@@ -30,7 +30,7 @@
 			{
 				"name": "FoundationaLLM.Authorization/accounts/write",
 				"description": "Perform account actions.",
-				"field_name": "FoundationaLLM_Authorization_Accounts_Read"
+				"field_name": "FoundationaLLM_Authorization_Accounts_Write"
 			}
 		]
 	},
