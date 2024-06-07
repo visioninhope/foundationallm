@@ -23,13 +23,14 @@
 			<!-- Description -->
 			<div class="step-header span-2">What is the description of the role assignment?</div>
 			<div class="span-2">
-				<div class="mb-2">Data description:</div>
+				<div id="aria-description" class="mb-2">Description:</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="roleAssignment.description"
-						placeholder="Enter a description for this role assignment"
 						type="text"
 						class="w-100"
+						placeholder="Enter a description for this role assignment"
+						aria-labelledby="aria-description"
 					/>
 				</div>
 			</div>
@@ -37,22 +38,24 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
-				<div class="mb-2">Principal type:</div>
+				<div id="aria-principal-type" class="mb-2">Principal type:</div>
 				<Dropdown
 					v-model="roleAssignment.principal_type"
 					:options="principalTypeOptions"
 					option-label="label"
 					option-value="value"
 					placeholder="--Select--"
+					aria-labelledby="aria-principal-type"
 				/>
 
-				<div class="mb-2 mt-2">Principal ID:</div>
+				<div id="aria-principal-id" class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="roleAssignment.principal_id"
-						placeholder="Enter principal id (GUID)"
 						type="text"
 						class="w-50"
+						placeholder="Enter principal id (GUID)"
+						aria-labelledby="aria-principal-id"
 					/>
 					<Button
 						label="Browse"
@@ -68,11 +71,12 @@
 					header="Browse Principals"
 					:closable="false"
 				>
-					<div class="mb-2">Search by group or type</div>
+					<div id="aria-principal-search" class="mb-2">Search by group or type</div>
 					<InputText
 						v-model="principalSearch"
-						placeholder="Search"
 						type="text"
+						placeholder="Search"
+						aria-labelledby="aria-principal-search"
 					/>
 					<template #footer>
 						<Button label="Cancel" text @click="openBrowsePrincipalsModal = false" />
@@ -82,7 +86,7 @@
 			</div>
 
 			<!-- Role -->
-			<div class="step-header span-2">What role to assign?</div>
+			<div id="aria-role" class="step-header span-2">What role to assign?</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="roleAssignment.role_definition_id"
@@ -90,17 +94,19 @@
 					option-label="display_name"
 					option-value="object_id"
 					placeholder="--Select--"
+					aria-labelledby="aria-role"
 				/>
 			</div>
 
 			<!-- Cost center -->
-			<div class="step-header span-2">Would you like to assign this role assignment to a cost center?</div>
+			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this role assignment to a cost center?</div>
 			<div class="span-2">
 				<InputText
 					v-model="roleAssignment.cost_center"
-					placeholder="Enter cost center name"
 					type="text"
 					class="w-50"
+					placeholder="Enter cost center name"
+					aria-labelledby="aria-cost-center"
 				/>
 			</div>
 
