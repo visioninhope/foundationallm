@@ -5,5 +5,8 @@
     /// </summary>
     public static class AuthorizationResourceProviderActions
     {
+        public const string GetUsers = "getUsers";
+        public const string GetGroups = "getGroups";
+        public const string GetObjects = "getObjects";
     }
 }
