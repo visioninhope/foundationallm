@@ -19,6 +19,12 @@ namespace FoundationaLLM.Common.Models.Authentication
         public string? Name { get; set; }
 
         /// <summary>
+        /// Account id.
+        /// </summary>
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
+
+        /// <summary>
         /// The current page number.
         /// </summary>
         [JsonPropertyName("page_number")]

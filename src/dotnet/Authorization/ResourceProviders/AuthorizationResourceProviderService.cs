@@ -206,9 +206,9 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             {
                 AuthorizationResourceTypeNames.Accounts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AuthorizationResourceProviderActions.GetUsers => await LoadUserAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
-                    AuthorizationResourceProviderActions.GetGroups => await LoadGroupAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
-                    AuthorizationResourceProviderActions.GetObjects => await LoadAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
+                    AuthorizationResourceProviderActions.GetUsers => await LoadUserAccounts(serializedAction),
+                    AuthorizationResourceProviderActions.GetGroups => await LoadGroupAccounts(serializedAction),
+                    AuthorizationResourceProviderActions.GetObjects => await LoadAccounts(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -217,14 +217,34 @@ namespace FoundationaLLM.Authorization.ResourceProviders
 
         #region Helpers for ExecuteActionAsync
 
-        private async Task<List<ObjectQueryResult>> LoadAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
+        private async Task<List<ObjectQueryResult>> LoadAccounts(string serializedAction) =>
             await _accountService.GetObjectsByIdsAsync(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
 
-        private async Task<PagedResponse<UserAccount>> LoadUserAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
-            await _accountService.GetUsersAsync(JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!);
+        private async Task<PagedResponse<UserAccount>> LoadUserAccounts(string serializedAction)
+        {
+            var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
 
-        private async Task<PagedResponse<GroupAccount>> LoadGroupAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
-            await _accountService.GetUserGroupsAsync(JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!);
+            if (string.IsNullOrWhiteSpace(parameters.Id))
+                return await _accountService.GetUsersAsync(parameters);
+            else
+            {
+                var userAccount = await _accountService.GetUserByIdAsync(parameters.Id);
+                return new PagedResponse<UserAccount>() { Items = [userAccount], TotalItems = 1, HasNextPage = false };
+            }
+        }
+
+        private async Task<PagedResponse<GroupAccount>> LoadGroupAccounts(string serializedAction)
+        {
+            var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
+
+            if (string.IsNullOrWhiteSpace(parameters.Id))
+                return await _accountService.GetUserGroupsAsync(parameters);
+            else
+            {
+                var userGroup = await _accountService.GetUserGroupByIdAsync(parameters.Id);
+                return new PagedResponse<GroupAccount>() { Items = [userGroup], TotalItems = 1, HasNextPage = false };
+            }
+        }
 
         #endregion
     }
