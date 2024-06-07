@@ -63,6 +63,9 @@ namespace FoundationaLLM.Common.Services.Security
         /// <inheritdoc/>
         public async Task<List<ObjectQueryResult>> GetObjectsByIdsAsync(ObjectQueryParameters parameters)
         {
+            if (parameters.Ids == null || parameters.Ids.Length == 0)
+                throw new Exception("The list of object ids is invalid.");
+
             var requestBody = new GetByIdsPostRequestBody
             {
                 Ids = new List<string>(parameters.Ids),
