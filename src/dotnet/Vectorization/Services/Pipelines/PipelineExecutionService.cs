@@ -265,6 +265,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             },
                                             ProcessingType = VectorizationProcessingType.Asynchronous,
                                             ProcessingState = VectorizationProcessingState.New,
+                                            CostCenter = activePipeline.CostCenter,
                                             Steps = new List<VectorizationStep>()
                                             {
                                                 new VectorizationStep()

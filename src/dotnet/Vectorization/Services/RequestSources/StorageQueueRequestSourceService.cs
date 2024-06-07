@@ -16,6 +16,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         private readonly RequestSourceServiceSettings _settings;
         private readonly ILogger<StorageQueueRequestSourceService> _logger;
         private readonly QueueClient _queueClient;
+        private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         /// <inheritdoc/>
         public string SourceName => _settings.Name;
@@ -56,32 +57,40 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         /// <inheritdoc/>
         public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>> ReceiveRequests(int count)
         {
-            var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds)).ConfigureAwait(false);
+            await _semaphore.WaitAsync();
+            try
+            { 
+                var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds)).ConfigureAwait(false);
 
-            var result = new List<(VectorizationRequest, string, string, long)>();
+                var result = new List<(VectorizationRequest, string, string, long)>();
 
-            if (receivedMessages.HasValue)
-            {
-                foreach (var m in receivedMessages.Value)
+                if (receivedMessages.HasValue)
                 {
-                    try
+                    foreach (var m in receivedMessages.Value)
                     {
-                        var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
+                        try
+                        {
+                            var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
                                                
-                        result.Add(new(
-                            vectorizationRequest!,
-                            m.MessageId,
-                            m.PopReceipt,
-                            m.DequeueCount));
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogWarning(ex, "Cannot deserialize message with id {MessageId}.", m.MessageId);
+                            result.Add(new(
+                                vectorizationRequest!,
+                                m.MessageId,
+                                m.PopReceipt,
+                                m.DequeueCount));
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogWarning(ex, "Cannot deserialize message with id {MessageId}.", m.MessageId);
+                        }
                     }
                 }
-            }
 
-            return result;
+                return result;
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
         /// <inheritdoc/>

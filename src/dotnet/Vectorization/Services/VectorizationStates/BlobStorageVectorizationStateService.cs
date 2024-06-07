@@ -30,6 +30,8 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         private readonly IStorageService _storageService = storageService;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
+        private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+
         private const string BLOB_STORAGE_CONTAINER_NAME = "vectorization-state";
         private const string EXECUTION_STATE_DIRECTORY = "execution-state";
         private const string PIPELINE_STATE_DIRECTORY = "pipeline-state";
@@ -97,47 +99,56 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task SaveState(VectorizationState state)
         {
-            var persistenceIdentifier = GetPersistenceIdentifier(state);
-
-            // ExtractedText is persisted as a text file
-            var extractedTextArtifact = state.Artifacts.SingleOrDefault(a => a.Type == VectorizationArtifactType.ExtractedText);
-            if (extractedTextArtifact != null && extractedTextArtifact.IsDirty)
+            await _semaphore.WaitAsync();
+            try
             {
-                extractedTextArtifact.CanonicalId =
-                        $"{persistenceIdentifier}_{extractedTextArtifact.Type.ToString().ToLower()}";
+                var persistenceIdentifier = GetPersistenceIdentifier(state);
 
+                // ExtractedText is persisted as a text file
+                var extractedTextArtifact = state.Artifacts.SingleOrDefault(a => a.Type == VectorizationArtifactType.ExtractedText);
+                if (extractedTextArtifact != null && extractedTextArtifact.IsDirty)
+                {
+                    extractedTextArtifact.CanonicalId =
+                            $"{persistenceIdentifier}_{extractedTextArtifact.Type.ToString().ToLower()}";
+
+                    await _storageService.WriteFileAsync(
+                        BLOB_STORAGE_CONTAINER_NAME,
+                        $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
+                        extractedTextArtifact.Content!,
+                        default,
+                        default);
+                }
+
+                // TextPartition and TextEmbeddingVector are stored together in a Parquet file.
+
+                // Recalculate relevant properties for dirty TextPartition and TextEmbeddingVector artifacts.
+                foreach (var artifact in state.Artifacts.Where(a =>
+                    a.IsDirty
+                    && (a.Type == VectorizationArtifactType.TextPartition || a.Type == VectorizationArtifactType.TextEmbeddingVector)))
+                {
+                    artifact.ContentHash = string.IsNullOrWhiteSpace(artifact.Content)
+                        ? null
+                        : HashText(artifact.Content);
+                    artifact.CanonicalId =
+                            $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}";
+                }
+
+                // Persist TextPartition and TextEmbeddingVector artifacts in Parquet file.
+                await SaveTextPartitionsAndEmbeddings(state, persistenceIdentifier);
+
+                var content = JsonSerializer.Serialize(state);
                 await _storageService.WriteFileAsync(
                     BLOB_STORAGE_CONTAINER_NAME,
-                    $"{EXECUTION_STATE_DIRECTORY}/{extractedTextArtifact.CanonicalId}.txt",
-                    extractedTextArtifact.Content!,
+                    $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.json",
+                    content,
                     default,
                     default);
             }
-
-            // TextPartition and TextEmbeddingVector are stored together in a Parquet file.
-
-            // Recalculate relevant properties for dirty TextPartition and TextEmbeddingVector artifacts.
-            foreach (var artifact in state.Artifacts.Where(a =>
-                a.IsDirty
-                && (a.Type == VectorizationArtifactType.TextPartition || a.Type == VectorizationArtifactType.TextEmbeddingVector)))
+            finally
             {
-                artifact.ContentHash = string.IsNullOrWhiteSpace(artifact.Content)
-                    ? null
-                    : HashText(artifact.Content);
-                artifact.CanonicalId =
-                        $"{persistenceIdentifier}_{artifact.Type.ToString().ToLower()}_{artifact.Position:D6}";
+                _semaphore.Release();
             }
-
-            // Persist TextPartition and TextEmbeddingVector artifacts in Parquet file.
-            await SaveTextPartitionsAndEmbeddings(state, persistenceIdentifier);
-
-            var content = JsonSerializer.Serialize(state);
-            await _storageService.WriteFileAsync(
-                BLOB_STORAGE_CONTAINER_NAME,
-                $"{EXECUTION_STATE_DIRECTORY}/{persistenceIdentifier}.json",
-                content,
-                default,
-                default);
+            
         }
 
         private async Task SaveTextPartitionsAndEmbeddings(VectorizationState state, string persistenceIdentifier)
@@ -260,17 +271,26 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
         /// <inheritdoc/>
         public async Task SavePipelineState(VectorizationPipelineState state)
         {
-            //pipeline object id format: "/instances/{instanceId}/providers/FoundationaLLM.Vectorization/vectorizationPipelines/{pipeline-name}"
-            var pipelineName = state.PipelineObjectId.Split('/').Last();
-            //vectorization-state/pipeline-state/pipeline-name/pipeline-name-pipeline-execution-id.json
-            var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{state.ExecutionId}.json";
-            var content = JsonSerializer.Serialize(state);
-            await _storageService.WriteFileAsync(
-                BLOB_STORAGE_CONTAINER_NAME,
-                pipelineStatePath,
-                content,
-                default,
-                default);            
+            await _semaphore.WaitAsync();
+            try
+            {
+                //pipeline object id format: "/instances/{instanceId}/providers/FoundationaLLM.Vectorization/vectorizationPipelines/{pipeline-name}"
+                var pipelineName = state.PipelineObjectId.Split('/').Last();
+                //vectorization-state/pipeline-state/pipeline-name/pipeline-name-pipeline-execution-id.json
+                var pipelineStatePath = $"{PIPELINE_STATE_DIRECTORY}/{pipelineName}/{pipelineName}-{state.ExecutionId}.json";
+                var content = JsonSerializer.Serialize(state);
+                await _storageService.WriteFileAsync(
+                    BLOB_STORAGE_CONTAINER_NAME,
+                    pipelineStatePath,
+                    content,
+                    default,
+                    default);
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
+            
         }
 
         /// <inheritdoc/>
