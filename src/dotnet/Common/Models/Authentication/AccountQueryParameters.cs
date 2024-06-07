@@ -16,7 +16,7 @@ namespace FoundationaLLM.Common.Models.Authentication
         /// Account name.
         /// </summary>
         [JsonPropertyName("name")]
-        public required string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// The current page number.

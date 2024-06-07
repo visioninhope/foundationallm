@@ -7,6 +7,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
+using FoundationaLLM.Common.Models.Collections;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
@@ -25,12 +26,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
+    /// <param name="accountService">The <see cref="IAccountService"/>.</param>
     public class AuthorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        IAccountService accountService)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -41,6 +44,8 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             loggerFactory.CreateLogger<AuthorizationResourceProviderService>(),
             [])
     {
+        private readonly IAccountService _accountService = accountService;
+
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AuthorizationResourceProviderMetadata.AllowedResourceTypes;
 
@@ -192,6 +197,34 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                     StatusCodes.Status400BadRequest);
             };
         }
+
+        #endregion
+
+        /// <inheritdoc/>
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
+            {
+                AuthorizationResourceTypeNames.Accounts => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    AuthorizationResourceProviderActions.GetUsers => await LoadUserAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
+                    AuthorizationResourceProviderActions.GetGroups => await LoadGroupAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
+                    AuthorizationResourceProviderActions.GetObjects => await LoadAccounts(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
+                },
+                _ => throw new ResourceProviderException()
+            };
+
+        #region Helpers for ExecuteActionAsync
+
+        private async Task<List<ObjectQueryResult>> LoadAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            await _accountService.GetObjectsByIdsAsync(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
+
+        private async Task<PagedResponse<UserAccount>> LoadUserAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            await _accountService.GetUsersAsync(JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!);
+
+        private async Task<PagedResponse<GroupAccount>> LoadGroupAccounts(ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            await _accountService.GetUserGroupsAsync(JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!);
 
         #endregion
     }
