@@ -63,6 +63,11 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
         /// <returns>The text content of the PPTX document.</returns>
         public string GetText(BinaryData binaryContent)
         {
+            //save binaryContent to an xlsx file
+            //using var inputStream = binaryContent.ToStream();
+            //using var fileStream = new FileStream(@"C:\vectorization\thedoc.xlsx", FileMode.Create, FileAccess.Write);
+            //inputStream.CopyTo(fileStream);
+
             var sb = new StringBuilder();
 
             using var stream = binaryContent.ToStream();
@@ -85,21 +90,13 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
 
                         var cells = row.CellsUsed().ToList();
 
+                       
                         sb.Append(this._rowPrefix);
                         for (var i = 0; i < cells.Count; i++)
                         {
                             IXLCell? cell = cells[i];
 
-                            if (this._withQuotes && cell is { Value.IsText: true })
-                            {
-                                sb.Append('"')
-                                    .Append(cell.Value.GetText().Replace("\"", "\"\"", StringComparison.Ordinal))
-                                    .Append('"');
-                            }
-                            else
-                            {
-                                sb.Append(cell.Value);
-                            }
+                            sb.Append(this.GetCellValueWithTimeout(cell, 10).Result);
 
                             if (i < cells.Count - 1)
                             {
@@ -107,7 +104,8 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
                             }
                         }
 
-                        sb.AppendLine(this._rowSuffix);
+                        sb.AppendLine(this._rowSuffix);                        
+                        
                     }
 
                 }
@@ -123,6 +121,56 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
             }
 
             return sb.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Some functions in cells have self-references, this times out the retrival of a cell value to avoid memory issues.
+        /// </summary>
+        /// <param name="cell">The cell whose value is extracted.</param>
+        /// <param name="timeOutInSeconds">The timeout value to cancel the task if a value has not been surfaced (in seconds).</param>
+        /// <returns>Text Value of the cell.</returns>
+        /// <exception cref="ApplicationException">If a value is not returned in timeOutInSeconds, an exception is thrown.</exception>
+        private async Task<string> GetCellValueWithTimeout(IXLCell cell, int timeOutInSeconds)
+        {
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(timeOutInSeconds));
+            var token = cts.Token;
+
+            // assign the 10 second cancellation token to the task, if the task takes longer than 10 seconds, it is automatically cancelled.
+            var cellValueTask = Task.Run(() =>
+            {
+                var sb = new StringBuilder();
+                               
+                if (this._withQuotes && cell is { Value.IsText: true })
+                {
+                    sb.Append('"')
+                        .Append(cell.Value.GetText().Replace("\"", "\"\"", StringComparison.Ordinal))
+                        .Append('"');
+                }
+                else
+                {
+                    sb.Append(cell.Value);
+                }              
+
+                return sb.ToString();
+            }, token);
+
+            try
+            {
+                if (await Task.WhenAny(cellValueTask, Task.Delay(TimeSpan.FromSeconds(timeOutInSeconds), token)) == cellValueTask)
+                {
+                    return await cellValueTask;
+                }
+                else
+                {
+                    throw new ApplicationException("Timeout while reading cell value.");
+                }
+            }
+            // if the specified timeout is reached, if the cellValueTask is not completed, it may throw an OperationCanceledException, handle it accordingly.
+            catch (OperationCanceledException)
+            {
+                throw new ApplicationException("Timeout while reading cell value.");
+            }
+            
         }
     }
 }
