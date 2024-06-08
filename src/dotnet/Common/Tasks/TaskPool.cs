@@ -62,9 +62,9 @@ namespace FoundationaLLM.Common.Tasks
         public bool HasRunningTaskForPayload(string payloadId) =>
             _taskInfo.Any(ti => ti != null && ti.PayloadId == payloadId && _runningStates.Contains(ti.Task.Status));
 
-        // <summary>
+        /// <summary>
         /// Updates the popReceipt for a task with the given payloadId.
-        /// </summary>
+        /// </summary>       
         /// <param name="payloadId">The identifier of the payload.</param>
         /// <param name="newPopReceipt">The new popReceipt value.</param>
         public void UpdatePopReceipt(string payloadId, string newPopReceipt)
