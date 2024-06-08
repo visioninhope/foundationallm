@@ -42,19 +42,8 @@ class RetrieverFactory:
         #embedding_model_type = self.text_embedding_profile["text_embedding"]
         #embedding_model = None
         #match embedding_model_type:            
-        #    case "SemanticKernelTextEmbedding": # same as Azure Open AI Embedding        
-        e_model = EmbeddingModel(
-            type = LanguageModelType.OPENAI,
-            provider = LanguageModelProvider.MICROSOFT,
-            # the OpenAI model uses config to retrieve the app config values - pass in the keys
-            deployment = self.text_embedding_profile.configuration_references.deployment_name,
-            api_endpoint = self.text_embedding_profile.configuration_references.endpoint,
-            api_key = self.text_embedding_profile.configuration_references.api_key,
-            api_version = self.text_embedding_profile.configuration_references.api_version
-        )
-        oai_model = OpenAIModel(config = self.config)
-        embedding_model = oai_model.get_embedding_model(e_model)
-                  
+        #    case "SemanticKernelTextEmbedding": # same as Azure Open AI Embedding
+        
         # use indexing profile to build the retriever (current only supporting Azure AI Search)
         #vector_store_type = self.indexing_profile["indexer"]        
         #match vector_store_type:
@@ -65,6 +54,18 @@ class RetrieverFactory:
         if credential_type == "AzureIdentity":            
             credential = DefaultAzureCredential(exclude_environment_credential=True)
         # NOTE: Support for all other authentication types has been removed.
+
+        e_model = EmbeddingModel(
+            type = LanguageModelType.OPENAI,
+            provider = LanguageModelProvider.MICROSOFT,
+            # the OpenAI model uses config to retrieve the app config values - pass in the keys
+            deployment = self.text_embedding_profile.configuration_references.deployment_name,
+            api_endpoint = self.text_embedding_profile.configuration_references.endpoint,
+            api_key = self.text_embedding_profile.configuration_references.api_key,
+            api_version = self.text_embedding_profile.configuration_references.api_version
+        )
+        oai_model = OpenAIModel(config = self.config)
+        embedding_model = oai_model.get_embedding_model(e_model, credential)
 
         # defaults for agent parameters
         top_n = self.indexing_profile.settings.top_n
