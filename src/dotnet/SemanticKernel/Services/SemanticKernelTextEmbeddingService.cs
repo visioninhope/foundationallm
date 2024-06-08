@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Embeddings;
+using Polly;
+using Polly.Extensions.Http;
 using System.Net;
 
 #pragma warning disable SKEXP0001, SKEXP0010
@@ -98,13 +100,16 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             }
 
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
-            builder.Services.ConfigureHttpClientDefaults(c =>
+            builder.Services.ConfigureHttpClientDefaults(client =>
             {
-                // Use a standard resiliency policy configured to retry on 429 (too many requests).
-                c.AddStandardResilienceHandler().Configure(o =>
-                {
-                    o.Retry.ShouldHandle = args => ValueTask.FromResult(args.Outcome.Result?.StatusCode is HttpStatusCode.TooManyRequests);
-                });
+                // Define a policy that adds exponential backoff for retries on 429 (Too Many Requests)
+                var exponentialBackoffPolicy = HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .OrResult(msg => msg.StatusCode == HttpStatusCode.TooManyRequests)
+                    .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+
+                // Register the policy handler
+                client.AddPolicyHandler(exponentialBackoffPolicy);
             });
 
             return builder.Build();

@@ -16,7 +16,10 @@ namespace FoundationaLLM.Gateway.Models
     {
         private readonly ConcurrentDictionary<string, EmbeddingOperationContext> _embeddingOperations = embeddingOperations;
         private readonly ILogger<EmbeddingModelContext> _logger = logger;
-        private readonly object _syncRoot = new();
+
+
+        private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+    
 
         /// <summary>
         /// The name of the embedding model.
@@ -40,9 +43,14 @@ namespace FoundationaLLM.Gateway.Models
                 embeddingOperationContext,
             (k, v) => v);
 
-            lock (_syncRoot)
+            _semaphore.Wait();
+            try
             {
                 _embeddingOperationIds.Add(embeddingOperationContext.Result.OperationId!);
+            }
+            finally
+            {
+                _semaphore.Release();
             }
         }
 
@@ -61,7 +69,8 @@ namespace FoundationaLLM.Gateway.Models
 
                 try
                 {
-                    lock (_syncRoot)
+                    await _semaphore.WaitAsync();
+                    try
                     {
                         var currentDeploymentContextIndex = 0;
                         var capacityReached = false;
@@ -88,7 +97,11 @@ namespace FoundationaLLM.Gateway.Models
                             if (capacityReached) break;
                         }
                     }
-
+                    finally
+                    {
+                        _semaphore.Release();
+                    }                   
+                    
                     // Use all available deployments to get embeddings for the input text chunks.
                     var results = await Task.WhenAll(DeploymentContexts
                         .Where(dc => dc.HasInput)
@@ -120,13 +133,18 @@ namespace FoundationaLLM.Gateway.Models
                             TextChunks = g.ToList()
                         }))
                     {
-                        _embeddingOperations[successfulOperation.OperationId!].SetEmbeddings(successfulOperation.TextChunks);
-
-                        lock (_syncRoot)
+                        await _semaphore.WaitAsync();
+                        try
                         {
+                            _embeddingOperations[successfulOperation.OperationId!].SetEmbeddings(successfulOperation.TextChunks);
                             if (!_embeddingOperations[successfulOperation.OperationId!].Result.InProgress)
-                            _embeddingOperationIds.Remove(successfulOperation.OperationId!);
+                                _embeddingOperationIds.Remove(successfulOperation.OperationId!);
                         }
+                        finally
+                        {
+                            _semaphore.Release();
+                        }
+                       
                     }
                 }
                 catch (Exception ex)
