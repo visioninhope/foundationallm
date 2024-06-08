@@ -105,10 +105,11 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public async Task UpdateRequest(string messageId, string popReceipt, VectorizationRequest request)
+        public async Task<string> UpdateRequest(string messageId, string popReceipt, VectorizationRequest request)
         {
             var serializedMessage = JsonSerializer.Serialize(request);
-            await _queueClient.UpdateMessageAsync(messageId, popReceipt, serializedMessage);
+            var updateReceipt = await _queueClient.UpdateMessageAsync(messageId, popReceipt, serializedMessage);
+            return updateReceipt.Value.PopReceipt;
         }
     }
 }

@@ -61,5 +61,19 @@ namespace FoundationaLLM.Common.Tasks
         /// <returns>True if the task pool already has a running task for the specified payload, false otherwise.</returns>
         public bool HasRunningTaskForPayload(string payloadId) =>
             _taskInfo.Any(ti => ti != null && ti.PayloadId == payloadId && _runningStates.Contains(ti.Task.Status));
+
+        // <summary>
+        /// Updates the popReceipt for a task with the given payloadId.
+        /// </summary>
+        /// <param name="payloadId">The identifier of the payload.</param>
+        /// <param name="newPopReceipt">The new popReceipt value.</param>
+        public void UpdatePopReceipt(string payloadId, string newPopReceipt)
+        {
+            var taskInfo = _taskInfo.FirstOrDefault(ti => ti != null && ti.PayloadId == payloadId);
+            if (taskInfo != null)
+            {
+                taskInfo.PopReceipt = newPopReceipt;
+            }
+        }
     }
 }

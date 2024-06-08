@@ -14,5 +14,10 @@
         /// The <see cref="Task"/> being run.
         /// </summary>
         public required Task Task { get; set; }
+
+        /// <summary>
+        /// The latest pop receipt for the payload message.
+        /// </summary>
+        public string? PopReceipt { get; set; }
     }
 }
