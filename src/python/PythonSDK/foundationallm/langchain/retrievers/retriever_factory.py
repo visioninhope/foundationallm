@@ -20,7 +20,7 @@ class RetrieverFactory:
     """
     def __init__(
                 self,
-                indexing_profiles: List[str],
+                indexing_profiles: List[AzureAISearchIndexingProfile],
                 text_embedding_profile:str,
                 config: Configuration,
                 settings: Optional[OrchestrationSettings] = None
@@ -63,8 +63,6 @@ class RetrieverFactory:
         #match vector_store_type:
         #    case "AzureAISearchIndexer":
 
-        top_n = None
-
         # check for settings override
         if self.orchestration_settings is not None:
             if self.orchestration_settings.agent_parameters is not None:
@@ -73,37 +71,10 @@ class RetrieverFactory:
                 if FILTERS in self.orchestration_settings.agent_parameters:
                     filters = self.orchestration_settings.agent_parameters[FILTERS]
 
-        multi_retiever = MultiIndexRetriever()
+        retriever = AzureAISearchServiceRetriever(
+            config=self.config,
+            indexing_profiles=self.indexing_profiles,
+            embedding_model = embedding_model
+        )
 
-        if ( top_n != None ):
-            multi_retiever.top_n = top_n
-
-        for indexing_profile in self.indexing_profiles:
-
-            credential_type = self.config.get_value(indexing_profile.configuration_references.authentication_type)
-
-            credential = None
-            if credential_type == "AzureIdentity":
-                credential = DefaultAzureCredential()
-            # NOTE: Support for all other authentication types has been removed.
-
-            # defaults for agent parameters
-            top_n = indexing_profile.settings.top_n
-            filters = indexing_profile.settings.filters
-
-            retriever = AzureAISearchServiceRetriever(
-                endpoint = self.config.get_value(indexing_profile.configuration_references.endpoint),
-                index_name = indexing_profile.settings.index_name,
-                top_n = top_n,
-                embedding_field_name = indexing_profile.settings.embedding_field_name,
-                text_field_name = indexing_profile.settings.text_field_name,
-                id_field_name = indexing_profile.settings.id_field_name,
-                metadata_field_name = indexing_profile.settings.metadata_field_name,
-                filters = filters,
-                credential = credential,
-                embedding_model = embedding_model
-            )
-
-            multi_retiever.add_retriever(retriever)
-
-        return multi_retiever
+        return retriever
