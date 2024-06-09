@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using System.Text;
+using System.Text.Json;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -12,8 +14,6 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Text;
-using System.Text.Json;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
@@ -72,16 +72,13 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                         throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                    var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId, _callContext.CurrentUserIdentity);
-                    if (resource is List<PromptBase> prompts)
+                    var prompt = await promptResourceProvider.GetResource<PromptBase>(agent.PromptObjectId, _callContext.CurrentUserIdentity!) as MultipartPrompt;
+
+                    systemPrompt = new SystemCompletionMessage
                     {
-                        var prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                        systemPrompt = new SystemCompletionMessage
-                        {
-                            Role = InputMessageRoles.System,
-                            Content = prompt?.Prefix ?? string.Empty
-                        };
-                    }
+                        Role = InputMessageRoles.System,
+                        Content = prompt?.Prefix ?? string.Empty
+                    };
                 }
 
                 // Add system prompt, if exists.
@@ -116,54 +113,16 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 {
                     client.DefaultRequestHeaders.Add("api-key", endpointSettings.APIKey);
                 }
-                
+
                 client.BaseAddress = new Uri(endpointSettings.Endpoint);
-                
+
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
 
                 if (modelParameters != null)
                 {
                     var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>(modelOverrides);
-
                     var chatOperation = string.Empty;
-
-                    if (modelParameters.ContainsKey("dataSources"))
-                    {
-                        azureOpenAIDirectRequest.DataSources = new List<Common.Models.Orchestration.Direct.DataSource>();
-
-                        JsonElement dataS = (JsonElement)modelParameters["dataSources"];
-                        int length = dataS.GetArrayLength();
-
-                        for (int i = 0; i < length; i++)
-                        {
-                            var ds2 = dataS[i];
-                            var type = ds2.GetProperty("type");
-                            var parameters = ds2.GetProperty("parameters");
-
-                            FoundationaLLM.Common.Models.Orchestration.Direct.DataSource ds = new FoundationaLLM.Common.Models.Orchestration.Direct.DataSource();
-                            ds.Type = type.ToString();
-                            ds.Parameters = new Dictionary<string, object>();
-                            ds.Parameters.Add("endpoint", parameters.GetProperty("endpoint").ToString());
-                            ds.Parameters.Add("indexName", parameters.GetProperty("indexName").ToString());
-                            ds.Parameters.Add("semanticConfiguration", parameters.GetProperty("semanticConfiguration").ToString());
-                            ds.Parameters.Add("queryType", parameters.GetProperty("queryType").ToString());
-                            ds.Parameters.Add("fieldsMapping", parameters.GetProperty("fieldsMapping"));
-                            ds.Parameters.Add("inScope", parameters.GetProperty("inScope"));
-                            ds.Parameters.Add("roleInformation", parameters.GetProperty("roleInformation").ToString());
-                            ds.Parameters.Add("filter", null);
-                            ds.Parameters.Add("strictness", parameters.GetProperty("strictness"));
-                            ds.Parameters.Add("topNDocuments", parameters.GetProperty("topNDocuments"));
-                            ds.Parameters.Add("key", parameters.GetProperty("key").ToString());
-                            ds.Parameters.Add("embeddingDeploymentName", parameters.GetProperty("embeddingDeploymentName").ToString());
-                            azureOpenAIDirectRequest.DataSources.Add(ds);
-                        }
-
-                        if (azureOpenAIDirectRequest.DataSources.Count > 0)
-                        {
-                            endpointSettings.OperationType = OperationTypes.ExtendedChat;
-                        }
-                    }
 
                     switch (endpointSettings.OperationType)
                     {
@@ -172,12 +131,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                             break;
                         case OperationTypes.Chat:
                             chatOperation = "/chat";
-                            azureOpenAIDirectRequest.Messages = [.. inputStrings];
-                            break;
-                        case OperationTypes.ExtendedChat:
-                            chatOperation = "/extensions/chat";
-                            modelParameters.TryGetValue("api_version", out var apiVersion);
-                            endpointSettings.APIVersion = apiVersion.ToString();
                             azureOpenAIDirectRequest.Messages = [.. inputStrings];
                             break;
                     }
@@ -194,56 +147,15 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}{chatOperation}/completions?api-version={endpointSettings.APIVersion}", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
 
-                    Citation[] citations = null;
-                    string completion = string.Empty;
-
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
 
-                        if (endpointSettings.OperationType == OperationTypes.Completions)
-                            completion = completionResponse!.Choices?[0].Text;
-
-                        if (endpointSettings.OperationType == OperationTypes.Chat)
-                            completion = completionResponse!.Choices?[0].Message?.Content;
-
-                        if (endpointSettings.OperationType == OperationTypes.ExtendedChat)
-                        {
-                            foreach (var message in completionResponse!.Choices[0].Messages)
-                            {
-                                if (message.Role == "assistant")
-                                {
-                                    completion = message.Content;
-                                }
-
-                                if (message.Role == "tool")
-                                {
-                                    JsonElement json = JsonSerializer.Deserialize<JsonElement>(message.Content);
-                                    JsonElement jsonCitations = json.GetProperty("citations");
-                                    int length = jsonCitations.GetArrayLength();
-                                    citations = new Citation[length];
-
-                                    for (int i = 0; i < length; i++)
-                                    {
-                                        citations[i] = new Citation
-                                        {
-                                            Id = jsonCitations[i].GetProperty("id").ToString(),
-                                            Title = jsonCitations[i].GetProperty("title").ToString(),
-                                            Content = jsonCitations[i].GetProperty("content").ToString(),
-                                            Filepath = jsonCitations[i].GetProperty("filepath").ToString(),
-                                            Url = jsonCitations[i].GetProperty("url").ToString(),
-                                            //Metadata = (Dictionary<string,string>)jsonCitations[i].GetProperty("metadata"),
-                                            ChunkId = jsonCitations[i].GetProperty("chunk_id").ToString()
-                                        };
-                                    }
-                                }
-                            }
-                        }
-
                         return new LLMCompletionResponse
                         {
-                            Citations = citations,
-                            Completion = completion,
+                            Completion = endpointSettings.OperationType == OperationTypes.Chat
+                                ? completionResponse!.Choices?[0].Message?.Content
+                                : completionResponse!.Choices?[0].Text,
                             UserPrompt = request.UserPrompt,
                             FullPrompt = body,
                             PromptTemplate = systemPrompt?.Content,
