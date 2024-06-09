@@ -37,24 +37,13 @@ class RetrieverFactory:
         BaseRetriever
             Returns the concrete initialization of a vectorstore retriever.
         """
-
-        # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)         
-        #embedding_model_type = self.text_embedding_profile["text_embedding"]
-        #embedding_model = None
-        #match embedding_model_type:            
-        #    case "SemanticKernelTextEmbedding": # same as Azure Open AI Embedding
-        
-        # use indexing profile to build the retriever (current only supporting Azure AI Search)
-        #vector_store_type = self.indexing_profile["indexer"]        
-        #match vector_store_type:
-        #    case "AzureAISearchIndexer":
-        
         credential_type = self.config.get_value(self.indexing_profile.configuration_references.authentication_type)
         credential = None
         if credential_type == "AzureIdentity":            
             credential = DefaultAzureCredential(exclude_environment_credential=True)
         # NOTE: Support for all other authentication types has been removed.
 
+        # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)         
         e_model = EmbeddingModel(
             type = LanguageModelType.OPENAI,
             provider = LanguageModelProvider.MICROSOFT,
@@ -62,12 +51,13 @@ class RetrieverFactory:
             deployment = self.text_embedding_profile.configuration_references.deployment_name,
             api_endpoint = self.text_embedding_profile.configuration_references.endpoint,
             api_key = self.text_embedding_profile.configuration_references.api_key,
-            api_version = self.text_embedding_profile.configuration_references.api_version
+            api_version = self.text_embedding_profile.configuration_references.api_version,
+            api_token = credential.get_token("https://cognitiveservices.azure.com/.default").token
         )
         oai_model = OpenAIModel(config = self.config)
-        embedding_model = oai_model.get_embedding_model(e_model, credential)
-
-        # defaults for agent parameters
+        embedding_model = oai_model.get_embedding_model(e_model)
+        
+        # use indexing profile to build the retriever (current only supporting Azure AI Search)
         top_n = self.indexing_profile.settings.top_n
         filters = self.indexing_profile.settings.filters
         # check for settings override       

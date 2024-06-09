@@ -11,3 +11,4 @@ class EmbeddingModel(BaseModel):
     api_endpoint: Optional[str] = "FoundationaLLM:AzureOpenAI:API:Endpoint"
     api_key: Optional[str] = "FoundationaLLM:AzureOpenAI:API:Key"
     api_version: Optional[str] = "FoundationaLLM:AzureOpenAI:API:Version"
+    api_token: Optional[str] = ""

@@ -79,7 +79,7 @@ class OpenAIModel(LanguageModelBase):
     #                 temperature = temperature
     #             )
 
-    def get_embedding_model(self, embedding_model: EmbeddingModel, credential: DefaultAzureCredential) -> Embeddings:
+    def get_embedding_model(self, embedding_model: EmbeddingModel) -> Embeddings:
         """
         Retrieves the OpenAI embedding model.
         
@@ -93,7 +93,7 @@ class OpenAIModel(LanguageModelBase):
 
         if embedding_model.provider == LanguageModelProvider.MICROSOFT:
             return AzureOpenAIEmbeddings(
-                azure_ad_token = credential.get_token("https://cognitiveservices.azure.com/.default").token,
+                azure_ad_token = embedding_model.api_token,
                 openai_api_version = self.config.get_value(embedding_model.api_version),
                 deployment = self.config.get_value(embedding_model.deployment),
                 azure_endpoint = self.config.get_value(embedding_model.api_endpoint),
