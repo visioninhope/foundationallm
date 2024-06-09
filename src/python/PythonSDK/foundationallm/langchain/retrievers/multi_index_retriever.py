@@ -1,6 +1,6 @@
 """
-Class: AzureAISearchServiceRetriever
-Description: LangChain retriever for Azure AI Search.
+Class: MultiIndexRetriever
+Description: LangChain retriever for multi-retriever search.
 """
 import json
 from typing import List, Optional, Union, Tuple

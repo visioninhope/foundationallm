@@ -20,6 +20,8 @@ namespace FoundationaLLM.Agent.Validation.Metadata
             {
                 RuleFor(x => x.Vectorization.IndexingProfileObjectIds).NotEmpty()
                     .WithMessage("Indexing profiles are required for Knowledge Management Agents.");
+                RuleFor(x => x.Vectorization.IndexingProfileObjectIds[0]).NotEmpty()
+                    .WithMessage("One indexing profile is required.");
                 RuleFor(x => x.Vectorization.TextEmbeddingProfileObjectId).NotEmpty()
                     .WithMessage("Embedding profile is required for Knowledge Management Agents.");
 

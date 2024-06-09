@@ -109,13 +109,13 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 // check for inline-context/internal-context agents, they are valid KM agents that do not have a vectorization section.
                 if(kmAgent.Vectorization != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
+                    foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds)
                     {
                         var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
-                            kmAgent.Vectorization.IndexingProfileObjectId,
+                            indexingProfileName,
                             currentUserIdentity);
 
-                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
+                        kmAgent.OrchestrationSettings!.AgentParameters![indexingProfileName] = indexingProfile;
                     }
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))

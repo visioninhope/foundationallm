@@ -68,12 +68,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                     indexing_profiles = []
 
-                    for profile_id in agent.vectorization.indexing_profile_object_ids:
-                        indexing_profiles.append(self._get_indexing_profile_from_object_id(
-                            profile_id,
-                            agent.orchestration_settings.agent_parameters))
-
                     if (agent.vectorization.indexing_profile_object_ids is not None) and (text_embedding_profile is not None):
+
+                        for profile_id in agent.vectorization.indexing_profile_object_ids:
+                            indexing_profiles.append(self._get_indexing_profile_from_object_id(
+                                profile_id,
+                                agent.orchestration_settings.agent_parameters))
+
                         retriever_factory = RetrieverFactory(
                                         indexing_profiles,
                                         text_embedding_profile,

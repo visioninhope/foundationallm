@@ -26,7 +26,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
                 ConversationHistory = new ConversationHistory
