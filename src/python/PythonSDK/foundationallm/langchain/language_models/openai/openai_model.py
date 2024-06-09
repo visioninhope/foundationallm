@@ -1,6 +1,5 @@
 from langchain_core.embeddings import Embeddings
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
-from azure.identity import DefaultAzureCredential
 
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models import LanguageModelBase
