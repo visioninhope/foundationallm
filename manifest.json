@@ -6092,6 +6092,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.yml",
       "output": {
         ".html": {
@@ -6142,10 +6162,40 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.html"
         }
       },
       "version": ""
@@ -6746,6 +6796,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Serializers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Serializers.html"
         }
       },
       "version": ""

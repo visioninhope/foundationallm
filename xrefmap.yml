@@ -3065,6 +3065,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  name: FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService
+  name: FoundationaLLM_Vectorization_PostgresIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Vectorization_PostgresIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_Queues
   name: FoundationaLLM_Vectorization_Queues
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Vectorization_Queues
@@ -4265,6 +4277,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService
+- uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  name: FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService
 - uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
   name: FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_Vectorization_BlobStorageVectorizationStateService
@@ -4289,6 +4307,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService
   fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService
   nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService
+- uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService
+  name: FoundationaLLM_Vectorization_PostgresIndexingService
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_Vectorization_PostgresIndexingService
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService
+  fullName: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService
+  nameWithType: DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService
 - uid: FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues
   name: FoundationaLLM_Vectorization_Queues
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.html#FoundationaLLM_Common_Constants_Configuration_DependencyInjectionKeys_FoundationaLLM_Vectorization_Queues
@@ -15793,6 +15817,18 @@ references:
   commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.AzureAISearchIndexer
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.AzureAISearchIndexer
   nameWithType: IndexerType.AzureAISearchIndexer
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.AzureCosmosDBNoSQLIndexer
+  name: AzureCosmosDBNoSQLIndexer
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_IndexerType_AzureCosmosDBNoSQLIndexer
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.AzureCosmosDBNoSQLIndexer
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.AzureCosmosDBNoSQLIndexer
+  nameWithType: IndexerType.AzureCosmosDBNoSQLIndexer
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.PostgresIndexer
+  name: PostgresIndexer
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_IndexerType_PostgresIndexer
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.PostgresIndexer
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.PostgresIndexer
+  nameWithType: IndexerType.PostgresIndexer
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile
   name: IndexingProfile
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile.html
@@ -26744,6 +26780,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ExpandAndValidateAgent
   nameWithType: SemanticKernelKnowledgeManagementAgent.ExpandAndValidateAgent
+- uid: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile)
+  name: ValidateAndMapIndexingProfileConfiguration(IndexingProfile)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html#FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent_ValidateAndMapIndexingProfileConfiguration_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_IndexingProfile_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile)
+  fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile)
+  nameWithType: SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration(IndexingProfile)
+- uid: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration*
+  name: ValidateAndMapIndexingProfileConfiguration
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.html#FoundationaLLM_SemanticKernel_Core_Agents_SemanticKernelKnowledgeManagementAgent_ValidateAndMapIndexingProfileConfiguration_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Agents.SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration
+  nameWithType: SemanticKernelKnowledgeManagementAgent.ValidateAndMapIndexingProfileConfiguration
 - uid: FoundationaLLM.SemanticKernel.Core.Exceptions
   name: FoundationaLLM.SemanticKernel.Core.Exceptions
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Exceptions.html
@@ -26843,32 +26892,22 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter
   fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter
   nameWithType: DefaultPromptFilter
-- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered(Microsoft.SemanticKernel.PromptRenderedContext)
-  name: OnPromptRendered(PromptRenderedContext)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRendered_Microsoft_SemanticKernel_PromptRenderedContext_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered(Microsoft.SemanticKernel.PromptRenderedContext)
-  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered(Microsoft.SemanticKernel.PromptRenderedContext)
-  nameWithType: DefaultPromptFilter.OnPromptRendered(PromptRenderedContext)
-- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered*
-  name: OnPromptRendered
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRendered_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered
+- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync(Microsoft.SemanticKernel.PromptRenderContext,System.Func{Microsoft.SemanticKernel.PromptRenderContext,System.Threading.Tasks.Task})
+  name: OnPromptRenderAsync(PromptRenderContext, Func<PromptRenderContext, Task>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRenderAsync_Microsoft_SemanticKernel_PromptRenderContext_System_Func_Microsoft_SemanticKernel_PromptRenderContext_System_Threading_Tasks_Task__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync(Microsoft.SemanticKernel.PromptRenderContext,System.Func{Microsoft.SemanticKernel.PromptRenderContext,System.Threading.Tasks.Task})
+  name.vb: OnPromptRenderAsync(PromptRenderContext, Func(Of PromptRenderContext, Task))
+  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync(Microsoft.SemanticKernel.PromptRenderContext, System.Func<Microsoft.SemanticKernel.PromptRenderContext, System.Threading.Tasks.Task>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync(Microsoft.SemanticKernel.PromptRenderContext, System.Func(Of Microsoft.SemanticKernel.PromptRenderContext, System.Threading.Tasks.Task))
+  nameWithType: DefaultPromptFilter.OnPromptRenderAsync(PromptRenderContext, Func<PromptRenderContext, Task>)
+  nameWithType.vb: DefaultPromptFilter.OnPromptRenderAsync(PromptRenderContext, Func(Of PromptRenderContext, Task))
+- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync*
+  name: OnPromptRenderAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRenderAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync
   isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendered
-  nameWithType: DefaultPromptFilter.OnPromptRendered
-- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering(Microsoft.SemanticKernel.PromptRenderingContext)
-  name: OnPromptRendering(PromptRenderingContext)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRendering_Microsoft_SemanticKernel_PromptRenderingContext_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering(Microsoft.SemanticKernel.PromptRenderingContext)
-  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering(Microsoft.SemanticKernel.PromptRenderingContext)
-  nameWithType: DefaultPromptFilter.OnPromptRendering(PromptRenderingContext)
-- uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering*
-  name: OnPromptRendering
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRendering_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering
-  isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRendering
-  nameWithType: DefaultPromptFilter.OnPromptRendering
+  fullName: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync
+  nameWithType: DefaultPromptFilter.OnPromptRenderAsync
 - uid: FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.RenderedPrompt
   name: RenderedPrompt
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.html#FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_RenderedPrompt
@@ -26945,6 +26984,122 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings.Endpoint
   nameWithType: AzureAISearchIndexingServiceSettings.Endpoint
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings
+  name: AzureCosmosDBNoSQLIndexingServiceSettings
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+  name: AutoscaleMaxThroughput
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_AutoscaleMaxThroughput
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput*
+  name: AutoscaleMaxThroughput
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_AutoscaleMaxThroughput_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.AutoscaleMaxThroughput
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_ConnectionString
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString*
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_ConnectionString_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.ConnectionString
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+  name: IndexingPolicy
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_IndexingPolicy
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy*
+  name: IndexingPolicy
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_IndexingPolicy_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+  name: VectorDatabase
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_VectorDatabase
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase*
+  name: VectorDatabase
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_VectorDatabase_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+  name: VectorEmbeddingPolicy
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_VectorEmbeddingPolicy
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy*
+  name: VectorEmbeddingPolicy
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings_VectorEmbeddingPolicy_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+  nameWithType: AzureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings
+  name: PostgresIndexingServiceSettings
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings
+  nameWithType: PostgresIndexingServiceSettings
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_ConnectionString
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString
+  nameWithType: PostgresIndexingServiceSettings.ConnectionString
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString*
+  name: ConnectionString
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_ConnectionString_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString
+  nameWithType: PostgresIndexingServiceSettings.ConnectionString
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema
+  name: Schema
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_Schema
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema
+  nameWithType: PostgresIndexingServiceSettings.Schema
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema*
+  name: Schema
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_Schema_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema
+  nameWithType: PostgresIndexingServiceSettings.Schema
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
+  name: VectorSize
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_VectorSize
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
+  nameWithType: PostgresIndexingServiceSettings.VectorSize
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize*
+  name: VectorSize
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_VectorSize_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
+  nameWithType: PostgresIndexingServiceSettings.VectorSize
 - uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings
   name: SemanticKernelTextEmbeddingServiceSettings
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html
@@ -27097,47 +27252,135 @@ references:
   commentId: N:FoundationaLLM.SemanticKernel.Core.Services
   fullName: FoundationaLLM.SemanticKernel.Core.Services
   nameWithType: FoundationaLLM.SemanticKernel.Core.Services
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing
+  name: FoundationaLLM.SemanticKernel.Core.Services.Indexing
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.html
+  commentId: N:FoundationaLLM.SemanticKernel.Core.Services.Indexing
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing
+  nameWithType: FoundationaLLM.SemanticKernel.Core.Services.Indexing
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService
   name: AzureAISearchIndexingService
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html
-  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService
   nameWithType: AzureAISearchIndexingService
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService})
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService})
   name: AzureAISearchIndexingService(IOptions<AzureAISearchIndexingServiceSettings>, ILogger<AzureAISearchIndexingService>)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService})
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureAISearchIndexingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureAISearchIndexingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureAISearchIndexingService__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService})
   name.vb: New(IOptions(Of AzureAISearchIndexingServiceSettings), ILogger(Of AzureAISearchIndexingService))
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.AzureAISearchIndexingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService>)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.AzureAISearchIndexingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureAISearchIndexingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService))
   nameWithType: AzureAISearchIndexingService.AzureAISearchIndexingService(IOptions<AzureAISearchIndexingServiceSettings>, ILogger<AzureAISearchIndexingService>)
   nameWithType.vb: AzureAISearchIndexingService.New(IOptions(Of AzureAISearchIndexingServiceSettings), ILogger(Of AzureAISearchIndexingService))
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor*
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.#ctor*
   name: AzureAISearchIndexingService
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService__ctor_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.#ctor
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureAISearchIndexingService__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.AzureAISearchIndexingService
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.New
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.AzureAISearchIndexingService
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.New
   nameWithType: AzureAISearchIndexingService.AzureAISearchIndexingService
   nameWithType.vb: AzureAISearchIndexingService.New
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name: IndexEmbeddingsAsync(EmbeddedContent, string)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureAISearchIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
   name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
   nameWithType: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
   nameWithType.vb: AzureAISearchIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
-- uid: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync*
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync*
   name: IndexEmbeddingsAsync
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_AzureAISearchIndexingService_IndexEmbeddingsAsync_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureAISearchIndexingService_IndexEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync
   isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.AzureAISearchIndexingService.IndexEmbeddingsAsync
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureAISearchIndexingService.IndexEmbeddingsAsync
   nameWithType: AzureAISearchIndexingService.IndexEmbeddingsAsync
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService
+  name: AzureCosmosDBNoSQLIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService
+  nameWithType: AzureCosmosDBNoSQLIndexingService
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService})
+  name: AzureCosmosDBNoSQLIndexingService(IOptions<AzureCosmosDBNoSQLIndexingServiceSettings>, CosmosClient, ILogger<AzureCosmosDBNoSQLIndexingService>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureCosmosDBNoSQLIndexingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_AzureCosmosDBNoSQLIndexingServiceSettings__Microsoft_Azure_Cosmos_CosmosClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureCosmosDBNoSQLIndexingService__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService})
+  name.vb: New(IOptions(Of AzureCosmosDBNoSQLIndexingServiceSettings), CosmosClient, ILogger(Of AzureCosmosDBNoSQLIndexingService))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.AzureCosmosDBNoSQLIndexingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings>, Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.AzureCosmosDBNoSQLIndexingServiceSettings), Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService))
+  nameWithType: AzureCosmosDBNoSQLIndexingService.AzureCosmosDBNoSQLIndexingService(IOptions<AzureCosmosDBNoSQLIndexingServiceSettings>, CosmosClient, ILogger<AzureCosmosDBNoSQLIndexingService>)
+  nameWithType.vb: AzureCosmosDBNoSQLIndexingService.New(IOptions(Of AzureCosmosDBNoSQLIndexingServiceSettings), CosmosClient, ILogger(Of AzureCosmosDBNoSQLIndexingService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.#ctor*
+  name: AzureCosmosDBNoSQLIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureCosmosDBNoSQLIndexingService__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.AzureCosmosDBNoSQLIndexingService
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.New
+  nameWithType: AzureCosmosDBNoSQLIndexingService.AzureCosmosDBNoSQLIndexingService
+  nameWithType.vb: AzureCosmosDBNoSQLIndexingService.New
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+  name: IndexEmbeddingsAsync(EmbeddedContent, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureCosmosDBNoSQLIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+  name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
+  nameWithType: AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
+  nameWithType.vb: AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync*
+  name: IndexEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_AzureCosmosDBNoSQLIndexingService_IndexEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync
+  nameWithType: AzureCosmosDBNoSQLIndexingService.IndexEmbeddingsAsync
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService
+  name: PostgresIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService
+  nameWithType: PostgresIndexingService
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService})
+  name: PostgresIndexingService(IOptions<PostgresIndexingServiceSettings>, ILogger<PostgresIndexingService>)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_PostgresIndexingService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_SemanticKernel_Core_Services_Indexing_PostgresIndexingService__
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService})
+  name.vb: New(IOptions(Of PostgresIndexingServiceSettings), ILogger(Of PostgresIndexingService))
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.PostgresIndexingService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService>)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService))
+  nameWithType: PostgresIndexingService.PostgresIndexingService(IOptions<PostgresIndexingServiceSettings>, ILogger<PostgresIndexingService>)
+  nameWithType.vb: PostgresIndexingService.New(IOptions(Of PostgresIndexingServiceSettings), ILogger(Of PostgresIndexingService))
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.#ctor*
+  name: PostgresIndexingService
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_PostgresIndexingService__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.PostgresIndexingService
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.New
+  nameWithType: PostgresIndexingService.PostgresIndexingService
+  nameWithType.vb: PostgresIndexingService.New
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+  name: IndexEmbeddingsAsync(EmbeddedContent, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_PostgresIndexingService_IndexEmbeddingsAsync_FoundationaLLM_Common_Models_Vectorization_EmbeddedContent_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent,System.String)
+  name.vb: IndexEmbeddingsAsync(EmbeddedContent, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync(FoundationaLLM.Common.Models.Vectorization.EmbeddedContent, String)
+  nameWithType: PostgresIndexingService.IndexEmbeddingsAsync(EmbeddedContent, string)
+  nameWithType.vb: PostgresIndexingService.IndexEmbeddingsAsync(EmbeddedContent, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync*
+  name: IndexEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.html#FoundationaLLM_SemanticKernel_Core_Services_Indexing_PostgresIndexingService_IndexEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.Indexing.PostgresIndexingService.IndexEmbeddingsAsync
+  nameWithType: PostgresIndexingService.IndexEmbeddingsAsync
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html
@@ -29442,6 +29685,82 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService._name
   nameWithType: VectorizationResourceProviderService._name
+- uid: FoundationaLLM.Vectorization.Serializers
+  name: FoundationaLLM.Vectorization.Serializers
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.html
+  commentId: N:FoundationaLLM.Vectorization.Serializers
+  fullName: FoundationaLLM.Vectorization.Serializers
+  nameWithType: FoundationaLLM.Vectorization.Serializers
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer
+  name: CosmosSystemTextJsonSerializer
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html
+  commentId: T:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer
+  nameWithType: CosmosSystemTextJsonSerializer
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.#ctor(System.Text.Json.JsonSerializerOptions)
+  name: CosmosSystemTextJsonSerializer(JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer__ctor_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.#ctor(System.Text.Json.JsonSerializerOptions)
+  name.vb: New(JsonSerializerOptions)
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer(System.Text.Json.JsonSerializerOptions)
+  fullName.vb: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.New(System.Text.Json.JsonSerializerOptions)
+  nameWithType: CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer(JsonSerializerOptions)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.New(JsonSerializerOptions)
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.#ctor*
+  name: CosmosSystemTextJsonSerializer
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer__ctor_
+  commentId: Overload:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer
+  fullName.vb: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.New
+  nameWithType: CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer
+  nameWithType.vb: CosmosSystemTextJsonSerializer.New
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream*
+  name: FromStream
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_FromStream_
+  commentId: Overload:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream
+  nameWithType: CosmosSystemTextJsonSerializer.FromStream
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream``1(System.IO.Stream)
+  name: FromStream<T>(Stream)
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_FromStream__1_System_IO_Stream_
+  commentId: M:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream``1(System.IO.Stream)
+  name.vb: FromStream(Of T)(Stream)
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream<T>(System.IO.Stream)
+  fullName.vb: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.FromStream(Of T)(System.IO.Stream)
+  nameWithType: CosmosSystemTextJsonSerializer.FromStream<T>(Stream)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.FromStream(Of T)(Stream)
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName(System.Reflection.MemberInfo)
+  name: SerializeMemberName(MemberInfo)
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_SerializeMemberName_System_Reflection_MemberInfo_
+  commentId: M:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName(System.Reflection.MemberInfo)
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName(System.Reflection.MemberInfo)
+  nameWithType: CosmosSystemTextJsonSerializer.SerializeMemberName(MemberInfo)
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName*
+  name: SerializeMemberName
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_SerializeMemberName_
+  commentId: Overload:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.SerializeMemberName
+  nameWithType: CosmosSystemTextJsonSerializer.SerializeMemberName
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream*
+  name: ToStream
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_ToStream_
+  commentId: Overload:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream
+  nameWithType: CosmosSystemTextJsonSerializer.ToStream
+- uid: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream``1(``0)
+  name: ToStream<T>(T)
+  href: api/dotnet/FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_Vectorization_Serializers_CosmosSystemTextJsonSerializer_ToStream__1___0_
+  commentId: M:FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream``1(``0)
+  name.vb: ToStream(Of T)(T)
+  fullName: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream<T>(T)
+  fullName.vb: FoundationaLLM.Vectorization.Serializers.CosmosSystemTextJsonSerializer.ToStream(Of T)(T)
+  nameWithType: CosmosSystemTextJsonSerializer.ToStream<T>(T)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.ToStream(Of T)(T)
 - uid: FoundationaLLM.Vectorization.Services
   name: FoundationaLLM.Vectorization.Services
   href: api/dotnet/FoundationaLLM.Vectorization.Services.html

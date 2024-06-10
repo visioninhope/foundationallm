@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class DefaultPromptFilter | FoundationaLLM </title>
+      <title>Class PostgresIndexingServiceSettings | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class DefaultPromptFilter | FoundationaLLM ">
+      <meta name="title" content="Class PostgresIndexingServiceSettings | FoundationaLLM ">
       
-      <meta name="description" content="Provides the default behavior for filtering actions during prompt rendering.">
+      <meta name="description" content="Provides configuration settings for the PostgreSQL vector indexing service.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter.md&amp;value=---%0Auid%3A%20FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings.md&amp;value=---%0Auid%3A%20FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter">
+        <article data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings">
 
 
 
-  <h1 id="FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter" data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter" class="text-break">
-Class DefaultPromptFilter  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Filters/DefaultPromptFilter.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings" class="text-break">
+Class PostgresIndexingServiceSettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/PostgresIndexingServiceSettings.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.html">SemanticKernel</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Filters.html">Filters</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.html">SemanticKernel</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.html">Configuration</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.SemanticKernel.Core.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides the default behavior for filtering actions during prompt rendering.</p>
+  <div class="markdown summary"><p>Provides configuration settings for the PostgreSQL vector indexing service.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DefaultPromptFilter : IPromptRenderFilter</code></pre>
+    <pre><code class="lang-csharp hljs">public record PostgresIndexingServiceSettings : IEquatable&lt;PostgresIndexingServiceSettings&gt;</code></pre>
   </div>
 
 
@@ -112,14 +112,14 @@ Class DefaultPromptFilter  <a class="header-action link-secondary" title="View s
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">DefaultPromptFilter</span></div>
+      <div><span class="xref">PostgresIndexingServiceSettings</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><span class="xref">IPromptRenderFilter</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html">PostgresIndexingServiceSettings</a>&gt;</div>
     </dd>
   </dl>
 
@@ -166,19 +166,19 @@ Class DefaultPromptFilter  <a class="header-action link-secondary" title="View s
 </h2>
 
 
-  <a id="FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_RenderedPrompt_" data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.RenderedPrompt*"></a>
+  <a id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_ConnectionString_" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_RenderedPrompt" data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.RenderedPrompt">
-  RenderedPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Filters/DefaultPromptFilter.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_ConnectionString" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.ConnectionString">
+  ConnectionString
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/PostgresIndexingServiceSettings.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The rendered prompt.</p>
+  <div class="markdown level1 summary"><p>The connection string for the PostgreSQL server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string RenderedPrompt { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public required string ConnectionString { get; set; }</code></pre>
   </div>
 
 
@@ -198,43 +198,62 @@ Class DefaultPromptFilter  <a class="header-action link-secondary" title="View s
 
 
 
-  <h2 class="section" id="methods">Methods
-</h2>
+  <a id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_Schema_" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema*"></a>
 
-
-  <a id="FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRenderAsync_" data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync*"></a>
-
-  <h3 id="FoundationaLLM_SemanticKernel_Core_Filters_DefaultPromptFilter_OnPromptRenderAsync_Microsoft_SemanticKernel_PromptRenderContext_System_Func_Microsoft_SemanticKernel_PromptRenderContext_System_Threading_Tasks_Task__" data-uid="FoundationaLLM.SemanticKernel.Core.Filters.DefaultPromptFilter.OnPromptRenderAsync(Microsoft.SemanticKernel.PromptRenderContext,System.Func{Microsoft.SemanticKernel.PromptRenderContext,System.Threading.Tasks.Task})">
-  OnPromptRenderAsync(PromptRenderContext, Func&lt;PromptRenderContext, Task&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Filters/DefaultPromptFilter.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_Schema" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.Schema">
+  Schema
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/PostgresIndexingServiceSettings.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Method which is called asynchronously before prompt rendering.</p>
+  <div class="markdown level1 summary"><p>Database schema of the collection tables. Uses the default schema if not specified.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task OnPromptRenderAsync(PromptRenderContext context, Func&lt;PromptRenderContext, Task&gt; next)</code></pre>
+    <pre><code class="lang-csharp hljs">public string? Schema { get; set; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>context</code> <span class="xref">PromptRenderContext</span></dt>
-    <dd><p>Instance of <span class="xref">Microsoft.SemanticKernel.PromptRenderContext</span> with prompt rendering details.</p>
-</dd>
-    <dt><code>next</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<span class="xref">PromptRenderContext</span>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</dt>
-    <dd><p>Delegate to the next filter in pipeline or prompt rendering operation itself. If it's not invoked, next filter or prompt rendering won't be invoked.</p>
-</dd>
-  </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+  <a id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_VectorSize_" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize*"></a>
+
+  <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_PostgresIndexingServiceSettings_VectorSize" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize">
+  VectorSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/PostgresIndexingServiceSettings.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Embedding vector size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required string? VectorSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -247,7 +266,7 @@ Class DefaultPromptFilter  <a class="header-action link-secondary" title="View s
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Filters/DefaultPromptFilter.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/PostgresIndexingServiceSettings.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
 
