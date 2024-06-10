@@ -114,6 +114,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             if (agent.Vectorization.IndexingProfileObjectIds.Count > 0)
             {
+                if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds[0]))
+                    throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
 
                 if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
                         agent.Vectorization.IndexingProfileObjectIds[0], out var indexingProfileObject))

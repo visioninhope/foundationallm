@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run dev",
+            "name": "User Portal UI",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd" : "${workspaceFolder}/src/ui/UserPortal",
+        },
+        {
+            "command": "npm run dev",
+            "name": "Mgmt Portal UI",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd" : "${workspaceFolder}/src/ui/ManagementPortal",
+        },
+        {
             "name": "Python: AgentHubAPI",
             "type": "debugpy",
             "request": "launch",
