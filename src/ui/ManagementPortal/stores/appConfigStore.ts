@@ -33,6 +33,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 		primaryButtonText: null,
 		secondaryButtonBg: null,
 		secondaryButtonText: null,
+		footerText: null,
 
 		// Auth: These settings configure the MSAL authentication.
 		auth: {
@@ -72,6 +73,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				primaryButtonText,
 				secondaryButtonBg,
 				secondaryButtonText,
+				footerText,
 				authClientId,
 				authInstance,
 				authTenantId,
@@ -105,6 +107,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonTextColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonBackgroundColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonTextColor'),
+				api.getConfigValue('FoundationaLLM:Branding:FooterText'),
 
 				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
@@ -140,6 +143,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			this.primaryButtonText = primaryButtonText;
 			this.secondaryButtonBg = secondaryButtonBg;
 			this.secondaryButtonText = secondaryButtonText;
+			this.footerText = footerText;
 
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;
