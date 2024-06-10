@@ -170,19 +170,93 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             #endregion
         }
 
+        /// <summary>
+        /// Validates and maps the configuration of the indexing profile to the corresponding settings.
+        /// </summary>
+        /// <returns>True if valid.</returns>
+        protected async Task<bool> ValidateAndMapIndexingProfileConfiguration(IndexingProfile indexingProfile)
+        {
+            var valid = false;
+            var connectionStringConfigurationItem = string.Empty;
+            var authenticationType = string.Empty;
+            var indexingEndpointConfigurationItem = string.Empty;
+            var databaseNameConfigurationItem = string.Empty;
+            var vectorSizeConfigurationItem = string.Empty;
+
+            switch (indexingProfile.Indexer)
+            {
+                case IndexerType.AzureAISearchIndexer:
+                    valid = indexingProfile.ConfigurationReferences != null
+                       && indexingProfile.ConfigurationReferences.TryGetValue("Endpoint",
+                               out indexingEndpointConfigurationItem)
+                       && !string.IsNullOrWhiteSpace(indexingEndpointConfigurationItem)
+                       && indexingProfile.ConfigurationReferences.TryGetValue("AuthenticationType",
+                                                       out authenticationType)
+                       && !string.IsNullOrWhiteSpace(authenticationType);
+                    if (valid)
+                    {
+                        _azureAISearchIndexingServiceSettings = new AzureAISearchIndexingServiceSettings
+                        {
+                            Endpoint = await GetConfigurationValue(indexingEndpointConfigurationItem!),
+                            AuthenticationType = Enum.Parse<AzureAISearchAuthenticationTypes>(await GetConfigurationValue(authenticationType!))
+                        };
+                    }
+                    break;
+                case IndexerType.AzureCosmosDBNoSQLIndexer:
+                    valid = indexingProfile.ConfigurationReferences != null
+                        && indexingProfile.ConfigurationReferences.TryGetValue("ConnectionString",
+                                                           out connectionStringConfigurationItem)
+                        && !string.IsNullOrWhiteSpace(connectionStringConfigurationItem)
+                        && indexingProfile.ConfigurationReferences.TryGetValue("VectorDatabase",
+                                                           out databaseNameConfigurationItem)
+                        && !string.IsNullOrWhiteSpace(databaseNameConfigurationItem);
+                    if (valid)
+                    {
+                        _azureCosmosDBNoSQLIndexingServiceSettings = new AzureCosmosDBNoSQLIndexingServiceSettings
+                        {
+                            ConnectionString = await GetConfigurationValue(connectionStringConfigurationItem!),
+                            VectorDatabase = await GetConfigurationValue(databaseNameConfigurationItem!)
+                        };
+                    }
+                    break;
+                case IndexerType.PostgresIndexer:
+                    valid = indexingProfile.ConfigurationReferences != null
+                        && indexingProfile.ConfigurationReferences.TryGetValue("ConnectionString",
+                                                                                      out connectionStringConfigurationItem)
+                        && !string.IsNullOrWhiteSpace(connectionStringConfigurationItem)
+                        && indexingProfile.ConfigurationReferences.TryGetValue("VectorSize",
+                                                                                      out vectorSizeConfigurationItem)
+                        && !string.IsNullOrWhiteSpace(vectorSizeConfigurationItem);
+                    if (valid)
+                    {
+                        _postgresIndexingServiceSettings = new PostgresIndexingServiceSettings
+                        {
+                            ConnectionString = await GetConfigurationValue(connectionStringConfigurationItem!),
+                            VectorSize = await GetConfigurationValue(vectorSizeConfigurationItem!)
+                        };
+                    }
+                    break;
+            }
+
+            return valid;
+        }
+
         protected override async Task<LLMCompletionResponse> BuildResponseWithAzureOpenAI()
         {
             try
             {
                 var credential = DefaultAuthentication.AzureCredential;
 
-                // Use observability features to capture the fully rendered prompt.
-                var promptFilter = new DefaultPromptFilter();
-                kernel.PromptFilters.Add(promptFilter);
+                var builder = Kernel.CreateBuilder();
+                builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
+                builder.AddAzureOpenAIChatCompletion(
+                    _deploymentName,
+                    _endpoint,
+                    credential);
 
                 var kernel = BuildKernel(builder);
                 return await GetCompletion(kernel);
-                
+
             }
             catch (Exception ex)
             {

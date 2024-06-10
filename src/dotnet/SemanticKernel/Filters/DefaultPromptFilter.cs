@@ -14,12 +14,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Filters
         /// </summary>
         public string RenderedPrompt => _renderedPrompt;
 
-        private string _renderedPrompt = string.Empty;
-       
-        public async Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
-        {
-            await next(context);
-
+        private string _renderedPrompt = string.Empty;       
+        
         /// <inheritdoc/>
         public Task OnPromptRenderAsync(PromptRenderContext context, Func<PromptRenderContext, Task> next)
         {
