@@ -133,7 +133,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                         }
                     }
 
-                    foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds)
+                    foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds!)
                     {
                         var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             indexingProfileName,
