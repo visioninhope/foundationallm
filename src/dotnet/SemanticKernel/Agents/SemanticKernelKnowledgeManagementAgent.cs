@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Azure.AI.OpenAI;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
@@ -19,6 +20,12 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using System.Net;
 using System.Text.Json;
+using FoundationaLLM.Common.Settings;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using Microsoft.Azure.Cosmos;
+using Microsoft.SemanticKernel.Connectors.AzureCosmosDBNoSQL;
+using Microsoft.SemanticKernel.Connectors.Postgres;
+using System.Runtime;
 
 #pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0050, SKEXP0060
 
@@ -41,12 +48,15 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         private string _textEmbeddingDeploymentName = string.Empty;
         private string _textEmbeddingEndpoint = string.Empty;
         private string _indexerName = string.Empty;
-        private string _indexingEndpoint = string.Empty;
+        private IndexerType _indexerType = IndexerType.AzureAISearchIndexer;
         private string _indexName = string.Empty;
         private string _prompt = string.Empty;
         private Dictionary<string, string>? _agentDescriptions = [];
         private string _authType = string.Empty;
         private string _apiKey = string.Empty;
+        private AzureAISearchIndexingServiceSettings? _azureAISearchIndexingServiceSettings = null;
+        private AzureCosmosDBNoSQLIndexingServiceSettings? _azureCosmosDBNoSQLIndexingServiceSettings = null;
+        private PostgresIndexingServiceSettings? _postgresIndexingServiceSettings = null;
 
         protected override async Task ExpandAndValidateAgent()
         {
@@ -146,9 +156,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     : indexingProfileObject as IndexingProfile;
 
                 if (indexingProfile == null
-                    || indexingProfile.ConfigurationReferences == null
-                    || !indexingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var indexingEndpointConfigurationItem)
-                    || string.IsNullOrWhiteSpace(indexingEndpointConfigurationItem)
+                    || !await ValidateAndMapIndexingProfileConfiguration(indexingProfile)
                     || indexingProfile.Settings == null
                     || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
                     || string.IsNullOrWhiteSpace(indexName))
@@ -156,25 +164,21 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
                 _indexerName = indexingProfile.Indexer.ToString();
                 _indexName = indexName;
-                _indexingEndpoint = await GetConfigurationValue(indexingEndpointConfigurationItem);
+                _indexerType = indexingProfile.Indexer;
             }
 
             #endregion
         }
 
-        ///<inheritdoc/>
         protected override async Task<LLMCompletionResponse> BuildResponseWithAzureOpenAI()
         {
             try
             {
                 var credential = DefaultAuthentication.AzureCredential;
 
-                var builder = Kernel.CreateBuilder();
-                builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
-                builder.AddAzureOpenAIChatCompletion(
-                    _deploymentName,
-                    _endpoint,
-                    credential);
+                // Use observability features to capture the fully rendered prompt.
+                var promptFilter = new DefaultPromptFilter();
+                kernel.PromptFilters.Add(promptFilter);
 
                 var kernel = BuildKernel(builder);
                 return await GetCompletion(kernel);
@@ -237,16 +241,52 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             });
             var kernel = builder.Build();
 
-            // If the vectorization properties are not set, we are not going to import the context building capabilities
-
-            if (!string.IsNullOrWhiteSpace(_indexingEndpoint))
+            // If the vectorization properties are not set, we are not going to import the context building capabilities.
+            switch (_indexerType)
             {
-                var memory = new MemoryBuilder()
-                    .WithMemoryStore(new AzureAISearchMemoryStore(_indexingEndpoint, credential))
-                    .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
-                    .Build();
+                case IndexerType.AzureAISearchIndexer:
+                    if (_azureAISearchIndexingServiceSettings != null &&
+                        !string.IsNullOrWhiteSpace(_azureAISearchIndexingServiceSettings.Endpoint))
+                    {
+                        var memory = new MemoryBuilder()
+                            .WithMemoryStore(new AzureAISearchMemoryStore(_azureAISearchIndexingServiceSettings.Endpoint, credential))
+                            .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
+                            .Build();
 
-                kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+                        kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+                    }
+                    break;
+                case IndexerType.AzureCosmosDBNoSQLIndexer:
+                    if (_azureCosmosDBNoSQLIndexingServiceSettings != null &&
+                        !string.IsNullOrWhiteSpace(_azureCosmosDBNoSQLIndexingServiceSettings.ConnectionString))
+                    {
+                        var memory = new MemoryBuilder()
+                            .WithMemoryStore(new AzureCosmosDBNoSQLMemoryStore(
+                                _azureCosmosDBNoSQLIndexingServiceSettings.ConnectionString,
+                                _azureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase!,
+                                _azureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy,
+                                _azureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy))
+                            .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
+                            .Build();
+
+                        kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+                    }
+                    break;
+                case IndexerType.PostgresIndexer:
+                    if (_postgresIndexingServiceSettings != null &&
+                        !string.IsNullOrWhiteSpace(_postgresIndexingServiceSettings.ConnectionString))
+                    {
+                        _ = int.TryParse(_postgresIndexingServiceSettings.VectorSize, out var vectorSize);
+                        var memory = new MemoryBuilder()
+                            .WithMemoryStore(new PostgresMemoryStore(
+                                _postgresIndexingServiceSettings.ConnectionString,
+                                vectorSize))
+                            .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
+                            .Build();
+
+                        kernel.ImportPluginFromObject(new KnowledgeManagementContextPlugin(memory, _indexName));
+                    }
+                    break;
             }
 
             if (_agentDescriptions != null && _agentDescriptions.Count > 0)
