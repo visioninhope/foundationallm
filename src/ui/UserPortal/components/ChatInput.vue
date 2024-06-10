@@ -6,8 +6,28 @@
 				icon="pi pi-paperclip"
 				class="file-upload-button"
 				style="height: 100%;"
-				@click="showFileUploadDialog = true"
+				@click="toggleFileAttachmentOverlay"
+				badge="1"
 			/>
+			<OverlayPanel ref="fileAttachmentPanel">
+				<div class="">
+					<p>Attached Files</p>
+					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
+						<p>{{ file }}</p>
+					</div>
+					<div v-else>
+						<p>No files attached</p>
+					</div>
+				</div>
+				<div class="p-d-flex p-jc-end">
+					<Button
+						label="Upload File"
+						icon="pi pi-upload"
+						class="p-button-primary"
+						@click="showFileUploadDialog = true"
+					/>
+				</div>
+			</OverlayPanel>
 			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal>
 				<FileUpload
 					accept="audio/mpeg,audio/wav"
@@ -167,6 +187,10 @@ export default {
 			} catch (error) {
 				this.$toast.add({ severity: 'error', summary: 'Error', detail: `File upload failed. ${error.message}` });
 			}
+		},
+
+		toggleFileAttachmentOverlay(event: any) {
+			this.$refs.fileAttachmentPanel.toggle(event);
 		}
 	},
 };

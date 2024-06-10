@@ -12,6 +12,7 @@ import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
 import FileUpload from 'primevue/fileupload';
+import OverlayPanel from 'primevue/overlaypanel';
 
 import { defineNuxtPlugin } from '#app';
 
@@ -28,6 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Dropdown', Dropdown);
 	nuxtApp.vueApp.component('Avatar', Avatar);
 	nuxtApp.vueApp.component('FileUpload', FileUpload);
+	nuxtApp.vueApp.component('OverlayPanel', OverlayPanel);
 
 	nuxtApp.vueApp.use(ToastService);
 	nuxtApp.vueApp.directive('tooltip', Tooltip);
