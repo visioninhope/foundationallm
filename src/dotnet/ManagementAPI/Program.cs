@@ -15,7 +15,7 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.ContentSources;
