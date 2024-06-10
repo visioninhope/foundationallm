@@ -106,8 +106,9 @@ namespace FoundationaLLM.Common.Services.Azure
                     ModelVersion = deploymentData.Properties.Model.Version,
                     RequestRateLimit = (int) (requestThrottlingRule?.Count ?? 0),
                     RequestRateRenewalPeriod = (int) (requestThrottlingRule?.RenewalPeriod ?? 0),
-                    TokenRateLimit = (int) (tokenThrottlingRule?.Count ?? 0),
-                    TokenRateRenewalPeriod = (int) (tokenThrottlingRule?.RenewalPeriod ?? 0),
+                    //Token rate renewal period reports as 1 minute in ARM response, but in fact refreshes every 10 seconds, divide by 6 to get the correct value
+                    TokenRateLimit = ((int) (tokenThrottlingRule?.Count ?? 0))/6,
+                    TokenRateRenewalPeriod = ((int) (tokenThrottlingRule?.RenewalPeriod ?? 0))/6,
                     Capabilities = deploymentData.Properties.Capabilities.ToImmutableDictionary()
                 });
             }
