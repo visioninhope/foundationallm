@@ -50,9 +50,8 @@ class RetrieverFactory:
             # the OpenAI model uses config to retrieve the app config values - pass in the keys
             deployment = self.text_embedding_profile.configuration_references.deployment_name,
             api_endpoint = self.text_embedding_profile.configuration_references.endpoint,
-            api_key = self.text_embedding_profile.configuration_references.api_key,
-            api_version = self.text_embedding_profile.configuration_references.api_version,
-            api_token = credential.get_token("https://cognitiveservices.azure.com/.default").token
+            api_key = credential.get_token("https://cognitiveservices.azure.com/.default").token,
+            api_version = self.text_embedding_profile.configuration_references.api_version
         )
         oai_model = OpenAIModel(config = self.config)
         embedding_model = oai_model.get_embedding_model(e_model)
