@@ -155,25 +155,6 @@ namespace FoundationaLLM.Core.Examples.Catalogs
 
                     "
             },
-
-            //new MultipartPrompt
-            //{
-            //    Name = TestAgentNames.SemanticKernelDune,
-            //    Description = $"Prompt template for the {TestAgentNames.SemanticKernelDune} agent.",
-            //    Prefix = @"You are an intelligent assistant for the world of Dune, also known as Arrakis.
-            //        You are designed to provide knowledgeable insights into everything related to Dune.
-            //        You must only use information from the CONTEXT section below.
-
-            //        CONTEXT:
-
-            //        {{buildcontext $userPrompt}}
-
-            //        USER FOCUS:
-
-            //        {{$userPrompt}}
-
-            //        "
-            //},
             new MultipartPrompt
             {
                 Name = TestAgentNames.LangChainDune,
