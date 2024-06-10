@@ -1099,6 +1099,16 @@ namespace FoundationaLLM.Configuration.Catalog
                 keyVaultSecretName: "",
                 contentType: "text/plain",
                 sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_Branding_FooterText,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description: "",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
             )
         ];
 
