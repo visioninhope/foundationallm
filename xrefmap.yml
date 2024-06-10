@@ -4409,6 +4409,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey
   fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey
   nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+  name: FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+  nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+  name: FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+  nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
+  name: FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
+  nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey
 - uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey
   name: FoundationaLLM_APIs_GatewayAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_GatewayAPI_APIKey
@@ -20045,6 +20063,12 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DataSourceHub
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.DataSourceHub
   nameWithType: AppConfigurationCatalog.DataSourceHub
+- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.EnkryptGuardrails
+  name: EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_EnkryptGuardrails
+  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.EnkryptGuardrails
+  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.EnkryptGuardrails
+  nameWithType: AppConfigurationCatalog.EnkryptGuardrails
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Event
   name: Event
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_Event
@@ -20086,6 +20110,12 @@ references:
   commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Instance
   fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.Instance
   nameWithType: AppConfigurationCatalog.Instance
+- uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LakeraGuard
+  name: LakeraGuard
+  href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_LakeraGuard
+  commentId: F:FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LakeraGuard
+  fullName: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LakeraGuard
+  nameWithType: AppConfigurationCatalog.LakeraGuard
 - uid: FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.LangChain
   name: LangChain
   href: api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html#FoundationaLLM_Configuration_Catalog_AppConfigurationCatalog_LangChain
