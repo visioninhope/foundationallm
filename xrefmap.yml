@@ -15140,6 +15140,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsInstancePath
   nameWithType: ResourcePath.IsInstancePath
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath
+  name: IsResourceTypePath
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html#FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_IsResourceTypePath
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath
+  nameWithType: ResourcePath.IsResourceTypePath
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath*
+  name: IsResourceTypePath
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html#FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_IsResourceTypePath_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsResourceTypePath
+  nameWithType: ResourcePath.IsResourceTypePath
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.IsRootPath
   name: IsRootPath
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html#FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_IsRootPath
