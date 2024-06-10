@@ -50,8 +50,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             if (textEmbeddingArtifacts == null
                 || textEmbeddingArtifacts.Count == 0)
             {
-                state.Log(this, request.Id!, _messageId, "The text embedding artifacts were not found.");
-                return false;
+                state.Log(this, request.Name!, _messageId, "The text embedding artifacts were not found.");
+                throw new VectorizationException("The text embedding artifacts were not found");
             }
 
             await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextPartition);
@@ -60,8 +60,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             if (textPartitioningArtifacts == null
                 || textPartitioningArtifacts.Count == 0)
             {
-                state.Log(this, request.Id!, _messageId, "The text partition artifacts were not found.");
-                return false;
+                state.Log(this, request.Name!, _messageId, "The text partition artifacts were not found.");
+                throw new VectorizationException("The text partitioning artifacts were not found.");
             }
 
             var serializerOptions = new JsonSerializerOptions

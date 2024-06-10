@@ -15,6 +15,15 @@ on:
       dockerfile:
         type: string
         required: true
+      tag:
+        type: string
+        required: true
+      username:
+        type: string
+        required: true
+      target:
+        type: string
+        required: true
 
 jobs:
   docker_image_build_and_push:
@@ -23,33 +32,38 @@ jobs:
       contents: read
       packages: write
     steps:
-    - name: Fetching the Latest Release Tag number
-      id: releaseVersion
-      run: |
-        GIT_RELEASE=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
-        echo "GIT_RELEASE=$GIT_RELEASE" >> $GITHUB_ENV
-        echo "release_tag: Latest Tag is : $GIT_RELEASE"
-        echo "release_tag=$GIT_RELEASE" >> $GITHUB_OUTPUT
-
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Get Container Registry Password
+      uses: actions/github-script@v7
+      id: set-registry-password
+      with:
+        result-encoding: string
+        script: |
+          var passwords = new Map()
+          passwords['e2e'] = process.env.E2E_ACR_PASSWORD
+          passwords['sandbox'] = process.env.SBX_ACR_PASSWORD
+          return passwords['${{ inputs.target }}']
+      env:
+        E2E_ACR_PASSWORD: ${{ secrets.FLLM_E2E_ACR_PASSWORD }}
+        SBX_ACR_PASSWORD: ${{ secrets.FLLM_SBX_ACR_PASSWORD }}
 
     - name: Log in to the Container registry
       uses: docker/login-action@v3
       with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.username }}
+        password: ${{ steps.set-registry-password.outputs.result }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v5
       with:
         images: |
-          ghcr.io/${{ github.repository }}/${{ inputs.image }}
+          ${{ inputs.registry }}/${{ inputs.image }}
         tags: |
-          type=semver,pattern={{version}},value=${{ steps.releaseVersion.outputs.release_tag }}
-          type=sha,format=long
+          type=semver,pattern={{version}},value=${{ inputs.tag }}
 
     - name: Build and push Docker images
       uses: docker/build-push-action@v5
@@ -60,4 +74,4 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         push: true
         build-args: |
-          FOUNDATIONALLM_VERSION=${{ steps.releaseVersion.outputs.release_tag }}
+          FOUNDATIONALLM_VERSION=${{ inputs.tag }}

@@ -160,6 +160,22 @@
         /// </summary>
         public const string FoundationaLLM_APIs_DataSourceHubAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType app configuration setting.
+        /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_AuthenticationType = "FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType";
+        /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName app configuration setting.
+        /// This is the name of the storage account used when the authentication type is `AzureIdentity`, which is the default.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_AccountName =
+            "FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName";
+        /// <summary>
+        /// The key for the FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString app configuration setting.
+        /// The connection string to the Azure Storage account used for the data source resource provider.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage_ConnectionString = "FoundationaLLM:Attachment:ResourceProviderService:Storage:ConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>
@@ -179,10 +195,37 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafety = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard app configuration setting.
+        /// By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableLakeraGuard = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails app configuration setting.
+        /// By default, the Gatekeeper API has Lakera Guard integration disabled. To enable this feature, set this value to true.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableEnkryptGuardrails = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield app configuration setting.
+        /// By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield";
+        /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableMicrosoftPresidio app configuration setting.
         /// By default, the Gatekeeper API has Microsoft Presidio integration enabled. To disable this feature, set this value to false.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableMicrosoftPresidio = "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableMicrosoftPresidio";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -278,6 +321,49 @@
         /// The key for the FoundationaLLM:AzureContentSafety:ViolenceSeverity app configuration setting.
         /// </summary>
         public const string FoundationaLLM_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:AzureContentSafety:ViolenceSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIUrl = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_HateSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SelfHarmSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_SexualSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIUrl = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey app configuration setting.
+        /// This is a Key Vault reference.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIUrl = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl";
         /// <summary>
         /// The key for the FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName app configuration setting.
         /// </summary>
@@ -520,11 +606,6 @@
         /// The key for the FoundationaLLM:LangChain:Summary:ModelName app configuration setting.
         /// </summary>
         public const string FoundationaLLM_LangChain_Summary_ModelName = "FoundationaLLM:LangChain:Summary:ModelName";
-        /// <summary>
-        /// The key for the FoundationaLLM:LangChainAPI:Key app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_LangChainAPI_Key = "FoundationaLLM:LangChainAPI:Key";
         /// <summary>
         /// The key for the FoundationaLLM:Management:Entra:CallbackPath app configuration setting.
         /// </summary>
@@ -848,6 +929,11 @@
         /// </summary>
         public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:Attachment:* app configuration settings.
+        /// This supports the Attachment resource provider settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachment = "FoundationaLLM:Attachment:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI = "FoundationaLLM:AzureOpenAI:*";
@@ -953,11 +1039,15 @@
         /// <summary>
         /// The key section for the FoundationaLLM:AzureContentSafety app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_AzureContentSafety = "FoundationaLLM:AzureContentSafety";
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety = "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety";
+        /// <summary>
+        /// The key section for the FoundationaLLM:EnkryptGuardrails app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails = "FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails";
         /// <summary>
         /// The key section for the FoundationaLLM:LakeraGuard app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_LakeraGuard = "FoundationaLLM:LakeraGuard";
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard = "FoundationaLLM:APIs:Gatekeeper:LakeraGuard";
         /// <summary>
         /// The key section for the FoundationaLLM:BlobStorageMemorySource app configuration settings.
         /// </summary>
@@ -979,6 +1069,10 @@
         /// </summary>
         public const string FoundationaLLM_DataSources = "FoundationaLLM:DataSources";
         /// <summary>
+        /// The key section for the FoundationaLLM:Attachments app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachments = "FoundationaLLM:Attachments";
+        /// <summary>
         /// The key section for the FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
@@ -986,6 +1080,14 @@
         /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService = "FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:PostgresIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
         /// <summary>
         /// The key section for the FoundationaLLM:Gateway app configuration settings.
         /// </summary>
@@ -1026,6 +1128,10 @@
         /// </summary>
         public const string FoundationaLLM_DataSource_ResourceProviderService_Storage = "FoundationaLLM:DataSource:ResourceProviderService:Storage";
 
+        /// <summary>
+        /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Attachment_ResourceProviderService_Storage = "FoundationaLLM:Attachment:ResourceProviderService:Storage";
         #endregion
 
         #region Event Grid events

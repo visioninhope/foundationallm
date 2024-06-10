@@ -1,4 +1,4 @@
-using FoundationaLLM.Authorization.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
@@ -326,6 +326,27 @@ namespace FoundationaLLM.Authorization.Models
                         AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Delete,
                         "Delete direct completions.",
                         "Completion")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                        "Read attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                        "Create or update attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                        "Delete attachments.",
+                        "Attachment")
                 },
             });
 

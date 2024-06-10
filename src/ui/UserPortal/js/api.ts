@@ -1,4 +1,5 @@
-import type { Message, Session, CompletionPrompt, Agent, OrchestrationRequest } from '@/js/types';
+import type { Message, Session, CompletionPrompt, Agent,
+	OrchestrationRequest, ResourceProviderGetResult } from '@/js/types';
 
 export default {
 	apiUrl: null as string | null,
@@ -58,7 +59,16 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
 
-		return await $fetch(`${this.apiUrl}${url}`, options);
+		try {
+			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			return response;
+		} catch (error) {
+			// If the error is an HTTP error, extract the message directly.
+			if (error.data) {
+				throw new Error(error.data.message || error.data || 'Unknown error occurred');
+			}
+			throw error;
+		}
 	},
 
 	/**
@@ -161,12 +171,13 @@ export default {
 	 * @param agent The agent object.
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
-	async sendMessage(sessionId: string, text: string, agent: Agent) {
+	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
 		const orchestrationRequest: OrchestrationRequest = {
 			session_id: sessionId,
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
+			attachments: attachments
 		};
 		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
@@ -179,6 +190,30 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		return (await this.fetch('/orchestration/agents')) as Agent[];
+		const agents = (await this.fetch('/orchestration/agents')) as ResourceProviderGetResult<Agent>[];
+		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
+		return agents;
+	},
+
+	/**
+	 * Uploads attachment to the API.
+	 * @param file The file formData to upload.
+	 * @returns The ObjectID of the uploaded attachment.
+	 */
+	async uploadAttachment(file: FormData) {
+		try {
+			const response = await this.fetch('/attachments/upload', {
+				method: 'POST',
+				body: file,
+			});
+	
+			if (response.error || response.status >= 400) {
+				throw new Error(response.message || 'Unknown error occurred');
+			}
+	
+			return response;
+		} catch (error) {
+			throw error;
+		}
 	},
 };

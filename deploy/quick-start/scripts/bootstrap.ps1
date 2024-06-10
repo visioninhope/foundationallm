@@ -1,7 +1,7 @@
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-$AZCOPY_VERSION = "10.24.0"
+$AZCOPY_VERSION = "10.25.0"
 
 if ($IsWindows) {
     $url = "https://aka.ms/downloadazcopy-v10-windows"

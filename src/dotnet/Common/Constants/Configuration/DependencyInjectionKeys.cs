@@ -36,6 +36,16 @@
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
 
         /// <summary>
+        /// The dependency injection key for the Azure Cosmos DB NoSQL indexing service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService = "FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService";
+
+        /// <summary>
+        /// The dependency injection key for the PostgreSQL indexing service.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
+
+        /// <summary>
         /// The dependency injection key for the vectorization queues configuration section.
         /// </summary>
         public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";
@@ -72,6 +82,10 @@
         /// </summary>
         public const string FoundationaLLM_ResourceProvider_DataSource = "FoundationaLLM:ResourceProvider:DataSource";
 
+        /// <summary>
+        /// The dependency injection key for the FoundationaLLM.Attachment resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_Attachment = "FoundationaLLM:ResourceProvider:Attachment";
         /// <summary>
         /// The dependency injection key for the FoundationaLLM.Authorization resource provider.
         /// </summary>

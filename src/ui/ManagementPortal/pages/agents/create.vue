@@ -21,7 +21,7 @@
 			<div class="span-2">
 				<div class="step-header mb-2">Agent name:</div>
 				<div class="mb-2">
-					No special characters or spaces, lowercase letters with dashes and underscores only.
+					No special characters or spaces, use letters and numbers with dashes and underscores only.
 				</div>
 				<div class="input-wrapper">
 					<InputText
@@ -417,12 +417,12 @@
 
 				<div>
 					<span class="step-option__header">Content Safety:</span>
-					<span>{{ gatekeeperContentSafety.label }}</span>
+					<span>{{ Array.isArray(selectedGatekeeperContentSafety) ? selectedGatekeeperContentSafety.map(item => item.name).join(', ') : '' }}</span>
 				</div>
 
 				<div>
 					<span class="step-option__header">Data Protection:</span>
-					<span>{{ gatekeeperDataProtection.label }}</span>
+					<span>{{ Array.isArray(selectedGatekeeperDataProtection) ? selectedGatekeeperDataProtection.map(item => item.name).join(', ') : '' }}</span>
 				</div>
 
 				<template #edit>
@@ -443,24 +443,26 @@
 
 					<div class="mt-2">
 						<span class="step-option__header">Content Safety:</span>
-						<Dropdown
-							v-model="gatekeeperContentSafety"
+						<MultiSelect
+							v-model="selectedGatekeeperContentSafety"
 							class="dropdown--agent"
 							:options="gatekeeperContentSafetyOptions"
-							option-label="label"
+							option-label="name"
 							placeholder="--Select--"
+							display="chip"
 						/>
 					</div>
 
 					<div class="mt-2">
 						<span class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
-						<Dropdown
-							v-model="gatekeeperDataProtection"
+						<MultiSelect
+							v-model="selectedGatekeeperDataProtection"
 							class="dropdown--agent"
 							:options="gatekeeperDataProtectionOptions"
-							option-label="label"
+							option-label="name"
 							placeholder="--Select--"
+							display="chip"
 						/>
 					</div>
 				</template>
@@ -476,6 +478,16 @@
 					option-value="value"
 					placeholder="--Select--"
 					class="dropdown--agent"
+				/>
+			</div>
+
+			<div class="step-header span-2">Would you like to assign this agent to a cost center?</div>
+			<div class="span-2">
+				<InputText
+					v-model="cost_center"
+					placeholder="Enter cost center name"
+					type="text"
+					class="w-50"
 				/>
 			</div>
 
@@ -546,6 +558,7 @@
 				<Button
 					:label="editAgent ? 'Save Changes' : 'Create Agent'"
 					severity="primary"
+					:disabled="editable === false"
 					@click="handleCreateAgent"
 				/>
 
@@ -565,6 +578,7 @@
 <script lang="ts">
 import '@vue-js-cron/light/dist/light.css';
 import type { PropType } from 'vue';
+import { ref } from 'vue';
 import { debounce } from 'lodash';
 import { CronLight } from '@vue-js-cron/light';
 import api from '@/js/api';
@@ -573,6 +587,7 @@ import type {
 	AgentIndex,
 	AgentDataSource,
 	CreateAgentRequest,
+	ExternalOrchestrationService,
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
@@ -590,6 +605,8 @@ const getDefaultFormValues = () => {
 		dedicated_pipeline: true,
 		inline_context: false,
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
+
+		cost_center: '',
 
 		editDataSource: false as boolean,
 		selectedDataSource: null as null | AgentDataSource,
@@ -609,6 +626,9 @@ const getDefaultFormValues = () => {
 		conversationMaxMessages: 5 as number,
 
 		gatekeeperEnabled: false as boolean,
+
+		selectedGatekeeperContentSafety: ref(),
+		selectedGatekeeperDataProtection: ref(),
 		gatekeeperContentSafety: { label: 'None', value: null },
 		gatekeeperDataProtection: { label: 'None', value: null },
 
@@ -617,16 +637,24 @@ const getDefaultFormValues = () => {
 		orchestration_settings: {
 			orchestrator: 'LangChain' as string,
 			endpoint_configuration: {
-				endpoint: '' as string,
-				api_key: '' as string,
-				api_version: '' as string,
-				operation_type: 'chat' as string,
+				auth_type: 'key' as string,
+				provider: 'microsoft' as string,
+				endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint' as string,
+				api_key: 'FoundationaLLM:AzureOpenAI:API:Key' as string,
+				api_version: 'FoundationaLLM:AzureOpenAI:API:Version' as string,
+				//operation_type: 'chat' as string,
 			} as object,
 			model_parameters: {
-				deployment_name: '' as string,
+				deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName' as string,
 				temperature: 0 as number,
 			} as object,
 		},
+
+		api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
+		api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
+		api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
+		version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
+		deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 
 		// resolved_orchestration_settings: {
 		// 	endpoint_configuration: {
@@ -661,11 +689,14 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
+			editable: false as boolean,
+
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
 			validationMessage: '' as string,
 
 			dataSources: [] as AgentDataSource[],
 			indexSources: [] as AgentIndex[],
+			externalOrchestratorOptions: [] as ExternalOrchestrationService[],
 
 			orchestratorOptions: [
 				{
@@ -696,27 +727,39 @@ export default {
 				'Daily',
 			],
 
-			gatekeeperContentSafetyOptions: [
+			gatekeeperContentSafetyOptions: ref([
 				{
-					label: 'None',
-					value: null,
+					name: 'None',
+					code: null,
 				},
 				{
-					label: 'Azure Content Safety',
-					value: 'ContentSafety',
+					name: 'Azure Content Safety',
+					code: 'AzureContentSafety',
 				},
-			],
+				{
+					name: 'Azure Content Safety Prompt Shield',
+					code: 'AzureContentSafetyPromptShield',
+				},
+				{
+					name: 'Lakera Guard',
+					code: 'LakeraGuard',
+				},
+				{
+					name: 'Enkrypt Guardrails',
+					code: 'EnkryptGuardrails',
+				},
+			]),
 
-			gatekeeperDataProtectionOptions: [
+			gatekeeperDataProtectionOptions: ref([
 				{
-					label: 'None',
-					value: null,
+					name: 'None',
+					code: null,
 				},
 				{
-					label: 'Microsoft Presidio',
-					value: 'Presidio',
+					name: 'Microsoft Presidio',
+					code: 'MicrosoftPresidio',
 				},
-			],
+			]),
 		};
 	},
 
@@ -742,10 +785,25 @@ export default {
 
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
-			this.indexSources = await api.getAgentIndexes(true);
+			const indexSourcesResult = await api.getAgentIndexes(true);
+			this.indexSources = indexSourcesResult.map(result => result.resource);
 
 			this.loadingStatusText = 'Retrieving data sources...';
-			this.dataSources = await api.getAgentDataSources(true);
+			const agentDataSourcesResult = await api.getAgentDataSources(true);
+			this.dataSources = agentDataSourcesResult.map(result => result.resource);
+			
+			this.loadingStatusText = 'Retrieving external orchestration services...';
+            const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
+			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
+
+			// Update the orchestratorOptions with the externalOrchestratorOptions.
+			this.orchestratorOptions = this.orchestratorOptions.concat(
+				this.externalOrchestratorOptions.map((service) => ({
+					label: service.name,
+					value: service.name,
+				})),
+			);
+
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -755,26 +813,31 @@ export default {
 
 		if (this.editAgent) {
 			this.loadingStatusText = `Retrieving agent "${this.editAgent}"...`;
-			const agent = await api.getAgent(this.editAgent);
+			const agentGetResult = await api.getAgent(this.editAgent);
+			this.editable = agentGetResult.actions.includes('FoundationaLLM.Agent/agents/write');
+			const agent = agentGetResult.resource;
 			if (agent.vectorization && agent.vectorization.text_partitioning_profile_object_id) {
 				this.loadingStatusText = `Retrieving text partitioning profile...`;
 				const textPartitioningProfile = await api.getTextPartitioningProfile(
 					agent.vectorization.text_partitioning_profile_object_id,
 				);
-				if (textPartitioningProfile) {
-					this.chunkSize = Number(textPartitioningProfile.settings.ChunkSizeTokens);
-					this.overlapSize = Number(textPartitioningProfile.settings.OverlapSizeTokens);
+				if (textPartitioningProfile && textPartitioningProfile.resource) {
+					this.chunkSize = Number(textPartitioningProfile.resource.settings.ChunkSizeTokens);
+					this.overlapSize = Number(textPartitioningProfile.resource.settings.OverlapSizeTokens);
 				}
 			}
 			if (agent.prompt_object_id !== '') {
 				this.loadingStatusText = `Retrieving prompt...`;
 				const prompt = await api.getPrompt(agent.prompt_object_id);
-				if (prompt) {
-					this.systemPrompt = prompt.prefix;
+				if (prompt && prompt.resource) {
+					this.systemPrompt = prompt.resource.prefix;
 				}
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
+		}
+		else {
+			this.editable = true;
 		}
 
 		this.debouncedCheckName = debounce(this.checkName, 500);
@@ -789,6 +852,7 @@ export default {
 			this.agentType = agent.type || this.agentType;
 			this.object_id = agent.object_id || this.object_id;
 			this.inline_context = agent.inline_context || this.inline_context;
+			this.cost_center = agent.cost_center || this.cost_center;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
@@ -842,15 +906,14 @@ export default {
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
 
-			this.gatekeeperContentSafety =
-				this.gatekeeperContentSafetyOptions.find((localOption) =>
-					agent.gatekeeper.options.find((option) => option === localOption.value),
-				) || this.gatekeeperContentSafety;
+			this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
+				agent.gatekeeper.options.includes(localOption.code)
+			) || this.selectedGatekeeperContentSafety;
 
-			this.gatekeeperDataProtection =
-				this.gatekeeperDataProtectionOptions.find((localOption) =>
-					agent.gatekeeper.options.find((option) => option === localOption.value),
-				) || this.gatekeeperDataProtection;
+			this.selectedGatekeeperDataProtection =
+				this.gatekeeperDataProtectionOptions.filter((localOption) =>
+					agent.gatekeeper.options.includes(localOption.code)
+				) || this.selectedGatekeeperDataProtection;
 		},
 
 		async checkName() {
@@ -925,12 +988,12 @@ export default {
 				errors.push(this.validationMessage);
 			}
 
-			if (this.text_embedding_profile_object_id === '') {
+			if (!this.inline_context && this.text_embedding_profile_object_id === '') {
 				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
 				if (textEmbeddingProfiles.length === 0) {
 					errors.push('No vectorization text embedding profiles found.');
 				} else {
-					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].object_id;
+					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].resource.object_id;
 				}
 			}
 
@@ -958,6 +1021,7 @@ export default {
 			const promptRequest = {
 				type: 'multipart',
 				name: this.agentName,
+				cost_center: this.cost_center,
 				description: `System prompt for the ${this.agentName} agent`,
 				prefix: this.systemPrompt,
 				suffix: '',
@@ -997,7 +1061,7 @@ export default {
 
 					// Select the default data source, if any.
 					dataSourceObjectId = this.selectedDataSource?.object_id ?? '';
-					if (dataSourceObjectId === '') {
+					if (dataSourceObjectId === '' && this.dedicated_pipeline) {
 						const defaultDataSource = await api.getDefaultDataSource();
 						if (defaultDataSource !== null) {
 							dataSourceObjectId = defaultDataSource.object_id;
@@ -1020,6 +1084,7 @@ export default {
 					description: this.agentDescription,
 					object_id: this.object_id,
 					inline_context: this.inline_context,
+					cost_center: this.cost_center,
 
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,
@@ -1040,21 +1105,9 @@ export default {
 					gatekeeper: {
 						use_system_setting: this.gatekeeperEnabled,
 						options: [
-							this.gatekeeperContentSafety.value as unknown as string,
-							this.gatekeeperDataProtection.value as unknown as string,
+							...(this.selectedGatekeeperContentSafety || []).map((option: any) => option.code),
+							...(this.selectedGatekeeperDataProtection || []).map((option: any) => option.code),
 						].filter((option) => option !== null),
-					},
-
-					language_model: {
-						type: 'openai',
-						provider: 'microsoft',
-						temperature: 0,
-						use_chat: true,
-						api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-						api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-						api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-						version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-						deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
 					},
 
 					sessions_enabled: true,

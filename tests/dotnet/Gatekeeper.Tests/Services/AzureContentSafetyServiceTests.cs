@@ -26,9 +26,9 @@ namespace Gatekeeper.Tests.Services
 
         public AzureContentSafetyServiceTests()
         {
-            _testedService = new AzureContentSafetyService(_settings, _logger);
+            _testedService = new AzureContentSafetyService(null, _settings, _logger);
             _client = Substitute.ForPartsOf<ContentSafetyClient>(new Uri(_settings.Value.APIUrl), new AzureKeyCredential(_settings.Value.APIKey));
-            _service = new AzureContentSafetyService(_settings, _logger);
+            _service = new AzureContentSafetyService(null, _settings, _logger);
         }
 
         [Fact]
