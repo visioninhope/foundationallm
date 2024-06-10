@@ -44,11 +44,36 @@ on:
           - sandbox
           - e2e
         default: e2e
+  workflow_call:
+    inputs:
+      environment:
+        description: AZD Environment Name
+        type: string
+      deployOpenAi:
+        description: Deploy a new OpenAI Instance
+        type: boolean
+      openAiName:
+        description: Shared OpenAI Instance Name
+        type: string
+      openAiResourceGroup:
+        description: Shared OpenAI Resource Group
+        type: string
+      location:
+        description: AZD Target Location
+        type: string
+      enableTeardown:
+        description: Enable teardown of environment
+        type: boolean
+      bypassAndTeardown:
+        description: Bypass Tests and Force Teardown
+        type: boolean
+      target:
+        description: Select target tenant/subscription
+        type: string
 
 jobs:
   generate_matrix:
     name: Generate Configuration Matrix
-    if: ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
     runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.set-registry.outputs.result }}
@@ -104,7 +129,12 @@ jobs:
       - name: Set Git and Helm Tag
         id: docker-tag
         run: |
-          DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
+          if [ ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }} ]; then
+            DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
+          else
+            DOCKER_TAG=0.0.0-${GITHUB_REF#refs/heads/}
+          fi
+
           DOCKER_TAG=$DOCKER_TAG-$(date +'%Y%m%dT%H%M%SZ')
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
           echo "docker_tag: Latest Tag is : $DOCKER_TAG"
@@ -112,7 +142,7 @@ jobs:
 
   helm_build:
     name: Package Helm Charts
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -129,7 +159,7 @@ jobs:
 
   docker_build:
     name: Build Docker Images
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     needs: generate_matrix
     strategy:
       fail-fast: false
@@ -147,7 +177,7 @@ jobs:
     secrets: inherit
 
   deploy_quickstart:
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     name: Deploy Quick Start
     needs: [generate_matrix, docker_build]
     runs-on: ubuntu-latest
@@ -397,7 +427,7 @@ jobs:
         shell: pwsh
 
   add_test_data:
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     name: Add Test Data
     needs: [deploy_quickstart]
     runs-on: ubuntu-latest # this may need to change to windows
@@ -524,7 +554,7 @@ jobs:
 
   run_e2e_tests:
     name: Run End to End Tests
-    if: ${{ !inputs.bypassAndTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}
+    if: ${{ !inputs.bypassAndTeardown }}
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
@@ -628,7 +658,7 @@ jobs:
 
   teardown_quickstart:
     name: Tear Down Quick Start
-    if: ${{ (cancelled() && inputs.bypassAndTeardown) || (inputs.enableTeardown && (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/'))) }}
+    if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
     runs-on: ubuntu-latest
     env:
       AZURE_ENV_NAME: ${{ inputs.environment }}
