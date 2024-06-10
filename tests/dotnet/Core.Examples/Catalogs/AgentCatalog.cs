@@ -448,6 +448,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     }
                 }
             },
+
         ];
         #endregion
 

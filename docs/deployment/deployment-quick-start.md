@@ -51,7 +51,7 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
     cd foundationallm/deploy/quick-start
-    git checkout release/0.6.0
+    git checkout release/0.7.0
     ```
 
 3. **For release 0.7.0+:** Run the following script to install the deployment utilities, including `AzCopy`, locally.
@@ -60,11 +60,12 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     ./scripts/bootstrap.ps1
     ```
 
-4. Run the following commands to log into the Azure and Azure Developer CLIs:
+4. Run the following commands to log into Azure CLI, Azure Developer CLI and AzCopy:
 
     ```azurecli
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
+    azcopy login        # Log into AzCopy
     ```
 
 5. Set up an `azd` environment targeting your Azure subscription and desired deployment region:
@@ -127,6 +128,9 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     azd env set OPENAI_RESOURCE_GROUP <OpenAI Resource Group>
     azd env set OPENAI_SUBSCRIPTION_ID <OpenAI Subscription ID>
     ```
+> [!IMPORTANT]
+> Deploying with `Bring Your Own Azure OpenAI`, customers need to make sure that the relevant Managed Identities (LangChain API, Semantic Kernel API, and Gateway API) are assigned the `Open AI reader role` on the Azure OpenAI account object.
+
 2. Deploy the solution
 
     After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
@@ -155,7 +159,7 @@ The syntax for running the script from the `deploy\common\scripts` folder is:
 ```
 
 > [!IMPORTANT]
-> For this release, you will need to restart the Auth API container in the resource group to allow the changes to take effect.
+> For this release, you will need to restart the `CORE API` container and the `MANAGEMENT API` container in the resource group to allow the changes to take effect.
 
 # Teardown
 

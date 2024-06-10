@@ -77,35 +77,43 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
                     sb.AppendLine(this._worksheetNumberTemplate.Replace("{number}", $"{worksheetNumber}", StringComparison.OrdinalIgnoreCase));
                 }
 
-                foreach (IXLRangeRow? row in worksheet.RangeUsed()!.RowsUsed())
+                if(worksheet.RangeUsed() is not null)
                 {
-                    if (row == null) { continue; }
-
-                    var cells = row.CellsUsed().ToList();
-
-                    sb.Append(this._rowPrefix);
-                    for (var i = 0; i < cells.Count; i++)
+                    foreach (IXLRangeRow? row in worksheet.RangeUsed()!.RowsUsed())
                     {
-                        IXLCell? cell = cells[i];
+                        if (row == null) { continue; }
 
-                        if (this._withQuotes && cell is { Value.IsText: true })
+                        var cells = row.CellsUsed().ToList();
+
+                        sb.Append(this._rowPrefix);
+                        for (var i = 0; i < cells.Count; i++)
                         {
-                            sb.Append('"')
-                                .Append(cell.Value.GetText().Replace("\"", "\"\"", StringComparison.Ordinal))
-                                .Append('"');
-                        }
-                        else
-                        {
-                            sb.Append(cell.Value);
+                            IXLCell? cell = cells[i];
+
+                            if (this._withQuotes && cell is { Value.IsText: true })
+                            {
+                                sb.Append('"')
+                                    .Append(cell.Value.GetText().Replace("\"", "\"\"", StringComparison.Ordinal))
+                                    .Append('"');
+                            }
+                            else
+                            {
+                                sb.Append(cell.Value);
+                            }
+
+                            if (i < cells.Count - 1)
+                            {
+                                sb.Append(this._columnSeparator);
+                            }
                         }
 
-                        if (i < cells.Count - 1)
-                        {
-                            sb.Append(this._columnSeparator);
-                        }
+                        sb.AppendLine(this._rowSuffix);
                     }
 
-                    sb.AppendLine(this._rowSuffix);
+                }
+                else
+                {
+                    sb.AppendLine($"No data found in Worksheet number: {worksheetNumber}");
                 }
 
                 if (this._withEndOfWorksheetMarker)
