@@ -9,7 +9,7 @@ namespace FoundationaLLM.Common.Models.Configuration.API
     /// <summary>
     /// Standard settings for an API client.
     /// </summary>
-    public record APIClientSettings
+    public class APIClientSettings
     {
         /// <summary>
         /// The URL of the downstream API.
