@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Client.Core;
+using FoundationaLLM.Client.Core.Interfaces;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Settings;
@@ -36,6 +38,8 @@ namespace FoundationaLLM
                 {
                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                 });
+
+            builder.Services.AddSingleton<ICoreRESTClient, CoreRESTClient>();
         }
     }
 }
