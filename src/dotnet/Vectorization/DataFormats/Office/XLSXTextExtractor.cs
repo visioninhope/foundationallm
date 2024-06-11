@@ -1,4 +1,4 @@
-﻿using ClosedXML.Excel;
+using ClosedXML.Excel;
 using System.Text;
 
 namespace FoundationaLLM.Vectorization.DataFormats.Office
@@ -96,7 +96,16 @@ namespace FoundationaLLM.Vectorization.DataFormats.Office
                         {
                             IXLCell? cell = cells[i];
 
-                            sb.Append(this.GetCellValueWithTimeout(cell, 10).Result);
+                            if (this._withQuotes && cell is { CachedValue.IsText: true })
+                            {
+                                sb.Append('"')
+                                    .Append(cell.CachedValue.GetText().Replace("\"", "\"\"", StringComparison.Ordinal))
+                                    .Append('"');
+                            }
+                            else
+                            {
+                                sb.Append(cell.CachedValue);
+                            }
 
                             if (i < cells.Count - 1)
                             {
