@@ -1,69 +1,33 @@
-﻿using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
-
-namespace FoundationaLLM.Client.Core.Interfaces
+﻿namespace FoundationaLLM.Client.Core.Interfaces
 {
     /// <summary>
-    /// Low-level REST API client for making direct calls to the Core API.
+    /// Contains methods to interact with the Core API's endpoints.
     /// </summary>
     public interface ICoreRESTClient
     {
         /// <summary>
-        /// Creates and renames a session.
+        /// Contains methods to interact with the Sessions endpoints.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns>Returns the new Session ID.</returns>
-        Task<string> CreateSessionAsync(string token);
-
+        ISessionRESTClient Sessions { get; }
         /// <summary>
-        /// Renames a chat session.
+        /// Contains methods to interact with the Attachments endpoints.
         /// </summary>
-        /// <param name="sessionId">The chat session ID.</param>
-        /// <param name="sessionName">The new session name.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns></returns>
-        Task<string> RenameChatSession(string sessionId, string sessionName, string token);
-
+        IAttachmentRESTClient Attachments { get; }
         /// <summary>
-        /// Sends a user prompt to the specified agent within the specified session.
+        /// Contains methods to interact with the Branding endpoints.
         /// </summary>
-        /// <param name="orchestrationRequest"></param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns>Returns a completion response.</returns>
-        /// <exception cref="FoundationaLLMException"></exception>
-        Task<Completion> SendSessionCompletionRequestAsync(OrchestrationRequest orchestrationRequest, string token);
-
+        IBrandingRESTClient Branding { get; }
         /// <summary>
-        /// Gets a completion prompt by session ID and completion prompt ID.
+        /// Contains methods to interact with the Orchestration endpoints.
         /// </summary>
-        /// <param name="sessionId"></param>
-        /// <param name="completionPromptId"></param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns></returns>
-        Task<CompletionPrompt> GetCompletionPromptAsync(string sessionId, string completionPromptId, string token);
-
+        IOrchestrationRESTClient Orchestration { get; }
         /// <summary>
-        /// Returns the chat messages related to an existing session.
+        /// Contains methods to interact with the Status endpoints.
         /// </summary>
-        /// <param name="sessionId"></param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns></returns>
-        Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token);
-
+        IStatusRESTClient Status { get; }
         /// <summary>
-        /// Sends a user prompt to the specified agent. Also considered a "sessionless" request.
+        /// Contains methods to interact with the UserProfiles endpoints.
         /// </summary>
-        /// <param name="completionRequest"></param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns></returns>
-        Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest, string token);
-
-        /// <summary>
-        /// Deletes a chat session.
-        /// </summary>
-        /// <param name="sessionId"></param>
-        /// <param name="token">The authentication token to send with the request.</param>
-        /// <returns></returns>
-        Task DeleteSessionAsync(string sessionId, string token);
+        IUserProfileRESTClient UserProfiles { get; }
     }
 }
