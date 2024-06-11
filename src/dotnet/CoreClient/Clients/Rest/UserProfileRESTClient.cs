@@ -1,18 +1,13 @@
 ﻿using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
     /// <summary>
     /// Provides methods to manage calls to the Core API's user profile endpoints.
     /// </summary>
-    public class UserProfileRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IUserProfileRESTClient
+    internal class UserProfileRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IUserProfileRESTClient
     {
         /// <inheritdoc/>
         public async Task<IEnumerable<UserProfile>> GetUserProfilesAsync(string token)

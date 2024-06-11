@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FoundationaLLM.Client.Core.Interfaces;
+﻿using FoundationaLLM.Client.Core.Interfaces;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
-    public class StatusRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IStatusRESTClient
+    internal class StatusRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IStatusRESTClient
     {
         /// <inheritdoc/>
         public async Task<string> GetServiceStatusAsync(string token)

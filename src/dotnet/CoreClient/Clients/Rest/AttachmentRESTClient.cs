@@ -6,7 +6,7 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's Attachments endpoints.
     /// </summary>
-    public class AttachmentRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IAttachmentRESTClient
+    internal class AttachmentRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IAttachmentRESTClient
     {
         /// <inheritdoc/>
         public async Task<string> UploadAttachmentAsync(Stream fileStream, string fileName, string contentType, string token)

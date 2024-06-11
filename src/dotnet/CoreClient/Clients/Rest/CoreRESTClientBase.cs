@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
-    public class CoreRESTClientBase(IHttpClientFactory httpClientFactory)
+    internal class CoreRESTClientBase(IHttpClientFactory httpClientFactory)
     {
         /// <summary>
         /// Sets standard JSON serializer options.

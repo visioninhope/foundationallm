@@ -1,21 +1,17 @@
-﻿using FoundationaLLM.Common.Models.Chat;
+﻿using FoundationaLLM.Client.Core.Interfaces;
+using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using FoundationaLLM.Client.Core.Interfaces;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
     /// <summary>
     /// Provides methods to manage calls to the Core API's orchestration endpoints.
     /// </summary>
-    public class OrchestrationRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IOrchestrationRESTClient
+    internal class OrchestrationRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IOrchestrationRESTClient
     {
         /// <inheritdoc/>
         public async Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest, string token)

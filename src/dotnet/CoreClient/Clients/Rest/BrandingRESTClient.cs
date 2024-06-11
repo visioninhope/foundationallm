@@ -1,18 +1,13 @@
 ﻿using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
     /// <summary>
     /// Provides methods to manage calls to the Core API's Branding endpoints.
     /// </summary>
-    public class BrandingRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IBrandingRESTClient
+    internal class BrandingRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IBrandingRESTClient
     {
         /// <inheritdoc/>
         public async Task<ClientBrandingConfiguration> GetBrandingAsync(string token)

@@ -15,7 +15,7 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's session endpoints.
     /// </summary>
-    public class SessionRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), ISessionRESTClient
+    internal class SessionRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), ISessionRESTClient
     {
         /// <inheritdoc/>
         public async Task<string> CreateSessionAsync(string token)
