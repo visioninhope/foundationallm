@@ -7,16 +7,19 @@
 				class="file-upload-button"
 				style="height: 100%;"
 				@click="toggleFileAttachmentOverlay"
-				:badge="$appStore.attachments.length"
+				:badge="$appStore.attachments.length.toString() || null"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
-				<div class="">
-					<p>Attached Files</p>
+				<div class="attached-files-container">
+					<h2 style="margin-bottom: 0px;">Attached Files</h2>
 					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
-						<p>{{ file }}</p>
+						<div class="file-name">{{ file.fileName }}</div>
+						<div class="file-remove">
+							<Button icon="pi pi-times" severity="danger" text rounded aria-label="Remove attachment" @click="removeAttachment(file)" />
+						</div>
 					</div>
 					<div v-else>
-						<p>No files attached</p>
+						No files attached
 					</div>
 				</div>
 				<div class="p-d-flex p-jc-end">
@@ -191,7 +194,11 @@ export default {
 
 		toggleFileAttachmentOverlay(event: any) {
 			this.$refs.fileAttachmentPanel.toggle(event);
-		}
+		},
+
+		removeAttachment(file: any) {
+			this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
+		},
 	},
 };
 </script>
@@ -283,6 +290,22 @@ export default {
 
 .file-upload-button {
 	height: 100%;
+}
+
+.attached-files-container {
+	padding-bottom: 1rem;
+}
+
+.attached-files {
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.file-remove {
+	margin-left: 1rem;
 }
 </style>
 
