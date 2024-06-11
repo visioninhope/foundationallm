@@ -8,6 +8,8 @@ using FoundationaLLM.Common.Models.Chat;
 using Microsoft.Azure.Cosmos.Fluent;
 using Polly;
 using Polly.Retry;
+using Azure.Identity;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 
 namespace FoundationaLLM.Core.Services
 {
@@ -53,7 +55,7 @@ namespace FoundationaLLM.Core.Services
             {
                 PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
             };
-            var client = new CosmosClientBuilder(settings.Value.Endpoint, settings.Value.Key)
+            var client = new CosmosClientBuilder(settings.Value.Endpoint, new DefaultAzureCredential())
                 .WithSerializerOptions(options)
                 .WithConnectionModeGateway()
                 .Build();

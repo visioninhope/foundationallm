@@ -1,5 +1,9 @@
-﻿using Azure.Storage.Queues;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using Azure.Storage.Queues;
+using FakeItEasy;
+using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.RequestSources;
@@ -11,17 +15,18 @@ namespace Vectorization.Tests.Services.RequestSources
     {
         private StorageQueueRequestSourceService _storageQueueRequestSourceService;
         private QueueClient _queueClient;
+        private IVectorizationStateService _stateService;
         
         public StorageQueueRequestSourceServiceTests()
         {
+            _stateService = A.Fake<IVectorizationStateService>();
             RequestSourceServiceSettings requestManagerServiceSettings = new RequestSourceServiceSettings()
             {
                 Name = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueName") ?? "testing",
-                ConnectionConfigurationName = "SomeConfigProperty",
-                ConnectionString = Environment.GetEnvironmentVariable("StorageQueueServiceTestsQueueConnectionString"),
+                AccountName = "Test_AccountName",
                 VisibilityTimeoutSeconds = 60
             };
-            _queueClient = new QueueServiceClient(requestManagerServiceSettings.ConnectionString).GetQueueClient(requestManagerServiceSettings.Name);
+            _queueClient = new QueueServiceClient(new Uri($"https://test.dfs.core.windows.net")).GetQueueClient(requestManagerServiceSettings.Name);
             ILogger<StorageQueueRequestSourceService> logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<StorageQueueRequestSourceService>();
             _storageQueueRequestSourceService = new StorageQueueRequestSourceService(requestManagerServiceSettings, logger);
         }
@@ -33,7 +38,7 @@ namespace Vectorization.Tests.Services.RequestSources
 
             await _storageQueueRequestSourceService.SubmitRequest(
                 new VectorizationRequest {
-                    Id = "d4669c9c-e330-450a-a41c-a4d6649abdef",
+                    Name = "d4669c9c-e330-450a-a41c-a4d6649abdef",
                     ContentIdentifier = new ContentIdentifier
                     {
                         MultipartId = new List<string> {
@@ -41,7 +46,7 @@ namespace Vectorization.Tests.Services.RequestSources
                             "vectorization-input",
                             "somedata.pdf"
                         },
-                        ContentSourceProfileName = "SomePDFData",
+                        DataSourceObjectId = "SomePDFData",
                         CanonicalId = "SomeBusinessUnit/SomePDFData"
                     },
                     ProcessingType = VectorizationProcessingType.Synchronous,
@@ -67,7 +72,7 @@ namespace Vectorization.Tests.Services.RequestSources
             // Correct Deserialization
             Assert.Equal(
                 "d4669c9c-e330-450a-a41c-a4d6649abdef",
-                vectorizationRequestQueueMessage.Request.Id
+                vectorizationRequestQueueMessage.Request.Name
             );
 
             // Message ID & Pop Receipt must be retained for deletion

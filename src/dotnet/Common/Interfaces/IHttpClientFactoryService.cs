@@ -1,11 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Interfaces
+﻿namespace FoundationaLLM.Common.Interfaces
 {
     /// <summary>
     /// Service that provides a common interface for creating <see cref="HttpClient"/>
@@ -25,5 +18,15 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
         /// <returns></returns>
         HttpClient CreateClient(string clientName);
+
+        /// <summary>
+        /// Creates a new unregistered <see cref="HttpClient"/> instance with a timeout.
+        /// </summary>
+        /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
+        /// <param name="timeout">The timeout for the <see cref="HttpClient"/>.
+        /// If not specified, the default timeout in seconds is applied.
+        /// For an infinite waiting period, use <see cref="Timeout.InfiniteTimeSpan"/></param>
+        /// <returns></returns>
+        HttpClient CreateUnregisteredClient(TimeSpan? timeout = null);
     }
 }

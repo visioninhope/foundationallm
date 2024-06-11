@@ -1,76 +1,69 @@
 ﻿using Azure.Messaging;
-using FoundationaLLM.Agent.Constants;
+using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Data;
 using System.Text;
 using System.Text.Json;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using System.Formats.Asn1;
 
 namespace FoundationaLLM.Agent.ResourceProviders
 {
     /// <summary>
     /// Implements the FoundationaLLM.Agent resource provider.
     /// </summary>
+    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
+    /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
+    /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
+    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
+    /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
+        IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
+            authorizationService,
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<AgentResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Agent
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
-        {
-            {
-                AgentResourceTypeNames.Agents,
-                new ResourceTypeDescriptor(
-                        AgentResourceTypeNames.Agents)
-                {
-                    AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(KnowledgeManagementAgent)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(KnowledgeManagementAgent)], [typeof(ResourceProviderUpsertResult)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
-                    ],
-                    Actions = [
-                            new ResourceTypeAction(AgentResourceProviderActions.CheckName, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ])
-                        ]
-                }
-            },
-            {
-                AgentResourceTypeNames.AgentReferences,
-                new ResourceTypeDescriptor(AgentResourceTypeNames.AgentReferences)
-            }
-        };
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            AgentResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, AgentReference> _agentReferences = [];
 
         private const string AGENT_REFERENCES_FILE_NAME = "_agent-references.json";
-        private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/_agent-references.json";
+        private const string AGENT_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_Agent}/{AGENT_REFERENCES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_Agent;
@@ -105,55 +98,93 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AgentResourceTypeNames.Agents => await LoadAgents(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0], userIdentity),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<AgentBase>> LoadAgents(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<AgentBase>>> LoadAgents(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var agents = new List<AgentBase>();
+
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _agentReferences.Values
-                            .Where(ar => !ar.Deleted)
-                            .Select(ar => LoadAgent(ar))))
-                ];
+                agents = (await Task.WhenAll(_agentReferences.Values
+                                    .Where(ar => !ar.Deleted)
+                                    .Select(ar => LoadAgent(ar))))
+                                        .Where(agent => agent != null)
+                                        .Select(agent => agent!)
+                                        .ToList();
             }
             else
             {
-                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference)
-                    || agentReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
-                        StatusCodes.Status404NotFound);
+                AgentBase? agent;
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                {
+                    agent = await LoadAgent(null, instance.ResourceId);
+                    if (agent != null)
+                        agents.Add(agent);
+                }
+                else
+                {
+                    if (agentReference.Deleted)
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
 
-                var agent = await LoadAgent(agentReference!);
-
-                return [agent];
+                    agent = await LoadAgent(agentReference);
+                    if (agent != null)
+                        agents.Add(agent);
+                }
             }
+
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, agents,
+                AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read);
         }
 
-        private async Task<AgentBase> LoadAgent(AgentReference agentReference)
+        private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
         {
             // agentReference is null for legacy agents
-            if (agentReference != null)
+            if (agentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
+                agentReference ??= new AgentReference
+                {
+                    Name = resourceId!,
+                    Type = AgentTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
                 if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
-                    return JsonSerializer.Deserialize(
+
+                    var agent = JsonSerializer.Deserialize(
                         Encoding.UTF8.GetString(fileContent.ToArray()),
                         agentReference.AgentType,
                         _serializerSettings) as AgentBase
                         ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
                             StatusCodes.Status400BadRequest);
+
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        // The agent file exists, but the agent reference is not in the dictionary. Update the dictionary with the missing reference.
+                        agentReference.Type = agent.Type!;
+                        _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k, v) => agentReference);
+                    }
+
+                    return agent;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _agentReferences.TryRemove(agentReference.Name, out _);
+                    return null;
                 }
             }
 
@@ -169,41 +200,67 @@ namespace FoundationaLLM.Agent.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AgentResourceTypeNames.Agents => await UpdateAgent(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                AgentResourceTypeNames.Agents => await UpdateAgent(resourcePath, serializedResource, userIdentity),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAgent(List<ResourceTypeInstance> instances, string serializedAgent)
+        private async Task<ResourceProviderUpsertResult> UpdateAgent(ResourcePath resourcePath, string serializedAgent, UnifiedUserIdentity userIdentity)
         {
-            var agentBase = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
+            var agent = JsonSerializer.Deserialize<AgentBase>(serializedAgent)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_agentReferences.TryGetValue(agentBase.Name!, out var existingAgentReference)
+            if (_agentReferences.TryGetValue(agent.Name!, out var existingAgentReference)
                 && existingAgentReference!.Deleted)
                 throw new ResourceProviderException($"The agent resource {existingAgentReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (instances[0].ResourceId != agentBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != agent.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var agentReference = new AgentReference
             {
-                Name = agentBase.Name!,
-                Type = agentBase.Type!,
-                Filename = $"/{_name}/{agentBase.Name}.json",
+                Name = agent.Name!,
+                Type = agent.Type!,
+                Filename = $"/{_name}/{agent.Name}.json",
                 Deleted = false
             };
 
-            var agent = JsonSerializer.Deserialize(serializedAgent, agentReference.AgentType, _serializerSettings);
-            (agent as AgentBase)!.ObjectId = GetObjectId(instances);
+            agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
+            {
+                var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
+                    .HandlePostAsync(
+                        $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
+                        JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
+                        {
+                            Name = kmAgent.Name,
+                            Active = true,
+                            Description = $"Vectorization data pipeline dedicated to the {kmAgent.Name} agent.",
+                            DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
+                            TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
+                            TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
+                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectIds[0]!,
+                            TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!,
+                            TriggerCronSchedule = kmAgent.Vectorization.TriggerCronSchedule
+                        }),
+                        userIdentity);
+
+                if ((result is ResourceProviderUpsertResult resourceProviderResult)
+                    && !string.IsNullOrWhiteSpace(resourceProviderResult.ObjectId))
+                    kmAgent.Vectorization.VectorizationDataPipelineObjectId = resourceProviderResult.ObjectId;
+                else
+                    throw new ResourceProviderException("There was an error attempting to create the associated vectorization pipeline for the agent.",
+                        StatusCodes.Status500InternalServerError);
+            }
 
             var validator = _resourceValidatorFactory.GetValidator(agentReference.AgentType);
             if (validator is IValidator agentValidator)
@@ -220,7 +277,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 agentReference.Filename,
-                JsonSerializer.Serialize(agent, agentReference.AgentType, _serializerSettings),
+                JsonSerializer.Serialize<AgentBase>(agent, _serializerSettings),
                 default,
                 default);
 
@@ -235,7 +292,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = (agent as AgentBase)!.ObjectId
+                ObjectId = agent!.ObjectId,
+                ResourceExists = existingAgentReference != null
             };
         }
 
@@ -243,13 +301,14 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(List<ResourceTypeInstance> instances, string serializedAction) =>
-            instances.Last().ResourceType switch
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
-                AgentResourceTypeNames.Agents => instances.Last().Action switch
+                AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
+                    AgentResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
                 _ => throw new ResourceProviderException()
@@ -261,7 +320,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         private ResourceNameCheckResult CheckAgentName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _agentReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _agentReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
@@ -277,18 +336,56 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 };
         }
 
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_agentReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _agentReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        AGENT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"The {resourceName} agent resource is not soft-deleted and cannot be purged.",
+                                               StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} agent resource.",
+                    StatusCodes.Status404NotFound);
+            }
+        }
+
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
-            switch (instances.Last().ResourceType)
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
                 case AgentResourceTypeNames.Agents:
-                    await DeleteAgent(instances);
+                    await DeleteAgent(resourcePath.ResourceTypeInstances);
                     break;
                 default:
-                    throw new ResourceProviderException($"The resource type {instances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest);
             };
         }
@@ -362,9 +459,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 Deleted = false
             };
 
-            var agent = await LoadAgent(agentReference);
-            agentReference.Name = agent.Name;
-            agentReference.Type = agent.Type;
+            var getAgentResult = await LoadAgent(agentReference, null);
+            agentReference.Name = getAgentResult.Name;
+            agentReference.Type = getAgentResult.Type;
 
             _agentReferences.AddOrUpdate(
                 agentReference.Name,

@@ -1,0 +1,5 @@
+# Ignore everything
+*
+# Except templates
+!*.template.json
+!version.json

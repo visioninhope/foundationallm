@@ -3,7 +3,6 @@ using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using FoundationaLLM.Common.Models.Agents;
 using System.Text.Json;
 
 namespace FoundationaLLM.Common.Middleware
@@ -28,6 +27,7 @@ namespace FoundationaLLM.Common.Middleware
         /// </summary>
         /// <param name="context">The current HTTP request context.</param>
         /// <param name="claimsProviderService">Resolves user claims to a <see cref="UnifiedUserIdentity"/> object.</param>
+        /// <param name="groupMembershipService">Provides group membership services for user principals.</param>
         /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
         /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
         /// <param name="instanceSettings">Contains the FoundationaLLM instance configuration settings.</param>
@@ -35,6 +35,7 @@ namespace FoundationaLLM.Common.Middleware
         public async Task InvokeAsync(
             HttpContext context,
             IUserClaimsProviderService claimsProviderService,
+            IGroupMembershipService groupMembershipService,
             ICallContext callContext,
             IOptions<InstanceSettings> instanceSettings)
         {
@@ -42,6 +43,15 @@ namespace FoundationaLLM.Common.Middleware
             {
                 // Extract from ClaimsPrincipal if available:
                 callContext.CurrentUserIdentity = claimsProviderService.GetUserIdentity(context.User);
+
+                if (callContext.CurrentUserIdentity != null
+                    && !claimsProviderService.IsServicePrincipal(context.User))
+                {
+                    // We are only expanding group membership for User objects
+                    // Service Principal permissions must be assigned directly and not over group membership.
+                    callContext.CurrentUserIdentity.GroupIds = await groupMembershipService.GetGroupsForPrincipal(
+                        callContext.CurrentUserIdentity.UserId!);
+                }
             }
             else
             {

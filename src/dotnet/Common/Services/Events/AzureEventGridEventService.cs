@@ -42,6 +42,10 @@ namespace FoundationaLLM.Common.Services.Events
             {
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_DataSource,
                 null
+            },
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment,
+                null
             }
         };
 
@@ -336,7 +340,7 @@ namespace FoundationaLLM.Common.Services.Events
             try
             {
                 ValidateEndpoint(_settings.Endpoint);
-                client = new EventGridClient(new Uri(_settings.Endpoint!), DefaultAuthentication.GetAzureCredential());
+                client = new EventGridClient(new Uri(_settings.Endpoint!), DefaultAuthentication.AzureCredential);
             }
             catch (Exception ex)
             {

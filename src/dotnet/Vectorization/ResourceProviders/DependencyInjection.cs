@@ -1,16 +1,30 @@
-﻿using FluentValidation;
+using FluentValidation;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.Context;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Storage;
+using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Vectorization.Client;
+using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models;
+using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.ResourceProviders;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Polly;
 
 namespace FoundationaLLM
 {
@@ -22,15 +36,14 @@ namespace FoundationaLLM
         /// <summary>
         /// Register the handler as a hosted service, passing the step name to the handler ctor.
         /// </summary>
-        /// <param name="services">Application builder service collection.</param>
-        /// <param name="configuration">The <see cref="IConfigurationManager"/> providing access to configuration.</param>
-        public static void AddVectorizationResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
+        /// <param name="builder">The application builder.</param>
+        public static void AddVectorizationResourceProvider(this IHostApplicationBuilder builder)
         {
-            services.AddOptions<BlobStorageServiceSettings>(
+            builder.Services.AddOptions<BlobStorageServiceSettings>(
                 DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
-                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
 
-            services.AddSingleton<IStorageService, BlobStorageService>(sp =>
+            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
@@ -45,22 +58,62 @@ namespace FoundationaLLM
             });
 
             // Register validators.
-            services.AddSingleton<IValidator<ContentSourceProfile>, ContentSourceProfileValidator>();
-            services.AddSingleton<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
-            services.AddSingleton<IValidator<TextEmbeddingProfile>, TextEmbeddingProfileValidator>();
-            services.AddSingleton<IValidator<IndexingProfile>, IndexingProfileValidator>();
+            builder.Services.AddSingleton<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
+            builder.Services.AddSingleton<IValidator<TextEmbeddingProfile>, TextEmbeddingProfileValidator>();
+            builder.Services.AddSingleton<IValidator<IndexingProfile>, IndexingProfileValidator>();
+            builder.Services.AddSingleton<IValidator<VectorizationPipeline>, VectorizationPipelineValidator>();
+            builder.Services.AddSingleton<IValidator<VectorizationRequest>, VectorizationRequestValidator>();
 
+            // Register the Vectorization API client.
+            RegisterDownstreamServices(builder);
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+            builder.Services.AddOptions<VectorizationServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
+            
             // Register the resource provider services (cannot use Keyed singletons due to the Microsoft Identity package being incompatible):
-            services.AddSingleton<IResourceProviderService, VectorizationResourceProviderService>(sp =>
+            builder.Services.AddSingleton<IResourceProviderService>(sp => 
                 new VectorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IOptions<VectorizationServiceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
-                    sp.GetRequiredService<ILogger<VectorizationResourceProviderService>>()));
+                    sp.GetRequiredService<IHttpClientFactory>(),
+                    sp,                    
+                    sp.GetRequiredService<ILoggerFactory>()));          
 
-            services.ActivateSingleton<IResourceProviderService>();
+            builder.Services.ActivateSingleton<IResourceProviderService>();
+        }
+
+        private static void RegisterDownstreamServices(IHostApplicationBuilder builder)
+        {
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = []
+            };
+
+            var vectorizationAPISettings = new DownstreamAPIClientConfiguration
+            {
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(10)
+            };
+            downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
+            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+            builder.Services
+                .AddHttpClient(HttpClients.VectorizationAPI,
+                    client => { client.BaseAddress = new Uri(vectorizationAPISettings.APIUrl); })
+                .AddResilienceHandler(
+                    "DownstreamPipeline",
+                    strategyBuilder =>
+                    {
+                        strategyBuilder.AddRetry(retryOptions);
+                    });
+            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
         }
     }
 }

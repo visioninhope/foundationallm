@@ -1,9 +1,10 @@
 using FakeItEasy;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Vectorization.Tests.Handlers
 {
     internal class MockContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
-        public Task<string> ExtractTextFromFileAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
             return Task.FromResult("This is the PDF document data.");
         }
@@ -26,7 +27,7 @@ namespace Vectorization.Tests.Handlers
             return new MockContentSourceService();
         }
 
-        public (IContentSourceService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -69,12 +70,12 @@ namespace Vectorization.Tests.Handlers
                     "vectorization-input",
                     "somedata.pdf"
                 },
-                ContentSourceProfileName = "SomePDFData",
+                DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                 CanonicalId = "SomeBusinessUnit/SomePDFData"
             };
             VectorizationRequest request = new VectorizationRequest
             {
-                Id = "d4669c9c-e330-450a-a41c-a4d6649abdef",
+                Name = "d4669c9c-e330-450a-a41c-a4d6649abdef",
                 ContentIdentifier = contentIdentifier,
                 ProcessingType = VectorizationProcessingType.Synchronous,
                 Steps = new List<VectorizationStep>

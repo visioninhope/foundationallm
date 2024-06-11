@@ -1,5 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
     /// <summary>
-    /// Implements a vectorization content source for content residing in blob storage.
+    /// Implements a vectorization content source for content residing in data lake storage.
     /// </summary>
     public class DataLakeContentSourceService : ContentSourceServiceBase, IContentSourceService
     {
@@ -16,7 +16,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private readonly DataLakeStorageService _dataLakeStorageService;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization content source service.
         /// </summary>
         public DataLakeContentSourceService(
             BlobStorageServiceSettings storageSettings,
@@ -35,7 +35,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[1] = the container name.
         /// contentId[2] = path of the file relative to the container name.
         /// </remarks>
-        public async Task<string> ExtractTextFromFileAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {   
             contentId.ValidateMultipartId(3);
 

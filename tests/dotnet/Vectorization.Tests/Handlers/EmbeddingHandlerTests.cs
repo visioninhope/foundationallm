@@ -1,10 +1,11 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,19 +18,20 @@ namespace Vectorization.Tests.Handlers
         {
             ITextEmbeddingService mockTextEmbeddingService = A.Fake<ITextEmbeddingService>();
 
-            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<string>>._))
-                .Returns((
-                    Embeddings: new List<Embedding> {
-                        new Embedding(new float[5]),
-                        new Embedding(new float[5])
-                    },
-                    TokenCount: 10
-                ));
+            A.CallTo(() => mockTextEmbeddingService.GetEmbeddingsAsync(A<IList<TextChunk>>._, string.Empty))
+                .Returns(new TextEmbeddingResult
+                {
+                    TextChunks = [
+                        new TextChunk { Position = 1, Embedding = new Embedding(new float[5]) },
+                        new TextChunk { Position = 2, Embedding = new Embedding(new float[5]) }
+                    ],
+                    TokenCount = 10
+                });
 
             return mockTextEmbeddingService;
         }
 
-        (ITextEmbeddingService Service, VectorizationProfileBase VectorizationProfile) IVectorizationServiceFactory<ITextEmbeddingService>.GetServiceWithProfile(string serviceName)
+        (ITextEmbeddingService Service, ResourceBase Resource) IVectorizationServiceFactory<ITextEmbeddingService>.GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -66,12 +68,12 @@ namespace Vectorization.Tests.Handlers
                     "vectorization-input",
                     "somedata.pdf"
                 },
-                ContentSourceProfileName = "SomePDFData",
+                DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                 CanonicalId = "SomeBusinessUnit/SomePDFData"
             };
             VectorizationRequest request = new VectorizationRequest
             {
-                Id = "d4669c9c-e330-450a-a41c-a4d6649abdef",
+                Name = "d4669c9c-e330-450a-a41c-a4d6649abdef",
                 ContentIdentifier = contentIdentifier,
                 ProcessingType = VectorizationProcessingType.Synchronous,
                 Steps = new List<VectorizationStep>

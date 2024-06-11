@@ -1,15 +1,16 @@
 using Asp.Versioning;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services;
@@ -17,16 +18,24 @@ using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.RequestSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using FoundationaLLM.Common.Middleware;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.Json;
+using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Vectorization.Serializers;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.VectorizationAPI);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -36,49 +45,31 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-// Add the Configuration resource provider
-builder.AddConfigurationResourceProvider();
+// NOTE: This is required while the service uses API key authentication.
+// Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
+builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
 
-// Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
-builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
-{
-    options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString];
-});
+// Add OpenTelemetry.
+builder.AddOpenTelemetry(
+    AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString,
+    ServiceNames.VectorizationAPI);
 
-// Create a dictionary of resource attributes.
-var resourceAttributes = new Dictionary<string, object> {
-    { "service.name", "VectorizationAPI" },
-    { "service.namespace", "FoundationaLLM" },
-    { "service.instance.id", Guid.NewGuid().ToString() }
-};
-
-// Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
-builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
-    builder.ConfigureResource(resourceBuilder =>
-        resourceBuilder.AddAttributes(resourceAttributes)));
-
-var allowAllCorsOrigins = "AllowAllOrigins";
-builder.Services.AddCors(policyBuilder =>
-{
-    policyBuilder.AddPolicy(allowAllCorsOrigins,
-        policy =>
-        {
-            policy.AllowAnyOrigin();
-            policy.WithHeaders("DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since", "Cache-Control", "Content-Type", "Range", "Authorization", "X-AGENT-HINT");
-            policy.AllowAnyMethod();
-        });
-});
+// CORS policies
+builder.AddCorsPolicies();
 
 // Add configurations to the container
 builder.Services.AddInstanceProperties(builder.Configuration);
@@ -100,6 +91,12 @@ builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
 builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
 
+builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService));
+
+builder.Services.AddOptions<PostgresIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
+
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues,
@@ -110,14 +107,25 @@ builder.Services.AddKeyedSingleton(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps,
     builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps));
 
+builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+{
+    var settings = serviceProvider.GetRequiredService<IOptions<AzureCosmosDBNoSQLIndexingServiceSettings>>().Value;
+    return new CosmosClientBuilder(settings.ConnectionString)
+        .WithCustomSerializer(new CosmosSystemTextJsonSerializer(JsonSerializerOptions.Default))
+        .WithConnectionModeGateway()
+        .Build();
+});
+
 // Vectorization state
 builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
 
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
-// Vectorization resource provider
-builder.Services.AddVectorizationResourceProvider(builder.Configuration);
+// Resource providers
+builder.AddConfigurationResourceProvider();
+builder.AddDataSourceResourceProvider();
+builder.AddVectorizationResourceProvider();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
@@ -129,13 +137,19 @@ builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, In
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 
-// Text embedding
-builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+// Gateway text embedding
+builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
+builder.AddGatewayService();
+builder.Services.AddHttpClient();
 
 // Indexing
 builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+builder.Services.AddKeyedSingleton<IIndexingService, AzureCosmosDBNoSQLIndexingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService);
+builder.Services.AddKeyedSingleton<IIndexingService, PostgresIndexingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService);
 
 // Request sources cache
 builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
@@ -221,11 +235,6 @@ builder.Services.AddSwaggerGen(
         });
     })
     .AddSwaggerGenNewtonsoftSupport();
-
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;
-});
 
 var app = builder.Build();
 

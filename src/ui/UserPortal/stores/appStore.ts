@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, Message, Agent } from '@/js/types';
+import type { Session, Message, Agent, ResourceProviderGetResult } from '@/js/types';
 import api from '@/js/api';
 
 export const useAppStore = defineStore('app', {
@@ -10,9 +10,10 @@ export const useAppStore = defineStore('app', {
 		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
 		isSidebarClosed: false as boolean,
-		agents: [] as Agent[],
+		agents: [] as ResourceProviderGetResult<Agent>[],
 		selectedAgents: new Map(),
-		lastSelectedAgent: null as Agent | null,
+		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
+		attachments: [] as String[],
 	}),
 
 	getters: {},
@@ -113,7 +114,7 @@ export const useAppStore = defineStore('app', {
 		},
 
 		getSessionAgent(session: Session) {
-			var selectedAgent = this.selectedAgents.get(session.id);
+			let selectedAgent = this.selectedAgents.get(session.id);
 			if (!selectedAgent) {
 				if (this.lastSelectedAgent) {
 					// Default to the last selected agent to make the selection "sticky" across sessions.
@@ -126,7 +127,7 @@ export const useAppStore = defineStore('app', {
 			return selectedAgent;
 		},
 
-		setSessionAgent(session: Session, agent: Agent) {
+		setSessionAgent(session: Session, agent: ResourceProviderGetResult<Agent>) {
 			this.lastSelectedAgent = agent;
 			return this.selectedAgents.set(session.id, agent);
 		},
@@ -168,7 +169,8 @@ export const useAppStore = defineStore('app', {
 			await api.sendMessage(
 				this.currentSession!.id,
 				text,
-				this.getSessionAgent(this.currentSession!),
+				this.getSessionAgent(this.currentSession!).resource,
+				[...this.attachments.map(String)], // Convert attachments to an array of strings
 			);
 			await this.getMessages();
 
@@ -221,6 +223,18 @@ export const useAppStore = defineStore('app', {
 		async getAgents() {
 			this.agents = await api.getAllowedAgents();
 			return this.agents;
-		}
+		},
+
+		async uploadAttachment(file: FormData) {
+			try {
+				const id = await api.uploadAttachment(file);
+				// this.attachments.push(id);
+				// For now, we want to just replace the attachments with the new one.
+				this.attachments = [id as string];
+				return id;
+			} catch (error) {
+				throw error;
+			}
+		},
 	},
 });

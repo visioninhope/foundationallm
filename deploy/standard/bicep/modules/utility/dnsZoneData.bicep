@@ -4,8 +4,6 @@ param location string
 /** Locals **/
 @description('Private DNS Zones to read.')
 var privateDnsZone = {
-  // grafana: 'privatelink.grafana.azure.com'
-  // prometheusMetrics: 'privatelink.${location}.prometheus.monitor.azure.com'
   agentsvc: 'privatelink.agentsvc.azure-automation.net'
   aks: 'privatelink.${location}.azmk8s.io'
   blob: 'privatelink.blob.${environment().suffixes.storage}'
@@ -17,12 +15,6 @@ var privateDnsZone = {
   dfs: 'privatelink.dfs.${environment().suffixes.storage}'
   eventgrid: 'privatelink.eventgrid.azure.net'
   file: 'privatelink.file.${environment().suffixes.storage}'
-  gateway: 'privatelink.azure-api.net'
-  gateway_developer: 'developer.azure-api.net'
-  gateway_management: 'management.azure-api.net'
-  gateway_portal: 'portal.azure-api.net'
-  gateway_public: 'azure-api.net'
-  gateway_scm: 'scm.azure-api.net'
   monitor: 'privatelink.monitor.azure.com'
   ods: 'privatelink.ods.opinsights.azure.com'
   oms: 'privatelink.oms.opinsights.azure.com'
@@ -35,13 +27,21 @@ var privateDnsZone = {
   vault: 'privatelink.vaultcore.azure.net'
 }
 
-/** Outputs **/
-@description('Private DNS Zones to use in other modules.')
-output ids array = [for (zone, i) in items(privateDnsZone): {
+var zoneIds = [for (zone, i) in items(privateDnsZone): {
   id: main[i].id
   key: zone.key
   name: main[i].name
 }]
+
+/** Outputs **/
+@description('Private DNS Zones to use in other modules.')
+output ids array = zoneIds
+
+@description('Private DNS Zones for Storage Accounts')
+output idsStorage array = filter(
+  zoneIds,
+  (zone) => contains([ 'blob', 'dfs', 'file', 'queue', 'table', 'web' ], zone.key)
+)
 
 /** Nested Modules **/
 @description('Read the specified private DNS zones.')

@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Vectorization.Models;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Vectorization.Models;
 using System.Threading.Tasks;
 
 namespace FoundationaLLM.Vectorization.Interfaces
@@ -24,10 +25,10 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// The received requests will be invisible for other clients for a default timeout of 30 seconds.
         /// They should be removed from the source by calling <see cref="DeleteRequest(string, string)"/> before the timeout expires.
         /// </summary>
-        /// <param name="count">The number of requests to receive.</param>
-        /// <returns>A collection of tuples containg a <see cref="VectorizationRequest"/> object, a message id and a pop receipt.
-        /// The message id and pop receipt will be used to delete the message from the request source after it has been processed.</returns>
-        Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt)>> ReceiveRequests(int count);
+        /// <param name="count">The number of requests to receive.</param>        
+        /// <returns>A collection of tuples containg a <see cref="VectorizationRequest"/> object, a message id, pop receipt, and dequeue count.
+        /// The message id and pop receipt will be used to delete the message from the request source after it has been processed.</returns>        
+        Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>> ReceiveRequests(int count);
 
         /// <summary>
         /// Removes a specified vectorization request from the source.
@@ -44,5 +45,14 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// <param name="request">The <see cref="VectorizationRequest"/> item describing the vectorization request.</param>
         /// <returns></returns>
         Task SubmitRequest(VectorizationRequest request);
+
+        /// <summary>
+        /// Updates and existing vectorization request.
+        /// </summary>
+        /// <param name="messageId">The identifier of the existing item in the request source.</param>
+        /// <param name="popReceipt">This value is required to update the request.</param>
+        /// <param name="request">The <see cref="VectorizationRequest"/> to update.</param>
+        /// <returns></returns>
+        Task UpdateRequest(string messageId, string popReceipt, VectorizationRequest request);
     }
 }

@@ -1,14 +1,16 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.DataSource.ResourceProviders;
 using FoundationaLLM.DataSource.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -22,15 +24,14 @@ namespace FoundationaLLM
         /// <summary>
         /// Add the Data Source Rrsource provider and its related services the the dependency injection container.
         /// </summary>
-        /// <param name="services">Application builder service collection</param>
-        /// <param name="configuration">The <see cref="IConfigurationManager"/> providing configuration services.</param>
-        public static void AddDataSourceResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
+        /// <param name="builder">The application builder.</param>
+        public static void AddDataSourceResourceProvider(this IHostApplicationBuilder builder)
         {
-            services.AddOptions<BlobStorageServiceSettings>(
+            builder.Services.AddOptions<BlobStorageServiceSettings>(
                 DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)
-                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage));
 
-            services.AddSingleton<IStorageService, BlobStorageService>(sp =>
+            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
                     .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource);
@@ -45,20 +46,23 @@ namespace FoundationaLLM
             });
 
             // Register validators.
-            services.AddSingleton<IValidator<DataSourceBase>, DataSourceBaseValidator>();
-            services.AddSingleton<IValidator<AzureDataLakeDataSource>, AzureDataLakeDataSourceValidator>();
-            services.AddSingleton<IValidator<AzureSQLDatabaseDataSource>, AzureSQLDatabaseDataSourceValidator>();
-            services.AddSingleton<IValidator<SharePointOnlineSiteDataSource>, SharePointOnlineSiteDataSourceValidator>();
+            builder.Services.AddSingleton<IValidator<DataSourceBase>, DataSourceBaseValidator>();
+            builder.Services.AddSingleton<IValidator<OneLakeDataSource>, OneLakeDataSourceValidator>();
+            builder.Services.AddSingleton<IValidator<AzureDataLakeDataSource>, AzureDataLakeDataSourceValidator>();
+            builder.Services.AddSingleton<IValidator<AzureSQLDatabaseDataSource>, AzureSQLDatabaseDataSourceValidator>();
+            builder.Services.AddSingleton<IValidator<SharePointOnlineSiteDataSource>, SharePointOnlineSiteDataSourceValidator>();
 
-            services.AddSingleton<IResourceProviderService, DataSourceResourceProviderService>(sp =>
+            builder.Services.AddSingleton<IResourceProviderService, DataSourceResourceProviderService>(sp =>
                 new DataSourceResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
+                    sp,
                     sp.GetRequiredService<ILoggerFactory>()));
-            services.ActivateSingleton<IResourceProviderService>();
+            builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }
 }

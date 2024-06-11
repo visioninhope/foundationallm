@@ -1,12 +1,17 @@
 ﻿using FoundationaLLM.Common.Tasks;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Vectorization.Extensions;
+using FoundationaLLM.Vectorization.ResourceProviders;
 
 namespace FoundationaLLM.Vectorization.Services
 {
@@ -20,12 +25,12 @@ namespace FoundationaLLM.Vectorization.Services
         private readonly IRequestSourceService _incomingRequestSourceService;
         private readonly IVectorizationStateService _vectorizationStateService;
         private readonly IConfigurationSection? _stepsConfiguration;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;        
         private readonly ILogger<RequestManagerService> _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly CancellationToken _cancellationToken;
         private readonly TaskPool _taskPool;
-
+                
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestManagerService"/> class with the configuration and services
         /// required to manage vectorization requests originating from a specific request source.
@@ -62,14 +67,14 @@ namespace FoundationaLLM.Vectorization.Services
 
             _incomingRequestSourceService = value;
 
-            _taskPool = new TaskPool(_settings.MaxHandlerInstances);
+            _taskPool = new TaskPool(_settings.MaxHandlerInstances, _loggerFactory.CreateLogger<TaskPool>());
         }
 
         /// <inheritdoc/>
         public async Task Run()
         {
-            _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);
-
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
+            _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);            
             while (true)
             {
                 if (_cancellationToken.IsCancellationRequested)
@@ -83,21 +88,107 @@ namespace FoundationaLLM.Vectorization.Services
                     {
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
 
-                        // No need to use ConfigureAwait(false) since the code is going to be executed on a
-                        // thread pool thread, with no user code higher on the stack (for details, see
-                        // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
-                        _taskPool.Add(
-                            requests.Select(r => Task.Run(
-                                () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
-                                _cancellationToken)));
-                    }
+                        foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
+                        {   
+                            Request.ProcessingState = VectorizationProcessingState.InProgress;
+                            if (Request.ExecutionStart == null)
+                                Request.ExecutionStart = DateTime.UtcNow;
 
-                    // Wait a predefined amount of time before attempting to receive requests again.
-                    await Task.Delay(TimeSpan.FromMinutes(1));
+                            //check if the dequeue count is greater than the max number of retries
+                            if (Request.Expired
+                                || Request.ErrorCount > _settings.QueueMaxNumberOfRetries)
+                            {
+                                var errorMessage = string.Empty;
+
+                                if (Request.Expired)
+                                {
+                                    _logger.LogWarning(
+                                        "The message with id {MessageId} containing the request with id {RequestId} has expired and will be deleted (the last time a step was successfully processed was {LastSuccessfulStepTime}).",
+                                        MessageId,
+                                        Request.Name,
+                                        Request.LastSuccessfulStepTime);
+                                    errorMessage = $"The message with id {MessageId} containing the request with id {Request.Name} has expired and will be deleted (the last time a step was successfully processed was {Request.LastSuccessfulStepTime}).";                                   
+                                }
+                                else
+                                {
+                                    _logger.LogWarning(
+                                        "The message with id {MessageId} containing the request with id {RequestId} encountered {ErrorCount} consecutive errors while processing and will be deleted.",
+                                        MessageId,
+                                        Request.Name,
+                                        Request.ErrorCount);
+                                    errorMessage = $"ERROR: The message with id {MessageId} containing the request with id {Request.Name} encountered {Request.ErrorCount} consecutive errors while processing and will be deleted.";
+                                }
+
+                                // Retrieve the execution state of the request
+                                var state = await _vectorizationStateService.HasState(Request).ConfigureAwait(false)
+                                        ? await _vectorizationStateService.ReadState(Request).ConfigureAwait(false)
+                                        : VectorizationState.FromRequest(Request);
+
+                                state.LogEntries.Add(
+                                    new VectorizationLogEntry(
+                                        Request.Name!,
+                                        MessageId,
+                                        Request.CurrentStep ?? "N/A",
+                                        errorMessage
+                                    )
+                                );
+
+                                // Update vectorization request state if there's an error.
+                                if (!string.IsNullOrWhiteSpace(errorMessage))
+                                {
+                                    Request.ProcessingState = VectorizationProcessingState.Failed;
+                                    Request.ExecutionEnd = DateTime.UtcNow;
+                                    Request.ErrorMessages.Add(errorMessage);                                    
+                                }
+
+                                // Remove the message from the queue
+                                await _incomingRequestSourceService.DeleteRequest(MessageId, PopReceipt).ConfigureAwait(false);
+
+                                // Persist the state of the vectorization request
+                                await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+                                // Update the vectorization request resource
+                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
+                                // Verify if the pipeline state needs to be updated
+                                await UpdatePipelineState(Request).ConfigureAwait(false);
+                            }
+                            else
+                            {
+                                var ignoredRequests = requests
+                                    .Where(r => _taskPool.HasRunningTaskForPayload(r.Request.Name!))
+                                    .Select(r => r.Request.Name!)
+                                    .ToList();
+
+                                if (ignoredRequests.Count > 0)
+                                    _logger.LogWarning("The following requests were dequeued while still being processed based on the previous dequeuing: {IgnoredRequestIds}. The requests will be ignored.",
+                                        string.Join(",", ignoredRequests));
+
+                                // Add the request to the task pool for processing
+                                // No need to use ConfigureAwait(false) since the code is going to be executed on a
+                                // thread pool thread, with no user code higher on the stack (for details, see
+                                // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
+                                _taskPool.Add(requests
+                                    .Where(r => !_taskPool.HasRunningTaskForPayload(r.Request.Name!))
+                                    .Select(r => new TaskInfo
+                                        {
+                                            PayloadId = r.Request.Name!,
+                                            Task = Task.Run(
+                                            () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
+                                            _cancellationToken)
+                                        }));
+                            }
+                        }                          
+                        // Pace retrieving requests by a pre-determined delay           
+                        await Task.Delay(TimeSpan.FromSeconds(_settings.QueueProcessingPace));
+                    }
+                    else
+                    {                        
+                        // Wait a predefined amount of time before attempting to receive requests again.
+                        await Task.Delay(TimeSpan.FromSeconds(_settings.QueuePollingInterval));
+                    }
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error in request processing loop (request source name: {RequestSourceName}).", _settings.RequestSourceName);
+                    _logger.LogError(ex, "Error in request processing loop (request source name: {RequestSourceName}).", _settings.RequestSourceName);                   
                 }
             }
 
@@ -105,7 +196,7 @@ namespace FoundationaLLM.Vectorization.Services
         }
 
         private async Task ProcessRequest(VectorizationRequest request, string messageId, string popReceipt, CancellationToken cancellationToken)
-        {
+        {            
             try
             {
                 if (await HandleRequest(request, messageId, cancellationToken).ConfigureAwait(false))
@@ -114,10 +205,30 @@ namespace FoundationaLLM.Vectorization.Services
                     await _incomingRequestSourceService.DeleteRequest(messageId, popReceipt).ConfigureAwait(false);
                     await AdvanceRequest(request).ConfigureAwait(false);
                 }
+                else
+                    await UpdateRequest(request, messageId, popReceipt);
+
+               
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error processing request with id {RequestId}.", request.Id);
+                _logger.LogError(ex, "Error processing request with id {RequestId}.", request.Name);
+
+                request.ErrorCount++;
+                await UpdateRequest(request, messageId, popReceipt);               
+                // don't need to record the error on the vectorization request state as the threshold for errors hasn't been exceeded yet.
+            }
+        }
+
+        private async Task UpdateRequest(VectorizationRequest request, string messageId, string popReceipt)
+        {
+            try
+            {
+                await _incomingRequestSourceService.UpdateRequest(messageId, popReceipt, request);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating the request with id {RequestId}.", request.Name);
             }
         }
 
@@ -138,28 +249,97 @@ namespace FoundationaLLM.Vectorization.Services
             var handlerSuccess = await stepHandler.Invoke(request, state, cancellationToken).ConfigureAwait(false);
 
             await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(GetVectorizationResourceProvider()).ConfigureAwait(false);
 
             return handlerSuccess;
         }
 
         private async Task AdvanceRequest(VectorizationRequest request)
         {
-            var steps = request.MoveToNextStep();
+            var state = await _vectorizationStateService.HasState(request).ConfigureAwait(false)
+                ? await _vectorizationStateService.ReadState(request).ConfigureAwait(false)
+                : VectorizationState.FromRequest(request);
 
-            if (!string.IsNullOrEmpty(steps.CurrentStep))
+            var vectorizationResourceProvider = GetVectorizationResourceProvider();
+            var (PreviousStep, CurrentStep) = request.MoveToNextStep();
+            state.UpdateRequest(request);            
+
+            if (!string.IsNullOrEmpty(CurrentStep))
             {
                 // The vectorization request still has steps to be processed
-                if (!_requestSourceServices.TryGetValue(steps.CurrentStep, out IRequestSourceService? value) || value == null)
-                    throw new VectorizationException($"Could not find the [{steps.CurrentStep}] request source service for request id {request.Id}.");
+                if (!_requestSourceServices.TryGetValue(CurrentStep, out IRequestSourceService? value) || value == null)
+                {
+                    var errorMessage = $"Could not find the [{CurrentStep}] request source service for request id {request.Name}.";
+                    request.ProcessingState = VectorizationProcessingState.Failed;
+                    request.ErrorMessages.Add(errorMessage);
+                    await request.UpdateVectorizationRequestResource(vectorizationResourceProvider).ConfigureAwait(false);                    
+                    throw new VectorizationException(errorMessage);
+                }
 
                 await value.SubmitRequest(request).ConfigureAwait(false);
 
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
-                    request.Id, steps.PreviousStep, steps.CurrentStep);
+                    request.Name, PreviousStep, CurrentStep);               
             }
             else
+            {
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to finalized state.",
-                    request.Id, steps.PreviousStep);
+                    request.Name, PreviousStep);
+                request.ProcessingState = VectorizationProcessingState.Completed;
+                request.ExecutionEnd = DateTime.UtcNow;               
+            }
+            state.UpdateRequest(request);
+            await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
+            await request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
+            await UpdatePipelineState(request).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Updates the state of the pipeline if the request is part of a pipeline.
+        /// Expects the state of the request to already be persisted.
+        /// </summary>
+        /// <param name="request">The vectorization request</param>        
+        private async Task UpdatePipelineState(VectorizationRequest request)
+        {
+            // check if the request is part of a pipeline and update the pipeline state if necessary
+            if (
+                request.ProcessingState != VectorizationProcessingState.InProgress
+                && request.ProcessingState != VectorizationProcessingState.New
+                && request.PipelineObjectId is not null
+                && request.PipelineExecutionId is not null)
+            {
+                var pipelineName = request.PipelineObjectId.Split('/').Last();
+                // obtain the current state of the pipeline based on child vectorization requests
+                var currentPipelineState = await _vectorizationStateService.GetPipelineExecutionProcessingState(
+                        GetVectorizationResourceProvider(),
+                        pipelineName,
+                        request.PipelineExecutionId);                
+
+                // pipelines are automatically set to InProgress when executed, update if the current status is different
+                if (currentPipelineState != VectorizationProcessingState.InProgress)
+                {
+                    //retrieve pipeline state file
+                    var pipelineState = await _vectorizationStateService.ReadPipelineState(pipelineName, request.PipelineExecutionId);
+                    pipelineState.ProcessingState = currentPipelineState;
+                    if(pipelineState.ProcessingState == VectorizationProcessingState.Completed || pipelineState.ProcessingState == VectorizationProcessingState.Failed)
+                    {
+                        pipelineState.ExecutionEnd = DateTime.UtcNow;
+                    }
+                    await _vectorizationStateService.SavePipelineState(pipelineState);
+                }
+
+            }
+        }
+
+        private VectorizationResourceProviderService GetVectorizationResourceProvider()
+        {
+            var vectorizationResourceProviderService = _serviceProvider.GetService<IResourceProviderService>();
+            if (vectorizationResourceProviderService == null)
+                throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
+
+            return (VectorizationResourceProviderService)vectorizationResourceProviderService;
+        }
+
+ 
     }
 }

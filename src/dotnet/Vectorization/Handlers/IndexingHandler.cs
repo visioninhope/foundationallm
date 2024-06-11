@@ -1,7 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.TextEmbedding;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
@@ -49,8 +50,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             if (textEmbeddingArtifacts == null
                 || textEmbeddingArtifacts.Count == 0)
             {
-                state.Log(this, request.Id!, _messageId, "The text embedding artifacts were not found.");
-                return false;
+                state.Log(this, request.Name!, _messageId, "The text embedding artifacts were not found.");
+                throw new VectorizationException("The text embedding artifacts were not found");
             }
 
             await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextPartition);
@@ -59,8 +60,8 @@ namespace FoundationaLLM.Vectorization.Handlers
             if (textPartitioningArtifacts == null
                 || textPartitioningArtifacts.Count == 0)
             {
-                state.Log(this, request.Id!, _messageId, "The text partition artifacts were not found.");
-                return false;
+                state.Log(this, request.Name!, _messageId, "The text partition artifacts were not found.");
+                throw new VectorizationException("The text partitioning artifacts were not found.");
             }
 
             var serializerOptions = new JsonSerializerOptions
@@ -81,15 +82,15 @@ namespace FoundationaLLM.Vectorization.Handlers
                         Content = textPartitioningArtifacts[i].Content!,
                         Embedding = JsonSerializer.Deserialize<Embedding>(textEmbeddingArtifacts[i].Content!, serializerOptions)
                     }).ToList()
-        };
+            };
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");
-            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithProfile(_parameters["indexing_profile_name"]);
+            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithResource(_parameters["indexing_profile_name"]);
 
             var indexingResult = await Service.IndexEmbeddingsAsync(
                 embeddedContent,
-                VectorizationProfile.Settings!["IndexName"]);
+                ((IndexingProfile)VectorizationProfile).Settings!["IndexName"]);
 
             state.AddOrReplaceIndexReferences(indexingResult);
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
 
 namespace FoundationaLLM.Common.Constants
 {
@@ -11,6 +7,21 @@ namespace FoundationaLLM.Common.Constants
     /// </summary>
     public static class FileExtensions
     {
+        /// <summary>
+        /// Allowed file extensions for vectorization.
+        /// </summary>
+        public static readonly ImmutableArray<string> AllowedFileExtensions = [
+            Text,
+            JSON,
+            Markdown,
+            Word,
+            PowerPoint,
+            Excel,
+            PDF,
+            Wav,
+            Mp3
+        ];
+
         /// <summary>
         /// File extension for text files.
         /// </summary>
@@ -39,5 +50,13 @@ namespace FoundationaLLM.Common.Constants
         /// File extension for PDF files.
         /// </summary>
         public const string PDF = ".pdf";
+        /// <summary>
+        /// File extension for wav files.
+        /// </summary>
+        public const string Wav = ".wav";
+        /// <summary>
+        /// File extension for mp3 files.
+        /// </summary>
+        public const string Mp3 = ".mp3";
     }
 }

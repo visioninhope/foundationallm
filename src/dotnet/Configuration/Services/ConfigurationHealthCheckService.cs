@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FoundationaLLM.Configuration.Services
 {
+    /// <inheritdoc/>
     public class ConfigurationHealthCheckService(
         IConfigurationHealthChecks healthChecks,
         IConfiguration configuration,
@@ -16,6 +17,7 @@ namespace FoundationaLLM.Configuration.Services
     {
         private readonly IHostApplicationLifetime _appLifetime = appLifetime;
 
+        /// <inheritdoc/>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             var version = configuration[EnvironmentVariables.FoundationaLLM_Version];
@@ -90,6 +92,7 @@ namespace FoundationaLLM.Configuration.Services
             }
         }
 
+        /// <inheritdoc/>
         public async Task StopAsync(CancellationToken cancellationToken) =>
             await Task.CompletedTask;
     }

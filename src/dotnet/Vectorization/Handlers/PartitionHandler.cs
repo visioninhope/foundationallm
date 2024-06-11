@@ -1,11 +1,12 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -46,27 +47,33 @@ namespace FoundationaLLM.Vectorization.Handlers
                 && a.Position == 1 && !string.IsNullOrWhiteSpace(a.Content));
 
             if (extractedTextArtifact == null)
-            {
-                state.Log(this, request.Id!, _messageId, "The extracted text artifact was not found.");
-                return false;
+            {                
+                if(state.Artifacts.Count > 0)
+                {
+                    state.Log(this, request.Name!, _messageId, "The extracted text artifact does not contain any text");
+                    throw new VectorizationException($"The extracted text artifact did not have text content. Request id: {request.Name} canonical id: {request.ContentIdentifier.CanonicalId}");
+                }
+                else
+                {
+                    state.Log(this, request.Name!, _messageId, "No extracted text artifacts found.");
+                    throw new VectorizationException($"No extracted text artifacts were found for request id: {request.Name} canonical id: {request.ContentIdentifier.CanonicalId}");
+                }
             }
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextSplitterService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
-            var textSplitter = serviceFactory.GetService(_parameters["text_partition_profile_name"]);
+            var textSplitter = serviceFactory.GetService(_parameters["text_partitioning_profile_name"]);
 
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 
-            var position = 0;
-            foreach (var textChunk in splitResult.TextChunks)
+            foreach (var textChunk in splitResult)
                 state.AddOrReplaceArtifact(new VectorizationArtifact
                 {
                     Type = VectorizationArtifactType.TextPartition,
-                    Position = ++position,
-                    Content = textChunk
+                    Position = textChunk.Position,
+                    Content = textChunk.Content,
+                    Size = textChunk.TokensCount
                 });
-            if (!string.IsNullOrWhiteSpace(splitResult.Message))
-                state.Log(this, request.Id!, _messageId, splitResult.Message);
 
             return true;
         }

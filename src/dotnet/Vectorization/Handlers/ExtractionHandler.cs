@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using Microsoft.Extensions.Configuration;
@@ -42,15 +42,16 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
-            var contentSource = serviceFactory.GetService(request.ContentIdentifier.ContentSourceProfileName);
+            var contentSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
 
-            var textContent = await contentSource.ExtractTextFromFileAsync(request.ContentIdentifier, cancellationToken);
+            var textContent = await contentSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
 
             state.AddOrReplaceArtifact(new VectorizationArtifact
             {
                 Type = VectorizationArtifactType.ExtractedText,
                 Position = 1,
-                Content = textContent
+                Content = textContent,
+                Size = textContent.Length
             });
 
             return true;

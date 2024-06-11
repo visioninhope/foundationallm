@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Vectorization.Models;
-using System.Threading.Tasks;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Vectorization.Models;
 
 namespace FoundationaLLM.Vectorization.Interfaces
 {
@@ -36,5 +36,21 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// <param name="state">The <see cref="VectorizationState"/> item to be saved.</param>
         /// <returns></returns>
         Task SaveState(VectorizationState state);
+
+        /// <summary>
+        /// Saves a specified vectorization pipeline state execution.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+
+        Task SavePipelineState(VectorizationPipelineState state);
+
+        /// <summary>
+        /// Reads the state associated with a vectorization pipeline execution.
+        /// </summary>
+        /// <param name="pipelineName">The name of the pipeline.</param>
+        /// <param name="pipelineExecutionId">The unique identifier of the pipeline execution.</param>
+        /// <returns></returns>
+        Task<VectorizationPipelineState> ReadPipelineState(string pipelineName, string pipelineExecutionId);
     }
 }

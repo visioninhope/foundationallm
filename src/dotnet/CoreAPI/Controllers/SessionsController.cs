@@ -19,8 +19,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// sessions and messages, and for getting completions from the orchestrator.</param>
     /// <param name="logger">The logging interface used to log under the
     /// <see cref="SessionsController"/> type name.</param>
-    [Authorize]
-    [Authorize(Policy = "RequiredScope")]
+    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
     [Route("[controller]")]
     public class SessionsController(ICoreService coreService,
@@ -92,7 +91,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Receive a prompt from a user, vectorize it, and get a completion from the orchestration service.
         /// </summary>
         /// <param name="sessionId">The id of the session for which to get a completion.</param>
-        /// <param name="userPrompt">The prompt to send to the orchestration service.</param>
+        /// <param name="orchestrationRequest">The orchestration request containing the user prompt.</param>
         [HttpPost("{sessionId}/completion", Name = "GetChatCompletion")]
         public async Task<Completion> GetChatCompletion(string sessionId, [FromBody] OrchestrationRequest orchestrationRequest) =>
             await _coreService.GetChatCompletionAsync(orchestrationRequest);

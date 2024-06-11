@@ -3,12 +3,12 @@
 ## Prerequisites
 
 - Environment variables:
-  - Create an environment variable for the Application Configuration Service connection string named `FoundationaLLM:AppConfig:ConnectionString`. This is used by the .NET projects.
-  - Create an environment variable for the Application Configuration Service URI named `foundationallm-app-configuration-uri`. This is used by the Python projects.
-  - Create an environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
+  - Create a *system* environment variable for the Application Configuration Service connection string named `FoundationaLLM_AppConfig_ConnectionString`. This is used by the .NET projects.
+  - Create a *system* environment variable for the Application Configuration Service URI named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. This is used by the Python projects.
+  - Create a *system* environment variable named `FOUNDATIONALLM_VERSION` and set it to the version of the FoundationaLLM deployment you are working with. This is used by the .NET projects to validate your environment configuration based on the version.
 
-    > [!TIP]
-    > You can view the FoundationaLLM release versions by viewing the [branches in the FoundationaLLM repository](https://github.com/solliancenet/foundationallm/branches/all?query=release). The format is `release/n.n.n`, where `n.n.n` is the version number. The `FOUNDATIONALLM_VERSION` environment variable should be set to the version number without the `release/` prefix (example: `0.4.0`).
+> [!TIP]
+> You can view the FoundationaLLM release versions by viewing the [branches in the FoundationaLLM repository](https://github.com/solliancenet/foundationallm/branches/all?query=release). The format is `release/n.n.n`, where `n.n.n` is the version number. The `FOUNDATIONALLM_VERSION` environment variable should be set to the version number without the `release/` prefix (example: `0.4.0`).
 
 - Follow the instructions in [Configure access control for services](../deployment/configure-access-control-for-services.md) to grant your user account access to the Azure App Configuration and Key Vault services. You may need an Azure admin to perform these steps on your behalf.
 - Backend (APIs and worker services):
@@ -29,6 +29,16 @@
     - Run nvm list (to see the versions of NPM/node.js available)
     - Run nvm use latest (to use the latest available version)
 
+### Setup RBAC permissions when running locally
+
+When you run the solution locally, you will need to set role-based access control (RBAC) permissions on the Azure Cosmos DB account. You can do this by running the following command in the Azure Cloud Shell or Azure CLI:
+
+Assign yourself to the "Cosmos DB Built-in Data Contributor" role:
+
+```bash
+az cosmosdb sql role assignment create --account-name YOUR_COSMOS_DB_ACCOUNT_NAME --resource-group YOUR_RESOURCE_GROUP_NAME --scope "/" --principal-id YOUR_AZURE_AD_PRINCIPAL_ID --role-definition-id 00000000-0000-0000-0000-000000000002
+```
+
 ## UI
 
 ### User Portal
@@ -37,7 +47,7 @@ The `UserPortal` project is a Vue.js (Nuxt) project. To configure it to run loca
 
 1. Open the `/src/ui/UserPortal` folder in Visual Studio Code.
 2. Copy the `.env.example` file in the root directory to a new file named `.env` and update the values:
-   1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM:AppConfig:ConnectionString` environment variable.
+   1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM_AppConfig_ConnectionString` environment variable.
    2. The `LOCAL_API_URL` should be the URL of the local Core API service (https://localhost:63279). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the CORE API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
 
 ### Management Portal
@@ -46,7 +56,7 @@ The `ManagementPortal` project is a Vue.js (Nuxt) project. To configure it to ru
 
 1. Open the `/src/ui/ManagementPortal` folder in Visual Studio Code.
 2. Copy the `.env.example` file in the root directory to a new file named `.env` and update the values:
-   1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM:AppConfig:ConnectionString` environment variable.
+   1. The `APP_CONFIG_ENDPOINT` value should be the Connection String for the Azure App Configuration service. This should be the same value as the `FoundationaLLM_AppConfig_ConnectionString` environment variable.
    2. The `LOCAL_API_URL` should be the URL of the local Management API service (https://localhost:63267). **Important:** Only set this value if you wish to debug the entire solution locally and bypass the App Config service value for the MANAGEMENT API URL. If you do not wish to debug the entire solution locally, leave this value empty or comment it out.
 
 ## .NET projects
@@ -85,7 +95,7 @@ The `ManagementPortal` project is a Vue.js (Nuxt) project. To configure it to ru
         "APIUrl": "<...>" // Default local value: https://localhost:7180/
       },
       ,
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>" // Default local value: "https://localhost:7324/"
       }
     }
@@ -165,7 +175,7 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 {
   "FoundationaLLM": {
     "APIs": {
-      "AgentFactoryAPI": {
+      "OrchestrationAPI": {
         "APIUrl": "<...>"  // Default local value: https://localhost:7324/
       },
       "GatekeeperIntegrationAPI": {
@@ -176,9 +186,9 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 }
 ```
 
-### Agent Factory API
+### Orchestration API
 
-#### Agent Factory API app settings
+#### Orchestration API app settings
 
 > Make sure the contents of the `appsettings.json` file has this structure and similar values:
 
@@ -327,11 +337,11 @@ The `CoreWorker` project is a .NET worker service that acts as the Cosmos DB cha
 
 ### Python Environment Variables
 
-Create a local environment variable named `foundationallm-app-configuration-uri`. The value should be the URI of the Azure App Configuration service and _not_ the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.
+Create a local environment variable named `FOUNDATIONALLM_APP_CONFIGURATION_URI`. The value should be the URI of the Azure App Configuration service and _not_ the connection string. We use role-based access controls (RBAC) to access the Azure App Configuration service, so the connection string is not required.
 
 | Name | Value | Description |
 | ---- | ----- | ----------- |
-| foundationallm-app-configuration-uri | REDACTED | Azure App Configuration URI |
+| FOUNDATIONALLM_APP_CONFIGURATION_URI | REDACTED | Azure App Configuration URI |
 
 ## Running the solution locally
 
@@ -375,7 +385,7 @@ The backend components consist of the .NET projects and the Python projects. The
 
 10. Select the `Multiple startup projects` option, then set the `Action` for the following projects to `Start`. Click **OK**.
   
-      - AgentFactoryAPI
+      - OrchestrationAPI
       - AgentHubAPI
       - CoreAPI
       - DataSourceHubAPI

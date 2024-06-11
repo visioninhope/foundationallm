@@ -1,16 +1,18 @@
-﻿using System.Text.RegularExpressions;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
-using Microsoft.Extensions.Logging;
-using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using Microsoft.Extensions.Options;
+using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.Runtime;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -28,21 +30,26 @@ namespace FoundationaLLM.Core.Services;
 /// settings retrieved by the injected <see cref="IOptions{TOptions}"/>.</param>
 /// <param name="settings">The <see cref="CoreServiceSettings"/> settings for the service.</param>
 /// <param name="callContext">Contains contextual data for the calling service.</param>
+/// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
 public partial class CoreService(
     ICosmosDbService cosmosDbService,
     IEnumerable<IDownstreamAPIService> downstreamAPIServices,
     ILogger<CoreService> logger,
     IOptions<ClientBrandingConfiguration> brandingSettings,
     IOptions<CoreServiceSettings> settings,
-    ICallContext callContext) : ICoreService
+    ICallContext callContext,
+    IEnumerable<IResourceProviderService> resourceProviderServices) : ICoreService
 {
     private readonly ICosmosDbService _cosmosDbService = cosmosDbService;
     private readonly IDownstreamAPIService _gatekeeperAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClients.GatekeeperAPI);
-    private readonly IDownstreamAPIService _agentFactoryAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClients.AgentFactoryAPI);
+    private readonly IDownstreamAPIService _orchestrationAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClients.OrchestrationAPI);
     private readonly ILogger<CoreService> _logger = logger;
     private readonly ICallContext _callContext = callContext;
     private readonly string _sessionType = brandingSettings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
     private readonly CoreServiceSettings _settings = settings.Value;
+    private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
+        resourceProviderServices.ToDictionary<IResourceProviderService, string>(
+            rps => rps.Name);
 
     /// <summary>
     /// Returns list of chat session ids and names.
@@ -108,25 +115,29 @@ public partial class CoreService(
             var messages = await _cosmosDbService.GetSessionMessagesAsync(orchestrationRequest.SessionId, _callContext.CurrentUserIdentity?.UPN ??
                 throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat completions."));
             var messageHistoryList = messages
-                .Select(message => new MessageHistoryItem(message.Sender, message.Text))
+                .Select(message => new MessageHistoryItem(message.Sender, string.IsNullOrWhiteSpace(message.Text) ? "" : message.Text))
                 .ToList();
 
             var completionRequest = new CompletionRequest
             {
                 SessionId = orchestrationRequest.SessionId,
+                AgentName = orchestrationRequest.AgentName,
                 UserPrompt = orchestrationRequest.UserPrompt,
                 MessageHistory = messageHistoryList,
-                Settings = orchestrationRequest.Settings
+                Settings = orchestrationRequest.Settings,
+                Attachments = orchestrationRequest.Attachments
             };
 
+            var agentOption = await ProcessGatekeeperOptions(completionRequest);
+
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService().GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
             var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
             var promptMessage = new Message(orchestrationRequest.SessionId, nameof(Participants.User), result.PromptTokens, orchestrationRequest.UserPrompt, result.UserPromptEmbedding, null, upn, _callContext.CurrentUserIdentity?.Name);
-            var completionMessage = new Message(orchestrationRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName);
+            var completionMessage = new Message(orchestrationRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
             var completionPrompt = new CompletionPrompt(orchestrationRequest.SessionId, completionMessage.Id, completionPromptText);
@@ -147,20 +158,14 @@ public partial class CoreService(
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    public async Task<Completion> GetCompletionAsync(DirectCompletionRequest directCompletionRequest)
+    public async Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest)
     {
         try
         {
-            var completionRequest = new CompletionRequest
-            {
-                SessionId = null,
-                UserPrompt = directCompletionRequest.UserPrompt,
-                MessageHistory = null,
-                Settings = directCompletionRequest.Settings
-            };
+            var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService().GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(directCompletionRequest);
 
             return new Completion { Text = result.Completion };
         }
@@ -194,7 +199,7 @@ public partial class CoreService(
                         UserPrompt = prompt
                     };
 
-                    var summaryResponse = await GetDownstreamAPIService().GetSummary(summaryRequest);
+                    var summaryResponse = await GetDownstreamAPIService(AgentGatekeeperOverrideOption.UseSystemOption).GetSummary(summaryRequest);
 
                     // Remove any punctuation from the summary.
                     sessionNameSummary = ChatSessionNameReplacementRegex().Replace(summaryResponse.Summary!, string.Empty);
@@ -214,10 +219,33 @@ public partial class CoreService(
         }
     }
 
-    private IDownstreamAPIService GetDownstreamAPIService() =>
-        _settings.BypassGatekeeper
-            ? _agentFactoryAPIService
+    private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
+        ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
+        || (agentOption == AgentGatekeeperOverrideOption.MustBypass)
+            ? _orchestrationAPIService
             : _gatekeeperAPIService;
+
+    private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
+    {
+        if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
+            throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
+
+        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
+            throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
+
+        if (agentBase?.Gatekeeper?.UseSystemSetting == false)
+        {
+            // Agent does not want to use system settings, however it does not have any Gatekeeper options either
+            // Consequently, a request to bypass Gatekeeper will be returned.
+            if (agentBase!.Gatekeeper!.Options == null || agentBase.Gatekeeper.Options.Length == 0)
+                return AgentGatekeeperOverrideOption.MustBypass;
+
+            completionRequest.GatekeeperOptions = agentBase.Gatekeeper.Options;
+            return AgentGatekeeperOverrideOption.MustCall;
+        }
+
+        return AgentGatekeeperOverrideOption.UseSystemOption;
+    }
 
     /// <summary>
     /// Add user prompt and AI assistance response to the chat session message list object and insert into the data service as a transaction.

@@ -1,94 +1,26 @@
+// Inputs
+param cidrVnet string = '10.220.128.0/21'
+param createVpnGateway bool = false
 param environmentName string
 param location string
+param networkName string=''
 param project string
 param timestamp string = utcNow()
-param cidrVnet string = '10.220.128.0/21'
 
-param createVpnGateway bool = false
-
-@description('Resource Suffix used in naming resources.') // TODO Make this consistent on next new deploy
-var resourceSuffix = '${environmentName}-${location}-${workload}-${project}'
-
-@description('Workload Token used in naming resources.')
-var workload = 'net'
-
-output vnetId string = main.id
-
-var name = 'vnet-${environmentName}-${location}-net'
-var cidrAppGateway = cidrSubnet(cidrVnet, 24, 0) // 10.220.128.0/24
+// Locals
+var cidrFllmAuth = cidrSubnet(cidrVnet, 26, 17) // 10.220.132.64/26
 var cidrFllmBackend = cidrSubnet(cidrVnet, 24, 1) // 10.220.129.0/24
 var cidrFllmFrontend = cidrSubnet(cidrVnet, 24, 2) // 10.220.130.0/24
 var cidrFllmOpenAi = cidrSubnet(cidrVnet, 26, 12) // 10.220.131.0/26
 var cidrFllmOps = cidrSubnet(cidrVnet, 26, 15) // 10.220.131.192/26
 var cidrFllmVec = cidrSubnet(cidrVnet, 26, 16) // 10.220.132.0/26
-var cidrVpnGateway = cidrSubnet(cidrVnet, 24, 5) // 10.220.133.0/24
 var cidrNetSvc = cidrSubnet(cidrVnet, 24, 6) // 10.220.134.0/24
+var cidrVpnGateway = cidrSubnet(cidrVnet, 24, 5) // 10.220.133.0/24
+var name = networkName == '' ? 'vnet-${environmentName}-${location}-net' : networkName
+var resourceSuffix = '${environmentName}-${location}-${workload}-${project}'
+var workload = 'net'
 
 var subnets = [
-  {
-    name: 'AppGateway'
-    addressPrefix: cidrAppGateway
-    rules: {
-      inbound: [
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '80'
-          name: 'allow-internet-http-inbound'
-          priority: 128
-          protocol: 'Tcp'
-          sourceAddressPrefix: 'Internet'
-          sourcePortRange: '*'
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '443'
-          name: 'allow-internet-https-inbound'
-          priority: 132
-          protocol: 'Tcp'
-          sourceAddressPrefix: 'Internet'
-          sourcePortRange: '*'
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '65200-65535'
-          name: 'allow-gatewaymanager-inbound'
-          priority: 148
-          protocol: 'Tcp'
-          sourceAddressPrefix: 'GatewayManager'
-          sourcePortRange: '*'
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '*'
-          name: 'allow-loadbalancer-inbound'
-          priority: 164
-          protocol: '*'
-          sourceAddressPrefix: 'AzureLoadBalancer'
-          sourcePortRange: '*'
-        }
-        {
-          access: 'Deny'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '*'
-          name: 'deny-all-inbound'
-          priority: 4096
-          protocol: '*'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-        }
-      ]
-    }
-    serviceEndpoints: [
-      {
-        service: 'Microsoft.KeyVault'
-        locations: [ '*' ]
-      }
-    ]
-  }
   {
     name: 'FLLMBackend'
     addressPrefix: cidrFllmBackend
@@ -162,7 +94,7 @@ var subnets = [
         }
       }
     ]
-  }  
+  }
   {
     name: 'FLLMOpenAI'
     addressPrefix: cidrFllmOpenAi
@@ -177,16 +109,6 @@ var subnets = [
           protocol: '*'
           sourcePortRange: '*'
           sourceAddressPrefixes: [ '172.16.0.0/24' ]
-        }
-          {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '3443'
-          name: 'allow-apim'
-          priority: 128
-          protocol: 'Tcp'
-          sourceAddressPrefix: 'ApiManagement'
-          sourcePortRange: '*'
         }
         {
           access: 'Allow'
@@ -208,18 +130,6 @@ var subnets = [
           sourcePortRange: '*'
           sourceAddressPrefixes: [
             cidrFllmBackend
-          ]
-        }
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '443'
-          name: 'allow-apim-inbound'
-          priority: 320
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          sourceAddressPrefixes: [
-            cidrFllmOpenAi
           ]
         }
         {
@@ -528,6 +438,73 @@ var subnets = [
       }
     ]
   }
+  {
+    name: 'FLLMAuth'
+    addressPrefix: cidrFllmAuth
+    rules: {
+      inbound: [
+        {
+          access: 'Allow'
+          destinationAddressPrefix: 'VirtualNetwork'
+          destinationPortRange: '*'
+          name: 'allow-ops' // TODO: If we end up using a separate subnet for jumpboxes, this will need to change
+          priority: 128
+          protocol: '*'
+          sourcePortRange: '*'
+          sourceAddressPrefixes: [ cidrFllmOps ]
+        }
+        {
+          access: 'Allow'
+          destinationAddressPrefix: 'VirtualNetwork'
+          destinationPortRange: '*'
+          name: 'allow-vpn'
+          priority: 512
+          protocol: '*'
+          sourcePortRange: '*'
+          sourceAddressPrefixes: [ '172.16.0.0/24' ]
+        }
+        {
+          access: 'Allow'
+          destinationAddressPrefix: 'VirtualNetwork'
+          destinationPortRange: '*'
+          direction: 'Inbound'
+          name: 'allow-aks-inbound'
+          priority: 256
+          protocol: '*'
+          sourceAddressPrefixes: [ cidrFllmBackend ]
+          sourcePortRange: '*'
+        }
+        {
+          access: 'Deny'
+          destinationAddressPrefix: '*'
+          destinationPortRange: '*'
+          name: 'deny-all-inbound'
+          priority: 4096
+          protocol: '*'
+          sourceAddressPrefix: '*'
+          sourcePortRange: '*'
+        }
+      ]
+      outbound: [
+        {
+          access: 'Deny'
+          destinationAddressPrefix: '*'
+          destinationPortRange: '*'
+          name: 'deny-all-outbound'
+          priority: 4096
+          protocol: '*'
+          sourceAddressPrefix: '*'
+          sourcePortRange: '*'
+        }
+      ]
+    }
+    serviceEndpoints: [
+      {
+        service: 'Microsoft.KeyVault'
+        locations: [ '*' ]
+      }
+    ]
+  }
 ]
 
 var tags = {
@@ -537,6 +514,11 @@ var tags = {
   Purpose: 'Networking'
 }
 
+// Outputs
+output vnetId string = main.id
+output vnetName string = main.name
+
+// Resources
 resource main 'Microsoft.Network/virtualNetworks@2023-05-01' = {
   name: name
   location: location
@@ -564,6 +546,7 @@ resource main 'Microsoft.Network/virtualNetworks@2023-05-01' = {
   }
 }
 
+// Nested Modules
 module nsg 'modules/nsg.bicep' = [for subnet in subnets: if (subnet.name != 'GatewaySubnet') {
   name: 'nsg-${subnet.name}-${timestamp}'
   params: {
@@ -579,6 +562,6 @@ module vpn 'modules/vpnGateway.bicep' = if (createVpnGateway) {
   params: {
     location: location
     resourceSuffix: resourceSuffix
-    vnetId: main.id
+    subnetId: '${main.id}/subnets/GatewaySubnet'
   }
 }

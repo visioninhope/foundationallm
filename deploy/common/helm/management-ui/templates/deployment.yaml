@@ -34,6 +34,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          command: ["node", ".output/server/index.mjs"]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -73,6 +74,8 @@ spec:
             timeoutSeconds: 1
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+          securityContext:
+            readOnlyRootFilesystem: true
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}

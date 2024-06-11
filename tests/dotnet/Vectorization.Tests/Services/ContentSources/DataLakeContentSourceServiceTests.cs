@@ -1,5 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Logging;
 
@@ -25,11 +25,11 @@ namespace Vectorization.Tests.Services.ContentSources
             // TXT
             Assert.Equal(
                 "This is a test string in the Vectorization Data Lake.",
-                await _dataLakeContentSourceService.ExtractTextFromFileAsync(
+                await _dataLakeContentSourceService.ExtractTextAsync(
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.txt",
-                        ContentSourceProfileName = "DataLakeTestFiles",
+                        DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",
@@ -43,11 +43,11 @@ namespace Vectorization.Tests.Services.ContentSources
             // DOCX
             Assert.Equal(
                 "This is a test string in the Vectorization Data Lake.",
-                await _dataLakeContentSourceService.ExtractTextFromFileAsync(
+                await _dataLakeContentSourceService.ExtractTextAsync(
                     new ContentIdentifier
                     {
                         CanonicalId = "vectorization-content-test.docx",
-                        ContentSourceProfileName = "DataLakeTestFiles",
+                        DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                         MultipartId = new List<string> {
                             Environment.GetEnvironmentVariable("DataLakeContentServiceTestsContainerUrl"),
                             "testing",

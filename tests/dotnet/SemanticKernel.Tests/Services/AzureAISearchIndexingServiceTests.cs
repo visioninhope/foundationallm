@@ -1,30 +1,29 @@
-﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Services;
-using Microsoft.Extensions.Options;
-using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.Common.Settings;
-using Microsoft.Extensions.Logging;
-using Azure.Identity;
-using Azure.Search.Documents.Indexes;
+﻿using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
-using SemanticKernel.Tests.Models;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Common.Settings;
+using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SemanticKernel.Tests.Models;
 
 namespace FoundationaLLM.SemanticKernel.Tests.Services
 {
-    public class AzureAISearchIndexingServiceTests
+    public class AzureAiSearchIndexingServiceTests
     {
         private readonly SearchIndexClient _searchIndexClient;
         private readonly IIndexingService _indexingService;
         private readonly string _indexName = Environment.GetEnvironmentVariable("AzureAISearchIndexingServiceTestsCollectionName") ?? "semantickernel-integration-tests";
 
-        public AzureAISearchIndexingServiceTests()
+        public AzureAiSearchIndexingServiceTests()
         {
             var endpoint = Environment.GetEnvironmentVariable("AzureAISearchIndexingServiceTestsSearchEndpoint") ?? "";
             _searchIndexClient = new SearchIndexClient(
                 new Uri(endpoint),
-                DefaultAuthentication.GetAzureCredential()
+                DefaultAuthentication.AzureCredential
             );
             _indexingService = new AzureAISearchIndexingService(
                 Options.Create(
@@ -75,7 +74,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
                         "vectorization-input",
                         "somedata.pdf"
                     },
-                    ContentSourceProfileName = "SomePDFData",
+                    DataSourceObjectId = "SomePDFData",
                     CanonicalId = "SomeBusinessUnit/SomePDFData"
                 },
                 ContentParts = new List<EmbeddedContentPart>

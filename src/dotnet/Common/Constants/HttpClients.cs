@@ -19,9 +19,9 @@ public static class HttpClients
     /// </summary>
     public const string GatekeeperIntegrationAPI = "GatekeeperIntegrationAPI";
     /// <summary>
-    /// Named client with matching configuration for the Agent Factory API.
+    /// Named client with matching configuration for the Orchestration API.
     /// </summary>
-    public const string AgentFactoryAPI = "AgentFactoryAPI";
+    public const string OrchestrationAPI = "OrchestrationAPI";
     /// <summary>
     /// Named client with matching configuration for the LangChain API.
     /// </summary>
@@ -47,4 +47,24 @@ public static class HttpClients
     /// Named client with matching configuration for the Vectorization API.
     /// </summary>
     public const string VectorizationAPI = "VectorizationAPI";
+
+    /// <summary>
+    /// Named client with matching configuration for a direct connection to Azure AI.
+    /// </summary>
+    public const string AzureAIDirect = "AzureAIDirect";
+
+    /// <summary>
+    /// Named client with matching configuration for a direct connection to Azure AI.
+    /// </summary>
+    public const string AzureOpenAIDirect = "AzureOpenAIDirect";
+
+    /// <summary>
+    /// Named client with matching configuration for the Authorization API.
+    /// </summary>
+    public const string AuthorizationAPI = "AuthorizationAPI";
+
+    /// <summary>
+    /// Named client with matching configuration for the Management API.
+    /// </summary>
+    public const string ManagementAPI = "ManagementAPI";
 }

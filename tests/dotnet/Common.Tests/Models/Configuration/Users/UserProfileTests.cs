@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Configuration.Users;
+﻿using FoundationaLLM.Common.Models.Configuration.Users;
 
 namespace FoundationaLLM.Common.Tests.Models.Configuration.Users
 {

@@ -1,7 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Azure.Security.KeyVault.Secrets;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,8 +12,8 @@ using PnP.Core.Services;
 using System.Security.Cryptography.X509Certificates;
 using System;
 using PnP.Core.Model.SharePoint;
-using FoundationaLLM.Common.Models.TextEmbedding;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -27,7 +27,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private ServiceProvider? _serviceProvider;
 
         /// <summary>
-        /// Creates a new instance of the vectorization content source.
+        /// Creates a new instance of the vectorization content source service.
         /// </summary>
         public SharePointOnlineContentSourceService(
             SharePointOnlineContentSourceServiceSettings settings,
@@ -44,7 +44,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[2] = the folder path, starting with the document library.
         /// contentId[3] = the name of the file.
         /// </remarks>
-        public async Task<string> ExtractTextFromFileAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
         {
             contentId.ValidateMultipartId(4);
             await EnsureServiceProvider($"{contentId[0]}/{contentId[1]}");
@@ -91,11 +91,11 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         {
             ValidateSettings();
 
-            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.GetAzureCredential());
+            var certificateClient = new CertificateClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.AzureCredential);
             var certificateWithPolicy = await certificateClient.GetCertificateAsync(_settings.CertificateName);
             var certificateIdentifier = new KeyVaultSecretIdentifier(certificateWithPolicy.Value.SecretId);
 
-            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.GetAzureCredential());
+            var secretClient = new SecretClient(new Uri(_settings.KeyVaultURL!), DefaultAuthentication.AzureCredential);
             var secret = await secretClient.GetSecretAsync(certificateIdentifier.Name, certificateIdentifier.Version);
             var secretBytes = Convert.FromBase64String(secret.Value.Value);
 

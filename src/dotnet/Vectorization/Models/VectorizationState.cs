@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.TextEmbedding;
+﻿using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using System.Text.Json.Serialization;
 
@@ -40,6 +41,20 @@ namespace FoundationaLLM.Vectorization.Models
         public List<VectorizationIndexReference> IndexReferences { get; set; } = [];
 
         /// <summary>
+        /// The resource name of the vectorization pipeline that generated the request.
+        /// </summary>
+        [JsonPropertyOrder(17)]
+        [JsonPropertyName("pipeline_name")]
+        public string? PipelineName { get; set; }
+
+        /// <summary>
+        /// The resource object id of the vectorization pipeline that generated the request.
+        /// </summary>
+        [JsonPropertyOrder(18)]
+        [JsonPropertyName("pipeline_object_id")]
+        public string? PipelineObjectId { get; set; }
+
+        /// <summary>
         /// The list of vectorization requests associated with the content identified by <see cref="ContentIdentifier"/>.
         /// </summary>
         [JsonPropertyOrder(19)]
@@ -53,6 +68,12 @@ namespace FoundationaLLM.Vectorization.Models
         [JsonPropertyName("log")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public List<VectorizationLogEntry> LogEntries { get; set; } = [];
+
+        /// <summary>
+        /// Indicates which types of artifacts have already been loaded into the state.
+        /// </summary>
+        [JsonIgnore]
+        public List<VectorizationArtifactType> LoadedArtifactTypes = [];
 
         /// <summary>
         /// Adds a new generic log entry.
@@ -104,8 +125,10 @@ namespace FoundationaLLM.Vectorization.Models
         public static VectorizationState FromRequest(VectorizationRequest request) =>
             new()
             {
-                CurrentRequestId = request.Id!,
-                ContentIdentifier = request.ContentIdentifier
+                CurrentRequestId = request.Name!,
+                ContentIdentifier = request.ContentIdentifier,
+                PipelineName = request.PipelineName,
+                PipelineObjectId = request.PipelineObjectId
             };
 
         /// <summary>
@@ -139,10 +162,11 @@ namespace FoundationaLLM.Vectorization.Models
         /// Adds a vectorization request to the list of requests if it is not already there.
         /// </summary>
         /// <param name="request">The <see cref="VectorizationRequest"/> being added.</param>
-        public void AddRequestIfMissing(VectorizationRequest request)
+        public void UpdateRequest(VectorizationRequest request)
         {
-            if (Requests.Any(r => r.ObjectId == request.ObjectId))
-                return;
+            var existingRequest = Requests.SingleOrDefault(r => r.ObjectId == request.ObjectId);
+            if (existingRequest != null)
+                Requests.Remove(existingRequest);
 
             Requests.Add(request);
         }

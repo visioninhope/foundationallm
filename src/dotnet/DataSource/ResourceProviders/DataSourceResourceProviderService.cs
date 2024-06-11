@@ -1,15 +1,18 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProvider;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.DataSource.Constants;
 using FoundationaLLM.DataSource.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,52 +24,45 @@ using System.Text.Json;
 
 namespace FoundationaLLM.DataSource.ResourceProviders
 {
+    /// <summary>
+    /// Implements the FoundationaLLM.DataSource resource provider.
+    /// </summary>
+    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
+    /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
+    /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
+    /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
+    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
+    /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
     public class DataSourceResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
+        IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
+        IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
+            authorizationService,
             storageService,
             eventService,
             resourceValidatorFactory,
+            serviceProvider,
             loggerFactory.CreateLogger<DataSourceResourceProviderService>(),
             [
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_DataSource
             ])
     {
         /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() => new()
-        {
-            {
-                DataSourceResourceTypeNames.DataSources,
-                new ResourceTypeDescriptor(
-                        DataSourceResourceTypeNames.DataSources)
-                {
-                    AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(DataSourceBase)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(DataSourceBase)], [typeof(ResourceProviderUpsertResult)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
-                    ],
-                    Actions = [
-                            new ResourceTypeAction(DataSourceResourceProviderActions.CheckName, false, true, [
-                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
-                            ])
-                        ]
-                }
-            },
-            {
-                DataSourceResourceTypeNames.DataSourceReferences,
-                new ResourceTypeDescriptor(DataSourceResourceTypeNames.DataSources)
-            }
-        };
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            DataSourceResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, DataSourceReference> _dataSourceReferences = [];
+        private string _defaultDataSourceName = string.Empty;
 
         private const string DATA_SOURCE_REFERENCES_FILE_NAME = "_data-source-references.json";
-        private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/_data-source-references.json";
+        private const string DATA_SOURCE_REFERENCES_FILE_PATH = $"/{ResourceProviderNames.FoundationaLLM_DataSource}/{DATA_SOURCE_REFERENCES_FILE_NAME}";
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_DataSource;
@@ -84,6 +80,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
                 _dataSourceReferences = new ConcurrentDictionary<string, DataSourceReference>(
                     dataSourceReferenceStore!.ToDictionary());
+                _defaultDataSourceName = dataSourceReferenceStore.DefaultDataSourceName ?? string.Empty;
             }
             else
             {
@@ -101,96 +98,134 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #region Support for Management API
 
         /// <inheritdoc/>
-        protected override async Task<object> GetResourcesAsyncInternal(List<ResourceTypeInstance> instances) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await LoadDataSources(instances[0]),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0], userIdentity),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<DataSourceBase>> LoadDataSources(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var dataSources = new List<DataSourceBase>();
+
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _dataSourceReferences.Values
-                            .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr))))
-                ];
+                dataSources = (await Task.WhenAll(_dataSourceReferences.Values
+                                         .Where(dsr => !dsr.Deleted)
+                                         .Select(dsr => LoadDataSource(dsr))))
+                                             .Where(ds => ds != null)
+                                             .Select(ds => ds!)
+                                             .ToList();
             }
             else
             {
-                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference)
-                    || dataSourceReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} data source resource.",
-                        StatusCodes.Status404NotFound);
+                DataSourceBase? dataSource;
+                if (!_dataSourceReferences.TryGetValue(instance.ResourceId, out var dataSourceReference))
+                {
+                    dataSource = await LoadDataSource(null, instance.ResourceId);
+                    if (dataSource != null)
+                        dataSources.Add(dataSource);
+                }
+                else
+                {
+                    if (dataSourceReference.Deleted)
+                        throw new ResourceProviderException(
+                            $"Could not locate the {instance.ResourceId} data source resource.",
+                            StatusCodes.Status404NotFound);
 
-                var dataSource = await LoadDataSource(dataSourceReference!);
-
-                return [dataSource];
+                    dataSource = await LoadDataSource(dataSourceReference);
+                    if (dataSource != null)
+                        dataSources.Add(dataSource);
+                }
             }
+
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, dataSources,
+                AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read);
         }
 
-        private async Task<DataSourceBase> LoadDataSource(DataSourceReference dataSourceReference)
+        private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+            if (dataSourceReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    dataSourceReference.DataSourceType,
-                    _serializerSettings) as DataSourceBase
-                    ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
-                        StatusCodes.Status400BadRequest);
+                dataSourceReference ??= new DataSourceReference
+                {
+                    Name = resourceId!,
+                    Type = DataSourceTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
+                if (await _storageService.FileExistsAsync(_storageContainerName, dataSourceReference.Filename, default))
+                {
+                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, dataSourceReference.Filename, default);
+                    var dataSource = JsonSerializer.Deserialize(
+                               Encoding.UTF8.GetString(fileContent.ToArray()),
+                               dataSourceReference.DataSourceType,
+                               _serializerSettings) as DataSourceBase
+                           ?? throw new ResourceProviderException($"Failed to load the data source {dataSourceReference.Name}.",
+                               StatusCodes.Status400BadRequest);
+
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        dataSourceReference.Type = dataSource.Type!;
+                        _dataSourceReferences.AddOrUpdate(dataSourceReference.Name, dataSourceReference, (k, v) => dataSourceReference);
+                    }
+
+                    return dataSource;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _dataSourceReferences.TryRemove(dataSourceReference.Name, out _);
+                    return null;
+                }
             }
-            else
-                throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
-                    StatusCodes.Status404NotFound);
+            throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task<object> UpsertResourceAsync(List<ResourceTypeInstance> instances, string serializedResource) =>
-            instances[0].ResourceType switch
+        protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(instances, serializedResource),
-                _ => throw new ResourceProviderException($"The resource type {instances[0].ResourceType} is not supported by the {_name} resource provider.",
+                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(resourcePath, serializedResource),
+                _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateDataSource(List<ResourceTypeInstance> instances, string serializedDataSource)
+        private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource)
         {
-            var dataSourceBase = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
+            var dataSource = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
                     StatusCodes.Status400BadRequest);
 
-            if (_dataSourceReferences.TryGetValue(dataSourceBase.Name!, out var existingDataSourceReference)
+            if (_dataSourceReferences.TryGetValue(dataSource.Name!, out var existingDataSourceReference)
                 && existingDataSourceReference!.Deleted)
                 throw new ResourceProviderException($"The data source resource {existingDataSourceReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (instances[0].ResourceId != dataSourceBase.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != dataSource.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var dataSourceReference = new DataSourceReference
             {
-                Name = dataSourceBase.Name!,
-                Type = dataSourceBase.Type!,
-                Filename = $"/{_name}/{dataSourceBase.Name}.json",
+                Name = dataSource.Name!,
+                Type = dataSource.Type!,
+                Filename = $"/{_name}/{dataSource.Name}.json",
                 Deleted = false
             };
 
-            var dataSource = JsonSerializer.Deserialize(serializedDataSource, dataSourceReference.DataSourceType, _serializerSettings);
-            (dataSource as DataSourceBase)!.ObjectId = GetObjectId(instances);
+            dataSource.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(dataSourceReference.DataSourceType);
             if (validator is IValidator dataSourceValidator)
@@ -207,7 +242,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 dataSourceReference.Filename,
-                JsonSerializer.Serialize(dataSource, dataSourceReference.DataSourceType, _serializerSettings),
+                JsonSerializer.Serialize<DataSourceBase>(dataSource, _serializerSettings),
                 default,
                 default);
 
@@ -230,13 +265,15 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(List<ResourceTypeInstance> instances, string serializedAction) =>
-            instances.Last().ResourceType switch
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => instances.Last().Action switch
+                DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {instances.Last().Action} is not supported by the {_name} resource provider.",
+                    DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
+                    DataSourceResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
                 _ => throw new ResourceProviderException()
@@ -248,7 +285,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         private ResourceNameCheckResult CheckDataSourceName(string serializedAction)
         {
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
-            return _dataSourceReferences.Values.Any(ar => ar.Name == resourceName!.Name)
+            return _dataSourceReferences.Values.Any(ar => ar.Name.Equals(resourceName!.Name, StringComparison.OrdinalIgnoreCase))
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
@@ -264,18 +301,104 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 };
         }
 
+        private async Task<List<DataSourceBase>> Filter(string serializedAction)
+        {
+            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
+                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
+                                       StatusCodes.Status400BadRequest);
+            if (resourceFilter.Default.HasValue)
+            {
+                if (resourceFilter.Default.Value)
+                {
+                    if (string.IsNullOrWhiteSpace(_defaultDataSourceName))
+                        throw new ResourceProviderException("The default data source is not set.",
+                            StatusCodes.Status404NotFound);
+
+                    if (!_dataSourceReferences.TryGetValue(_defaultDataSourceName, out var dataSourceReference)
+                        || dataSourceReference.Deleted)
+                        throw new ResourceProviderException(
+                            $"Could not locate the {_defaultDataSourceName} data source resource.",
+                            StatusCodes.Status404NotFound);
+
+                    return [await LoadDataSource(dataSourceReference)];
+                }
+                else
+                {
+                    return
+                    [
+                        .. (await Task.WhenAll(
+                                _dataSourceReferences.Values
+                                          .Where(dsr => !dsr.Deleted && (
+                                              string.IsNullOrWhiteSpace(_defaultDataSourceName) ||
+                                              !dsr.Name.Equals(_defaultDataSourceName, StringComparison.OrdinalIgnoreCase)))
+                                          .Select(dsr => LoadDataSource(dsr))))
+                    ];
+                }
+            }
+            else
+            {
+                // TODO: Apply other filters.
+                return
+                [
+                    .. (await Task.WhenAll(
+                        _dataSourceReferences.Values
+                            .Where(dsr => !dsr.Deleted)
+                            .Select(dsr => LoadDataSource(dsr))))
+                ];
+            }
+        }
+
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_dataSourceReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _dataSourceReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        DATA_SOURCE_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(DataSourceReferenceStore.FromDictionary(_dataSourceReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName} data source resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} data source resource.",
+                    StatusCodes.Status404NotFound);
+            }
+        }
+
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task DeleteResourceAsync(List<ResourceTypeInstance> instances)
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
-            switch (instances.Last().ResourceType)
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
                 case DataSourceResourceTypeNames.DataSources:
-                    await DeleteDataSource(instances);
+                    await DeleteDataSource(resourcePath.ResourceTypeInstances);
                     break;
                 default:
-                    throw new ResourceProviderException($"The resource type {instances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest);
             };
         }
@@ -308,6 +431,24 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         #endregion
+
+        /// <inheritdoc/>
+        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class {
+            if (resourcePath.ResourceTypeInstances.Count != 1)
+                throw new ResourceProviderException($"Invalid resource path");
+
+            if (typeof(T) != typeof(DataSourceBase))
+                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
+
+            _dataSourceReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var dataSourceReference);
+            if (dataSourceReference == null || dataSourceReference.Deleted)
+                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+
+            var dataSource = LoadDataSource(dataSourceReference).Result;
+            return dataSource as T
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+        }
+        
 
         #region Event handling
 

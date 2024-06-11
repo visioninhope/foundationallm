@@ -1,5 +1,4 @@
 {
-    "QueuingEngine": "AzureStorageQueue",
     "RequestManagers": [
         {
             "RequestSourceName": "extract",
@@ -21,23 +20,24 @@
     "RequestSources": [
         {
             "Name": "extract",
-            "ConnectionConfigurationName": "Extract:ConnectionString",
-            "VisibilityTimeoutSeconds": 120
+            "ConnectionConfigurationName": "Extract:AccountName",
+            "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "partition",
-            "ConnectionConfigurationName": "Partition:ConnectionString",
-            "VisibilityTimeoutSeconds": 120
+            "ConnectionConfigurationName": "Partition:AccountName",
+            "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "embed",
-            "ConnectionConfigurationName": "Embed:ConnectionString",
-            "VisibilityTimeoutSeconds": 120
+            "ConnectionConfigurationName": "Embed:AccountName",
+            "VisibilityTimeoutSeconds": 600
         },
         {
             "Name": "index",
-            "ConnectionConfigurationName": "Index:ConnectionString",
-            "VisibilityTimeoutSeconds": 120
+            "ConnectionConfigurationName": "Index:AccountName",
+            "VisibilityTimeoutSeconds": 600
         }
-    ]
+    ],
+    "QueuingEngine": "AzureStorageQueue"
 }

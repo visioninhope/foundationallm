@@ -1,18 +1,18 @@
 using Asp.Versioning;
-using Azure.Identity;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.SemanticKernel.Core.Interfaces;
-using FoundationaLLM.SemanticKernel.Core.Plugins;
+using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
-//using FoundationaLLM.SemanticKernel.Core.Models.ConfigurationOptions;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.SemanticKernel.API
@@ -30,7 +30,9 @@ namespace FoundationaLLM.SemanticKernel.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.SemanticKernelAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -40,23 +42,58 @@ namespace FoundationaLLM.SemanticKernel.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DurableSystemPrompt);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_CognitiveSearchMemorySource);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
-                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Key);
-                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Endpoint);
-                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Version);
-                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_DeploymentName);
-                options.Select(AppConfigurationKeys.FoundationaLLM_AzureOpenAI_API_Completions_ModelVersion);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            // Add services to the container.
-            //builder.Services.AddApplicationInsightsTelemetry();
+            // Add OpenTelemetry.
+            builder.AddOpenTelemetry(
+                AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString,
+                ServiceNames.SemanticKernelAPI);
+
+            // CORS policies
+            builder.AddCorsPolicies();
+
+            // Generic exception handling
+            builder.AddSemanticKernelGenericExceptionHandling();
+
+            builder.AddSemanticKernelService();
+
+            #region Resource providers (to be removed)
+
+            builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
+
+            // Resource validation
+            builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+
+            // Add event services
+            builder.Services.AddAzureEventGridEvents(
+                builder.Configuration,
+                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI);
+
+            // Add Azure ARM services
+            builder.Services.AddAzureResourceManager();
+
+            // Resource providers
+            builder.AddConfigurationResourceProvider();
+
+            #endregion
+
+            builder.Services.AddHttpClient();
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>()
+            };
+            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+            builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services
@@ -101,47 +138,6 @@ namespace FoundationaLLM.SemanticKernel.API
                     })
                 .AddSwaggerGenNewtonsoftSupport();
 
-            //builder.Services.AddOptions<SemanticKernelServiceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI));
-            //builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
-
-            builder.Services.AddScoped<IKnowledgeManagementAgentPlugin, KnowledgeManagementAgentPlugin>();
-            builder.Services.AddScoped<ILegacyAgentPlugin, LegacyAgentPlugin>();
-
-            // Simple, static system prompt service
-            //builder.Services.AddSingleton<ISystemPromptService, InMemorySystemPromptService>();
-
-            // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
-            builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
-            {
-                options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString];
-            });
-
-            // Create a dictionary of resource attributes.
-            var resourceAttributes = new Dictionary<string, object> {
-                { "service.name", "SemanticKernelAPI" },
-                { "service.namespace", "FoundationaLLM" },
-                { "service.instance.id", Guid.NewGuid().ToString() }
-            };
-
-            // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
-            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
-                builder.ConfigureResource(resourceBuilder =>
-                    resourceBuilder.AddAttributes(resourceAttributes)));
-
-            // System prompt service backed by an Azure blob storage account
-            //builder.Services.AddOptions<DurableSystemPromptServiceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DurableSystemPrompt));
-            //builder.Services.AddSingleton<ISystemPromptService, DurableSystemPromptService>();
-
-            //builder.Services.AddOptions<AzureCognitiveSearchMemorySourceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CognitiveSearchMemorySource));
-            //builder.Services.AddTransient<IMemorySource, AzureCognitiveSearchMemorySource>();
-
-            //builder.Services.AddOptions<BlobStorageMemorySourceSettings>()
-            //    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_BlobStorageMemorySource));
-            //builder.Services.AddTransient<IMemorySource, BlobStorageMemorySource>();
-
             builder.Services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;
@@ -149,9 +145,10 @@ namespace FoundationaLLM.SemanticKernel.API
 
             var app = builder.Build();
 
-            app.UseExceptionHandler(exceptionHandlerApp
-                => exceptionHandlerApp.Run(async context
-                    => await Results.Problem().ExecuteAsync(context)));
+            // Set the CORS policy before other middleware.
+            app.UseCors(CorsPolicyNames.AllowAllOrigins);
+
+            app.UseExceptionHandler();
 
             // Configure the HTTP request pipeline.
             app.UseSwagger(p => p.SerializeAsV2 = true);

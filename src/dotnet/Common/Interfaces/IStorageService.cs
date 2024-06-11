@@ -48,6 +48,15 @@ namespace FoundationaLLM.Common.Interfaces
         Task WriteFileAsync(string containerName, string filePath, string fileContent, string? contentType, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Deletes a file from storage.
+        /// </summary>
+        /// <param name="containerName">The name of the container where the file is located.</param>
+        /// <param name="filePath">The path of the file to delete.</param>
+        /// <param name="cancellationToken">The cancellation token that signals that operations should be cancelled.</param>
+        /// <returns></returns>
+        Task DeleteFileAsync(string containerName, string filePath, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Checks if a file exists on the storage.
         /// </summary>
         /// <param name="containerName">The name of the container where the file is located.</param>
@@ -55,5 +64,15 @@ namespace FoundationaLLM.Common.Interfaces
         /// <param name="cancellationToken">The cancellation token that signals that operations should be cancelled.</param>
         /// <returns></returns>
         Task<bool> FileExistsAsync(string containerName, string filePath, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Retrieves a list file paths in the specific directory.
+        /// </summary>
+        /// <param name="containerName">Name of the container, file system or Workspace name.</param>
+        /// <param name="directoryPath">Directory to list file contents</param>
+        /// <param name="recursive">Recurse through child folders</param>
+        /// <param name="cancellationToken">Determines if a request should be cancelled.</param>
+        /// <returns>List of individual file paths located in the container.</returns>        
+        Task<List<string>> GetFilePathsAsync(string containerName, string? directoryPath = null, bool recursive = true, CancellationToken cancellationToken = default);
     }
 }

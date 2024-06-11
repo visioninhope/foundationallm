@@ -1,0 +1,31 @@
+{
+  "type": "knowledge-management",
+  "name": "FoundationaLLM",
+  "object_id": "/instances/{{instanceId}}/providers/FoundationaLLM.Agent/agents/FoundationaLLM",
+  "description": "Useful for answering questions about FoundationaLLM.",
+  "deleted": false,
+  "sessions_enabled": true,
+  "conversation_history": {
+    "enabled": false,
+    "max_history": 5
+  },
+  "gatekeeper": {
+    "use_system_setting": false,
+    "options": []
+  },
+  "orchestration_settings": {
+    "orchestrator": "LangChain",
+    "agent_parameters": null,
+    "endpoint_configuration": {
+      "auth_type": "token",
+      "provider": "microsoft",
+      "endpoint": "{{openAiEndpointUri}}",
+      "api_version": "2024-02-01"
+    },
+    "model_parameters": {
+      "temperature": 0,
+      "deployment_name": "completions"
+    }
+  },
+  "prompt_object_id": "/instances/{{instanceId}}/providers/FoundationaLLM.Prompt/prompts/FoundationaLLM"
+}

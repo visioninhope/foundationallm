@@ -1,10 +1,11 @@
 ﻿using FakeItEasy;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.TextEmbedding;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Handlers;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,9 +14,14 @@ namespace Vectorization.Tests.Handlers
 {
     internal class Partition : ITextSplitterService
     {
-        public (List<string> TextChunks, string Message) SplitPlainText(string text)
+        public List<TextChunk> SplitPlainText(string text)
         {
-            return (TextChunks: text.Split("\n").ToList(), Message: "Successfully split input document.");
+            var position = 1;
+            return text.Split("\n").Select(t => new TextChunk
+            {
+                Position = position++,
+                Content = t.Trim(),
+            }).ToList();
         }
     }
 
@@ -26,7 +32,7 @@ namespace Vectorization.Tests.Handlers
             return new Partition();
         }
 
-        public (ITextSplitterService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (ITextSplitterService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             throw new NotImplementedException();
         }
@@ -63,12 +69,12 @@ namespace Vectorization.Tests.Handlers
                     "vectorization-input",
                     "somedata.pdf"
                 },
-                ContentSourceProfileName = "SomePDFData",
+                DataSourceObjectId = "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
                 CanonicalId = "SomeBusinessUnit/SomePDFData"
             };
             VectorizationRequest request = new VectorizationRequest
             {
-                Id = "d4669c9c-e330-450a-a41c-a4d6649abdef",
+                Name = "d4669c9c-e330-450a-a41c-a4d6649abdef",
                 ContentIdentifier = contentIdentifier,
                 ProcessingType = VectorizationProcessingType.Synchronous,
                 Steps = new List<VectorizationStep>

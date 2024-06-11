@@ -1,15 +1,17 @@
-/* eslint-disable prettier/prettier */
 import type { Message, Session, CompletionPrompt, Agent,
-	OrchestrationRequest, OrchestrationSettings } from '@/js/types';
-import { getMsalInstance } from '@/js/auth';
+	OrchestrationRequest, ResourceProviderGetResult } from '@/js/types';
 
 export default {
 	apiUrl: null as string | null,
-	bearerToken: null as string | null,
 
 	setApiUrl(url: string) {
 		// Set the api url and remove a trailing slash if there is one.
 		this.apiUrl = url.replace(/\/$/, '');
+	},
+
+	instanceId: null as string | null,
+	setInstanceId(instanceId: string) {
+		this.instanceId = instanceId;
 	},
 
 	/**
@@ -18,15 +20,12 @@ export default {
 	 * Otherwise, it will acquire a new bearer token using the MSAL instance.
 	 * @returns The bearer token.
 	 */
+	bearerToken: null as string | null,
 	async getBearerToken() {
 		if (this.bearerToken) return this.bearerToken;
 
-		const msalInstance = await getMsalInstance();
-		const accounts = msalInstance.getAllAccounts();
-		const account = accounts[0];
-		const bearerToken = await msalInstance.acquireTokenSilent({ account });
-
-		this.bearerToken = bearerToken.accessToken;
+		const token = await useNuxtApp().$authStore.getToken();
+		this.bearerToken = token.accessToken;
 		return this.bearerToken;
 	},
 
@@ -38,8 +37,8 @@ export default {
 	async getConfigValue(key: string) {
 		return await $fetch(`/api/config/`, {
 			params: {
-				key
-			}
+				key,
+			},
 		});
 	},
 
@@ -58,9 +57,18 @@ export default {
 		// }
 
 		const bearerToken = await this.getBearerToken();
-		options.headers['Authorization'] = `Bearer ${bearerToken}`;
+		options.headers.Authorization = `Bearer ${bearerToken}`;
 
-		return await $fetch(`${this.apiUrl}${url}`, options);
+		try {
+			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			return response;
+		} catch (error) {
+			// If the error is an HTTP error, extract the message directly.
+			if (error.data) {
+				throw new Error(error.data.message || error.data || 'Unknown error occurred');
+			}
+			throw error;
+		}
 	},
 
 	/**
@@ -68,7 +76,7 @@ export default {
 	 * @returns {Promise<Array<Session>>} A promise that resolves to an array of sessions.
 	 */
 	async getSessions() {
-		return await this.fetch(`/sessions`) as Array<Session>;
+		return (await this.fetch(`/sessions`)) as Array<Session>;
 	},
 
 	/**
@@ -76,7 +84,7 @@ export default {
 	 * @returns {Promise<Session>} A promise that resolves to the created session.
 	 */
 	async addSession() {
-		return await this.fetch(`/sessions`, { method: 'POST' }) as Session;
+		return (await this.fetch(`/sessions`, { method: 'POST' })) as Session;
 	},
 
 	/**
@@ -86,26 +94,26 @@ export default {
 	 * @returns The renamed session.
 	 */
 	async renameSession(sessionId: string, newChatSessionName: string) {
-		return await this.fetch(`/sessions/${sessionId}/rename`, {
+		return (await this.fetch(`/sessions/${sessionId}/rename`, {
 			method: 'POST',
 			params: {
-				newChatSessionName
-			}
-		}) as Session;
+				newChatSessionName,
+			},
+		})) as Session;
 	},
 
 	/**
 	 * Summarizes the session name.
-	 * 
+	 *
 	 * @param sessionId - The ID of the session.
 	 * @param text - The text to be summarized.
 	 * @returns The summarized text.
 	 */
 	async summarizeSessionName(sessionId: string, text: string) {
-		return await this.fetch(`/sessions/${sessionId}/summarize-name`, {
+		return (await this.fetch(`/sessions/${sessionId}/summarize-name`, {
 			method: 'POST',
 			body: JSON.stringify(text),
-		}) as { text: string };
+		})) as { text: string };
 	},
 
 	/**
@@ -114,7 +122,7 @@ export default {
 	 * @returns A promise that resolves to the deleted session.
 	 */
 	async deleteSession(sessionId: string) {
-		return await this.fetch(`/sessions/${sessionId}`, { method: 'DELETE' }) as Session;
+		return (await this.fetch(`/sessions/${sessionId}`, { method: 'DELETE' })) as Session;
 	},
 
 	/**
@@ -123,7 +131,7 @@ export default {
 	 * @returns An array of messages.
 	 */
 	async getMessages(sessionId: string) {
-		return await this.fetch(`/sessions/${sessionId}/messages`) as Array<Message>;
+		return (await this.fetch(`/sessions/${sessionId}/messages`)) as Array<Message>;
 	},
 
 	/**
@@ -133,7 +141,9 @@ export default {
 	 * @returns The completion prompt.
 	 */
 	async getPrompt(sessionId: string, promptId: string) {
-		return await this.fetch(`/sessions/${sessionId}/completionprompts/${promptId}`) as CompletionPrompt;
+		return (await this.fetch(
+			`/sessions/${sessionId}/completionprompts/${promptId}`,
+		)) as CompletionPrompt;
 	},
 
 	/**
@@ -144,15 +154,14 @@ export default {
 	 */
 	async rateMessage(message: Message, rating: Message['rating']) {
 		const params: {
-			rating?: Message['rating']
+			rating?: Message['rating'];
 		} = {};
 		if (rating !== null) params.rating = rating;
 
-		return await this.fetch(`/sessions/${message.sessionId}/message/${message.id}/rate`, {
-				method: 'POST',
-				params
-			},
-		) as Message;
+		return (await this.fetch(`/sessions/${message.sessionId}/message/${message.id}/rate`, {
+			method: 'POST',
+			params,
+		})) as Message;
 	},
 
 	/**
@@ -162,18 +171,18 @@ export default {
 	 * @param agent The agent object.
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
-	async sendMessage(sessionId: string, text: string, agent: Agent) {
+	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
 		const orchestrationRequest: OrchestrationRequest = {
 			session_id: sessionId,
 			user_prompt: text,
-			settings: {
-				agent_name: agent.name
-			}
+			agent_name: agent.name,
+			settings: null,
+			attachments: attachments
 		};
-		return await this.fetch(`/sessions/${sessionId}/completion`, {
+		return (await this.fetch(`/sessions/${sessionId}/completion`, {
 			method: 'POST',
-			body: orchestrationRequest
-		}) as string;
+			body: orchestrationRequest,
+		})) as string;
 	},
 
 	/**
@@ -181,6 +190,30 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		return await this.fetch('/orchestration/agents') as Agent[];
+		const agents = (await this.fetch('/orchestration/agents')) as ResourceProviderGetResult<Agent>[];
+		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
+		return agents;
+	},
+
+	/**
+	 * Uploads attachment to the API.
+	 * @param file The file formData to upload.
+	 * @returns The ObjectID of the uploaded attachment.
+	 */
+	async uploadAttachment(file: FormData) {
+		try {
+			const response = await this.fetch('/attachments/upload', {
+				method: 'POST',
+				body: file,
+			});
+	
+			if (response.error || response.status >= 400) {
+				throw new Error(response.message || 'Unknown error occurred');
+			}
+	
+			return response;
+		} catch (error) {
+			throw error;
+		}
 	},
 };

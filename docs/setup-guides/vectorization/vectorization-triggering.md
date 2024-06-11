@@ -1,6 +1,6 @@
 # Triggering vectorization
 
-Vectorization pipelines are started when the Vectorization API receives a vectorization request. The following types of triggers are supported:
+Vectorization pipelines are started when the Management API receives a `process`vectorization request. The following types of triggers are supported:
 
 - None (no triggering of vectorization pipelines).
 - Manual (vectorization pipelines are triggered manually by calling the Vectorization API). The typical use cases for on-demand vectorization (either synchronous or asynchronous) are testing, manual vectorization (or re-vectorization), and application integration (where another platform component triggers vectorization).
@@ -16,16 +16,19 @@ The typical structure of a vectorization request is the following
 
 ```json
 {
+    "id": "fc4a2499-4771-4a2d-9ba0-3874c3d4586c",
+    "object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationRequests/fc4a2499-4771-4a2d-9ba0-3874c3d4586c",    
     "content_identifier": {
-        "content_source_profile_name": "<name>",
+        "data_source_object_id": "/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.DataSource/dataSources/datalake01",
         "multipart_id": [
-            "xyz.blob.core.windows.net",
+            "abcdefg.dfs.core.windows.net",
             "vectorization-input",
-            "The-fabulous-life-of-Jack-the-Cat.pdf"
+            "/journals/2024/Journal-January-2024.pdf"
         ],
-        "canonical_id": "friends/stories/The-fabulous-life-of-Jack-the-Cat"
+        "canonical_id": "/journals/Journal-January-2024",
+        "metadata": null
     },
-    "processing_type": "Asynchronous",
+    "processing_type": "Synchronous",    
     "steps": [
         {
             "id": "extract",
@@ -34,7 +37,7 @@ The typical structure of a vectorization request is the following
         {
             "id": "partition",
             "parameters": {
-                "text_partition_profile_name": "DefaultTokenTextPartition"
+                "text_partitioning_profile_name": "DefaultTokenTextPartition_Small"
             }
         },
         {
@@ -46,9 +49,17 @@ The typical structure of a vectorization request is the following
         {
             "id": "index",
             "parameters": {
-                "indexing_profile_name": "AzureAISearch_Default_001"
+                "indexing_profile_name": "AzureAISearch_CPTEST"
             }
         }
+    ],
+    "completed_steps": [
+    ],
+    "remaining_steps": [
+        "extract",
+        "partition",
+        "embed",
+        "index"
     ]
 }
 ```
@@ -57,14 +68,18 @@ The following table describes the properties of a vectorization request.
 
 | Property | Description |
 | --- | --- |
+| `id` | The unique identifier of the vectorization request. The system issuing the request is responsible for generating this value. |
+| `object_id` | The object ID of the vectorization request. This can be empty when creating the request. |
 | `content_identifier` | The content identifier of the content to be vectorized. |
-| `content_identifier.content_source_profile_name` | The name of the content source profile to be used for loading the content. |
+| `content_identifier.data_source_object_id` | The object id of the data source resource indicating the location of the data to be vectorized. |
 | `content_identifier.multipart_id` | The multipart ID of the content to be vectorized. The multipart ID is a list of strings that uniquely identifies the content. The multipart ID is specific to the content source profile. |
 | `content_identifier.canonical_id` | The canonical ID of the content to be vectorized. The canonical ID is a string that uniquely identifies the content in a logical namespace. The caller is responsible for the generation of this identifier. The identifier should have a path form (using the `/` separator). The last part of the path should always be equal to the file name (without its extension). |
 | `processing_type` | The type of processing to be performed. The following values are supported: `Synchronous` and `Asynchronous`. See [Vectorization concepts](./vectorization-concepts.md) for more details. |
 | `steps` | The vectorization steps to be executed. Most vectorization requests will contain the full set of standard steps: `extract`, `partition`, `embed`, and `index`. Each step (except for the `extract` one) will contain one parameter specifying the name of the associated vectorization profile name. |
+| `completed_steps` | The list of steps that have been completed. This array needs to be empty when creating a vectorization request. |
+| `remaining_steps` | The list of steps that are yet to be executed. This array can't be empty when creating a vectorization request, at least one step is needed. |
 
-The meaning of the multipart strings depends on the specific type of the content source in the content source profile.
+The meaning of the `multipart` strings depends on the specific type of the data source.
 
 The following table describes the meaning of the multipart strings for the `AzureDataLake` content source.
 
@@ -90,13 +105,21 @@ The following table describes the meaning of the multipart strings for the `Azur
 | 1 | The name of the database schema. |
 | 2 | The name of the table. |
 | 3 | The name of the column that stores file content. |
-| 4 | The name of the column that stores file identifiers (file names). |
-| 5 | The file identifier (file name). |
+| 4 | The name of the column that stores file row identifier. |
+| 5 | The value of the row identifier. |
+| 5 | The file name. |
 
+The following table describes the meaning of the multipart strings for the `WebSite` content source.
+
+| Position | Description |
+| --- | --- |
+| 1 | The protocol, either `http` or `https`. |
+| 2 | The web URL without the protocol. |
+| 3 | CSS classes to filter by, space delimited. |
 
 ### Known neutral URLs
 
-Depending on the specific configuration of various layers of security, vectorization request might end up being filtered out by infrastructure components like firewalls or proxies. To avoid this, the Vectorization API supports the use of known neutral URLs. 
+Depending on the specific configuration of various layers of security, vectorization request might end up being filtered out by infrastructure components like firewalls or proxies. To avoid this, the Vectorization API supports the use of known neutral URLs.
 
 Known neutral URLs are URLs that have a neutral form that is not subject to filtering. The platform currently supports two conventions for specifing known neutral URLs:
 
@@ -114,21 +137,9 @@ When parsing multipart components that are subject to known neutral URL naming c
 2. If the component starts with `FLLM:`, the platform will replace the `FLLM:` prefix with `https://` and replace all `#` characters with `.`. Then, it will check if the tail of the resulting URL is in the list of allowed domains. If it is, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.
 3. At this point, the platform will assume that the component is a simple known neutral URL and will prepend `https://` to it. Then, if the tail of the resulting URL is in the list of allowed domains, the platform will use the resulting URL. If it is not, the platform will use the original form of the component.
 
-### Submitting vectorization requests
+### Creating a vectorization request
 
-This section describes how to submit vectorization requests using the Vectorization API.
-`{{baseUrl}}` is the base URL of the Vectorization API.
-
-```
-POST {{baseUrl}}/vectorizationrequest
-Content-Type: application/json
-X-API-KEY: <vectorization_api_key>
-
-BODY
-<vectorization_request>
-```
-
-where <vectorization_api_key> is the API key of the Vectorization API and `<vectorization_request>` is the vectorization request to be submitted.
+See [Vectorization Request Resources](./vectorization-request-resources.md) for more information on creating a vectorization request.
 
 Upon completion, the API will return a response with the following structure:
 
@@ -139,3 +150,7 @@ Upon completion, the API will return a response with the following structure:
     "error_message":null
 }
 ```
+
+### Processing a vectorization request
+
+To initiate the processing of a vectorization request, the caller must issue a `process` request to the Management API through a `POST` on the resource object id (the body is `{}`). The following is an example of a `process`, example:    `{baseUrl}/instances/1e22cd2a-7b81-4160-b79f-f6443e3a6ac2/providers/FoundationaLLM.Vectorization/vectorizationrequests/6041849a-d4d8-428d-97ff-c6a3443ecdae/process`.

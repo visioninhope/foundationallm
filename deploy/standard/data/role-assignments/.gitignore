@@ -1,0 +1,4 @@
+# Ignore Everything
+*
+# Except templates
+!*.template.json

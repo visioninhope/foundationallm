@@ -1,65 +1,184 @@
 /** Inputs **/
-@description('Administrator Object Id')
-param administratorObjectId string
-
-@description('Action Group to use for alerts.')
 param actionGroupId string
-
-@description('DNS resource group name')
+param administratorObjectId string
 param dnsResourceGroupName string
-
-@description('The environment name token used in naming resources.')
 param environmentName string
-
-@description('Number of OpenAI instances to deploy.')
-param instanceCount int = 2
-
-@description('Location used for all resources.')
+param instanceCount int = 1
 param location string
-
-@description('Log Analytics Workspace Id to use for diagnostics')
 param logAnalyticsWorkspaceId string
-
-@description('OPS Resource Group name')
 param opsResourceGroupName string
-
-@description('Project Name, used in naming resources.')
 param project string
-
-@description('Timestamp used in naming nested deployments.')
 param timestamp string = utcNow()
-
-@description('Virtual Network ID, used to find the subnet IDs.')
 param vnetId string
 
-param capacity object = {
-  completions: 60
-  embeddings: 60
-}
-
 /** Locals **/
-@description('KeyVault resource suffix')
+var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, location))
 var kvResourceSuffix = '${project}-${environmentName}-${location}-ops'
-
-@description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
+var workload = 'oai'
 
-@description('Tags for all resources')
+var deploymentConfigurations = [
+  {
+    name: 'completions'
+    locations: [
+      'eastus'
+      'eastus2'
+      'japaneast'
+      'northcentralus'
+      'switzerlandnorth'
+    ]
+    raiPolicyName: ''
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-35-turbo'
+      version: '0613'
+    }
+    sku: {
+      capacity: 60
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'completions'
+    locations: [
+      'austrailiaeast'
+      'canadaeast'
+      'francecentral'
+      'southindia'
+      'swedencentral'
+      'uksouth'
+      'westus'
+    ]
+    raiPolicyName: ''
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-35-turbo'
+      version: '1106'
+    }
+    sku: {
+      capacity: 60
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'completions4'
+    locations: [
+      'austrailiaeast'
+      'canadaeast'
+      'eastus2'
+      'francecentral'
+      'norwayeast'
+      'southindia'
+      'swedencentral'
+      'uksouth'
+      'westus'
+    ]
+    raiPolicyName: ''
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-4'
+      version: '1106-Preview'
+    }
+    sku: {
+      capacity: 40
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'completions4o'
+    locations: [
+      'eastus'
+      'eastus2'
+      'northcentralus'
+      'southcentralus'
+      'southindia'
+      'westus'
+      'westus3'
+    ]
+    raiPolicyName: ''
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-4o'
+      version: '2024-05-13'
+    }
+    sku: {
+      capacity: 40
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'embeddings'
+    locations: [
+      'austrailiaeast'
+      'canadaeast'
+      'eastus'
+      'eastus2'
+      'francecentral'
+      'japaneast'
+      'northcentralus'
+      'norwayeast'
+      'southcentralus'
+      'swedencentral'
+      'switzerlandnorth'
+      'uksouth'
+      'westeurope'
+      'westus'
+    ]
+    raiPolicyName: 'Microsoft.Default'
+    model: {
+      format: 'OpenAI'
+      name: 'text-embedding-ada-002'
+      version: '2'
+    }
+    sku: {
+      capacity: 60
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'embeddings-3-large'
+    locations: [
+      'canadaeast'
+      'eastus'
+      'eastus2'
+    ]
+    raiPolicyName: 'Microsoft.Default'
+    model: {
+      format: 'OpenAI'
+      name: 'text-embedding-3-large'
+      version: ''
+    }
+    sku: {
+      capacity: 60
+      name: 'Standard'
+    }
+  }
+  {
+    name: 'embeddings-3-small'
+    locations: [
+      'canadaeast'
+      'eastus'
+      'eastus2'
+    ]
+    raiPolicyName: 'Microsoft.Default'
+    model: {
+      format: 'OpenAI'
+      name: 'text-embedding-3-small'
+      version: ''
+    }
+    sku: {
+      capacity: 60
+      name: 'Standard'
+    }
+  }
+]
+
 var tags = {
   Environment: environmentName
   IaC: 'Bicep'
   Project: project
   Purpose: 'OpenAI'
 }
-
-@description('Workload Token used in naming resources.')
-var workload = 'oai'
-
-@description('Private DNS Zones for Azure API Management')
-var zonesApim = filter(
-  dnsZones.outputs.ids,
-  (zone) => contains([ 'gateway_developer', 'gateway_management', 'gateway_portal', 'gateway_public', 'gateway_scm' ], zone.key)
-)
 
 /** Nested Modules **/
 @description('Read DNS Zones')
@@ -69,28 +188,6 @@ module dnsZones 'modules/utility/dnsZoneData.bicep' = {
   params: {
     location: location
   }
-}
-
-@description('API Management')
-module apim 'modules/apim.bicep' = {
-  name: 'apim-${timestamp}'
-  params: {
-    actionGroupId: actionGroupId
-    dnsResourceGroupName: dnsResourceGroupName
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    privateDnsZones: zonesApim
-    resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMOpenAI'
-    tags: tags
-
-    cognitiveAccounts: [for x in range(0, instanceCount): {
-      name: openai[x].outputs.name
-      endpoint: openai[x].outputs.endpoint
-      keys: openai[x].outputs.keys
-    }]
-  }
-  dependsOn: [ openai ]
 }
 
 @description('Content Safety')
@@ -130,7 +227,7 @@ module openai './modules/openai.bicep' = [for x in range(0, instanceCount): {
   name: 'openai-${x}-${timestamp}'
   params: {
     actionGroupId: actionGroupId
-    capacity: capacity
+    deployments: deployments
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     opsKvResourceSuffix: kvResourceSuffix

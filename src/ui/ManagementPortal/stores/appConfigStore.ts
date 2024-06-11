@@ -6,6 +6,16 @@ export const useAppConfigStore = defineStore('appConfig', {
 	state: () => ({
 		// API: Defines API-specific settings such as the base URL for application requests.
 		apiUrl: null,
+		authorizationApiUrl: null,
+		coreApiUrl: null,
+		gatekeeperApiUrl: null,
+		gatekeeperIntegrationApiUrl: null,
+		gatewayApiUrl: null,
+		langChainApiUrl: null,
+		orchestrationApiUrl: null,
+		semanticKernelApiUrl: null,
+		vectorizationApiUrl: null,
+		vectorizationWorkerApiUrl: null,
 
 		instanceId: null,
 
@@ -23,6 +33,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 		primaryButtonText: null,
 		secondaryButtonBg: null,
 		secondaryButtonText: null,
+		footerText: null,
 
 		// Auth: These settings configure the MSAL authentication.
 		auth: {
@@ -31,13 +42,23 @@ export const useAppConfigStore = defineStore('appConfig', {
 			tenantId: null,
 			scopes: [],
 			callbackPath: null,
-		},// as AuthConfigOptions,
+		}, // as AuthConfigOptions,
 	}),
 	getters: {},
 	actions: {
 		async getConfigVariables() {
 			const [
 				apiUrl,
+				authorizationApiUrl,
+				coreApiUrl,
+				gatekeeperApiUrl,
+				gatekeeperIntegrationApiUrl,
+				gatewayApiUrl,
+				langChainApiUrl,
+				orchestrationApiUrl,
+				semanticKernelApiUrl,
+				vectorizationApiUrl,
+				vectorizationWorkerApiUrl,
 				instanceId,
 				logoUrl,
 				logoText,
@@ -52,6 +73,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				primaryButtonText,
 				secondaryButtonBg,
 				secondaryButtonText,
+				footerText,
 				authClientId,
 				authInstance,
 				authTenantId,
@@ -59,9 +81,19 @@ export const useAppConfigStore = defineStore('appConfig', {
 				authCallbackPath,
 			] = await Promise.all([
 				api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:AuthorizationAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:CoreAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:GatekeeperAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:GatewayAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:LangChainAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:OrchestrationAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:SemanticKernelAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:VectorizationAPI:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIs:VectorizationWorker:APIUrl'),
 
 				api.getConfigValue('FoundationaLLM:Instance:Id'),
-				
+
 				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
 				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
 				api.getConfigValue('FoundationaLLM:Branding:BackgroundColor'),
@@ -75,6 +107,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonTextColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonBackgroundColor'),
 				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonTextColor'),
+				api.getConfigValue('FoundationaLLM:Branding:FooterText'),
 
 				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
@@ -84,6 +117,17 @@ export const useAppConfigStore = defineStore('appConfig', {
 			]);
 
 			this.apiUrl = apiUrl;
+			this.authorizationApiUrl = authorizationApiUrl;
+			this.coreApiUrl = coreApiUrl;
+			this.gatekeeperApiUrl = gatekeeperApiUrl;
+			this.gatekeeperIntegrationApiUrl = gatekeeperIntegrationApiUrl;
+			this.gatewayApiUrl = gatewayApiUrl;
+			this.langChainApiUrl = langChainApiUrl;
+			this.orchestrationApiUrl = orchestrationApiUrl;
+			this.semanticKernelApiUrl = semanticKernelApiUrl;
+			this.vectorizationApiUrl = vectorizationApiUrl;
+			this.vectorizationWorkerApiUrl = vectorizationWorkerApiUrl;
+
 			this.instanceId = instanceId;
 
 			this.logoUrl = logoUrl;
@@ -99,6 +143,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			this.primaryButtonText = primaryButtonText;
 			this.secondaryButtonBg = secondaryButtonBg;
 			this.secondaryButtonText = secondaryButtonText;
+			this.footerText = footerText;
 
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;

@@ -2,16 +2,16 @@
 	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
-			<img v-if="appConfigStore.logoUrl !== ''" :src="appConfigStore.logoUrl" />
-			<span v-else>{{ appConfigStore.logoText }}</span>
+			<img v-if="$appConfigStore.logoUrl !== ''" :src="$appConfigStore.logoUrl" />
+			<span v-else>{{ $appConfigStore.logoText }}</span>
 
-			<template v-if="!appConfigStore.isKioskMode">
+			<template v-if="!$appConfigStore.isKioskMode">
 				<Button
-					:icon="appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+					:icon="$appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
 					size="small"
 					severity="secondary"
 					class="secondary-button"
-					@click="appStore.toggleSidebar"
+					@click="$appStore.toggleSidebar"
 				/>
 			</template>
 		</div>
@@ -23,7 +23,7 @@
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
 						<Button
-							v-if="!appConfigStore.isKioskMode"
+							v-if="!$appConfigStore.isKioskMode"
 							v-tooltip.bottom="'Copy link to chat session'"
 							class="button--share"
 							icon="pi pi-copy"
@@ -41,19 +41,26 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
+				<!-- <template v-if="currentSession && $appConfigStore.allowAgentHint"> -->
 				<template v-if="currentSession">
 					<span class="header__dropdown">
-						<img alt="Select an agent" class="avatar" v-tooltip.bottom="'Select an agent'" src="~/assets/FLLM-Agent-Light.svg">
+						<img
+							v-tooltip.bottom="'Select an agent'"
+							alt="Select an agent"
+							class="avatar"
+							src="~/assets/FLLM-Agent-Light.svg"
+						/>
 						<Dropdown
 							v-model="agentSelection"
 							class="dropdown--agent"
 							:options="agentOptionsGroup"
 							option-group-label="label"
 							option-group-children="items"
-							optionDisabled="disabled"
+							option-disabled="disabled"
 							option-label="label"
 							placeholder="--Select--"
 							@change="handleAgentChange"
+							:style="{ maxHeight: '300px' }"
 						/>
 					</span>
 				</template>
@@ -63,17 +70,13 @@
 </template>
 
 <script lang="ts">
-import { mapStores } from 'pinia';
 import type { Session } from '@/js/types';
-import { useAppConfigStore } from '@/stores/appConfigStore';
-import { useAppStore } from '@/stores/appStore';
-import { useAuthStore } from '@/stores/authStore';
 
 interface AgentDropdownOption {
 	label: string;
 	value: any;
 	disabled?: boolean;
-	private?: boolean;
+	my_agent?: boolean;
 	type: string;
 	object_id: string;
 	description: string;
@@ -96,12 +99,8 @@ export default {
 	},
 
 	computed: {
-		...mapStores(useAppConfigStore),
-		...mapStores(useAppStore),
-		...mapStores(useAuthStore),
-
 		currentSession() {
-			return this.appStore.currentSession;
+			return this.$appStore.currentSession;
 		},
 	},
 
@@ -111,26 +110,27 @@ export default {
 
 			this.agentSelection =
 				this.agentOptions.find(
-					(agent) => agent.value === this.appStore.getSessionAgent(newSession),
+					(agent) => agent.value === this.$appStore.getSessionAgent(newSession),
 				) || null;
 		},
 	},
 
 	async created() {
+		await this.$appStore.getAgents();
 
-		await this.appStore.getAgents();
-
-		this.agentOptions = this.appStore.agents.map((agent) => ({
-			label: agent.name,
-			type: agent.type,
-			object_id: agent.object_id,
-			description: agent.description,
-			private: false,
+		this.agentOptions = this.$appStore.agents.map((agent) => ({
+			label: agent.resource.name,
+			type: agent.resource.type,
+			object_id: agent.resource.object_id,
+			description: agent.resource.description,
+			my_agent: agent.roles.includes('Owner'),
 			value: agent,
 		}));
 
-		const publicAgentOptions = this.agentOptions.filter((agent) => !agent.private);
-		const privateAgentOptions = this.agentOptions.filter((agent) => agent.private);
+		// const publicAgentOptions = this.agentOptions.filter((agent) => !agent.my_agent);
+		// Show all agents in the first group, including "my agents".
+		const publicAgentOptions = this.agentOptions;
+		const privateAgentOptions = this.agentOptions.filter((agent) => agent.my_agent);
 		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
 
 		this.agentOptionsGroup.push({
@@ -139,12 +139,12 @@ export default {
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Public',
+			label: 'All Agents',
 			items: publicAgentOptions.length > 0 ? publicAgentOptions : noAgentOptions,
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Private',
+			label: 'My Agents',
 			items: privateAgentOptions.length > 0 ? privateAgentOptions : noAgentOptions,
 		});
 	},
@@ -162,7 +162,7 @@ export default {
 		},
 
 		handleAgentChange() {
-			this.appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
+			this.$appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
 			const message = this.agentSelection!.value
 				? `Agent changed to ${this.agentSelection!.label}`
 				: `Cleared agent hint selection`;
@@ -175,7 +175,7 @@ export default {
 		},
 
 		async handleLogout() {
-			await this.authStore.logout();
+			await this.$authStore.logout();
 		},
 	},
 };
@@ -225,7 +225,7 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	padding: 24px;
-	border-bottom: 1px solid #EAEAEA;
+	border-bottom: 1px solid #eaeaea;
 	background-color: var(--accent-color);
 }
 
@@ -253,9 +253,9 @@ export default {
 }
 
 .secondary-button {
-	background-color: var(--secondary-button-bg)!important;
-	border-color: var(--secondary-button-bg)!important;
-	color: var(--secondary-button-text)!important;
+	background-color: var(--secondary-button-bg) !important;
+	border-color: var(--secondary-button-bg) !important;
+	color: var(--secondary-button-text) !important;
 }
 
 .header__dropdown {
@@ -290,5 +290,9 @@ export default {
 	.dropdown--agent .p-dropdown-trigger {
 		height: 40px;
 	}
+}
+
+.p-dropdown-items-wrapper {
+  max-height: 300px !important;
 }
 </style>

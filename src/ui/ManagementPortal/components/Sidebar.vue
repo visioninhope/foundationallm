@@ -2,8 +2,15 @@
 	<div class="sidebar">
 		<!-- Sidebar section header -->
 		<div class="sidebar__header">
-			<img v-if="$appConfigStore.logoUrl" :src="$filters.publicDirectory($appConfigStore.logoUrl)" />
-			<span v-else>{{ $appConfigStore.logoText }}</span>
+			<template v-if="$appConfigStore.logoUrl">
+				<NuxtLink to="/">
+					<img :src="$filters.publicDirectory($appConfigStore.logoUrl)"
+					/>
+				</NuxtLink>
+			</template>
+			<template v-else>
+				<NuxtLink to="/">{{ $appConfigStore.logoText }}</NuxtLink>
+			</template>
 		</div>
 
 		<!-- Agents -->
@@ -13,8 +20,8 @@
 		</div>
 
 		<NuxtLink to="/agents/create" class="sidebar__item">Create New Agent</NuxtLink>
-		<NuxtLink to="/agents/public" class="sidebar__item">Public Agents</NuxtLink>
-		<NuxtLink to="/agents/private" class="sidebar__item">Private Agents</NuxtLink>
+		<NuxtLink to="/agents/public" class="sidebar__item">All Agents</NuxtLink>
+		<NuxtLink to="/agents/private" class="sidebar__item">My Agents</NuxtLink>
 		<div class="sidebar__item">Performance</div>
 
 		<!-- Data Catalog -->
@@ -50,18 +57,26 @@
 
 		<div class="sidebar__item">Identity & Access Management (IAM)</div>
 
+		<!-- FLLM Deployment -->
+		<div class="sidebar__section-header">
+			<span class="pi pi-cloud"></span>
+			<span>FLLM Platform</span>
+		</div>
+
+		<NuxtLink to="/info" class="sidebar__item">Deployment Information</NuxtLink>
+
 		<!-- Logged in user -->
-		<div v-if="$authStore.accounts[0]?.name" class="sidebar__account">
+		<div v-if="$authStore.currentAccount?.name" class="sidebar__account">
 			<Avatar icon="pi pi-user" class="sidebar__avatar" size="large" />
 			<div>
-				<span class="sidebar__username">{{ $authStore.accounts[0].name }}</span>
+				<span class="sidebar__username">{{ $authStore.currentAccount?.name }}</span>
 				<Button
 					class="sidebar__sign-out-button secondary-button"
 					icon="pi pi-sign-out"
 					label="Sign Out"
 					severity="secondary"
 					size="small"
-					@click="handleLogout()"
+					@click="$authStore.logout()"
 				/>
 			</div>
 		</div>
@@ -69,24 +84,8 @@
 </template>
 
 <script lang="ts">
-import { getMsalInstance } from '@/js/auth';
-
 export default {
 	name: 'Sidebar',
-
-	methods: {
-		async handleLogout() {
-			const msalInstance = await getMsalInstance();
-			const accountFilter = {
-				username: this.$authStore.accounts[0].username,
-			};
-			const logoutRequest = {
-				account: msalInstance.getAccount(accountFilter),
-			};
-			await msalInstance.logoutRedirect(logoutRequest);
-			this.$router.push({ path: '/login' });
-		},
-	},
 };
 </script>
 
@@ -113,7 +112,7 @@ a {
 	padding-right: 24px;
 	padding-left: 24px;
 	padding-top: 12px;
-	display: flex;
+	/*display: flex;*/
 	align-items: center;
 	color: var(--primary-text);
 
@@ -154,7 +153,8 @@ a {
 	transition: all 0.1s ease-in-out;
 	font-size: 0.8725rem;
 
-	&.router-link-active, &:hover {
+	&.router-link-active,
+	&:hover {
 		background-color: rgba(217, 217, 217, 0.05);
 	}
 }

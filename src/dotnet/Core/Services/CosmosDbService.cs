@@ -10,6 +10,9 @@ using System.Diagnostics;
 using FoundationaLLM.Common.Models.Configuration.Users;
 using Polly;
 using Polly.Retry;
+using Azure.Identity;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Authentication;
 
 namespace FoundationaLLM.Core.Services
 {
@@ -41,11 +44,11 @@ namespace FoundationaLLM.Core.Services
         /// are null or empty.</exception>
         public CosmosDbService(
             IOptions<CosmosDbSettings> settings,
+            CosmosClient client,
             ILogger<CosmosDbService> logger)
         {
             _settings = settings.Value;
             ArgumentException.ThrowIfNullOrEmpty(_settings.Endpoint);
-            ArgumentException.ThrowIfNullOrEmpty(_settings.Key);
             ArgumentException.ThrowIfNullOrEmpty(_settings.Database);
             ArgumentException.ThrowIfNullOrEmpty(_settings.Containers);
 
@@ -75,15 +78,6 @@ namespace FoundationaLLM.Core.Services
                     return default;
                 }
             }).Build();
-
-            CosmosSerializationOptions options = new()
-            {
-                PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
-            };
-            var client = new CosmosClientBuilder(_settings.Endpoint, _settings.Key)
-                .WithSerializerOptions(options)
-                .WithConnectionModeGateway()
-                .Build();
 
             var database = client?.GetDatabase(_settings.Database);
 
@@ -128,7 +122,7 @@ namespace FoundationaLLM.Core.Services
 
             var response = _userSessions.GetItemQueryIterator<Session>(query);
 
-            List<Session> output = new();
+            List<Session> output = [];
             while (response.HasMoreResults)
             {
                 var results = await response.ReadNextAsync(cancellationToken);

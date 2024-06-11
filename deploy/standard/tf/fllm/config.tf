@@ -1,7 +1,7 @@
 locals {
   config_key_kv = {
-    "FoundationaLLM:APIs:AgentFactoryAPI:APIUrl" = {
-      value = "http://foundationallm-agent-factory-api/agentfactory"
+    "FoundationaLLM:APIs:OrchestrationAPI:APIUrl" = {
+      value = "http://foundationallm-orchestration-api/orchestration"
     }
     "FoundationaLLM:APIs:AgentHubAPI:APIUrl" = {
       value = "http://foundationallm-agent-hub-api/agenthub"
@@ -24,7 +24,7 @@ locals {
     "FoundationaLLM:APIs:SemanticKernelAPI:APIUrl" = {
       value = "http://foundationallm-semantic-kernel-api/semantickernel"
     }
-    "FoundationaLLM:APIs:AgentFactoryAPI:ForceHttpsRedirection" = {
+    "FoundationaLLM:APIs:OrchestrationAPI:ForceHttpsRedirection" = {
       value = "false"
     }
     "FoundationaLLM:APIs:GatekeeperAPI:ForceHttpsRedirection" = {
@@ -143,27 +143,9 @@ locals {
       # value = data.azurerm_client_config.current.tenant_id
       value = ""
     }
-    "FoundationaLLM:CognitiveSearch:EndPoint" = {
-      value = module.search.endpoint
-    }
-    "FoundationaLLM:CognitiveSearch:IndexName" = {
-      value = "vector-index"
-    }
-    "FoundationaLLM:CognitiveSearch:MaxVectorSearchResults" = {
-      value = "10"
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:BlobStorageContainer" = {
-      value = "memory-source"
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:ConfigFilePath" = {
-      value = "BlobMemorySourceConfig.json"
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:EndPoint" = {
-      value = module.search.endpoint
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:IndexName" = {
-      value = "vector-index"
-    }
+
+
+
     "FoundationaLLM:CoreAPI:Entra:CallbackPath" = {
       value = "/signin-oidc"
     }
@@ -199,9 +181,7 @@ locals {
     "FoundationaLLM:DataSourceHub:DataSourceMetadata:StorageContainer" = {
       value = "data-sources"
     }
-    "FoundationaLLM:DurableSystemPrompt:BlobStorageContainer" = {
-      value = "prompts"
-    }
+
     "FoundationaLLM:LangChain:Summary:MaxTokens" = {
       value = "4097"
     }
@@ -268,11 +248,11 @@ locals {
     "FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString" = {
       vault_key_reference = azurerm_key_vault_secret.ai_connection_string.versionless_id
     }
-    "FoundationaLLM:APIs:AgentFactoryAPI:AppInsightsConnectionString" = {
+    "FoundationaLLM:APIs:OrchestrationAPI:AppInsightsConnectionString" = {
       vault_key_reference = azurerm_key_vault_secret.ai_connection_string.versionless_id
     }
-    "FoundationaLLM:APIs:AgentFactoryAPI:APIKey" = {
-      vault_key_reference = azurerm_key_vault_secret.api_key["agentfactoryapi"].versionless_id
+    "FoundationaLLM:APIs:OrchestrationAPI:APIKey" = {
+      vault_key_reference = azurerm_key_vault_secret.api_key["orchestrationapi"].versionless_id
     }
     "FoundationaLLM:APIs:AgentHubAPI:APIKey" = {
       vault_key_reference = azurerm_key_vault_secret.api_key["agenthubapi"].versionless_id
@@ -310,15 +290,8 @@ locals {
     "FoundationaLLM:Chat:Entra:ClientSecret" = {
       vault_key_reference = azurerm_key_vault_secret.client_entra_clientsecret.versionless_id
     }
-    "FoundationaLLM:CognitiveSearch:Key" = {
-      vault_key_reference = azurerm_key_vault_secret.search_key.versionless_id
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:BlobStorageConnection" = {
-      vault_key_reference = azurerm_key_vault_secret.storage_connection_string.versionless_id
-    }
-    "FoundationaLLM:CognitiveSearchMemorySource:Key" = {
-      vault_key_reference = azurerm_key_vault_secret.search_key.versionless_id
-    }
+
+
     "FoundationaLLM:CoreAPI:Entra:ClientSecret" = {
       vault_key_reference = azurerm_key_vault_secret.core_entra_clientsecret.versionless_id
     }
@@ -328,9 +301,7 @@ locals {
     "FoundationaLLM:DataSourceHub:StorageManager:BlobStorage:ConnectionString" = {
       vault_key_reference = azurerm_key_vault_secret.storage_connection_string.versionless_id
     }
-    "FoundationaLLM:DurableSystemPrompt:BlobStorageConnection" = {
-      vault_key_reference = azurerm_key_vault_secret.storage_connection_string.versionless_id
-    }
+
     "FoundationaLLM:LangChain:CSVFile:URL" = {
       vault_key_reference = azurerm_key_vault_secret.langchain_csvfile_url.versionless_id
     }

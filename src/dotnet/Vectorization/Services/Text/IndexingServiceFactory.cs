@@ -1,9 +1,10 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Vectorization.Constants;
-using FoundationaLLM.Vectorization.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.Models.Resources;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (IIndexingService Service, VectorizationProfileBase VectorizationProfile) GetServiceWithProfile(string serviceName)
+        public (IIndexingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
         {
             var indexingProfile = _vectorizationResourceProviderService.GetResource<IndexingProfile>(
                 $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");
@@ -50,6 +51,8 @@ namespace FoundationaLLM.Vectorization.Services.Text
             return indexingProfile.Indexer switch
             {
                 IndexerType.AzureAISearchIndexer => (CreateAzureAISearchIndexingService(), indexingProfile),
+                IndexerType.AzureCosmosDBNoSQLIndexer => (CreateAzureCosmosDBNoSQLIndexingService(), indexingProfile),
+                IndexerType.PostgresIndexer => (CreatePostgresIndexingService(), indexingProfile),
                 _ => throw new VectorizationException($"The text embedding type {indexingProfile.Indexer} is not supported."),
             };
         }
@@ -59,6 +62,24 @@ namespace FoundationaLLM.Vectorization.Services.Text
             var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
                 DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService)
                 ?? throw new VectorizationException($"Could not retrieve the Azure AI Search indexing service instance.");
+
+            return indexingService!;
+        }
+
+        private IIndexingService CreateAzureCosmosDBNoSQLIndexingService()
+        {
+            var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService)
+                ?? throw new VectorizationException($"Could not retrieve the Azure Cosmos DB NoSQL indexing service instance.");
+
+            return indexingService!;
+        }
+
+        private IIndexingService CreatePostgresIndexingService()
+        {
+            var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService)
+                ?? throw new VectorizationException($"Could not retrieve the PostgreSQL indexing service instance.");
 
             return indexingService!;
         }

@@ -14,9 +14,6 @@ param logAnalyticsWorkspaceId string
 @description('DNS Resource Group name')
 param dnsResourceGroupName string
 
-@description('OPS Resource Group name')
-param opsResourceGroupName string
-
 @description('Project Name, used in naming resources.')
 param project string
 
@@ -27,9 +24,6 @@ param timestamp string = utcNow()
 param vnetId string
 
 /** Locals **/
-@description('KeyVault resource suffix')
-var kvResourceSuffix = '${project}-${environmentName}-${location}-ops'
-
 @description('Resource Suffix used in naming resources.')
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 
@@ -43,12 +37,6 @@ var tags = {
 
 @description('Workload Token used in naming resources.')
 var workload = 'storage'
-
-@description('Private DNS Zones for Storage Accounts')
-var zonesStorage = filter(
-  dnsZones.outputs.ids,
-  (zone) => contains([ 'blob', 'dfs', 'file', 'queue', 'table', 'web' ], zone.key)
-)
 
 /** Nested Modules **/
 @description('Read DNS Zones')
@@ -65,10 +53,8 @@ module cosmosdb 'modules/cosmosdb.bicep' = {
   name: 'cosmosdb-${timestamp}'
   params: {
     actionGroupId: actionGroupId
-    kvResourceSuffix: kvResourceSuffix
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'cosmosdb')
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMStorage'
@@ -81,17 +67,28 @@ module storage 'modules/storageAccount.bicep' = {
   name: 'storage-${timestamp}'
   params: {
     actionGroupId: actionGroupId
-    containers: ['agents','data-sources','foundationallm-source','prompts','resource-provider','vectorization-state']
     enableHns: true
     isDataLake: true
-    kvResourceSuffix: kvResourceSuffix
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    opsResourceGroupName: opsResourceGroupName
-    privateDnsZones: zonesStorage
-    queues: ['embed','extract','index','partition']
+    privateDnsZones: dnsZones.outputs.idsStorage
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMStorage'
     tags: tags
+    containers: [
+      'agents'
+      'data-sources'
+      'foundationallm-source'
+      'prompts'
+      'resource-provider'
+      'vectorization-input'
+      'vectorization-state'
+    ]
+    queues: [
+      'embed'
+      'extract'
+      'index'
+      'partition'
+    ]
   }
 }

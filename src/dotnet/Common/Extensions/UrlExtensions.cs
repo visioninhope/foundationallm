@@ -1,11 +1,4 @@
-﻿using Asp.Versioning.Conventions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Extensions
+﻿namespace FoundationaLLM.Common.Extensions
 {
     /// <summary>
     /// Extends <see cref="string"/> with helper methods.

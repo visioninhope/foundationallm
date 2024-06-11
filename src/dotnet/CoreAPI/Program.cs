@@ -1,28 +1,27 @@
 using Asp.Versioning;
 using Azure.Identity;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
-using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.Core.API
@@ -39,7 +38,9 @@ namespace FoundationaLLM.Core.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.CoreAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -49,29 +50,28 @@ namespace FoundationaLLM.Core.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
-            var allowAllCorsOrigins = "AllowAllOrigins";
-            builder.Services.AddCors(policyBuilder =>
-            {
-                policyBuilder.AddPolicy(allowAllCorsOrigins,
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin();
-                        policy.WithHeaders("DNT", "Keep-Alive", "User-Agent", "X-Requested-With", "If-Modified-Since", "Cache-Control", "Content-Type", "Range", "Authorization");
-                        policy.AllowAnyMethod();
-                    });
-            });
+            // Add authorization services.
+            builder.AddGroupMembership();
+            builder.AddAuthorizationService();
+
+            // CORS policies
+            builder.AddCorsPolicies();
+
+            builder.Services.AddInstanceProperties(builder.Configuration);
 
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
@@ -90,13 +90,23 @@ namespace FoundationaLLM.Core.API
 
             // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
-            builder.Services.AddAgentResourceProvider(builder.Configuration);
-
-            // Activate all resource providers (give them a chance to initialize).
-            builder.Services.ActivateSingleton<IEnumerable<IResourceProviderService>>();
+            builder.AddAgentResourceProvider();
+            builder.AddAttachmentResourceProvider();
 
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
+
+            builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+            {
+                var settings = serviceProvider.GetRequiredService<IOptions<CosmosDbSettings>>().Value;
+                return new CosmosClientBuilder(settings.Endpoint, DefaultAuthentication.AzureCredential)
+                    .WithSerializerOptions(new CosmosSerializationOptions
+                    {
+                        PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                    })
+                    .WithConnectionModeGateway()
+                    .Build();
+            });
 
             builder.Services.AddScoped<ICosmosDbService, CosmosDbService>();
             builder.Services.AddScoped<ICoreService, CoreService>();
@@ -106,26 +116,22 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
 
-            // Register the authentication services
-            RegisterAuthConfiguration(builder);
+            // Add authentication configuration.
+            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
+            var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
+            builder.AddAuthenticationConfiguration(
+                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
+                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
+                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
+                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
+                requireScopes: !isE2ETestEnvironment,
+                allowACLAuthorization: isE2ETestEnvironment
+            );
 
-            // Add the OpenTelemetry telemetry service and send telemetry data to Azure Monitor.
-            builder.Services.AddOpenTelemetry().UseAzureMonitor(options =>
-            {
-                options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString];
-            });
-            
-            // Create a dictionary of resource attributes.
-            var resourceAttributes = new Dictionary<string, object> {
-                { "service.name", "CoreAPI" },
-                { "service.namespace", "FoundationaLLM" },
-                { "service.instance.id", Guid.NewGuid().ToString() }
-            };
-
-            // Configure the OpenTelemetry tracer provider to add the resource attributes to all traces.
-            builder.Services.ConfigureOpenTelemetryTracerProvider((sp, builder) =>
-                builder.ConfigureResource(resourceBuilder =>
-                    resourceBuilder.AddAttributes(resourceAttributes)));
+            // Add OpenTelemetry.
+            builder.AddOpenTelemetry(
+                AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString,
+                ServiceNames.CoreAPI);
 
             builder.Services.AddControllers();
 
@@ -206,7 +212,7 @@ namespace FoundationaLLM.Core.API
             var app = builder.Build();
 
             // Set the CORS policy before other middleware.
-            app.UseCors(allowAllCorsOrigins);
+            app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
             // alternate path base for the management API - serves at /BASE_URL            
             var baseUrl = (Environment.GetEnvironmentVariable("BASE_URL") ?? "").TrimEnd('/');
@@ -267,16 +273,20 @@ namespace FoundationaLLM.Core.API
                 DownstreamAPIs = []
             };
 
-            var gatekeeperAPISettings = new DownstreamAPIKeySettings
+            var gatekeeperAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(40)
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperAPI] = gatekeeperAPISettings;
 
             builder.Services
                     .AddHttpClient(HttpClients.GatekeeperAPI,
-                        client => { client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl); })
+                        client => {
+                            client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl);
+                            client.Timeout = gatekeeperAPISettings.Timeout.Value;
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -284,17 +294,21 @@ namespace FoundationaLLM.Core.API
                             CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                         });
 
-            var agentFactoryAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
             {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentFactoryAPI_APIKey]!
+                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!,
+                Timeout = TimeSpan.FromMinutes(35)
             };
 
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentFactoryAPI] = agentFactoryAPISettings;
+            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
 
             builder.Services
-                    .AddHttpClient(HttpClients.AgentFactoryAPI,
-                        client => { client.BaseAddress = new Uri(agentFactoryAPISettings.APIUrl); })
+                    .AddHttpClient(HttpClients.OrchestrationAPI,
+                        client => {
+                            client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl);
+                            client.Timeout = orchestrationAPISettings.Timeout.Value;
+                        })
                     .AddResilienceHandler(
                         "DownstreamPipeline",
                         static strategyBuilder =>
@@ -307,42 +321,7 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
                 => new DownstreamAPIService(HttpClients.GatekeeperAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.AgentFactoryAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
-        }
-
-        /// <summary>
-        /// Register the authentication services.
-        /// </summary>
-        /// <param name="builder"></param>
-        public static void RegisterAuthConfiguration(WebApplicationBuilder builder)
-        {
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(jwtOptions =>
-                    {
-
-                    },
-                    identityOptions =>
-                    {
-                        identityOptions.ClientSecret = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientSecret];
-                        identityOptions.Instance = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance] ?? "";
-                        identityOptions.TenantId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId];
-                        identityOptions.ClientId = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId];
-                        identityOptions.CallbackPath = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_CallbackPath];
-                    });
-                //.EnableTokenAcquisitionToCallDownstreamApi()
-                //.AddInMemoryTokenCaches();
-
-            //builder.Services.AddScoped<IAuthenticatedHttpClientFactory, EntraAuthenticatedHttpClientFactory>();
-            builder.Services.AddScoped<IUserClaimsProviderService, EntraUserClaimsProviderService>();
-
-            // Configure the scope used by the API controllers:
-            var requiredScope = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes] ?? "";
-            builder.Services.AddAuthorizationBuilder()
-                .AddPolicy("RequiredScope", policyBuilder =>
-                {
-                    policyBuilder.RequireAuthenticatedUser();
-                    policyBuilder.RequireClaim("http://schemas.microsoft.com/identity/claims/scope", requiredScope.Split(' '));
-                });
+                => new DownstreamAPIService(HttpClients.OrchestrationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
         }
     }
 }
