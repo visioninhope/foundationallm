@@ -12,7 +12,7 @@
     Specifies the version of AzCopy to download and use. This parameter is fixed in the script.
 
 .EXAMPLE
-    .\SetupAzCopy.ps1
+    .\Get-Azcopy.ps1
 
 .NOTES
     Ensure that the PowerShell session has sufficient permissions to download and execute files, and that internet connectivity is available.
@@ -43,12 +43,12 @@ if ($IsWindows) {
 }
 
 # Define paths for download and extraction
-$outputPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy.${ext}")
-$destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools")
-$toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}/azcopy")
+$outputPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy.${ext}")
+$destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools")
+$toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}/azcopy")
 
 # Check if AzCopy already exists, download and extract if not
-if (Test-Path -Path "../../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}") {
+if (Test-Path -Path "../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}") {
 	Write-Host "azcopy_${os}_amd64_${AZCOPY_VERSION} already exists."
 }
 else {
