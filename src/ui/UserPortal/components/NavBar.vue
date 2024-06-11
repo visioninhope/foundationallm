@@ -2,7 +2,7 @@
 	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
-			<img v-if="$appConfigStore.logoUrl !== ''" :src="$appConfigStore.logoUrl" />
+			<img v-if="$appConfigStore.logoUrl !== ''" :src="$appConfigStore.logoUrl" alt="Logo" />
 			<span v-else>{{ $appConfigStore.logoText }}</span>
 
 			<template v-if="!$appConfigStore.isKioskMode">
@@ -12,6 +12,7 @@
 					severity="secondary"
 					class="secondary-button"
 					@click="$appStore.toggleSidebar"
+					aria-label="Toggle sidebar"
 				/>
 			</template>
 		</div>
@@ -30,6 +31,7 @@
 							text
 							severity="secondary"
 							@click="handleCopySession"
+							aria-label="Copy link to chat session"
 						/>
 						<Toast position="top-center" />
 					</template>

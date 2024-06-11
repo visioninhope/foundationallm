@@ -7,6 +7,7 @@
 				class="file-upload-button"
 				style="height: 100%;"
 				@click="showFileUploadDialog = true"
+				aria-label="Upload file"
 			/>
 			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal>
 				<FileUpload
