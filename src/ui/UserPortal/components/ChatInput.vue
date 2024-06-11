@@ -7,7 +7,7 @@
 				class="file-upload-button"
 				style="height: 100%;"
 				@click="toggleFileAttachmentOverlay"
-				badge="1"
+				:badge="$appStore.attachments.length"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="">
