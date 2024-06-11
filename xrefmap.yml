@@ -14102,19 +14102,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.DedicatedPipeline
   nameWithType: AgentVectorizationSettings.DedicatedPipeline
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
-  name: IndexingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectId
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
-  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId*
-  name: IndexingProfileObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds
+  name: IndexingProfileObjectIds
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectIds
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds
+  nameWithType: AgentVectorizationSettings.IndexingProfileObjectIds
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds*
+  name: IndexingProfileObjectIds
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_IndexingProfileObjectIds_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectId
-  nameWithType: AgentVectorizationSettings.IndexingProfileObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.IndexingProfileObjectIds
+  nameWithType: AgentVectorizationSettings.IndexingProfileObjectIds
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.TextEmbeddingProfileObjectId
   name: TextEmbeddingProfileObjectId
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentVectorizationSettings_TextEmbeddingProfileObjectId
