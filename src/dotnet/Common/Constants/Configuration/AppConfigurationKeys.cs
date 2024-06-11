@@ -495,6 +495,10 @@
         /// </summary>
         public const string FoundationaLLM_Branding_SecondaryButtonTextColor = "FoundationaLLM:Branding:SecondaryButtonTextColor";
         /// <summary>
+        /// The key for the FoundationaLLM:Branding:FooterText app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_FooterText = "FoundationaLLM:Branding:FooterText";
+        /// <summary>
         /// The key for the FoundationaLLM:Chat:Entra:CallbackPath app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Chat_Entra_CallbackPath = "FoundationaLLM:Chat:Entra:CallbackPath";
