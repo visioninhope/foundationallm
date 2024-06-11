@@ -45,13 +45,8 @@ class RetrieverFactory:
         if credential_type == "AzureIdentity":            
             credential = DefaultAzureCredential(exclude_environment_credential=True)
         # NOTE: Support for all other authentication types has been removed.
-
-        # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)         
-        # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)
-        #embedding_model_type = self.text_embedding_profile["text_embedding"]
-        #embedding_model = None
-        #match embedding_model_type:
-        #    case "SemanticKernelTextEmbedding": # same as Azure Open AI Embedding
+                     
+        # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)      
         e_model = EmbeddingModel(
             type = LanguageModelType.OPENAI,
             provider = LanguageModelProvider.MICROSOFT,
@@ -68,11 +63,6 @@ class RetrieverFactory:
         top_n = self.indexing_profile.settings.top_n
         filters = self.indexing_profile.settings.filters
        
-        # use indexing profile to build the retriever (current only supporting Azure AI Search)
-        #vector_store_type = self.indexing_profile["indexer"]
-        #match vector_store_type:
-        #    case "AzureAISearchIndexer":
-
         # check for settings override
         if self.orchestration_settings is not None:
             if self.orchestration_settings.agent_parameters is not None:
