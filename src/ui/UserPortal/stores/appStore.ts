@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, Message, Agent, ResourceProviderGetResult } from '@/js/types';
+import type { Session, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
 import api from '@/js/api';
 
 export const useAppStore = defineStore('app', {
@@ -13,7 +13,7 @@ export const useAppStore = defineStore('app', {
 		agents: [] as ResourceProviderGetResult<Agent>[],
 		selectedAgents: new Map(),
 		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
-		attachments: [] as String[],
+		attachments: [] as Attachment[],
 	}),
 
 	getters: {},
