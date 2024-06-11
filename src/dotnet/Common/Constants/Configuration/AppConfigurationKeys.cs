@@ -495,6 +495,10 @@
         /// </summary>
         public const string FoundationaLLM_Branding_SecondaryButtonTextColor = "FoundationaLLM:Branding:SecondaryButtonTextColor";
         /// <summary>
+        /// The key for the FoundationaLLM:Branding:FooterText app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_FooterText = "FoundationaLLM:Branding:FooterText";
+        /// <summary>
         /// The key for the FoundationaLLM:Chat:Entra:CallbackPath app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Chat_Entra_CallbackPath = "FoundationaLLM:Chat:Entra:CallbackPath";
@@ -1080,6 +1084,14 @@
         /// The key section for the FoundationaLLM:Vectorization:AzureAISearchIndexingService app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService = "FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:PostgresIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
         /// <summary>
         /// The key section for the FoundationaLLM:Gateway app configuration settings.
         /// </summary>
