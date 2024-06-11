@@ -3653,6 +3653,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_FavIconUrl
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_FavIconUrl
   nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_FavIconUrl
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_FooterText
+  name: FoundationaLLM_Branding_FooterText
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Branding_FooterText
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_FooterText
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_FooterText
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_FooterText
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_KioskMode
   name: FoundationaLLM_Branding_KioskMode
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Branding_KioskMode
@@ -10410,6 +10416,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FavIconUrl
   nameWithType: ClientBrandingConfiguration.FavIconUrl
+- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText
+  name: FooterText
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_FooterText
+  commentId: P:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText
+  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText
+  nameWithType: ClientBrandingConfiguration.FooterText
+- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText*
+  name: FooterText
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_FooterText_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.FooterText
+  nameWithType: ClientBrandingConfiguration.FooterText
 - uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.KioskMode
   name: KioskMode
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_KioskMode
