@@ -21,7 +21,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         AuthorizationResourceTypeNames.RoleAssignments)
                 {
                     AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<RoleAssignment>)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignment)], [typeof(ResourceProviderUpsertResult)]),
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
                     ],

@@ -57,7 +57,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AuthorizationResourceTypeNames.RoleAssignments => await LoadRoleAssignments(resourcePath.ResourceTypeInstances[0], userIdentity),
                 AuthorizationResourceTypeNames.RoleDefinitions => LoadRoleDefinitions(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
@@ -76,33 +75,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                 else
                     return [];
             }
-        }
-
-        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> LoadRoleAssignments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
-        {
-            var roleAssignments = new List<RoleAssignment>();
-            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id, string.Empty);
-            foreach (var obj in roleAssignmentObjects)
-            {
-                var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
-                if (!roleAssignment.Deleted)
-                    roleAssignments.Add(roleAssignment);
-            }
-
-            if (instance.ResourceId != null)
-            {
-                var roleAssignment = roleAssignments.Where(roleAssignment => roleAssignment.ObjectId == instance.ResourceId).SingleOrDefault();
-
-                if (roleAssignment == null)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} role assignment resource.",
-                        StatusCodes.Status404NotFound);
-                else
-                    roleAssignments = [roleAssignment];
-            }
-
-            return await _authorizationService.FilterResourcesByAuthorizableAction(
-               _instanceSettings.Id, userIdentity, roleAssignments,
-               AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Read);
         }
 
         #endregion
@@ -193,15 +165,40 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             };
 
         #region Helpers for ExecuteActionAsync
-        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignments(ResourceTypeInstance resourceTypeInstance, string serializedAction, UnifiedUserIdentity userIdentity)
+        private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignments(
+            ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity)
         {
             var parameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
 
             if (string.IsNullOrWhiteSpace(parameters.Scope))
                 throw new ResourceProviderException("Invalid scope. Unable to retrieve role assignments.");
             else
-                return (await LoadRoleAssignments(resourceTypeInstance, userIdentity))
-                    .Where(x => parameters.Scope.Contains(x.Resource.Scope)).ToList();
+            {
+                var roleAssignments = new List<RoleAssignment>();
+                var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id, parameters.Scope);
+
+                foreach (var obj in roleAssignmentObjects)
+                {
+                    var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
+                    if (!roleAssignment.Deleted)
+                        roleAssignments.Add(roleAssignment);
+                }
+
+                if (instance.ResourceId != null)
+                {
+                    var roleAssignment = roleAssignments.Where(roleAssignment => roleAssignment.ObjectId == instance.ResourceId).SingleOrDefault();
+
+                    if (roleAssignment == null)
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} role assignment resource.",
+                            StatusCodes.Status404NotFound);
+                    else
+                        roleAssignments = [roleAssignment];
+                }
+
+                return await _authorizationService.FilterResourcesByAuthorizableAction(
+                   _instanceSettings.Id, userIdentity, roleAssignments,
+                   AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Read);
+            }
         }
 
         #endregion
