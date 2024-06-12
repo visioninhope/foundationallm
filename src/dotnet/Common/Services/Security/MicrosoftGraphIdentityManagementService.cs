@@ -84,16 +84,19 @@ namespace FoundationaLLM.Common.Services.Security
 
             foreach (var directoryObject in objects.Value)
             {
+                string? email = null;
                 string? displayName = null;
                 var objectType = ObjectTypes.Other;
 
                 if (directoryObject is User user)
                 {
+                    email = user.Mail;
                     displayName = user.DisplayName;
                     objectType = ObjectTypes.User;
                 }
                 else if (directoryObject is Group group)
                 {
+                    email = group.Mail;
                     displayName = group.DisplayName;
                     objectType = ObjectTypes.Group;
                 }
@@ -101,8 +104,9 @@ namespace FoundationaLLM.Common.Services.Security
                 results.Add(new ObjectQueryResult
                 {
                     Id = directoryObject.Id,
-                    ObjectType = objectType,
-                    DisplayName = displayName
+                    Email = email,
+                    DisplayName = displayName,
+                    ObjectType = objectType
                 });
             }
 
@@ -110,22 +114,24 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<GroupAccount> GetUserGroupById(string groupId)
+        public async Task<ObjectQueryResult> GetUserGroupById(string groupId)
         {
             var group = await graphServiceClient.Groups[groupId].GetAsync();
 
-            return new GroupAccount
+            return new ObjectQueryResult
             {
                 Id = group?.Id,
-                Name = group?.DisplayName
+                Email = group?.Mail,
+                DisplayName = group?.DisplayName,
+                ObjectType = ObjectTypes.Group,
             };
         }
 
         /// <inheritdoc/>
-        public async Task<PagedResponse<GroupAccount>> GetUserGroups(AccountQueryParameters queryParams)
+        public async Task<PagedResponse<ObjectQueryResult>> GetUserGroups(ObjectQueryParameters queryParams)
         {
             var pageSize = queryParams.PageSize ?? 100;
-            var userGroups = new List<GroupAccount>();
+            var userGroups = new List<ObjectQueryResult>();
 
             var currentPage = 1;
 
@@ -133,7 +139,7 @@ namespace FoundationaLLM.Common.Services.Security
             var groupsPage = await graphServiceClient.Groups
                 .GetAsync(requestConfiguration =>
                 {
-                    requestConfiguration.QueryParameters.Select = ["id", "displayName"];
+                    requestConfiguration.QueryParameters.Select = ["id", "displayName", "mail"];
                     requestConfiguration.QueryParameters.Filter = "securityEnabled eq true";
                     if (!string.IsNullOrEmpty(queryParams.Name))
                     {
@@ -157,14 +163,16 @@ namespace FoundationaLLM.Common.Services.Security
             // Process the desired page.
             if (groupsPage?.Value != null)
             {
-                userGroups.AddRange(groupsPage.Value.Select(x => new GroupAccount
+                userGroups.AddRange(groupsPage.Value.Select(x => new ObjectQueryResult
                 {
-                    Id = x.Id,
-                    Name = x.DisplayName
+                    Id = x?.Id,
+                    Email = x?.Mail,
+                    DisplayName = x?.DisplayName,
+                    ObjectType = ObjectTypes.Group,
                 }));
             }
 
-            return new PagedResponse<GroupAccount>
+            return new PagedResponse<ObjectQueryResult>
             {
                 Items = userGroups,
                 TotalItems = groupsPage?.OdataCount,
@@ -173,23 +181,24 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<UserAccount> GetUserById(string userId)
+        public async Task<ObjectQueryResult> GetUserById(string userId)
         {
             var user = await graphServiceClient.Users[userId].GetAsync();
 
-            return new UserAccount
+            return new ObjectQueryResult
             {
                 Id = user?.Id,
-                Name = user?.DisplayName,
-                Email = user?.Mail
+                Email = user?.Mail,
+                DisplayName = user?.DisplayName,
+                ObjectType = ObjectTypes.User,
             };
         }
 
         /// <inheritdoc/>
-        public async Task<PagedResponse<UserAccount>> GetUsers(AccountQueryParameters queryParams)
+        public async Task<PagedResponse<ObjectQueryResult>> GetUsers(ObjectQueryParameters queryParams)
         {
             var pageSize = queryParams.PageSize ?? 100;
-            var users = new List<UserAccount>();
+            var users = new List<ObjectQueryResult>();
 
             var currentPage = 1;
 
@@ -221,15 +230,16 @@ namespace FoundationaLLM.Common.Services.Security
             // Process the desired page.
             if (usersPage?.Value != null)
             {
-                users.AddRange(usersPage.Value.Select(x => new UserAccount
+                users.AddRange(usersPage.Value.Select(x => new ObjectQueryResult
                 {
-                    Id = x.Id,
-                    Name = x.DisplayName,
-                    Email = x.Mail
+                    Id = x?.Id,
+                    Email = x?.Mail,
+                    DisplayName = x?.DisplayName,
+                    ObjectType = ObjectTypes.User,
                 }));
             }
 
-            return new PagedResponse<UserAccount>
+            return new PagedResponse<ObjectQueryResult>
             {
                 Items = users,
                 TotalItems = usersPage?.OdataCount,

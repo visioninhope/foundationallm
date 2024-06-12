@@ -30,7 +30,7 @@ namespace FoundationaLLM.Management.API.Controllers
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet("groups", Name = "GetGroups")]
-        public async Task<IActionResult> GetGroups(AccountQueryParameters parameters)
+        public async Task<IActionResult> GetGroups(ObjectQueryParameters parameters)
         {
             var groups = await identityManagementService.GetUserGroups(parameters);
             return new OkObjectResult(groups);
@@ -54,7 +54,7 @@ namespace FoundationaLLM.Management.API.Controllers
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet("users", Name = "GetUsers")]
-        public async Task<IActionResult> GetUsers(AccountQueryParameters parameters)
+        public async Task<IActionResult> GetUsers(ObjectQueryParameters parameters)
         {
             var users = await identityManagementService.GetUsers(parameters);
             return new OkObjectResult(users);

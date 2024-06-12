@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Authorization.ResourceProviders
@@ -27,7 +27,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                     ],
                     Actions = [
                         new ResourceTypeAction(AuthorizationResourceProviderActions.Filter, false, true, [
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AccountQueryParameters)], [typeof(ResourceProviderGetResult<RoleAssignment>)])
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignmentQueryParameters)], [typeof(ResourceProviderGetResult<RoleAssignment>)])
                         ])
                     ]
                 }

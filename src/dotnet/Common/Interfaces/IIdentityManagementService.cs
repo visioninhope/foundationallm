@@ -27,27 +27,27 @@ namespace FoundationaLLM.Common.Interfaces
         /// </summary>
         /// <param name="queryParams">The filtering and paging options used when retrieving group accounts.</param>
         /// <returns></returns>
-        Task<PagedResponse<GroupAccount>> GetUserGroups(AccountQueryParameters queryParams);
+        Task<PagedResponse<ObjectQueryResult>> GetUserGroups(ObjectQueryParameters queryParams);
 
         /// <summary>
         /// Retrieves a group account by its identifier.
         /// </summary>
         /// <param name="groupId">The group account identifier used to retrieve a single group account.</param>
         /// <returns></returns>
-        Task<GroupAccount> GetUserGroupById(string groupId);
+        Task<ObjectQueryResult> GetUserGroupById(string groupId);
 
         /// <summary>
         /// Retrieves a list of user accounts with filtering and paging options.
         /// </summary>
         /// <param name="queryParams">The filtering and paging options used when retrieving users.</param>
         /// <returns></returns>
-        Task<PagedResponse<UserAccount>> GetUsers(AccountQueryParameters queryParams);
+        Task<PagedResponse<ObjectQueryResult>> GetUsers(ObjectQueryParameters queryParams);
 
         /// <summary>
         /// Retrieves a user account by its identifier.
         /// </summary>
         /// <param name="userId">The user identifier used to retrieve a single user account.</param>
         /// <returns></returns>
-        Task<UserAccount> GetUserById(string userId);
+        Task<ObjectQueryResult> GetUserById(string userId);
     }
 }

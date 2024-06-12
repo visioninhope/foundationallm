@@ -14,6 +14,12 @@ namespace FoundationaLLM.Common.Models.Authentication
         public string? Id { get; set; }
 
         /// <summary>
+        /// User account email address.
+        /// </summary>
+        [JsonPropertyName("email")]
+        public string? Email { get; set; }
+
+        /// <summary>
         /// The display name of the object.
         /// </summary>
         [JsonPropertyName("display_name")]
