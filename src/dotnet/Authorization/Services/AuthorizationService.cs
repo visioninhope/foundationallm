@@ -124,7 +124,7 @@ namespace FoundationaLLM.Authorization.Services
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        public async Task<List<object>> GetRoleAssignments(string instanceId)
+        public async Task<List<object>> GetRoleAssignments(string instanceId, string resourcePath)
         {
             try
             {

@@ -58,14 +58,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 AuthorizationResourceTypeNames.RoleAssignments => await LoadRoleAssignments(resourcePath.ResourceTypeInstances[0], userIdentity),
-                AuthorizationResourceTypeNames.RoleDefinitions => LoadRoleDefinitions(resourcePath.ResourceTypeInstances[0], userIdentity),
+                AuthorizationResourceTypeNames.RoleDefinitions => LoadRoleDefinitions(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private static List<RoleDefinition> LoadRoleDefinitions(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
+        private static List<RoleDefinition> LoadRoleDefinitions(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
                 return RoleDefinitions.All.Values.ToList();
@@ -81,7 +81,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         private async Task<List<ResourceProviderGetResult<RoleAssignment>>> LoadRoleAssignments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
             var roleAssignments = new List<RoleAssignment>();
-            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
+            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id, string.Empty);
             foreach (var obj in roleAssignmentObjects)
             {
                 var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
