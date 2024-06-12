@@ -43,25 +43,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                     ],
                     Actions = []
                 }
-            },
-            {
-                AuthorizationResourceTypeNames.Accounts,
-                new ResourceTypeDescriptor(
-                        AuthorizationResourceTypeNames.Accounts)
-                {
-                    AllowedTypes = [],
-                    Actions = [
-                        new ResourceTypeAction(AuthorizationResourceProviderActions.GetUsers, false, true, [
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AccountQueryParameters)], [typeof(PagedResponse<UserAccount>)])
-                        ]),
-                        new ResourceTypeAction(AuthorizationResourceProviderActions.GetGroups, false, true, [
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AccountQueryParameters)], [typeof(PagedResponse<GroupAccount>)])
-                        ]),
-                        new ResourceTypeAction(AuthorizationResourceProviderActions.GetObjects, false, true, [
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ObjectQueryParameters)], [typeof(ObjectQueryResult)])
-                        ])
-                    ]
-                }
             }
         };
     }

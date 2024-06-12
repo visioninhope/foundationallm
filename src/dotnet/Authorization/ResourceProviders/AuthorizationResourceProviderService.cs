@@ -85,7 +85,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
 
         private async Task<List<ResourceProviderGetResult<RoleAssignment>>> LoadRoleAssignments(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
-            var roleAssignments = await GetAllRoleAssignments();
+            var roleAssignments = new List<RoleAssignment>();
+            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
+            foreach (var obj in roleAssignmentObjects)
+            {
+                var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
+                if (!roleAssignment.Deleted)
+                    roleAssignments.Add(roleAssignment);
+            }
 
             if (instance.ResourceId != null)
             {
@@ -181,14 +188,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances.Last().ResourceType switch
             {
-                AuthorizationResourceTypeNames.Accounts => resourcePath.ResourceTypeInstances.Last().Action switch
-                {
-                    AuthorizationResourceProviderActions.GetUsers => await LoadUserAccounts(serializedAction),
-                    AuthorizationResourceProviderActions.GetGroups => await LoadGroupAccounts(serializedAction),
-                    AuthorizationResourceProviderActions.GetObjects => await LoadAccounts(serializedAction),
-                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
-                        StatusCodes.Status400BadRequest)
-                },
                 AuthorizationResourceTypeNames.RoleAssignments => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     AuthorizationResourceProviderActions.Filter => await FilterRoleAssignments(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
@@ -209,49 +208,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                 return (await LoadRoleAssignments(resourceTypeInstance, userIdentity)).Where(x => x.Resource.Scope == parameters.Scope).ToList();
         }
 
-        private async Task<List<ObjectQueryResult>> LoadAccounts(string serializedAction) =>
-            await _identityManagementService.GetObjectsByIds(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
-
-        private async Task<PagedResponse<UserAccount>> LoadUserAccounts(string serializedAction)
-        {
-            var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
-
-            if (string.IsNullOrWhiteSpace(parameters.Id))
-                return await _identityManagementService.GetUsers(parameters);
-            else
-            {
-                var userAccount = await _identityManagementService.GetUserById(parameters.Id);
-                return new PagedResponse<UserAccount>() { Items = [userAccount], TotalItems = 1, HasNextPage = false };
-            }
-        }
-
-        private async Task<PagedResponse<GroupAccount>> LoadGroupAccounts(string serializedAction)
-        {
-            var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
-
-            if (string.IsNullOrWhiteSpace(parameters.Id))
-                return await _identityManagementService.GetUserGroups(parameters);
-            else
-            {
-                var userGroup = await _identityManagementService.GetUserGroupById(parameters.Id);
-                return new PagedResponse<GroupAccount>() { Items = [userGroup], TotalItems = 1, HasNextPage = false };
-            }
-        }
-
         #endregion
-
-        private async Task<List<RoleAssignment>> GetAllRoleAssignments()
-        {
-            var roleAssignments = new List<RoleAssignment>();
-            var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id);
-            foreach (var obj in roleAssignmentObjects)
-            {
-                var roleAssignment = JsonSerializer.Deserialize<RoleAssignment>(obj.ToString()!)!;
-                if (!roleAssignment.Deleted)
-                    roleAssignments.Add(roleAssignment);
-            }
-
-            return roleAssignments;
-        }
     }
 }
