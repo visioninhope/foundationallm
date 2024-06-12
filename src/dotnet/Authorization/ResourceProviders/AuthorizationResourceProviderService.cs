@@ -26,14 +26,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
-    /// <param name="accountService">The <see cref="IAccountService"/>.</param>
+    /// <param name="identityManagementService">The <see cref="IIdentityManagementService"/>.</param>
     public class AuthorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory,
-        IAccountService accountService)
+        IIdentityManagementService identityManagementService)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -44,7 +44,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             loggerFactory.CreateLogger<AuthorizationResourceProviderService>(),
             [])
     {
-        private readonly IAccountService _accountService = accountService;
+        private readonly IIdentityManagementService _identityManagementService = identityManagementService;
 
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AuthorizationResourceProviderMetadata.AllowedResourceTypes;
@@ -224,17 +224,17 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         }
 
         private async Task<List<ObjectQueryResult>> LoadAccounts(string serializedAction) =>
-            await _accountService.GetObjectsByIdsAsync(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
+            await _identityManagementService.GetObjectsByIds(JsonSerializer.Deserialize<ObjectQueryParameters>(serializedAction)!);
 
         private async Task<PagedResponse<UserAccount>> LoadUserAccounts(string serializedAction)
         {
             var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
 
             if (string.IsNullOrWhiteSpace(parameters.Id))
-                return await _accountService.GetUsersAsync(parameters);
+                return await _identityManagementService.GetUsers(parameters);
             else
             {
-                var userAccount = await _accountService.GetUserByIdAsync(parameters.Id);
+                var userAccount = await _identityManagementService.GetUserById(parameters.Id);
                 return new PagedResponse<UserAccount>() { Items = [userAccount], TotalItems = 1, HasNextPage = false };
             }
         }
@@ -244,10 +244,10 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             var parameters = JsonSerializer.Deserialize<AccountQueryParameters>(serializedAction)!;
 
             if (string.IsNullOrWhiteSpace(parameters.Id))
-                return await _accountService.GetUserGroupsAsync(parameters);
+                return await _identityManagementService.GetUserGroups(parameters);
             else
             {
-                var userGroup = await _accountService.GetUserGroupByIdAsync(parameters.Id);
+                var userGroup = await _identityManagementService.GetUserGroupById(parameters.Id);
                 return new PagedResponse<GroupAccount>() { Items = [userGroup], TotalItems = 1, HasNextPage = false };
             }
         }

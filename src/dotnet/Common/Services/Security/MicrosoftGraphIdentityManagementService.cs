@@ -1,16 +1,11 @@
-﻿using Azure.Search.Documents.Models;
+﻿using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Collections;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
-using Microsoft.Graph.Groups;
-using Microsoft.Graph.Models;
-using Microsoft.Kiota.Abstractions;
-using System.Collections.Generic;
 using Microsoft.Graph.DirectoryObjects.GetByIds;
-using FoundationaLLM.Common.Constants.Authentication;
+using Microsoft.Graph.Models;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -18,18 +13,18 @@ namespace FoundationaLLM.Common.Services.Security
     /// Implements group membership services using the Microsoft Graph API.
     /// </summary>
     /// <remarks>
-    /// Initializes a new instance of the <see cref="MicrosoftGraphAccountService"/> class.
+    /// Initializes a new instance of the <see cref="MicrosoftGraphIdentityManagementService"/> class.
     /// </remarks>
     /// <param name="graphServiceClient">The GraphServiceClient to be used for API interactions.</param>
     /// <param name="logger">The logger used for logging.</param>
-    public class MicrosoftGraphAccountService(
+    public class MicrosoftGraphIdentityManagementService(
         GraphServiceClient graphServiceClient,
-        ILogger<MicrosoftGraphAccountService> logger) : IAccountService
+        ILogger<MicrosoftGraphIdentityManagementService> logger) : IIdentityManagementService
     {
-        private readonly ILogger<MicrosoftGraphAccountService> _logger = logger;
+        private readonly ILogger<MicrosoftGraphIdentityManagementService> _logger = logger;
 
         /// <inheritdoc/>
-        public async Task<List<string>> GetGroupsForPrincipalAsync(string userIdentifier)
+        public async Task<List<string>> GetGroupsForPrincipal(string userIdentifier)
         {
             var groups = await graphServiceClient.Users[userIdentifier].TransitiveMemberOf.GraphGroup.GetAsync(requestConfiguration =>
             {
@@ -61,7 +56,7 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<List<ObjectQueryResult>> GetObjectsByIdsAsync(ObjectQueryParameters parameters)
+        public async Task<List<ObjectQueryResult>> GetObjectsByIds(ObjectQueryParameters parameters)
         {
             if (parameters.Ids == null || parameters.Ids.Length == 0)
                 throw new Exception("The list of object ids is invalid.");
@@ -115,7 +110,7 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<GroupAccount> GetUserGroupByIdAsync(string groupId)
+        public async Task<GroupAccount> GetUserGroupById(string groupId)
         {
             var group = await graphServiceClient.Groups[groupId].GetAsync();
 
@@ -127,7 +122,7 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<PagedResponse<GroupAccount>> GetUserGroupsAsync(AccountQueryParameters queryParams)
+        public async Task<PagedResponse<GroupAccount>> GetUserGroups(AccountQueryParameters queryParams)
         {
             var pageSize = queryParams.PageSize ?? 100;
             var userGroups = new List<GroupAccount>();
@@ -178,7 +173,7 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<UserAccount> GetUserByIdAsync(string userId)
+        public async Task<UserAccount> GetUserById(string userId)
         {
             var user = await graphServiceClient.Users[userId].GetAsync();
 
@@ -191,7 +186,7 @@ namespace FoundationaLLM.Common.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task<PagedResponse<UserAccount>> GetUsersAsync(AccountQueryParameters queryParams)
+        public async Task<PagedResponse<UserAccount>> GetUsers(AccountQueryParameters queryParams)
         {
             var pageSize = queryParams.PageSize ?? 100;
             var users = new List<UserAccount>();

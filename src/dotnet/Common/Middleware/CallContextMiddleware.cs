@@ -27,7 +27,7 @@ namespace FoundationaLLM.Common.Middleware
         /// </summary>
         /// <param name="context">The current HTTP request context.</param>
         /// <param name="claimsProviderService">Resolves user claims to a <see cref="UnifiedUserIdentity"/> object.</param>
-        /// <param name="accountService">Provides group membership services for user principals.</param>
+        /// <param name="identityManagementService">Provides group membership services for user principals.</param>
         /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
         /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
         /// <param name="instanceSettings">Contains the FoundationaLLM instance configuration settings.</param>
@@ -35,7 +35,7 @@ namespace FoundationaLLM.Common.Middleware
         public async Task InvokeAsync(
             HttpContext context,
             IUserClaimsProviderService claimsProviderService,
-            IAccountService accountService,
+            IIdentityManagementService identityManagementService,
             ICallContext callContext,
             IOptions<InstanceSettings> instanceSettings)
         {
@@ -49,7 +49,7 @@ namespace FoundationaLLM.Common.Middleware
                 {
                     // We are only expanding group membership for User objects
                     // Service Principal permissions must be assigned directly and not over group membership.
-                    callContext.CurrentUserIdentity.GroupIds = await accountService.GetGroupsForPrincipalAsync(
+                    callContext.CurrentUserIdentity.GroupIds = await identityManagementService.GetGroupsForPrincipal(
                         callContext.CurrentUserIdentity.UserId!);
                 }
             }
