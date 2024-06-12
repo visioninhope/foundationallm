@@ -26,14 +26,12 @@ namespace FoundationaLLM.Authorization.ResourceProviders
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to provide loggers for logging.</param>
-    /// <param name="identityManagementService">The <see cref="IIdentityManagementService"/>.</param>
     public class AuthorizationResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
-        ILoggerFactory loggerFactory,
-        IIdentityManagementService identityManagementService)
+        ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
             instanceOptions.Value,
             authorizationService,
@@ -44,8 +42,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             loggerFactory.CreateLogger<AuthorizationResourceProviderService>(),
             [])
     {
-        private readonly IIdentityManagementService _identityManagementService = identityManagementService;
-
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AuthorizationResourceProviderMetadata.AllowedResourceTypes;
 

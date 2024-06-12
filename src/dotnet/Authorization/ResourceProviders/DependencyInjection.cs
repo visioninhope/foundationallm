@@ -30,8 +30,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp,
-                    sp.GetRequiredService<ILoggerFactory>(),
-                    sp.GetRequiredService<IIdentityManagementService>()));
+                    sp.GetRequiredService<ILoggerFactory>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
         }
     }
