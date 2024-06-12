@@ -7,7 +7,6 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
-using FoundationaLLM.Common.Models.Collections;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Services.ResourceProviders;
@@ -201,7 +200,8 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             if (string.IsNullOrWhiteSpace(parameters.Scope))
                 throw new ResourceProviderException("Invalid scope. Unable to retrieve role assignments.");
             else
-                return (await LoadRoleAssignments(resourceTypeInstance, userIdentity)).Where(x => x.Resource.Scope == parameters.Scope).ToList();
+                return (await LoadRoleAssignments(resourceTypeInstance, userIdentity))
+                    .Where(x => parameters.Scope.Contains(x.Resource.Scope)).ToList();
         }
 
         #endregion
