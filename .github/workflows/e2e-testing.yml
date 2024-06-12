@@ -653,7 +653,10 @@ jobs:
           $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
 
           echo "Running End to End Test: ${{ matrix.object.name }}"
-          dotnet test --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" ${{ matrix.object.target }}
+          dotnet test `
+            --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" `
+            --logger:console[;verbosity=normal] `
+            ${{ matrix.object.target }}
         shell: pwsh
 
   teardown_quickstart:
