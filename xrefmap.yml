@@ -7719,6 +7719,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest
   fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest
   nameWithType: RoleAssignmentRequest
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy
+  name: CreatedBy
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_CreatedBy
+  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy
+  nameWithType: RoleAssignmentRequest.CreatedBy
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy*
+  name: CreatedBy
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_CreatedBy_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.CreatedBy
+  nameWithType: RoleAssignmentRequest.CreatedBy
 - uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.Description
   name: Description
   href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_Description
