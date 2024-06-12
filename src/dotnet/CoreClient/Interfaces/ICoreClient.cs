@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
@@ -35,6 +36,17 @@ namespace FoundationaLLM.Client.Core.Interfaces
             string userPrompt, string agentName, string token);
 
         /// <summary>
+        /// Runs a single completion request with an agent using the Core API and a chat session.
+        /// You must ensure that the orchestration request contains a SessionID, AgentName, and
+        /// UserPrompt.
+        /// </summary>
+        /// <param name="orchestrationRequest">The orchestration request that contains the
+        /// SessionID, AgentName, and UserPrompt at a minimum.</param>
+        /// <param name="token">The authentication token to send with the request.</param>
+        /// <returns>A completion from the designated FoundationaLLM agent.</returns>
+        Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest, string token);
+
+        /// <summary>
         /// Runs a single completion with an agent using the Core API without a chat session
         /// (sessionless). This method sends a user prompt to the agent and returns the completion
         /// response.
@@ -45,6 +57,18 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="token"></param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName, string token);
+
+        /// <summary>
+        /// Runs a single completion with an agent using the Core API without a chat session
+        /// (sessionless). This method sends a user prompt to the agent and returns the completion
+        /// response.
+        /// You must ensure that the completion request contains an AgentName and UserPrompt.
+        /// </summary>
+        /// <param name="completionRequest">The orchestration request that contains the AgentName
+        /// and UserPrompt at a minimum.</param>
+        /// <param name="token"></param>
+        /// <returns>A completion from the designated FoundationaLLM agent.</returns>
+        Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest, string token);
 
         /// <summary>
         /// Attaches a file to the completion request and sends a question to the agent using the

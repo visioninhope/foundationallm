@@ -47,6 +47,19 @@ namespace FoundationaLLM.Client.Core
                 SessionId = sessionId,
                 UserPrompt = userPrompt
             };
+            return await SendCompletionWithSessionAsync(orchestrationRequest, token);
+        }
+
+        /// <inheritdoc/>
+        public async Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest, string token)
+        {
+            if (string.IsNullOrWhiteSpace(orchestrationRequest.SessionId) ||
+                string.IsNullOrWhiteSpace(orchestrationRequest.AgentName) ||
+                string.IsNullOrWhiteSpace(orchestrationRequest.UserPrompt))
+            {
+                throw new ArgumentException("The orchestration request must contain a SessionID, AgentName, and UserPrompt at a minimum.");
+            }
+
             var completion = await coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest, token);
             return completion;
         }
@@ -56,8 +69,22 @@ namespace FoundationaLLM.Client.Core
         {
             var completionRequest = new CompletionRequest
             {
+                AgentName = agentName,
                 UserPrompt = userPrompt
             };
+
+            return await SendSessionlessCompletionAsync(completionRequest, token);
+        }
+
+        /// <inheritdoc/>
+        public async Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest, string token)
+        {
+            if (string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
+                string.IsNullOrWhiteSpace(completionRequest.UserPrompt))
+            {
+                throw new ArgumentException("The completion request must contain an AgentName and UserPrompt at a minimum.");
+            }
+
             var completion = await coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest, token);
             return completion;
         }
