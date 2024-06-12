@@ -46,6 +46,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
 
             RegisterInstance(services, configRoot);
+            RegisterClientLibraries(services, configRoot);
 			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
@@ -68,6 +69,11 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
                 DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
 
+        }
+
+        private static void RegisterClientLibraries(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddCoreClient(configuration);
         }
 
         private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
