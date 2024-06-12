@@ -62,7 +62,7 @@ $chartNames = @{
     "orchestration-api"          = "../config/helm/managementapi-values.yml"
     "prompt-hub-api"             = "../config/helm/microservice-values.yml"
     "semantic-kernel-api"        = "../config/helm/microservice-values.yml"
-    "vectorization-api"          = "../config/helm/vectorizationapi-values.yml"
+    "vectorization-api"          = "../config/helm/microservice-values.yml"
     "vectorization-job"          = "../config/helm/microservice-values.yml"
 }
 $chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
@@ -80,7 +80,6 @@ foreach ($chart in $chartsToInstall.GetEnumerator()) {
             --set image.tag=$version
     }
 }
-# TODO: review helm settings these are set for internal registry
 
 # **** Gateway Namespace ****
 $gatewayNamespace = "gateway-system"
@@ -106,7 +105,8 @@ Invoke-AndRequireSuccess "Deploy ingress-nginx" {
     helm upgrade `
         --install gateway ingress-nginx/ingress-nginx `
         --namespace ${gatewayNamespace} `
-        --values ${ingressNginxValues}
+        --values ${ingressNginxValues} `
+        --version 4.10.0
 }
 
 Start-Sleep -Seconds 60
@@ -114,7 +114,6 @@ Start-Sleep -Seconds 60
 $ingressNames = @{
     "core-api"          = "../config/helm/coreapi-ingress.yml"
     "management-api"    = "../config/helm/managementapi-ingress.yml"
-    "vectorization-api" = "../config/helm/vectorizationapi-ingress.yml"
 }
 foreach ($ingress in $ingressNames.GetEnumerator()) {
     Invoke-AndRequireSuccess "Deploying ingress for $($ingress.Key)" {
