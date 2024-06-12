@@ -100,6 +100,9 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
+        public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token) => await coreRestClient.Sessions.GetChatSessionMessagesAsync(sessionId, token);
+
+        /// <inheritdoc/>
         public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync(string token)
         {
             var agents = await coreRestClient.Orchestration.GetAgentsAsync(token);

@@ -75,6 +75,14 @@ namespace FoundationaLLM.Client.Core.Interfaces
             string agentName, string question, bool useSession, string? sessionId, string? sessionName, string token);
 
         /// <summary>
+        /// Returns the chat messages related to an existing session.
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="token">The authentication token to send with the request.</param>
+        /// <returns></returns>
+        Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token);
+
+        /// <summary>
         /// Retrieves agents available to the user for orchestration and session-based requests.
         /// </summary>
         /// <param name="token">The authentication token to send with the request.</param>
