@@ -27,7 +27,6 @@ namespace FoundationaLLM.Authorization.Models
                                     "FoundationaLLM.Authorization/roleAssignments/write",
                                     "FoundationaLLM.Authorization/roleAssignments/delete",
                                     "FoundationaLLM.Authorization/roleDefinitions/read",
-                                    "FoundationaLLM.Authorization/authorizableActions/read",
                                     "FoundationaLLM.Authorization/accounts/write",],
                                 NotActions = [],
                                 DataActions = [],

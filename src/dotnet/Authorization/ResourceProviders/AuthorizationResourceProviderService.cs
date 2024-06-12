@@ -64,7 +64,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             {
                 AuthorizationResourceTypeNames.RoleAssignments => await LoadRoleAssignments(resourcePath.ResourceTypeInstances[0], userIdentity),
                 AuthorizationResourceTypeNames.RoleDefinitions => LoadRoleDefinitions(resourcePath.ResourceTypeInstances[0], userIdentity),
-                AuthorizationResourceTypeNames.AuthorizableActions => LoadAuthorizableActions(resourcePath.ResourceTypeInstances[0], userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -79,19 +78,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             {
                 if (RoleDefinitions.All.TryGetValue(instance.ResourceId, out var roleDefinition))
                     return [roleDefinition];
-                else
-                    return [];
-            }
-        }
-
-        private static List<AuthorizableAction> LoadAuthorizableActions(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
-        {
-            if (instance.ResourceId == null)
-                return [.. AuthorizableActions.Actions.Values];
-            else
-            {
-                if (AuthorizableActions.Actions.TryGetValue(instance.ResourceId, out var authorizableAction))
-                    return [authorizableAction];
                 else
                     return [];
             }

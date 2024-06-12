@@ -28,11 +28,6 @@ namespace FoundationaLLM.Common.Constants.Authorization
         public const string FoundationaLLM_Authorization_RoleDefinitions_Read = "FoundationaLLM.Authorization/roleDefinitions/read";
 
         /// <summary>
-        /// Read authorizable actions.
-        /// </summary>
-        public const string FoundationaLLM_Authorization_AuthorizableActions_Read = "FoundationaLLM.Authorization/authorizableActions/read";
-
-        /// <summary>
         /// Perform account actions.
         /// </summary>
         public const string FoundationaLLM_Authorization_Accounts_Write = "FoundationaLLM.Authorization/accounts/write";

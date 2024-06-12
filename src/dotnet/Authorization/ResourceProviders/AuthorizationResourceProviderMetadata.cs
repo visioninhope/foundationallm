@@ -45,17 +45,6 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                 }
             },
             {
-                AuthorizationResourceTypeNames.AuthorizableActions,
-                new ResourceTypeDescriptor(
-                        AuthorizationResourceTypeNames.AuthorizableActions)
-                {
-                    AllowedTypes = [
-                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AuthorizableAction)])
-                    ],
-                    Actions = []
-                }
-            },
-            {
                 AuthorizationResourceTypeNames.Accounts,
                 new ResourceTypeDescriptor(
                         AuthorizationResourceTypeNames.Accounts)
