@@ -119,18 +119,14 @@ namespace FoundationaLLM.Authorization.Services
         }
 
 
-        /// <summary>
-        /// Returns a list of role assignments for the specified instance.
-        /// </summary>
-        /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
-        /// <returns>The list of all role assignments for the specified instance.</returns>
+        /// <inheritdoc/>
         public async Task<List<object>> GetRoleAssignments(string instanceId, string resourcePath)
         {
             try
             {
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.GetAsync(
-                    $"/instances/{instanceId}/roleassignments");
+                    $"/instances/{instanceId}/roleassignments/{resourcePath}");
 
                 if (response.IsSuccessStatusCode)
                 {
