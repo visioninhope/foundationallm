@@ -195,9 +195,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         roleAssignments = [roleAssignment];
                 }
 
-                return await _authorizationService.FilterResourcesByAuthorizableAction(
-                   _instanceSettings.Id, userIdentity, roleAssignments,
-                   AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Read);
+                return roleAssignments.Select(x => new ResourceProviderGetResult<RoleAssignment>() { Resource = x, Actions = [], Roles = [] }).ToList();
             }
         }
 
