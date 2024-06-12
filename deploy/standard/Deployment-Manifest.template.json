@@ -7,8 +7,7 @@
     "chat": "",
     "core": "",
     "managementapi": "",
-    "managementui": "",
-    "vectorizationapi": ""
+    "managementui": ""
   },
   "entraClientSecrets": {
     "authorization": ""
@@ -21,8 +20,7 @@
     "chat": "",
     "core": "",
     "managementapi": "",
-    "managementui": "",
-    "vectorizationapi": ""
+    "managementui": ""
   },
   "environment": "",
   "instanceId": "",
@@ -30,7 +28,9 @@
   "location": "",
   "letsEncryptEmail": "",
   "project": "",
+  "registry": "ghcr.io/solliancenet/foundationallm",
   "subscription": "",
+  "version": "",
   "ingress": {
     "apiIngress": {
       "coreapi": {
@@ -41,13 +41,6 @@
         "sslCert": ""
       },
       "managementapi": {
-        "host": "",
-        "path": "",
-        "pathType": "",
-        "serviceName": "",
-        "sslCert": ""
-      },
-      "vectorizationapi": {
         "host": "",
         "path": "",
         "pathType": "",
@@ -74,6 +67,7 @@
   },
   "resourceGroups": {
     "app": "",
+    "auth": "",
     "data": "",
     "dns": "",
     "jbx": "",
