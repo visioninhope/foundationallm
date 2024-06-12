@@ -167,7 +167,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
             {
                 case AuthorizationResourceTypeNames.RoleAssignments:
-                    await _authorizationService.RevokeRole(_instanceSettings.Id, resourcePath.ResourceTypeInstances.Last().ResourceId!);
+                    await _authorizationService.RevokeRoleAssignment(_instanceSettings.Id, resourcePath.ResourceTypeInstances.Last().ResourceId!);
                     break;
                 default:
                     throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",

@@ -40,7 +40,7 @@ namespace FoundationaLLM.Authorization.Services
             return [];
         }
 
-        public async Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment)
+        public async Task<RoleAssignmentResult> RevokeRoleAssignment(string instanceId, string roleAssignment)
         {
             await Task.CompletedTask;
             return new RoleAssignmentResult { Success = true };

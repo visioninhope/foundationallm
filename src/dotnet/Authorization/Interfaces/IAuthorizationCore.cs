@@ -38,7 +38,7 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="roleAssignment">The role assignment object identifier.</param>
         /// <returns>The role assignment result.</returns>
-        Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment);
+        Task<RoleAssignmentResult> RevokeRoleAssignment(string instanceId, string roleAssignment);
 
         /// <summary>
         /// Returns a list of role names and a list of allowed actions for the specified scope.

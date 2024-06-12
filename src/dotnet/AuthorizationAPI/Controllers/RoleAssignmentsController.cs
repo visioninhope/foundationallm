@@ -57,8 +57,8 @@ namespace FoundationaLLM.Authorization.API.Controllers
         /// <param name="roleAssignment">The role assignment object identifier.</param>
         /// <returns>The role assignment result.</returns>
         [HttpDelete("{*roleAssignment}")]
-        public async Task<IActionResult> RevokeRole(string instanceId, string roleAssignment) =>
-            new OkObjectResult(await _authorizationCore.RevokeRole(instanceId, roleAssignment));
+        public async Task<IActionResult> RevokeRoleAssignment(string instanceId, string roleAssignment) =>
+            new OkObjectResult(await _authorizationCore.RevokeRoleAssignment(instanceId, roleAssignment));
 
         #endregion
     }

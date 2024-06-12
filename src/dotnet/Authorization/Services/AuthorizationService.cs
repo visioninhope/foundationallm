@@ -149,7 +149,7 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<RoleAssignmentResult> RevokeRole(string instanceId, string roleAssignment)
+        public async Task<RoleAssignmentResult> RevokeRoleAssignment(string instanceId, string roleAssignment)
         {
             try
             {
