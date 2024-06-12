@@ -261,8 +261,7 @@ namespace FoundationaLLM.Vectorization.Services
                 : VectorizationState.FromRequest(request);
 
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
-            var (PreviousStep, CurrentStep) = request.MoveToNextStep();
-            state.UpdateRequest(request);            
+            var (PreviousStep, CurrentStep) = request.MoveToNextStep();                      
 
             if (!string.IsNullOrEmpty(CurrentStep))
             {
