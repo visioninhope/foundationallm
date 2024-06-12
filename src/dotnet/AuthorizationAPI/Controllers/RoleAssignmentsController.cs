@@ -36,9 +36,9 @@ namespace FoundationaLLM.Authorization.API.Controllers
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        [HttpGet]
-        public IActionResult GetRoleAssingments(string instanceId) =>
-            new OkObjectResult(_authorizationCore.GetRoleAssingments(instanceId));
+        [HttpGet("{*resourcePath}")]
+        public IActionResult GetRoleAssingments(string instanceId, string resourcePath) =>
+            new OkObjectResult(_authorizationCore.GetRoleAssingments(instanceId, resourcePath));
 
         /// <summary>
         /// Assigns a role to an Entra ID user or group.

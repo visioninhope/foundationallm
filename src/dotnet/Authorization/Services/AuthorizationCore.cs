@@ -270,7 +270,8 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public List<RoleAssignment> GetRoleAssingments(string instanceId) => _roleAssignmentStores[instanceId].RoleAssignments;
+        public List<RoleAssignment> GetRoleAssingments(string instanceId, string resourcePath) =>
+            _roleAssignmentStores[instanceId].RoleAssignments;
 
         /// <inheritdoc/>
         public Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)

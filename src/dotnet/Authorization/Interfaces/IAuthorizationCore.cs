@@ -52,7 +52,8 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// Returns a list of role assignments for the specified instance.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
+        /// <param name="resourcePath">The resource path.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        List<RoleAssignment> GetRoleAssingments(string instanceId);
+        List<RoleAssignment> GetRoleAssingments(string instanceId, string resourcePath);
     }
 }

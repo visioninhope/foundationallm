@@ -204,7 +204,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             var parameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
 
             if (string.IsNullOrWhiteSpace(parameters.Scope))
-                throw new ResourceProviderException();
+                throw new ResourceProviderException("Invalid scope. Unable to retrieve role assignments.");
             else
                 return (await LoadRoleAssignments(resourceTypeInstance, userIdentity)).Where(x => x.Resource.Scope == parameters.Scope).ToList();
         }
