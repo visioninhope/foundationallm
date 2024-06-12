@@ -6,11 +6,11 @@
     public interface IStatusRESTClient
     {
         /// <summary>
-        /// Returns the status of the Core API service.
+        /// Returns the status of the Core API service. A token is not required since
+        /// the status endpoint supports anonymous access.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<string> GetServiceStatusAsync(string token);
+        Task<string> GetServiceStatusAsync();
 
         /// <summary>
         /// Returns OK if the requester is authenticated and allowed to execute

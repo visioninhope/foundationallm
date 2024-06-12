@@ -5,9 +5,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     internal class StatusRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IStatusRESTClient
     {
         /// <inheritdoc/>
-        public async Task<string> GetServiceStatusAsync(string token)
+        public async Task<string> GetServiceStatusAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = GetCoreClient(string.Empty);
             var responseMessage = await coreClient.GetAsync("status");
 
             if (responseMessage.IsSuccessStatusCode)
