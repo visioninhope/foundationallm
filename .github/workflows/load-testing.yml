@@ -29,7 +29,22 @@ on:
           - EastUS2
           - SwedenCentral
         default: EastUS2
-
+      enableTeardown:
+        description: Enable teardown of environment
+        type: boolean
+        default: true
+      bypassAndTeardown:
+        description: Bypass Tests and Force Teardown
+        type: boolean
+        default: false
+      target:
+        description: Select target tenant/subscription
+        type: choice
+        options:
+          - sandbox
+          - e2e
+        default: e2e
+  
 jobs:
   generate_matrix:
     name: Generate Configuration Matrix
@@ -469,4 +484,101 @@ jobs:
             --load-test-resource ${{ env.load_test_name }} `
             --test-id ${{ env.load_test_id }} `
             --load-test-config-file "load-testing.yml"
+        shell: pwsh
+
+  teardown_quickstart:
+    name: Tear Down Quick Start
+    if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
+    runs-on: ubuntu-latest
+    env:
+      AZURE_ENV_NAME: ${{ inputs.environment }}
+      AZURE_LOCATION: ${{ inputs.location }}
+    needs: [generate_matrix, run_load_test]
+    steps:
+      - name: Sets Credentials for E2E
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_E2E_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'e2e'
+        env:
+          FLLM_E2E_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
+
+      - name: Sets Credentials for Sandbox
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'sandbox'
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install azd
+        uses: Azure/setup-azd@v1.0.0
+        with:
+          version: "1.9.3"
+
+      - name: Log in with Azure (Client Credentials)
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+
+          cd ./deploy/quick-start
+          azd auth login `
+            --client-id "$($info.clientId)" `
+            --client-secret "$($info.clientSecret)" `
+            --tenant-id "$($info.tenantId)"
+
+          az login `
+            --service-principal `
+            --username "$($info.clientId)" `
+            --password "$($info.clientSecret)" `
+            --tenant "$($info.tenantId)"
+        shell: pwsh
+
+      - name: Tearing Down AZD Deployment
+        id: azd-down
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+
+          Write-Host "Create new AZD Environment"
+          Push-Location ./deploy/quick-start
+          azd env new ${{ inputs.environment }}
+          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
+          azd env set PIPELINE_DEPLOY "$true"
+          Pop-Location
+
+          Push-Location ./deploy/quick-start
+          ../../tests/scripts/Set-AzdEnv.ps1 `
+            -tenantId $($info.tenantId) `
+            -principalType ServicePrincipal `
+            -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
+
+          azd env refresh --no-prompt
+          azd down --force --purge --no-prompt
+          Pop-Location
+
+          Write-Host "Remove Admin Group"
+          az ad group delete --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} --output json
+
+          Write-Host "Tear down App Registrations"
+          Push-Location ./tests/scripts
+          ./Remove-EntraIdApps.ps1 `
+            -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+            -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+            -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+            -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+            -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
+            -interactiveMode $false
+          Pop-Location
         shell: pwsh
