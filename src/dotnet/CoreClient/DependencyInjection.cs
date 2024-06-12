@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -19,15 +20,15 @@ namespace FoundationaLLM
         /// Add the Core Client and its related dependencies to the dependency injection container.
         /// </summary>
         /// <param name="builder">The application builder.</param>
-        public static void AddCoreClient(this IHostApplicationBuilder builder)
+        public static void AddCoreClient(this IServiceCollection services, IConfiguration configuration)
         {
-            builder.Services.Configure<APIClientSettings>(HttpClients.CoreAPI, options =>
+            services.Configure<APIClientSettings>(HttpClients.CoreAPI, options =>
             {
-                options.APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
+                options.APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
                 options.Timeout = TimeSpan.FromSeconds(900);
             });
 
-            builder.Services.AddHttpClient(HttpClients.CoreAPI)
+            services.AddHttpClient(HttpClients.CoreAPI)
                 .ConfigureHttpClient((serviceProvider, client) =>
                 {
                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<APIClientSettings>>().Get(HttpClients.CoreAPI);
@@ -39,7 +40,8 @@ namespace FoundationaLLM
                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
                 });
 
-            builder.Services.AddSingleton<ICoreRESTClient, CoreRESTClient>();
+            services.AddSingleton<ICoreRESTClient, CoreRESTClient>();
+            services.AddSingleton<ICoreClient, CoreClient>();
         }
     }
 }
