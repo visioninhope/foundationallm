@@ -61,13 +61,14 @@ export default {
 
 		try {
 			const response = await $fetch(`${this.apiUrl}${url}`, options);
-			return response;
+			if (response.status >= 400) {
+                throw response;
+            }
+            return response;
 		} catch (error) {
 			// If the error is an HTTP error, extract the message directly.
-			if (error.data) {
-				throw new Error(error.data.message || error.data || 'Unknown error occurred');
-			}
-			throw error;
+			const errorMessage = formatError(error);
+            throw new Error(errorMessage);
 		}
 	},
 
@@ -201,19 +202,29 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData) {
-		try {
-			const response = await this.fetch('/attachments/upload', {
-				method: 'POST',
-				body: file,
-			});
-	
-			if (response.error || response.status >= 400) {
-				throw new Error(response.message || 'Unknown error occurred');
-			}
-	
-			return response;
-		} catch (error) {
-			throw error;
-		}
+		const response = await this.fetch('/attachments/upload', {
+			method: 'POST',
+			body: file,
+		});
+
+		return response;
 	},
 };
+
+function formatError(error: any): string {
+    if (error.errors || error.data?.errors) {
+		const errors = error.errors || error.data.errors;
+        // Flatten the error messages and join them into a single string
+        return Object.values(errors).flat().join(' ');
+    }
+	if (error.data) {
+		return error.data.message || error.data || 'An unknown error occurred';
+	}
+    if (error.message) {
+        return error.message;
+    }
+    if (typeof error === 'string') {
+        return error;
+    }
+    return 'An unknown error occurred';
+}
