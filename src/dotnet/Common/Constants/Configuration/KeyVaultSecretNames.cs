@@ -62,10 +62,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_APIKey = "foundationallm-apis-semantickernelapi-apikey";
         /// <summary>
-        /// The foundationallm-azurecontentsafety-apikey Key Vault secret name.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIKey = "foundationallm-azurecontentsafety-apikey";
-        /// <summary>
         /// The foundationallm-azureopenai-api-key Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI_Api_Key = "foundationallm-azureopenai-api-key";

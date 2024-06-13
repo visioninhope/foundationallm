@@ -297,31 +297,6 @@
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
         /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIKey = "FoundationaLLM:AzureContentSafety:APIKey";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:APIUrl app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIUrl = "FoundationaLLM:AzureContentSafety:APIUrl";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:HateSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_HateSeverity = "FoundationaLLM:AzureContentSafety:HateSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:SelfHarmSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_SelfHarmSeverity = "FoundationaLLM:AzureContentSafety:SelfHarmSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:SexualSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_SexualSeverity = "FoundationaLLM:AzureContentSafety:SexualSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:ViolenceSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:AzureContentSafety:ViolenceSeverity";
-        /// <summary>
         /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
         /// </summary>

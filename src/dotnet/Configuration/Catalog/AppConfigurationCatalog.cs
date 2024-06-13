@@ -633,64 +633,6 @@ namespace FoundationaLLM.Configuration.Catalog
 
         #endregion
 
-        #region LakeraGuard
-
-        /// <summary>
-        /// The Lakera Guard configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> LakeraGuard =
-        [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
-                minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeper-lakeraguard-apikey`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIUrl,
-                minimumVersion: "0.7.0",
-                defaultValue: "Enter the URL to the service.",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-        ];
-        #endregion
-
-        #region Enkrypt Guardrails
-
-        /// <summary>
-        /// The Enkrypt Guardrails configuration entries for the solution.
-        /// </summary>
-        public static readonly List<AppConfigurationEntry> EnkryptGuardrails =
-        [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
-                minimumVersion: "0.7.0",
-                defaultValue: "Key Vault secret name: `foundationallm-apis-gatekeeper-enkryptguardrails-apikey`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIUrl,
-                minimumVersion: "0.7.0",
-                defaultValue: "Enter the URL to the service.",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-        ];
-        #endregion
-
         #region AzureContentSafety
 
         /// <summary>
@@ -698,66 +640,6 @@ namespace FoundationaLLM.Configuration.Catalog
         /// </summary>
         public static readonly List<AppConfigurationEntry> AzureContentSafety =
         [
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIKey,
-                minimumVersion: "0.3.0",
-                defaultValue: "Key Vault secret name: `foundationallm-azurecontentsafety-apikey`",
-                description: "This is a Key Vault reference.",
-                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_AzureContentSafety_APIKey,
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_APIUrl,
-                minimumVersion: "0.3.0",
-                defaultValue: "Enter the URL to the service.",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_HateSeverity,
-                minimumVersion: "0.3.0",
-                defaultValue: "2",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SelfHarmSeverity,
-                minimumVersion: "0.3.0",
-                defaultValue: "2",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_SexualSeverity,
-                minimumVersion: "0.3.0",
-                defaultValue: "2",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_AzureContentSafety_ViolenceSeverity,
-                minimumVersion: "0.3.0",
-                defaultValue: "2",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
             new(
                 key: AppConfigurationKeys.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey,
                 minimumVersion: "0.7.0",
@@ -1153,16 +1035,6 @@ namespace FoundationaLLM.Configuration.Catalog
                 key: AppConfigurationKeys.FoundationaLLM_Branding_SecondaryButtonTextColor,
                 minimumVersion: "0.3.0",
                 defaultValue: "#fff",
-                description: "",
-                keyVaultSecretName: "",
-                contentType: "text/plain",
-                sampleObject: null
-            ),
-
-            new(
-                key: AppConfigurationKeys.FoundationaLLM_Branding_FooterText,
-                minimumVersion: "0.8.0",
-                defaultValue: "",
                 description: "",
                 keyVaultSecretName: "",
                 contentType: "text/plain",
