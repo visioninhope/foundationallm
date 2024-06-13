@@ -4,6 +4,7 @@
 			<i class="pi pi-info-circle tooltip-component" v-tooltip="'Use Shift+Enter to add a new line'"></i>
 			<Button
 				icon="pi pi-paperclip"
+				label=""
 				class="file-upload-button"
 				style="height: 100%;"
 				@click="toggleFileAttachmentOverlay"
