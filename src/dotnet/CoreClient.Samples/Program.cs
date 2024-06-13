@@ -51,31 +51,19 @@ class Program
     private static async Task ManualSetup()
     {
         Scope = "api://FoundationaLLM-Auth/Data.Read";
-        var services = new ServiceCollection();
 
         // ------------------------------------------------------------------------
-        // 1. Configure a Core API entry within the HttpClientFactory
+        // 1. Instantiate the CoreClient and CoreRESTClient instances
         // ------------------------------------------------------------------------
-        services.AddHttpClient(HttpClients.CoreAPI, client =>
-        {
-            client.BaseAddress = new Uri("https://localhost:63279");
-            client.Timeout = TimeSpan.FromSeconds(900);
-        });
-
-        var serviceProvider = services.BuildServiceProvider();
-
-        // ------------------------------------------------------------------------
-        // 2. Instantiate the CoreClient and CoreRESTClient instances
-        // ------------------------------------------------------------------------
-        var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
-
-        var coreRestClient = new CoreRESTClient(httpClientFactory);
+        var coreRestClient = new CoreRESTClient(
+            "https://localhost:63279",
+            TimeSpan.FromSeconds(600));
         var coreClient = new CoreClient(coreRestClient);
 
         AnsiConsole.MarkupLine("[green]Manual setup with no Dependency Injection[/]");
 
         // ------------------------------------------------------------------------
-        // 3. Make CoreClient and CoreRESTClient calls
+        // 2. Make CoreClient and CoreRESTClient calls
         // ------------------------------------------------------------------------
         await MakeCoreClientCalls(coreClient, coreRestClient);
     }
