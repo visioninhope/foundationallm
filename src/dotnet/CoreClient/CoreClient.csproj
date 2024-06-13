@@ -17,10 +17,14 @@
     <RepositoryUrl>https://github.com/solliancenet/foundationallm</RepositoryUrl>
     <PackageId>FoundationaLLM.Client.Core</PackageId>
     <Version>0.0.0</Version> <!-- Placeholder version -->
+    <PackageIcon>fllm-icon-128.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+    <None Include="..\..\assets\fllm-icon-128.png" Pack="true" PackagePath="\"/>
+    <None Include="readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
