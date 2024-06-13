@@ -19,12 +19,19 @@
     <Version>0.0.0</Version> <!-- Placeholder version -->
     <PackageIcon>fllm-icon-128.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <Title>FoundationaLLM Core Client</Title>
+    <Authors>joelhulen, Solliance</Authors>
+    <RepositoryType>git</RepositoryType>
+    <DebugType>embedded</DebugType>
+    <PackageProjectUrl>https://foundationallm.ai</PackageProjectUrl>
+    <Copyright>Copyright © Solliance. All rights reserved.</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <None Include="..\..\..\assets\fllm-icon-128.png" Pack="true" PackagePath="\"/>
-    <None Include="readme.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\..\assets\fllm-icon-128.png" Pack="true" PackagePath="\" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
