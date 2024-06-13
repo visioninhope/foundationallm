@@ -38,10 +38,7 @@ namespace FoundationaLLM.Client.Core
             services.AddHttpClient(HttpClients.CoreAPI, client =>
             {
                 client.BaseAddress = new Uri(url);
-                if (timeout.HasValue)
-                {
-                    client.Timeout = timeout.Value;
-                }
+                client.Timeout = timeout ?? TimeSpan.FromSeconds(900);
             });
 
             var serviceProvider = services.BuildServiceProvider();
