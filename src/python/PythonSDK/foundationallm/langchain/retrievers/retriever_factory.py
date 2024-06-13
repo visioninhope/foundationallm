@@ -40,10 +40,16 @@ class RetrieverFactory:
         BaseRetriever
             Returns the concrete initialization of a vectorstore retriever.
         """
+
+        """
         credential_type = self.config.get_value(self.indexing_profile.configuration_references.authentication_type)
         credential = None
         if credential_type == "AzureIdentity":            
             credential = DefaultAzureCredential(exclude_environment_credential=True)
+        """
+
+        credential = DefaultAzureCredential(exclude_environment_credential=True)
+
         # NOTE: Support for all other authentication types has been removed.
                      
         # use embedding profile to build the embedding model (currently only supporting Azure OpenAI)      
@@ -58,7 +64,8 @@ class RetrieverFactory:
         )
         oai_model = OpenAIModel(config = self.config)
         embedding_model = oai_model.get_embedding_model(e_model)
-        
+
+        """
         # use indexing profile to build the retriever (current only supporting Azure AI Search)
         top_n = self.indexing_profile.settings.top_n
         filters = self.indexing_profile.settings.filters
@@ -70,6 +77,7 @@ class RetrieverFactory:
                     top_n = self.orchestration_settings.agent_parameters[TOP_N]
                 if FILTERS in self.orchestration_settings.agent_parameters:
                     filters = self.orchestration_settings.agent_parameters[FILTERS]
+        """
 
         retriever = AzureAISearchServiceRetriever(
             config=self.config,
