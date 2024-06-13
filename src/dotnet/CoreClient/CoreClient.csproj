@@ -8,7 +8,7 @@
     <RootNamespace>FoundationaLLM.Client.Core</RootNamespace>
     <ProjectType>Library</ProjectType>
     <InjectSharedSources>true</InjectSharedSources>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,13 +22,17 @@
     <Title>FoundationaLLM Core Client</Title>
     <Authors>Solliance</Authors>
     <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>True</IncludeSymbols>
+    <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageProjectUrl>https://foundationallm.ai</PackageProjectUrl>
     <Copyright>Copyright © Solliance. All rights reserved.</Copyright>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <ContinuousIntegrationBuild>True</ContinuousIntegrationBuild>
-    <Deterministic>True</Deterministic>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <ItemGroup>
