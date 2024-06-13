@@ -115,7 +115,7 @@ jobs:
     - name: Promote Helm Charts
       shell: pwsh
       run: |
-        $srcChartUrl = "${{needs.generate_matrix.outputs.registry }}.azurecr.io/helm/${{ matrix.object.name }}"
+        $srcChartUrl = "${{needs.generate_matrix.outputs.registry }}/helm/${{ matrix.object.name }}"
         $destChartUrl = "ghcr.io/solliancenet/foundationallm/helm"
         az acr login -n ${{needs.generate_matrix.outputs.registry }}
         helm pull oci://$srcChartUrl --version ${{ inputs.version }}
@@ -170,7 +170,7 @@ jobs:
     - name: Task
       shell: pwsh
       run: |
-        $imageWithTag = "${{ matrix.object.name }}:${{ needs.generate_matrix.outputs.docker_tag }}"
+        $imageWithTag = "${{ matrix.object.name }}:${{ inputs.version }}"
         $srcImageUrl = "${{ needs.generate_matrix.outputs.registry }}/$imageWithTag"
         $destImageUrl = "ghcr.io/solliancenet/foundationallm/$imageWithTag"
         az acr login -n ${{ needs.generate_matrix.outputs.registry }}
