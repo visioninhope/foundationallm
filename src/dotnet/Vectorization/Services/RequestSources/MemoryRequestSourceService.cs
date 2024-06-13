@@ -33,19 +33,24 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             Task.FromResult(!_requests.IsEmpty);
 
         /// <inheritdoc/>
-        public Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>> ReceiveRequests(int count)
+        public Task<IEnumerable<VectorizationDequeuedRequest>> ReceiveRequests(int count)
         {
-            var result = new List<(VectorizationRequest, string, string, long)>();
+            var result = new List<VectorizationDequeuedRequest>();
 
             for (int i = 0; i < count; i++)
             {
                 if (_requests.TryDequeue(out var request))                    
-                    result.Add(new (request, string.Empty, string.Empty, 0));
+                    result.Add(new VectorizationDequeuedRequest(){
+                        Request = request,
+                        MessageId = string.Empty,
+                        PopReceipt = string.Empty,
+                        DequeueCount = 0
+                    });
                 else
                     break;
             }
             
-            return Task.FromResult<IEnumerable<(VectorizationRequest, string, string, long)>>(result);
+            return Task.FromResult<IEnumerable<VectorizationDequeuedRequest>>(result);
         }
 
         /// <inheritdoc/>

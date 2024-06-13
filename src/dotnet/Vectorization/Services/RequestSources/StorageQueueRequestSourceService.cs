@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -54,11 +55,11 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>> ReceiveRequests(int count)
+        public async Task<IEnumerable<VectorizationDequeuedRequest>> ReceiveRequests(int count)
         {
             var receivedMessages = await _queueClient.ReceiveMessagesAsync(count, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds)).ConfigureAwait(false);
 
-            var result = new List<(VectorizationRequest, string, string, long)>();
+            var result = new List<VectorizationDequeuedRequest>();
 
             if (receivedMessages.HasValue)
             {
@@ -67,12 +68,15 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                     try
                     {
                         var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
-                                               
-                        result.Add(new(
-                            vectorizationRequest!,
-                            m.MessageId,
-                            m.PopReceipt,
-                            m.DequeueCount));
+
+                        result.Add(new VectorizationDequeuedRequest()
+                        {
+                            Request = vectorizationRequest!,
+                            MessageId = m.MessageId,
+                            PopReceipt = m.PopReceipt!,
+                            DequeueCount = m.DequeueCount
+                        });
+                          
                     }
                     catch (Exception ex)
                     {

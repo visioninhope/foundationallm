@@ -74,7 +74,8 @@ namespace FoundationaLLM.Vectorization.Services
         public async Task Run()
         {
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
-            _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);            
+            _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);
+            var receiveCycleNumber = 0;
             while (true)
             {
                 if (_cancellationToken.IsCancellationRequested)
@@ -83,52 +84,54 @@ namespace FoundationaLLM.Vectorization.Services
                 try
                 {
                     var taskPoolAvailableCapacity = _taskPool.AvailableCapacity;
-
+                    
                     if (taskPoolAvailableCapacity > 0 && (await _incomingRequestSourceService.HasRequests().ConfigureAwait(false)))
                     {
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
-
-                        foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
-                        {   
-                            Request.ProcessingState = VectorizationProcessingState.InProgress;
-                            if (Request.ExecutionStart == null)
-                                Request.ExecutionStart = DateTime.UtcNow;
+                        receiveCycleNumber++;
+                        var receivedTime = DateTimeOffset.UtcNow;
+                        var validRequests = new List<VectorizationDequeuedRequest>();
+                        foreach (var dequeuedRequest in requests)
+                        {
+                            dequeuedRequest.Request.ProcessingState = VectorizationProcessingState.InProgress;
+                            if (dequeuedRequest.Request.ExecutionStart == null)
+                                dequeuedRequest.Request.ExecutionStart = DateTime.UtcNow;
 
                             //check if the dequeue count is greater than the max number of retries
-                            if (Request.Expired
-                                || Request.ErrorCount > _settings.QueueMaxNumberOfRetries)
+                            if (dequeuedRequest.Request.Expired
+                                || dequeuedRequest.Request.ErrorCount > _settings.QueueMaxNumberOfRetries)
                             {
                                 var errorMessage = string.Empty;
 
-                                if (Request.Expired)
+                                if (dequeuedRequest.Request.Expired)
                                 {
                                     _logger.LogWarning(
                                         "The message with id {MessageId} containing the request with id {RequestId} has expired and will be deleted (the last time a step was successfully processed was {LastSuccessfulStepTime}).",
-                                        MessageId,
-                                        Request.Name,
-                                        Request.LastSuccessfulStepTime);
-                                    errorMessage = $"The message with id {MessageId} containing the request with id {Request.Name} has expired and will be deleted (the last time a step was successfully processed was {Request.LastSuccessfulStepTime}).";                                   
+                                        dequeuedRequest.MessageId,
+                                        dequeuedRequest.Request.Name,
+                                        dequeuedRequest.Request.LastSuccessfulStepTime);
+                                    errorMessage = $"The message with id {dequeuedRequest.MessageId} containing the request with id {dequeuedRequest.Request.Name} has expired and will be deleted (the last time a step was successfully processed was {dequeuedRequest.Request.LastSuccessfulStepTime}).";
                                 }
                                 else
                                 {
                                     _logger.LogWarning(
                                         "The message with id {MessageId} containing the request with id {RequestId} encountered {ErrorCount} consecutive errors while processing and will be deleted.",
-                                        MessageId,
-                                        Request.Name,
-                                        Request.ErrorCount);
-                                    errorMessage = $"ERROR: The message with id {MessageId} containing the request with id {Request.Name} encountered {Request.ErrorCount} consecutive errors while processing and will be deleted.";
+                                        dequeuedRequest.MessageId,
+                                        dequeuedRequest.Request.Name,
+                                        dequeuedRequest.Request.ErrorCount);
+                                    errorMessage = $"ERROR: The message with id {dequeuedRequest.MessageId} containing the request with id {dequeuedRequest.Request.Name} encountered {dequeuedRequest.Request.ErrorCount} consecutive errors while processing and will be deleted.";
                                 }
 
                                 // Retrieve the execution state of the request
-                                var state = await _vectorizationStateService.HasState(Request).ConfigureAwait(false)
-                                        ? await _vectorizationStateService.ReadState(Request).ConfigureAwait(false)
-                                        : VectorizationState.FromRequest(Request);
+                                var state = await _vectorizationStateService.HasState(dequeuedRequest.Request).ConfigureAwait(false)
+                                        ? await _vectorizationStateService.ReadState(dequeuedRequest.Request).ConfigureAwait(false)
+                                        : VectorizationState.FromRequest(dequeuedRequest.Request);
 
                                 state.LogEntries.Add(
                                     new VectorizationLogEntry(
-                                        Request.Name!,
-                                        MessageId,
-                                        Request.CurrentStep ?? "N/A",
+                                        dequeuedRequest.Request.Name!,
+                                        dequeuedRequest.MessageId,
+                                        dequeuedRequest.Request.CurrentStep ?? "N/A",
                                         errorMessage
                                     )
                                 );
@@ -136,47 +139,53 @@ namespace FoundationaLLM.Vectorization.Services
                                 // Update vectorization request state if there's an error.
                                 if (!string.IsNullOrWhiteSpace(errorMessage))
                                 {
-                                    Request.ProcessingState = VectorizationProcessingState.Failed;
-                                    Request.ExecutionEnd = DateTime.UtcNow;
-                                    Request.ErrorMessages.Add(errorMessage);                                    
+                                    dequeuedRequest.Request.ProcessingState = VectorizationProcessingState.Failed;
+                                    dequeuedRequest.Request.ExecutionEnd = DateTime.UtcNow;
+                                    dequeuedRequest.Request.ErrorMessages.Add(errorMessage);
                                 }
 
                                 // Remove the message from the queue
-                                await _incomingRequestSourceService.DeleteRequest(MessageId, PopReceipt).ConfigureAwait(false);
+                                await _incomingRequestSourceService.DeleteRequest(dequeuedRequest.MessageId, dequeuedRequest.PopReceipt).ConfigureAwait(false);
 
                                 // Persist the state of the vectorization request
                                 await _vectorizationStateService.SaveState(state).ConfigureAwait(false);
                                 // Update the vectorization request resource
-                                await Request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
+                                await dequeuedRequest.Request.UpdateVectorizationRequestResource(vectorizationResourceProvider);
                                 // Verify if the pipeline state needs to be updated
-                                await UpdatePipelineState(Request).ConfigureAwait(false);
+                                await UpdatePipelineState(dequeuedRequest.Request).ConfigureAwait(false);
                             }
                             else
                             {
-                                var ignoredRequests = requests
-                                    .Where(r => _taskPool.HasRunningTaskForPayload(r.Request.Name!))
-                                    .Select(r => r.Request.Name!)
-                                    .ToList();
-
-                                if (ignoredRequests.Count > 0)
-                                    _logger.LogWarning("The following requests were dequeued while still being processed based on the previous dequeuing: {IgnoredRequestIds}. The requests will be ignored.",
-                                        string.Join(",", ignoredRequests));
-
-                                // Add the request to the task pool for processing
-                                // No need to use ConfigureAwait(false) since the code is going to be executed on a
-                                // thread pool thread, with no user code higher on the stack (for details, see
-                                // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
-                                _taskPool.Add(requests
-                                    .Where(r => !_taskPool.HasRunningTaskForPayload(r.Request.Name!))
-                                    .Select(r => new TaskInfo
-                                        {
-                                            PayloadId = r.Request.Name!,
-                                            Task = Task.Run(
-                                            () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
-                                            _cancellationToken)
-                                        }));
+                                validRequests.Add(dequeuedRequest);
                             }
-                        }                          
+                        }
+
+
+                        var ignoredRequests = validRequests
+                            .Where(r => _taskPool.HasRunningTaskForPayload(r.Request.Name!))
+                            .Select(r => r.Request.Name!)
+                            .ToList();
+
+                        if (ignoredRequests.Count > 0)
+                            _logger.LogWarning("The following requests were dequeued while still being processed based on the previous dequeuing: {IgnoredRequestIds}. The requests will be ignored.",
+                                string.Join(",", ignoredRequests));
+
+                        // Add the request to the task pool for processing
+                        // No need to use ConfigureAwait(false) since the code is going to be executed on a
+                        // thread pool thread, with no user code higher on the stack (for details, see
+                        // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
+                        _taskPool.Add(validRequests
+                            .Where(r => !_taskPool.HasRunningTaskForPayload(r.Request.Name!))
+                            .Select(r => new TaskInfo
+                                {
+                                    PayloadId = r.Request.Name!,
+                                    Task = Task.Run(
+                                    () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },                                            
+                                    _cancellationToken),
+                                    StartTime = DateTimeOffset.UtcNow,
+                                    ReceiveCycleNumber = receiveCycleNumber
+                                }));                            
+                                               
                         // Pace retrieving requests by a pre-determined delay           
                         await Task.Delay(TimeSpan.FromSeconds(_settings.QueueProcessingPace));
                     }
