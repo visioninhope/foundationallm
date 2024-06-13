@@ -22,10 +22,13 @@
     <Title>FoundationaLLM Core Client</Title>
     <Authors>joelhulen, Solliance</Authors>
     <RepositoryType>git</RepositoryType>
-    <DebugType>embedded</DebugType>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageProjectUrl>https://foundationallm.ai</PackageProjectUrl>
     <Copyright>Copyright © Solliance. All rights reserved.</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <ContinuousIntegrationBuild>True</ContinuousIntegrationBuild>
+    <Deterministic>True</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
