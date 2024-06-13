@@ -483,7 +483,8 @@ jobs:
           az load test create `
             --load-test-resource ${{ env.load_test_name }} `
             --test-id ${{ env.load_test_id }} `
-            --load-test-config-file "load-testing.yml"
+            --load-test-config-file "load-testing.yml" `
+            -g ${{ steps.set-config.outputs.resource_group_name }}
         shell: pwsh
 
   teardown_quickstart:
