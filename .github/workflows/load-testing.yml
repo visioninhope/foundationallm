@@ -451,9 +451,9 @@ jobs:
             core_api_endpoint = $configurationParameters["SERVICE_CORE_API_ENDPOINT_URL"]
           }
           $load_testing_config = Get-Content "./tests/config/load-testing-template.yml" -Raw
-          foreach ($h in $hash.GetEnumerator() )
+          foreach ($h in $config.GetEnumerator())
           {
-            $load_testing_config = $load_testing_config -replace "\${$($h.Name)}", $h.Value
+            $load_testing_config = $load_testing_config.replace("`${$($h.Name)}", $h.Value)
           }
           Out-File -FilePath "load-testing.yml" -InputObject $load_testing_config
           
@@ -479,7 +479,7 @@ jobs:
       - name: Run Load Test
         run: |
           # Create Agents
-          dotnet test --filter "FullyQualifiedName=FoundationaLLM.Core.Examples.CreateAgentsForLoadTest" ./tests/dotnet/Core.Examples/Core.Examples.csproj
+          dotnet test --filter "FullyQualifiedName=FoundationaLLM.Core.Examples.CreateAgentsForLoadTest.RunAsync" ./tests/dotnet/Core.Examples/Core.Examples.csproj
           az load test create `
             --load-test-resource ${{ env.load_test_name }} `
             --test-id ${{ env.load_test_id }} `

@@ -37,7 +37,7 @@ namespace FoundationaLLM.Core.Examples
             await _vectorizationTestService.CreateIndexingProfile(indexingProfileSDZWA);
             await _vectorizationTestService.CreateTextEmbeddingProfile(textEmbeddingProfileName);
 
-            await _managementAPITestManager.CreateAgent(TestAgentNames.SemanticKernelDune, indexingProfileDune, textEmbeddingProfileName);
+            await _managementAPITestManager.CreateAgent(TestAgentNames.Dune01, indexingProfileDune, textEmbeddingProfileName);
             await _managementAPITestManager.CreateAgent(TestAgentNames.LangChainSDZWA, indexingProfileSDZWA, textEmbeddingProfileName);
         }
     }
