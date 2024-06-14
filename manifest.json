@@ -6722,6 +6722,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationDequeuedRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationDequeuedRequest.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationIndexReference.yml",
       "output": {
         ".html": {
@@ -6756,6 +6766,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationQueuing.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationRequestProcessingContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.VectorizationRequestProcessingContext.html"
         }
       },
       "version": ""

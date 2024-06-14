@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions" class="text-break">
-Class VectorizationResourceProviderServiceExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class VectorizationResourceProviderServiceExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -157,7 +157,7 @@ Class VectorizationResourceProviderServiceExtensions  <a class="header-action li
 
   <h3 id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_GetActivePipelines_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.GetActivePipelines(FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService)">
   GetActivePipelines(VectorizationResourceProviderService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves all active vectorization pipelines.</p>
@@ -192,11 +192,53 @@ Class VectorizationResourceProviderServiceExtensions  <a class="header-action li
 
 
 
+  <a id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_GetVectorizationRequestResource_" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.GetVectorizationRequestResource*"></a>
+
+  <h3 id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_GetVectorizationRequestResource_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_System_String_" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.GetVectorizationRequestResource(FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService,System.String)">
+  GetVectorizationRequestResource(VectorizationResourceProviderService, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the vectorization request resource with the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VectorizationRequest GetVectorizationRequestResource(this VectorizationResourceProviderService vectorizationResourceProvider, string requestName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vectorizationResourceProvider</code> <a class="xref" href="FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html">VectorizationResourceProviderService</a></dt>
+    <dd><p>An instance of the vectorization resource provider.</p>
+</dd>
+    <dt><code>requestName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the request to retrieve.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a></dt>
+    <dd><p>The vectorization request.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_TogglePipelineActivation_" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.TogglePipelineActivation*"></a>
 
   <h3 id="FoundationaLLM_Vectorization_Extensions_VectorizationResourceProviderServiceExtensions_TogglePipelineActivation_FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_System_String_System_Boolean_" data-uid="FoundationaLLM.Vectorization.Extensions.VectorizationResourceProviderServiceExtensions.TogglePipelineActivation(FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService,System.String,System.Boolean)">
   TogglePipelineActivation(VectorizationResourceProviderService, string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the specified vectorization pipeline to active or inactive.</p>
@@ -240,7 +282,7 @@ Class VectorizationResourceProviderServiceExtensions  <a class="header-action li
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Extensions/VectorizationResourceProviderServiceExtensions.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 
