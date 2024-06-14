@@ -41,7 +41,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             {
                 if (_requests.TryDequeue(out var request))                    
                     result.Add(new VectorizationDequeuedRequest(){
-                        Request = request,
+                        RequestName = request.Name,
                         MessageId = string.Empty,
                         PopReceipt = string.Empty,
                         DequeueCount = 0

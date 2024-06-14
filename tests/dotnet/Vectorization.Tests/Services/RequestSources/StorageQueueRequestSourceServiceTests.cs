@@ -72,7 +72,7 @@ namespace Vectorization.Tests.Services.RequestSources
             // Correct Deserialization
             Assert.Equal(
                 "d4669c9c-e330-450a-a41c-a4d6649abdef",
-                vectorizationRequestQueueMessage.Request.Name
+                vectorizationRequestQueueMessage!.RequestName
             );
 
             // Message ID & Pop Receipt must be retained for deletion
