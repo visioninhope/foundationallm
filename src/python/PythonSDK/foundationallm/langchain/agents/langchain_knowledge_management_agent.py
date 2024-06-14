@@ -159,9 +159,11 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     if (agent.vectorization.indexing_profile_object_ids is not None) and (text_embedding_profile is not None):
 
                         for profile_id in agent.vectorization.indexing_profile_object_ids:
-                            indexing_profiles.append(self._get_indexing_profile_from_object_id(
-                                profile_id,
-                                agent.orchestration_settings.agent_parameters))
+                            indexing_profiles.append(
+                                AzureAISearchIndexingProfile.from_object(
+                                    agent.orchestration_settings.agent_parameters[profile_id]
+                                )
+                            )
 
                         retriever_factory = RetrieverFactory(
                                         indexing_profiles,

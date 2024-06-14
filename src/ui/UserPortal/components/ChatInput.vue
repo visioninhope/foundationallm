@@ -1,7 +1,7 @@
 <template>
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
-			<i class="pi pi-info-circle tooltip-component" v-tooltip="'Use Shift+Enter to add a new line'"></i>
+			<i class="pi pi-info-circle tooltip-component" v-tooltip.top="'Use Shift+Enter to add a new line'"></i>
 			<Button
 				icon="pi pi-paperclip"
 				label=""
@@ -9,6 +9,7 @@
 				style="height: 100%;"
 				@click="toggleFileAttachmentOverlay"
 				:badge="$appStore.attachments.length.toString() || null"
+				v-tooltip.top="'Attach files' + ($appStore.attachments.length ? ' (' + $appStore.attachments.length.toString() + ' file)' : ' (0 files)')"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
@@ -16,7 +17,15 @@
 					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
 						<div class="file-name">{{ file.fileName }}</div>
 						<div class="file-remove">
-							<Button icon="pi pi-times" severity="danger" text rounded aria-label="Remove attachment" @click="removeAttachment(file)" />
+							<Button
+								icon="pi pi-times"
+								severity="danger"
+								text
+								rounded
+								aria-label="Remove attachment"
+								v-tooltip="'Remove attachment'"
+								@click="removeAttachment(file)"
+							/>
 						</div>
 					</div>
 					<div v-else>
