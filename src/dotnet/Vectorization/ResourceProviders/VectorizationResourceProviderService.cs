@@ -13,9 +13,9 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Models.Resources;
+using FoundationaLLM.Vectorization.Services.VectorizationServices;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,24 +29,20 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 {
     /// <summary>
     /// Implements the FoundationaLLM.Vectorization resource provider.
-    /// </summary>
-    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>
-    /// <param name="vectorizationServiceSettings">The options for instantiating a Vectorization API client <see cref="VectorizationServiceSettings"/></param>
+    /// </summary>    
+    /// <param name="instanceOptions">The options providing the <see cref="InstanceSettings"/> with instance settings.</param>    
     /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
-    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
-    /// <param name="httpClientFactory">The factory responsible for creating HTTP client instances.</param>
+    /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>    
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="loggerFactory">The factory responsible for creating loggers.</param>    
-    public class VectorizationResourceProviderService(
+    public class VectorizationResourceProviderService(        
         IOptions<InstanceSettings> instanceOptions,
-        IOptions<VectorizationServiceSettings> vectorizationServiceSettings,
         IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
         IEventService eventService,
-        IResourceValidatorFactory resourceValidatorFactory,
-        IHttpClientFactory httpClientFactory,
+        IResourceValidatorFactory resourceValidatorFactory,        
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
         : ResourceProviderServiceBase(
@@ -417,13 +413,11 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
             var request = result.First();
-           
-            var client = new VectorizationServiceClient(
-                httpClientFactory,
-                vectorizationServiceSettings,
-                loggerFactory.CreateLogger<VectorizationServiceClient>());
-          
-            return await client.ProcessRequest(request);            
+
+            var factory = serviceProvider.GetService<VectorizationServiceFactory>();
+            var vectorizationService = factory!.GetService(request);
+            var response = await vectorizationService.ProcessRequest(request);
+            return response;            
         }
 
         private ResourceNameCheckResult CheckProfileName<T>(string serializedAction, ConcurrentDictionary<string, VectorizationProfileBase> profileStore)

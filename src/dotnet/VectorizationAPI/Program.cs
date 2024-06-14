@@ -94,6 +94,7 @@ builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
 builder.Services.AddOptions<PostgresIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
 
+// Add queue and step configurations
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues,
@@ -113,12 +114,16 @@ builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
         .Build();
 });
 
+// Request sources cache
+builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
+builder.Services.ActivateSingleton<IRequestSourcesCache>();
+
 // Vectorization state
 builder.Services.AddSingleton<MemoryVectorizationStateService, MemoryVectorizationStateService>(); //for sync requests
 builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>(); //for async requests
 
-// Vectorization factory
-builder.Services.AddSingleton<VectorizationServiceFactory, VectorizationServiceFactory>();
+// Register the vectorization service factory.
+builder.Services.AddSingleton<VectorizationServiceFactory>();
 
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
@@ -154,12 +159,7 @@ builder.Services.AddKeyedSingleton<IIndexingService, AzureCosmosDBNoSQLIndexingS
 builder.Services.AddKeyedSingleton<IIndexingService, PostgresIndexingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService);
 
-// Request sources cache
-builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
-builder.Services.ActivateSingleton<IRequestSourcesCache>();
 
-// Vectorization
-builder.Services.AddScoped<IVectorizationService, AsynchronousVectorizationService>();
 
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
