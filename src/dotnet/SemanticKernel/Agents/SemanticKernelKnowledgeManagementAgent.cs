@@ -123,7 +123,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
             }
 
-            if (agent.Vectorization.IndexingProfileObjectIds.Count > 0)
+            if ((agent.Vectorization.IndexingProfileObjectIds ?? []).Count > 0)
             {
                 if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds[0]))
                     throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
