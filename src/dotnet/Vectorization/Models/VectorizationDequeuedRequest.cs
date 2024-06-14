@@ -10,7 +10,7 @@ namespace FoundationaLLM.Vectorization.Models
         /// <summary>
         /// The vectorization request.
         /// </summary>
-        public required VectorizationRequest Request { get; set;}
+        public required string RequestName { get; set;}
 
         /// <summary>
         /// The queue message identifier.

@@ -71,7 +71,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
 
                         result.Add(new VectorizationDequeuedRequest()
                         {
-                            Request = vectorizationRequest!,
+                            RequestName = vectorizationRequest!.Name,
                             MessageId = m.MessageId,
                             PopReceipt = m.PopReceipt!,
                             DequeueCount = m.DequeueCount
