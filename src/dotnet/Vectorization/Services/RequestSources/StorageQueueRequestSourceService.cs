@@ -1,11 +1,9 @@
 ﻿using Azure.Storage.Queues;
 using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace FoundationaLLM.Vectorization.Services.RequestSources
 {
@@ -67,11 +65,11 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
                 {
                     try
                     {
-                        var vectorizationRequest = JsonSerializer.Deserialize<VectorizationRequest>(m.Body.ToString());
+                        var vectorizationRequestName = m.Body.ToString();
 
                         result.Add(new VectorizationDequeuedRequest()
                         {
-                            RequestName = vectorizationRequest!.Name,
+                            RequestName = vectorizationRequestName,
                             MessageId = m.MessageId,
                             PopReceipt = m.PopReceipt!,
                             DequeueCount = m.DequeueCount
@@ -99,23 +97,15 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
             else
             {
                 _logger.LogInformation("Message with id {MessageId} deleted.", messageId);
-            }
-           
-        }
-            
+            }           
+        }            
 
         /// <inheritdoc/>
-        public async Task SubmitRequest(VectorizationRequest request)
+        public async Task SubmitRequest(string requestName)
         {
-            var serializedMessage = JsonSerializer.Serialize(request);
+            var serializedMessage = requestName;
             await _queueClient.SendMessageAsync(serializedMessage).ConfigureAwait(false);
         }
-
-        /// <inheritdoc/>
-        public async Task UpdateRequest(string messageId, string popReceipt, VectorizationRequest request)
-        {
-            var serializedMessage = JsonSerializer.Serialize(request);
-            await _queueClient.UpdateMessageAsync(messageId, popReceipt, serializedMessage, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds));
-        }
+        
     }
 }

@@ -41,17 +41,9 @@ namespace FoundationaLLM.Vectorization.Interfaces
         /// <summary>
         /// Submits a new vectorization request to the source.
         /// </summary>
-        /// <param name="request">The <see cref="VectorizationRequest"/> item describing the vectorization request.</param>
+        /// <param name="requestName">The name (unique identifier) of the vectorization request.</param>
         /// <returns></returns>
-        Task SubmitRequest(VectorizationRequest request);
+        Task SubmitRequest(string requestName);
 
-        /// <summary>
-        /// Updates and existing vectorization request.
-        /// </summary>
-        /// <param name="messageId">The identifier of the existing item in the request source.</param>
-        /// <param name="popReceipt">This value is required to update the request.</param>
-        /// <param name="request">The <see cref="VectorizationRequest"/> to update.</param>
-        /// <returns></returns>
-        Task UpdateRequest(string messageId, string popReceipt, VectorizationRequest request);
     }
 }

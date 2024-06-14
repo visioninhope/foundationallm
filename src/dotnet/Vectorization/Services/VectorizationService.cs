@@ -52,7 +52,7 @@ namespace FoundationaLLM.Vectorization.Services
                 {
                     case VectorizationProcessingType.Asynchronous:
                         var firstRequestSource = _requestSources[vectorizationRequest.Steps.First().Id];
-                        await firstRequestSource.SubmitRequest(vectorizationRequest);
+                        await firstRequestSource.SubmitRequest(vectorizationRequest.Name);
                         return new VectorizationResult(vectorizationRequest.ObjectId!, true, null);
                     case VectorizationProcessingType.Synchronous:
                         return await ProcessRequestInternal(vectorizationRequest);

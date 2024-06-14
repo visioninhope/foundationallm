@@ -276,7 +276,7 @@ namespace FoundationaLLM.Vectorization.Services
                     throw new VectorizationException(errorMessage);
                 }
 
-                await value.SubmitRequest(request).ConfigureAwait(false);
+                await value.SubmitRequest(request.Name).ConfigureAwait(false);
 
                 _logger.LogInformation("The pipeline for request id {RequestId} was advanced from step [{PreviousStepName}] to step [{CurrentStepName}].",
                     request.Name, PreviousStep, CurrentStep);               
