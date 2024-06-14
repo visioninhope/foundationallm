@@ -69,7 +69,6 @@ jobs:
 
   helm_promote:
     name: Promote Helm Charts
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
     runs-on: ubuntu-latest
     needs: generate_matrix
     strategy:
@@ -116,7 +115,7 @@ jobs:
     - name: Promote Helm Charts
       shell: pwsh
       run: |
-        $srcChartUrl = "${{needs.generate_matrix.outputs.registry }}.azurecr.io/helm/${{ matrix.object.name }}"
+        $srcChartUrl = "${{needs.generate_matrix.outputs.registry }}/helm/${{ matrix.object.name }}"
         $destChartUrl = "ghcr.io/solliancenet/foundationallm/helm"
         az acr login -n ${{needs.generate_matrix.outputs.registry }}
         helm pull oci://$srcChartUrl --version ${{ inputs.version }}
@@ -125,7 +124,6 @@ jobs:
 
   docker_promote:
     name: Promote Docker Images
-    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')
     runs-on: ubuntu-latest
     needs: generate_matrix
     strategy:
@@ -172,7 +170,7 @@ jobs:
     - name: Task
       shell: pwsh
       run: |
-        $imageWithTag = "${{ matrix.object.name }}:${{ needs.generate_matrix.outputs.docker_tag }}"
+        $imageWithTag = "${{ matrix.object.name }}:${{ inputs.version }}"
         $srcImageUrl = "${{ needs.generate_matrix.outputs.registry }}/$imageWithTag"
         $destImageUrl = "ghcr.io/solliancenet/foundationallm/$imageWithTag"
         az acr login -n ${{ needs.generate_matrix.outputs.registry }}
