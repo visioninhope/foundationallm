@@ -39,7 +39,7 @@ So for deployment purposes, it is recommended to use the latest release branch, 
 ## Deployment steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
-If you are upgrading from a previous version, like `0.5.0`, please refer to the changes in the [release notes](changes-060.md).
+If you are upgrading from a previous version, like `0.5.0`, please refer to the changes in the [breaking changes notes](../release-notes/breaking-changes.md).
 
 > [!IMPORTANT]
 > Follow the instructions in the [Authentication and Authorization setup document](authentication-authorization/index.md) to finalize authentication and authorization for the solution. Bear in mind that creating the app registrations in the Entra ID tenant is a **prerequisite** for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.
