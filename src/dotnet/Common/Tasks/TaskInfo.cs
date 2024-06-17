@@ -20,11 +20,5 @@
         /// The start time of the task.
         /// </summary>
         public required DateTimeOffset StartTime { get; set; }
-
-
-        /// <summary>
-        /// The number of the receive cycle that created the task info
-        /// </summary>
-        public required int ReceiveCycleNumber { get; set; }
     }
 }
