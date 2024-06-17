@@ -5,7 +5,6 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Tokenizers;
@@ -24,9 +23,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Serializers;
 using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
+using FoundationaLLM.Vectorization.Services.RequestProcessors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -124,6 +123,9 @@ builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizati
 
 // Register the vectorization service factory.
 builder.Services.AddSingleton<VectorizationServiceFactory>();
+
+// Register the local vectorization processor.
+builder.Services.AddSingleton<IVectorizationRequestProcessor, LocalVectorizationRequestProcessor>();
 
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();

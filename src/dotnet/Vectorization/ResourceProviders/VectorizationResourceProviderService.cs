@@ -13,9 +13,8 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Resources;
-using FoundationaLLM.Vectorization.Services.VectorizationServices;
 using FoundationaLLM.Vectorization.Validation.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -406,17 +405,15 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         /// <exception cref="ResourceProviderException"></exception>
         private async Task<VectorizationResult> ProcessVectorizationRequest(ResourcePath resourcePath)
         {
-            var vectorizationRequestId = resourcePath.ResourceTypeInstances[0].ResourceId!;
-            // retrieve the vectorization request from the in-memory collection
+            var vectorizationRequestId = resourcePath.ResourceTypeInstances[0].ResourceId!;            
             var result = (List<VectorizationRequest>)(await GetResourcesAsync(resourcePath, GetUnifiedUserIdentity())); //should only return one or none
             if (result.Count == 0)
                 throw new ResourceProviderException($"The resource {vectorizationRequestId} was not found.",
                                        StatusCodes.Status404NotFound);
             var request = result.First();
 
-            var factory = serviceProvider.GetService<VectorizationServiceFactory>();
-            var vectorizationService = factory!.GetService(request);
-            var response = await vectorizationService.ProcessRequest(request);
+            var requestProcessor = serviceProvider.GetService<IVectorizationRequestProcessor>();           
+            var response = await requestProcessor!.ProcessRequest(request);
             return response;            
         }
 
