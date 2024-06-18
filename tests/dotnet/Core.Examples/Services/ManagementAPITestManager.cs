@@ -14,7 +14,7 @@ using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
-using FoundationaLLM.Core.Examples.Resources;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
@@ -106,6 +106,28 @@ namespace FoundationaLLM.Core.Examples.Services
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"textPartitioningProfiles/{textPartitioningProfileName}",
                 textPartitioningProfile);
+        }
+
+        public async Task CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
+                string textEmbeddingProfileName, string textPartitioningProfileName)
+        {
+            var vectorizationPipeline = VectorizationPipelineCatalog.GetVectorizationPipelines().FirstOrDefault(a => a.Name == vectorizationPipelineName);
+
+            if (vectorizationPipeline == null)
+            {
+                throw new InvalidOperationException($"The vectorization pipeline {vectorizationPipelineName} was not found.");
+            }
+
+            vectorizationPipeline.DataSourceObjectId = (await GetDataSource(dataSourceName)).ObjectId!;
+            vectorizationPipeline.IndexingProfileObjectId = (await GetIndexingProfile(indexingProfileName)).ObjectId!;
+            vectorizationPipeline.TextEmbeddingProfileObjectId = (await GetTextEmbeddingProfile(textEmbeddingProfileName)).ObjectId!;
+            vectorizationPipeline.TextPartitioningProfileObjectId = (await GetTextPartitioningProfile(textPartitioningProfileName)).ObjectId!;
+
+            var vectorizationPipelineObjectId = await UpsertResourceAsync(
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"vectorizationPipelines/{vectorizationPipelineName}",
+                vectorizationPipeline);
         }
 
         public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
@@ -354,6 +376,11 @@ namespace FoundationaLLM.Core.Examples.Services
         async public Task<TextPartitioningProfile> GetTextPartitioningProfile(string name)
         {
             return (await GetResourcesAsync<ResourceProviderGetResult<TextPartitioningProfile>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, $"textPartitioningProfiles/{name}")).Resource;
+        }
+
+        async public Task<DataSourceBase> GetDataSource(string name)
+        {
+            return (await GetResourcesAsync<ResourceProviderGetResult<DataSourceBase>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_DataSource, $"dataSources/{name}")).Resource;
         }
     }
 }

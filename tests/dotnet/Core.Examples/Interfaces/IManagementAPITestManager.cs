@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Core.Examples.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.Core.Examples.Interfaces;
 
@@ -83,6 +84,9 @@ public interface IManagementAPITestManager
 
     Task CreateIndexingProfile(string name);
 
+    Task CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
+                string textEmbeddingProfileName, string textPartitioningProfileName);
+
     Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest);
 
     Task<string> CreateVectorizationRequest(VectorizationRequest vectorizationRequest);
@@ -103,4 +107,6 @@ public interface IManagementAPITestManager
     Task<TextEmbeddingProfile> GetTextEmbeddingProfile(string name);
 
     Task<TextPartitioningProfile> GetTextPartitioningProfile(string name);
+
+    Task<DataSourceBase> GetDataSource(string name);
 }

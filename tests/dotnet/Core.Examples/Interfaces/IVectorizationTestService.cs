@@ -13,6 +13,8 @@ public interface IVectorizationTestService
     public Task CreateTextPartitioningProfile(string name);
     public Task CreateTextEmbeddingProfile(string name);
     public Task CreateIndexingProfile(string name);
+    public Task CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
+                string textEmbeddingProfileName, string textPartitioningProfileName);
     public Task<string> CreateVectorizationRequest(VectorizationRequest request);
     Task<VectorizationResult> ProcessVectorizationRequest(VectorizationRequest request);
     public Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest request);

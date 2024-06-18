@@ -49,6 +49,13 @@ namespace FoundationaLLM.Core.Examples.Services
             return managementAPITestManager.CreateIndexingProfile(name);
         }
 
+        public Task CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
+                string textEmbeddingProfileName, string textPartitioningProfileName)
+        {
+            return managementAPITestManager.CreateVectorizationPipeline(vectorizationPipelineName, dataSourceName, indexingProfileName,
+                textEmbeddingProfileName, textPartitioningProfileName);
+        }
+
         public Task<string> CreateVectorizationRequest(VectorizationRequest request)
         {
             return managementAPITestManager.CreateVectorizationRequest(request);
