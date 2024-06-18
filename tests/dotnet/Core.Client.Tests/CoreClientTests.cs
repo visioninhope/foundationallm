@@ -15,73 +15,85 @@ namespace FoundationaLLM.Client.Core.Tests
         public CoreClientTests()
         {
             _coreRestClient = Substitute.For<ICoreRESTClient>();
-            _coreClient = new CoreClient(_coreRestClient);
+            _coreClient = new CoreClient();
+            _coreClient.GetType().GetField("_coreRestClient", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(_coreClient, _coreRestClient);
         }
 
         [Fact]
         public async Task CreateChatSessionAsync_WithName_CreatesAndRenamesSession()
         {
             // Arrange
-            var token = "valid-token";
             var sessionName = "TestSession";
             var sessionId = "session-id";
-            _coreRestClient.Sessions.CreateSessionAsync(token).Returns(Task.FromResult(sessionId));
+            _coreRestClient.Sessions.CreateSessionAsync().Returns(Task.FromResult(sessionId));
 
             // Act
-            var result = await _coreClient.CreateChatSessionAsync(sessionName, token);
+            var result = await _coreClient.CreateChatSessionAsync(sessionName);
 
             // Assert
             Assert.Equal(sessionId, result);
-            await _coreRestClient.Sessions.Received(1).CreateSessionAsync(token);
-            await _coreRestClient.Sessions.Received(1).RenameChatSession(sessionId, sessionName, token);
+            await _coreRestClient.Sessions.Received(1).CreateSessionAsync();
+            await _coreRestClient.Sessions.Received(1).RenameChatSession(sessionId, sessionName);
         }
 
         [Fact]
         public async Task SendCompletionWithSessionAsync_WithNewSession_CreatesSessionAndSendsCompletion()
         {
             // Arrange
-            var token = "valid-token";
             var userPrompt = "Hello, World!";
             var agentName = "TestAgent";
             var sessionId = "new-session-id";
             var completion = new Completion();
-            _coreRestClient.Sessions.CreateSessionAsync(token).Returns(Task.FromResult(sessionId));
-            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>(), token).Returns(Task.FromResult(completion));
+            _coreRestClient.Sessions.CreateSessionAsync().Returns(Task.FromResult(sessionId));
+            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>()).Returns(Task.FromResult(completion));
 
             // Act
-            var result = await _coreClient.SendCompletionWithSessionAsync(null, "NewSession", userPrompt, agentName, token);
+            var result = await _coreClient.SendCompletionWithSessionAsync(null, "NewSession", userPrompt, agentName);
 
             // Assert
             Assert.Equal(completion, result);
-            await _coreRestClient.Sessions.Received(1).CreateSessionAsync(token);
+            await _coreRestClient.Sessions.Received(1).CreateSessionAsync();
             await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<OrchestrationRequest>(
-                r => r.SessionId == sessionId && r.AgentName == agentName && r.UserPrompt == userPrompt), token);
+                r => r.SessionId == sessionId && r.AgentName == agentName && r.UserPrompt == userPrompt));
         }
 
         [Fact]
         public async Task SendSessionlessCompletionAsync_ValidRequest_SendsCompletion()
         {
             // Arrange
-            var token = "valid-token";
             var userPrompt = "Hello, World!";
             var agentName = "TestAgent";
             var completion = new Completion();
-            _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(Arg.Any<CompletionRequest>(), token).Returns(Task.FromResult(completion));
+            _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(Arg.Any<CompletionRequest>()).Returns(Task.FromResult(completion));
 
             // Act
-            var result = await _coreClient.SendSessionlessCompletionAsync(userPrompt, agentName, token);
+            var result = await _coreClient.SendSessionlessCompletionAsync(userPrompt, agentName);
 
             // Assert
             Assert.Equal(completion, result);
             await _coreRestClient.Orchestration.Received(1).SendOrchestrationCompletionRequestAsync(Arg.Is<CompletionRequest>(
-                r => r.AgentName == agentName && r.UserPrompt == userPrompt), token);
+                r => r.AgentName == agentName && r.UserPrompt == userPrompt));
+        }
+
+        [Fact]
+        public async Task SendSessionlessCompletionAsync_ThrowsException_WhenCompletionRequestIsInvalid()
+        {
+            // Arrange
+            var completionRequest = new CompletionRequest
+            {
+                UserPrompt = string.Empty
+            };
+
+            // Act & Assert
+            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _coreClient.SendSessionlessCompletionAsync(completionRequest));
+            Assert.Equal("The completion request must contain an AgentName and UserPrompt at a minimum.", ex.Message);
         }
 
         [Fact]
         public async Task AttachFileAndAskQuestionAsync_UsesSession_UploadsFileAndSendsSessionCompletion()
         {
             // Arrange
-            var token = "valid-token";
             var fileStream = new MemoryStream();
             var fileName = "test.txt";
             var contentType = "text/plain";
@@ -90,43 +102,49 @@ namespace FoundationaLLM.Client.Core.Tests
             var sessionId = "session-id";
             var objectId = "object-id";
             var completion = new Completion();
-            _coreRestClient.Attachments.UploadAttachmentAsync(fileStream, fileName, contentType, token).Returns(Task.FromResult(objectId));
-            _coreRestClient.Sessions.CreateSessionAsync(token).Returns(Task.FromResult(sessionId));
-            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>(), token).Returns(Task.FromResult(completion));
+            _coreRestClient.Attachments.UploadAttachmentAsync(fileStream, fileName, contentType).Returns(Task.FromResult(objectId));
+            _coreRestClient.Sessions.CreateSessionAsync().Returns(Task.FromResult(sessionId));
+            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>()).Returns(Task.FromResult(completion));
 
             // Act
-            var result = await _coreClient.AttachFileAndAskQuestionAsync(fileStream, fileName, contentType, agentName, question, true, null, "NewSession", token);
+            var result = await _coreClient.AttachFileAndAskQuestionAsync(fileStream, fileName, contentType, agentName, question, true, null, "NewSession");
 
             // Assert
             Assert.Equal(completion, result);
-            await _coreRestClient.Attachments.Received(1).UploadAttachmentAsync(fileStream, fileName, contentType, token);
-            await _coreRestClient.Sessions.Received(1).CreateSessionAsync(token);
+            await _coreRestClient.Attachments.Received(1).UploadAttachmentAsync(fileStream, fileName, contentType);
+            await _coreRestClient.Sessions.Received(1).CreateSessionAsync();
             await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<OrchestrationRequest>(
-                r => r.AgentName == agentName && r.SessionId == sessionId && r.UserPrompt == question && r.Attachments.Contains(objectId)), token);
+                r => r.AgentName == agentName && r.SessionId == sessionId && r.UserPrompt == question && r.Attachments.Contains(objectId)));
+        }
+
+        [Fact]
+        public async Task AttachFileAndAskQuestionAsync_ThrowsException_WhenFileStreamIsNull()
+        {
+            // Arrange & Act & Assert
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                _coreClient.AttachFileAndAskQuestionAsync(null!, "file.txt", "text/plain", "agent", "question", true, "session-id", "session-name"));
         }
 
         [Fact]
         public async Task GetChatSessionMessagesAsync_ValidRequest_ReturnsMessages()
         {
             // Arrange
-            var token = "valid-token";
             var sessionId = "session-id";
             var messages = new List<Message> { new Message(sessionId, "TestSender", null, "Hello", null, null, "test@foundationallm.ai") };
-            _coreRestClient.Sessions.GetChatSessionMessagesAsync(sessionId, token).Returns(Task.FromResult<IEnumerable<Message>>(messages));
+            _coreRestClient.Sessions.GetChatSessionMessagesAsync(sessionId).Returns(Task.FromResult<IEnumerable<Message>>(messages));
 
             // Act
-            var result = await _coreClient.GetChatSessionMessagesAsync(sessionId, token);
+            var result = await _coreClient.GetChatSessionMessagesAsync(sessionId);
 
             // Assert
             Assert.Equal(messages, result);
-            await _coreRestClient.Sessions.Received(1).GetChatSessionMessagesAsync(sessionId, token);
+            await _coreRestClient.Sessions.Received(1).GetChatSessionMessagesAsync(sessionId);
         }
 
         [Fact]
         public async Task GetAgentsAsync_ValidRequest_ReturnsAgents()
         {
             // Arrange
-            var token = "valid-token";
             var agents = new List<ResourceProviderGetResult<AgentBase>> { new ResourceProviderGetResult<AgentBase>
                 {
                     Resource = new KnowledgeManagementAgent
@@ -138,28 +156,27 @@ namespace FoundationaLLM.Client.Core.Tests
                     Roles = []
                 }
             };
-            _coreRestClient.Orchestration.GetAgentsAsync(token).Returns(Task.FromResult<IEnumerable<ResourceProviderGetResult<AgentBase>>>(agents));
+            _coreRestClient.Orchestration.GetAgentsAsync().Returns(Task.FromResult<IEnumerable<ResourceProviderGetResult<AgentBase>>>(agents));
 
             // Act
-            var result = await _coreClient.GetAgentsAsync(token);
+            var result = await _coreClient.GetAgentsAsync();
 
             // Assert
             Assert.Equal(agents, result);
-            await _coreRestClient.Orchestration.Received(1).GetAgentsAsync(token);
+            await _coreRestClient.Orchestration.Received(1).GetAgentsAsync();
         }
 
         [Fact]
         public async Task DeleteSessionAsync_ValidRequest_DeletesSession()
         {
             // Arrange
-            var token = "valid-token";
             var sessionId = "session-id";
 
             // Act
-            await _coreClient.DeleteSessionAsync(sessionId, token);
+            await _coreClient.DeleteSessionAsync(sessionId);
 
             // Assert
-            await _coreRestClient.Sessions.Received(1).DeleteSessionAsync(sessionId, token);
+            await _coreRestClient.Sessions.Received(1).DeleteSessionAsync(sessionId);
         }
     }
 }
