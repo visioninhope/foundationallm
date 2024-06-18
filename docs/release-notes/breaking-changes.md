@@ -5,6 +5,19 @@
 
 ## Breaking changes that will affect future releases
 
+### Starting with 0.8.0
+
+Core API changes:
+
+1. The `/orchestration/*` endpoints have been moved to `/completions/*`.
+   1. The previous `/orchestration/completions` endpoint is now `/completions`.
+2. The `/sessions/{sessionId}/completion` endpoint has been moved to `/completions`. Instead of having the `sessionId` as a path parameter, it is now in the request body as part of the `CompletionRequest` payload.
+3. `/sessions/{sessionId}/summarize-name` has been removed. In the future, the `/completions` endpoint will be used to generate summaries.
+4. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
+5. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
+
+### Pre-0.8.0
+
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.
 2. The items in the `index_references` collection have a property incorrectly named `type` which was renamed to `index_entry_id`.
 3. New gateway API, requires the following app configurations:
