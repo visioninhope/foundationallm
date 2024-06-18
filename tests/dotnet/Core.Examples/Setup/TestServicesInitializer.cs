@@ -71,7 +71,10 @@ namespace FoundationaLLM.Core.Examples.Setup
 
         }
 
-        private static void RegisterClientLibraries(IServiceCollection services, IConfiguration configuration) => services.AddCoreClient(configuration);
+        private static void RegisterClientLibraries(IServiceCollection services, IConfiguration configuration) =>
+            services.AddCoreClient(
+                configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!,
+                DefaultAuthentication.AzureCredential!);
 
         private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
 		{

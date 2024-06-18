@@ -32,12 +32,11 @@ namespace FoundationaLLM.Core.Examples.Services
             string? textPartitioningProfileName = null)
         {
             var sessionCreated = false;
-            var token = await GetAuthToken();
 
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null, token);
+                sessionId = await coreClient.CreateChatSessionAsync(null);
                 sessionCreated = true;
             }
 
@@ -51,16 +50,16 @@ namespace FoundationaLLM.Core.Examples.Services
             foreach (var userPrompt in userPrompts)
             {
                 // Send the orchestration request to the Core API's session completion endpoint.
-                await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName, token);
+                await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
             }
 
             // Retrieve the messages from the chat session.
-            var messages = await coreClient.GetChatSessionMessagesAsync(sessionId, token);
+            var messages = await coreClient.GetChatSessionMessagesAsync(sessionId);
 
             // Delete the session to clean up after the test.
             if (sessionCreated)
             {
-                await coreClient.DeleteSessionAsync(sessionId, token);
+                await coreClient.DeleteSessionAsync(sessionId);
             }
 
             if (createAgent)
@@ -77,12 +76,11 @@ namespace FoundationaLLM.Core.Examples.Services
             string userPrompt, string? sessionId = null, bool createAgent = false)
         {
             var sessionCreated = false;
-            var token = await GetAuthToken();
 
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null, token);
+                sessionId = await coreClient.CreateChatSessionAsync(null);
                 sessionCreated = true;
             }
 
@@ -93,12 +91,12 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             // Send the orchestration request to the Core API's session completion endpoint.
-            var completion = await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName, token);
+            var completion = await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
 
             // Delete the session to clean up after the test.
             if (sessionCreated)
             {
-                await coreClient.DeleteSessionAsync(sessionId, token);
+                await coreClient.DeleteSessionAsync(sessionId);
             }
 
             if (createAgent)
@@ -114,8 +112,6 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task<Completion> RunAgentCompletionWithNoSession(string agentName,
             string userPrompt, bool createAgent = false)
         {
-            var token = await GetAuthToken();
-
             if (createAgent)
             {
                 // Create a new agent and its dependencies for the test.
@@ -131,7 +127,7 @@ namespace FoundationaLLM.Core.Examples.Services
             };
 
             // Send the orchestration request to the Core API's orchestration completion endpoint.
-            var completion = await coreClient.SendSessionlessCompletionAsync(completionRequest, token);
+            var completion = await coreClient.SendSessionlessCompletionAsync(completionRequest);
 
             if (createAgent)
             {
@@ -148,7 +144,6 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             var sessionCreated = false;
             var completionQualityMeasurementOutput = new CompletionQualityMeasurementOutput();
-            var token = await GetAuthToken();
 
             if (azureAIService == null)
             {
@@ -158,7 +153,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null, token);
+                sessionId = await coreClient.CreateChatSessionAsync(null);
                 sessionCreated = true;
             }
 
@@ -178,10 +173,10 @@ namespace FoundationaLLM.Core.Examples.Services
             };
 
             // Send the orchestration request to the Core API's session completion endpoint.
-            var completionResponse = await coreClient.SendCompletionWithSessionAsync(orchestrationRequest, token);
+            var completionResponse = await coreClient.SendCompletionWithSessionAsync(orchestrationRequest);
 
             // Retrieve the messages from the chat session.
-            var messages = await coreClient.GetChatSessionMessagesAsync(sessionId, token);
+            var messages = await coreClient.GetChatSessionMessagesAsync(sessionId);
 
             // Get the last message where the agent is the sender.
             var lastAgentMessage = messages.LastOrDefault(m => m.Sender == nameof(Participants.Assistant));
@@ -189,7 +184,7 @@ namespace FoundationaLLM.Core.Examples.Services
             {
                 // Get the completion prompt from the last agent message.
                 var completionPrompt = await coreRestClient.Sessions.GetCompletionPromptAsync(sessionId,
-                    lastAgentMessage.CompletionPromptId, token);
+                    lastAgentMessage.CompletionPromptId);
                 // For the context, take everything in the prompt that comes after `\\n\\nContext:\\n`. If it doesn't exist, take the whole prompt.
                 var contextIndex =
                     completionPrompt.Prompt.IndexOf(@"\n\nContext:\n", StringComparison.Ordinal);
@@ -223,7 +218,7 @@ namespace FoundationaLLM.Core.Examples.Services
             // Delete the session to clean up after the test.
             if (sessionCreated)
             {
-                await coreClient.DeleteSessionAsync(sessionId, token);
+                await coreClient.DeleteSessionAsync(sessionId);
             }
 
             if (createAgent)
@@ -233,11 +228,6 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             return completionQualityMeasurementOutput;
-        }
-
-        private async Task<string> GetAuthToken()
-        {
-            return await authService.GetAuthToken(HttpClients.CoreAPI);
         }
     }
 }
