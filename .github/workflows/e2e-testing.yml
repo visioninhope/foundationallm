@@ -786,10 +786,10 @@ jobs:
         with:
           script: |
             const jsonString = process.env.TEST_RESULTS
-            console.log(jsonString)
             var data = JSON.parse(jsonString)
-            for (const [key, value] of data.passed) {
-              if (value !== 'success') {
+            var tests = data.passed
+            for (const testName of Object.keys(tests)) {
+              if (tests[testName] !== 'success') {
                 exit(1);
               }
             }
