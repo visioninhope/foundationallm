@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Authentication;
 using Microsoft.Identity.Web;
 using System.IdentityModel.Tokens.Jwt;
+using FoundationaLLM.Common.Constants.Authorization;
 
 namespace FoundationaLLM.Common.Authentication
 {
@@ -25,7 +26,7 @@ namespace FoundationaLLM.Common.Authentication
                 : new AzureCliCredential();
 
             var tokenResult = AzureCredential.GetToken(
-                new(["api://FoundationaLLM-Authorization-Auth/.default"]),
+                new([$"{ScopeURIs.FoundationaLLM_Authorization}/.default"]),
                 default);
 
             var handler = new JwtSecurityTokenHandler();
