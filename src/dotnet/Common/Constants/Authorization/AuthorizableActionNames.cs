@@ -27,11 +27,6 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// </summary>
         public const string FoundationaLLM_Authorization_RoleDefinitions_Read = "FoundationaLLM.Authorization/roleDefinitions/read";
 
-        /// <summary>
-        /// Perform account actions.
-        /// </summary>
-        public const string FoundationaLLM_Authorization_Accounts_Write = "FoundationaLLM.Authorization/accounts/write";
-
         #endregion
 
         #region Agent

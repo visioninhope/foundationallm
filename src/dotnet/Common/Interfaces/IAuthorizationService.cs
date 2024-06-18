@@ -38,15 +38,15 @@ namespace FoundationaLLM.Common.Interfaces
             RoleAssignmentsWithActionsRequest request);
 
         /// <summary>
-        /// Returns a list of role assignments for the specified instance.
+        /// Returns a list of role assignments for the specified instance and resource.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
-        /// <param name="resourcePath">The resource path.</param>
+        /// <param name="queryParameters">The <see cref="RoleAssignmentQueryParameters"/> providing the inputs for filtering the role assignments.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        Task<List<object>> GetRoleAssignments(string instanceId, string resourcePath);
+        Task<List<object>> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters);
 
         /// <summary>
-        /// Revokes a role from an Entra ID user or group.
+        /// Revokes a role assignment for a specified instance.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="roleAssignment">The role assignment object identifier.</param>

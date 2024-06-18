@@ -120,13 +120,14 @@ namespace FoundationaLLM.Authorization.Services
 
 
         /// <inheritdoc/>
-        public async Task<List<object>> GetRoleAssignments(string instanceId, string resourcePath)
+        public async Task<List<object>> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)
         {
             try
             {
                 var httpClient = await CreateHttpClient();
-                var response = await httpClient.GetAsync(
-                    $"/instances/{instanceId}/roleassignments/{resourcePath}");
+                var response = await httpClient.PostAsync(
+                    $"/instances/{instanceId}/roleassignments/query",
+                    JsonContent.Create(queryParameters));
 
                 if (response.IsSuccessStatusCode)
                 {

@@ -25,12 +25,12 @@ namespace FoundationaLLM.Authorization.Interfaces
         bool AllowAuthorizationRequestsProcessing(string instanceId, string securityPrincipalId);
 
         /// <summary>
-        /// Assigns a role to an Entra ID user or group.
+        /// Creates a role assignment for a specified security principal.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="roleAssignmentRequest">The role assignment request.</param>
         /// <returns>The role assignment result.</returns>
-        Task<RoleAssignmentResult> AssignRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest);
+        Task<RoleAssignmentResult> CreateRoleAssignment(string instanceId, RoleAssignmentRequest roleAssignmentRequest);
 
         /// <summary>
         /// Revokes a role from an Entra ID user or group.
@@ -49,11 +49,11 @@ namespace FoundationaLLM.Authorization.Interfaces
         Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request);
 
         /// <summary>
-        /// Returns a list of role assignments for the specified instance.
+        /// Returns a list of role assignments for the specified instance and resource path.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
-        /// <param name="resourcePath">The resource path.</param>
+        /// <param name="queryParameters">The <see cref="RoleAssignmentQueryParameters"/> providing the inputs for filtering the role assignments.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        List<RoleAssignment> GetRoleAssingments(string instanceId, string resourcePath);
+        List<RoleAssignment> GetRoleAssingments(string instanceId, RoleAssignmentQueryParameters queryParameters);
     }
 }

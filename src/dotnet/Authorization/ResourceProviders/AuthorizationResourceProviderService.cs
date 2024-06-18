@@ -168,14 +168,14 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         private async Task<List<ResourceProviderGetResult<RoleAssignment>>> FilterRoleAssignments(
             ResourceTypeInstance instance, string serializedAction, UnifiedUserIdentity userIdentity)
         {
-            var parameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
+            var queryParameters = JsonSerializer.Deserialize<RoleAssignmentQueryParameters>(serializedAction)!;
 
-            if (string.IsNullOrWhiteSpace(parameters.Scope))
+            if (string.IsNullOrWhiteSpace(queryParameters.Scope))
                 throw new ResourceProviderException("Invalid scope. Unable to retrieve role assignments.");
             else
             {
                 var roleAssignments = new List<RoleAssignment>();
-                var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id, parameters.Scope);
+                var roleAssignmentObjects = await _authorizationService.GetRoleAssignments(_instanceSettings.Id, queryParameters);
 
                 foreach (var obj in roleAssignmentObjects)
                 {

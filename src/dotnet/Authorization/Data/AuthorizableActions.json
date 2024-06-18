@@ -21,11 +21,6 @@
 				"name": "FoundationaLLM.Authorization/roleDefinitions/read",
 				"description": "Read role definitions.",
 				"field_name": "FoundationaLLM_Authorization_RoleDefinitions_Read"
-			},
-			{
-				"name": "FoundationaLLM.Authorization/accounts/write",
-				"description": "Perform account actions.",
-				"field_name": "FoundationaLLM_Authorization_Accounts_Write"
 			}
 		]
 	},

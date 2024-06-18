@@ -34,7 +34,7 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<List<object>> GetRoleAssignments(string instanceId, string resourcePath)
+        public async Task<List<object>> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)
         {
             await Task.CompletedTask;
             return [];

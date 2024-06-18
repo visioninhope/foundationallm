@@ -199,7 +199,7 @@ namespace FoundationaLLM.Authorization.Services
 
 
         /// <inheritdoc/>
-        public async Task<RoleAssignmentResult> AssignRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest)
+        public async Task<RoleAssignmentResult> CreateRoleAssignment(string instanceId, RoleAssignmentRequest roleAssignmentRequest)
         {
             var roleAssignmentStoreFile = $"/{instanceId.ToLower()}.json";
 
@@ -270,8 +270,8 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public List<RoleAssignment> GetRoleAssingments(string instanceId, string resourcePath) =>
-            _roleAssignmentStores[instanceId].RoleAssignments.Where(x => resourcePath.Contains(x.Scope)).ToList();
+        public List<RoleAssignment> GetRoleAssingments(string instanceId, RoleAssignmentQueryParameters queryParameters) =>
+            _roleAssignmentStores[instanceId].RoleAssignments.Where(x => queryParameters.Scope!.Contains(x.Scope)).ToList();
  
         /// <inheritdoc/>
         public Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)

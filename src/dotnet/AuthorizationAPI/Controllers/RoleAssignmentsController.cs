@@ -36,9 +36,9 @@ namespace FoundationaLLM.Authorization.API.Controllers
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        [HttpGet("{*resourcePath}")]
-        public IActionResult GetRoleAssingments(string instanceId, string resourcePath) =>
-            new OkObjectResult(_authorizationCore.GetRoleAssingments(instanceId, resourcePath));
+        [HttpPost("query")]
+        public IActionResult GetRoleAssingments(string instanceId, [FromBody] RoleAssignmentQueryParameters queryParameters) =>
+            new OkObjectResult(_authorizationCore.GetRoleAssingments(instanceId, queryParameters));
 
         /// <summary>
         /// Assigns a role to an Entra ID user or group.
@@ -48,7 +48,7 @@ namespace FoundationaLLM.Authorization.API.Controllers
         /// <returns>The role assignment result.</returns>
         [HttpPost]
         public async Task<IActionResult> AssignRole(string instanceId, RoleAssignmentRequest roleAssignmentRequest) =>
-            new OkObjectResult(await _authorizationCore.AssignRole(instanceId, roleAssignmentRequest));
+            new OkObjectResult(await _authorizationCore.CreateRoleAssignment(instanceId, roleAssignmentRequest));
 
         /// <summary>
         /// Revokes a role from an Entra ID user or group.
