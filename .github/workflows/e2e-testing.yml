@@ -674,7 +674,7 @@ jobs:
           matrix-step-name: ${{ github.job }}
           matrix-key: ${{ matrix.object.name }}
           outputs: |
-            passed: ${{ steps.e2e-test-exec.outputs.result }}
+            passed: ${{ steps.e2e-test-exec.outcome }}
             
   teardown_quickstart:
     name: Tear Down Quick Start
