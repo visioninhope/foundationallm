@@ -20,6 +20,10 @@ namespace FoundationaLLM.Common.Models.Configuration.API
     public record DownstreamAPIClientConfiguration : APIClientSettings
     {
         /// <summary>
+        /// The URL of the downstream API.
+        /// </summary>
+        public required string APIUrl { get; set; }
+        /// <summary>
         /// The value of the API key.
         /// </summary>
         public required string APIKey { get; init; }
