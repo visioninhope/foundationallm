@@ -54,7 +54,7 @@ Complete the following steps if you do not want to use dependency injection:
     var results = await coreClient.GetAgentsAsync();
     ```
 
-> ![!TIP]
+> [!TIP]
 > You can use the `FoundationaLLM.Common.Authentication.DefaultAuthentication` class to generate the `TokenCredential`. This class sets the `AzureCredential` property using the `ManagedIdentityCredential` when running in a production environment (`production` parameter of the `Initialize` method) and the `AzureCliCredential` when running in a development environment.
 > Example:
 > `DefaultAuthentication.Initialize(false, "Test");`
