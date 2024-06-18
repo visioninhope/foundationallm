@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Users;
 using System.Text.Json;
 
@@ -7,12 +8,14 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's user profile endpoints.
     /// </summary>
-    internal class UserProfileRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IUserProfileRESTClient
+    internal class UserProfileRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IUserProfileRESTClient
     {
         /// <inheritdoc/>
-        public async Task<IEnumerable<UserProfile>> GetUserProfilesAsync(string token)
+        public async Task<IEnumerable<UserProfile>> GetUserProfilesAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("userprofiles");
 
             if (responseMessage.IsSuccessStatusCode)

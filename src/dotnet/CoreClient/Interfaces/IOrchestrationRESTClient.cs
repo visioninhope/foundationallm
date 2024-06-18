@@ -14,15 +14,13 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// Performs a sessionless request to the Core API.
         /// </summary>
         /// <param name="completionRequest">The completion request data sent to the endpoint.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest, string token);
+        Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Retrieves agents available to the user for orchestration and session-based requests.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync(string token);
+        Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync();
     }
 }

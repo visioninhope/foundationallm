@@ -16,7 +16,6 @@
         /// Returns OK if the requester is authenticated and allowed to execute
         /// requests against the Core API service.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
-        Task<string> GetAuthStatusAsync(string token);
+        Task<string> GetAuthStatusAsync();
     }
 }

@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
@@ -15,12 +16,14 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's session endpoints.
     /// </summary>
-    internal class SessionRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), ISessionRESTClient
+    internal class SessionRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), ISessionRESTClient
     {
         /// <inheritdoc/>
-        public async Task<string> CreateSessionAsync(string token)
+        public async Task<string> CreateSessionAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseSession = await coreClient.PostAsync("sessions", null);
 
             if (responseSession.IsSuccessStatusCode)
@@ -37,9 +40,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<string> RenameChatSession(string sessionId, string sessionName, string token)
+        public async Task<string> RenameChatSession(string sessionId, string sessionName)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var response = await coreClient.PostAsync($"sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
 
             if (response.IsSuccessStatusCode)
@@ -51,9 +54,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionCompletionRequestAsync(OrchestrationRequest orchestrationRequest, string token)
+        public async Task<Completion> SendSessionCompletionRequestAsync(OrchestrationRequest orchestrationRequest)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var serializedRequest = JsonSerializer.Serialize(orchestrationRequest, SerializerOptions);
 
             var sessionUrl = $"sessions/{orchestrationRequest.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
@@ -74,9 +77,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<CompletionPrompt> GetCompletionPromptAsync(string sessionId, string completionPromptId, string token)
+        public async Task<CompletionPrompt> GetCompletionPromptAsync(string sessionId, string completionPromptId)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync($"sessions/{sessionId}/completionprompts/{completionPromptId}");
 
             if (responseMessage.IsSuccessStatusCode)
@@ -91,9 +94,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token)
+        public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync($"sessions/{sessionId}/messages");
 
             if (responseMessage.IsSuccessStatusCode)
@@ -107,9 +110,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Session>> GetAllChatSessionsAsync(string token)
+        public async Task<IEnumerable<Session>> GetAllChatSessionsAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("sessions");
 
             if (responseMessage.IsSuccessStatusCode)
@@ -123,9 +126,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task RateMessageAsync(string sessionId, string messageId, bool rating, string token)
+        public async Task RateMessageAsync(string sessionId, string messageId, bool rating)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.PostAsync($"sessions/{sessionId}/message/{messageId}/rate?rating={rating}", null);
 
             if (!responseMessage.IsSuccessStatusCode)
@@ -135,9 +138,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<string> SummarizeChatSessionNameAsync(string sessionId, string prompt, string token)
+        public async Task<string> SummarizeChatSessionNameAsync(string sessionId, string prompt)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.PostAsync($"sessions/{sessionId}/summarize-name", new StringContent(JsonSerializer.Serialize(prompt), Encoding.UTF8, "application/json"));
 
             if (responseMessage.IsSuccessStatusCode)
@@ -151,9 +154,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task DeleteSessionAsync(string sessionId, string token)
+        public async Task DeleteSessionAsync(string sessionId)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             await coreClient.DeleteAsync($"sessions/{sessionId}");
         }
     }

@@ -1,13 +1,16 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
-    internal class StatusRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IStatusRESTClient
+    internal class StatusRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IStatusRESTClient
     {
         /// <inheritdoc/>
         public async Task<string> GetServiceStatusAsync()
         {
-            var coreClient = GetCoreClient(string.Empty);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("status");
 
             if (responseMessage.IsSuccessStatusCode)
@@ -19,9 +22,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetAuthStatusAsync(string token)
+        public async Task<string> GetAuthStatusAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("status/auth");
 
             if (responseMessage.IsSuccessStatusCode)

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
@@ -6,12 +7,14 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's Attachments endpoints.
     /// </summary>
-    internal class AttachmentRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IAttachmentRESTClient
+    internal class AttachmentRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IAttachmentRESTClient
     {
         /// <inheritdoc/>
-        public async Task<string> UploadAttachmentAsync(Stream fileStream, string fileName, string contentType, string token)
+        public async Task<string> UploadAttachmentAsync(Stream fileStream, string fileName, string contentType)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var content = new MultipartFormDataContent
             {
                 { new StreamContent(fileStream)

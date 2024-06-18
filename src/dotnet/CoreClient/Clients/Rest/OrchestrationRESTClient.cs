@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
@@ -11,12 +12,14 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's orchestration endpoints.
     /// </summary>
-    internal class OrchestrationRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IOrchestrationRESTClient
+    internal class OrchestrationRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IOrchestrationRESTClient
     {
         /// <inheritdoc/>
-        public async Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest, string token)
+        public async Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest)
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);
 
             var responseMessage = await coreClient.PostAsync("orchestration/completion", // Session-less - no message history or data retention in Cosmos DB.
@@ -36,9 +39,9 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync(string token)
+        public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("orchestration/agents");
 
             if (responseMessage.IsSuccessStatusCode)

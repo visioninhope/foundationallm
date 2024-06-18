@@ -10,8 +10,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <summary>
         /// Retrieves the branding information for the client.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<ClientBrandingConfiguration> GetBrandingAsync(string token);
+        Task<ClientBrandingConfiguration> GetBrandingAsync();
     }
 }

@@ -10,8 +10,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <summary>
         /// Retrieves user profiles.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<IEnumerable<UserProfile>> GetUserProfilesAsync(string token);
+        Task<IEnumerable<UserProfile>> GetUserProfilesAsync();
     }
 }

@@ -15,9 +15,8 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// Creates a new chat session and renames it if a session name is provided.
         /// </summary>
         /// <param name="sessionName">Renames the new chat session if not null or empty.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>The new chat session ID.</returns>
-        Task<string> CreateChatSessionAsync(string? sessionName, string token);
+        Task<string> CreateChatSessionAsync(string? sessionName);
 
         /// <summary>
         /// Runs a single completion request with an agent using the Core API and a chat session.
@@ -30,10 +29,9 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="userPrompt">The user prompt to send to the agent.</param>
         /// <param name="agentName">The name of the FoundationaLLM agent that will handle the
         /// completion request.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         Task<Completion> SendCompletionWithSessionAsync(string? sessionId, string? sessionName,
-            string userPrompt, string agentName, string token);
+            string userPrompt, string agentName);
 
         /// <summary>
         /// Runs a single completion request with an agent using the Core API and a chat session.
@@ -42,9 +40,8 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// </summary>
         /// <param name="orchestrationRequest">The orchestration request that contains the
         /// SessionID, AgentName, and UserPrompt at a minimum.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest, string token);
+        Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest);
 
         /// <summary>
         /// Runs a single completion with an agent using the Core API without a chat session
@@ -54,9 +51,8 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="userPrompt">The user prompt to send to the agent.</param>
         /// <param name="agentName">The name of the FoundationaLLM agent that will handle the
         /// completion request.</param>
-        /// <param name="token"></param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName, string token);
+        Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName);
 
         /// <summary>
         /// Runs a single completion with an agent using the Core API without a chat session
@@ -66,9 +62,8 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// </summary>
         /// <param name="completionRequest">The orchestration request that contains the AgentName
         /// and UserPrompt at a minimum.</param>
-        /// <param name="token"></param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest, string token);
+        Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Attaches a file to the completion request and sends a question to the agent using the
@@ -92,11 +87,10 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="userPrompt">The user prompt to send to the agent.</param>
         /// <param name="agentName">The name of the FoundationaLLM agent that will handle the
         /// completion request.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, string? sessionName, string token);
+            string agentName, string question, bool useSession, string? sessionId, string? sessionName);
 
         /// <summary>
         /// Returns the chat messages related to an existing session.
@@ -104,21 +98,19 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="sessionId"></param>
         /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token);
+        Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId);
 
         /// <summary>
         /// Retrieves agents available to the user for orchestration and session-based requests.
         /// </summary>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>A list of available agents.</returns>
-        Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync(string token);
+        Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync();
 
         /// <summary>
         /// Deletes a chat session.
         /// </summary>
         /// <param name="sessionId">The ID of the session to delete.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns></returns>
-        Task DeleteSessionAsync(string sessionId, string token);
+        Task DeleteSessionAsync(string sessionId);
     }
 }

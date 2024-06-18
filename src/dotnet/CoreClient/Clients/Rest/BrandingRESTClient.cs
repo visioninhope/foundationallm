@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using System.Text.Json;
 
@@ -7,12 +8,14 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's Branding endpoints.
     /// </summary>
-    internal class BrandingRESTClient(IHttpClientFactory httpClientFactory) : CoreRESTClientBase(httpClientFactory), IBrandingRESTClient
+    internal class BrandingRESTClient(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IBrandingRESTClient
     {
         /// <inheritdoc/>
-        public async Task<ClientBrandingConfiguration> GetBrandingAsync(string token)
+        public async Task<ClientBrandingConfiguration> GetBrandingAsync()
         {
-            var coreClient = GetCoreClient(token);
+            var coreClient = await GetCoreClientAsync();
             var responseMessage = await coreClient.GetAsync("branding");
 
             if (responseMessage.IsSuccessStatusCode)

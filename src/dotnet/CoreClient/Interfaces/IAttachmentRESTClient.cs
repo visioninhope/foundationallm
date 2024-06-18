@@ -15,8 +15,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="contentType">The Content-Type header value of a valid mime type that is used
         /// to create a new <see cref="MediaTypeHeaderValue"/> as part of the
         /// <see cref="MultipartFormDataContent"/> sent to the API endpoint.</param>
-        /// <param name="token">The authentication token to send with the request.</param>
         /// <returns>The Object ID of the Attachment Resource Provider created from the filestream.</returns>
-        Task<string> UploadAttachmentAsync(Stream fileStream, string fileName, string contentType, string token);
+        Task<string> UploadAttachmentAsync(Stream fileStream, string fileName, string contentType);
     }
 }
