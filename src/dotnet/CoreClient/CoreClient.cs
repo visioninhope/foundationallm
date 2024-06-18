@@ -1,5 +1,7 @@
-﻿using FoundationaLLM.Client.Core.Interfaces;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
@@ -9,15 +11,44 @@ namespace FoundationaLLM.Client.Core
     /// <summary>
     /// Provides high-level methods to interact with the Core API.
     /// </summary>
-    public class CoreClient(ICoreRESTClient coreRestClient) : ICoreClient
+    public class CoreClient : ICoreClient
     {
+        private readonly ICoreRESTClient _coreRestClient;
+
+        /// <summary>
+        /// Constructor for mocking. This does not initialize the clients.
+        /// </summary>
+        public CoreClient() =>
+            _coreRestClient = null!;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoreClient"/> class with
+        /// the specified Core API URI and TokenCredential.
+        /// </summary>
+        /// <param name="coreUri">The base URI of the Core API.</param>
+        /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
+        /// user or service principle from which the client library can generate auth tokens.</param>
+        public CoreClient(string coreUri, TokenCredential credential)
+            : this(coreUri, credential, new APIClientSettings()) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoreClient"/> class with
+        /// the specified Core API URI, TokenCredential, and optional client settings.
+        /// </summary>
+        /// <param name="coreUri">The base URI of the Core API.</param>
+        /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
+        /// user or service principle from which the client library can generate auth tokens.</param>
+        /// <param name="options">Additional options to configure the HTTP Client.</param>
+        public CoreClient(string coreUri, TokenCredential credential, APIClientSettings options) =>
+            _coreRestClient = new CoreRESTClient(coreUri, credential, options);
+
         /// <inheritdoc/>
-        public async Task<string> CreateChatSessionAsync(string? sessionName, string token)
+        public async Task<string> CreateChatSessionAsync(string? sessionName)
         {
-            var sessionId = await coreRestClient.Sessions.CreateSessionAsync(token);
+            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync();
             if (!string.IsNullOrWhiteSpace(sessionName))
             {
-                await coreRestClient.Sessions.RenameChatSession(sessionId, sessionName, token);
+                await _coreRestClient.Sessions.RenameChatSession(sessionId, sessionName);
             }
 
             return sessionId;
@@ -25,11 +56,11 @@ namespace FoundationaLLM.Client.Core
 
         /// <inheritdoc/>
         public async Task<Completion> SendCompletionWithSessionAsync(string? sessionId, string? sessionName,
-            string userPrompt, string agentName, string token)
+            string userPrompt, string agentName)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
-                sessionId = await CreateChatSessionAsync(sessionName, token);
+                sessionId = await CreateChatSessionAsync(sessionName);
             }
 
             var orchestrationRequest = new OrchestrationRequest
@@ -38,11 +69,11 @@ namespace FoundationaLLM.Client.Core
                 SessionId = sessionId,
                 UserPrompt = userPrompt
             };
-            return await SendCompletionWithSessionAsync(orchestrationRequest, token);
+            return await SendCompletionWithSessionAsync(orchestrationRequest);
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest, string token)
+        public async Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest)
         {
             if (string.IsNullOrWhiteSpace(orchestrationRequest.SessionId) ||
                 string.IsNullOrWhiteSpace(orchestrationRequest.AgentName) ||
@@ -51,12 +82,12 @@ namespace FoundationaLLM.Client.Core
                 throw new ArgumentException("The orchestration request must contain a SessionID, AgentName, and UserPrompt at a minimum.");
             }
 
-            var completion = await coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest, token);
+            var completion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest);
             return completion;
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName, string token)
+        public async Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName)
         {
             var completionRequest = new CompletionRequest
             {
@@ -64,11 +95,11 @@ namespace FoundationaLLM.Client.Core
                 UserPrompt = userPrompt
             };
 
-            return await SendSessionlessCompletionAsync(completionRequest, token);
+            return await SendSessionlessCompletionAsync(completionRequest);
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest, string token)
+        public async Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest)
         {
             if (string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
                 string.IsNullOrWhiteSpace(completionRequest.UserPrompt))
@@ -76,21 +107,26 @@ namespace FoundationaLLM.Client.Core
                 throw new ArgumentException("The completion request must contain an AgentName and UserPrompt at a minimum.");
             }
 
-            var completion = await coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest, token);
+            var completion = await _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest);
             return completion;
         }
 
         /// <inheritdoc/>
         public async Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, string? sessionName, string token)
+            string agentName, string question, bool useSession, string? sessionId, string? sessionName)
         {
-            var objectId = await coreRestClient.Attachments.UploadAttachmentAsync(fileStream, fileName, contentType, token);
+            if (fileStream == null)
+            {
+                throw new ArgumentNullException(nameof(fileStream));
+            }
+
+            var objectId = await _coreRestClient.Attachments.UploadAttachmentAsync(fileStream, fileName, contentType);
 
             if (useSession)
             {
                 if (string.IsNullOrWhiteSpace(sessionId))
                 {
-                    sessionId = await CreateChatSessionAsync(sessionName, token);
+                    sessionId = await CreateChatSessionAsync(sessionName);
                 }
 
                 var orchestrationRequest = new OrchestrationRequest
@@ -100,7 +136,7 @@ namespace FoundationaLLM.Client.Core
                     UserPrompt = question,
                     Attachments = [objectId]
                 };
-                var sessionCompletion = await coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest, token);
+                var sessionCompletion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest);
 
                 return sessionCompletion;
             }
@@ -112,22 +148,22 @@ namespace FoundationaLLM.Client.Core
                 UserPrompt = question,
                 Attachments = [objectId]
             };
-            var completion = await coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest, token);
+            var completion = await _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest);
 
             return completion;
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId, string token) => await coreRestClient.Sessions.GetChatSessionMessagesAsync(sessionId, token);
+        public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId) => await _coreRestClient.Sessions.GetChatSessionMessagesAsync(sessionId);
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync(string token)
+        public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync()
         {
-            var agents = await coreRestClient.Orchestration.GetAgentsAsync(token);
+            var agents = await _coreRestClient.Orchestration.GetAgentsAsync();
             return agents;
         }
 
         /// <inheritdoc/>
-        public async Task DeleteSessionAsync(string sessionId, string token) => await coreRestClient.Sessions.DeleteSessionAsync(sessionId, token);
+        public async Task DeleteSessionAsync(string sessionId) => await _coreRestClient.Sessions.DeleteSessionAsync(sessionId);
     }
 }
