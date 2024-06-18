@@ -9,7 +9,7 @@ This library contains two primary classes:
 
 ## Getting started
 
-> ![!TIP]
+> [!TIP]
 > If you do not have FoundationaLLM deployed, follow the [Quick Start Deployment instructions](https://docs.foundationallm.ai/deployment/deployment-quick-start.html) to get FoundationaLLM deployed in your Azure subscription.
 
 Install the NuGet package:
