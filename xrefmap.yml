@@ -666,6 +666,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.AssignRole
   nameWithType: RoleAssignmentsController.AssignRole
+- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: RoleAssignmentsController.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: RoleAssignmentsController.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.GetRoleAssignments
+  nameWithType: RoleAssignmentsController.GetRoleAssignments
 - uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
   name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
   href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_
@@ -682,22 +698,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: RoleAssignmentsController.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole(System.String,System.String)
-  name: RevokeRole(string, string)
-  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRole_System_String_System_String_
-  commentId: M:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole(System.String,System.String)
-  name.vb: RevokeRole(String, String)
-  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole(string, string)
-  fullName.vb: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole(String, String)
-  nameWithType: RoleAssignmentsController.RevokeRole(string, string)
-  nameWithType.vb: RoleAssignmentsController.RevokeRole(String, String)
-- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole*
-  name: RevokeRole
-  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRole_
-  commentId: Overload:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole
+- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment(String, String)
+  nameWithType: RoleAssignmentsController.RevokeRoleAssignment(string, string)
+  nameWithType.vb: RoleAssignmentsController.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html#FoundationaLLM_Authorization_API_Controllers_RoleAssignmentsController_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment
   isSpec: "True"
-  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRole
-  nameWithType: RoleAssignmentsController.RevokeRole
+  fullName: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.RevokeRoleAssignment
+  nameWithType: RoleAssignmentsController.RevokeRoleAssignment
 - uid: FoundationaLLM.Authorization.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.StatusController.html
@@ -771,22 +787,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AllowAuthorizationRequestsProcessing
   nameWithType: IAuthorizationCore.AllowAuthorizationRequestsProcessing
-- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name: AssignRole(string, RoleAssignmentRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_AssignRole_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
-  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name.vb: AssignRole(String, RoleAssignmentRequest)
-  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  nameWithType: IAuthorizationCore.AssignRole(string, RoleAssignmentRequest)
-  nameWithType.vb: IAuthorizationCore.AssignRole(String, RoleAssignmentRequest)
-- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole*
-  name: AssignRole
-  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_AssignRole_
-  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  name: CreateRoleAssignment(string, RoleAssignmentRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_CreateRoleAssignment_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
+  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  name.vb: CreateRoleAssignment(String, RoleAssignmentRequest)
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  nameWithType: IAuthorizationCore.CreateRoleAssignment(string, RoleAssignmentRequest)
+  nameWithType.vb: IAuthorizationCore.CreateRoleAssignment(String, RoleAssignmentRequest)
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment*
+  name: CreateRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_CreateRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment
   isSpec: "True"
-  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.AssignRole
-  nameWithType: IAuthorizationCore.AssignRole
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.CreateRoleAssignment
+  nameWithType: IAuthorizationCore.CreateRoleAssignment
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: IAuthorizationCore.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: IAuthorizationCore.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.GetRoleAssignments
+  nameWithType: IAuthorizationCore.GetRoleAssignments
 - uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
   name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
   href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
@@ -819,22 +851,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: IAuthorizationCore.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole(System.String,System.String)
-  name: RevokeRole(string, string)
-  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_RevokeRole_System_String_System_String_
-  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole(System.String,System.String)
-  name.vb: RevokeRole(String, String)
-  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole(string, string)
-  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole(String, String)
-  nameWithType: IAuthorizationCore.RevokeRole(string, string)
-  nameWithType.vb: IAuthorizationCore.RevokeRole(String, String)
-- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole*
-  name: RevokeRole
-  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_RevokeRole_
-  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment(String, String)
+  nameWithType: IAuthorizationCore.RevokeRoleAssignment(string, string)
+  nameWithType.vb: IAuthorizationCore.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.html#FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment
   isSpec: "True"
-  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRole
-  nameWithType: IAuthorizationCore.RevokeRole
+  fullName: FoundationaLLM.Authorization.Interfaces.IAuthorizationCore.RevokeRoleAssignment
+  nameWithType: IAuthorizationCore.RevokeRoleAssignment
 - uid: FoundationaLLM.Authorization.Middleware
   name: FoundationaLLM.Authorization.Middleware
   href: api/dotnet/FoundationaLLM.Authorization.Middleware.html
@@ -1383,6 +1415,35 @@ references:
   fullName.vb: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.New
   nameWithType: AuthorizationResourceProviderService.AuthorizationResourceProviderService
   nameWithType.vb: AuthorizationResourceProviderService.New
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationResourceProviderService.DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync
+  nameWithType: AuthorizationResourceProviderService.DeleteResourceAsync
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ExecuteActionAsync(ResourcePath, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationResourceProviderService.ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationResourceProviderService.ExecuteActionAsync(ResourcePath, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync*
+  name: ExecuteActionAsync
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_ExecuteActionAsync_
+  commentId: Overload:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync
+  nameWithType: AuthorizationResourceProviderService.ExecuteActionAsync
 - uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_GetResourceTypes
@@ -1396,6 +1457,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourceTypes
   nameWithType: AuthorizationResourceProviderService.GetResourceTypes
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationResourceProviderService.GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync*
+  name: GetResourcesAsync
+  href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_GetResourcesAsync_
+  commentId: Overload:FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync
+  nameWithType: AuthorizationResourceProviderService.GetResourcesAsync
 - uid: FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.InitializeInternal
   name: InitializeInternal()
   href: api/dotnet/FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.html#FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_InitializeInternal
@@ -1485,22 +1559,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.AllowAuthorizationRequestsProcessing
   nameWithType: AuthorizationCore.AllowAuthorizationRequestsProcessing
-- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name: AssignRole(string, RoleAssignmentRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_AssignRole_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name.vb: AssignRole(String, RoleAssignmentRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  nameWithType: AuthorizationCore.AssignRole(string, RoleAssignmentRequest)
-  nameWithType.vb: AuthorizationCore.AssignRole(String, RoleAssignmentRequest)
-- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole*
-  name: AssignRole
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_AssignRole_
-  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  name: CreateRoleAssignment(string, RoleAssignmentRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_CreateRoleAssignment_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  name.vb: CreateRoleAssignment(String, RoleAssignmentRequest)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
+  nameWithType: AuthorizationCore.CreateRoleAssignment(string, RoleAssignmentRequest)
+  nameWithType.vb: AuthorizationCore.CreateRoleAssignment(String, RoleAssignmentRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment*
+  name: CreateRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_CreateRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment
   isSpec: "True"
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.AssignRole
-  nameWithType: AuthorizationCore.AssignRole
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.CreateRoleAssignment
+  nameWithType: AuthorizationCore.CreateRoleAssignment
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: AuthorizationCore.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: AuthorizationCore.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.GetRoleAssignments
+  nameWithType: AuthorizationCore.GetRoleAssignments
 - uid: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
   name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
@@ -1533,22 +1623,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: AuthorizationCore.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole(System.String,System.String)
-  name: RevokeRole(string, string)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_RevokeRole_System_String_System_String_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole(System.String,System.String)
-  name.vb: RevokeRole(String, String)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole(string, string)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole(String, String)
-  nameWithType: AuthorizationCore.RevokeRole(string, string)
-  nameWithType.vb: AuthorizationCore.RevokeRole(String, String)
-- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole*
-  name: RevokeRole
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_RevokeRole_
-  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment(String, String)
+  nameWithType: AuthorizationCore.RevokeRoleAssignment(string, string)
+  nameWithType.vb: AuthorizationCore.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationCore.html#FoundationaLLM_Authorization_Services_AuthorizationCore_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment
   isSpec: "True"
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRole
-  nameWithType: AuthorizationCore.RevokeRole
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationCore.RevokeRoleAssignment
+  nameWithType: AuthorizationCore.RevokeRoleAssignment
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService
   name: AuthorizationService
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html
@@ -1574,6 +1664,22 @@ references:
   fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.New
   nameWithType: AuthorizationService.AuthorizationService
   nameWithType.vb: AuthorizationService.New
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: AuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: AuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments
+  nameWithType: AuthorizationService.GetRoleAssignments
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
   name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
@@ -1622,12 +1728,44 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(String, String)
+  nameWithType: AuthorizationService.RevokeRoleAssignment(string, string)
+  nameWithType.vb: AuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment
+  nameWithType: AuthorizationService.RevokeRoleAssignment
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService
   name: NullAuthorizationService
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html
   commentId: T:FoundationaLLM.Authorization.Services.NullAuthorizationService
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService
   nameWithType: NullAuthorizationService
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: NullAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: NullAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments
+  nameWithType: NullAuthorizationService.GetRoleAssignments
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
   name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
@@ -1676,6 +1814,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(String, String)
+  nameWithType: NullAuthorizationService.RevokeRoleAssignment(string, string)
+  nameWithType.vb: NullAuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment
+  nameWithType: NullAuthorizationService.RevokeRoleAssignment
 - uid: FoundationaLLM.Authorization.Services.RoleAssignmentCache
   name: RoleAssignmentCache
   href: api/dotnet/FoundationaLLM.Authorization.Services.RoleAssignmentCache.html
@@ -2243,6 +2397,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Agents.OperationTypes.Completions
   fullName: FoundationaLLM.Common.Constants.Agents.OperationTypes.Completions
   nameWithType: OperationTypes.Completions
+- uid: FoundationaLLM.Common.Constants.Authentication
+  name: FoundationaLLM.Common.Constants.Authentication
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.html
+  commentId: N:FoundationaLLM.Common.Constants.Authentication
+  fullName: FoundationaLLM.Common.Constants.Authentication
+  nameWithType: FoundationaLLM.Common.Constants.Authentication
+- uid: FoundationaLLM.Common.Constants.Authentication.ObjectTypes
+  name: ObjectTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.Authentication.ObjectTypes
+  fullName: FoundationaLLM.Common.Constants.Authentication.ObjectTypes
+  nameWithType: ObjectTypes
+- uid: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Group
+  name: Group
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html#FoundationaLLM_Common_Constants_Authentication_ObjectTypes_Group
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Group
+  fullName: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Group
+  nameWithType: ObjectTypes.Group
+- uid: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Other
+  name: Other
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html#FoundationaLLM_Common_Constants_Authentication_ObjectTypes_Other
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Other
+  fullName: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.Other
+  nameWithType: ObjectTypes.Other
+- uid: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.User
+  name: User
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html#FoundationaLLM_Common_Constants_Authentication_ObjectTypes_User
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ObjectTypes.User
+  fullName: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.User
+  nameWithType: ObjectTypes.User
 - uid: FoundationaLLM.Common.Constants.Authorization
   name: FoundationaLLM.Common.Constants.Authorization
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.html
@@ -2309,6 +2493,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Write
   fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Write
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read
+  name: FoundationaLLM_Authorization_RoleDefinitions_Read
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Authorization_RoleDefinitions_Read
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read
 - uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Completion_ChatSessions_Delete
   name: FoundationaLLM_Completion_ChatSessions_Delete
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Completion_ChatSessions_Delete
@@ -5063,6 +5253,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions
   nameWithType: AuthorizationResourceProviderActions
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions.Filter
+  name: Filter
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions.html#FoundationaLLM_Common_Constants_ResourceProviders_AuthorizationResourceProviderActions_Filter
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions.Filter
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceProviderActions.Filter
+  nameWithType: AuthorizationResourceProviderActions.Filter
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceTypeNames
   name: AuthorizationResourceTypeNames
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.AuthorizationResourceTypeNames.html
@@ -6462,6 +6658,22 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IAuthorizationService
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService
   nameWithType: IAuthorizationService
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
+  nameWithType: IAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
+  nameWithType.vb: IAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments*
+  name: GetRoleAssignments
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_GetRoleAssignments_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments
+  nameWithType: IAuthorizationService.GetRoleAssignments
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
   name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
@@ -6510,6 +6722,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name: RevokeRoleAssignment(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_RevokeRoleAssignment_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String)
+  name.vb: RevokeRoleAssignment(String, String)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(string, string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(String, String)
+  nameWithType: IAuthorizationService.RevokeRoleAssignment(string, string)
+  nameWithType.vb: IAuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment*
+  name: RevokeRoleAssignment
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_RevokeRoleAssignment_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment
+  nameWithType: IAuthorizationService.RevokeRoleAssignment
 - uid: FoundationaLLM.Common.Interfaces.IAzureAIService
   name: IAzureAIService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAzureAIService.html
@@ -6957,28 +7185,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IEventService.UnsubscribeFromEventSetEvent
   nameWithType: IEventService.UnsubscribeFromEventSetEvent
-- uid: FoundationaLLM.Common.Interfaces.IGroupMembershipService
-  name: IGroupMembershipService
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IGroupMembershipService.html
-  commentId: T:FoundationaLLM.Common.Interfaces.IGroupMembershipService
-  fullName: FoundationaLLM.Common.Interfaces.IGroupMembershipService
-  nameWithType: IGroupMembershipService
-- uid: FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal(System.String)
-  name: GetGroupsForPrincipal(string)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IGroupMembershipService.html#FoundationaLLM_Common_Interfaces_IGroupMembershipService_GetGroupsForPrincipal_System_String_
-  commentId: M:FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal(System.String)
-  name.vb: GetGroupsForPrincipal(String)
-  fullName: FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal(string)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal(String)
-  nameWithType: IGroupMembershipService.GetGroupsForPrincipal(string)
-  nameWithType.vb: IGroupMembershipService.GetGroupsForPrincipal(String)
-- uid: FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal*
-  name: GetGroupsForPrincipal
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IGroupMembershipService.html#FoundationaLLM_Common_Interfaces_IGroupMembershipService_GetGroupsForPrincipal_
-  commentId: Overload:FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Interfaces.IGroupMembershipService.GetGroupsForPrincipal
-  nameWithType: IGroupMembershipService.GetGroupsForPrincipal
 - uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService
   name: IHttpClientFactoryService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html
@@ -7033,6 +7239,99 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IHubAPIService.Status
   nameWithType: IHubAPIService.Status
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService
+  name: IIdentityManagementService
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html
+  commentId: T:FoundationaLLM.Common.Interfaces.IIdentityManagementService
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService
+  nameWithType: IIdentityManagementService
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal(System.String)
+  name: GetGroupsForPrincipal(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetGroupsForPrincipal_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal(System.String)
+  name.vb: GetGroupsForPrincipal(String)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal(String)
+  nameWithType: IIdentityManagementService.GetGroupsForPrincipal(string)
+  nameWithType.vb: IIdentityManagementService.GetGroupsForPrincipal(String)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal*
+  name: GetGroupsForPrincipal
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetGroupsForPrincipal_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetGroupsForPrincipal
+  nameWithType: IIdentityManagementService.GetGroupsForPrincipal
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetObjectsByIds(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetObjectsByIds_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IIdentityManagementService.GetObjectsByIds(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds*
+  name: GetObjectsByIds
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetObjectsByIds_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetObjectsByIds
+  nameWithType: IIdentityManagementService.GetObjectsByIds
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById(System.String)
+  name: GetUserById(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserById_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById(System.String)
+  name.vb: GetUserById(String)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById(String)
+  nameWithType: IIdentityManagementService.GetUserById(string)
+  nameWithType.vb: IIdentityManagementService.GetUserById(String)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById*
+  name: GetUserById
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserById_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserById
+  nameWithType: IIdentityManagementService.GetUserById
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById(System.String)
+  name: GetUserGroupById(string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserGroupById_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById(System.String)
+  name.vb: GetUserGroupById(String)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById(string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById(String)
+  nameWithType: IIdentityManagementService.GetUserGroupById(string)
+  nameWithType.vb: IIdentityManagementService.GetUserGroupById(String)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById*
+  name: GetUserGroupById
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserGroupById_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroupById
+  nameWithType: IIdentityManagementService.GetUserGroupById
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetUserGroups(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserGroups_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IIdentityManagementService.GetUserGroups(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups*
+  name: GetUserGroups
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUserGroups_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUserGroups
+  nameWithType: IIdentityManagementService.GetUserGroups
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetUsers(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUsers_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IIdentityManagementService.GetUsers(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers*
+  name: GetUsers
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html#FoundationaLLM_Common_Interfaces_IIdentityManagementService_GetUsers_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IIdentityManagementService.GetUsers
+  nameWithType: IIdentityManagementService.GetUsers
 - uid: FoundationaLLM.Common.Interfaces.IIndexingService
   name: IIndexingService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IIndexingService.html
@@ -7479,15 +7778,15 @@ references:
   fullName.vb: FoundationaLLM.Common.Middleware.CallContextMiddleware.New
   nameWithType: CallContextMiddleware.CallContextMiddleware
   nameWithType.vb: CallContextMiddleware.New
-- uid: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Common.Interfaces.IUserClaimsProviderService,FoundationaLLM.Common.Interfaces.IGroupMembershipService,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings})
-  name: InvokeAsync(HttpContext, IUserClaimsProviderService, IGroupMembershipService, ICallContext, IOptions<InstanceSettings>)
-  href: api/dotnet/FoundationaLLM.Common.Middleware.CallContextMiddleware.html#FoundationaLLM_Common_Middleware_CallContextMiddleware_InvokeAsync_Microsoft_AspNetCore_Http_HttpContext_FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_FoundationaLLM_Common_Interfaces_IGroupMembershipService_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__
-  commentId: M:FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Common.Interfaces.IUserClaimsProviderService,FoundationaLLM.Common.Interfaces.IGroupMembershipService,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings})
-  name.vb: InvokeAsync(HttpContext, IUserClaimsProviderService, IGroupMembershipService, ICallContext, IOptions(Of InstanceSettings))
-  fullName: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext, FoundationaLLM.Common.Interfaces.IUserClaimsProviderService, FoundationaLLM.Common.Interfaces.IGroupMembershipService, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>)
-  fullName.vb: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext, FoundationaLLM.Common.Interfaces.IUserClaimsProviderService, FoundationaLLM.Common.Interfaces.IGroupMembershipService, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings))
-  nameWithType: CallContextMiddleware.InvokeAsync(HttpContext, IUserClaimsProviderService, IGroupMembershipService, ICallContext, IOptions<InstanceSettings>)
-  nameWithType.vb: CallContextMiddleware.InvokeAsync(HttpContext, IUserClaimsProviderService, IGroupMembershipService, ICallContext, IOptions(Of InstanceSettings))
+- uid: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Common.Interfaces.IUserClaimsProviderService,FoundationaLLM.Common.Interfaces.IIdentityManagementService,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings})
+  name: InvokeAsync(HttpContext, IUserClaimsProviderService, IIdentityManagementService, ICallContext, IOptions<InstanceSettings>)
+  href: api/dotnet/FoundationaLLM.Common.Middleware.CallContextMiddleware.html#FoundationaLLM_Common_Middleware_CallContextMiddleware_InvokeAsync_Microsoft_AspNetCore_Http_HttpContext_FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_FoundationaLLM_Common_Interfaces_IIdentityManagementService_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__
+  commentId: M:FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext,FoundationaLLM.Common.Interfaces.IUserClaimsProviderService,FoundationaLLM.Common.Interfaces.IIdentityManagementService,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings})
+  name.vb: InvokeAsync(HttpContext, IUserClaimsProviderService, IIdentityManagementService, ICallContext, IOptions(Of InstanceSettings))
+  fullName: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext, FoundationaLLM.Common.Interfaces.IUserClaimsProviderService, FoundationaLLM.Common.Interfaces.IIdentityManagementService, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings>)
+  fullName.vb: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext, FoundationaLLM.Common.Interfaces.IUserClaimsProviderService, FoundationaLLM.Common.Interfaces.IIdentityManagementService, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings))
+  nameWithType: CallContextMiddleware.InvokeAsync(HttpContext, IUserClaimsProviderService, IIdentityManagementService, ICallContext, IOptions<InstanceSettings>)
+  nameWithType.vb: CallContextMiddleware.InvokeAsync(HttpContext, IUserClaimsProviderService, IIdentityManagementService, ICallContext, IOptions(Of InstanceSettings))
 - uid: FoundationaLLM.Common.Middleware.CallContextMiddleware.InvokeAsync*
   name: InvokeAsync
   href: api/dotnet/FoundationaLLM.Common.Middleware.CallContextMiddleware.html#FoundationaLLM_Common_Middleware_CallContextMiddleware_InvokeAsync_
@@ -7504,6 +7803,122 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Authentication
   fullName: FoundationaLLM.Common.Models.Authentication
   nameWithType: FoundationaLLM.Common.Models.Authentication
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters
+  name: ObjectQueryParameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html
+  commentId: T:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters
+  nameWithType: ObjectQueryParameters
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids
+  name: Ids
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_Ids
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids
+  nameWithType: ObjectQueryParameters.Ids
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids*
+  name: Ids
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_Ids_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Ids
+  nameWithType: ObjectQueryParameters.Ids
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_Name
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name
+  nameWithType: ObjectQueryParameters.Name
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.Name
+  nameWithType: ObjectQueryParameters.Name
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber
+  name: PageNumber
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_PageNumber
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber
+  nameWithType: ObjectQueryParameters.PageNumber
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber*
+  name: PageNumber
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_PageNumber_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageNumber
+  nameWithType: ObjectQueryParameters.PageNumber
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize
+  name: PageSize
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_PageSize
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize
+  nameWithType: ObjectQueryParameters.PageSize
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize*
+  name: PageSize
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_PageSize_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.PageSize
+  nameWithType: ObjectQueryParameters.PageSize
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult
+  name: ObjectQueryResult
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html
+  commentId: T:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult
+  nameWithType: ObjectQueryResult
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName
+  name: DisplayName
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_DisplayName
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName
+  nameWithType: ObjectQueryResult.DisplayName
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName*
+  name: DisplayName
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_DisplayName_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.DisplayName
+  nameWithType: ObjectQueryResult.DisplayName
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email
+  name: Email
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_Email
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email
+  nameWithType: ObjectQueryResult.Email
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email*
+  name: Email
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_Email_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Email
+  nameWithType: ObjectQueryResult.Email
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_Id
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id
+  nameWithType: ObjectQueryResult.Id
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.Id
+  nameWithType: ObjectQueryResult.Id
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType
+  name: ObjectType
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_ObjectType
+  commentId: P:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType
+  nameWithType: ObjectQueryResult.ObjectType
+- uid: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType*
+  name: ObjectType
+  href: api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html#FoundationaLLM_Common_Models_Authentication_ObjectQueryResult_ObjectType_
+  commentId: Overload:FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.ObjectType
+  nameWithType: ObjectQueryResult.ObjectType
 - uid: FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity
   name: UnifiedUserIdentity
   href: api/dotnet/FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html
@@ -7671,6 +8086,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Authorization.ActionAuthorizationResult.InvalidResourcePaths
   nameWithType: ActionAuthorizationResult.InvalidResourcePaths
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters
+  name: RoleAssignmentQueryParameters
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html
+  commentId: T:FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters
+  nameWithType: RoleAssignmentQueryParameters
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope
+  name: Scope
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_Scope
+  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope
+  nameWithType: RoleAssignmentQueryParameters.Scope
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope*
+  name: Scope
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_Scope_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.Scope
+  nameWithType: RoleAssignmentQueryParameters.Scope
 - uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest
   name: RoleAssignmentRequest
   href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html
@@ -7845,38 +8279,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest.SecurityGroupIds
   nameWithType: RoleAssignmentsWithActionsRequest.SecurityGroupIds
-- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult
-  name: RoleAssignmentsWithactionsResult
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html
-  commentId: T:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult
-  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult
-  nameWithType: RoleAssignmentsWithactionsResult
-- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult
+  name: RoleAssignmentsWithActionsResult
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html
+  commentId: T:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult
+  nameWithType: RoleAssignmentsWithActionsResult
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions
   name: Actions
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithactionsResult_Actions
-  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions
-  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions
-  nameWithType: RoleAssignmentsWithactionsResult.Actions
-- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions*
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsResult_Actions
+  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions
+  nameWithType: RoleAssignmentsWithActionsResult.Actions
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions*
   name: Actions
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithactionsResult_Actions_
-  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsResult_Actions_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Actions
-  nameWithType: RoleAssignmentsWithactionsResult.Actions
-- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Actions
+  nameWithType: RoleAssignmentsWithActionsResult.Actions
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles
   name: Roles
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithactionsResult_Roles
-  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles
-  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles
-  nameWithType: RoleAssignmentsWithactionsResult.Roles
-- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles*
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsResult_Roles
+  commentId: P:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles
+  nameWithType: RoleAssignmentsWithActionsResult.Roles
+- uid: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles*
   name: Roles
-  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithactionsResult_Roles_
-  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles
+  href: api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html#FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsResult_Roles_
+  commentId: Overload:FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.Roles
-  nameWithType: RoleAssignmentsWithactionsResult.Roles
+  fullName: FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.Roles
+  nameWithType: RoleAssignmentsWithActionsResult.Roles
 - uid: FoundationaLLM.Common.Models.Azure
   name: FoundationaLLM.Common.Models.Azure
   href: api/dotnet/FoundationaLLM.Common.Models.Azure.html
@@ -9839,6 +10273,72 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Chat.Session.UpdateMessage
   nameWithType: Session.UpdateMessage
+- uid: FoundationaLLM.Common.Models.Collections
+  name: FoundationaLLM.Common.Models.Collections
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.html
+  commentId: N:FoundationaLLM.Common.Models.Collections
+  fullName: FoundationaLLM.Common.Models.Collections
+  nameWithType: FoundationaLLM.Common.Models.Collections
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1
+  name: PagedResponse<T>
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html
+  commentId: T:FoundationaLLM.Common.Models.Collections.PagedResponse`1
+  name.vb: PagedResponse(Of T)
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T)
+  nameWithType: PagedResponse<T>
+  nameWithType.vb: PagedResponse(Of T)
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.HasNextPage
+  name: HasNextPage
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_HasNextPage
+  commentId: P:FoundationaLLM.Common.Models.Collections.PagedResponse`1.HasNextPage
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.HasNextPage
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).HasNextPage
+  nameWithType: PagedResponse<T>.HasNextPage
+  nameWithType.vb: PagedResponse(Of T).HasNextPage
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.HasNextPage*
+  name: HasNextPage
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_HasNextPage_
+  commentId: Overload:FoundationaLLM.Common.Models.Collections.PagedResponse`1.HasNextPage
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.HasNextPage
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).HasNextPage
+  nameWithType: PagedResponse<T>.HasNextPage
+  nameWithType.vb: PagedResponse(Of T).HasNextPage
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.Items
+  name: Items
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_Items
+  commentId: P:FoundationaLLM.Common.Models.Collections.PagedResponse`1.Items
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.Items
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).Items
+  nameWithType: PagedResponse<T>.Items
+  nameWithType.vb: PagedResponse(Of T).Items
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.Items*
+  name: Items
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_Items_
+  commentId: Overload:FoundationaLLM.Common.Models.Collections.PagedResponse`1.Items
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.Items
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).Items
+  nameWithType: PagedResponse<T>.Items
+  nameWithType.vb: PagedResponse(Of T).Items
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.TotalItems
+  name: TotalItems
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_TotalItems
+  commentId: P:FoundationaLLM.Common.Models.Collections.PagedResponse`1.TotalItems
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.TotalItems
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).TotalItems
+  nameWithType: PagedResponse<T>.TotalItems
+  nameWithType.vb: PagedResponse(Of T).TotalItems
+- uid: FoundationaLLM.Common.Models.Collections.PagedResponse`1.TotalItems*
+  name: TotalItems
+  href: api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html#FoundationaLLM_Common_Models_Collections_PagedResponse_1_TotalItems_
+  commentId: Overload:FoundationaLLM.Common.Models.Collections.PagedResponse`1.TotalItems
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Collections.PagedResponse<T>.TotalItems
+  fullName.vb: FoundationaLLM.Common.Models.Collections.PagedResponse(Of T).TotalItems
+  nameWithType: PagedResponse<T>.TotalItems
+  nameWithType.vb: PagedResponse(Of T).TotalItems
 - uid: FoundationaLLM.Common.Models.Configuration
   name: FoundationaLLM.Common.Models.Configuration
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.html
@@ -18832,47 +19332,118 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.IsServicePrincipal
   nameWithType: EntraUserClaimsProviderService.IsServicePrincipal
-- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
-  name: MicrosoftGraphGroupMembershipService
-  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html
-  commentId: T:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
-  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService
-  nameWithType: MicrosoftGraphGroupMembershipService
-- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService})
-  name: MicrosoftGraphGroupMembershipService(GraphServiceClient, ILogger<MicrosoftGraphGroupMembershipService>)
-  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__ctor_Microsoft_Graph_GraphServiceClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__
-  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService})
-  name.vb: New(GraphServiceClient, ILogger(Of MicrosoftGraphGroupMembershipService))
-  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService>)
-  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.New(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService))
-  nameWithType: MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService(GraphServiceClient, ILogger<MicrosoftGraphGroupMembershipService>)
-  nameWithType.vb: MicrosoftGraphGroupMembershipService.New(GraphServiceClient, ILogger(Of MicrosoftGraphGroupMembershipService))
-- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor*
-  name: MicrosoftGraphGroupMembershipService
-  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService__ctor_
-  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.#ctor
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService
+  name: MicrosoftGraphIdentityManagementService
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html
+  commentId: T:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService
+  nameWithType: MicrosoftGraphIdentityManagementService
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService})
+  name: MicrosoftGraphIdentityManagementService(GraphServiceClient, ILogger<MicrosoftGraphIdentityManagementService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService__ctor_Microsoft_Graph_GraphServiceClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService__
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.#ctor(Microsoft.Graph.GraphServiceClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService})
+  name.vb: New(GraphServiceClient, ILogger(Of MicrosoftGraphIdentityManagementService))
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.MicrosoftGraphIdentityManagementService(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService>)
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.New(Microsoft.Graph.GraphServiceClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService))
+  nameWithType: MicrosoftGraphIdentityManagementService.MicrosoftGraphIdentityManagementService(GraphServiceClient, ILogger<MicrosoftGraphIdentityManagementService>)
+  nameWithType.vb: MicrosoftGraphIdentityManagementService.New(GraphServiceClient, ILogger(Of MicrosoftGraphIdentityManagementService))
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.#ctor*
+  name: MicrosoftGraphIdentityManagementService
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService__ctor_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService
-  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.New
-  nameWithType: MicrosoftGraphGroupMembershipService.MicrosoftGraphGroupMembershipService
-  nameWithType.vb: MicrosoftGraphGroupMembershipService.New
-- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(System.String)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.MicrosoftGraphIdentityManagementService
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.New
+  nameWithType: MicrosoftGraphIdentityManagementService.MicrosoftGraphIdentityManagementService
+  nameWithType.vb: MicrosoftGraphIdentityManagementService.New
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(System.String)
   name: GetGroupsForPrincipal(string)
-  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService_GetGroupsForPrincipal_System_String_
-  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(System.String)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetGroupsForPrincipal_System_String_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(System.String)
   name.vb: GetGroupsForPrincipal(String)
-  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(string)
-  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(String)
-  nameWithType: MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(string)
-  nameWithType.vb: MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal(String)
-- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal*
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(string)
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(String)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(string)
+  nameWithType.vb: MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal(String)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal*
   name: GetGroupsForPrincipal
-  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphGroupMembershipService_GetGroupsForPrincipal_
-  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetGroupsForPrincipal_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal
-  nameWithType: MicrosoftGraphGroupMembershipService.GetGroupsForPrincipal
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal
+  nameWithType: MicrosoftGraphIdentityManagementService.GetGroupsForPrincipal
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetObjectsByIds(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetObjectsByIds_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetObjectsByIds(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds*
+  name: GetObjectsByIds
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetObjectsByIds_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetObjectsByIds
+  nameWithType: MicrosoftGraphIdentityManagementService.GetObjectsByIds
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById(System.String)
+  name: GetUserById(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserById_System_String_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById(System.String)
+  name.vb: GetUserById(String)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById(string)
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById(String)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserById(string)
+  nameWithType.vb: MicrosoftGraphIdentityManagementService.GetUserById(String)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById*
+  name: GetUserById
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserById_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserById
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserById
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById(System.String)
+  name: GetUserGroupById(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserGroupById_System_String_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById(System.String)
+  name.vb: GetUserGroupById(String)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById(string)
+  fullName.vb: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById(String)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserGroupById(string)
+  nameWithType.vb: MicrosoftGraphIdentityManagementService.GetUserGroupById(String)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById*
+  name: GetUserGroupById
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserGroupById_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroupById
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserGroupById
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetUserGroups(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserGroups_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserGroups(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups*
+  name: GetUserGroups
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUserGroups_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUserGroups
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUserGroups
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetUsers(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUsers_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUsers(ObjectQueryParameters)
+- uid: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers*
+  name: GetUsers
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html#FoundationaLLM_Common_Services_Security_MicrosoftGraphIdentityManagementService_GetUsers_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.GetUsers
+  nameWithType: MicrosoftGraphIdentityManagementService.GetUsers
 - uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService
   name: NoOpUserClaimsProviderService
   href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html
@@ -25115,6 +25686,102 @@ references:
   commentId: N:FoundationaLLM.Management.API.Controllers
   fullName: FoundationaLLM.Management.API.Controllers
   nameWithType: FoundationaLLM.Management.API.Controllers
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController
+  name: IdentityManagementController
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html
+  commentId: T:FoundationaLLM.Management.API.Controllers.IdentityManagementController
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController
+  nameWithType: IdentityManagementController
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IIdentityManagementService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Management.API.Controllers.IdentityManagementController})
+  name: IdentityManagementController(ICallContext, IIdentityManagementService, ILogger<IdentityManagementController>)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IIdentityManagementService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Management_API_Controllers_IdentityManagementController__
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IIdentityManagementService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Management.API.Controllers.IdentityManagementController})
+  name.vb: New(ICallContext, IIdentityManagementService, ILogger(Of IdentityManagementController))
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.IdentityManagementController(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IIdentityManagementService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Management.API.Controllers.IdentityManagementController>)
+  fullName.vb: FoundationaLLM.Management.API.Controllers.IdentityManagementController.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IIdentityManagementService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Management.API.Controllers.IdentityManagementController))
+  nameWithType: IdentityManagementController.IdentityManagementController(ICallContext, IIdentityManagementService, ILogger<IdentityManagementController>)
+  nameWithType.vb: IdentityManagementController.New(ICallContext, IIdentityManagementService, ILogger(Of IdentityManagementController))
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.#ctor*
+  name: IdentityManagementController
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController__ctor_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.IdentityManagementController
+  fullName.vb: FoundationaLLM.Management.API.Controllers.IdentityManagementController.New
+  nameWithType: IdentityManagementController.IdentityManagementController
+  nameWithType.vb: IdentityManagementController.New
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup(System.String)
+  name: GetGroup(string)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetGroup_System_String_
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup(System.String)
+  name.vb: GetGroup(String)
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup(string)
+  fullName.vb: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup(String)
+  nameWithType: IdentityManagementController.GetGroup(string)
+  nameWithType.vb: IdentityManagementController.GetGroup(String)
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup*
+  name: GetGroup
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetGroup_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroup
+  nameWithType: IdentityManagementController.GetGroup
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetGroups(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetGroups_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IdentityManagementController.GetGroups(ObjectQueryParameters)
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups*
+  name: GetGroups
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetGroups_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetGroups
+  nameWithType: IdentityManagementController.GetGroups
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetObjectsByIds(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetObjectsByIds_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IdentityManagementController.GetObjectsByIds(ObjectQueryParameters)
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds*
+  name: GetObjectsByIds
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetObjectsByIds_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetObjectsByIds
+  nameWithType: IdentityManagementController.GetObjectsByIds
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser(System.String)
+  name: GetUser(string)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetUser_System_String_
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser(System.String)
+  name.vb: GetUser(String)
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser(string)
+  fullName.vb: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser(String)
+  nameWithType: IdentityManagementController.GetUser(string)
+  nameWithType.vb: IdentityManagementController.GetUser(String)
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser*
+  name: GetUser
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetUser_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUser
+  nameWithType: IdentityManagementController.GetUser
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  name: GetUsers(ObjectQueryParameters)
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetUsers_FoundationaLLM_Common_Models_Authentication_ObjectQueryParameters_
+  commentId: M:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers(FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters)
+  nameWithType: IdentityManagementController.GetUsers(ObjectQueryParameters)
+- uid: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers*
+  name: GetUsers
+  href: api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html#FoundationaLLM_Management_API_Controllers_IdentityManagementController_GetUsers_
+  commentId: Overload:FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers
+  isSpec: "True"
+  fullName: FoundationaLLM.Management.API.Controllers.IdentityManagementController.GetUsers
+  nameWithType: IdentityManagementController.GetUsers
 - uid: FoundationaLLM.Management.API.Controllers.ResourceController
   name: ResourceController
   href: api/dotnet/FoundationaLLM.Management.API.Controllers.ResourceController.html

@@ -662,6 +662,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Authentication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Authentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.yml",
       "output": {
         ".html": {
@@ -1532,16 +1552,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IGroupMembershipService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IGroupMembershipService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.yml",
       "output": {
         ".html": {
@@ -1556,6 +1566,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IHubAPIService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IIdentityManagementService.html"
         }
       },
       "version": ""
@@ -1682,6 +1702,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryParameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authentication.ObjectQueryResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.yml",
       "output": {
         ".html": {
@@ -1722,6 +1762,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.yml",
       "output": {
         ".html": {
@@ -1752,10 +1802,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithactionsResult.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsResult.html"
         }
       },
       "version": ""
@@ -2026,6 +2076,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Chat.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Collections.PagedResponse-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Collections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Collections.html"
         }
       },
       "version": ""
@@ -3842,10 +3912,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphGroupMembershipService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.Security.MicrosoftGraphIdentityManagementService.html"
         }
       },
       "version": ""
@@ -5406,6 +5476,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Gateway.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Management.API.Controllers.IdentityManagementController.html"
         }
       },
       "version": ""
