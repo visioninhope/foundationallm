@@ -140,7 +140,6 @@ If you prefer to retrieve the configuration settings from Azure App Configuratio
             });
             options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
             options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-            options.Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra);
         })
         .Build();
     ```
