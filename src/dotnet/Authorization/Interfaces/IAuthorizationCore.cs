@@ -54,6 +54,6 @@ namespace FoundationaLLM.Authorization.Interfaces
         /// <param name="instanceId">The FoundationaLLM instance identifier.</param>
         /// <param name="queryParameters">The <see cref="RoleAssignmentQueryParameters"/> providing the inputs for filtering the role assignments.</param>
         /// <returns>The list of all role assignments for the specified instance.</returns>
-        List<RoleAssignment> GetRoleAssingments(string instanceId, RoleAssignmentQueryParameters queryParameters);
+        List<RoleAssignment> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters);
     }
 }
