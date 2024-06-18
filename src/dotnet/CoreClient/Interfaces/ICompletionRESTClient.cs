@@ -6,16 +6,16 @@ using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 namespace FoundationaLLM.Client.Core.Interfaces
 {
     /// <summary>
-    /// Provides methods to manage calls to the Core API's orchestration endpoints.
+    /// Provides methods to manage calls to the Core API's completions endpoints.
     /// </summary>
-    public interface IOrchestrationRESTClient
+    public interface ICompletionRESTClient
     {
         /// <summary>
         /// Performs a sessionless request to the Core API.
         /// </summary>
         /// <param name="completionRequest">The completion request data sent to the endpoint.</param>
         /// <returns></returns>
-        Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest);
+        Task<Completion> GetCompletionRequestAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Retrieves agents available to the user for orchestration and session-based requests.

@@ -68,7 +68,7 @@ namespace FoundationaLLM.Client.Core
         /// <inheritdoc/>
         public IBrandingRESTClient Branding { get; private set; } = null!;
         /// <inheritdoc/>
-        public IOrchestrationRESTClient Orchestration { get; private set; } = null!;
+        public ICompletionRESTClient Completions { get; private set; } = null!;
         /// <inheritdoc/>
         public IStatusRESTClient Status { get; private set; } = null!;
         /// <inheritdoc/>
@@ -89,7 +89,7 @@ namespace FoundationaLLM.Client.Core
             Sessions = new SessionRESTClient(httpClientFactory, _credential);
             Attachments = new AttachmentRESTClient(httpClientFactory, _credential);
             Branding = new BrandingRESTClient(httpClientFactory, _credential);
-            Orchestration = new OrchestrationRESTClient(httpClientFactory, _credential);
+            Completions = new CompletionRestClient(httpClientFactory, _credential);
             Status = new StatusRESTClient(httpClientFactory, _credential);
             UserProfiles = new UserProfileRESTClient(httpClientFactory, _credential);
         }

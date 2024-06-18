@@ -12,17 +12,17 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
     /// <summary>
     /// Provides methods to manage calls to the Core API's orchestration endpoints.
     /// </summary>
-    internal class OrchestrationRESTClient(
+    internal class CompletionRestClient(
         IHttpClientFactory httpClientFactory,
-        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), IOrchestrationRESTClient
+        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), ICompletionRESTClient
     {
         /// <inheritdoc/>
-        public async Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest)
+        public async Task<Completion> GetCompletionRequestAsync(CompletionRequest completionRequest)
         {
             var coreClient = await GetCoreClientAsync();
             var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);
 
-            var responseMessage = await coreClient.PostAsync("orchestration/completion", // Session-less - no message history or data retention in Cosmos DB.
+            var responseMessage = await coreClient.PostAsync("completions", // Session-less - no message history or data retention in Cosmos DB.
                 new StringContent(
                     serializedRequest,
                     Encoding.UTF8, "application/json"));
@@ -42,7 +42,7 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync()
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync("orchestration/agents");
+            var responseMessage = await coreClient.GetAsync("completions/agents");
 
             if (responseMessage.IsSuccessStatusCode)
             {

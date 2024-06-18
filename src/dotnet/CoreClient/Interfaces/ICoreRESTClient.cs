@@ -20,7 +20,7 @@
         /// <summary>
         /// Contains methods to interact with the Orchestration endpoints.
         /// </summary>
-        IOrchestrationRESTClient Orchestration { get; }
+        ICompletionRESTClient Completions { get; }
         /// <summary>
         /// Contains methods to interact with the Status endpoints.
         /// </summary>

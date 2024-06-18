@@ -79,10 +79,10 @@ namespace FoundationaLLM.Client.Core
                 string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
                 string.IsNullOrWhiteSpace(completionRequest.UserPrompt))
             {
-                throw new ArgumentException("The orchestration request must contain a SessionID, AgentName, and UserPrompt at a minimum.");
+                throw new ArgumentException("The completion request must contain a SessionID, AgentName, and UserPrompt at a minimum.");
             }
 
-            var completion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(completionRequest);
+            var completion = await GetCompletionAsync(completionRequest);
             return completion;
         }
 
@@ -107,7 +107,7 @@ namespace FoundationaLLM.Client.Core
                 throw new ArgumentException("The completion request must contain an AgentName and UserPrompt at a minimum.");
             }
 
-            var completion = await _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest);
+            var completion = await _coreRestClient.Completions.GetCompletionRequestAsync(completionRequest);
             return completion;
         }
 
@@ -136,7 +136,7 @@ namespace FoundationaLLM.Client.Core
                     UserPrompt = question,
                     Attachments = [objectId]
                 };
-                var sessionCompletion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest);
+                var sessionCompletion = await GetCompletionAsync(orchestrationRequest);
 
                 return sessionCompletion;
             }
@@ -148,7 +148,7 @@ namespace FoundationaLLM.Client.Core
                 UserPrompt = question,
                 Attachments = [objectId]
             };
-            var completion = await _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(completionRequest);
+            var completion = await _coreRestClient.Completions.GetCompletionRequestAsync(completionRequest);
 
             return completion;
         }
@@ -159,7 +159,7 @@ namespace FoundationaLLM.Client.Core
         /// <inheritdoc/>
         public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync()
         {
-            var agents = await _coreRestClient.Orchestration.GetAgentsAsync();
+            var agents = await _coreRestClient.Completions.GetAgentsAsync();
             return agents;
         }
 

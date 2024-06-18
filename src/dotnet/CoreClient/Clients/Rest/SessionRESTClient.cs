@@ -49,29 +49,6 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionCompletionRequestAsync(CompletionRequest completionRequest)
-        {
-            var coreClient = await GetCoreClientAsync();
-            var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);
-
-            var sessionUrl = $"sessions/{completionRequest.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
-            var responseMessage = await coreClient.PostAsync(sessionUrl,
-                new StringContent(
-                    serializedRequest,
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var completionResponse =
-                    JsonSerializer.Deserialize<Completion>(responseContent, SerializerOptions);
-                return completionResponse ?? throw new InvalidOperationException("The returned completion response is invalid.");
-            }
-
-            throw new Exception($"Failed to send completion request. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
-        }
-
-        /// <inheritdoc/>
         public async Task<CompletionPrompt> GetCompletionPromptAsync(string sessionId, string completionPromptId)
         {
             var coreClient = await GetCoreClientAsync();
@@ -130,22 +107,6 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
             {
                 throw new Exception($"Failed to rate message. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
             }
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> SummarizeChatSessionNameAsync(string sessionId, string prompt)
-        {
-            var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.PostAsync($"sessions/{sessionId}/summarize-name", new StringContent(JsonSerializer.Serialize(prompt), Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var completion = JsonSerializer.Deserialize<Completion>(responseContent, SerializerOptions);
-                return completion?.Text ?? throw new InvalidOperationException("The returned summary is invalid.");
-            }
-
-            throw new Exception($"Failed to summarize chat session name. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
         }
 
         /// <inheritdoc/>

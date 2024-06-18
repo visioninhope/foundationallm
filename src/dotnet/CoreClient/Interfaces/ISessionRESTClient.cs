@@ -24,14 +24,6 @@ namespace FoundationaLLM.Client.Core.Interfaces
         Task RateMessageAsync(string sessionId, string messageId, bool rating);
 
         /// <summary>
-        /// Generate a name for a chat message, based on the passed in prompt.
-        /// </summary>
-        /// <param name="sessionId">The id of the session for which to generate a name.</param>
-        /// <param name="prompt">The prompt to use to generate the name.</param>
-        /// <returns></returns>
-        Task<string> SummarizeChatSessionNameAsync(string sessionId, string prompt);
-
-        /// <summary>
         /// Creates and renames a session.
         /// </summary>
         /// <returns>Returns the new Session ID.</returns>
@@ -44,13 +36,6 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="sessionName">The new session name.</param>
         /// <returns></returns>
         Task<string> RenameChatSession(string sessionId, string sessionName);
-
-        /// <summary>
-        /// Sends a user prompt to the specified agent within the specified session.
-        /// </summary>
-        /// <param name="completionRequestest"></param>
-        /// <returns>Returns a completion response.</returns>
-        Task<Completion> SendSessionCompletionRequestAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Gets a completion prompt by session ID and completion prompt ID.
