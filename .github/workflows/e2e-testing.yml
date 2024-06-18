@@ -781,9 +781,11 @@ jobs:
   
       - name: Check E2E Test Status
         uses: actions/github-script@v7
+        env:
+          TEST_RESULTS: ${{ steps.get-e2e-results.outputs.result }}
         with:
           script: |
-            const jsonString = "${{ steps.get-e2e-results.outputs.result }}"
+            const jsonString = process.env.TEST_RESULTS
             console.log(jsonString)
             var data = JSON.parse(jsonString)
             for (const [key, value] of data.passed) {
