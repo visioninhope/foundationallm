@@ -1,5 +1,5 @@
 import type { Message, Session, CompletionPrompt, Agent,
-	OrchestrationRequest, ResourceProviderGetResult } from '@/js/types';
+	CompletionRequest, ResourceProviderGetResult } from '@/js/types';
 
 export default {
 	apiUrl: null as string | null,
@@ -173,14 +173,14 @@ export default {
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
 	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
-		const orchestrationRequest: OrchestrationRequest = {
+		const orchestrationRequest: CompletionRequest = {
 			session_id: sessionId,
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
 			attachments: attachments
 		};
-		return (await this.fetch(`/sessions/${sessionId}/completion`, {
+		return (await this.fetch(`/completions`, {
 			method: 'POST',
 			body: orchestrationRequest,
 		})) as string;
@@ -191,7 +191,7 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		const agents = (await this.fetch('/orchestration/agents')) as ResourceProviderGetResult<Agent>[];
+		const agents = (await this.fetch('/completions/agents')) as ResourceProviderGetResult<Agent>[];
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
 	},
