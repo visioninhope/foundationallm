@@ -1,10 +1,10 @@
 ﻿using Azure.Core;
 using Azure.Identity;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Authentication;
 using Microsoft.Identity.Web;
 using System.IdentityModel.Tokens.Jwt;
-using FoundationaLLM.Common.Constants.Authorization;
 
 namespace FoundationaLLM.Common.Authentication
 {

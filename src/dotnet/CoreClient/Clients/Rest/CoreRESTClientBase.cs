@@ -3,7 +3,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Settings;
 using System.Text.Json;
-using FoundationaLLM.Common.Constants.Authorization;
+using FoundationaLLM.Common.Constants.Authentication;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {

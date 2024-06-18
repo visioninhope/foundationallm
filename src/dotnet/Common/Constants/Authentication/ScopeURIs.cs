@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Constants.Authorization
+﻿namespace FoundationaLLM.Common.Constants.Authentication
 {
     /// <summary>
     /// The URIs for the scopes used in the application.
