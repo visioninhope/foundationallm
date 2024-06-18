@@ -783,7 +783,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const jsonString = "${{ fromJson(steps.get-e2e-results.outputs.result).passed }}"
+            const jsonString = "${{ steps.get-e2e-results.outputs.result.passed }}"
             console.log(jsonString)
             var data = JSON.parse(jsonString)
             for (const [key, value] of data) {
