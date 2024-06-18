@@ -7,6 +7,9 @@ This library contains two primary classes:
 - `CoreRESTClient`: A class that provides a set of methods for interacting with the Foundationa**LLM** Core API using REST. This is considered the low-level client and provides direct access to all Core API endpoints.
 - `CoreClient`: A class that provides a set of methods for interacting with the Foundationa**LLM** Core API using a higher-level abstraction. This class is designed to simplify the process of interacting with the Core API by providing a more intuitive interface. It does not contain all the methods available in the `CoreRESTClient` class, but it provides a more user-friendly way to interact with the Core API.
 
+> [!NOTE]
+> These two classes are mutually exclusive, and you should choose one based on your requirements. If you need direct access to all Core API endpoints, use the `CoreRESTClient` class. If you need a more user-friendly interface, use the `CoreClient` class.
+
 ## Getting started
 
 > [!TIP]
