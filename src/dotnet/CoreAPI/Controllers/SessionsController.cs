@@ -85,15 +85,6 @@ namespace FoundationaLLM.Core.API.Controllers
             await _coreService.DeleteChatSessionAsync(sessionId);
 
         /// <summary>
-        /// Receive a prompt from a user, vectorize it, and get a completion from the orchestration service.
-        /// </summary>
-        /// <param name="sessionId">The id of the session for which to get a completion.</param>
-        /// <param name="completionRequestest">The orchestration request containing the user prompt.</param>
-        [HttpPost("{sessionId}/completion", Name = "GetChatCompletion")]
-        public async Task<Completion> GetChatCompletion(string sessionId, [FromBody] CompletionRequest completionRequest) =>
-            await _coreService.GetChatCompletionAsync(completionRequest);
-
-        /// <summary>
         /// Generate a name for a chat message, based on the passed in prompt.
         /// </summary>
         /// <param name="sessionId">The id of the session for which to generate a name.</param>
