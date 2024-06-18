@@ -168,8 +168,8 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_FoundationaLLM_Common_Interfaces_IResourceProviderService_Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor(FoundationaLLM.Common.Interfaces.IResourceProviderService,Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
-  TextEmbeddingServiceFactory(IResourceProviderService, IConfiguration, IServiceProvider, ILoggerFactory)
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
+  TextEmbeddingServiceFactory(IEnumerable&lt;IResourceProviderService&gt;, IConfiguration, IServiceProvider, ILoggerFactory)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -178,13 +178,13 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TextEmbeddingServiceFactory(IResourceProviderService vectorizationResourceProviderService, IConfiguration configuration, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
+    <pre><code class="lang-csharp hljs">public TextEmbeddingServiceFactory(IEnumerable&lt;IResourceProviderService&gt; resourceProviderServices, IConfiguration configuration, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>vectorizationResourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
-    <dd><p>The vectorization resource provider service.</p>
+    <dt><code>resourceProviderServices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a>&gt;</dt>
+    <dd><p>The collection of registered resource providers.</p>
 </dd>
     <dt><code>configuration</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration">IConfiguration</a></dt>
     <dd><p>The global configuration provider.</p>
@@ -216,7 +216,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(System.String)">
   GetService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name.</p>
@@ -255,7 +255,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(System.String)">
   GetServiceWithResource(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>

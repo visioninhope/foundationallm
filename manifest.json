@@ -6542,6 +6542,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationService.yml",
       "output": {
         ".html": {
@@ -7002,6 +7012,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.RequestSources.MemoryRequestSourceService.yml",
       "output": {
         ".html": {
@@ -7102,10 +7142,40 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.VectorizationServiceFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.VectorizationServiceFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.html"
         }
       },
       "version": ""
