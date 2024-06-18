@@ -665,7 +665,17 @@ jobs:
         with:
           name: ${{ matrix.object.name }}-results
           path: ${{ github.workspace }}/${{ matrix.object.name }}.html
-  
+
+      - name: Output Job Status
+        if: (success() || failure())
+        uses: cloudposse/github-action-matrix-outputs-write@v1
+        id: job-status
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ matrix.object.name }}
+          outputs: |
+            passed: ${{ steps.e2e-test-exec.outputs.result }}
+            
   teardown_quickstart:
     name: Tear Down Quick Start
     if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
@@ -763,12 +773,21 @@ jobs:
           Pop-Location
         shell: pwsh
 
+      - name: Get E2E Test Results
+        uses: cloudposse/github-action-matrix-outputs-read@v1
+        id: get-e2e-results
+        with:
+          matrix-step-name: run_e2e_tests
   
       - name: Check E2E Test Status
-        run: |
-          if ( '${{ needs.run_e2e_tests.result }}' -eq 'success' ) {
-            exit 0
-          }
-  
-          exit 1
-        shell: pwsh
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jsonString = "${{ fromJson(steps.get-e2e-results.outputs.result).passed }}"
+            console.log(jsonString)
+            var data = JSON.parse(jsonString)
+            for (const [key, value] of data) {
+              if (value !== 'success') {
+                exit(1);
+              }
+            }
