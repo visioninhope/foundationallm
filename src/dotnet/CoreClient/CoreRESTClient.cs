@@ -1,6 +1,9 @@
-﻿using FoundationaLLM.Client.Core.Clients.Rest;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core.Clients.Rest;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FoundationaLLM.Client.Core
@@ -8,65 +11,87 @@ namespace FoundationaLLM.Client.Core
     /// <inheritdoc/>
     public class CoreRESTClient : ICoreRESTClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly string _coreUri;
+        private readonly TokenCredential _credential;
+        private readonly APIClientSettings _options;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CoreRESTClient"/> class with
-        /// the provided <see cref="IHttpClientFactory"/>. This constructor is used
-        /// for dependency injection.
+        /// Constructor for mocking. This does not initialize the clients.
         /// </summary>
-        /// <param name="httpClientFactory">An <see cref="IHttpClientFactory"/>
-        /// configured with a named instance for the CoreAPI (<see cref="HttpClients.CoreAPI"/>).</param>
-        public CoreRESTClient(IHttpClientFactory httpClientFactory)
+        public CoreRESTClient()
         {
-            _httpClientFactory = httpClientFactory;
-            InitializeClients(httpClientFactory);
+            _coreUri = null!;
+            _options = null!;
+            _credential = null!;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoreRESTClient"/> class and
         /// configures <see cref="IHttpClientFactory"/> with a named instance for the
-        /// CoreAPI (<see cref="HttpClients.CoreAPI"/>) based on the passed in URL
-        /// and optional timespan.
+        /// CoreAPI (<see cref="HttpClients.CoreAPI"/>) based on the passed in URL.
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="timeout"></param>
-        public CoreRESTClient(string url, TimeSpan? timeout = null)
-        {
-            var services = new ServiceCollection();
+        /// <param name="coreUri">The base URI of the Core API.</param>
+        /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
+        /// user or service principle from which the client library can generate auth tokens.</param>
+        public CoreRESTClient(string coreUri, TokenCredential credential)
+            : this(coreUri, credential, new APIClientSettings()) { }
 
-            services.AddHttpClient(HttpClients.CoreAPI, client =>
-            {
-                client.BaseAddress = new Uri(url);
-                client.Timeout = timeout ?? TimeSpan.FromSeconds(900);
-            });
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoreRESTClient"/> class and
+        /// configures <see cref="IHttpClientFactory"/> with a named instance for the
+        /// CoreAPI (<see cref="HttpClients.CoreAPI"/>) based on the passed in URL
+        /// and optional client settings.
+        /// </summary>
+        /// <param name="coreUri">The base URI of the Core API.</param>
+        /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
+        /// user or service principle from which the client library can generate auth tokens.</param>
+        /// <param name="options">Additional options to configure the HTTP Client.</param>
+        public CoreRESTClient(string coreUri, TokenCredential credential, APIClientSettings options)
+        {
+            _coreUri = coreUri ?? throw new ArgumentNullException(nameof(coreUri));
+            _credential = credential ?? throw new ArgumentNullException(nameof(credential));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+
+            var services = new ServiceCollection();
+            ConfigureHttpClient(services, coreUri, options);
 
             var serviceProvider = services.BuildServiceProvider();
-            _httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
-            InitializeClients(_httpClientFactory);
+            var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+            InitializeClients(httpClientFactory);
         }
 
         /// <inheritdoc/>
-        public ISessionRESTClient Sessions { get; private set; }
+        public ISessionRESTClient Sessions { get; private set; } = null!;
         /// <inheritdoc/>
-        public IAttachmentRESTClient Attachments { get; private set; }
+        public IAttachmentRESTClient Attachments { get; private set; } = null!;
         /// <inheritdoc/>
-        public IBrandingRESTClient Branding { get; private set; }
+        public IBrandingRESTClient Branding { get; private set; } = null!;
         /// <inheritdoc/>
-        public IOrchestrationRESTClient Orchestration { get; private set; }
+        public IOrchestrationRESTClient Orchestration { get; private set; } = null!;
         /// <inheritdoc/>
-        public IStatusRESTClient Status { get; private set; }
+        public IStatusRESTClient Status { get; private set; } = null!;
         /// <inheritdoc/>
-        public IUserProfileRESTClient UserProfiles { get; private set; }
+        public IUserProfileRESTClient UserProfiles { get; private set; } = null!;
+
+        private static void ConfigureHttpClient(IServiceCollection services, string coreUri, APIClientSettings options) =>
+            services.AddHttpClient(HttpClients.CoreAPI, client =>
+            {
+              client.BaseAddress = new Uri(coreUri);
+              client.Timeout = options.Timeout ?? TimeSpan.FromSeconds(900);
+            }).AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+            {
+                CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+            });
 
         private void InitializeClients(IHttpClientFactory httpClientFactory)
         {
-            Sessions = new SessionRESTClient(httpClientFactory);
-            Attachments = new AttachmentRESTClient(httpClientFactory);
-            Branding = new BrandingRESTClient(httpClientFactory);
-            Orchestration = new OrchestrationRESTClient(httpClientFactory);
-            Status = new StatusRESTClient(httpClientFactory);
-            UserProfiles = new UserProfileRESTClient(httpClientFactory);
+            Sessions = new SessionRESTClient(httpClientFactory, _credential);
+            Attachments = new AttachmentRESTClient(httpClientFactory, _credential);
+            Branding = new BrandingRESTClient(httpClientFactory, _credential);
+            Orchestration = new OrchestrationRESTClient(httpClientFactory, _credential);
+            Status = new StatusRESTClient(httpClientFactory, _credential);
+            UserProfiles = new UserProfileRESTClient(httpClientFactory, _credential);
         }
     }
 }
