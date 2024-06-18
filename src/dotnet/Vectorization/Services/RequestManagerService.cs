@@ -75,7 +75,7 @@ namespace FoundationaLLM.Vectorization.Services
         {
             var vectorizationResourceProvider = GetVectorizationResourceProvider();
             _logger.LogInformation("The request manager service associated with source [{RequestSourceName}] started processing requests.", _settings.RequestSourceName);
-            var receiveCycleNumber = 0;
+            
             while (true)
             {
                 if (_cancellationToken.IsCancellationRequested)
@@ -87,8 +87,7 @@ namespace FoundationaLLM.Vectorization.Services
                     
                     if (taskPoolAvailableCapacity > 0 && (await _incomingRequestSourceService.HasRequests().ConfigureAwait(false)))
                     {
-                        var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
-                        receiveCycleNumber++;
+                        var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);                        
                         var receivedTime = DateTimeOffset.UtcNow;
                         var validRequests = new List<VectorizationRequestProcessingContext>();
                         foreach (var dequeuedRequest in requests)
@@ -191,8 +190,7 @@ namespace FoundationaLLM.Vectorization.Services
                                     Task = Task.Run(
                                     () => { ProcessRequest(r.Request, r.DequeuedRequest.MessageId, r.DequeuedRequest.PopReceipt, _cancellationToken).ConfigureAwait(false); },                                            
                                     _cancellationToken),
-                                    StartTime = DateTimeOffset.UtcNow,
-                                    ReceiveCycleNumber = receiveCycleNumber
+                                    StartTime = DateTimeOffset.UtcNow
                                 }));                            
                                                
                         // Pace retrieving requests by a pre-determined delay           
