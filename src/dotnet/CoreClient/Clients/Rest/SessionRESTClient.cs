@@ -2,14 +2,9 @@
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
@@ -54,12 +49,12 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionCompletionRequestAsync(OrchestrationRequest orchestrationRequest)
+        public async Task<Completion> SendSessionCompletionRequestAsync(CompletionRequest completionRequest)
         {
             var coreClient = await GetCoreClientAsync();
-            var serializedRequest = JsonSerializer.Serialize(orchestrationRequest, SerializerOptions);
+            var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);
 
-            var sessionUrl = $"sessions/{orchestrationRequest.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
+            var sessionUrl = $"sessions/{completionRequest.SessionId}/completion"; // Session-based - message history and data is retained in Cosmos DB. Must create a session if it does not exist.
             var responseMessage = await coreClient.PostAsync(sessionUrl,
                 new StringContent(
                     serializedRequest,

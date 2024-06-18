@@ -164,7 +164,7 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             // Create a new orchestration request for the user prompt and chat session.
-            var orchestrationRequest = new OrchestrationRequest
+            var orchestrationRequest = new CompletionRequest
             {
                 SessionId = sessionId,
                 AgentName = agentName,

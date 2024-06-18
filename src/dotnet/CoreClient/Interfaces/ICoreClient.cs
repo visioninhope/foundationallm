@@ -38,10 +38,10 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// You must ensure that the orchestration request contains a SessionID, AgentName, and
         /// UserPrompt.
         /// </summary>
-        /// <param name="orchestrationRequest">The orchestration request that contains the
+        /// <param name="completionRequestest">The orchestration request that contains the
         /// SessionID, AgentName, and UserPrompt at a minimum.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> GetCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest);
+        Task<Completion> GetCompletionWithSessionAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Runs a single completion with an agent using the Core API without a chat session

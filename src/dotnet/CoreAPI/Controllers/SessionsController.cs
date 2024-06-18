@@ -1,11 +1,8 @@
-﻿using Asp.Versioning;
-using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Common.Models.Chat;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using FoundationaLLM.Common.Interfaces;
-using Microsoft.Identity.Web;
+﻿using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoundationaLLM.Core.API.Controllers
 {
@@ -91,10 +88,10 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Receive a prompt from a user, vectorize it, and get a completion from the orchestration service.
         /// </summary>
         /// <param name="sessionId">The id of the session for which to get a completion.</param>
-        /// <param name="orchestrationRequest">The orchestration request containing the user prompt.</param>
+        /// <param name="completionRequestest">The orchestration request containing the user prompt.</param>
         [HttpPost("{sessionId}/completion", Name = "GetChatCompletion")]
-        public async Task<Completion> GetChatCompletion(string sessionId, [FromBody] OrchestrationRequest orchestrationRequest) =>
-            await _coreService.GetChatCompletionAsync(orchestrationRequest);
+        public async Task<Completion> GetChatCompletion(string sessionId, [FromBody] CompletionRequest completionRequest) =>
+            await _coreService.GetChatCompletionAsync(completionRequest);
 
         /// <summary>
         /// Generate a name for a chat message, based on the passed in prompt.

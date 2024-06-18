@@ -63,7 +63,7 @@ namespace FoundationaLLM.Client.Core
                 sessionId = await CreateChatSessionAsync(sessionName);
             }
 
-            var orchestrationRequest = new OrchestrationRequest
+            var orchestrationRequest = new CompletionRequest
             {
                 AgentName = agentName,
                 SessionId = sessionId,
@@ -73,16 +73,16 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> GetCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest)
+        public async Task<Completion> GetCompletionWithSessionAsync(CompletionRequest completionRequest)
         {
-            if (string.IsNullOrWhiteSpace(orchestrationRequest.SessionId) ||
-                string.IsNullOrWhiteSpace(orchestrationRequest.AgentName) ||
-                string.IsNullOrWhiteSpace(orchestrationRequest.UserPrompt))
+            if (string.IsNullOrWhiteSpace(completionRequest.SessionId) ||
+                string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
+                string.IsNullOrWhiteSpace(completionRequest.UserPrompt))
             {
                 throw new ArgumentException("The orchestration request must contain a SessionID, AgentName, and UserPrompt at a minimum.");
             }
 
-            var completion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(orchestrationRequest);
+            var completion = await _coreRestClient.Sessions.SendSessionCompletionRequestAsync(completionRequest);
             return completion;
         }
 
@@ -129,7 +129,7 @@ namespace FoundationaLLM.Client.Core
                     sessionId = await CreateChatSessionAsync(sessionName);
                 }
 
-                var orchestrationRequest = new OrchestrationRequest
+                var orchestrationRequest = new CompletionRequest
                 {
                     AgentName = agentName,
                     SessionId = sessionId,

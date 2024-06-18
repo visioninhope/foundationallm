@@ -46,7 +46,7 @@ namespace FoundationaLLM.Client.Core.Tests
             var sessionId = "new-session-id";
             var completion = new Completion();
             _coreRestClient.Sessions.CreateSessionAsync().Returns(Task.FromResult(sessionId));
-            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>()).Returns(Task.FromResult(completion));
+            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<CompletionRequest>()).Returns(Task.FromResult(completion));
 
             // Act
             var result = await _coreClient.GetCompletionWithSessionAsync(null, "NewSession", userPrompt, agentName);
@@ -54,7 +54,7 @@ namespace FoundationaLLM.Client.Core.Tests
             // Assert
             Assert.Equal(completion, result);
             await _coreRestClient.Sessions.Received(1).CreateSessionAsync();
-            await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<OrchestrationRequest>(
+            await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<CompletionRequest>(
                 r => r.SessionId == sessionId && r.AgentName == agentName && r.UserPrompt == userPrompt));
         }
 
@@ -104,7 +104,7 @@ namespace FoundationaLLM.Client.Core.Tests
             var completion = new Completion();
             _coreRestClient.Attachments.UploadAttachmentAsync(fileStream, fileName, contentType).Returns(Task.FromResult(objectId));
             _coreRestClient.Sessions.CreateSessionAsync().Returns(Task.FromResult(sessionId));
-            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>()).Returns(Task.FromResult(completion));
+            _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<CompletionRequest>()).Returns(Task.FromResult(completion));
 
             // Act
             var result = await _coreClient.AttachFileAndAskQuestionAsync(fileStream, fileName, contentType, agentName, question, true, null, "NewSession");
@@ -113,7 +113,7 @@ namespace FoundationaLLM.Client.Core.Tests
             Assert.Equal(completion, result);
             await _coreRestClient.Attachments.Received(1).UploadAttachmentAsync(fileStream, fileName, contentType);
             await _coreRestClient.Sessions.Received(1).CreateSessionAsync();
-            await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<OrchestrationRequest>(
+            await _coreRestClient.Sessions.Received(1).SendSessionCompletionRequestAsync(Arg.Is<CompletionRequest>(
                 r => r.AgentName == agentName && r.SessionId == sessionId && r.UserPrompt == question && r.Attachments.Contains(objectId)));
         }
 
