@@ -195,12 +195,6 @@ else {
     $env:PATH = $env:PATH, "$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}" -join $separator
 }
 
-$status = (azcopy login status)
-if (-not $status.contains("Your login session is still active")) {
-    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
-    azcopy login
-}
-
 $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
 
 azcopy cp '../common/data/resource-provider/*' $target --exclude-pattern .git* --recursive=True

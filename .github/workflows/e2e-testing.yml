@@ -236,7 +236,7 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
         shell: pwsh
@@ -538,14 +538,14 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($src.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($src.clientId)" `
             --tenant-id "$($src.tenantId)"
           ./deploy/common/scripts/Get-TestData.ps1 -storageAccountName foundationallmdata
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
           ./deploy/common/scripts/Set-TestData.ps1 `
@@ -660,6 +660,7 @@ jobs:
         shell: pwsh
 
       - name: Publish Test Results
+        if: (success() || failure())
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.object.name }}-results
