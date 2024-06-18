@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Client.Core;
+﻿using Azure.Core;
+using FoundationaLLM.Client.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -19,29 +20,21 @@ namespace FoundationaLLM
         /// <summary>
         /// Add the Core Client and its related dependencies to the dependency injection container.
         /// </summary>
-        /// <param name="builder">The application builder.</param>
-        public static void AddCoreClient(this IServiceCollection services, IConfiguration configuration)
+        /// <param name="services">The <see cref="IServiceCollection"/> this method extends to add the Core Client.</param>
+        /// <param name="coreUri">The base URI of the Core API.</param>
+        /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
+        /// user or service principle from which the client library can generate auth tokens.</param>
+        /// <param name="options">Additional options to configure the HTTP Client.</param>
+        public static void AddCoreClient(
+            this IServiceCollection services,
+            string coreUri,
+            TokenCredential credential,
+            APIClientSettings? options = null)
         {
-            services.Configure<APIClientSettings>(HttpClients.CoreAPI, options =>
-            {
-                options.APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
-                options.Timeout = TimeSpan.FromSeconds(900);
-            });
+            options ??= new APIClientSettings();
 
-            services.AddHttpClient(HttpClients.CoreAPI)
-                .ConfigureHttpClient((serviceProvider, client) =>
-                {
-                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<APIClientSettings>>().Get(HttpClients.CoreAPI);
-                    client.BaseAddress = new Uri(options.APIUrl!);
-                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
-                })
-                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
-                {
-                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                });
-
-            services.AddSingleton<ICoreRESTClient, CoreRESTClient>();
-            services.AddSingleton<ICoreClient, CoreClient>();
+            services.AddSingleton<ICoreRESTClient>(serviceProvider => new CoreRESTClient(coreUri, credential, options));
+            services.AddSingleton<ICoreClient>(serviceProvider => new CoreClient(coreUri, credential, options));
         }
     }
 }
