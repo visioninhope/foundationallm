@@ -36,7 +36,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null);
+                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
                 sessionCreated = true;
             }
 
@@ -50,7 +50,7 @@ namespace FoundationaLLM.Core.Examples.Services
             foreach (var userPrompt in userPrompts)
             {
                 // Send the orchestration request to the Core API's session completion endpoint.
-                await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
+                await coreClient.GetCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
             }
 
             // Retrieve the messages from the chat session.
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null);
+                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
                 sessionCreated = true;
             }
 
@@ -91,7 +91,7 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             // Send the orchestration request to the Core API's session completion endpoint.
-            var completion = await coreClient.SendCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
+            var completion = await coreClient.GetCompletionWithSessionAsync(sessionId, null, userPrompt, agentName);
 
             // Delete the session to clean up after the test.
             if (sessionCreated)
@@ -127,7 +127,7 @@ namespace FoundationaLLM.Core.Examples.Services
             };
 
             // Send the orchestration request to the Core API's orchestration completion endpoint.
-            var completion = await coreClient.SendSessionlessCompletionAsync(completionRequest);
+            var completion = await coreClient.GetCompletionAsync(completionRequest);
 
             if (createAgent)
             {
@@ -153,7 +153,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync(null);
+                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
                 sessionCreated = true;
             }
 
@@ -173,7 +173,7 @@ namespace FoundationaLLM.Core.Examples.Services
             };
 
             // Send the orchestration request to the Core API's session completion endpoint.
-            var completionResponse = await coreClient.SendCompletionWithSessionAsync(orchestrationRequest);
+            var completionResponse = await coreClient.GetCompletionWithSessionAsync(orchestrationRequest);
 
             // Retrieve the messages from the chat session.
             var messages = await coreClient.GetChatSessionMessagesAsync(sessionId);

@@ -55,7 +55,7 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendCompletionWithSessionAsync(string? sessionId, string? sessionName,
+        public async Task<Completion> GetCompletionWithSessionAsync(string? sessionId, string? sessionName,
             string userPrompt, string agentName)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
@@ -69,11 +69,11 @@ namespace FoundationaLLM.Client.Core
                 SessionId = sessionId,
                 UserPrompt = userPrompt
             };
-            return await SendCompletionWithSessionAsync(orchestrationRequest);
+            return await GetCompletionWithSessionAsync(orchestrationRequest);
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest)
+        public async Task<Completion> GetCompletionWithSessionAsync(OrchestrationRequest orchestrationRequest)
         {
             if (string.IsNullOrWhiteSpace(orchestrationRequest.SessionId) ||
                 string.IsNullOrWhiteSpace(orchestrationRequest.AgentName) ||
@@ -87,7 +87,7 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionlessCompletionAsync(string userPrompt, string agentName)
+        public async Task<Completion> GetCompletionAsync(string userPrompt, string agentName)
         {
             var completionRequest = new CompletionRequest
             {
@@ -95,11 +95,11 @@ namespace FoundationaLLM.Client.Core
                 UserPrompt = userPrompt
             };
 
-            return await SendSessionlessCompletionAsync(completionRequest);
+            return await GetCompletionAsync(completionRequest);
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionlessCompletionAsync(CompletionRequest completionRequest)
+        public async Task<Completion> GetCompletionAsync(CompletionRequest completionRequest)
         {
             if (string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
                 string.IsNullOrWhiteSpace(completionRequest.UserPrompt))

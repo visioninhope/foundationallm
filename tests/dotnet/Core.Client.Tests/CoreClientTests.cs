@@ -49,7 +49,7 @@ namespace FoundationaLLM.Client.Core.Tests
             _coreRestClient.Sessions.SendSessionCompletionRequestAsync(Arg.Any<OrchestrationRequest>()).Returns(Task.FromResult(completion));
 
             // Act
-            var result = await _coreClient.SendCompletionWithSessionAsync(null, "NewSession", userPrompt, agentName);
+            var result = await _coreClient.GetCompletionWithSessionAsync(null, "NewSession", userPrompt, agentName);
 
             // Assert
             Assert.Equal(completion, result);
@@ -68,7 +68,7 @@ namespace FoundationaLLM.Client.Core.Tests
             _coreRestClient.Orchestration.SendOrchestrationCompletionRequestAsync(Arg.Any<CompletionRequest>()).Returns(Task.FromResult(completion));
 
             // Act
-            var result = await _coreClient.SendSessionlessCompletionAsync(userPrompt, agentName);
+            var result = await _coreClient.GetCompletionAsync(userPrompt, agentName);
 
             // Assert
             Assert.Equal(completion, result);
@@ -86,7 +86,7 @@ namespace FoundationaLLM.Client.Core.Tests
             };
 
             // Act & Assert
-            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _coreClient.SendSessionlessCompletionAsync(completionRequest));
+            var ex = await Assert.ThrowsAsync<ArgumentException>(() => _coreClient.GetCompletionAsync(completionRequest));
             Assert.Equal("The completion request must contain an AgentName and UserPrompt at a minimum.", ex.Message);
         }
 
