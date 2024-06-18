@@ -1,11 +1,15 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using Azure.Core;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Settings;
 using System.Text.Json;
+using FoundationaLLM.Common.Constants.Authorization;
 
 namespace FoundationaLLM.Client.Core.Clients.Rest
 {
-    internal class CoreRESTClientBase(IHttpClientFactory httpClientFactory)
+    internal class CoreRESTClientBase(
+        IHttpClientFactory httpClientFactory,
+        TokenCredential credential)
     {
         /// <summary>
         /// Sets standard JSON serializer options.
@@ -16,12 +20,13 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         /// <summary>
         /// Returns a new HttpClient configured with an authentication header that uses the supplied token.
         /// </summary>
-        /// <param name="token">The authentication token to send with the HTTP client requests.</param>
         /// <returns></returns>
-        protected HttpClient GetCoreClient(string token)
+        protected async Task<HttpClient> GetCoreClientAsync()
         {
             var coreClient = httpClientFactory.CreateClient(HttpClients.CoreAPI);
-            coreClient.SetBearerToken(token);
+            
+            var token = await credential.GetTokenAsync(new TokenRequestContext([ScopeURIs.FoundationaLLM_Core]), default);
+            coreClient.SetBearerToken(token.Token);
             return coreClient;
         }
     }
