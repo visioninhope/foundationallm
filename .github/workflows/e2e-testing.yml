@@ -786,7 +786,7 @@ jobs:
             const jsonString = "${{ steps.get-e2e-results.outputs.result }}"
             console.log(jsonString)
             var data = JSON.parse(jsonString)
-            for (const [key, value] of data) {
+            for (const [key, value] of data.passed) {
               if (value !== 'success') {
                 exit(1);
               }
