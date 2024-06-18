@@ -25,25 +25,40 @@ Complete the following steps if you do not want to use dependency injection:
 1. Create a new instance of the `CoreRESTClient` and `CoreClient` classes:
 
     ```csharp
+    var coreUri = "<YOUR_CORE_API_URL>"; // e.g., "https://myfoundationallmcoreapi.com"
+    var credential = new AzureCliCredential(); // Can use any TokenCredential implementation, such as ManagedIdentityCredential or AzureCliCredential.
+    var options = new APIClientSettings // Optional settings parameter. Default timeout is 900 seconds.
+    {
+        Timeout = TimeSpan.FromSeconds(600)
+    };
+
     var coreRestClient = new CoreRESTClient(
-        "<YOUR_CORE_API_URL>", // e.g., "https://myfoundationallmcoreapi.com"
-        TimeSpan.FromSeconds(600)); // Optional timeout parameter. Default is 600 seconds.
-    var coreClient = new CoreClient(coreRestClient);
+        coreUri,
+        credential,
+        options);
+    var coreClient = new CoreClient(
+        coreUri,
+        credential,
+        options);
     ```
 
-2. Make an unauthenticated request to the Core API with the `CoreRESTClient` class:
+2. Make a request to the Core API with the `CoreRESTClient` class:
 
     ```csharp
     var status = await coreRestClient.Status.GetServiceStatusAsync();
     ```
 
-    > The service status endpoint is one of the only endpoints that does not require authentication.
-
-3. Make an authenticated request to the Core API with the `CoreClient` class:
+3. Make a request to the Core API with the `CoreClient` class:
 
     ```csharp
-    var results = await coreClient.GetAgentsAsync(token); // token is a valid JWT token
+    var results = await coreClient.GetAgentsAsync();
     ```
+
+> ![!TIP]
+> You can use the `FoundationaLLM.Common.Authentication.DefaultAuthentication` class to generate the `TokenCredential`. This class sets the `AzureCredential` property using the `ManagedIdentityCredential` when running in a production environment (`production` parameter of the `Initialize` method) and the `AzureCliCredential` when running in a development environment.
+> Example:
+> `DefaultAuthentication.Initialize(false, "Test");`
+> `var credentials = DefaultAuthentication.AzureCredential;`
 
 ### Use dependency injection with a configuration file
 
@@ -58,11 +73,6 @@ Rather than manually instantiating the `CoreRESTClient` and `CoreClient` classes
        "CoreAPI": {
         "APIUrl": "https://localhost:63279/"
        }
-      },
-      "Chat": {
-       "Entra": {
-        "Scopes": "api://FoundationaLLM-Auth/Data.Read"
-       }
       }
      }
     }
@@ -76,22 +86,17 @@ Rather than manually instantiating the `CoreRESTClient` and `CoreClient` classes
         .Build();
     ```
 
-3. Get the scope from the configuration file and setup the services collection:
+3. Use the `CoreClient` extension method to add the `CoreClient` and `CoreRESTClient` to the service collection:
 
     ```csharp
-    var scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]; // The constant is set to "FoundationaLLM:Chat:Entra:Scopes"
     var services = new ServiceCollection();
-    ```
-
-4. Use the `CoreClient` extension method to add the `CoreClient` and `CoreRESTClient` to the service collection:
-
-    ```csharp
-    services.AddCoreClient(configuration, scope);
+    var credential = new AzureCliCredential(); // Can use any TokenCredential implementation, such as ManagedIdentityCredential or AzureCliCredential.
+    services.AddCoreClient(configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!, credential);
 
     var serviceProvider = services.BuildServiceProvider();
     ```
 
-5. Retrieve the `CoreClient` and `CoreRESTClient` instances from the service provider:
+4. Retrieve the `CoreClient` and `CoreRESTClient` instances from the service provider:
 
     ```csharp
     var coreClient = serviceProvider.GetRequiredService<ICoreClient>();
@@ -126,7 +131,7 @@ If you prefer to retrieve the configuration settings from Azure App Configuratio
         .AddEnvironmentVariables()
         .AddAzureAppConfiguration(options =>
         {
-            options.Connect("<connection-string>"");
+            options.Connect("<connection-string>");
             options.ConfigureKeyVault(kv =>
             {
                 kv.SetCredential(Credentials);
@@ -140,54 +145,26 @@ If you prefer to retrieve the configuration settings from Azure App Configuratio
 
     > If you have configured your [local development environment](https://docs.foundationallm.ai/development/development-local.html), you can obtain the App Config connection string from an environment variable (`Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString)`) when developing locally.
 
-2. Get the scope from App Config and setup the services collection:
+2. Use the `CoreClient` extension method to add the `CoreClient` and `CoreRESTClient` to the service collection:
 
     ```csharp
-    scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes];
-
     var services = new ServiceCollection();
-    ```
-
-3. Use the `CoreClient` extension method to add the `CoreClient` and `CoreRESTClient` to the service collection:
-
-    ```csharp
+    var credential = new AzureCliCredential(); // Can use any TokenCredential implementation, such as ManagedIdentityCredential or AzureCliCredential.
     services.AddCoreClient(configuration, scope);
 
-    var serviceProvider = services.BuildServiceProvider();
+    services.AddCoreClient(configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!, credential);
     ```
 
-4. Retrieve the `CoreClient` and `CoreRESTClient` instances from the service provider:
+3. Retrieve the `CoreClient` and `CoreRESTClient` instances from the service provider:
 
     ```csharp
     var coreClient = serviceProvider.GetRequiredService<ICoreClient>();
     var coreRestClient = serviceProvider.GetRequiredService<ICoreRESTClient>();
     ```
 
-### Generate an auth token
-
-> ![!TIP]
-> When you generate an auth token, be sure to specify the correct scope for the Core API. In App Config, the key is `FoundationaLLM:Chat:Entra:Scopes` and the default value is `api://FoundationaLLM-Auth/Data.Read`. When you use this scope to generate the token, you only need the root scope (example: `api://FoundationaLLM-Auth`).
-
-Here is an example of how to generate a token when using Microsoft Entra ID:
-
-```csharp
-var credentials = new AzureCliCredential();
-var scope = "api://FoundationaLLM-Auth/Data.Read";
-// The scope needs to just be the base URI, not the full URI.
-scope = scope[..scope.LastIndexOf('/')];
-
-var tokenResult = await credentials.GetTokenAsync(
-    new([scope]),
-    default);
-
-var token = tokenResult.Token;
-```
-
 ### Example projects
 
-The `CoreClient.Samples` project contains basic examples for using the `CoreClient` and `CoreRESTClient` classes. The examples demonstrate how to make authenticated and unauthenticated requests to the Core API.
-
-The `Core.Examples` test project contains more advanced examples that demonstrate how to use the `CoreClient` and `CoreRESTClient` classes to interact with the Core API through a series of end-to-end tests.
+The `Core.Examples` test project contains several examples that demonstrate how to use the `CoreClient` and `CoreRESTClient` classes to interact with the Core API through a series of end-to-end tests.
 
 ## Foundationa**LLM**: The platform for deploying, scaling, securing and governing generative AI in the enterprises 🚀
 
