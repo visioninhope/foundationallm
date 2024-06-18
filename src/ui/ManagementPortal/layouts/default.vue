@@ -20,9 +20,9 @@
 				</template>
 			</Dialog>
 
-			<Footer v-if="$appConfigStore.footerText">
-				<FooterItem v-html="$appConfigStore.footerText"></FooterItem>
-			</Footer>
+			<footer v-if="$appConfigStore.footerText">
+				<div class="footer-item" v-html="$appConfigStore.footerText"></div>
+			</footer>
 		</div>
 	</div>
 </template>
