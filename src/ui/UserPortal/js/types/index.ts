@@ -73,3 +73,8 @@ export interface OrchestrationRequest {
 	settings?: OrchestrationSettings;
 	attachments?: string[];
 }
+
+export interface Attachment {
+	id: string;
+	fileName: string;
+}

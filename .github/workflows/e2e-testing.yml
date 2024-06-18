@@ -129,7 +129,7 @@ jobs:
       - name: Set Git and Helm Tag
         id: docker-tag
         run: |
-          if [ ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }} ]; then
+          if [ '${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}' -eq 'true' ]; then
             DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           else
             DOCKER_TAG=0.0.0-${GITHUB_REF#refs/heads/}
@@ -236,7 +236,7 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
         shell: pwsh
@@ -538,14 +538,14 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($src.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($src.clientId)" `
             --tenant-id "$($src.tenantId)"
           ./deploy/common/scripts/Get-TestData.ps1 -storageAccountName foundationallmdata
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
           ./deploy/common/scripts/Set-TestData.ps1 `
@@ -653,9 +653,19 @@ jobs:
           $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
 
           echo "Running End to End Test: ${{ matrix.object.name }}"
-          dotnet test --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" ${{ matrix.object.target }}
+          dotnet test `
+            --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" `
+            --logger:"html;verbosity=detailed;LogFileName=${{ github.workspace }}/${{ matrix.object.name }}.html" `
+            ${{ matrix.object.target }}
         shell: pwsh
 
+      - name: Publish Test Results
+        if: (success() || failure())
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.object.name }}-results
+          path: ${{ github.workspace }}/${{ matrix.object.name }}.html
+  
   teardown_quickstart:
     name: Tear Down Quick Start
     if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
@@ -751,4 +761,14 @@ jobs:
             -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
             -interactiveMode $false
           Pop-Location
+        shell: pwsh
+
+  
+      - name: Check E2E Test Status
+        run: |
+          if ( '${{ needs.run_e2e_tests.result }}' -eq 'success' ) {
+            exit 0
+          }
+  
+          exit 1
         shell: pwsh
