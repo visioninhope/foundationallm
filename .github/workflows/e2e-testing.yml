@@ -65,6 +65,9 @@ on:
       location:
         description: AZD Target Location
         type: string
+      notificationsEnabled:
+        description: Enable Slack Notifications
+        type: boolean
       enableTeardown:
         description: Enable teardown of environment
         type: boolean
