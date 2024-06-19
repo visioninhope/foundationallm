@@ -541,6 +541,12 @@ jobs:
             --test-id $env:load_test_id `
             --load-test-config-file "load-testing.yml" `
             -g ${{ fromJson(steps.set-config.outputs.result).resource_group_name }}
+
+          az load test-run create `
+            --load-test-resource ${{ fromJson(steps.set-config.outputs.result).load_test_resource }} `
+            --test-id $env:load_test_id `
+            --test-run-id $(New-Guid).Guid `
+            --no-wait
         shell: pwsh
 
   teardown_quickstart:
