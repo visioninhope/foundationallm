@@ -460,6 +460,9 @@ jobs:
           $configurationParameters = @{}
           echo @"
           ${{ needs.deploy_quickstart.outputs.azd-deployment-data }}
+          "@
+          echo @"
+          ${{ needs.deploy_quickstart.outputs.azd-deployment-data }}
           "@ >> .env
           cat .env
           $fileData = Get-Content ".env" -Raw
