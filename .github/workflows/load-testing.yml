@@ -487,9 +487,9 @@ jobs:
             echo 'AZURE_ENV_NAME<<EOF'
             echo $configurationParameters['AZURE_ENV_NAME']
             echo EOF
-          } >> "$GITHUB_ENV"
+          } >> $env:GITHUB_ENV
 
-          cat "$GITHUB_ENV"
+          cat $env:GITHUB_ENV
 
           # Replace Placeholders
           $config = @{
