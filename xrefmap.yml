@@ -2000,6 +2000,750 @@ references:
   fullName.vb: FoundationaLLM.Authorization.Validation.RoleAssignmentValidator.New
   nameWithType: RoleAssignmentValidator.RoleAssignmentValidator
   nameWithType.vb: RoleAssignmentValidator.New
+- uid: FoundationaLLM.Client.Core
+  name: FoundationaLLM.Client.Core
+  href: api/dotnet/FoundationaLLM.Client.Core.html
+  commentId: N:FoundationaLLM.Client.Core
+  fullName: FoundationaLLM.Client.Core
+  nameWithType: FoundationaLLM.Client.Core
+- uid: FoundationaLLM.Client.Core.CoreClient
+  name: CoreClient
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html
+  commentId: T:FoundationaLLM.Client.Core.CoreClient
+  fullName: FoundationaLLM.Client.Core.CoreClient
+  nameWithType: CoreClient
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor
+  name: CoreClient()
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient()
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New()
+  nameWithType: CoreClient.CoreClient()
+  nameWithType.vb: CoreClient.New()
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential)
+  name: CoreClient(string, TokenCredential)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential)
+  name.vb: New(String, TokenCredential)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential)
+  nameWithType: CoreClient.CoreClient(string, TokenCredential)
+  nameWithType.vb: CoreClient.New(String, TokenCredential)
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: CoreClient(string, TokenCredential, APIClientSettings)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: New(String, TokenCredential, APIClientSettings)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: CoreClient.CoreClient(string, TokenCredential, APIClientSettings)
+  nameWithType.vb: CoreClient.New(String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor*
+  name: CoreClient
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New
+  nameWithType: CoreClient.CoreClient
+  nameWithType.vb: CoreClient.New
+- uid: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
+  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
+  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, string?)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, String)
+  nameWithType: CoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
+  nameWithType.vb: CoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync*
+  name: AttachFileAndAskQuestionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync
+  nameWithType: CoreClient.AttachFileAndAskQuestionAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(System.String)
+  name: CreateChatSessionAsync(string?)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(System.String)
+  name.vb: CreateChatSessionAsync(String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(string?)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(String)
+  nameWithType: CoreClient.CreateChatSessionAsync(string?)
+  nameWithType.vb: CoreClient.CreateChatSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync*
+  name: CreateChatSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync
+  nameWithType: CoreClient.CreateChatSessionAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync(System.String)
+  name: DeleteSessionAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_DeleteSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync(System.String)
+  name.vb: DeleteSessionAsync(String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync(String)
+  nameWithType: CoreClient.DeleteSessionAsync(string)
+  nameWithType.vb: CoreClient.DeleteSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync*
+  name: DeleteSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_DeleteSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync
+  nameWithType: CoreClient.DeleteSessionAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync
+  name: GetAgentsAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetAgentsAsync
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync()
+  nameWithType: CoreClient.GetAgentsAsync()
+- uid: FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync*
+  name: GetAgentsAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetAgentsAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync
+  nameWithType: CoreClient.GetAgentsAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync(System.String)
+  name: GetChatSessionMessagesAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetChatSessionMessagesAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync(System.String)
+  name.vb: GetChatSessionMessagesAsync(String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync(String)
+  nameWithType: CoreClient.GetChatSessionMessagesAsync(string)
+  nameWithType.vb: CoreClient.GetChatSessionMessagesAsync(String)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync*
+  name: GetChatSessionMessagesAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetChatSessionMessagesAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync
+  nameWithType: CoreClient.GetChatSessionMessagesAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreClient.GetCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(System.String,System.String)
+  name: GetCompletionAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(System.String,System.String)
+  name.vb: GetCompletionAsync(String, String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(string, string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(String, String)
+  nameWithType: CoreClient.GetCompletionAsync(string, string)
+  nameWithType.vb: CoreClient.GetCompletionAsync(String, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync*
+  name: GetCompletionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync
+  nameWithType: CoreClient.GetCompletionAsync
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionWithSessionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreClient.GetCompletionWithSessionAsync(CompletionRequest)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
+  name: GetCompletionWithSessionAsync(string?, string?, string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_System_String_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
+  name.vb: GetCompletionWithSessionAsync(String, String, String, String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+  nameWithType: CoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
+  nameWithType.vb: CoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync*
+  name: GetCompletionWithSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync
+  nameWithType: CoreClient.GetCompletionWithSessionAsync
+- uid: FoundationaLLM.Client.Core.CoreRESTClient
+  name: CoreRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.CoreRESTClient
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient
+  nameWithType: CoreRESTClient
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor
+  name: CoreRESTClient()
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor
+  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient()
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New()
+  nameWithType: CoreRESTClient.CoreRESTClient()
+  nameWithType.vb: CoreRESTClient.New()
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential)
+  name: CoreRESTClient(string, TokenCredential)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_
+  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential)
+  name.vb: New(String, TokenCredential)
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential)
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential)
+  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential)
+  nameWithType.vb: CoreRESTClient.New(String, TokenCredential)
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: CoreRESTClient(string, TokenCredential, APIClientSettings)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: New(String, TokenCredential, APIClientSettings)
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential, APIClientSettings)
+  nameWithType.vb: CoreRESTClient.New(String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor*
+  name: CoreRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New
+  nameWithType: CoreRESTClient.CoreRESTClient
+  nameWithType.vb: CoreRESTClient.New
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Attachments
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.Attachments
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Attachments
+  nameWithType: CoreRESTClient.Attachments
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Attachments*
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Attachments_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.Attachments
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Attachments
+  nameWithType: CoreRESTClient.Attachments
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Branding
+  name: Branding
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Branding
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.Branding
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Branding
+  nameWithType: CoreRESTClient.Branding
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Branding*
+  name: Branding
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Branding_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.Branding
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Branding
+  nameWithType: CoreRESTClient.Branding
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Completions
+  name: Completions
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Completions
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.Completions
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Completions
+  nameWithType: CoreRESTClient.Completions
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Completions*
+  name: Completions
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Completions_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.Completions
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Completions
+  nameWithType: CoreRESTClient.Completions
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Sessions
+  name: Sessions
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Sessions
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.Sessions
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Sessions
+  nameWithType: CoreRESTClient.Sessions
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Sessions*
+  name: Sessions
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Sessions_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.Sessions
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Sessions
+  nameWithType: CoreRESTClient.Sessions
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Status
+  name: Status
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Status
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.Status
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Status
+  nameWithType: CoreRESTClient.Status
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.Status*
+  name: Status
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_Status_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.Status
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.Status
+  nameWithType: CoreRESTClient.Status
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles
+  name: UserProfiles
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_UserProfiles
+  commentId: P:FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles
+  nameWithType: CoreRESTClient.UserProfiles
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles*
+  name: UserProfiles
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient_UserProfiles_
+  commentId: Overload:FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.UserProfiles
+  nameWithType: CoreRESTClient.UserProfiles
+- uid: FoundationaLLM.Client.Core.Interfaces
+  name: FoundationaLLM.Client.Core.Interfaces
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.html
+  commentId: N:FoundationaLLM.Client.Core.Interfaces
+  fullName: FoundationaLLM.Client.Core.Interfaces
+  nameWithType: FoundationaLLM.Client.Core.Interfaces
+- uid: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient
+  name: IAttachmentRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient
+  nameWithType: IAttachmentRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync(System.IO.Stream,System.String,System.String)
+  name: UploadAttachmentAsync(Stream, string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IAttachmentRESTClient_UploadAttachmentAsync_System_IO_Stream_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync(System.IO.Stream,System.String,System.String)
+  name.vb: UploadAttachmentAsync(Stream, String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync(System.IO.Stream, string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync(System.IO.Stream, String, String)
+  nameWithType: IAttachmentRESTClient.UploadAttachmentAsync(Stream, string, string)
+  nameWithType.vb: IAttachmentRESTClient.UploadAttachmentAsync(Stream, String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync*
+  name: UploadAttachmentAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IAttachmentRESTClient_UploadAttachmentAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.IAttachmentRESTClient.UploadAttachmentAsync
+  nameWithType: IAttachmentRESTClient.UploadAttachmentAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient
+  name: IBrandingRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient
+  nameWithType: IBrandingRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync
+  name: GetBrandingAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient_GetBrandingAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync()
+  nameWithType: IBrandingRESTClient.GetBrandingAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync*
+  name: GetBrandingAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient_GetBrandingAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync
+  nameWithType: IBrandingRESTClient.GetBrandingAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient
+  name: ICompletionRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient
+  nameWithType: ICompletionRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync
+  name: GetAgentsAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetAgentsAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync()
+  nameWithType: ICompletionRESTClient.GetAgentsAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync*
+  name: GetAgentsAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetAgentsAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync
+  nameWithType: ICompletionRESTClient.GetAgentsAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetChatCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICompletionRESTClient.GetChatCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync*
+  name: GetChatCompletionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetChatCompletionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync
+  nameWithType: ICompletionRESTClient.GetChatCompletionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient
+  name: ICoreClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.ICoreClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient
+  nameWithType: ICoreClient
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
+  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
+  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, string?)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, String)
+  nameWithType: ICoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
+  nameWithType.vb: ICoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync*
+  name: AttachFileAndAskQuestionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync
+  nameWithType: ICoreClient.AttachFileAndAskQuestionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(System.String)
+  name: CreateChatSessionAsync(string?)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_CreateChatSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(System.String)
+  name.vb: CreateChatSessionAsync(String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(string?)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(String)
+  nameWithType: ICoreClient.CreateChatSessionAsync(string?)
+  nameWithType.vb: ICoreClient.CreateChatSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync*
+  name: CreateChatSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_CreateChatSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync
+  nameWithType: ICoreClient.CreateChatSessionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync(System.String)
+  name: DeleteSessionAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_DeleteSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync(System.String)
+  name.vb: DeleteSessionAsync(String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync(String)
+  nameWithType: ICoreClient.DeleteSessionAsync(string)
+  nameWithType.vb: ICoreClient.DeleteSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync*
+  name: DeleteSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_DeleteSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync
+  nameWithType: ICoreClient.DeleteSessionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync
+  name: GetAgentsAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetAgentsAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync()
+  nameWithType: ICoreClient.GetAgentsAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync*
+  name: GetAgentsAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetAgentsAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync
+  nameWithType: ICoreClient.GetAgentsAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync(System.String)
+  name: GetChatSessionMessagesAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetChatSessionMessagesAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync(System.String)
+  name.vb: GetChatSessionMessagesAsync(String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync(String)
+  nameWithType: ICoreClient.GetChatSessionMessagesAsync(string)
+  nameWithType.vb: ICoreClient.GetChatSessionMessagesAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync*
+  name: GetChatSessionMessagesAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetChatSessionMessagesAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync
+  nameWithType: ICoreClient.GetChatSessionMessagesAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreClient.GetCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(System.String,System.String)
+  name: GetCompletionAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(System.String,System.String)
+  name.vb: GetCompletionAsync(String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync(String, String)
+  nameWithType: ICoreClient.GetCompletionAsync(string, string)
+  nameWithType.vb: ICoreClient.GetCompletionAsync(String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync*
+  name: GetCompletionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionAsync
+  nameWithType: ICoreClient.GetCompletionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionWithSessionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreClient.GetCompletionWithSessionAsync(CompletionRequest)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
+  name: GetCompletionWithSessionAsync(string?, string?, string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_System_String_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
+  name.vb: GetCompletionWithSessionAsync(String, String, String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+  nameWithType: ICoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
+  nameWithType.vb: ICoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync*
+  name: GetCompletionWithSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync
+  nameWithType: ICoreClient.GetCompletionWithSessionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient
+  name: ICoreRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient
+  nameWithType: ICoreRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Attachments
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments
+  nameWithType: ICoreRESTClient.Attachments
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments*
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Attachments_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Attachments
+  nameWithType: ICoreRESTClient.Attachments
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding
+  name: Branding
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Branding
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding
+  nameWithType: ICoreRESTClient.Branding
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding*
+  name: Branding
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Branding_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Branding
+  nameWithType: ICoreRESTClient.Branding
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions
+  name: Completions
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Completions
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions
+  nameWithType: ICoreRESTClient.Completions
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions*
+  name: Completions
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Completions_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Completions
+  nameWithType: ICoreRESTClient.Completions
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions
+  name: Sessions
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Sessions
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions
+  nameWithType: ICoreRESTClient.Sessions
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions*
+  name: Sessions
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Sessions_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Sessions
+  nameWithType: ICoreRESTClient.Sessions
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status
+  name: Status
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Status
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status
+  nameWithType: ICoreRESTClient.Status
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status*
+  name: Status
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_Status_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.Status
+  nameWithType: ICoreRESTClient.Status
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles
+  name: UserProfiles
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_UserProfiles
+  commentId: P:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles
+  nameWithType: ICoreRESTClient.UserProfiles
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles*
+  name: UserProfiles
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreRESTClient_UserProfiles_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreRESTClient.UserProfiles
+  nameWithType: ICoreRESTClient.UserProfiles
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient
+  name: ISessionRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient
+  nameWithType: ISessionRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
+  name: CreateSessionAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_CreateSessionAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync()
+  nameWithType: ISessionRESTClient.CreateSessionAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync*
+  name: CreateSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_CreateSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
+  nameWithType: ISessionRESTClient.CreateSessionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync(System.String)
+  name: DeleteSessionAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_DeleteSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync(System.String)
+  name.vb: DeleteSessionAsync(String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync(String)
+  nameWithType: ISessionRESTClient.DeleteSessionAsync(string)
+  nameWithType.vb: ISessionRESTClient.DeleteSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync*
+  name: DeleteSessionAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_DeleteSessionAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.DeleteSessionAsync
+  nameWithType: ISessionRESTClient.DeleteSessionAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync
+  name: GetAllChatSessionsAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetAllChatSessionsAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync()
+  nameWithType: ISessionRESTClient.GetAllChatSessionsAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync*
+  name: GetAllChatSessionsAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetAllChatSessionsAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetAllChatSessionsAsync
+  nameWithType: ISessionRESTClient.GetAllChatSessionsAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync(System.String)
+  name: GetChatSessionMessagesAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetChatSessionMessagesAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync(System.String)
+  name.vb: GetChatSessionMessagesAsync(String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync(string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync(String)
+  nameWithType: ISessionRESTClient.GetChatSessionMessagesAsync(string)
+  nameWithType.vb: ISessionRESTClient.GetChatSessionMessagesAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync*
+  name: GetChatSessionMessagesAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetChatSessionMessagesAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetChatSessionMessagesAsync
+  nameWithType: ISessionRESTClient.GetChatSessionMessagesAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync(System.String,System.String)
+  name: GetCompletionPromptAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetCompletionPromptAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync(System.String,System.String)
+  name.vb: GetCompletionPromptAsync(String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync(string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync(String, String)
+  nameWithType: ISessionRESTClient.GetCompletionPromptAsync(string, string)
+  nameWithType.vb: ISessionRESTClient.GetCompletionPromptAsync(String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync*
+  name: GetCompletionPromptAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_GetCompletionPromptAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.GetCompletionPromptAsync
+  nameWithType: ISessionRESTClient.GetCompletionPromptAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync(System.String,System.String,System.Boolean)
+  name: RateMessageAsync(string, string, bool)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RateMessageAsync_System_String_System_String_System_Boolean_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync(System.String,System.String,System.Boolean)
+  name.vb: RateMessageAsync(String, String, Boolean)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync(string, string, bool)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync(String, String, Boolean)
+  nameWithType: ISessionRESTClient.RateMessageAsync(string, string, bool)
+  nameWithType.vb: ISessionRESTClient.RateMessageAsync(String, String, Boolean)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync*
+  name: RateMessageAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RateMessageAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync
+  nameWithType: ISessionRESTClient.RateMessageAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,System.String)
+  name: RenameChatSession(string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RenameChatSession_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,System.String)
+  name.vb: RenameChatSession(String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(String, String)
+  nameWithType: ISessionRESTClient.RenameChatSession(string, string)
+  nameWithType.vb: ISessionRESTClient.RenameChatSession(String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession*
+  name: RenameChatSession
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RenameChatSession_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession
+  nameWithType: ISessionRESTClient.RenameChatSession
+- uid: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient
+  name: IStatusRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient
+  nameWithType: IStatusRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync
+  name: GetAuthStatusAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IStatusRESTClient_GetAuthStatusAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync()
+  nameWithType: IStatusRESTClient.GetAuthStatusAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync*
+  name: GetAuthStatusAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IStatusRESTClient_GetAuthStatusAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetAuthStatusAsync
+  nameWithType: IStatusRESTClient.GetAuthStatusAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync
+  name: GetServiceStatusAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IStatusRESTClient_GetServiceStatusAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync()
+  nameWithType: IStatusRESTClient.GetServiceStatusAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync*
+  name: GetServiceStatusAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IStatusRESTClient_GetServiceStatusAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.IStatusRESTClient.GetServiceStatusAsync
+  nameWithType: IStatusRESTClient.GetServiceStatusAsync
+- uid: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient
+  name: IUserProfileRESTClient
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.html
+  commentId: T:FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient
+  fullName: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient
+  nameWithType: IUserProfileRESTClient
+- uid: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync
+  name: GetUserProfilesAsync()
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IUserProfileRESTClient_GetUserProfilesAsync
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync
+  fullName: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync()
+  nameWithType: IUserProfileRESTClient.GetUserProfilesAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync*
+  name: GetUserProfilesAsync
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.html#FoundationaLLM_Client_Core_Interfaces_IUserProfileRESTClient_GetUserProfilesAsync_
+  commentId: Overload:FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Core.Interfaces.IUserProfileRESTClient.GetUserProfilesAsync
+  nameWithType: IUserProfileRESTClient.GetUserProfilesAsync
 - uid: FoundationaLLM.Common
   name: FoundationaLLM.Common
   href: api/dotnet/FoundationaLLM.Common.html
@@ -2427,6 +3171,30 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authentication.ObjectTypes.User
   fullName: FoundationaLLM.Common.Constants.Authentication.ObjectTypes.User
   nameWithType: ObjectTypes.User
+- uid: FoundationaLLM.Common.Constants.Authentication.ScopeURIs
+  name: ScopeURIs
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ScopeURIs.html
+  commentId: T:FoundationaLLM.Common.Constants.Authentication.ScopeURIs
+  fullName: FoundationaLLM.Common.Constants.Authentication.ScopeURIs
+  nameWithType: ScopeURIs
+- uid: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Authorization
+  name: FoundationaLLM_Authorization
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ScopeURIs.html#FoundationaLLM_Common_Constants_Authentication_ScopeURIs_FoundationaLLM_Authorization
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Authorization
+  fullName: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Authorization
+  nameWithType: ScopeURIs.FoundationaLLM_Authorization
+- uid: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Core
+  name: FoundationaLLM_Core
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ScopeURIs.html#FoundationaLLM_Common_Constants_Authentication_ScopeURIs_FoundationaLLM_Core
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Core
+  fullName: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Core
+  nameWithType: ScopeURIs.FoundationaLLM_Core
+- uid: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Management
+  name: FoundationaLLM_Management
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ScopeURIs.html#FoundationaLLM_Common_Constants_Authentication_ScopeURIs_FoundationaLLM_Management
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Management
+  fullName: FoundationaLLM.Common.Constants.Authentication.ScopeURIs.FoundationaLLM_Management
+  nameWithType: ScopeURIs.FoundationaLLM_Management
 - uid: FoundationaLLM.Common.Constants.Authorization
   name: FoundationaLLM.Common.Constants.Authorization
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.html
@@ -6494,6 +7262,28 @@ references:
   fullName.vb: FoundationaLLM.Common.Extensions.DictionaryExtensions.ToObject(Of T)(System.Collections.Generic.Dictionary(Of String, Object), System.Collections.Generic.Dictionary(Of String, Object))
   nameWithType: DictionaryExtensions.ToObject<T>(Dictionary<string, object>, Dictionary<string, object>?)
   nameWithType.vb: DictionaryExtensions.ToObject(Of T)(Dictionary(Of String, Object), Dictionary(Of String, Object))
+- uid: FoundationaLLM.Common.Extensions.HttpClientExtensions
+  name: HttpClientExtensions
+  href: api/dotnet/FoundationaLLM.Common.Extensions.HttpClientExtensions.html
+  commentId: T:FoundationaLLM.Common.Extensions.HttpClientExtensions
+  fullName: FoundationaLLM.Common.Extensions.HttpClientExtensions
+  nameWithType: HttpClientExtensions
+- uid: FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken(System.Net.Http.HttpClient,System.String)
+  name: SetBearerToken(HttpClient, string)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.HttpClientExtensions.html#FoundationaLLM_Common_Extensions_HttpClientExtensions_SetBearerToken_System_Net_Http_HttpClient_System_String_
+  commentId: M:FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken(System.Net.Http.HttpClient,System.String)
+  name.vb: SetBearerToken(HttpClient, String)
+  fullName: FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken(System.Net.Http.HttpClient, string)
+  fullName.vb: FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken(System.Net.Http.HttpClient, String)
+  nameWithType: HttpClientExtensions.SetBearerToken(HttpClient, string)
+  nameWithType.vb: HttpClientExtensions.SetBearerToken(HttpClient, String)
+- uid: FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken*
+  name: SetBearerToken
+  href: api/dotnet/FoundationaLLM.Common.Extensions.HttpClientExtensions.html#FoundationaLLM_Common_Extensions_HttpClientExtensions_SetBearerToken_
+  commentId: Overload:FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.HttpClientExtensions.SetBearerToken
+  nameWithType: HttpClientExtensions.SetBearerToken
 - uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions
   name: ResourceProviderServiceExtensions
   href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html
@@ -10348,6 +11138,25 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Configuration.API
   fullName: FoundationaLLM.Common.Models.Configuration.API
   nameWithType: FoundationaLLM.Common.Models.Configuration.API
+- uid: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings
+  name: APIClientSettings
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.html
+  commentId: T:FoundationaLLM.Common.Models.Configuration.API.APIClientSettings
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings
+  nameWithType: APIClientSettings
+- uid: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
+  name: Timeout
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.html#FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_Timeout
+  commentId: P:FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
+  nameWithType: APIClientSettings.Timeout
+- uid: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout*
+  name: Timeout
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.html#FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_Timeout_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
+  nameWithType: APIClientSettings.Timeout
 - uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
   name: APISettingsBase
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html
@@ -10412,19 +11221,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
   nameWithType: DownstreamAPIClientConfiguration.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
-  name: Timeout
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
-  nameWithType: DownstreamAPIClientConfiguration.Timeout
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout*
-  name: Timeout
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_Timeout_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.Timeout
-  nameWithType: DownstreamAPIClientConfiguration.Timeout
 - uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
   name: DownstreamAPISettings
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html
@@ -12489,6 +13285,45 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Orchestration.CompletionRequest
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest
   nameWithType: CompletionRequest
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName
+  name: AgentName
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_AgentName
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName
+  nameWithType: CompletionRequest.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName*
+  name: AgentName
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_AgentName_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.AgentName
+  nameWithType: CompletionRequest.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_Attachments
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments
+  nameWithType: CompletionRequest.Attachments
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments*
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_Attachments_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Attachments
+  nameWithType: CompletionRequest.Attachments
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions
+  name: GatekeeperOptions
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_GatekeeperOptions
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions
+  nameWithType: CompletionRequest.GatekeeperOptions
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions*
+  name: GatekeeperOptions
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_GatekeeperOptions_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.GatekeeperOptions
+  nameWithType: CompletionRequest.GatekeeperOptions
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.MessageHistory
   name: MessageHistory
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_MessageHistory
@@ -12502,6 +13337,45 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.MessageHistory
   nameWithType: CompletionRequest.MessageHistory
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId
+  name: SessionId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_SessionId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId
+  nameWithType: CompletionRequest.SessionId
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId*
+  name: SessionId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_SessionId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.SessionId
+  nameWithType: CompletionRequest.SessionId
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings
+  name: Settings
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_Settings
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings
+  nameWithType: CompletionRequest.Settings
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings*
+  name: Settings
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_Settings_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.Settings
+  nameWithType: CompletionRequest.Settings
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt
+  name: UserPrompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_UserPrompt
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt
+  nameWithType: CompletionRequest.UserPrompt
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt*
+  name: UserPrompt
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_UserPrompt_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequest.UserPrompt
+  nameWithType: CompletionRequest.UserPrompt
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse
   name: CompletionResponse
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html
@@ -13811,12 +14685,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.Direct.CompletionUsage.TotalTokens
   nameWithType: CompletionUsage.TotalTokens
-- uid: FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
-  name: DirectCompletionRequest
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
-  fullName: FoundationaLLM.Common.Models.Orchestration.Direct.DirectCompletionRequest
-  nameWithType: DirectCompletionRequest
 - uid: FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias
   name: LogitBias
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Direct.LogitBias.html
@@ -14254,90 +15122,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.UserPrompt
   nameWithType: LLMCompletionResponse.UserPrompt
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
-  name: OrchestrationRequest
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest
-  nameWithType: OrchestrationRequest
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
-  name: AgentName
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_AgentName
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
-  nameWithType: OrchestrationRequest.AgentName
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName*
-  name: AgentName
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_AgentName_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.AgentName
-  nameWithType: OrchestrationRequest.AgentName
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
-  name: Attachments
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Attachments
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
-  nameWithType: OrchestrationRequest.Attachments
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments*
-  name: Attachments
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Attachments_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Attachments
-  nameWithType: OrchestrationRequest.Attachments
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
-  name: GatekeeperOptions
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_GatekeeperOptions
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
-  nameWithType: OrchestrationRequest.GatekeeperOptions
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions*
-  name: GatekeeperOptions
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_GatekeeperOptions_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.GatekeeperOptions
-  nameWithType: OrchestrationRequest.GatekeeperOptions
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
-  name: SessionId
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_SessionId
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
-  nameWithType: OrchestrationRequest.SessionId
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId*
-  name: SessionId
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_SessionId_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.SessionId
-  nameWithType: OrchestrationRequest.SessionId
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings
-  name: Settings
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Settings
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings
-  nameWithType: OrchestrationRequest.Settings
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings*
-  name: Settings
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_Settings_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.Settings
-  nameWithType: OrchestrationRequest.Settings
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt
-  name: UserPrompt
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_UserPrompt
-  commentId: P:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt
-  nameWithType: OrchestrationRequest.UserPrompt
-- uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt*
-  name: UserPrompt
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.html#FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_UserPrompt_
-  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest.UserPrompt
-  nameWithType: OrchestrationRequest.UserPrompt
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings
   name: OrchestrationSettings
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.html
@@ -21232,57 +22016,57 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.BrandingController.Index
   nameWithType: BrandingController.Index
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html
-  commentId: T:FoundationaLLM.Core.API.Controllers.OrchestrationController
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController
-  nameWithType: OrchestrationController
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
-  name: OrchestrationController(ICoreService, ICallContext, IEnumerable<IResourceProviderService>, ILogger<OrchestrationController>)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_OrchestrationController__
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.OrchestrationController})
-  name.vb: New(ICoreService, ICallContext, IEnumerable(Of IResourceProviderService), ILogger(Of OrchestrationController))
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.Core.Interfaces.ICoreService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.API.Controllers.OrchestrationController>)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.OrchestrationController.New(FoundationaLLM.Core.Interfaces.ICoreService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.API.Controllers.OrchestrationController))
-  nameWithType: OrchestrationController.OrchestrationController(ICoreService, ICallContext, IEnumerable<IResourceProviderService>, ILogger<OrchestrationController>)
-  nameWithType.vb: OrchestrationController.New(ICoreService, ICallContext, IEnumerable(Of IResourceProviderService), ILogger(Of OrchestrationController))
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor*
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController__ctor_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.OrchestrationController.#ctor
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html
+  commentId: T:FoundationaLLM.Core.API.Controllers.CompletionsController
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController
+  nameWithType: CompletionsController
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.CompletionsController})
+  name: CompletionsController(ICoreService, ICallContext, IEnumerable<IResourceProviderService>, ILogger<CompletionsController>)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController__ctor_FoundationaLLM_Core_Interfaces_ICoreService_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_API_Controllers_CompletionsController__
+  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Core.Interfaces.ICoreService,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.API.Controllers.CompletionsController})
+  name.vb: New(ICoreService, ICallContext, IEnumerable(Of IResourceProviderService), ILogger(Of CompletionsController))
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.CompletionsController(FoundationaLLM.Core.Interfaces.ICoreService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.API.Controllers.CompletionsController>)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.CompletionsController.New(FoundationaLLM.Core.Interfaces.ICoreService, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.API.Controllers.CompletionsController))
+  nameWithType: CompletionsController.CompletionsController(ICoreService, ICallContext, IEnumerable<IResourceProviderService>, ILogger<CompletionsController>)
+  nameWithType.vb: CompletionsController.New(ICoreService, ICallContext, IEnumerable(Of IResourceProviderService), ILogger(Of CompletionsController))
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.#ctor*
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController__ctor_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.CompletionsController.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.OrchestrationController
-  fullName.vb: FoundationaLLM.Core.API.Controllers.OrchestrationController.New
-  nameWithType: OrchestrationController.OrchestrationController
-  nameWithType.vb: OrchestrationController.New
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.CompletionsController
+  fullName.vb: FoundationaLLM.Core.API.Controllers.CompletionsController.New
+  nameWithType: CompletionsController.CompletionsController
+  nameWithType.vb: CompletionsController.New
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
   name: GetAgents()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetAgents
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents()
-  nameWithType: OrchestrationController.GetAgents()
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents*
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetAgents
+  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents()
+  nameWithType: CompletionsController.GetAgents()
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents*
   name: GetAgents
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetAgents_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetAgents_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
   isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetAgents
-  nameWithType: OrchestrationController.GetAgents
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
+  nameWithType: CompletionsController.GetAgents
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
   name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(CompletionRequest)
-- uid: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion*
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion*
   name: GetCompletion
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.OrchestrationController.html#FoundationaLLM_Core_API_Controllers_OrchestrationController_GetCompletion_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetCompletion_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion
   isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.OrchestrationController.GetCompletion
-  nameWithType: OrchestrationController.GetCompletion
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion
+  nameWithType: CompletionsController.GetCompletion
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController
   name: SessionsController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html
@@ -21350,22 +22134,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions
   nameWithType: SessionsController.GetAllChatSessions
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  name: GetChatCompletion(string, OrchestrationRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  name.vb: GetChatCompletion(String, OrchestrationRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion(string, FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion(String, FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  nameWithType: SessionsController.GetChatCompletion(string, OrchestrationRequest)
-  nameWithType.vb: SessionsController.GetChatCompletion(String, OrchestrationRequest)
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion*
-  name: GetChatCompletion
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatCompletion_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatCompletion
-  nameWithType: SessionsController.GetChatCompletion
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String)
   name: GetChatSessionMessages(string)
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_System_String_
@@ -21605,12 +22373,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync
   nameWithType: ICoreService.GetAllChatSessionsAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  name: GetChatCompletionAsync(OrchestrationRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  nameWithType: ICoreService.GetChatCompletionAsync(OrchestrationRequest)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetChatCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreService.GetChatCompletionAsync(CompletionRequest)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync*
   name: GetChatCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_
@@ -22289,12 +23057,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync
   nameWithType: CoreService.GetAllChatSessionsAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  name: GetChatCompletionAsync(OrchestrationRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_OrchestrationRequest_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.OrchestrationRequest)
-  nameWithType: CoreService.GetChatCompletionAsync(OrchestrationRequest)
+- uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetChatCompletionAsync(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreService.GetChatCompletionAsync(CompletionRequest)
 - uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync*
   name: GetChatCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_
@@ -23480,6 +24248,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider
   nameWithType: DependencyInjection.AddConfigurationResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: AddCoreClient(IServiceCollection, string, TokenCredential, APIClientSettings?)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCoreClient_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: AddCoreClient(IServiceCollection, String, TokenCredential, APIClientSettings)
+  fullName: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings?)
+  fullName.vb: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: DependencyInjection.AddCoreClient(IServiceCollection, string, TokenCredential, APIClientSettings?)
+  nameWithType.vb: DependencyInjection.AddCoreClient(IServiceCollection, String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.DependencyInjection.AddCoreClient*
+  name: AddCoreClient
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCoreClient_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddCoreClient
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddCoreClient
+  nameWithType: DependencyInjection.AddCoreClient
 - uid: FoundationaLLM.DependencyInjection.AddCorsPolicies(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddCorsPolicies(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCorsPolicies_Microsoft_Extensions_Hosting_IHostApplicationBuilder_

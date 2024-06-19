@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Namespace FoundationaLLM.Core.API.Controllers | FoundationaLLM </title>
+      <title>Interface IBrandingRESTClient | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Namespace FoundationaLLM.Core.API.Controllers | FoundationaLLM ">
+      <meta name="title" content="Interface IBrandingRESTClient | FoundationaLLM ">
       
-      
+      <meta name="description" content="Provides methods to manage calls to the Core API&#39;s Branding endpoints.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient.md&amp;value=---%0Auid%3A%20FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,51 +84,87 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Core.API.Controllers">
+        <article data-uid="FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient">
 
-  <h1 id="FoundationaLLM_Core_API_Controllers" data-uid="FoundationaLLM.Core.API.Controllers" class="text-break">Namespace FoundationaLLM.Core.API.Controllers</h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
 
-    <h3 id="classes">
-Classes
-</h3>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.AttachmentsController.html">AttachmentsController</a></dt>
-      <dd><p>Provides branding information for the client.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.BrandingController.html">BrandingController</a></dt>
-      <dd><p>Provides branding information for the client.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.CompletionsController.html">CompletionsController</a></dt>
-      <dd><p>Methods for orchestration services exposed by the Gatekeeper API service.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.SessionsController.html">SessionsController</a></dt>
-      <dd><p>Provides methods for interacting with the Core service.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.StatusController.html">StatusController</a></dt>
-      <dd><p>Provides methods for checking the status of the service.</p>
-</dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="FoundationaLLM.Core.API.Controllers.UserProfilesController.html">UserProfilesController</a></dt>
-      <dd><p>Provides methods for retrieving and managing user profiles.</p>
-</dd>
-    </dl>
+
+  <h1 id="FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient" data-uid="FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient" class="text-break">
+Interface IBrandingRESTClient  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/IBrandingRESTClient.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Client.html">Client</a>.<a class="xref" href="FoundationaLLM.Client.Core.html">Core</a>.<a class="xref" href="FoundationaLLM.Client.Core.Interfaces.html">Interfaces</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>FoundationaLLM.Client.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Provides methods to manage calls to the Core API's Branding endpoints.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IBrandingRESTClient</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient_GetBrandingAsync_" data-uid="FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync*"></a>
+
+  <h3 id="FoundationaLLM_Client_Core_Interfaces_IBrandingRESTClient_GetBrandingAsync" data-uid="FoundationaLLM.Client.Core.Interfaces.IBrandingRESTClient.GetBrandingAsync">
+  GetBrandingAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/IBrandingRESTClient.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the branding information for the client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ClientBrandingConfiguration&gt; GetBrandingAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html">ClientBrandingConfiguration</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
 
 
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/IBrandingRESTClient.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
 

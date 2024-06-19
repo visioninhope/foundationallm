@@ -477,6 +477,49 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
 
 
+  <a id="FoundationaLLM_DependencyInjection_AddCoreClient_" data-uid="FoundationaLLM.DependencyInjection.AddCoreClient*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddCoreClient_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_" data-uid="FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)">
+  AddCoreClient(IServiceCollection, string, TokenCredential, APIClientSettings?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/DependencyInjection.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Add the Core Client and its related dependencies to the dependency injection container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddCoreClient(this IServiceCollection services, string coreUri, TokenCredential credential, APIClientSettings? options = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>services</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a> this method extends to add the Core Client.</p>
+</dd>
+    <dt><code>coreUri</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The base URI of the Core API.</p>
+</dd>
+    <dt><code>credential</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/azure.core.tokencredential">TokenCredential</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/azure.core.tokencredential">TokenCredential</a> of an authenticated
+user or service principle from which the client library can generate auth tokens.</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.html">APIClientSettings</a></dt>
+    <dd><p>Additional options to configure the HTTP Client.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_DependencyInjection_AddCorsPolicies_" data-uid="FoundationaLLM.DependencyInjection.AddCorsPolicies*"></a>
 
   <h3 id="FoundationaLLM_DependencyInjection_AddCorsPolicies_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddCorsPolicies(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">

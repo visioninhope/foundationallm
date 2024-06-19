@@ -78,6 +78,20 @@
 <p>This section is for changes that are not yet released but will affect future releases.</p>
 </div>
 <h2 id="breaking-changes-that-will-affect-future-releases">Breaking changes that will affect future releases</h2>
+<h3 id="starting-with-080">Starting with 0.8.0</h3>
+<p>Core API changes:</p>
+<ol>
+<li>The <code>/orchestration/*</code> endpoints have been moved to <code>/completions/*</code>.
+<ol>
+<li>The previous <code>/orchestration/completions</code> endpoint is now <code>/completions</code>.</li>
+</ol>
+</li>
+<li>The <code>/sessions/{sessionId}/completion</code> endpoint has been moved to <code>/completions</code>. Instead of having the <code>sessionId</code> as a path parameter, it is now in the request body as part of the <code>CompletionRequest</code> payload.</li>
+<li><code>/sessions/{sessionId}/summarize-name</code> has been removed. In the future, the <code>/completions</code> endpoint will be used to generate summaries.</li>
+<li><code>OrchestrationRequest</code> and <code>CompletionRequest</code> have combined into a single <code>CompletionRequest</code> object.</li>
+<li><code>DirectionCompletionRequest</code> has been removed. Use <code>CompletionRequest</code> instead.</li>
+</ol>
+<h3 id="pre-080">Pre-0.8.0</h3>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
 </li>
