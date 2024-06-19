@@ -15,6 +15,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Setup;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
+using FoundationaLLM.Common.Models.Vectorization;
 
 namespace FoundationaLLM.Core.Examples.Services
 {
@@ -108,7 +109,7 @@ namespace FoundationaLLM.Core.Examples.Services
                 textPartitioningProfile);
         }
 
-        public async Task CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
+        public async Task<string> CreateVectorizationPipeline(string vectorizationPipelineName, string dataSourceName, string indexingProfileName,
                 string textEmbeddingProfileName, string textPartitioningProfileName)
         {
             var vectorizationPipeline = VectorizationPipelineCatalog.GetVectorizationPipelines().FirstOrDefault(a => a.Name == vectorizationPipelineName);
@@ -123,11 +124,16 @@ namespace FoundationaLLM.Core.Examples.Services
             vectorizationPipeline.TextEmbeddingProfileObjectId = (await GetTextEmbeddingProfile(textEmbeddingProfileName)).ObjectId!;
             vectorizationPipeline.TextPartitioningProfileObjectId = (await GetTextPartitioningProfile(textPartitioningProfileName)).ObjectId!;
 
-            var vectorizationPipelineObjectId = await UpsertResourceAsync(
+            return await UpsertResourceAsync(
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"vectorizationPipelines/{vectorizationPipelineName}",
                 vectorizationPipeline);
+        }
+
+        public async Task<VectorizationPipeline> GetVectorizationPipeline(string objectId)
+        {
+            return (await GetResourcesAsync<ResourceProviderGetResult<VectorizationPipeline>>(instanceSettings.Value.Id, ResourceProviderNames.FoundationaLLM_Vectorization, objectId)).Resource;
         }
 
         public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
@@ -196,6 +202,14 @@ namespace FoundationaLLM.Core.Examples.Services
                 instanceSettings.Value.Id,
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"textEmbeddingProfiles/{profileName}");
+        }
+
+        public async Task DeleteVectorizationPipeline(string vectorizationPipelineName)
+        {
+            await DeleteResourceAsync(
+                instanceSettings.Value.Id,
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"vectorizationPipelines/{vectorizationPipelineName}");
         }
 
         /// <inheritdoc/>
