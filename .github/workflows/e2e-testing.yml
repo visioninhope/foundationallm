@@ -672,13 +672,16 @@ jobs:
         id: notify-failed-test
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.FLLM_SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
           payload: |
             {
               "text": "End to End Test Failure: ${{ matrix.object.name }}",
               "blocks": [
-                "type": "section",
-                "text": "End to End Test ${{ matrix.object.name }} failed in branch ${{ github.head_ref || github.ref_name }}"
+                {
+                  "type": "section",
+                  "text": "End to End Test ${{ matrix.object.name }} failed in branch ${{ github.head_ref || github.ref_name }}"
+                }
               ]
             }
 
