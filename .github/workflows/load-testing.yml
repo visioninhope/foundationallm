@@ -534,8 +534,10 @@ jobs:
           $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
           dotnet test --filter "FullyQualifiedName=FoundationaLLM.Core.Examples.CreateAgentsForLoadTest.RunAsync" ./tests/dotnet/Core.Examples/Core.Examples.csproj
           
+          cat load-testing.yml
+          
           az load test create `
-            --load-test-resource $env:load_test_name `
+            --load-test-resource ${{ fromJson(steps.set-config.outputs.result).load_test_resource }} `
             --test-id $env:load_test_id `
             --load-test-config-file "load-testing.yml" `
             -g ${{ fromJson(steps.set-config.outputs.result).resource_group_name }}
