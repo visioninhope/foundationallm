@@ -42,7 +42,7 @@
 					field="display_name"
 					header="Name"
 					sortable
-					style="min-width: 200px"
+					style="min-width: 120px"
 					:pt="{
 						headerCell: {
 							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
@@ -56,14 +56,26 @@
 					field="description"
 					header="Description"
 					sortable
-					style="min-width: 200px"
+					style="min-width: 200px; max-width: 500px;"
 					:pt="{
 						headerCell: {
 							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
 						},
 						sortIcon: { style: { color: 'var(--primary-text)' } },
 					}"
-				></Column>
+				>
+					<template #body="slotProps">
+						<span
+							v-tooltip.bottom="{
+								value: slotProps.data.description,
+								autoHide: false,
+							}"
+							class="description__column"
+						>
+							{{ slotProps.data.description }}
+						</span>
+					</template>
+				</Column>
 
 				<!-- Edit -->
 				<Column
@@ -111,7 +123,7 @@
 		<Dialog
 			:visible="roleAssignmentToDelete !== null"
 			modal
-			header="Delete Data Source"
+			header="Delete Role Assignment"
 			:closable="false"
 		>
 			<p>Do you want to delete the role assignment "{{ roleAssignmentToDelete.name }}" ?</p>
@@ -206,5 +218,13 @@ export default {
 	z-index: 10;
 	background-color: rgba(255, 255, 255, 0.9);
 	pointer-events: none;
+}
+
+.description__column {
+	max-width: 100%;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 </style>
