@@ -466,11 +466,7 @@ jobs:
           $configurationParameters = @{}
           echo @"
           ${{ needs.deploy_quickstart.outputs.azd-deployment-data }}
-          "@
-          echo @"
-          ${{ needs.deploy_quickstart.outputs.azd-deployment-data }}
           "@ >> .env
-          cat .env
           $fileData = Get-Content ".env" -Raw
           $fileData.Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
             $envVar = $_ -split "="
@@ -478,14 +474,10 @@ jobs:
             $configurationParameters[$envVar[0].Trim()] = $envVar[1].Replace('"', '')
           }
 
-          echo $configurationParameters
-
           echo "load_test_name=$load_test_name" >> $env:GITHUB_ENV
           echo "load_test_id=$load_test_id" >> $env:GITHUB_ENV
           echo "AZURE_APP_CONFIG_NAME=$($configurationParameters['AZURE_APP_CONFIG_NAME'])" >> $env:GITHUB_ENV
           echo "AZURE_ENV_NAME=$($configurationParameters['AZURE_ENV_NAME'])" >> $env:GITHUB_ENV
-
-          cat $env:GITHUB_ENV
 
           # Replace Placeholders
           $config = @{
@@ -533,9 +525,7 @@ jobs:
             --output tsv)
           $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
           dotnet test --filter "FullyQualifiedName=FoundationaLLM.Core.Examples.CreateAgentsForLoadTest.RunAsync" ./tests/dotnet/Core.Examples/Core.Examples.csproj
-          
-          cat load-testing.yml
-          
+                    
           az load test create `
             --load-test-resource ${{ fromJson(steps.set-config.outputs.result).load_test_resource }} `
             --test-id $env:load_test_id `
