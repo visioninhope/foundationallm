@@ -527,7 +527,7 @@ jobs:
         run: |
           # Create Agents
           $connectionString = $(az appconfig credential list `
-            --name $($env:AZURE_APP_CONFIG_NAME | ConvertFrom-Json) `
+            --name $env:AZURE_APP_CONFIG_NAME `
             --resource-group rg-$($env:AZURE_ENV_NAME) `
             --query "[].{name:name,connectionString:connectionString}[?name=='Primary Read Only'].connectionString" `
             --output tsv)
