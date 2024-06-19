@@ -57,7 +57,7 @@ else {
 	Invoke-WebRequest -Uri $url -OutFile $outputPath
 	
 	if ($IsLinux) {
-		tar -xvzf $outputPath -C $
+		tar -xvzf $outputPath -C $destinationPath
 	}
 	else {
 		Expand-Archive -Path $outputPath -DestinationPath $destinationPath
