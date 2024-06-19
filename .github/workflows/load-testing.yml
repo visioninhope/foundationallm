@@ -459,7 +459,17 @@ jobs:
           $load_test_name = "FLLM-Load-Test-$([int64](Get-Date -UFormat %s))"
           $load_test_file_name = "$($load_test_name).csv"
           $load_test_id = (New-Guid).Guid
-          
+
+          # Load .env
+          $configurationParameters = @{}
+          "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}".Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
+            $envVar = $_ -split "="
+            $configurationParameters[$envVar[0]] = $envVar[1].Replace('"', '')
+          }
+
+          echo "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}"
+          echo $configurationParameters
+
           # Share with other steps
           {
             echo 'load_test_name<<EOF'
@@ -469,14 +479,17 @@ jobs:
             echo 'load_test_id<<EOF'
             echo $load_test_id
             echo EOF
+
+            echo 'AZURE_APP_CONFIG_NAME<<EOF'
+            echo $configurationParameters['AZURE_APP_CONFIG_NAME']
+            echo EOF
+
+            echo 'AZURE_ENV_NAME<<EOF'
+            echo $configurationParameters['AZURE_ENV_NAME']
+            echo EOF
           } >> "$GITHUB_ENV"
 
-          # Load .env
-          $configurationParameters = @{}
-          "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}".Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
-            $envVar = $_ -split "="
-            $configurationParameters[$envVar[0]] = $envVar[1].Replace('"', '')
-          }
+          cat "$GITHUB_ENV"
 
           # Replace Placeholders
           $config = @{
@@ -517,10 +530,17 @@ jobs:
       - name: Run Load Test
         run: |
           # Create Agents
+          $connectionString = $(az appconfig credential list `
+            --name $($env:AZURE_APP_CONFIG_NAME | ConvertFrom-Json) `
+            --resource-group rg-$($env:AZURE_ENV_NAME) `
+            --query "[].{name:name,connectionString:connectionString}[?name=='Primary Read Only'].connectionString" `
+            --output tsv)
+          $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
           dotnet test --filter "FullyQualifiedName=FoundationaLLM.Core.Examples.CreateAgentsForLoadTest.RunAsync" ./tests/dotnet/Core.Examples/Core.Examples.csproj
+          
           az load test create `
-            --load-test-resource ${{ env.load_test_name }} `
-            --test-id ${{ env.load_test_id }} `
+            --load-test-resource $env:load_test_name `
+            --test-id $env:load_test_id `
             --load-test-config-file "load-testing.yml" `
             -g ${{ fromJson(steps.set-config.outputs.result).resource_group_name }}
         shell: pwsh
