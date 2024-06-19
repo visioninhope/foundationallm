@@ -43,14 +43,14 @@ if ($IsWindows) {
 }
 
 # Define paths for download and extraction
-$outputPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy.${ext}")
-$destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools")
-$extractedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}")
-$renamedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy")
-$toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../../tools/azcopy/azcopy")
+$outputPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy.${ext}")
+$destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools")
+$extractedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}")
+$renamedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy")
+$toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../tools/azcopy/azcopy")
 
 # Check if AzCopy already exists, download and extract if not
-if (Test-Path -Path "../../tools/azcopy") {
+if (Test-Path -Path "../tools/azcopy") {
 	Write-Host "azcopy already exists."
 }
 else {
