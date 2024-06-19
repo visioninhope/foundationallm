@@ -54,10 +54,17 @@ var name = '${serviceType}-${resourceSuffix}'
 @description('The Resource Service Type token')
 var serviceType = 'eg'
 
+var eventGridLocations = {
+  westus: 'westus3'
+}
+
+var eventGridAZs = {
+  canadaeast: false
+}
 
 resource main 'Microsoft.EventGrid/namespaces@2023-12-15-preview' = {
   name: name
-  location: location
+  location: eventGridLocations[?location] ?? location
   sku: {
     name: 'Standard'
     capacity: 1
@@ -66,8 +73,8 @@ resource main 'Microsoft.EventGrid/namespaces@2023-12-15-preview' = {
     type: 'SystemAssigned'
   }
   properties: {
-    isZoneRedundant: true
-    publicNetworkAccess: 'Disabled'
+    isZoneRedundant: eventGridAZs[?location] ?? true
+    publicNetworkAccess: 'Enabled'
     inboundIpRules: []
   }
   tags: tags
@@ -134,23 +141,6 @@ module metricAlerts 'utility/metricAlerts.bicep' = {
     nameSuffix: name
     serviceId: main.id
     tags: tags
-  }
-}
-
-@description('Private endpoint for the resource')
-module privateEndpoint 'utility/privateEndpoint.bicep' = {
-  name: 'pe-${main.name}-${timestamp}'
-  params: {
-    groupId: 'topic'
-    location: location
-    privateDnsZones: privateDnsZones
-    subnetId: subnetId
-    tags: tags
-
-    service: {
-      id: main.id
-      name: main.name
-    }
   }
 }
 
