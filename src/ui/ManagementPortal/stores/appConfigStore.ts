@@ -47,6 +47,15 @@ export const useAppConfigStore = defineStore('appConfig', {
 	getters: {},
 	actions: {
 		async getConfigVariables() {
+			const getConfigValueSafe = async (key: string, defaultValue: any = null) => {
+                try {
+                    return await api.getConfigValue(key);
+                } catch (error) {
+                    console.error(`Failed to get config value for key ${key}:`, error);
+                    return defaultValue;
+                }
+            };
+			
 			const [
 				apiUrl,
 				authorizationApiUrl,
@@ -94,20 +103,20 @@ export const useAppConfigStore = defineStore('appConfig', {
 
 				api.getConfigValue('FoundationaLLM:Instance:Id'),
 
-				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
-				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
-				api.getConfigValue('FoundationaLLM:Branding:BackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryColor'),
-				api.getConfigValue('FoundationaLLM:Branding:AccentColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:AccentTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonBackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonBackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:FooterText'),
+				getConfigValueSafe('FoundationaLLM:Branding:LogoUrl', 'foundationallm-logo-white.svg'),
+				getConfigValueSafe('FoundationaLLM:Branding:LogoText'),
+				getConfigValueSafe('FoundationaLLM:Branding:BackgroundColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryColor', '#131833'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryColor', '#334581'),
+				getConfigValueSafe('FoundationaLLM:Branding:AccentColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:AccentTextColor', '#131833'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryButtonBackgroundColor', '#5472d4'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryButtonTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonBackgroundColor', '#70829a'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:FooterText'),
 
 				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
