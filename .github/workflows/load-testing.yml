@@ -113,6 +113,42 @@ jobs:
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
           echo "docker_tag: Latest Tag is : $DOCKER_TAG"
           echo "docker_tag=$DOCKER_TAG" >> $GITHUB_OUTPUT
+  
+  helm_build:
+    name: Package Helm Charts
+    if: ${{ !inputs.bypassAndTeardown }}
+    needs: generate_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        object: ${{ fromJson(needs.generate_matrix.outputs.service_matrix) }}
+    uses: ./.github/workflows/build-helm-chart.yml
+    with:
+      chart: ${{ matrix.object.name }}
+      registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
+      tag: ${{ needs.generate_matrix.outputs.docker_tag }}
+      username: e2e-token
+      target: ${{ inputs.target }}
+    secrets: inherit
+
+  docker_build:
+    name: Build Docker Images
+    if: ${{ !inputs.bypassAndTeardown }}
+    needs: generate_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        object: ${{ fromJson(needs.generate_matrix.outputs.service_matrix) }}
+    uses: ./.github/workflows/build-docker-image.yml
+    with:
+      image: ${{ matrix.object.name }}
+      context: ${{ matrix.object.context }}
+      dockerfile: ${{ matrix.object.dockerfile }}
+      registry: ${{ needs.generate_matrix.outputs.registry }}.azurecr.io
+      tag: ${{ needs.generate_matrix.outputs.docker_tag }}
+      username: e2e-token
+      target: ${{ inputs.target }}
+    secrets: inherit
 
   deploy_quickstart:
     name: Deploy Quick Start
@@ -401,16 +437,16 @@ jobs:
       - name: Download Question Bank & Load Testing File
         run: |
           az storage blob download `
-            --account-name ${{ steps.set-config.outputs.storage_account_name }} `
-            --container-name ${{ steps.set-config.outputs.storage_account_container }} `
-            --name ${{ steps.set-config.outputs.question_bank_file }} `
+            --account-name ${{ fromJson(steps.set-config.outputs.result).storage_account_name }} `
+            --container-name ${{ fromJson(steps.set-config.outputs.result).storage_account_container }} `
+            --name ${{ fromJson(steps.set-config.outputs.result).question_bank_file }} `
             --file QuestionBank.csv `
             --auth-mode login
 
           az storage blob download `
-            --account-name ${{ steps.set-config.outputs.storage_account_name }} `
-            --container-name ${{ steps.set-config.outputs.storage_account_container }} `
-            --name ${{ steps.set-config.outputs.jmeter_file }} `
+            --account-name ${{ fromJson(steps.set-config.outputs.result).storage_account_name }} `
+            --container-name ${{ fromJson(steps.set-config.outputs.result).storage_account_container }} `
+            --name ${{ fromJson(steps.set-config.outputs.result).jmeter_file }} `
             --file fllm-test-plan.jmx `
             --auth-mode login
 
@@ -484,7 +520,7 @@ jobs:
             --load-test-resource ${{ env.load_test_name }} `
             --test-id ${{ env.load_test_id }} `
             --load-test-config-file "load-testing.yml" `
-            -g ${{ steps.set-config.outputs.resource_group_name }}
+            -g ${{ fromJson(steps.set-config.outputs.result).resource_group_name }}
         shell: pwsh
 
   teardown_quickstart:
