@@ -366,12 +366,8 @@ jobs:
           Write-Host "::add-mask::$($info.clientSecret)"
 
           Push-Location ./deploy/quick-start
-          
-          {
-            echo 'AZD_DEPLOYMENT_DATA<<EOF'
-            Get-Content "./.azure/${{ inputs.environment }}/.env" -Raw
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
+
+          echo "AZD_DEPLOYMENT_DATA=$(Get-Content './.azure/${{ inputs.environment }}/.env' -Raw)" >> $env:GITHUB_OUTPUT
 
           (azd env get-values) | foreach {
               $name, $value = $_.split('=')
@@ -470,24 +466,10 @@ jobs:
           echo "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}"
           echo $configurationParameters
 
-          # Share with other steps
-          {
-            echo 'load_test_name<<EOF'
-            echo $load_test_name
-            echo EOF
-
-            echo 'load_test_id<<EOF'
-            echo $load_test_id
-            echo EOF
-
-            echo 'AZURE_APP_CONFIG_NAME<<EOF'
-            echo $configurationParameters['AZURE_APP_CONFIG_NAME']
-            echo EOF
-
-            echo 'AZURE_ENV_NAME<<EOF'
-            echo $configurationParameters['AZURE_ENV_NAME']
-            echo EOF
-          } >> $env:GITHUB_ENV
+          echo "load_test_name=$load_test_name" >> $env:GITHUB_ENV
+          echo "load_test_id=$load_test_id" >> $env:GITHUB_ENV
+          echo "AZURE_APP_CONFIG_NAME=$($configurationParameters['AZURE_APP_CONFIG_NAME'])" >> $env:GITHUB_ENV
+          echo "AZURE_ENV_NAME=$($configurationParameters['AZURE_ENV_NAME'])" >> $env:GITHUB_ENV
 
           cat $env:GITHUB_ENV
 
