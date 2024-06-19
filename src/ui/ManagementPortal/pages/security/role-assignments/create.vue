@@ -37,15 +37,7 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
-				<div class="mb-2">Principal type:</div>
-				<Dropdown
-					v-model="roleAssignment.principal_type"
-					:options="principalTypeOptions"
-					option-label="label"
-					option-value="value"
-					placeholder="--Select--"
-				/>
-
+				
 				<div class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
@@ -68,7 +60,7 @@
 					header="Browse Principals"
 					:closable="false"
 				>
-					<div class="mb-2">Search by group or type</div>
+					<div class="mb-2">Search by person or group</div>
 					<InputText
 						v-model="principalSearch"
 						placeholder="Search"
@@ -90,17 +82,6 @@
 					option-label="display_name"
 					option-value="object_id"
 					placeholder="--Select--"
-				/>
-			</div>
-
-			<!-- Cost center -->
-			<div class="step-header span-2">Would you like to assign this role assignment to a cost center?</div>
-			<div class="span-2">
-				<InputText
-					v-model="roleAssignment.cost_center"
-					placeholder="Enter cost center name"
-					type="text"
-					class="w-50"
 				/>
 			</div>
 
@@ -151,16 +132,6 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			principalTypeOptions: [
-				{
-					label: 'User',
-					value: 'User',
-				},
-				{
-					label: 'Group',
-					value: 'Group',
-				},
-			],
 			openBrowsePrincipalsModal: false,
 			roleOptions: [] as Role[],
 
@@ -202,9 +173,6 @@ export default {
 
 		async handleCreateRoleAssignment() {
 			const errors: string[] = [];
-			if (!this.roleAssignment.principal_type) {
-				errors.push('Please specify a principal type.');
-			}
 
 			if (!this.roleAssignment.principal_id) {
 				errors.push('Please specify a principal.');
