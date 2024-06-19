@@ -576,13 +576,13 @@ jobs:
         shell: pwsh
         run: |
           dotnet restore ./src/FoundationaLLM.sln --output ./dist
-          dotnet build ./tests/dotnet/Common.Tests.csproj --output ./dist
-          dotnet build ./tests/dotnet/Core.Examples.csproj --output ./dist
-          dotnet build ./tests/dotnet/Core.Tests.csproj --output ./dist
-          dotnet build ./tests/dotnet/Gatekeeper.Tests.csproj --output ./dist
-          dotnet build ./tests/dotnet/Orchestration.Tests.csproj --output ./dist
-          dotnet build ./tests/dotnet/SemanticKernel.Tests.csproj --output ./dist
-          dotnet build ./tests/dotnet/Vectorization.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Common.Tests/Common.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Core.Examples/Core.Examples.csproj --output ./dist
+          dotnet build ./tests/dotnet/Core.Test/Core.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Gatekeeper.Tests/Gatekeeper.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Orchestration.Tests/Orchestration.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/SemanticKernel.Tests/SemanticKernel.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Vectorization.Tests/Vectorization.Tests.csproj --output ./dist
 
       - name: Publish Build
         uses: actions/upload-artifact@v4
