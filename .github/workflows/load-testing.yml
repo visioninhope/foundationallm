@@ -458,7 +458,9 @@ jobs:
 
           # Load .env
           $configurationParameters = @{}
-          "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}".Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
+          echo "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}" >> .env
+          $fileData = Get-Content ".env" -Raw
+          $fileData.Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
             $envVar = $_ -split "="
             $configurationParameters[$envVar[0]] = $envVar[1].Replace('"', '')
           }
