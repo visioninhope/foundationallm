@@ -458,14 +458,17 @@ jobs:
 
           # Load .env
           $configurationParameters = @{}
-          echo "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}" >> .env
+          echo @"
+          ${{ needs.deploy_quickstart.outputs.azd-deployment-data }}
+          "@ >> .env
+          cat .env
           $fileData = Get-Content ".env" -Raw
           $fileData.Split([Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object {
             $envVar = $_ -split "="
-            $configurationParameters[$envVar[0]] = $envVar[1].Replace('"', '')
+            Write-Host $envVar
+            $configurationParameters[$envVar[0].Trim()] = $envVar[1].Replace('"', '')
           }
 
-          echo "${{ needs.deploy_quickstart.outputs.azd-deployment-data }}"
           echo $configurationParameters
 
           echo "load_test_name=$load_test_name" >> $env:GITHUB_ENV
