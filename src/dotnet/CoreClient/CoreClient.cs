@@ -107,7 +107,7 @@ namespace FoundationaLLM.Client.Core
                 throw new ArgumentException("The completion request must contain an AgentName and UserPrompt at a minimum.");
             }
 
-            var completion = await _coreRestClient.Completions.GetCompletionRequestAsync(completionRequest);
+            var completion = await _coreRestClient.Completions.GetChatCompletionAsync(completionRequest);
             return completion;
         }
 
@@ -148,7 +148,7 @@ namespace FoundationaLLM.Client.Core
                 UserPrompt = question,
                 Attachments = [objectId]
             };
-            var completion = await _coreRestClient.Completions.GetCompletionRequestAsync(completionRequest);
+            var completion = await _coreRestClient.Completions.GetChatCompletionAsync(completionRequest);
 
             return completion;
         }

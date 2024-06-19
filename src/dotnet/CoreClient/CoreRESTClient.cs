@@ -89,7 +89,7 @@ namespace FoundationaLLM.Client.Core
             Sessions = new SessionRESTClient(httpClientFactory, _credential);
             Attachments = new AttachmentRESTClient(httpClientFactory, _credential);
             Branding = new BrandingRESTClient(httpClientFactory, _credential);
-            Completions = new CompletionRestClient(httpClientFactory, _credential);
+            Completions = new CompletionRESTClient(httpClientFactory, _credential);
             Status = new StatusRESTClient(httpClientFactory, _credential);
             UserProfiles = new UserProfileRESTClient(httpClientFactory, _credential);
         }

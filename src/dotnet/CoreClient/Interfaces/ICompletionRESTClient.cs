@@ -11,11 +11,11 @@ namespace FoundationaLLM.Client.Core.Interfaces
     public interface ICompletionRESTClient
     {
         /// <summary>
-        /// Performs a sessionless request to the Core API.
+        /// Performs a completion request to the Core API.
         /// </summary>
         /// <param name="completionRequest">The completion request data sent to the endpoint.</param>
         /// <returns></returns>
-        Task<Completion> GetCompletionRequestAsync(CompletionRequest completionRequest);
+        Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Retrieves agents available to the user for orchestration and session-based requests.
