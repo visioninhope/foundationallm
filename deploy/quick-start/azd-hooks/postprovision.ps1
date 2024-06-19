@@ -203,22 +203,21 @@ $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windo
 
 azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target --recursive=True
 
-Invoke-AndRequireSuccess "Restarting Authorization API" {
-    # Grab suffix
-    $suffix = ($env:AZURE_KEY_VAULT_NAME).Substring(3)
-    $authApiContainerName = "caauthapi$suffix"
+Invoke-AndRequireSuccess "Restarting Container Apps" {
+
     $resourceGroup = "rg-$env:AZURE_ENV_NAME"
-    $revision = $(
-        az containerapp show `
-            --name  $authApiContainerName `
+
+    $apps = @(
+        az containerapp list `
             --resource-group $resourceGroup `
             --subscription $env:AZURE_SUBSCRIPTION_ID `
-            --query "properties.latestRevisionName" `
-            -o tsv
-    )
-    az containerapp revision restart `
-        --revision $revision `
-        --name $authApiContainerName `
-        --resource-group $resourceGroup `
-        --subscription $env:AZURE_SUBSCRIPTION_ID
+            --query "[].{name:name,revision:properties.latestRevisionName}" -o json | ConvertFrom-Json)
+
+    foreach ($app in $apps) {
+        az containerapp revision restart `
+            --revision $app.revision `
+            --name $app.name `
+            --resource-group $resourceGroup `
+            --subscription $env:AZURE_SUBSCRIPTION_ID
+    }
 }
