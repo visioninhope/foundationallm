@@ -205,28 +205,18 @@ azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $targe
 
 Invoke-AndRequireSuccess "Restarting Container Apps" {
 
+    $resourceGroup = "rg-$env:AZURE_ENV_NAME"
+
     $apps = @(
         az containerapp list `
             --resource-group $resourceGroup `
             --subscription $env:AZURE_SUBSCRIPTION_ID `
-            --query "[].name" -o json | ConvertFrom-Json)
-
-    # Grab suffix
-    $suffix = ($env:AZURE_KEY_VAULT_NAME).Substring(3)
+            --query "[].{name:name,revision:properties.latestRevisionName}" -o json | ConvertFrom-Json)
 
     foreach ($app in $apps) {
-        $resourceGroup = "rg-$env:AZURE_ENV_NAME"
-        $revision = $(
-            az containerapp show `
-                --name  $app `
-                --resource-group $resourceGroup `
-                --subscription $env:AZURE_SUBSCRIPTION_ID `
-                --query "properties.latestRevisionName" `
-                -o tsv
-        )
         az containerapp revision restart `
-            --revision $revision `
-            --name $app `
+            --revision $app.revision `
+            --name $app.name `
             --resource-group $resourceGroup `
             --subscription $env:AZURE_SUBSCRIPTION_ID
     }
