@@ -272,7 +272,7 @@ namespace FoundationaLLM.Authorization.Services
 
         /// <inheritdoc/>
         public List<RoleAssignment> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters) =>
-            _roleAssignmentStores[instanceId].RoleAssignments.Where(x => queryParameters.Scope!.Contains(x.Scope)).ToList();
+            _roleAssignmentStores[instanceId].RoleAssignments.Where(x => x.Scope == queryParameters.Scope).ToList();
  
         /// <inheritdoc/>
         public Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
