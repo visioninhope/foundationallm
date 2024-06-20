@@ -489,7 +489,7 @@ jobs:
             load_test_file_name = $load_test_file_name
             client_secret = $kvUrl
             client_id = $coreClient.appId
-            scope = "api://FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}/.default"
+            scope = "api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default"
             tenant_id = $info.tenantId
             core_api_endpoint = $configurationParameters["SERVICE_CORE_API_ENDPOINT_URL"]
           }
