@@ -536,7 +536,8 @@ jobs:
             --load-test-resource ${{ fromJson(steps.set-config.outputs.result).load_test_resource }} `
             --test-id $env:load_test_id `
             --test-run-id $(New-Guid).Guid `
-            --no-wait
+            --no-wait `
+            -g ${{ fromJson(steps.set-config.outputs.result).resource_group_name }}
         shell: pwsh
 
   teardown_quickstart:
