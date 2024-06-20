@@ -476,13 +476,17 @@ jobs:
             $configurationParameters[$envVar[0]] = $envVar[1].Replace('"', '')
           }
 
+          $coreClient = (az ad app credential reset --id "api://FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}" | ConvertFrom-Json)
+          $kvUrl = (az keyvault secret set --vault-name "fllme2emkeyvault7f393d64" --name "sp-client-secret-${{ needs.generate_matrix.outputs.unique_id }}" --value $coreClient.password --query '{id: id}' | ConvertFrom-Json).id
+
           # Replace Placeholders
           $config = @{
             load_test_name = $load_test_name
             load_test_id = $load_test_id
             load_test_file_name = $load_test_file_name
-            client_id = $info.clientId
-            scope = $configurationParameters["ENTRA_CHAT_UI_SCOPES"]
+            client_secret = $kvUrl
+            client_id = $coreClient.appId
+            scope = "api://FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}/.default"
             tenant_id = $info.tenantId
             core_api_endpoint = $configurationParameters["SERVICE_CORE_API_ENDPOINT_URL"]
           }
