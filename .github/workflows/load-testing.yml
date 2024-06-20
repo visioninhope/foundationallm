@@ -397,10 +397,136 @@ jobs:
           Pop-Location
         shell: pwsh
 
+  add_test_data:
+    if: ${{ !inputs.bypassAndTeardown }}
+    name: Add Test Data
+    needs: [deploy_quickstart]
+    runs-on: ubuntu-latest # this may need to change to windows
+    env:
+      AZURE_ENV_NAME: ${{ inputs.environment }}
+      AZURE_LOCATION: ${{ inputs.location }}
+    steps:
+      - name: Sets Credentials for Source (SBX)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS_SRC<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Sets Credentials for Target (E2E)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_E2E_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'e2e'
+        env:
+          FLLM_E2E_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
+
+      - name: Sets Credentials for Target (Sandbox)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'sandbox'
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install azd
+        uses: Azure/setup-azd@v1.0.0
+        with:
+          version: "1.9.3"
+
+      - name: Log in with Azure (Client Credentials)
+        shell: pwsh
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+
+          Push-Location ./deploy/quick-start
+          azd auth login `
+            --client-id "$($info.clientId)" `
+            --client-secret "$($info.clientSecret)" `
+            --tenant-id "$($info.tenantId)"
+          Pop-Location
+
+          az login `
+            --service-principal `
+            --username "$($info.clientId)" `
+            --password "$($info.clientSecret)" `
+            --tenant "$($info.tenantId)" `
+
+      - name: Copy Test Data
+        shell: pwsh
+        run: |
+          $src = $Env:AZURE_CREDENTIALS_SRC | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($src.clientSecret)"
+
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+
+          Write-Host "Create new AZD Environment"
+          Push-Location ./deploy/quick-start
+          azd env new ${{ inputs.environment }}
+          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
+          azd env set PIPELINE_DEPLOY "$true"
+          Pop-Location
+
+          Push-Location ./deploy/quick-start
+          ../../tests/scripts/Set-AzdEnv.ps1 `
+            -tenantId $($info.tenantId) `
+            -principalType ServicePrincipal `
+            -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
+
+          azd env refresh --no-prompt
+
+          (azd env get-values) | foreach {
+              $name, $value = $_.split('=')
+              $value = $value.Trim('"')
+              set-content env:\$name $value
+          }
+          Pop-Location
+
+          # Assign “Search Index Data Contributor” on the target resource group
+          $objectId = (az ad sp list --all --query "[?appId=='$($info.clientId)'].id" --output tsv)
+          az role assignment create `
+            --role "Search Index Data Contributor" `
+            --assignee-object-id $objectId `
+            --assignee-principal-type ServicePrincipal `
+            --scope "/subscriptions/${env:AZURE_SUBSCRIPTION_ID}/resourceGroups/${env:RESOURCE_GROUP_NAME_DEFAULT}"
+
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($src.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($src.clientId)" `
+            --tenant-id "$($src.tenantId)"
+          ./deploy/common/scripts/Get-TestData.ps1 -storageAccountName foundationallmdata
+
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($info.clientId)" `
+            --tenant-id "$($info.tenantId)"
+          ./deploy/common/scripts/Set-TestData.ps1 `
+            -storageAccountName $env:AZURE_STORAGE_ACCOUNT_NAME `
+            -aiSearchName $env:AZURE_COGNITIVE_SEARCH_NAME
+
   run_load_test:
     name: Run Load Test
     runs-on: ubuntu-latest
-    needs: [deploy_quickstart, generate_matrix]
+    needs: [deploy_quickstart, generate_matrix, add_test_data]
     steps:
       - name: Sets Credentials for Sandbox
         run: |
@@ -459,7 +585,7 @@ jobs:
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           $load_test_name = "FLLM-Load-Test-$([int64](Get-Date -UFormat %s))"
-          $load_test_file_name = "$($load_test_name).csv"
+          $load_test_file_name = "Load-Test-Questions.csv"
           $load_test_id = (New-Guid).Guid
 
           # Load .env
@@ -479,18 +605,15 @@ jobs:
           echo "AZURE_APP_CONFIG_NAME=$($configurationParameters['AZURE_APP_CONFIG_NAME'])" >> $env:GITHUB_ENV
           echo "AZURE_ENV_NAME=$($configurationParameters['AZURE_ENV_NAME'])" >> $env:GITHUB_ENV
           
-          $coreClient = (az ad app credential reset --id "api://FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}" | ConvertFrom-Json)
-          $kvUrl = (az keyvault secret set --vault-name "fllme2emkeyvault7f393d64" --name "sp-client-secret-${{ needs.generate_matrix.outputs.unique_id }}" --value $coreClient.password --query '{id: id}' | ConvertFrom-Json).id
+          $token = (az account get-access-token --scope "api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default" --query accessToken | ConvertFrom-Json)
+          $kvUrl = (az keyvault secret set --vault-name "fllme2emkeyvault7f393d64" --name "bearer-token-${{ needs.generate_matrix.outputs.unique_id }}" --value $token --query '{id: id}' | ConvertFrom-Json).id
 
           # Replace Placeholders
           $config = @{
             load_test_name = $load_test_name
             load_test_id = $load_test_id
             load_test_file_name = $load_test_file_name
-            client_secret = $kvUrl
-            client_id = $coreClient.appId
-            scope = "api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default"
-            tenant_id = $info.tenantId
+            token = $kvUrl
             core_api_endpoint = $configurationParameters["SERVICE_CORE_API_ENDPOINT_URL"]
           }
           $load_testing_config = Get-Content "./tests/config/load-testing-template.yml" -Raw

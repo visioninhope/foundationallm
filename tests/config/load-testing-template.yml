@@ -9,15 +9,9 @@ configurationFiles:
 - ${load_test_file_name}
 failureCriteria: []
 secrets:
-- name: client_secret
-  value: ${client_secret}
+- name: token
+  value: ${token}
 env:
-- name: client_id
-  value: ${client_id}
-- name: scope
-  value: ${scope}
-- name: tenant_id
-  value: ${tenant_id}
 - name: core_api_endpoint
   value: ${core_api_endpoint}
 autoStop:
