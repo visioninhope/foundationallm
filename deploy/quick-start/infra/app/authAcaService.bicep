@@ -4,10 +4,10 @@ param tags object = {}
 param authRgName string
 param authStoreName string
 param cpu string
-param identityName string
-param keyvaultName string
 param memory string
 param replicaCount int
+param identityName string
+param keyvaultName string
 param containerAppsEnvironmentName string
 param applicationInsightsName string
 param exists bool
