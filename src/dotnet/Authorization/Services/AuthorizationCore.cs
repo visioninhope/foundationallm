@@ -274,55 +274,16 @@ namespace FoundationaLLM.Authorization.Services
         /// <inheritdoc/>
         public List<RoleAssignment> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)
         {
-            var scope = queryParameters.Scope;
-            var resourceTypeDescriptors = new Dictionary<string, ResourceTypeDescriptor>();
-            var agentResourceTypeDescriptor = AgentResourceProviderMetadata.AllowedResourceTypes;
-            var attachmentResourceTypeDescriptor = AttachmentResourceProviderMetadata.AllowedResourceTypes;
-            var authorizationResourceTypeDescriptor = AuthorizationResourceProviderMetadata.AllowedResourceTypes;
-            var configurationResourceTypeDescriptor = ConfigurationResourceProviderMetadata.AllowedResourceTypes;
-            var dataSourceResourceTypeDescriptor = DataSourceResourceProviderMetadata.AllowedResourceTypes;
-            var promptResourceTypeDescriptor = PromptResourceProviderMetadata.AllowedResourceTypes;
-            var vectorizationResourceTypeDescriptor = VectorizationResourceProviderMetadata.AllowedResourceTypes;
+            if (string.IsNullOrWhiteSpace(queryParameters?.Scope))
+                return [];
 
-            foreach (var kvp in agentResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in attachmentResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in authorizationResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in configurationResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in dataSourceResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in promptResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
-            foreach (var kvp in vectorizationResourceTypeDescriptor)
-                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            var resourcePath = ResourcePathUtils.ParseForRoleAssignmentScope(
+                queryParameters.Scope,
+                _settings.InstanceIds);
 
-            ResourcePath.TryParse(
-                scope,
-                ResourceProviderNames.All,
-                resourceTypeDescriptors,
-                false,
-                out var resourcePath);
-
-            var directResourceAssignments = _roleAssignmentStores[instanceId].RoleAssignments
-                .Where(x => x.Scope == queryParameters.Scope).ToList();
-
-            if (resourcePath == null || resourcePath.IsInstancePath)
-            {
-                return directResourceAssignments;
-            }
-
-            if (resourcePath.ResourceTypeInstances.Count > 0 &&
-                !string.IsNullOrWhiteSpace(resourcePath.ResourceTypeInstances[0].ResourceId))
-            {
-                var instanceResourceAssignments = _roleAssignmentStores[instanceId].RoleAssignments
-                    .Where(x => x.Scope == $"/instances/{resourcePath.InstanceId}").ToList();
-                return directResourceAssignments.Concat(instanceResourceAssignments).ToList();
-            }
-
-            return directResourceAssignments;
+            return _roleAssignmentStores[instanceId].RoleAssignments
+                .Where(ra => resourcePath.IncludesResourcePath(ra.ScopeResourcePath!))
+                .ToList();
         }
  
         /// <inheritdoc/>
