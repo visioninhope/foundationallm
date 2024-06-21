@@ -6057,6 +6057,25 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderActions.CheckName
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderActions.CheckName
   nameWithType: ConfigurationResourceProviderActions.CheckName
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata
+  name: ConfigurationResourceProviderMetadata
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.html
+  commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata
+  nameWithType: ConfigurationResourceProviderMetadata
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceProviderMetadata_AllowedResourceTypes
+  commentId: P:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes*
+  name: AllowedResourceTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceProviderMetadata_AllowedResourceTypes_
+  commentId: Overload:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.AllowedResourceTypes
+  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames
   name: ConfigurationResourceTypeNames
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.html
@@ -21711,25 +21730,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Configuration.Services.ConfigurationHealthCheckService.StopAsync
   nameWithType: ConfigurationHealthCheckService.StopAsync
-- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
-  name: ConfigurationResourceProviderMetadata
-  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html
-  commentId: T:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
-  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata
-  nameWithType: ConfigurationResourceProviderMetadata
-- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
-  name: AllowedResourceTypes
-  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderMetadata_AllowedResourceTypes
-  commentId: P:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
-  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
-  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
-- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes*
-  name: AllowedResourceTypes
-  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderMetadata_AllowedResourceTypes_
-  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
-  isSpec: "True"
-  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.AllowedResourceTypes
-  nameWithType: ConfigurationResourceProviderMetadata.AllowedResourceTypes
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService
   name: ConfigurationResourceProviderService
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html

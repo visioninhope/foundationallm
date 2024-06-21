@@ -1162,6 +1162,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceProviderMetadata.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.yml",
       "output": {
         ".html": {
@@ -4436,16 +4446,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationHealthCheckService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderMetadata.html"
         }
       },
       "version": ""
