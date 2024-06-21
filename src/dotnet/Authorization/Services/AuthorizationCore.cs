@@ -12,6 +12,7 @@ using FoundationaLLM.Common.Models.ResourceProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
 
@@ -271,8 +272,58 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public List<RoleAssignment> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters) =>
-            _roleAssignmentStores[instanceId].RoleAssignments.Where(x => x.Scope == queryParameters.Scope).ToList();
+        public List<RoleAssignment> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)
+        {
+            var scope = queryParameters.Scope;
+            var resourceTypeDescriptors = new Dictionary<string, ResourceTypeDescriptor>();
+            var agentResourceTypeDescriptor = AgentResourceProviderMetadata.AllowedResourceTypes;
+            var attachmentResourceTypeDescriptor = AttachmentResourceProviderMetadata.AllowedResourceTypes;
+            var authorizationResourceTypeDescriptor = AuthorizationResourceProviderMetadata.AllowedResourceTypes;
+            var configurationResourceTypeDescriptor = ConfigurationResourceProviderMetadata.AllowedResourceTypes;
+            var dataSourceResourceTypeDescriptor = DataSourceResourceProviderMetadata.AllowedResourceTypes;
+            var promptResourceTypeDescriptor = PromptResourceProviderMetadata.AllowedResourceTypes;
+            var vectorizationResourceTypeDescriptor = VectorizationResourceProviderMetadata.AllowedResourceTypes;
+
+            foreach (var kvp in agentResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in attachmentResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in authorizationResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in configurationResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in dataSourceResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in promptResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+            foreach (var kvp in vectorizationResourceTypeDescriptor)
+                resourceTypeDescriptors.Add(kvp.Key, kvp.Value);
+
+            ResourcePath.TryParse(
+                scope,
+                ResourceProviderNames.All,
+                resourceTypeDescriptors,
+                false,
+                out var resourcePath);
+
+            var directResourceAssignments = _roleAssignmentStores[instanceId].RoleAssignments
+                .Where(x => x.Scope == queryParameters.Scope).ToList();
+
+            if (resourcePath == null || resourcePath.IsInstancePath)
+            {
+                return directResourceAssignments;
+            }
+
+            if (resourcePath.ResourceTypeInstances.Count > 0 &&
+                !string.IsNullOrWhiteSpace(resourcePath.ResourceTypeInstances[0].ResourceId))
+            {
+                var instanceResourceAssignments = _roleAssignmentStores[instanceId].RoleAssignments
+                    .Where(x => x.Scope == $"/instances/{resourcePath.InstanceId}").ToList();
+                return directResourceAssignments.Concat(instanceResourceAssignments).ToList();
+            }
+
+            return directResourceAssignments;
+        }
  
         /// <inheritdoc/>
         public Dictionary<string, RoleAssignmentsWithActionsResult> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
