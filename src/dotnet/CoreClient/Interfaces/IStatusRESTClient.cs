@@ -1,4 +1,6 @@
-﻿namespace FoundationaLLM.Client.Core.Interfaces
+﻿using FoundationaLLM.Common.Models.Infrastructure;
+
+namespace FoundationaLLM.Client.Core.Interfaces
 {
     /// <summary>
     /// Provides methods to manage calls to the Core API's status endpoints.
@@ -10,7 +12,7 @@
         /// the status endpoint supports anonymous access.
         /// </summary>
         /// <returns></returns>
-        Task<string> GetServiceStatusAsync();
+        Task<ServiceStatusInfo> GetServiceStatusAsync();
 
         /// <summary>
         /// Returns OK if the requester is authenticated and allowed to execute
