@@ -1,5 +1,8 @@
 ﻿using Azure.Core;
 using FoundationaLLM.Client.Management.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
+using FoundationaLLM.Common.Settings;
+using System.Text.Json;
 
 namespace FoundationaLLM.Client.Management.Clients.Rest
 {
@@ -7,18 +10,21 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         IHttpClientFactory httpClientFactory,
         TokenCredential credential) : ManagementRESTClientBase(httpClientFactory, credential), IStatusRESTClient
     {
-        /// <inheritdoc/>
-        public async Task<string> GetServiceStatusAsync()
-        {
-            var coreClient = await GetManagementClientAsync();
-            var responseMessage = await coreClient.GetAsync("status");
+        private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
-            if (responseMessage.IsSuccessStatusCode)
+        /// <inheritdoc/>
+        public async Task<ServiceStatusInfo> GetServiceStatusAsync()
+        {
+            var managementClient = await GetManagementClientAsync();
+            var response = await managementClient.GetAsync("status");
+
+            if (response.IsSuccessStatusCode)
             {
-                return "Service is up and running.";
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent, _jsonSerializerOptions)!;
             }
 
-            throw new Exception($"Failed to retrieve service status. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
+            throw new Exception($"Failed to retrieve service status. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
         }
 
         /// <inheritdoc/>
