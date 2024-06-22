@@ -1,4 +1,5 @@
-﻿using Azure.Core;
+﻿using Azure;
+using Azure.Core;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Settings;
@@ -28,17 +29,12 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetAuthStatusAsync()
+        public async Task<bool> IsAuthenticatedAsync()
         {
-            var coreClient = await GetManagementClientAsync();
-            var responseMessage = await coreClient.GetAsync("status/auth");
+            var managementClient = await GetManagementClientAsync();
+            var response = await managementClient.GetAsync("status/auth");
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return "Authentication is successful.";
-            }
-
-            throw new Exception($"Failed to retrieve authentication status. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
+            return response.IsSuccessStatusCode;
         }
     }
 }
