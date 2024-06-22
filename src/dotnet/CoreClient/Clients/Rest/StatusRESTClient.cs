@@ -28,17 +28,12 @@ namespace FoundationaLLM.Client.Core.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetAuthStatusAsync()
+        public async Task<bool> IsAuthenticatedAsync()
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync("status/auth");
+            var response = await coreClient.GetAsync("status/auth");
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return "Authentication is successful.";
-            }
-
-            throw new Exception($"Failed to retrieve authentication status. Status code: {responseMessage.StatusCode}. Reason: {responseMessage.ReasonPhrase}");
+            return response.IsSuccessStatusCode;
         }
     }
 }

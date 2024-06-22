@@ -15,9 +15,9 @@ namespace FoundationaLLM.Client.Core.Interfaces
         Task<ServiceStatusInfo> GetServiceStatusAsync();
 
         /// <summary>
-        /// Returns OK if the requester is authenticated and allowed to execute
+        /// Checks whether the requester is authenticated and allowed to execute
         /// requests against the Core API service.
         /// </summary>
-        Task<string> GetAuthStatusAsync();
+        Task<bool> IsAuthenticatedAsync();
     }
 }
