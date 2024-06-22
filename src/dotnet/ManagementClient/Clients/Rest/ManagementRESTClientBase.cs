@@ -23,11 +23,11 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         /// <returns></returns>
         protected async Task<HttpClient> GetManagementClientAsync()
         {
-            var coreClient = httpClientFactory.CreateClient(HttpClients.ManagementAPI);
+            var managementClient = httpClientFactory.CreateClient(HttpClients.ManagementAPI);
             
-            var token = await credential.GetTokenAsync(new TokenRequestContext([ScopeURIs.FoundationaLLM_Core]), default);
-            coreClient.SetBearerToken(token.Token);
-            return coreClient;
+            var token = await credential.GetTokenAsync(new TokenRequestContext([ScopeURIs.FoundationaLLM_Management]), default);
+            managementClient.SetBearerToken(token.Token);
+            return managementClient;
         }
     }
 }
