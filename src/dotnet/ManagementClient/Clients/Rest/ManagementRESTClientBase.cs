@@ -23,7 +23,7 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         /// <returns></returns>
         protected async Task<HttpClient> GetManagementClientAsync()
         {
-            var coreClient = httpClientFactory.CreateClient(HttpClients.CoreAPI);
+            var coreClient = httpClientFactory.CreateClient(HttpClients.ManagementAPI);
             
             var token = await credential.GetTokenAsync(new TokenRequestContext([ScopeURIs.FoundationaLLM_Core]), default);
             coreClient.SetBearerToken(token.Token);
