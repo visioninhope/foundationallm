@@ -62,7 +62,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
             );
 
         /// <inheritdoc/>
-        public async Task DeleteAgentAsync(string promptName) => await managementRestClient.Resources.DeleteResourceAsync(
+        public async Task DeletePromptAsync(string promptName) => await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Prompt,
                 $"{PromptResourceTypeNames.Prompts}/{promptName}"
             );

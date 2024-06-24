@@ -52,10 +52,10 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <summary>
         /// Deletes a prompt resource by name. Please note that all deletes are soft deletes. The
         /// resource will be marked as deleted but not purged. To permanently remove a resource,
-        /// execute the <see cref="PromptManagementClient.PurgePromptAsync"/> method with the same name.
+        /// execute the <see cref="PurgePromptAsync"/> method with the same name.
         /// </summary>
         /// <param name="promptName">The name of the prompt resource to delete.</param>
         /// <returns></returns>
-        Task DeleteAgentAsync(string promptName);
+        Task DeletePromptAsync(string promptName);
     }
 }
