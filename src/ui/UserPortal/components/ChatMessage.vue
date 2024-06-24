@@ -26,7 +26,7 @@
 							},
 						}"
 					/>
-					<span class="time-stamp">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
+					<span class="time-stamp" v-tooltip="formatTimeStamp(message.timeStamp)">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
 				</span>
 			</div>
 
@@ -101,7 +101,14 @@
 					>
 						<p class="prompt-text">{{ prompt.prompt }}</p>
 						<template #footer>
-							<Button label="Close" @click="viewPrompt = false" />
+							<Button
+							:style="{
+								backgroundColor: primaryButtonBg,
+								borderColor: primaryButtonBg,
+								color: primaryButtonText
+							}"
+							label="Close"
+							@click="viewPrompt = false" />
 						</template>
 					</Dialog>
 				</span>
@@ -142,6 +149,8 @@ export default {
 			prompt: {} as CompletionPrompt,
 			viewPrompt: false,
 			displayText: '',
+			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
+      		primaryButtonText: this.$appConfigStore.primaryButtonText
 		};
 	},
 
@@ -167,6 +176,20 @@ export default {
 			};
 
 			displayNextWord();
+		},
+
+		formatTimeStamp(timeStamp: string) {
+			const date = new Date(timeStamp);
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				second: 'numeric',
+				timeZoneName: 'short'
+			};
+			return date.toLocaleString(undefined, options);
 		},
 
 		getDisplayName() {
@@ -325,6 +348,12 @@ export default {
 	.message {
 		width: 95%;
 	}
+}
+
+.primary-button {
+	background-color: var(--primary-button-bg) !important;
+	border-color: var(--primary-button-bg) !important;
+	color: var(--primary-button-text) !important;
 }
 </style>
 
