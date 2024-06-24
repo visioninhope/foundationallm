@@ -1,0 +1,19 @@
+displayName: ${load_test_name}
+testPlan: fllm-test-plan.jmx
+description: ''
+engineInstances: 1
+testId: ${load_test_id}
+testType: JMX
+splitAllCSVs: False
+configurationFiles:
+- ${load_test_file_name}
+failureCriteria: []
+secrets:
+- name: token
+  value: ${token}
+env:
+- name: core_api_endpoint
+  value: ${core_api_endpoint}
+autoStop:
+  errorPercentage: 90
+  timeWindow: 60
