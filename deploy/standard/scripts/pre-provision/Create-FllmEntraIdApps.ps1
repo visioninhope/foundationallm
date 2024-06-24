@@ -1,16 +1,4 @@
 #! /usr/bin/pwsh
-
-Param(
-    [parameter(Mandatory = $false)][string]$authAppName="FoundationaLLM-Authorization",
-    [parameter(Mandatory = $false)][string]$coreAppName="FoundationaLLM",
-    [parameter(Mandatory = $false)][string]$coreClientAppName="FoundationaLLM-Client",
-    [parameter(Mandatory = $false)][string]$mgmtAppName="FoundationaLLM-Management",
-    [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-Client"
-)
-
-Set-StrictMode -Version 3.0
-$ErrorActionPreference = "Stop"
-
 <#
 .SYNOPSIS
     Generates a set of FLLM EntraID API apps and their respective client apps in the Azure AD tenant.
@@ -45,8 +33,8 @@ The following example creates the FoundationaLLM API and client apps.
 $params = @{
     fllmApi              = "FoundationaLLM"
     fllmClient           = "FoundationaLLM-Client"
-    fllmApiConfigPath    = "foundationalllm.json"
-    fllmClientConfigPath = "foundationalllm-client.json"
+    fllmApiConfigPath    = "foundationalllm-template.json"
+    fllmClientConfigPath = "foundationalllm-client-template.json"
     appPermissionsId     = "6da07102-bb6a-421d-a71e-dfdb6031d3d8"
     appUrl               = ""
     appUrlLocal          = "http://localhost:3000/signin-oidc"
@@ -54,6 +42,19 @@ $params = @{
 New-FllmEntraIdApps @params
     
 #>
+
+
+Param(
+    [parameter(Mandatory = $false)][string]$authAppName = "FoundationaLLM-Authorization",
+    [parameter(Mandatory = $false)][string]$coreAppName = "FoundationaLLM",
+    [parameter(Mandatory = $false)][string]$coreClientAppName = "FoundationaLLM-Client",
+    [parameter(Mandatory = $false)][string]$mgmtAppName = "FoundationaLLM-Management",
+    [parameter(Mandatory = $false)][string]$mgmtClientAppName = "FoundationaLLM-Management-Client"
+)
+
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
+
 function New-FllmEntraIdApps {
     param (
         [Parameter(Mandatory = $true)][string]$appPermissionsId,
@@ -143,8 +144,8 @@ $fllmAppRegs = @{}
 $params = @{
     fllmApi              = $coreAppName
     fllmClient           = $coreClientAppName
-    fllmApiConfigPath    = "foundationalllm.json"
-    fllmClientConfigPath = "foundationalllm-client.json"
+    fllmApiConfigPath    = "./pre-provision/foundationallm-template.json"
+    fllmClientConfigPath = "./pre-provision/foundationallm-client-template.json"
     appPermissionsId     = "6da07102-bb6a-421d-a71e-dfdb6031d3d8"
     appUrl               = ""
     appUrlLocal          = "http://localhost:3000/signin-oidc"
@@ -155,8 +156,8 @@ $($fllmAppRegs).Core = New-FllmEntraIdApps @params
 $params = @{
     fllmApi              = $mgmtAppName
     fllmClient           = $mgmtClientAppName
-    fllmApiConfigPath    = "foundationalllm-management.json"
-    fllmClientConfigPath = "foundationalllm-managementclient.json"
+    fllmApiConfigPath    = "./pre-provision/foundationalllm-management-template.json"
+    fllmClientConfigPath = "./pre-provision/foundationalllm-management-client-template.json"
     appPermissionsId     = "c57f4633-0e58-455a-8ede-5de815fe6c9c"
     appUrl               = ""
     appUrlLocal          = "http://localhost:3001/signin-oidc"
@@ -166,7 +167,7 @@ $($fllmAppRegs).Management = New-FllmEntraIdApps @params
 # Create FoundationaLLM Authorization App Registration
 $params = @{
     fllmApi           = $authAppName
-    fllmApiConfigPath = "foundationalllm-authorization.json"
+    fllmApiConfigPath = "./pre-provision/foundationalllm-authorization-template.json"
     appPermissionsId  = "9e313dd4-51e4-4989-84d0-c713e38e467d"
     createClientApp   = $false
 }
