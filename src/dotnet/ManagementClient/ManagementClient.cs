@@ -58,8 +58,12 @@ namespace FoundationaLLM.Client.Management
         }
 
         public IAgentManagementClient Agents { get; private set; } = null!;
+        public IPromptManagementClient Prompts { get; private set; } = null!;
 
-        private void InitializeClients() =>
+        private void InitializeClients()
+        {
             Agents = new AgentManagementClient(_managementRestClient);
+            Prompts = new PromptManagementClient(_managementRestClient);
+        }
     }
 }
