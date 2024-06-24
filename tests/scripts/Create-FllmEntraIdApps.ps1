@@ -1,11 +1,11 @@
 #! /usr/bin/pwsh
 
 Param(
-    [parameter(Mandatory = $false)][string]$authAppName="FoundationaLLM-Authorization",
-    [parameter(Mandatory = $false)][string]$coreAppName="FoundationaLLM",
-    [parameter(Mandatory = $false)][string]$coreClientAppName="FoundationaLLM-Client",
-    [parameter(Mandatory = $false)][string]$mgmtAppName="FoundationaLLM-Management",
-    [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-Client"
+    [parameter(Mandatory = $false)][string]$authAppName="FoundationaLLM-Authorization-API",
+    [parameter(Mandatory = $false)][string]$coreAppName="FoundationaLLM-Core-API",
+    [parameter(Mandatory = $false)][string]$coreClientAppName="FoundationaLLM-Core-Portal",
+    [parameter(Mandatory = $false)][string]$mgmtAppName="FoundationaLLM-Management-API",
+    [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-Portal"
 )
 
 Set-StrictMode -Version 3.0
