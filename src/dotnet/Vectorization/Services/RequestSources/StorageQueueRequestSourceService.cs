@@ -85,8 +85,20 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         }
 
         /// <inheritdoc/>
-        public async Task DeleteRequest(string messageId, string popReceipt) =>
-            await _queueClient.DeleteMessageAsync(messageId, popReceipt).ConfigureAwait(false);
+        public async Task DeleteRequest(string messageId, string popReceipt)
+        {
+            var response = await _queueClient.DeleteMessageAsync(messageId, popReceipt).ConfigureAwait(false);
+            if(response.IsError)
+            {
+                _logger.LogError("Error deleting message with id {MessageId}.", messageId);
+            }
+            else
+            {
+                _logger.LogInformation("Message with id {MessageId} deleted.", messageId);
+            }
+           
+        }
+            
 
         /// <inheritdoc/>
         public async Task SubmitRequest(VectorizationRequest request)
@@ -99,7 +111,7 @@ namespace FoundationaLLM.Vectorization.Services.RequestSources
         public async Task UpdateRequest(string messageId, string popReceipt, VectorizationRequest request)
         {
             var serializedMessage = JsonSerializer.Serialize(request);
-            await _queueClient.UpdateMessageAsync(messageId, popReceipt, serializedMessage);
+            await _queueClient.UpdateMessageAsync(messageId, popReceipt, serializedMessage, TimeSpan.FromSeconds(_settings.VisibilityTimeoutSeconds));
         }
     }
 }
