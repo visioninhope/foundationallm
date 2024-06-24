@@ -337,11 +337,11 @@ jobs:
             -tenantId $($info.tenantId) `
             -principalType ServicePrincipal `
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176 `
-            -fllmApiName FoundationaLLM-Core `
-            -fllmClientName FoundationaLLM-Core `
-            -fllmMgmtApiName FoundationaLLM-Management `
-            -fllmMgmtClientName FoundationaLLM-Management-Client `
-            -fllmAuthApiName FoundationaLLM-Authorization `
+            -fllmApiName FoundationaLLM-Core-API `
+            -fllmClientName FoundationaLLM-Core-Portal `
+            -fllmMgmtApiName FoundationaLLM-Management-API `
+            -fllmMgmtClientName FoundationaLLM-Management-Portal `
+            -fllmAuthApiName FoundationaLLM-Authorization-API `
             -fllmAdminGroupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }}
           Pop-Location
         shell: pwsh
@@ -376,8 +376,8 @@ jobs:
           Write-Host "Update App Registration OAuth Callbacks"
           Push-Location ./deploy/quick-start
           pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
-            -fllmChatUiName FoundationaLLM-Core-Client `
-            -fllmMgmtUiName FoundationaLLM-Management-Client
+            -fllmChatUiName FoundationaLLM-Core-Portal `
+            -fllmMgmtUiName FoundationaLLM-Management-Portal
           Pop-Location
         shell: pwsh
 
@@ -645,7 +645,7 @@ jobs:
             --username "$($info.clientId)" `
             --password "$($info.clientSecret)" `
             --tenant "$($info.tenantId)" `
-            --scope api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default
+            --scope api://FoundationaLLM-Core/.default
         shell: pwsh
 
       - name: Running End to End Tests
