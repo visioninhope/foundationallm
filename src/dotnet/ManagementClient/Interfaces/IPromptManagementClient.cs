@@ -4,6 +4,9 @@ using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Client.Management.Interfaces
 {
+    /// <summary>
+    /// Provides methods to manage prompt resources.
+    /// </summary>
     public interface IPromptManagementClient
     {
         /// <summary>
@@ -44,10 +47,10 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Upserts a prompt resource. If a prompt does not exist, it will be created. If a prompt
         /// does exist, it will be updated.
         /// </summary>
-        /// <param name="agent">The prompt resource to create or update.</param>
+        /// <param name="prompt">The prompt resource to create or update.</param>
         /// <returns>Returns a <see cref="ResourceProviderUpsertResult"/>, which contains the
         /// Object ID of the resource.</returns>
-        Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase agent);
+        Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase prompt);
 
         /// <summary>
         /// Deletes a prompt resource by name. Please note that all deletes are soft deletes. The

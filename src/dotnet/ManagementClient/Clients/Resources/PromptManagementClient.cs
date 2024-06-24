@@ -55,10 +55,10 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase agent) => await managementRestClient.Resources.UpsertResourceAsync(
+        public async Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase prompt) => await managementRestClient.Resources.UpsertResourceAsync(
             ResourceProviderNames.FoundationaLLM_Prompt,
-            $"{PromptResourceTypeNames.Prompts}/{agent.Name}",
-                agent
+            $"{PromptResourceTypeNames.Prompts}/{prompt.Name}",
+                prompt
             );
 
         /// <inheritdoc/>

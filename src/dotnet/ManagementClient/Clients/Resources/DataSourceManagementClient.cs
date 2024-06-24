@@ -64,10 +64,10 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertDataSourceAsync(DataSourceBase agent) => await managementRestClient.Resources.UpsertResourceAsync(
+        public async Task<ResourceProviderUpsertResult> UpsertDataSourceAsync(DataSourceBase dataSource) => await managementRestClient.Resources.UpsertResourceAsync(
             ResourceProviderNames.FoundationaLLM_DataSource,
-            $"{DataSourceResourceTypeNames.DataSources}/{agent.Name}",
-                agent
+            $"{DataSourceResourceTypeNames.DataSources}/{dataSource.Name}",
+                dataSource
             );
 
         /// <inheritdoc/>

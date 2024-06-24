@@ -3,6 +3,9 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.Client.Management.Interfaces
 {
+    /// <summary>
+    /// Provides methods to manage data source resources.
+    /// </summary>
     public interface IDataSourceManagementClient
     {
         /// <summary>
@@ -50,10 +53,10 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Upserts a data source resource. If a data source does not exist, it will be created. If a data source
         /// does exist, it will be updated.
         /// </summary>
-        /// <param name="agent">The data source resource to create or update.</param>
+        /// <param name="dataSource">The data source resource to create or update.</param>
         /// <returns>Returns a <see cref="ResourceProviderUpsertResult"/>, which contains the
         /// Object ID of the resource.</returns>
-        Task<ResourceProviderUpsertResult> UpsertDataSourceAsync(DataSourceBase agent);
+        Task<ResourceProviderUpsertResult> UpsertDataSourceAsync(DataSourceBase dataSource);
 
         /// <summary>
         /// Upserts a data source resource. If a data source does not exist, it will be created. If a data source
