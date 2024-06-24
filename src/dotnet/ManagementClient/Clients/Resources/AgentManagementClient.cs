@@ -34,7 +34,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                 throw new ArgumentException("Resource name and type must be provided.");
             }
 
-            return await managementRestClient.Resources.ExecuteResourceRequestAsync<ResourceNameCheckResult>(
+            return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_Agent,
                 $"{AgentResourceTypeNames.Agents}/checkname",
                 resourceName
@@ -47,7 +47,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         /// <param name="agentName"></param>
         /// <returns></returns>
         public async Task<ResourceProviderActionResult> PurgeAgentAsync(string agentName) =>
-            await managementRestClient.Resources.ExecuteResourceRequestAsync<ResourceProviderActionResult>(
+            await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
                            ResourceProviderNames.FoundationaLLM_Agent,
                            $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
                            new { }

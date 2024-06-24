@@ -19,14 +19,27 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <param name="resourcePath">The logical path of the resource type.</param>
         /// <returns></returns>
         Task<T> GetResourcesAsync<T>(string resourceProvider, string resourcePath);
+
         /// <summary>
         /// Creates or updates resources.
         /// </summary>
         /// <param name="resourceProvider">The name of the resource provider that should handle the request.</param>
         /// <param name="resourcePath">The logical path of the resource type.</param>
-        /// <param name="serializedResource">The serialized resource to be created or updated.</param>
+        /// <param name="resource">The resource to be created or updated.</param>
         /// <returns>The ObjectId of the created or updated resource.</returns>
-        Task<ResourceProviderUpsertResult> UpsertResourceAsync(string resourceProvider, string resourcePath, object serializedResource);
+        Task<ResourceProviderUpsertResult> UpsertResourceAsync(string resourceProvider, string resourcePath, object resource);
+
+        /// <summary>
+        /// Executes resource actions, serializing the action result to the specified type, For most actions,
+        /// the result will be a <see cref="ResourceProviderActionResult"/>.
+        /// </summary>
+        /// <param name="resourceProvider">The name of the resource provider that should handle the request.</param>
+        /// <param name="resourcePath">The logical path of the resource type and action.</param>
+        /// <param name="request">The action payload.</param>
+        /// <returns>The ObjectId of the created or updated resource.</returns>
+        Task<T> ExecuteResourceActionAsync<T>(string resourceProvider, string resourcePath,
+            object request);
+
         /// <summary>
         /// Deletes a resource.
         /// </summary>
