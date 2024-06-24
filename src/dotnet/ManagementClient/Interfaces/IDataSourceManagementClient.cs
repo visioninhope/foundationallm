@@ -3,7 +3,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 
 namespace FoundationaLLM.Client.Management.Interfaces
 {
-    internal interface IDataSourceManagementClient
+    public interface IDataSourceManagementClient
     {
         /// <summary>
         /// Retrieves all data source resources.
