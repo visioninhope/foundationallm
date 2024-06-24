@@ -22,15 +22,16 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// a denied name is due to a name conflict with an existing agent or an agent that was
         /// deleted but not purged.
         /// </summary>
-        /// <param name="resourceName"></param>
+        /// <param name="resourceName">Contains the name of the resource to check.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">Thrown when the required properties within the argument
+        /// are empty or missing.</exception>
         Task<ResourceNameCheckResult> CheckAgentNameAsync(ResourceName resourceName);
 
         /// <summary>
         /// Purges a deleted agent by its name. This action is irreversible.
         /// </summary>
-        /// <param name="agentName"></param>
+        /// <param name="agentName">The name of the agent to purge.</param>
         /// <returns></returns>
         Task<ResourceProviderActionResult> PurgeAgentAsync(string agentName);
 
@@ -53,7 +54,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <summary>
         /// Deletes an agent resource by name. Please note that all deletes are soft deletes. The
         /// resource will be marked as deleted but not purged. To permanently remove a resource,
-        /// execute the <see cref="PurgeAgent"/> method with the same name.
+        /// execute the <see cref="PurgeAgentAsync"/> method with the same name.
         /// </summary>
         /// <param name="agentName">The name of the agent resource to delete.</param>
         /// <returns></returns>
