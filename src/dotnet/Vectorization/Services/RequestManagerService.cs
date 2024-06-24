@@ -87,7 +87,7 @@ namespace FoundationaLLM.Vectorization.Services
                     if (taskPoolAvailableCapacity > 0 && (await _incomingRequestSourceService.HasRequests().ConfigureAwait(false)))
                     {
                         var requests = await _incomingRequestSourceService.ReceiveRequests(taskPoolAvailableCapacity).ConfigureAwait(false);
-
+                        var validRequests = new List<(VectorizationRequest Request, string MessageId, string PopReceipt, long DequeueCount)>();
                         foreach (var (Request, MessageId, PopReceipt, DequeueCount) in requests)
                         {   
                             Request.ProcessingState = VectorizationProcessingState.InProgress;
@@ -153,30 +153,31 @@ namespace FoundationaLLM.Vectorization.Services
                             }
                             else
                             {
-                                var ignoredRequests = requests
-                                    .Where(r => _taskPool.HasRunningTaskForPayload(r.Request.Id!))
-                                    .Select(r => r.Request.Id!)
-                                    .ToList();
-
-                                if (ignoredRequests.Count > 0)
-                                    _logger.LogWarning("The following requests were dequeued while still being processed based on the previous dequeuing: {IgnoredRequestIds}. The requests will be ignored.",
-                                        string.Join(",", ignoredRequests));
-
-                                // Add the request to the task pool for processing
-                                // No need to use ConfigureAwait(false) since the code is going to be executed on a
-                                // thread pool thread, with no user code higher on the stack (for details, see
-                                // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
-                                _taskPool.Add(requests
-                                    .Where(r => !_taskPool.HasRunningTaskForPayload(r.Request.Id!))
-                                    .Select(r => new TaskInfo
-                                        {
-                                            PayloadId = r.Request.Id!,
-                                            Task = Task.Run(
-                                            () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
-                                            _cancellationToken)
-                                        }));
+                                validRequests.Add((Request, MessageId, PopReceipt, DequeueCount));
                             }
-                        }                          
+                        }
+                        var ignoredRequests = validRequests
+                            .Where(r => _taskPool.HasRunningTaskForPayload(r.Request.Id!))
+                            .Select(r => r.Request.Id!)
+                            .ToList();
+
+                        if (ignoredRequests.Count > 0)
+                            _logger.LogWarning("The following requests were dequeued while still being processed based on the previous dequeuing: {IgnoredRequestIds}. The requests will be ignored.",
+                                string.Join(",", ignoredRequests));
+
+                        // Add the request to the task pool for processing
+                        // No need to use ConfigureAwait(false) since the code is going to be executed on a
+                        // thread pool thread, with no user code higher on the stack (for details, see
+                        // https://devblogs.microsoft.com/dotnet/configureawait-faq/).
+                        _taskPool.Add(validRequests
+                            .Where(r => !_taskPool.HasRunningTaskForPayload(r.Request.Id!))
+                            .Select(r => new TaskInfo
+                            {
+                                PayloadId = r.Request.Id!,
+                                Task = Task.Run(
+                                    () => { ProcessRequest(r.Request, r.MessageId, r.PopReceipt, _cancellationToken).ConfigureAwait(false); },
+                                    _cancellationToken)
+                            }));
                         // Pace retrieving requests by a pre-determined delay           
                         await Task.Delay(TimeSpan.FromSeconds(_settings.QueueProcessingPace));
                     }
