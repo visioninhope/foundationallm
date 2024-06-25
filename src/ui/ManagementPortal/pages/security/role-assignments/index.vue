@@ -159,7 +159,7 @@ export default {
 		async getRoleAssignments() {
 			this.loading = true;
 			try {
-				this.roleAssignments = (await api.getRoleAssignments()).role_assignments;
+				this.roleAssignments = await api.getRoleAssignments();
 			} catch (error) {
 				this.$toast.add({
 					severity: 'error',

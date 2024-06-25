@@ -535,8 +535,9 @@ export default {
 	},
 
 	async getRoleAssignments(): RoleAssignment[] {
-		await wait(1000);
-		return mockRoleAssignmentsResponse;
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
+		) as RoleAssignment[];
 	},
 
 	async getRoleAssignment(roleAssignmentId): RoleAssignment {
