@@ -265,6 +265,7 @@ jobs:
           azd env new ${{ inputs.environment }}
           azd up --no-prompt
           Pop-Location
+        shell: pwsh
 
       - name: Provision Admin Group
         id: provision-admin-group
@@ -838,6 +839,7 @@ jobs:
           azd env refresh --no-prompt
           azd down --force --no-prompt
           Pop-Location
+        shell: pwsh
       
       - name: Tearing Down AZD Deployment
         id: azd-down
