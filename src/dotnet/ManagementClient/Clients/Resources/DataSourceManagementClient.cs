@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Client.Management.Clients.Resources
 {
@@ -43,24 +44,31 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
 
             return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_DataSource,
-                $"{DataSourceResourceTypeNames.DataSources}/checkname",
+                $"{DataSourceResourceTypeNames.DataSources}/{DataSourceResourceProviderActions.CheckName}",
                 resourceName
             );
         }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> PurgeDataSourceAsync(string dataSourceName) =>
-            await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
-                ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
+        public async Task<ResourceProviderActionResult> PurgeDataSourceAsync(string dataSourceName)
+        {
+            if (string.IsNullOrWhiteSpace(dataSourceName))
+            {
+                throw new ArgumentException("The DataSource name must be provided.");
+            }
+
+            return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
+                ResourceProviderNames.FoundationaLLM_DataSource,
+                $"{DataSourceResourceTypeNames.DataSources}/{dataSourceName}/{DataSourceResourceProviderActions.Purge}",
                 new { }
-                );
+            );
+        }
 
         /// <inheritdoc/>
         public async Task<List<DataSourceBase>> FilterDataSourceAsync(ResourceFilter resourceFilter) =>
             await managementRestClient.Resources.ExecuteResourceActionAsync<List<DataSourceBase>>(
                 ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
+                $"{DataSourceResourceTypeNames.DataSources}/{DataSourceResourceProviderActions.Filter}",
                 resourceFilter
             );
 

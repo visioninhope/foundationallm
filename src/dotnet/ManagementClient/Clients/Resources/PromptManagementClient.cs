@@ -42,18 +42,25 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
 
             return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_Prompt,
-                $"{PromptResourceTypeNames.Prompts}/checkname",
+                $"{PromptResourceTypeNames.Prompts}/{PromptResourceProviderActions.CheckName}",
                 resourceName
             );
         }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> PurgePromptAsync(string promptName) =>
-            await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
-                           ResourceProviderNames.FoundationaLLM_Agent,
-                           $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
-                           new { }
-                );
+        public async Task<ResourceProviderActionResult> PurgePromptAsync(string promptName)
+        {
+            if (string.IsNullOrWhiteSpace(promptName))
+            {
+                throw new ArgumentException("The Prompt name must be provided.");
+            }
+
+            return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
+                ResourceProviderNames.FoundationaLLM_Prompt,
+                $"{PromptResourceTypeNames.Prompts}/{promptName}/{PromptResourceProviderActions.Purge}",
+                new { }
+            );
+        }
 
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase prompt) => await managementRestClient.Resources.UpsertResourceAsync(

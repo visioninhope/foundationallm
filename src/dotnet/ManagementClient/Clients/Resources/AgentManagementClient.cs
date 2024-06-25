@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Client.Management.Clients.Resources
 {
@@ -42,18 +43,25 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
 
             return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/checkname",
+                $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
                 resourceName
             );
         }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderActionResult> PurgeAgentAsync(string agentName) =>
-            await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
-                           ResourceProviderNames.FoundationaLLM_Agent,
-                           $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
-                           new { }
-                );
+        public async Task<ResourceProviderActionResult> PurgeAgentAsync(string agentName)
+        {
+            if (string.IsNullOrWhiteSpace(agentName))
+            {
+                throw new ArgumentException("The Agent name must be provided.");
+            }
+
+            return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
+                ResourceProviderNames.FoundationaLLM_Agent,
+                $"{AgentResourceTypeNames.Agents}/{agentName}/{AgentResourceProviderActions.Purge}",
+                new { }
+            );
+        }
 
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertAgentAsync(AgentBase agent) => await managementRestClient.Resources.UpsertResourceAsync(
