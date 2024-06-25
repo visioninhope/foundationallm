@@ -1,16 +1,12 @@
 ﻿using Azure.Core;
-using FoundationaLLM.Common.Models.Configuration.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FoundationaLLM.Client.Management.Clients.Resources;
 using FoundationaLLM.Client.Management.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 
 namespace FoundationaLLM.Client.Management
 {
-    public class ManagementClient
+    /// <inheritdoc/>
+    public class ManagementClient : IManagementClient
     {
         private readonly IManagementRESTClient _managementRestClient;
 
@@ -57,10 +53,15 @@ namespace FoundationaLLM.Client.Management
             InitializeClients();
         }
 
+        /// <inheritdoc/>
         public IAgentManagementClient Agents { get; private set; } = null!;
+        /// <inheritdoc/>
         public IAttachmentManagementClient Attachments { get; private set; } = null!;
+        /// <inheritdoc/>
         public IDataSourceManagementClient DataSources { get; private set; } = null!;
+        /// <inheritdoc/>
         public IPromptManagementClient Prompts { get; private set; } = null!;
+        /// <inheritdoc/>
         public IVectorizationManagementClient Vectorization { get; private set; } = null!;
 
         private void InitializeClients()
