@@ -58,13 +58,13 @@ $ErrorActionPreference = "Stop"
 
 # Set the environment values
 $fllmApiAppId = (az ad app list --display-name "$fllmApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmApiName'].appId" --output tsv) # FLLM Core API
-$fllmApiAppUris = @(az ad app list --display-name "$fllmApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
+$fllmApiAppUris = @(az ad app list --display-name "$fllmApiName" --query "[].identifierUris" --output json | ConvertFrom-Json)
 $fllmClientAppId = (az ad app list --display-name "$fllmClientName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmClientName'].appId" --output tsv) # FLLM UI
 $fllmMgmtApiAppId = (az ad app list --display-name "$fllmMgmtApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmMgmtApiName'].appId" --output tsv) # FLLM Management API
-$fllmMgmtApiAppUris = @(az ad app list --display-name "$fllmMgmtApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
+$fllmMgmtApiAppUris = @(az ad app list --display-name "$fllmMgmtApiName" --query "[].identifierUris" --output json | ConvertFrom-Json)
 $fllmMgmtClientAppId = (az ad app list --display-name "$fllmMgmtClientName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmMgmtClientName'].appId" --output tsv) # FLLM Management UI
 $fllmAuthApiAppId = (az ad app list --display-name "$fllmAuthApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmAuthApiName'].appId" --output tsv) # FLLM Authorization API
-$fllmAuthApiAppUris = @(az ad app list --display-name "$fllmAuthApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
+$fllmAuthApiAppUris = @(az ad app list --display-name "$fllmAuthApiName" --query "[].identifierUris" --output json | ConvertFrom-Json)
 $fllmAdminGroupId = (az ad group show --group "$fllmAdminGroupName" --query 'id' --output tsv) # FLLM Admin AD Group
 
 $values = @(
