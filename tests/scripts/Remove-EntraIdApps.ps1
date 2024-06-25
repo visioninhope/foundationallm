@@ -11,9 +11,9 @@
 Param(
     [parameter(Mandatory = $false)][string]$authAppName="FoundationaLLM-Authorization-API",
     [parameter(Mandatory = $false)][string]$coreAppName="FoundationaLLM-Core-API",
-    [parameter(Mandatory = $false)][string]$coreClientAppName="FoundationaLLM-Core-UserPortal",
+    [parameter(Mandatory = $false)][string]$coreClientAppName="FoundationaLLM-Core-Portal",
     [parameter(Mandatory = $false)][string]$mgmtAppName="FoundationaLLM-Management-API",
-    [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-UserPortal",
+    [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-Portal",
 	[parameter(Mandatory=$false)][bool]$interactiveMode = $true
 )
 
