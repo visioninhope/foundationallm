@@ -8,10 +8,29 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
     internal class PromptManagementClient(IManagementRESTClient managementRestClient) : IPromptManagementClient
     {
         /// <inheritdoc/>
-        public async Task<List<PromptBase>> GetPromptsAsync() => await managementRestClient.Resources.GetResourcesAsync<List<PromptBase>>(
+        public async Task<List<ResourceProviderGetResult<PromptBase>>> GetPromptsAsync() =>
+            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<PromptBase>>>(
                 ResourceProviderNames.FoundationaLLM_Prompt,
                 PromptResourceTypeNames.Prompts
             );
+
+        /// <inheritdoc/>
+        public async Task<ResourceProviderGetResult<PromptBase>> GetPromptAsync(string promptName)
+        {
+            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<PromptBase>>>(
+                ResourceProviderNames.FoundationaLLM_Prompt,
+                $"{PromptResourceTypeNames.Prompts}/{promptName}"
+            );
+
+            if (result == null || result.Count == 0)
+            {
+                throw new Exception($"Prompt '{promptName}' not found.");
+            }
+
+            var resource = result[0];
+
+            return resource;
+        }
 
         /// <inheritdoc/>
         public async Task<ResourceNameCheckResult> CheckPromptNameAsync(ResourceName resourceName)
@@ -35,24 +54,6 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                            $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
                            new { }
                 );
-
-        /// <inheritdoc/>
-        public async Task<PromptBase> GetPromptAsync(string promptName)
-        {
-            var result = await managementRestClient.Resources.GetResourcesAsync<List<PromptBase>>(
-                ResourceProviderNames.FoundationaLLM_Prompt,
-                $"{PromptResourceTypeNames.Prompts}/{promptName}"
-            );
-
-            if (result == null || result.Count == 0)
-            {
-                throw new Exception($"Prompt '{promptName}' not found.");
-            }
-
-            var agent = result[0];
-
-            return agent;
-        }
 
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertPromptAsync(PromptBase prompt) => await managementRestClient.Resources.UpsertResourceAsync(
