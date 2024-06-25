@@ -12,14 +12,14 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Retrieves all attachment resources.
         /// </summary>
         /// <returns>All attachment resources to which the caller has access.</returns>
-        Task<List<AttachmentFile>> GetAttachmentsAsync();
+        Task<List<ResourceProviderGetResult<AttachmentFile>>> GetAttachmentsAsync();
 
         /// <summary>
         /// Retrieves a specific attachment by name.
         /// </summary>
         /// <param name="attachmentName">The name of the attachment resource to retrieve.</param>
         /// <returns></returns>
-        Task<AttachmentFile> GetAttachmentAsync(string attachmentName);
+        Task<ResourceProviderGetResult<AttachmentFile>> GetAttachmentAsync(string attachmentName);
 
         /// <summary>
         /// Upserts an attachment resource. If an attachment does not exist, it will be created. If an attachment

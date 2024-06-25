@@ -12,7 +12,14 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Retrieves all agent resources.
         /// </summary>
         /// <returns>All agent resources to which the caller has access and which have not been marked as deleted.</returns>
-        Task<List<AgentBase>> GetAgentsAsync();
+        Task<List<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync();
+
+        /// <summary>
+        /// Retrieves a specific agent by name.
+        /// </summary>
+        /// <param name="agentName">The name of the agent resource to retrieve.</param>
+        /// <returns></returns>
+        Task<ResourceProviderGetResult<AgentBase>> GetAgentAsync(string agentName);
 
         /// <summary>
         /// Checks the availability of a resource name for an agent. If the name is available, the
@@ -34,13 +41,6 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <param name="agentName">The name of the agent to purge.</param>
         /// <returns></returns>
         Task<ResourceProviderActionResult> PurgeAgentAsync(string agentName);
-
-        /// <summary>
-        /// Retrieves a specific agent by name.
-        /// </summary>
-        /// <param name="agentName">The name of the agent resource to retrieve.</param>
-        /// <returns></returns>
-        Task<AgentBase> GetAgentAsync(string agentName);
 
         /// <summary>
         /// Upserts an agent resource. If an agent does not exist, it will be created. If an agent

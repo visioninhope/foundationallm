@@ -8,10 +8,29 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
     internal class AgentManagementClient(IManagementRESTClient managementRestClient) : IAgentManagementClient
     {
         /// <inheritdoc/>
-        public async Task<List<AgentBase>> GetAgentsAsync() => await managementRestClient.Resources.GetResourcesAsync<List<AgentBase>>(
+        public async Task<List<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync() =>
+            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<AgentBase>>>(
                 ResourceProviderNames.FoundationaLLM_Agent,
                 AgentResourceTypeNames.Agents
             );
+
+        /// <inheritdoc/>
+        public async Task<ResourceProviderGetResult<AgentBase>> GetAgentAsync(string agentName)
+        {
+            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<AgentBase>>>(
+                ResourceProviderNames.FoundationaLLM_Agent,
+                $"{AgentResourceTypeNames.Agents}/{agentName}"
+            );
+
+            if (result == null || result.Count == 0)
+            {
+                throw new Exception($"Agent '{agentName}' not found.");
+            }
+
+            var agent = result[0];
+
+            return agent;
+        }
 
         /// <inheritdoc/>
         public async Task<ResourceNameCheckResult> CheckAgentNameAsync(ResourceName resourceName)
@@ -35,24 +54,6 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                            $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
                            new { }
                 );
-
-        /// <inheritdoc/>
-        public async Task<AgentBase> GetAgentAsync(string agentName)
-        {
-            var result = await managementRestClient.Resources.GetResourcesAsync<List<AgentBase>>(
-                ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/{agentName}"
-            );
-
-            if (result == null || result.Count == 0)
-            {
-                throw new Exception($"Agent '{agentName}' not found.");
-            }
-
-            var agent = result[0];
-
-            return agent;
-        }
 
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertAgentAsync(AgentBase agent) => await managementRestClient.Resources.UpsertResourceAsync(

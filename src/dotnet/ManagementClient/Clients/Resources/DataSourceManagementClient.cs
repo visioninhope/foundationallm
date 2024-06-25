@@ -9,10 +9,29 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
     internal class DataSourceManagementClient(IManagementRESTClient managementRestClient) : IDataSourceManagementClient
     {
         /// <inheritdoc/>
-        public async Task<List<DataSourceBase>> GetDataSourcesAsync() => await managementRestClient.Resources.GetResourcesAsync<List<DataSourceBase>>(
+        public async Task<List<ResourceProviderGetResult<DataSourceBase>>> GetDataSourcesAsync() =>
+            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<DataSourceBase>>>(
                 ResourceProviderNames.FoundationaLLM_DataSource,
                 DataSourceResourceTypeNames.DataSources
             );
+
+        /// <inheritdoc/>
+        public async Task<ResourceProviderGetResult<DataSourceBase>> GetDataSourceAsync(string dataSourceName)
+        {
+            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<DataSourceBase>>>(
+                ResourceProviderNames.FoundationaLLM_DataSource,
+                $"{DataSourceResourceTypeNames.DataSources}/{dataSourceName}"
+            );
+
+            if (result == null || result.Count == 0)
+            {
+                throw new Exception($"DataSource '{dataSourceName}' not found.");
+            }
+
+            var resource = result[0];
+
+            return resource;
+        }
 
         /// <inheritdoc/>
         public async Task<ResourceNameCheckResult> CheckDataSourceNameAsync(ResourceName resourceName)
@@ -44,24 +63,6 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                 $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.Purge}",
                 resourceFilter
             );
-
-        /// <inheritdoc/>
-        public async Task<DataSourceBase> GetDataSourceAsync(string dataSourceName)
-        {
-            var result = await managementRestClient.Resources.GetResourcesAsync<List<DataSourceBase>>(
-                ResourceProviderNames.FoundationaLLM_DataSource,
-                $"{DataSourceResourceTypeNames.DataSources}/{dataSourceName}"
-            );
-
-            if (result == null || result.Count == 0)
-            {
-                throw new Exception($"DataSource '{dataSourceName}' not found.");
-            }
-
-            var agent = result[0];
-
-            return agent;
-        }
 
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertDataSourceAsync(DataSourceBase dataSource) => await managementRestClient.Resources.UpsertResourceAsync(

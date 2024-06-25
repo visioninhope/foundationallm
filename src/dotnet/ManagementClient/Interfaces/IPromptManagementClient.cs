@@ -13,7 +13,14 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Retrieves all prompt resources.
         /// </summary>
         /// <returns>All prompt resources to which the caller has access and which have not been marked as deleted.</returns>
-        Task<List<PromptBase>> GetPromptsAsync();
+        Task<List<ResourceProviderGetResult<PromptBase>>> GetPromptsAsync();
+
+        /// <summary>
+        /// Retrieves a specific prompt by name.
+        /// </summary>
+        /// <param name="promptName">The name of the prompt resource to retrieve.</param>
+        /// <returns></returns>
+        Task<ResourceProviderGetResult<PromptBase>> GetPromptAsync(string promptName);
 
         /// <summary>
         /// Checks the availability of a resource name for a prompt. If the name is available, the
@@ -35,13 +42,6 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <param name="promptName">The name of the prompt to purge.</param>
         /// <returns></returns>
         Task<ResourceProviderActionResult> PurgePromptAsync(string promptName);
-
-        /// <summary>
-        /// Retrieves a specific prompt by name.
-        /// </summary>
-        /// <param name="promptName">The name of the prompt resource to retrieve.</param>
-        /// <returns></returns>
-        Task<PromptBase> GetPromptAsync(string promptName);
 
         /// <summary>
         /// Upserts a prompt resource. If a prompt does not exist, it will be created. If a prompt

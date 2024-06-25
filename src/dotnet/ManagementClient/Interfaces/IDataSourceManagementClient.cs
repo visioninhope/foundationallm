@@ -12,7 +12,14 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Retrieves all data source resources.
         /// </summary>
         /// <returns>All data source resources to which the caller has access and which have not been marked as deleted.</returns>
-        Task<List<DataSourceBase>> GetDataSourcesAsync();
+        Task<List<ResourceProviderGetResult<DataSourceBase>>> GetDataSourcesAsync();
+
+        /// <summary>
+        /// Retrieves a specific data source by name.
+        /// </summary>
+        /// <param name="dataSourceName">The name of the data source resource to retrieve.</param>
+        /// <returns></returns>
+        Task<ResourceProviderGetResult<DataSourceBase>> GetDataSourceAsync(string dataSourceName);
 
         /// <summary>
         /// Checks the availability of a resource name for a data source. If the name is available, the
@@ -41,13 +48,6 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <param name="resourceFilter">The filter criteria to apply to the request.</param>
         /// <returns></returns>
         Task<List<DataSourceBase>> FilterDataSourceAsync(ResourceFilter resourceFilter);
-
-        /// <summary>
-        /// Retrieves a specific data source by name.
-        /// </summary>
-        /// <param name="dataSourceName">The name of the data source resource to retrieve.</param>
-        /// <returns></returns>
-        Task<DataSourceBase> GetDataSourceAsync(string dataSourceName);
 
         /// <summary>
         /// Upserts a data source resource. If a data source does not exist, it will be created. If a data source

@@ -8,15 +8,16 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
     internal class AttachmentManagementClient(IManagementRESTClient managementRestClient) : IAttachmentManagementClient
     {
         /// <inheritdoc/>
-        public async Task<List<AttachmentFile>> GetAttachmentsAsync() => await managementRestClient.Resources.GetResourcesAsync<List<AttachmentFile>>(
+        public async Task<List<ResourceProviderGetResult<AttachmentFile>>> GetAttachmentsAsync() =>
+            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<AttachmentFile>>>(
                 ResourceProviderNames.FoundationaLLM_Attachment,
                 AttachmentResourceTypeNames.Attachments
             );
 
         /// <inheritdoc/>
-        public async Task<AttachmentFile> GetAttachmentAsync(string attachmentName)
+        public async Task<ResourceProviderGetResult<AttachmentFile>> GetAttachmentAsync(string attachmentName)
         {
-            var result = await managementRestClient.Resources.GetResourcesAsync<List<AttachmentFile>>(
+            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<AttachmentFile>>>(
                 ResourceProviderNames.FoundationaLLM_Attachment,
                 $"{AttachmentResourceTypeNames.Attachments}/{attachmentName}"
             );
@@ -26,9 +27,9 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                 throw new Exception($"Attachment '{attachmentName}' not found.");
             }
 
-            var agent = result[0];
+            var resource = result[0];
 
-            return agent;
+            return resource;
         }
 
         /// <inheritdoc/>
