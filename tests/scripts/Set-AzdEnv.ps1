@@ -74,7 +74,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_CHAT_UI_SCOPES"
-        Value = "api://$($fllmApiAppUris[0])/Data.Read"
+        Value = "$($fllmApiAppUris[0])/Data.Read"
     },
     @{
         Key = "ENTRA_CHAT_UI_TENANT_ID"
@@ -113,7 +113,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_MANAGEMENT_UI_SCOPES"
-        Value = "api://$($fllmMgmtApiAppUris[0])/Data.Manage"
+        Value = "$($fllmMgmtApiAppUris[0])/Data.Manage"
     },
     @{
         Key = "ENTRA_MANAGEMENT_UI_TENANT_ID"
@@ -126,7 +126,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_AUTH_API_SCOPES"
-        Value = "api://$($fllmAuthApiAppUris[0])"
+        Value = "$($fllmAuthApiAppUris[0])"
     },
     @{
         Key = "ENTRA_AUTH_API_TENANT_ID"
