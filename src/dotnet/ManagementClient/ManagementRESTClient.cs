@@ -89,10 +89,10 @@ namespace FoundationaLLM.Client.Management
         /// <inheritdoc/>
         public IStatusRESTClient Status { get; private set; } = null!;
 
-        private static void ConfigureHttpClient(IServiceCollection services, string coreUri, APIClientSettings options) =>
-            services.AddHttpClient(HttpClients.CoreAPI, client =>
+        private static void ConfigureHttpClient(IServiceCollection services, string managementUri, APIClientSettings options) =>
+            services.AddHttpClient(HttpClients.ManagementAPI, client =>
             {
-                client.BaseAddress = new Uri(coreUri);
+                client.BaseAddress = new Uri(managementUri);
                 client.Timeout = options.Timeout ?? TimeSpan.FromSeconds(900);
             }).AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
             {
