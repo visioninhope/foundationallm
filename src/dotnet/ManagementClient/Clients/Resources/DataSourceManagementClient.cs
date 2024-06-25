@@ -67,7 +67,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         /// <inheritdoc/>
         public async Task<List<DataSourceBase>> FilterDataSourceAsync(ResourceFilter resourceFilter) =>
             await managementRestClient.Resources.ExecuteResourceActionAsync<List<DataSourceBase>>(
-                ResourceProviderNames.FoundationaLLM_Agent,
+                ResourceProviderNames.FoundationaLLM_DataSource,
                 $"{DataSourceResourceTypeNames.DataSources}/{DataSourceResourceProviderActions.Filter}",
                 resourceFilter
             );
