@@ -61,13 +61,15 @@ namespace FoundationaLLM.Client.Management
         public IAttachmentManagementClient Attachments { get; private set; } = null!;
         public IDataSourceManagementClient DataSources { get; private set; } = null!;
         public IPromptManagementClient Prompts { get; private set; } = null!;
+        public IVectorizationManagementClient Vectorization { get; private set; } = null!;
 
         private void InitializeClients()
         {
             Agents = new AgentManagementClient(_managementRestClient);
             Attachments = new AttachmentManagementClient(_managementRestClient);
-            Prompts = new PromptManagementClient(_managementRestClient);
             DataSources = new DataSourceManagementClient(_managementRestClient);
+            Prompts = new PromptManagementClient(_managementRestClient);
+            Vectorization = new VectorizationManagementClient(_managementRestClient);
         }
     }
 }
