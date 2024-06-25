@@ -255,6 +255,17 @@ jobs:
             --tenant-id "$($info.tenantId)"
         shell: pwsh
 
+      - name: Deploy Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
+        run: |
+          Push-Location ./tests/extended-test-env
+          azd env new ${{ inputs.environment }}
+          azd up --no-prompt
+          Pop-Location
+
       - name: Provision Admin Group
         id: provision-admin-group
         run: |
@@ -425,17 +436,6 @@ jobs:
             --principal-id $spObjectId
           Pop-Location
         shell: pwsh
-
-      - name: Deploy Azure Machine Learning
-        if: ${{ inputs.deployAMLResources }}
-        env:
-          AZURE_ENV_NAME: ${{ inputs.environment }}
-          AZURE_LOCATION: ${{ inputs.location }}
-        run: |
-          Push-Location ./tests/extended-test-env
-          azd env new ${{ inputs.environment }}
-          azd up --no-prompt
-          Pop-Location
 
   add_test_data:
     if: ${{ !inputs.bypassAndTeardown }}
