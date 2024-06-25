@@ -58,10 +58,13 @@ $ErrorActionPreference = "Stop"
 
 # Set the environment values
 $fllmApiAppId = (az ad app list --display-name "$fllmApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmApiName'].appId" --output tsv) # FLLM Core API
+$fllmApiAppUris = @(az ad app list --display-name "$fllmApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
 $fllmClientAppId = (az ad app list --display-name "$fllmClientName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmClientName'].appId" --output tsv) # FLLM UI
 $fllmMgmtApiAppId = (az ad app list --display-name "$fllmMgmtApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmMgmtApiName'].appId" --output tsv) # FLLM Management API
+$fllmMgmtApiAppUris = @(az ad app list --display-name "$fllmMgmtApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
 $fllmMgmtClientAppId = (az ad app list --display-name "$fllmMgmtClientName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmMgmtClientName'].appId" --output tsv) # FLLM Management UI
 $fllmAuthApiAppId = (az ad app list --display-name "$fllmAuthApiName" --query "[].{appId:appId,displayName:displayName}[?displayName=='$fllmAuthApiName'].appId" --output tsv) # FLLM Authorization API
+$fllmAuthApiAppUris = @(az ad app list --display-name "$fllmAuthApiName" --query "[].identifierUris" --output json | ConverFrom-Json)
 $fllmAdminGroupId = (az ad group show --group "$fllmAdminGroupName" --query 'id' --output tsv) # FLLM Admin AD Group
 
 $values = @(
@@ -71,7 +74,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_CHAT_UI_SCOPES"
-        Value = "api://$fllmApiName/Data.Read"
+        Value = "api://$($fllmApiAppUris[0])/Data.Read"
     },
     @{
         Key = "ENTRA_CHAT_UI_TENANT_ID"
@@ -110,7 +113,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_MANAGEMENT_UI_SCOPES"
-        Value = "api://$fllmMgmtApiName/Data.Manage"
+        Value = "api://$($fllmMgmtApiAppUris[0])/Data.Manage"
     },
     @{
         Key = "ENTRA_MANAGEMENT_UI_TENANT_ID"
@@ -123,7 +126,7 @@ $values = @(
     },
     @{
         Key = "ENTRA_AUTH_API_SCOPES"
-        Value = "api://$fllmAuthApiName"
+        Value = "api://$($fllmAuthApiAppUris[0])"
     },
     @{
         Key = "ENTRA_AUTH_API_TENANT_ID"
