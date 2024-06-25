@@ -261,8 +261,10 @@ jobs:
           AZURE_ENV_NAME: ${{ inputs.environment }}
           AZURE_LOCATION: ${{ inputs.location }}
         run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Push-Location ./tests/extended-test-env
           azd env new ${{ inputs.environment }}
+          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
           azd up --no-prompt
           Pop-Location
         shell: pwsh
@@ -834,8 +836,10 @@ jobs:
           AZURE_ENV_NAME: ${{ inputs.environment }}
           AZURE_LOCATION: ${{ inputs.location }}
         run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Push-Location ./tests/extended-test-env
           azd env new ${{ inputs.environment }}
+          $env:AZURE_SUBSCRIPTION_ID = $($info.subscriptionId)
           azd env refresh --no-prompt
           azd down --force --no-prompt
           Pop-Location
