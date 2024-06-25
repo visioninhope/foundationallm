@@ -1,10 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Authentication;
 using Microsoft.Graph.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Client.Management.Interfaces
 {
@@ -18,7 +13,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task<IEnumerable<Group>> GetGroupsAsync(ObjectQueryParameters parameters);
+        Task<IEnumerable<Group>> RetrieveGroupsAsync(ObjectQueryParameters parameters);
         /// <summary>
         /// Retrieves a specific group account by its identifier.
         /// </summary>
@@ -30,7 +25,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task<IEnumerable<User>> GetUsersAsync(ObjectQueryParameters parameters);
+        Task<IEnumerable<User>> RetrieveUsersAsync(ObjectQueryParameters parameters);
         /// <summary>
         /// Retrieves a specific user account by its identifier.
         /// </summary>
@@ -42,6 +37,6 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task<IEnumerable<DirectoryObject>> GetObjectsByIdsAsync(ObjectQueryParameters parameters);
+        Task<IEnumerable<DirectoryObject>> RetrieveObjectsByIdsAsync(ObjectQueryParameters parameters);
     }
 }

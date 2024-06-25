@@ -16,11 +16,11 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
             : base(httpClientFactory, credential) { }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Group>> GetGroupsAsync(ObjectQueryParameters parameters)
+        public async Task<IEnumerable<Group>> RetrieveGroupsAsync(ObjectQueryParameters parameters)
         {
             var managementClient = await GetManagementClientAsync();
             var content = new StringContent(JsonSerializer.Serialize(parameters), Encoding.UTF8, "application/json");
-            var response = await managementClient.PostAsync("groups", content);
+            var response = await managementClient.PostAsync("groups/retrieve", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -47,11 +47,11 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<User>> GetUsersAsync(ObjectQueryParameters parameters)
+        public async Task<IEnumerable<User>> RetrieveUsersAsync(ObjectQueryParameters parameters)
         {
             var managementClient = await GetManagementClientAsync();
             var content = new StringContent(JsonSerializer.Serialize(parameters), Encoding.UTF8, "application/json");
-            var response = await managementClient.PostAsync("users", content);
+            var response = await managementClient.PostAsync("users/retrieve", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -78,11 +78,11 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<DirectoryObject>> GetObjectsByIdsAsync(ObjectQueryParameters parameters)
+        public async Task<IEnumerable<DirectoryObject>> RetrieveObjectsByIdsAsync(ObjectQueryParameters parameters)
         {
             var managementClient = await GetManagementClientAsync();
             var content = new StringContent(JsonSerializer.Serialize(parameters), Encoding.UTF8, "application/json");
-            var response = await managementClient.PostAsync("objects/getByIds", content);
+            var response = await managementClient.PostAsync("objects/retrievebyids", content);
 
             if (response.IsSuccessStatusCode)
             {
