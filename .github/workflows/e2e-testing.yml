@@ -48,6 +48,10 @@ on:
           - sandbox
           - e2e
         default: e2e
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       environment:
@@ -77,6 +81,9 @@ on:
       target:
         description: Select target tenant/subscription
         type: string
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
 
 jobs:
   generate_matrix:
@@ -418,6 +425,17 @@ jobs:
             --principal-id $spObjectId
           Pop-Location
         shell: pwsh
+
+      - name: Deploy Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
+        run: |
+          Push-Location ./tests/extended-test-env
+          azd env new ${{ inputs.environment }}
+          azd up --no-prompt
+          Pop-Location
 
   add_test_data:
     if: ${{ !inputs.bypassAndTeardown }}
@@ -809,6 +827,18 @@ jobs:
             --tenant "$($info.tenantId)"
         shell: pwsh
 
+      - name: Tearing Down Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
+        run: |
+          Push-Location ./tests/extended-test-env
+          azd env new ${{ inputs.environment }}
+          azd env refresh --no-prompt
+          azd down --force --no-prompt
+          Pop-Location
+      
       - name: Tearing Down AZD Deployment
         id: azd-down
         run: |
