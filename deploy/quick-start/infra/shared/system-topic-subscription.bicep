@@ -1,4 +1,6 @@
 param name string
+param identityName string
+param location string
 param topicName string
 param destinationTopicName string
 param eventGridName string
@@ -19,6 +21,11 @@ resource topic 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' existing = 
   name: topicName
 }
 
+resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
+  name: identityName
+  location: location
+}
+
 resource eventSendRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   scope: destinationTopic
   name: guid(subscription().id, resourceGroup().id, topic.id, 'sendEventRole')
@@ -29,13 +36,24 @@ resource eventSendRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
+resource subSendRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: destinationTopic
+  name: guid(subscription().id, resourceGroup().id, identity.id, 'sendEventRole')
+  properties: {
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'd5a91429-5739-47e2-a06b-3470a27159e7')
+    principalType: 'ServicePrincipal'
+    principalId: identity.properties.principalId
+  }
+}
+
 resource resourceProviderSub 'Microsoft.EventGrid/systemTopics/eventSubscriptions@2023-12-15-preview' = {
   name: name
   parent: topic
   properties: {
     deliveryWithResourceIdentity: {
       identity: {
-        type: 'SystemAssigned'
+        type: 'UserAssigned'
+        userAssignedIdentity: identity.id
       }
       destination: {
         endpointType: 'NamespaceTopic'
@@ -56,5 +74,5 @@ resource resourceProviderSub 'Microsoft.EventGrid/systemTopics/eventSubscription
       eventTimeToLiveInMinutes: 1440
     }
   }
-  dependsOn: [ eventSendRole ]
+  dependsOn: [ eventSendRole, subSendRole ]
 }
