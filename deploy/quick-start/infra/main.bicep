@@ -464,6 +464,8 @@ module storageSub 'shared/system-topic-subscription.bicep' = {
   name: 'storageSub-${timestamp}'
   params: {
     name: 'foundationallm-storage'
+    identityName: '${abbrs.managedIdentityUserAssignedIdentities}-storageSub-${resourceToken}'
+    location: location
     eventGridName: eventgrid.outputs.name
     topicName: storageTopic.outputs.name
     destinationTopicName: 'storage'
@@ -492,6 +494,8 @@ module configSub 'shared/system-topic-subscription.bicep' = {
   name: 'configSub-${timestamp}'
   params: {
     name: 'app-config'
+    identityName: '${abbrs.managedIdentityUserAssignedIdentities}-configSub-${resourceToken}'
+    location: location
     eventGridName: eventgrid.outputs.name
     topicName: configTopic.outputs.name
     destinationTopicName: 'configuration'
