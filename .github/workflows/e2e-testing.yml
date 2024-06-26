@@ -587,6 +587,7 @@ jobs:
     needs: [generate_matrix, deploy_quickstart, add_test_data, build_e2e_tests]
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         object: ${{ fromJson(needs.generate_matrix.outputs.test_matrix) }}
     steps:
