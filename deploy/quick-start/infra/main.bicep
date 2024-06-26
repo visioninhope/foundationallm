@@ -452,13 +452,14 @@ module configTopic 'shared/config-system-topic.bicep' = {
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
     eventGridName: eventgrid.outputs.name
-    destinationTopicName: 'config'
+    destinationTopicName: 'configuration'
     identityPrincipalId: configSubIdentity.outputs.principalId
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSubIdentity 'shared/identity.bicep' = {
@@ -482,6 +483,7 @@ module storageTopic 'shared/storage-system-topic.bicep' = {
     storageAccountName: storage.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
