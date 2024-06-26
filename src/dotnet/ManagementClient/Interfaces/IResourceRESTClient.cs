@@ -15,6 +15,16 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <summary>
         /// Gets one or more resource.
         /// </summary>
+        /// <typeparam name="T">Deserializes the return content to the passed in type.</typeparam>
+        /// <param name="fullResourcePath">The full resource path, including the Instance ID,
+        /// resource provider, and logical path of the resource type.</param>
+        /// <returns></returns>
+        Task<T> GetResourcesAsync<T>(string fullResourcePath);
+
+        /// <summary>
+        /// Gets one or more resource.
+        /// </summary>
+        /// <typeparam name="T">Deserializes the return content to the passed in type.</typeparam>
         /// <param name="resourceProvider">The name of the resource provider that should handle the request.</param>
         /// <param name="resourcePath">The logical path of the resource type.</param>
         /// <returns></returns>

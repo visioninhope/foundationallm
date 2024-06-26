@@ -17,6 +17,21 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
         /// <inheritdoc/>
+        public async Task<T> GetResourcesAsync<T>(string fullResourcePath)
+        {
+            var managementClient = await GetManagementClientAsync();
+            var response = await managementClient.GetAsync(fullResourcePath);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<T>(responseContent, _jsonSerializerOptions)!;
+            }
+
+            throw new Exception($"Failed to retrieve resources. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
+        }
+
+        /// <inheritdoc/>
         public async Task<T> GetResourcesAsync<T>(string resourceProvider, string resourcePath)
         {
             var managementClient = await GetManagementClientAsync();
