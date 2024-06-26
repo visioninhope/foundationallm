@@ -234,8 +234,8 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         /// <inheritdoc/>
         public async Task<List<IndexingProfile>> FilterIndexingProfileAsync(ResourceFilter resourceFilter) =>
             await managementRestClient.Resources.ExecuteResourceActionAsync<List<IndexingProfile>>(
-                ResourceProviderNames.FoundationaLLM_Agent,
-                $"{DataSourceResourceTypeNames.DataSources}/{DataSourceResourceProviderActions.Filter}",
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"{VectorizationResourceTypeNames.IndexingProfiles}/{VectorizationResourceProviderActions.Filter}",
                 resourceFilter
             );
 
@@ -257,68 +257,123 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
         #endregion Actions
 
         #region Upsert Methods
-        /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertVectorizationPipelineAsync(VectorizationPipeline resource) =>
-            await managementRestClient.Resources.UpsertResourceAsync(
-                ResourceProviderNames.FoundationaLLM_Vectorization,
-              $"{VectorizationResourceTypeNames.VectorizationPipelines}/{resource.Name}",
-                resource
-            );
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertTextPartitioningProfileAsync(TextPartitioningProfile resource) =>
-            await managementRestClient.Resources.UpsertResourceAsync(
+        public async Task<ResourceProviderUpsertResult> UpsertVectorizationPipelineAsync(
+            VectorizationPipeline resource)
+        {
+            if (resource == null)
+            {
+                throw new ArgumentException("Resource must be provided.");
+            }
+            return await managementRestClient.Resources.UpsertResourceAsync(
+                ResourceProviderNames.FoundationaLLM_Vectorization,
+                $"{VectorizationResourceTypeNames.VectorizationPipelines}/{resource.Name}",
+                resource
+            );
+        }
+
+
+        /// <inheritdoc/>
+        public async Task<ResourceProviderUpsertResult> UpsertTextPartitioningProfileAsync(
+            TextPartitioningProfile resource)
+        {
+            if (resource == null)
+            {
+                throw new ArgumentException("Resource must be provided.");
+            }
+            return await managementRestClient.Resources.UpsertResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{resource.Name}",
                 resource
             );
+        }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertTextEmbeddingProfileAsync(TextEmbeddingProfile resource) =>
-            await managementRestClient.Resources.UpsertResourceAsync(
+        public async Task<ResourceProviderUpsertResult> UpsertTextEmbeddingProfileAsync(
+            TextEmbeddingProfile resource)
+        {
+            if (resource == null)
+            {
+                throw new ArgumentException("Resource must be provided.");
+            }
+            return await managementRestClient.Resources.UpsertResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{resource.Name}",
                 resource
             );
+        }
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertIndexingProfileAsync(IndexingProfile resource) =>
-            await managementRestClient.Resources.UpsertResourceAsync(
+        public async Task<ResourceProviderUpsertResult> UpsertIndexingProfileAsync(
+            IndexingProfile resource)
+        {
+            if (resource == null)
+            {
+                throw new ArgumentException("Resource must be provided.");
+            }
+            return await managementRestClient.Resources.UpsertResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.IndexingProfiles}/{resource.Name}",
                 resource
             );
+        }
 
         #endregion Upsert Methods
 
         #region Delete Methods
+
         /// <inheritdoc/>
-        public async Task DeleteVectorizationPipelineAsync(string name) =>
+        public async Task DeleteVectorizationPipelineAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Pipeline name must be provided.");
+            }
             await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.VectorizationPipelines}/{name}"
             );
+        }
 
         /// <inheritdoc/>
-        public async Task DeleteTextPartitioningProfileAsync(string name) =>
+        public async Task DeleteTextPartitioningProfileAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("TextPartitioningProfile name must be provided.");
+            }
             await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{name}"
             );
+        }
 
         /// <inheritdoc/>
-        public async Task DeleteTextEmbeddingProfileAsync(string name) =>
+        public async Task DeleteTextEmbeddingProfileAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("TextEmbeddingProfile name must be provided.");
+            }
             await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{name}"
             );
+        }
 
         /// <inheritdoc/>
-        public async Task DeleteIndexingProfileAsync(string name) =>
+        public async Task DeleteIndexingProfileAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("IndexingProfile name must be provided.");
+            }
             await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
                 $"{VectorizationResourceTypeNames.IndexingProfiles}/{name}"
             );
+        }
 
         #endregion Delete Methods
     }
