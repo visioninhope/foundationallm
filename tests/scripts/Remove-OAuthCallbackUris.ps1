@@ -68,7 +68,7 @@ $uris = @{
 }
 
 foreach ($uri in $uris.GetEnumerator()) {
-    if ($uri -ne $null)
+    if ($uri.Value.endpoint -ne $null)
     {
         $applicationUri = "https://graph.microsoft.com/v1.0/applications/" + $uri.Value.objectId
         $redirects = @(az rest `

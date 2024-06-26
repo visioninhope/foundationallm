@@ -10,12 +10,12 @@ jobs:
     uses: ./.github/workflows/e2e-testing.yml
     with:
       environment: "fllm-e2e-aca-daily-${{ github.run_id }}"
-      deployOpenAi: false
+      deployOpenAi: true
       openAiName: fllm-01
       openAiResourceGroup: fllm-shared-01
       location: EastUS2
-      notificationsEnabled: false
-      enableTeardown: false
+      notificationsEnabled: true
+      enableTeardown: true
       bypassAndTeardown: false
-      target: sandbox
+      target: e2e
     secrets: inherit
