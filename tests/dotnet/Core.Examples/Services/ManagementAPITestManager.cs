@@ -136,8 +136,8 @@ namespace FoundationaLLM.Core.Examples.Services
             var resourceId = vectorizationRequest.ObjectId!.Split("/").Last();
             var fullPath = $"instances/{instanceSettings.Value.Id}/providers/{ResourceProviderNames.FoundationaLLM_Vectorization}/{VectorizationResourceTypeNames.VectorizationRequests}/{resourceId}/process";
 
-            var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);            
-            var response = await coreClient.PostAsync(fullPath, new StringContent("{}", Encoding.UTF8, "application/json"));
+            var managementClient = await httpClientManager.GetHttpClientAsync(HttpClients.ManagementAPI);            
+            var response = await managementClient.PostAsync(fullPath, new StringContent("{}", Encoding.UTF8, "application/json"));
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
