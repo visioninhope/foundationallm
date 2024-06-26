@@ -640,7 +640,7 @@ var contentSafetyTargets = [
 module contentSafetyRoles './shared/roleAssignments.bicep' = [
   for target in contentSafetyTargets: {
     scope: rg
-    name: '${target}-openai-roles-${timestamp}'
+    name: '${target}-cs-roles-${timestamp}'
     params: {
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionNames: [
