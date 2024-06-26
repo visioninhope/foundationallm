@@ -34,6 +34,16 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         /// <inheritdoc/>
         public async Task<ResourceProviderUpsertResult> UpsertResourceAsync(string resourceProvider, string resourcePath, object resource)
         {
+            if (string.IsNullOrWhiteSpace(resourceProvider))
+            {
+                throw new ArgumentException("Resource provider must be provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(resourcePath))
+            {
+                throw new ArgumentException("Resource path must be provided.");
+            }
+
             var managementClient = await GetManagementClientAsync();
             var content = new StringContent(JsonSerializer.Serialize(resource), Encoding.UTF8, "application/json");
             var response = await managementClient.PostAsync($"instances/{_instanceId}/providers/{resourceProvider}/{resourcePath}", content);
@@ -51,6 +61,16 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         public async Task<T> ExecuteResourceActionAsync<T>(string resourceProvider, string resourcePath,
             object request)
         {
+            if (string.IsNullOrWhiteSpace(resourceProvider))
+            {
+                throw new ArgumentException("Resource provider must be provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(resourcePath))
+            {
+                throw new ArgumentException("Resource path must be provided.");
+            }
+
             var managementClient = await GetManagementClientAsync();
             var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
             var response = await managementClient.PostAsync($"instances/{_instanceId}/providers/{resourceProvider}/{resourcePath}", content);
@@ -67,6 +87,16 @@ namespace FoundationaLLM.Client.Management.Clients.Rest
         /// <inheritdoc/>
         public async Task DeleteResourceAsync(string resourceProvider, string resourcePath)
         {
+            if (string.IsNullOrWhiteSpace(resourceProvider))
+            {
+                throw new ArgumentException("Resource provider must be provided.");
+            }
+
+            if (string.IsNullOrWhiteSpace(resourcePath))
+            {
+                throw new ArgumentException("Resource path must be provided.");
+            }
+
             var managementClient = await GetManagementClientAsync();
             var response = await managementClient.DeleteAsync($"instances/{_instanceId}/providers/{resourceProvider}/{resourcePath}");
 
