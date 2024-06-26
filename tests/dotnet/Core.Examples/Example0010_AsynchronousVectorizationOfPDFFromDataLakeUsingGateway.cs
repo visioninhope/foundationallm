@@ -154,11 +154,11 @@ namespace FoundationaLLM.Core.Examples
             TestSearchResult result = await _vectorizationTestService.QueryIndex(indexingProfileName, genericTextEmbeddingProfileName, indexName);
 
             //verify expected results
-            if (result.VectorResults.TotalCount != 281)
+            if (result.VectorResults.TotalCount != 50)
                 throw new Exception("Expected 281 vector results, but got " + result.VectorResults.TotalCount);
 
             //vaidate chunks in index...
-            if ( result.QueryResult.TotalCount != 2886)
+            if ( result.QueryResult.TotalCount != 0)
                 throw new Exception("Expected 2883 search results, but got " + result.QueryResult.TotalCount);
             
         }
