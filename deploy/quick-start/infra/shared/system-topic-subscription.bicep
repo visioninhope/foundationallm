@@ -1,5 +1,4 @@
 param name string
-param identityName string
 param topicName string
 param destinationTopicName string
 param eventGridName string
@@ -20,18 +19,13 @@ resource topic 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' existing = 
   name: topicName
 }
 
-resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' existing = {
-  name: identityName
-}
-
 resource resourceProviderSub 'Microsoft.EventGrid/systemTopics/eventSubscriptions@2023-12-15-preview' = {
   name: name
   parent: topic
   properties: {
     deliveryWithResourceIdentity: {
       identity: {
-        type: 'UserAssigned'
-        userAssignedIdentity: identity.id
+        type: 'SystemAssigned'
       }
       destination: {
         endpointType: 'NamespaceTopic'
