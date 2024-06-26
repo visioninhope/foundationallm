@@ -633,6 +633,23 @@ module openAiRoles './shared/roleAssignments.bicep' = [
   }
 ]
 
+var contentSafetyTargets = [
+  'gatekeeper-api'
+]
+
+module contentSafetyRoles './shared/roleAssignments.bicep' = [
+  for target in contentSafetyTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services User'
+      ]
+    }
+  }
+]
+
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
