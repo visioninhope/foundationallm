@@ -442,22 +442,28 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'configuration'
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'storage'
     location: location
     tags: tags
     storageAccountName: storage.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
