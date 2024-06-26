@@ -863,6 +863,9 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 case INDEXING_PROFILES_FILE_NAME:
                     _defaultIndexingProfileName = await LoadResourceStore<IndexingProfile, VectorizationProfileBase>(INDEXING_PROFILES_FILE_PATH, _indexingProfiles);
                     break;
+                case PIPELINES_FILE_NAME:
+                    _ = await LoadResourceStore<VectorizationPipeline, VectorizationPipeline>(PIPELINES_FILE_PATH, _pipelines);
+                    break;
                 default:
                     _logger.LogWarning("The file {FileName} is not managed by the FoundationaLLM.Vectorization resource provider.", fileName);
                     break;
