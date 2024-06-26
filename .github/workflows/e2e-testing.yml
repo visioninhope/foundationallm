@@ -841,7 +841,7 @@ jobs:
           azd env new ext-${{ inputs.environment }}
           $env:AZURE_SUBSCRIPTION_ID = $($info.subscriptionId)
           azd env refresh --no-prompt
-          azd down --force --no-prompt
+          azd down --force --purge --no-prompt
           Pop-Location
         shell: pwsh
       
