@@ -258,12 +258,12 @@ jobs:
       - name: Deploy Azure Machine Learning
         if: ${{ inputs.deployAMLResources }}
         env:
-          AZURE_ENV_NAME: ${{ inputs.environment }}
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
           AZURE_LOCATION: ${{ inputs.location }}
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Push-Location ./tests/extended-test-env
-          azd env new ${{ inputs.environment }}
+          azd env new ext-${{ inputs.environment }}
           azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
           azd up --no-prompt
           Pop-Location
@@ -833,12 +833,12 @@ jobs:
       - name: Tearing Down Azure Machine Learning
         if: ${{ inputs.deployAMLResources }}
         env:
-          AZURE_ENV_NAME: ${{ inputs.environment }}
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
           AZURE_LOCATION: ${{ inputs.location }}
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Push-Location ./tests/extended-test-env
-          azd env new ${{ inputs.environment }}
+          azd env new ext-${{ inputs.environment }}
           $env:AZURE_SUBSCRIPTION_ID = $($info.subscriptionId)
           azd env refresh --no-prompt
           azd down --force --no-prompt
