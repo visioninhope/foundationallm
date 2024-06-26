@@ -160,6 +160,7 @@ Write-Host "Setting azd environment values for the ${tenantId} EntraID Tenant."
 foreach ($value in $values) {
     Write-Host "Setting $value"
     azd env set $($value.Key) "$($value.Value)"
+    New-Item -Path "Env:\$($value.Key)" -Value $value.Value
 
     if ($LASTEXITCODE -ne 0) {
         Write-Error("Failed to set $($value.Key).")
