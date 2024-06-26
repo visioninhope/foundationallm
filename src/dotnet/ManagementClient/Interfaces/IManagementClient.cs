@@ -14,6 +14,10 @@
         /// </summary>
         IAttachmentManagementClient Attachments { get; }
         /// <summary>
+        /// Contains methods to interact with Configuration resources.
+        /// </summary>
+        IConfigurationManagementClient Configuration { get; }
+        /// <summary>
         /// Contains methods to interact with DataSource resources.
         /// </summary>
         IDataSourceManagementClient DataSources { get; }

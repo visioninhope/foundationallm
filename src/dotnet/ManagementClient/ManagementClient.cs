@@ -58,6 +58,8 @@ namespace FoundationaLLM.Client.Management
         /// <inheritdoc/>
         public IAttachmentManagementClient Attachments { get; private set; } = null!;
         /// <inheritdoc/>
+        public IConfigurationManagementClient Configuration { get; private set; } = null!;
+        /// <inheritdoc/>
         public IDataSourceManagementClient DataSources { get; private set; } = null!;
         /// <inheritdoc/>
         public IPromptManagementClient Prompts { get; private set; } = null!;
@@ -68,6 +70,7 @@ namespace FoundationaLLM.Client.Management
         {
             Agents = new AgentManagementClient(_managementRestClient);
             Attachments = new AttachmentManagementClient(_managementRestClient);
+            Configuration = new ConfigurationManagementClient(_managementRestClient);
             DataSources = new DataSourceManagementClient(_managementRestClient);
             Prompts = new PromptManagementClient(_managementRestClient);
             Vectorization = new VectorizationManagementClient(_managementRestClient);
