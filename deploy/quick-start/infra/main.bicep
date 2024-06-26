@@ -441,7 +441,7 @@ module storage './shared/storage.bicep' = {
 module configSubIdentity 'shared/identity.bicep' = {
   name: 'configSubId-${timestamp}'
   params: {
-    name: '${abbrs.managedIdentityUserAssignedIdentities}-configSub-${resourceToken}'
+    name: '${abbrs.managedIdentityUserAssignedIdentities}configSub-${resourceToken}'
     location: location
   }
   scope: rg
@@ -451,6 +451,8 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'config'
     identityPrincipalId: configSubIdentity.outputs.principalId
     location: location
     tags: tags
@@ -462,7 +464,7 @@ module configTopic 'shared/config-system-topic.bicep' = {
 module storageSubIdentity 'shared/identity.bicep' = {
   name: 'storageSubId-${timestamp}'
   params: {
-    name: '${abbrs.managedIdentityUserAssignedIdentities}-storageSub-${resourceToken}'
+    name: '${abbrs.managedIdentityUserAssignedIdentities}storageSub-${resourceToken}'
     location: location
   }
   scope: rg
@@ -472,6 +474,8 @@ module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'storage'
     identityPrincipalId: storageSubIdentity.outputs.principalId
     location: location
     tags: tags
