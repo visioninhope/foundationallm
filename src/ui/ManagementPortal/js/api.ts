@@ -541,8 +541,9 @@ export default {
 	},
 
 	async getRoleAssignment(roleAssignmentId): RoleAssignment {
-		await wait(1000);
-		return mockRoleAssignmentsResponse.role_assignments.find((roleAssignment) => roleAssignment.name === roleAssignmentId);
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}`,
+		) as RoleAssignment[];
 	},
 
 	async updateRoleAssignment(roleAssignment: RoleAssignment) {
@@ -553,5 +554,67 @@ export default {
 	async deleteRoleAssignment(roleAssignmentId): void {
 		await wait(1000);
 		return roleAssignmentId;
+	},
+
+	async getUsers(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(
+			`/instances/${this.instanceId}/identity/users/retrieve`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					...defaults,
+					...params,
+				}),
+			},
+		);
+	},
+
+	async getUser(userId) {
+		return await this.fetch(
+			`/instances/${this.instanceId}/identity/users/${userId}`,
+		);
+	},
+
+	async getGroups(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(
+			`/instances/${this.instanceId}/identity/groups/retrieve`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					...defaults,
+					...params,
+				}),
+			},
+		);
+	},
+
+	async getGroup(groupId) {
+		return await this.fetch(
+			`/instances/${this.instanceId}/identity/groups/${groupId}`,
+		);
+	},
+
+	async getObjects(params = { ids: [] }) {
+		return await this.fetch(
+			`/instances/${this.instanceId}/identity/objects/retrievebyids`,
+			{
+				method: 'POST',
+				body: JSON.stringify(params),
+			},
+		);
 	},
 };
