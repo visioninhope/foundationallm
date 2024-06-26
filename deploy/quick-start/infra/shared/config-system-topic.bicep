@@ -1,7 +1,6 @@
 param name string
 param destinationTopicName string
 param eventGridName string
-param identityPrincipalId string
 param location string = resourceGroup().location
 param tags object = {}
 param appConfigAccountName string
@@ -25,7 +24,7 @@ resource eventSendRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'd5a91429-5739-47e2-a06b-3470a27159e7')
     principalType: 'ServicePrincipal'
-    principalId: identityPrincipalId
+    principalId: topic.identity.principalId
   }
 }
 
@@ -34,9 +33,7 @@ resource topic 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' = {
   location: location
   tags: tags
   identity: {
-    principalId: identityPrincipalId
-    tenantId: tenant().tenantId
-    type: 'UserAssigned'
+    type: 'SystemAssigned'
   }
   properties: {
     source: appConfig.id
