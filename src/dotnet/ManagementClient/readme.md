@@ -58,7 +58,9 @@ Complete the following steps if you do not want to use dependency injection:
 3. Make a request to the Management API with the `ManagementClient` class:
 
     ```csharp
-    TODO: Add example
+    await managementClient.DataSources.DeleteDataSourceAsync("<DATASOURCE_NAME>");
+    // Purge the data source so we can reuse the name.
+    await managementClient.DataSources.PurgeDataSourceAsync("<DATASOURCE_NAME>");
     ```
 
 > [!TIP]
