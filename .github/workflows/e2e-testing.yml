@@ -878,12 +878,14 @@ jobs:
         shell: pwsh
 
       - name: Get E2E Test Results
+        if: ${{ !inputs.bypassAndTeardown }}
         uses: cloudposse/github-action-matrix-outputs-read@v1
         id: get-e2e-results
         with:
           matrix-step-name: run_e2e_tests
   
       - name: Check E2E Test Status
+        if: ${{ !inputs.bypassAndTeardown }}
         uses: actions/github-script@v7
         env:
           TEST_RESULTS: ${{ steps.get-e2e-results.outputs.result }}
