@@ -44,6 +44,54 @@ on:
           - sandbox
           - e2e
         default: e2e
+      core_api_replica_count:
+        description: Fixed number of replicas for Core API (enter 0 for the default auto-scaling policy)
+        type: number
+        default: 0
+      core_api_cpu:
+        description: Core API CPU allocation
+        type: number
+        default: 1.0
+      core_api_mem:
+        description: Core API memory allocation
+        type: string
+        default: 2.0Gi
+      orchestration_api_replica_count:
+        description: Fixed number of replicas for Orchestration API (enter 0 for the default auto-scaling policy)
+        type: number
+        default: 0
+      orchestration_api_cpu:
+        description: Orchestration API CPU allocation
+        type: number
+        default: 1.0
+      orchestration_api_mem:
+        description: Orchestration API memory allocation
+        type: string
+        default: 2.0Gi
+      langchain_api_replica_count:
+        description: Fixed number of replicas for LangChain API (enter 0 for the default auto-scaling policy)
+        type: number
+        default: 0
+      langchain_api_cpu:
+        description: LangChain API CPU allocation
+        type: number
+        default: 1.0
+      langchain_api_mem:
+        description: LangChain API memory allocation
+        type: string
+        default: 2.0Gi
+      semantickernel_api_replica_count:
+        description: Fixed number of replicas for Semantic Kernel API (enter 0 for the default auto-scaling policy)
+        type: number
+        default: 0
+      semantickernel_api_cpu:
+        description: Semantic Kernel API CPU allocation
+        type: number
+        default: 1.0
+      semantickernel_api_mem:
+        description: Semantic Kernel API memory allocation
+        type: string
+        default: 2.0Gi
   
 jobs:
   generate_matrix:
@@ -323,6 +371,35 @@ jobs:
           $env:AZURE_SUBSCRIPTION_ID=$($info.subscriptionId)
 
           Push-Location ./deploy/quick-start
+          
+          if (${{ inputs.core_api_replica_count }}) {
+            azd env set SERVICE_COREAPI_REPLICAS ${{ inputs.core_api_replica_count }}
+          }
+
+          if (${{ inputs.orchestration_api_replica_count }}) {
+            azd env set SERVICE_ORCHESTRATIONAPI_REPLICAS ${{ inputs.orchestration_api_replica_count }}
+          }
+
+          if (${{ inputs.langchain_api_replica_count }}) {
+            azd env set SERVICE_LANGCHAINAPI_REPLICAS ${{ inputs.langchain_api_replica_count }}
+          }
+
+          if (${{ inputs.semantickernel_api_replica_count }}) {
+            azd env set SERVICE_SEMANTICKERNELAPI_REPLICAS ${{ inputs.semantickernel_api_replica_count }}
+          }
+          
+          azd env set SERVICE_COREAPI_CPU ${{ inputs.core_api_cpu }}
+          azd env set SERVICE_COREAPI_MEMORY ${{ inputs.core_api_mem }}
+
+          azd env set SERVICE_ORCHESTRATIONAPI_CPU ${{ inputs.orchestration_api_cpu }}
+          azd env set SERVICE_ORCHESTRATIONAPI_MEMORY ${{ inputs.orchestration_api_mem }}
+
+          azd env set SERVICE_LANGCHAINAPI_CPU ${{ inputs.langchain_api_cpu }}
+          azd env set SERVICE_LANGCHAINAPI_MEMORY ${{ inputs.langchain_api_mem }}
+
+          azd env set SERVICE_SEMANTICKERNELAPI_CPU ${{ inputs.semantickernel_api_cpu }}
+          azd env set SERVICE_SEMANTICKERNELAPI_MEMORY ${{ inputs.semantickernel_api_mem }}
+          
           azd provision --no-prompt
           Pop-Location
         shell: pwsh
