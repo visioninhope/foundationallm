@@ -1,4 +1,5 @@
 param name string
+param identityPrincipalId string
 param location string = resourceGroup().location
 param tags object = {}
 param storageAccountName string
@@ -12,7 +13,9 @@ resource topic 'Microsoft.EventGrid/systemTopics@2023-12-15-preview' = {
   location: location
   tags: tags
   identity: {
-    type: 'SystemAssigned'
+    principalId: identityPrincipalId
+    tenantId: tenant().tenantId
+    type: 'UserAssigned'
   }
   properties: {
     source: storage.id
