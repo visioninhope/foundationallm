@@ -451,10 +451,6 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
-    eventGridName: eventgrid.outputs.name
-    destinationTopicName: 'config'
-    identityClientId: configSubIdentity.outputs.clientId
-    identityPrincipalId: configSubIdentity.outputs.principalId
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
@@ -475,10 +471,6 @@ module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
-    eventGridName: eventgrid.outputs.name
-    destinationTopicName: 'storage'
-    identityClientId: storageSubIdentity.outputs.clientId
-    identityPrincipalId: storageSubIdentity.outputs.principalId
     location: location
     tags: tags
     storageAccountName: storage.outputs.name
