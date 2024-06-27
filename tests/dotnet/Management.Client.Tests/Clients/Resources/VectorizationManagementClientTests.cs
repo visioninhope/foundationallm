@@ -1,15 +1,10 @@
 ﻿using FoundationaLLM.Client.Management.Clients.Resources;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Management.Client.Tests.Clients.Resources
 {
