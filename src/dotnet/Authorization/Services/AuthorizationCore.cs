@@ -240,9 +240,9 @@ namespace FoundationaLLM.Authorization.Services
                                 JsonSerializer.Serialize(roleAssignmentStore),
                                 default,
                                 default);
-
-                        return new RoleAssignmentResult() { Success = true };
                     }
+
+                    return new RoleAssignmentResult() { Success = true };
                 }
             }
 
