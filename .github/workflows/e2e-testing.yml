@@ -375,7 +375,7 @@ jobs:
         run: |
           Write-Host "Update App Registration OAuth Callbacks"
           Push-Location ./deploy/quick-start
-          pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
+          pwsh -File ../common/scripts/Update-OAuthCallbackUris.ps1 `
             -fllmChatUiName FoundationaLLM-Core-Portal `
             -fllmMgmtUiName FoundationaLLM-Management-Portal
           Pop-Location
@@ -830,7 +830,7 @@ jobs:
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
 
           Write-Host "Removing App Registration OAuth Callbacks"
-          pwsh -File ../../tests/scripts/Remove-OAuthCallbackUris.ps1 `
+          pwsh -File ../common/scripts/Remove-OAuthCallbackUris.ps1 `
             -fllmChatUiName FoundationaLLM-Core-Portal `
             -fllmMgmtUiName FoundationaLLM-Management-Portal
 
