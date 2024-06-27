@@ -81,7 +81,7 @@ foreach ($uri in $uris.GetEnumerator()) {
         $redirect = ($uri.Value.endpoint | ConvertFrom-Json) + "/signin-oidc"
 
         if ($redirects.Contains($redirect)) {
-            $redirects -= $redirect
+            $redirects = $redirects | Where-Object { $_ -ne $redirect }
 
             $body = @{
                 spa = @{
