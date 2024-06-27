@@ -2,6 +2,8 @@
 using FoundationaLLM.Client.Management.Clients.Resources;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using System.Collections.Generic;
 
 namespace FoundationaLLM.Client.Management
 {
@@ -65,6 +67,21 @@ namespace FoundationaLLM.Client.Management
         public IPromptManagementClient Prompts { get; private set; } = null!;
         /// <inheritdoc/>
         public IVectorizationManagementClient Vectorization { get; private set; } = null!;
+
+        /// <inheritdoc/>
+        public async Task<T> GetResourceByObjectId<T>(string objectId) where T : ResourceBase
+        {
+            var resource = await _managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<T>>>(objectId);
+            return resource.FirstOrDefault()?.Resource ?? throw new InvalidOperationException($"Resource with ID {objectId} not found.");
+        }
+
+        /// <inheritdoc/>
+        public async Task<ResourceProviderGetResult<T>> GetResourceWithActionsAndRolesByObjectId<T>(string objectId)
+            where T : ResourceBase
+        {
+            var resource = await _managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<T>>>(objectId);
+            return resource.FirstOrDefault() ?? throw new InvalidOperationException($"Resource with ID {objectId} not found.");
+        }
 
         private void InitializeClients()
         {
