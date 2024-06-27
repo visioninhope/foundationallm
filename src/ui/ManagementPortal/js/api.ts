@@ -19,6 +19,7 @@ import type {
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
 import { mockRoles, mockRoleAssignmentsResponse } from './mock';
+import { $fetch } from 'ofetch';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
