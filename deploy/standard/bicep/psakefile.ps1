@@ -139,7 +139,7 @@ task App -depends ResourceGroups, Ops, Networking, DNS, Configuration, Vec, Stor
         }
         openAiResourceGroupName         = @{
             type  = "string"
-            value = $script:resourceGroups.oai
+            value = $script:openAIRG
         }
     }
 
@@ -326,6 +326,7 @@ task Configuration {
     $script:coreApiClientSecret = "CORE-API-CLIENT-SECRET"
     $script:createVpnGateway = $manifest.createVpnGateway
     $script:environment = $manifest.environment
+    $script:existingOpenAiInstance = $manifest.existingOpenAiInstance
     $script:k8sNamespace = $manifest.k8sNamespace
     $script:location = $manifest.location
     $script:managementApiClientSecret = "MGMT-API-CLIENT-SECRET"
@@ -535,6 +536,10 @@ task OpenAI -depends ResourceGroups, Ops, Networking, DNS, Configuration {
             type  = "string"
             value = $script:environment
         }
+        existingOpenAiInstance  = @{
+            type  = "object"
+            value = $script:existingOpenAiInstance
+        }
         location                = @{
             type  = "string"
             value = $script:location
@@ -562,6 +567,16 @@ task OpenAI -depends ResourceGroups, Ops, Networking, DNS, Configuration {
         --parameters $paramsFile `
         --resource-group  $script:resourceGroups.oai `
         --template-file ./$templateFile
+
+    $outputs = @{az deployment group show `
+        --resource-group $script:resourceGroups.oai `
+        --name $script:deployments.oai `
+        --query properties.outputs `
+        --output json ` | ConvertFrom-Json}
+
+    $script:openAiEndpoint = $outputs.azureOpenAiEndpoint.value
+    $script:openAiId       = $outputs.azureOpenAiId.value
+    $script:openAIRG       = $outputs.azureOpenAiResourceGroup.value
 
     if ($LASTEXITCODE -ne 0) {
         throw "The OpenAI deployment failed."

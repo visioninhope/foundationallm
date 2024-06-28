@@ -23,6 +23,11 @@
     "managementui": ""
   },
   "environment": "",
+  "existingOpenAiInstance": {
+    "name": null,
+    "subscriptionId": null,
+    "resourceGroup": null
+  },
   "instanceId": "",
   "k8sNamespace": "fllm",
   "location": "",

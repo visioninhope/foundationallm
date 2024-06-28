@@ -94,6 +94,8 @@ var secretNames = [
 ]
 
 /** Outputs **/
+output id string = main.id
+
 @description('The Account Name')
 output name string = main.name
 
