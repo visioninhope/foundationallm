@@ -612,6 +612,7 @@ jobs:
             --tenant-id "$($info.tenantId)"
           ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
           Pop-Location
+        shell: pwsh
       
       - name: Build Tests
         shell: pwsh
