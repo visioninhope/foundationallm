@@ -582,7 +582,7 @@ jobs:
       - name: Sets Credentials for Source (SBX)
         run: |
           {
-            echo 'AZURE_CREDENTIALS_SRC<<EOF'
+            echo 'AZURE_CREDENTIALS<<EOF'
             echo "$FLLM_SBX_AZURE_CREDENTIALS"
             echo EOF
           } >> "$GITHUB_ENV"
