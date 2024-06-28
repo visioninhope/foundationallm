@@ -677,7 +677,7 @@ jobs:
           Write-Host "::add-mask::$($info.clientSecret)"
 
           Push-Location ./deploy/common/scripts
-          Get-TestSettings.ps1 -storageAccountName foundationallmdata
+          ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
           Pop-Location
 
           Write-Host "Create new AZD Environment"
