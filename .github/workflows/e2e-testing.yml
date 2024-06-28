@@ -677,6 +677,11 @@ jobs:
           Write-Host "::add-mask::$($info.clientSecret)"
 
           Push-Location ./deploy/common/scripts
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($info.clientId)" `
+            --tenant-id "$($info.tenantId)"
           ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
           Pop-Location
 
