@@ -578,6 +578,40 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.x
+
+      - name: Sets Credentials for Source (SBX)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS_SRC<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Sets Credentials for Target (E2E)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_E2E_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'e2e'
+        env:
+          FLLM_E2E_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
+
+      - name: Pull Build Artifacts
+        run: |
+          Push-Location ./deploy/common/scripts
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($info.clientId)" `
+            --tenant-id "$($info.tenantId)"
+          ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
+          Pop-Location
       
       - name: Build Tests
         shell: pwsh
@@ -675,15 +709,6 @@ jobs:
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Write-Host "::add-mask::$($info.clientSecret)"
-
-          Push-Location ./deploy/common/scripts
-          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
-          azcopy login `
-            --login-type=SPN `
-            --application-id "$($info.clientId)" `
-            --tenant-id "$($info.tenantId)"
-          ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
-          Pop-Location
 
           Write-Host "Create new AZD Environment"
           Push-Location ./deploy/quick-start
