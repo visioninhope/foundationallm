@@ -604,6 +604,7 @@ jobs:
 
       - name: Pull Build Artifacts
         run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Push-Location ./deploy/common/scripts
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
