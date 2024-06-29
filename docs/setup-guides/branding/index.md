@@ -1,13 +1,22 @@
 # Branding Customization
 
-The `FoundationaLLM` application provides a way to customize the branding of the application. The branding customization can be done by setting any of the **18 configuration values** available in the `App Configuration` resource in your Azure Resource Group.  It can also be chnaged using the REST API calls pertaining to Branding.
+The `FoundationaLLM` application provides a way to customize the branding of the application. The branding customization can be done by setting any of the **18 configuration values** available in the `App Configuration` resource in your Azure Resource Group.  It can also be changed using the REST API calls pertaining to Branding.
 
+### Accessing the App Configuration for branding customization
+
+In your Azure Resource Group, navigate to the `App Configuration` resource and select the `Configuration Explorer` option under `Operations`. You will see a list of all configuration settings for `FoundationaLLM `m filter the list on the word `Branding` and you will be able to see the 18 relevant configuration settings pertaining to Branding.
 
 ![Branding App Configuration](./media/branding-1.jpg)
 
+### The default User Interface of the `FoundationaLLM` is shown below
+
 ![Branding defaultn](./media/branding-2.jpg)
 
+### The Login screen can also be customized as shown below
+
 ![Branding Login Page](./media/branding-3.jpg)
+
+### The chat window can be customized as shown below
 
 ![Branding Chat Page](./media/branding-4.jpg)
 
@@ -18,6 +27,7 @@ Takes a hexadecimal color value to set the accent text color of the chat applica
 ## FoundationaLLM:Branding:BackgroundColor
 Takes a hexadecimal color value to set the background color of the chat application.
 ## FoundationaLLM:Branding:CompanyName
+Not is use.  Reserved for future enhancements.
 
 ## FoundationaLLM:Branding:FavIconUrl
 A string value to set the FavIcon Url which is displayed in the browser tab.
@@ -30,7 +40,7 @@ A string value to set the FavIcon Url which is displayed in the browser tab.
 ## FoundationaLLM:Branding:FooterText
 A string value to set the Footer Text value which is displayed at the bottom right of the screen.
 ## FoundationaLLM:Branding:KioskMode
-This is a boolean flag to indicate if the application is running in kiosk mode. 
+This is a boolean flag to indicate if the application is running in kiosk mode, if true will remove the sessions panel on the left navigation panel. 
 ## FoundationaLLM:Branding:LogoText
 A string value to set the Logo Text value which is displayed only if the `FoundationaLLM:Branding:LogoUrl` is not set.
 ## FoundationaLLM:Branding:LogoUrl
