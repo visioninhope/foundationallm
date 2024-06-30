@@ -5,7 +5,6 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Tokenizers;
@@ -13,10 +12,10 @@ using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
-using FoundationaLLM.Vectorization.Services;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.RequestSources;
 using FoundationaLLM.Vectorization.Services.Text;
+using FoundationaLLM.Vectorization.Services.VectorizationServices;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
@@ -24,9 +23,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Vectorization.Serializers;
 using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
+using FoundationaLLM.Vectorization.Services.RequestProcessors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,6 +93,7 @@ builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
 builder.Services.AddOptions<PostgresIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
 
+// Add queue and step configurations
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues,
@@ -113,8 +113,19 @@ builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
         .Build();
 });
 
+// Request sources cache
+builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
+builder.Services.ActivateSingleton<IRequestSourcesCache>();
+
 // Vectorization state
-builder.Services.AddSingleton<IVectorizationStateService, MemoryVectorizationStateService>();
+builder.Services.AddSingleton<MemoryVectorizationStateService, MemoryVectorizationStateService>(); //for sync requests
+builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizationStateService>(); //for async requests
+
+// Register the vectorization service factory.
+builder.Services.AddSingleton<VectorizationServiceFactory>();
+
+// Register the local vectorization processor.
+builder.Services.AddSingleton<IVectorizationRequestProcessor, LocalVectorizationRequestProcessor>();
 
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
@@ -123,6 +134,8 @@ builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactor
 builder.AddConfigurationResourceProvider();
 builder.AddDataSourceResourceProvider();
 builder.AddVectorizationResourceProvider();
+
+builder.AddPipelineExecution();
 
 // Service factories
 builder.Services.AddSingleton<IVectorizationServiceFactory<IContentSourceService>, ContentSourceServiceFactory>();
@@ -148,12 +161,7 @@ builder.Services.AddKeyedSingleton<IIndexingService, AzureCosmosDBNoSQLIndexingS
 builder.Services.AddKeyedSingleton<IIndexingService, PostgresIndexingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService);
 
-// Request sources cache
-builder.Services.AddSingleton<IRequestSourcesCache, RequestSourcesCache>();
-builder.Services.ActivateSingleton<IRequestSourcesCache>();
 
-// Vectorization
-builder.Services.AddScoped<IVectorizationService, VectorizationService>();
 
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 

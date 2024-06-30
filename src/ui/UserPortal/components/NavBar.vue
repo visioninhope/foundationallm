@@ -228,6 +228,7 @@ export default {
 	align-items: center;
 	padding: 24px;
 	border-bottom: 1px solid #eaeaea;
+	color: var(--accent-text);
 	background-color: var(--accent-color);
 }
 
@@ -248,6 +249,7 @@ export default {
 
 .button--share {
 	margin-left: 8px;
+	color: var(--accent-text);
 }
 
 .button--auth {
