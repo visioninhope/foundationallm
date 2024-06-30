@@ -535,4 +535,10 @@ export default {
 		// Return the updated external orchestration services.
 		return data;
 	},
+
+	async getBranding(): Promise<any> {
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/FoundationaLLM:Branding:*`,
+		);
+	},
 };
