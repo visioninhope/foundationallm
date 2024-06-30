@@ -12,6 +12,15 @@
             </div>
             <div class="button-container column-2 justify-self-end">
                 <Button
+                    label="Cancel"
+                    @click="cancelBrandingChanges"
+                    severity="secondary"
+                />
+                <Button
+                    label="Set Default"
+                    @click="setDefaultBranding"
+                />
+                <Button
                     label="Save"
                     severity="primary"
                     @click="saveBranding"
@@ -31,6 +40,60 @@ export default {
         return {
             branding: null as any,
             brandingOriginal: null as any,
+            brandingDefault: [
+                {
+                    "key": "FoundationaLLM:Branding:AccentColor",
+                    "value": "#fff",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:AccentTextColor",
+                    "value": "#131833",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:BackgroundColor",
+                    "value": "#fff",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:FavIconUrl",
+                    "value": "favicon.ico",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:LogoUrl",
+                    "value": "foundationallm-logo-white.svg",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:PrimaryButtonBackgroundColor",
+                    "value": "#5472d4",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:PrimaryButtonTextColor",
+                    "value": "#fff",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:PrimaryColor",
+                    "value": "#131833",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:PrimaryTextColor",
+                    "value": "#fff",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:SecondaryButtonBackgroundColor",
+                    "value": "#70829a",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:SecondaryButtonTextColor",
+                    "value": "#fff",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:SecondaryColor",
+                    "value": "#334581",
+                },
+                {
+                    "key": "FoundationaLLM:Branding:SecondaryTextColor",
+                    "value": "#fff",
+                }
+            ],
         };
     },
 
@@ -50,6 +113,19 @@ export default {
                     life: 5000,
                 });
             }
+        },
+
+        setDefaultBranding() {
+            this.branding.forEach((brand: any) => {
+                const defaultBrand = this.brandingDefault.find((defaultBrand: any) => defaultBrand.key === brand.resource.key);
+                if (defaultBrand) {
+                    brand.resource.value = defaultBrand.value;
+                }
+            });
+        },
+
+        cancelBrandingChanges() {
+            this.branding = JSON.parse(JSON.stringify(this.brandingOriginal));
         },
 
         async saveBranding() {
@@ -93,5 +169,11 @@ export default {
 .step-header {
 	font-weight: bold;
 	margin-bottom: -10px;
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
 }
 </style>
