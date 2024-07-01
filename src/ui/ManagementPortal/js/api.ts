@@ -530,18 +530,37 @@ export default {
 		return data;
 	},
 
-	async getRoles(): Roles[] {
-		await wait(1000);
-		return mockRoles;
-	},
-
 	async getRoleAssignments(): RoleAssignment[] {
 		return await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}`,
+				}),
+			},
 		) as RoleAssignment[];
 	},
 
-	async getRoleAssignment(roleAssignmentId): RoleAssignment {
+	async getRoleAssignment(roleAssignmentId): RoleAssignment[] {
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}`,
+				}),
+			},
+		) as RoleAssignment[];
+	},
+
+	async getRoleDefinitions(): RoleAssignment[] {
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
+		) as Object[];
+	},
+
+	async getRoleDefinition(roleAssignmentId): RoleAssignment {
 		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}`,
 		) as RoleAssignment[];
