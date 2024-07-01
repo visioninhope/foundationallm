@@ -48,6 +48,10 @@ on:
           - sandbox
           - e2e
         default: e2e
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       environment:
@@ -77,6 +81,9 @@ on:
       target:
         description: Select target tenant/subscription
         type: string
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
 
 jobs:
   generate_matrix:
@@ -248,17 +255,17 @@ jobs:
             --tenant-id "$($info.tenantId)"
         shell: pwsh
 
-      - name: Provision App Registrations
-        id: provision-app-registrations
+      - name: Deploy Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
         run: |
-          Write-Host "Provision App Registrations"
-          Push-Location ./tests/scripts
-          ./Create-FllmEntraIdApps.ps1 `
-            -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./tests/extended-test-env
+          azd env new ext-${{ inputs.environment }}
+          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
+          azd up --no-prompt
           Pop-Location
         shell: pwsh
 
@@ -351,11 +358,11 @@ jobs:
             -tenantId $($info.tenantId) `
             -principalType ServicePrincipal `
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176 `
-            -fllmApiName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmClientName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtApiName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtClientName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmAuthApiName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+            -fllmApiName FoundationaLLM-Core-API `
+            -fllmClientName FoundationaLLM-Core-Portal `
+            -fllmMgmtApiName FoundationaLLM-Management-API `
+            -fllmMgmtClientName FoundationaLLM-Management-Portal `
+            -fllmAuthApiName FoundationaLLM-Authorization-API `
             -fllmAdminGroupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }}
           Pop-Location
         shell: pwsh
@@ -389,9 +396,9 @@ jobs:
         run: |
           Write-Host "Update App Registration OAuth Callbacks"
           Push-Location ./deploy/quick-start
-          pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
-            -fllmChatUiName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtUiName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
+          pwsh -File ../common/scripts/Update-OAuthCallbackUris.ps1 `
+            -fllmChatUiName FoundationaLLM-Core-Portal `
+            -fllmMgmtUiName FoundationaLLM-Management-Portal
           Pop-Location
         shell: pwsh
 
@@ -601,6 +608,7 @@ jobs:
     needs: [generate_matrix, deploy_quickstart, add_test_data, build_e2e_tests]
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         object: ${{ fromJson(needs.generate_matrix.outputs.test_matrix) }}
     steps:
@@ -659,7 +667,7 @@ jobs:
             --username "$($info.clientId)" `
             --password "$($info.clientSecret)" `
             --tenant "$($info.tenantId)" `
-            --scope api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default
+            --scope api://FoundationaLLM-Core/.default
         shell: pwsh
 
       - name: Running End to End Tests
@@ -823,6 +831,21 @@ jobs:
             --tenant "$($info.tenantId)"
         shell: pwsh
 
+      - name: Tearing Down Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./tests/extended-test-env
+          azd env new ext-${{ inputs.environment }}
+          $env:AZURE_SUBSCRIPTION_ID = $($info.subscriptionId)
+          azd env refresh --no-prompt
+          azd down --force --purge --no-prompt
+          Pop-Location
+        shell: pwsh
+      
       - name: Tearing Down AZD Deployment
         id: azd-down
         run: |
@@ -843,22 +866,16 @@ jobs:
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
 
           azd env refresh --no-prompt
+          Write-Host "Removing App Registration OAuth Callbacks"
+          pwsh -File ../common/scripts/Remove-OAuthCallbackUris.ps1 `
+            -fllmChatUiName FoundationaLLM-Core-Portal `
+            -fllmMgmtUiName FoundationaLLM-Management-Portal
+
           azd down --force --purge --no-prompt
           Pop-Location
 
           Write-Host "Remove Admin Group"
           az ad group delete --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} --output json
-
-          Write-Host "Tear down App Registrations"
-          Push-Location ./tests/scripts
-          ./Remove-EntraIdApps.ps1 `
-            -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -interactiveMode $false
-          Pop-Location
         shell: pwsh
 
       - name: Get E2E Test Results
