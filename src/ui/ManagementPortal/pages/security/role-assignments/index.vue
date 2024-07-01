@@ -39,7 +39,7 @@
 
 				<!-- Name -->
 				<Column
-					field="display_name"
+					field="principal.display_name"
 					header="Name"
 					sortable
 					style="min-width: 120px"
@@ -49,14 +49,27 @@
 						},
 						sortIcon: { style: { color: 'var(--primary-text)' } },
 					}"
-				></Column>
+				>
+					<template #body="{ data }">
+						<div class="d-flex align-center" style="gap: 12px">
+							<i v-if="data.principal.object_type === 'Group'" class="pi pi-users"></i>
+							<i v-else-if="data.principal.object_type === 'User'" class="pi pi-user"></i>
+							<i v-else class="pi pi-verified"></i>
 
-				<!-- Type -->
+							<span>
+								<div>{{ data.principal.display_name }}</div>
+								<div v-if="data.principal?.email">({{ data.principal?.email }})</div>
+							</span>
+						</div>
+					</template>
+				</Column>
+
+				<!-- Principal Type -->
 				<Column
-					field="description"
-					header="Description"
+					field="principal_type"
+					header="Type"
 					sortable
-					style="min-width: 200px; max-width: 500px;"
+					style="min-width: 120px;"
 					:pt="{
 						headerCell: {
 							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
@@ -64,16 +77,50 @@
 						sortIcon: { style: { color: 'var(--primary-text)' } },
 					}"
 				>
-					<template #body="slotProps">
+				</Column>
+
+				<!-- Role -->
+				<Column
+					field="role.display_name"
+					header="Role"
+					sortable
+					style="min-width: 240px;"
+					:pt="{
+						headerCell: {
+							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
+						},
+						sortIcon: { style: { color: 'var(--primary-text)' } },
+					}"
+				>
+					<template #body="{ data }">
+						<span>{{ data.role.display_name }}</span>
 						<span
 							v-tooltip.bottom="{
-								value: slotProps.data.description,
+								value: data.role.description,
 								autoHide: false,
 							}"
-							class="description__column"
 						>
-							{{ slotProps.data.description }}
+							<i class="pi pi-info-circle" style="margin-left: 8px;"></i>
 						</span>
+					</template>
+				</Column>
+
+				<!-- Scope -->
+				<Column
+					field="scope"
+					header="Scope"
+					sortable
+					style="min-width: 140px"
+					:pt="{
+						headerCell: {
+							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
+						},
+						sortIcon: { style: { color: 'var(--primary-text)' } },
+					}"
+				>
+					<template #body="{ data }">
+						<span v-if="data.scope.startsWith('/instances/')">Instance</span>
+						<span v-else>{{ data.scope }}</span>
 					</template>
 				</Column>
 
@@ -159,7 +206,30 @@ export default {
 		async getRoleAssignments() {
 			this.loading = true;
 			try {
-				this.roleAssignments = await api.getRoleAssignments();
+				const roleAssignments = await api.getRoleAssignments();
+				// index 10 causes a 500 due to incorrect principal_id
+				roleAssignments.splice(10, 1);
+
+				const principalIds = [];
+				for (let assignmentForPrincipalId of roleAssignments) {
+					principalIds.push(assignmentForPrincipalId.resource.principal_id);
+				}
+
+				const principals = await api.getObjects({
+					ids: principalIds,
+				});
+
+				const roleDefinitions = await api.getRoleDefinitions();
+
+				this.roleAssignments = roleAssignments.map((assignment) => {
+					return {
+						name: assignment.resource.name,
+						principal_type: assignment.resource.principal_type,
+						principal: principals.find((principal) => principal.id === assignment.resource.principal_id),
+						scope: assignment.resource.scope,
+						role: roleDefinitions.find((role) => role.object_id === assignment.resource.role_definition_id),
+					};
+				});
 			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
