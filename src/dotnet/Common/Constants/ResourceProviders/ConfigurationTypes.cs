@@ -24,5 +24,10 @@
         /// External orchestration service.
         /// </summary>
         public const string ExternalOrchestrationService = "external-orchestration-service";
+
+        /// <summary>
+        /// Api endpoint resource.
+        /// </summary>
+        public const string APIEndpoint = "api-endpoint";
     }
 }

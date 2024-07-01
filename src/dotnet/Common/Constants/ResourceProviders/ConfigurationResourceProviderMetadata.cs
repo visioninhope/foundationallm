@@ -43,6 +43,19 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                     ]
                 }
             }
+            ,
+            {
+                ConfigurationResourceTypeNames.APIEndpoint,
+                new ResourceTypeDescriptor(
+                        ConfigurationResourceTypeNames.APIEndpoint)
+                {
+                    AllowedTypes = [
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpoint>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpoint)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
+                    ]
+                }
+            }
         };
     }
 }

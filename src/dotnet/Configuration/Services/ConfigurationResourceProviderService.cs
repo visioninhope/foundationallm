@@ -65,6 +65,7 @@ namespace FoundationaLLM.Configuration.Services
             ConfigurationResourceProviderMetadata.AllowedResourceTypes;
 
         private ConcurrentDictionary<string, ExternalOrchestrationServiceReference> _externalOrchestrationServiceReferences = [];
+        private ConcurrentDictionary<string, ApiEndpointReference> _apiEndpointReReferences = [];
 
         private const string KEY_VAULT_REFERENCE_CONTENT_TYPE = "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8";
 
@@ -121,6 +122,7 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
+                ConfigurationResourceTypeNames.APIEndpoint => await LoadAPIEndpoints(resourcePath.ResourceTypeInstances[0]),
                 ConfigurationResourceTypeNames.ExternalOrchestrationServices => await LoadExternalOrchestrationServices(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
@@ -191,6 +193,30 @@ namespace FoundationaLLM.Configuration.Services
             }
         }
 
+        private async Task<List<ResourceProviderGetResult<APIEndpoint>>> LoadAPIEndpoints(ResourceTypeInstance instance)
+        {
+            if (instance.ResourceId == null)
+            {
+                var apiEndpoints = (await Task.WhenAll(
+                        _apiEndpointReReferences.Values
+                            .Where(apie => !apie.Deleted)
+                            .Select(apie => LoadApiEndpoint(apie)))).ToList();
+
+                return apiEndpoints.Select(service => new ResourceProviderGetResult<APIEndpoint>() { Resource = service, Actions = [], Roles = [] }).ToList();
+            }
+            else
+            {
+                if (!_apiEndpointReReferences.TryGetValue(instance.ResourceId, out var resourceReference)
+                    || resourceReference.Deleted)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} api endpoint resource.",
+                        StatusCodes.Status404NotFound);
+
+                var apiEndpoint = await LoadApiEndpoint(resourceReference);
+
+                return [new ResourceProviderGetResult<APIEndpoint>() { Resource = apiEndpoint, Actions = [], Roles = [] }];
+            }
+        }
+
         private async Task<ExternalOrchestrationService> LoadExternalOrchestrationService(
             ExternalOrchestrationServiceReference resourceReference)
         {
@@ -205,6 +231,23 @@ namespace FoundationaLLM.Configuration.Services
             }
 
             throw new ResourceProviderException($"Could not locate the {resourceReference.Name} external orchestration service resource.",
+                StatusCodes.Status404NotFound);
+        }
+
+        private async Task<APIEndpoint> LoadApiEndpoint(
+            ApiEndpointReference apiEndpointReference)
+        {
+            if (await _storageService.FileExistsAsync(_storageContainerName, apiEndpointReference.Filename, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, apiEndpointReference.Filename, default);
+                return JsonSerializer.Deserialize<APIEndpoint>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()),
+                    _serializerSettings)
+                    ?? throw new ResourceProviderException($"Failed to load the api endpoint {apiEndpointReference.Name}.",
+                        StatusCodes.Status400BadRequest);
+            }
+
+            throw new ResourceProviderException($"Could not locate the {apiEndpointReference.Name} api endpoint resource.",
                 StatusCodes.Status404NotFound);
         }
 
