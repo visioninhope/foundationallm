@@ -64,14 +64,13 @@ namespace FoundationaLLM.Configuration.Services
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             ConfigurationResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, ExternalOrchestrationServiceReference> _externalOrchestrationServiceReferences = [];
-        private ConcurrentDictionary<string, ApiEndpointReference> _apiEndpointReReferences = [];
+        private ConcurrentDictionary<string, ApiEndpointReference> _apiEndpointReferences = [];
 
         private const string KEY_VAULT_REFERENCE_CONTENT_TYPE = "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8";
 
-        private const string EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_NAME = "_external-orchestration-service-references.json";
-        private const string EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH =
-            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_NAME}";
+        private const string API_ENDPOINT_REFERENCES_FILE_NAME = "_api-endpoint-references.json";
+        private const string API_ENDPOINT_REFERENCES_FILE_PATH =
+            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{API_ENDPOINT_REFERENCES_FILE_NAME}";
 
         private readonly IAzureAppConfigurationService _appConfigurationService = appConfigurationService;
         private readonly IAzureKeyVaultService _keyVaultService = keyVaultService;
@@ -85,26 +84,26 @@ namespace FoundationaLLM.Configuration.Services
         {
             _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-            if (await _storageService.FileExistsAsync(_storageContainerName, EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH, default))
+            if (await _storageService.FileExistsAsync(_storageContainerName, API_ENDPOINT_REFERENCES_FILE_PATH, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(
                     _storageContainerName,
-                    EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
                     default);
 
                 var resourceReferenceStore =
-                    JsonSerializer.Deserialize<ResourceReferenceStore<ExternalOrchestrationServiceReference>>(
+                    JsonSerializer.Deserialize<ResourceReferenceStore<ApiEndpointReference>>(
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _externalOrchestrationServiceReferences = new ConcurrentDictionary<string, ExternalOrchestrationServiceReference>(
+                _apiEndpointReferences = new ConcurrentDictionary<string, ApiEndpointReference>(
                         resourceReferenceStore!.ToDictionary());
             }
             else
             {
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
-                    EXTERNAL_ORCHESTRATION_SERVICE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<ExternalOrchestrationServiceReference>
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>
                     {
                         ResourceReferences = []
                     }),
@@ -123,7 +122,6 @@ namespace FoundationaLLM.Configuration.Services
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
                 ConfigurationResourceTypeNames.APIEndpoint => await LoadAPIEndpoints(resourcePath.ResourceTypeInstances[0]),
-                ConfigurationResourceTypeNames.ExternalOrchestrationServices => await LoadExternalOrchestrationServices(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -169,36 +167,12 @@ namespace FoundationaLLM.Configuration.Services
             return result;
         }
 
-        private async Task<List<ResourceProviderGetResult<ExternalOrchestrationService>>> LoadExternalOrchestrationServices(ResourceTypeInstance instance)
-        {
-            if (instance.ResourceId == null)
-            {
-                var externalOrchestrationServices = (await Task.WhenAll(
-                        _externalOrchestrationServiceReferences.Values
-                            .Where(eosr => !eosr.Deleted)
-                            .Select(eosr => LoadExternalOrchestrationService(eosr)))).ToList();
-
-                return externalOrchestrationServices.Select(service => new ResourceProviderGetResult<ExternalOrchestrationService>() { Resource = service, Actions = [], Roles = [] }).ToList();
-            }
-            else
-            {
-                if (!_externalOrchestrationServiceReferences.TryGetValue(instance.ResourceId, out var resourceReference)
-                    || resourceReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} external orchestration service resource.",
-                        StatusCodes.Status404NotFound);
-
-                var externalOrchestrationService = await LoadExternalOrchestrationService(resourceReference);
-
-                return [new ResourceProviderGetResult<ExternalOrchestrationService>() { Resource = externalOrchestrationService, Actions = [], Roles = [] }];
-            }
-        }
-
         private async Task<List<ResourceProviderGetResult<APIEndpoint>>> LoadAPIEndpoints(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
                 var apiEndpoints = (await Task.WhenAll(
-                        _apiEndpointReReferences.Values
+                        _apiEndpointReferences.Values
                             .Where(apie => !apie.Deleted)
                             .Select(apie => LoadApiEndpoint(apie)))).ToList();
 
@@ -206,7 +180,7 @@ namespace FoundationaLLM.Configuration.Services
             }
             else
             {
-                if (!_apiEndpointReReferences.TryGetValue(instance.ResourceId, out var resourceReference)
+                if (!_apiEndpointReferences.TryGetValue(instance.ResourceId, out var resourceReference)
                     || resourceReference.Deleted)
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} api endpoint resource.",
                         StatusCodes.Status404NotFound);
@@ -215,23 +189,6 @@ namespace FoundationaLLM.Configuration.Services
 
                 return [new ResourceProviderGetResult<APIEndpoint>() { Resource = apiEndpoint, Actions = [], Roles = [] }];
             }
-        }
-
-        private async Task<ExternalOrchestrationService> LoadExternalOrchestrationService(
-            ExternalOrchestrationServiceReference resourceReference)
-        {
-            if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
-            {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
-                return JsonSerializer.Deserialize<ExternalOrchestrationService>(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    _serializerSettings)
-                    ?? throw new ResourceProviderException($"Failed to load the external orchestration service {resourceReference.Name}.",
-                        StatusCodes.Status400BadRequest);
-            }
-
-            throw new ResourceProviderException($"Could not locate the {resourceReference.Name} external orchestration service resource.",
-                StatusCodes.Status404NotFound);
         }
 
         private async Task<APIEndpoint> LoadApiEndpoint(
