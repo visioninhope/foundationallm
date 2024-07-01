@@ -99,7 +99,7 @@
 				</Column>
 
 				<!-- Role -->
-				<Column
+			<!-- 	<Column
 					field="role.display_name"
 					header="Role"
 					sortable
@@ -123,7 +123,7 @@
 						</span>
 					</template>
 				</Column>
-
+ -->
 				<!-- Scope -->
 				<Column
 					field="scope"
@@ -219,6 +219,11 @@ export default {
 				});
 
 				const roleDefinitions = await api.getRoleDefinitions();
+
+				// Expand all role groups in table
+				for (let roleDefinition of roleDefinitions) {
+					this.expandedRowGroups.push(roleDefinition.display_name);
+				}
 
 				this.roleAssignments = roleAssignments.map((assignment) => {
 					return {
