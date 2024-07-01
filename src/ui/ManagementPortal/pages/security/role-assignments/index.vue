@@ -27,6 +27,11 @@
 
 			<!-- Table -->
 			<DataTable
+				rowGroupMode="subheader"
+				groupRowsBy="role.display_name"
+				sortField="role.display_name"
+				expandableRowGroups
+				v-model:expandedRowGroups="expandedRowGroups"
 				:value="roleAssignments"
 				striped-rows
 				scrollable
@@ -34,8 +39,22 @@
 				size="small"
 			>
 				<template #empty>
-					No role assignments found. Please use the menu on the left to create a new role assignment.</template>
+					No role assignments found. Please use the menu on the left to create a new role assignment.
+				</template>
+
 				<template #loading>Loading data sources. Please wait.</template>
+
+				<template #groupheader="{ data }">
+					<span>{{ data.role.display_name }}</span>
+					<span
+						v-tooltip.bottom="{
+							value: data.role.description,
+							autoHide: false,
+						}"
+					>
+						<i class="pi pi-info-circle" style="margin-left: 8px;"></i>
+					</span>
+				</template>
 
 				<!-- Name -->
 				<Column
@@ -51,7 +70,7 @@
 					}"
 				>
 					<template #body="{ data }">
-						<div class="d-flex align-center" style="gap: 12px">
+						<div class="d-flex align-center" style="gap: 12px; margin-left: 32px;">
 							<i v-if="data.principal.object_type === 'Group'" class="pi pi-users"></i>
 							<i v-else-if="data.principal.object_type === 'User'" class="pi pi-user"></i>
 							<i v-else class="pi pi-verified"></i>
@@ -170,6 +189,7 @@ export default {
 
 	data() {
 		return {
+			expandedRowGroups: [],
 			roleAssignments: [] as RoleAssignment[],
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
