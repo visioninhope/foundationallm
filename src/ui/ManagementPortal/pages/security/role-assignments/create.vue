@@ -59,8 +59,17 @@
 					modal
 					header="Browse Principals"
 					:closable="false"
+					:style="{ minWidth: '30rem' }"
 				>
-					<div class="mb-2">Search by person or group</div>
+					<div class="mb-2">Search type</div>
+					<Dropdown
+						v-model="principalSearchType"
+						:options="['User', 'Group']"
+						placeholder="--Select--"
+						class="mb-2 w-100"
+					/>
+
+					<div class="mb-2">Search query</div>
 					<InputText
 						v-model="principalSearch"
 						placeholder="Search"
@@ -111,6 +120,7 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
+
 import type {
 	Role,
 	RoleAssignment,
@@ -134,6 +144,7 @@ export default {
 
 			openBrowsePrincipalsModal: false,
 			roleOptions: [] as Role[],
+			principalSearchType: null as null | string,
 
 			roleAssignment: {
 				description: '',
@@ -148,12 +159,22 @@ export default {
 		this.loading = true;
 
 		this.loadingStatusText = `Retrieving roles...`;
-		this.roleOptions = await api.getRoles();
+		this.roleOptions = await api.getRoleDefinitions();
 
 		if (this.editId) {
 			this.loadingStatusText = `Retrieving role assignment "${this.editId}"...`;
 			this.roleAssignment = await api.getRoleAssignment(this.editId);
 		}
+
+		const users = await api.getUsers();
+		const user = users.items[0];
+
+		const groups = await api.getGroups();
+		const group = groups.items[0];
+
+		const objects = await api.getObjects({
+			ids: [user.id, group.id],
+		});
 
 		this.loading = false;
 	},
