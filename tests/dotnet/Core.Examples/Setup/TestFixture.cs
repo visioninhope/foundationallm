@@ -20,6 +20,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 
             var configRoot = new ConfigurationBuilder()
 				.AddJsonFile("testsettings.json", true)
+				.AddJsonFile("testsettings.e2e.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
 				.AddAzureAppConfiguration(options =>
