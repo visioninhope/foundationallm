@@ -1,4 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
 {
@@ -14,39 +16,52 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
             Type = ConfigurationTypes.APIEndpoint;
 
         /// <summary>
+        /// The api endpoint category.
+        /// </summary>
+        [JsonPropertyName("category")]
+        public APIEndpointCategory Category { get; set; }
+
+        /// <summary>
         /// The type of authentication required for accessing the API.
         /// </summary>
-        public string AuthenticationType { get; set; }
+        [JsonPropertyName("authentication_type")]
+        public required string AuthenticationType { get; set; }
 
         /// <summary>
         /// The base URL of the API endpoint.
         /// </summary>
-        public string Url { get; set; }
+        [JsonPropertyName("url")]
+        public required string Url { get; set; }
 
         /// <summary>
         /// A list of URL exceptions.
         /// </summary>
+        [JsonPropertyName("url_exceptions")]
         public List<UrlException> UrlExceptions { get; set; } = new List<UrlException>();
 
         /// <summary>
         /// The API key used for authentication.
         /// </summary>
-        public string ApiKey { get; set; }
+        [JsonPropertyName("api_key")]
+        public required string ApiKey { get; set; }
 
         /// <summary>
         /// The api key configuration name.
         /// </summary>
-        public string ApiKeyConfigurationName { get; set; }
+        [JsonPropertyName("api_key_configuration_name")]
+        public required string ApiKeyConfigurationName { get; set; }
 
         /// <summary>
         /// The timeout duration in seconds for API calls.
         /// </summary>
+        [JsonPropertyName("timeout_seconds")]
         public int TimeoutSeconds { get; set; }
 
         /// <summary>
         /// The name of the retry strategy.
         /// </summary>
-        public string RetryStrategyName { get; set; }
+        [JsonPropertyName("retry_strategy_name")]
+        public required string RetryStrategyName { get; set; }
     }
 
     /// <summary>
@@ -57,11 +72,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// <summary>
         /// The user principal name.
         /// </summary>
-        public string UserPrincipalName { get; set; }
+        [JsonPropertyName("user_principal_name")]
+        public required string UserPrincipalName { get; set; }
 
         /// <summary>
         /// The alternative URL.
         /// </summary>
-        public string Url { get; set; }
+        [JsonPropertyName("url")]
+        public required string Url { get; set; }
     }
 }
