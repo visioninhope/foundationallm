@@ -206,8 +206,6 @@ export default {
 			this.loading = true;
 			try {
 				const roleAssignments = await api.getRoleAssignments();
-				// index 10 causes a 500 due to incorrect principal_id
-				roleAssignments.splice(10, 1);
 
 				const principalIds = [];
 				for (let assignmentForPrincipalId of roleAssignments) {
