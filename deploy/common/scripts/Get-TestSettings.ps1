@@ -42,8 +42,8 @@ function Get-AbsolutePath {
     return $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($RelatviePath)
 }
 
-$testSettingsPath = "../../../tests/dotnet/Core.Examples/testsettings.json" | Get-AbsolutePath
-Write-Host "Writing testsettings.json data to: $testSettingsPath" -ForegroundColor Yellow
-Invoke-CLICommand "Copy testsettings.json data from the storage account: ${storageAccountName}" {
-    azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/testsettings.json" $testSettingsPath
+$testSettingsPath = "../../../tests/dotnet/Core.Examples/testsettings.e2e.json" | Get-AbsolutePath
+Write-Host "Writing testsettings.e2e.json data to: $testSettingsPath" -ForegroundColor Yellow
+Invoke-CLICommand "Copy testsettings.e2e.json data from the storage account: ${storageAccountName}" {
+    azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/testsettings.e2e.json" $testSettingsPath
 }
