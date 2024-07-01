@@ -124,27 +124,6 @@
 					</template>
 				</Column>
 
-				<!-- Edit -->
-				<Column
-					header="Edit"
-					header-style="width:6rem"
-					style="text-align: center"
-					:pt="{
-						headerCell: {
-							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
-						},
-						headerContent: { style: { justifyContent: 'center' } },
-					}"
-				>
-					<template #body="{ data }">
-						<NuxtLink :to="'/security/role-assignments/edit/' + data.name" class="table__button">
-							<Button link>
-								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
-							</Button>
-						</NuxtLink>
-					</template>
-				</Column>
-
 				<!-- Delete -->
 				<Column
 					header="Delete"
@@ -173,7 +152,7 @@
 			header="Delete Role Assignment"
 			:closable="false"
 		>
-			<p>Do you want to delete the role assignment "{{ roleAssignmentToDelete.name }}" ?</p>
+			<p>Do you want to delete the role assignment for "{{ roleAssignmentToDelete.principal.display_name }}"?</p>
 			<template #footer>
 				<Button label="Cancel" text @click="roleAssignmentToDelete = null" />
 				<Button label="Delete" severity="danger" @click="handleDeleteRoleAssignment" />
