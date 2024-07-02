@@ -38,7 +38,7 @@ namespace FoundationaLLM.Common.Tests.Services
             var httpClient = new HttpClient();
             _httpClientFactory.CreateClient(clientName).Returns(httpClient);
 
-            var service = new HttpClientFactoryService(_resourceProviderServices, _httpClientFactory, _callContext);
+            var service = new HttpClientFactoryService(_resourceProviderServices, _httpClientFactory, _callContext, _apiSettings);
 
             // Act
             var result = await service.CreateClient(clientName);
