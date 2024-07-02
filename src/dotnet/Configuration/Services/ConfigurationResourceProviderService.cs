@@ -222,6 +222,20 @@ namespace FoundationaLLM.Configuration.Services
                     StatusCodes.Status400BadRequest)
             };
 
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
+        {
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
+            {
+                case ConfigurationResourceTypeNames.APIEndpoints:
+                    await DeleteAPIEndpoint(resourcePath.ResourceTypeInstances);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
+
         #endregion
 
         #region Helpers for UpsertResourceAsync
@@ -320,6 +334,28 @@ namespace FoundationaLLM.Configuration.Services
             };
         }
 
+        #endregion
+
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeleteAPIEndpoint(List<ResourceTypeInstance> instances)
+        {
+            if (_apiEndpointReferences.TryGetValue(instances.Last().ResourceId!, out var apiEndpointReference)
+                || apiEndpointReference!.Deleted)
+            {
+                apiEndpointReference.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    default,
+                    default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} api endpoint resource.",
+                            StatusCodes.Status404NotFound);
+        }
         #endregion
 
         #region Event handling
