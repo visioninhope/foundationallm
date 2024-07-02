@@ -40,7 +40,7 @@ namespace FoundationaLLM.Common.Services.API
                 UserPromptEmbedding = [ 0f ]
             };
 
-            var client = _httpClientFactoryService.CreateClient(_downstreamHttpClientName);
+            var client = await _httpClientFactoryService.CreateClient(_downstreamHttpClientName);
 
             _logger.LogInformation(
                 "Created Http client {ClientName} with timeout {Timeout} seconds.",
@@ -77,7 +77,7 @@ namespace FoundationaLLM.Common.Services.API
                 Summary = "[No Summary]"
             };
 
-            var client = _httpClientFactoryService.CreateClient(_downstreamHttpClientName);
+            var client = await _httpClientFactoryService.CreateClient(_downstreamHttpClientName);
 
             var responseMessage = await client.PostAsync("orchestration/summary",
             new StringContent(
