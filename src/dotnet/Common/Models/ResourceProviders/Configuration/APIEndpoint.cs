@@ -43,13 +43,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The API key used for authentication.
         /// </summary>
         [JsonPropertyName("api_key")]
-        public required string APIKey { get; set; }
+        public string APIKey { get; set; }
 
         /// <summary>
         /// The api key configuration name.
         /// </summary>
         [JsonPropertyName("api_key_configuration_name")]
-        public required string APIKeyConfigurationName { get; set; }
+        public string APIKeyConfigurationName { get; set; }
 
         /// <summary>
         /// The timeout duration in seconds for API calls.
