@@ -44,8 +44,8 @@ namespace FoundationaLLM.Core.Examples.Setup
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources);
-                        // .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
 				})
 				.Build();
 
