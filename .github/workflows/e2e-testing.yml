@@ -396,7 +396,7 @@ jobs:
         run: |
           Write-Host "Update App Registration OAuth Callbacks"
           Push-Location ./deploy/quick-start
-          pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
+          pwsh -File ../common/scripts/Update-OAuthCallbackUris.ps1 `
             -fllmChatUiName FoundationaLLM-Core-Portal `
             -fllmMgmtUiName FoundationaLLM-Management-Portal
           Pop-Location
@@ -578,6 +578,42 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8.x
+
+      - name: Sets Credentials for Source (SBX)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Sets Credentials for Target (E2E)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_E2E_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        if: inputs.target == 'e2e'
+        env:
+          FLLM_E2E_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
+
+      - name: Pull Build Artifacts
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./deploy/common/scripts
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($info.clientId)" `
+            --tenant-id "$($info.tenantId)"
+          ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
+          Pop-Location
+        shell: pwsh
       
       - name: Build Tests
         shell: pwsh
@@ -865,12 +901,12 @@ jobs:
             -principalType ServicePrincipal `
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
 
+          azd env refresh --no-prompt
           Write-Host "Removing App Registration OAuth Callbacks"
-          pwsh -File ../../tests/scripts/Remove-OAuthCallbackUris.ps1 `
+          pwsh -File ../common/scripts/Remove-OAuthCallbackUris.ps1 `
             -fllmChatUiName FoundationaLLM-Core-Portal `
             -fllmMgmtUiName FoundationaLLM-Management-Portal
 
-          azd env refresh --no-prompt
           azd down --force --purge --no-prompt
           Pop-Location
 
