@@ -1,15 +1,16 @@
 /** Inputs **/
 param actionGroupId string
-param administratorObjectId string
 param dnsResourceGroupName string
 param environmentName string
 param location string
 param logAnalyticsWorkspaceId string
 param opsResourceGroupName string
+param opsKeyVaultName string
 param project string
 param timestamp string = utcNow()
 param vnetId string
 
+param deployOpenAi bool
 param existingOpenAiInstance object
 
 /** Locals **/
@@ -17,14 +18,16 @@ var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, 
 var kvResourceSuffix = '${project}-${environmentName}-${location}-ops'
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 var workload = 'oai'
-var deployOpenAi = empty(existingOpenAiInstance.name)
 var azureOpenAiEndpoint = deployOpenAi ? openai.outputs.endpoint : customerOpenAi.properties.endpoint
 var azureOpenAiId = deployOpenAi ? openai.outputs.id : customerOpenAi.id
 var azureOpenAi = deployOpenAi ? openAiInstance : existingOpenAiInstance
+var azureOpenAiName = deployOpenAi ? openai.outputs.name : existingOpenAiInstance.name
+var azureOpenAiRg = deployOpenAi ? resourceGroup().name : existingOpenAiInstance.resourceGroup
+var azureOpenAiSub = deployOpenAi ? subscription().id : existingOpenAiInstance.subscriptionId
 var openAiInstance = {
-  name: openai.outputs.name
-  resourceGroup: resourceGroup().name
-  subscriptionId: subscription().subscriptionId
+  name: azureOpenAiName
+  resourceGroup: azureOpenAiRg
+  subscriptionId: azureOpenAiSub
 }
 
 var deploymentConfigurations = [
@@ -213,23 +216,6 @@ module contentSafety 'modules/contentSaftey.bicep' = {
     subnetId: '${vnetId}/subnets/FLLMOpenAI'
     tags: tags
   }
-  dependsOn: [ keyVault ]
-}
-
-@description('Key Vault')
-module keyVault 'modules/keyVault.bicep' = {
-  name: 'keyVault-${timestamp}'
-  params: {
-    actionGroupId: actionGroupId
-    administratorObjectId: administratorObjectId
-    allowAzureServices: false
-    location: location
-    logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'vault')
-    resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMOpenAI'
-    tags: tags
-  }
 }
 
 @description('OpenAI')
@@ -246,19 +232,20 @@ module openai './modules/openai.bicep' = if (deployOpenAi) {
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMOpenAI'
     tags: tags
-    keyVaultName: keyVault.outputs.name
+    keyVaultName: opsKeyVaultName
   }
-  dependsOn: [ keyVault ]
 }
 
 module openAiSecrets './modules/openai-secrets.bicep' = {
   name: 'openaiSecrets-${timestamp}'
 
   params: {
-    keyvaultName: keyVault.outputs.name
+    keyvaultName: opsKeyVaultName
     openAiInstance: azureOpenAi
     tags: tags
   }
+
+  scope: resourceGroup(opsResourceGroupName)
 }
 
 resource customerOpenAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing =

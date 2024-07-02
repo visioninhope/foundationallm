@@ -77,6 +77,22 @@ task Main -depends Configuration {
             type  = "string"
             value = $script:environment
         }
+        deployOpenAi                = @{
+            type  = "bool"
+            value = $script:deployOpenAi
+        }
+        existingOpenAiInstanceName  = @{
+            type  = "string"
+            value = $script:existingOpenAiInstance.name
+        }
+        existingOpenAiInstanceRg    = @{
+            type  = "string"
+            value = $script:existingOpenAiInstance.resourceGroup
+        }
+        existingOpenAiInstanceSub   = @{
+            type  = "string"
+            value = $script:existingOpenAiInstance.subscriptionId
+        }
         instanceId                  = @{
             type  = "string"
             value = $script:instanceId
@@ -217,6 +233,7 @@ task Configuration {
     $script:coreApiClientSecret = "CORE-API-CLIENT-SECRET"
     $script:createVpnGateway = $manifest.createVpnGateway
     $script:environment = $manifest.environment
+    $script:deployOpenAi = $manifest.deployOpenAi
     $script:existingOpenAiInstance = $manifest.existingOpenAiInstance
     $script:k8sNamespace = $manifest.k8sNamespace
     $script:location = $manifest.location
