@@ -10,6 +10,7 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Configuration.Models;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Graph.Models;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
@@ -121,7 +123,7 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
-                ConfigurationResourceTypeNames.APIEndpoint => await LoadAPIEndpoints(resourcePath.ResourceTypeInstances[0]),
+                ConfigurationResourceTypeNames.APIEndpoints => await LoadAPIEndpoints(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -215,6 +217,7 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await UpdateAppConfigurationKey(resourcePath, serializedResource),
+                ConfigurationResourceTypeNames.APIEndpoints => await UpdateAPIEndpoints(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -266,11 +269,62 @@ namespace FoundationaLLM.Configuration.Services
             };
         }
 
+        private async Task<ResourceProviderUpsertResult> UpdateAPIEndpoints(ResourcePath resourcePath, string serializedApiEndpoint, UnifiedUserIdentity userIdentity)
+        {
+            var apiEndpoint = JsonSerializer.Deserialize<APIEndpoint>(serializedApiEndpoint)
+               ?? throw new ResourceProviderException("The object definition is invalid.");
+
+            if (_apiEndpointReferences.TryGetValue(apiEndpoint.Name!, out var existingApiEndpointReference)
+                && existingApiEndpointReference!.Deleted)
+                throw new ResourceProviderException($"The api endpoint resource {existingApiEndpointReference.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != apiEndpoint.Name)
+                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
+                    StatusCodes.Status400BadRequest);
+
+            var apiEndpointReference = new ApiEndpointReference
+            {
+                Name = apiEndpoint.Name!,
+                Type = apiEndpoint.Type!,
+                Filename = $"/{_name}/{apiEndpoint.Name}.json",
+                Deleted = false
+            };
+
+            apiEndpoint.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            if (existingApiEndpointReference == null)
+                apiEndpoint.CreatedBy = userIdentity.UPN;
+            else
+                apiEndpoint.UpdatedBy = userIdentity.UPN;
+
+            await _storageService.WriteFileAsync(
+                _storageContainerName,
+                apiEndpointReference.Filename,
+                JsonSerializer.Serialize(apiEndpoint, _serializerSettings),
+                default,
+                default);
+
+            _apiEndpointReferences.AddOrUpdate(apiEndpointReference.Name, apiEndpointReference, (k, v) => v);
+
+            await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    default,
+                    default);
+
+            return new ResourceProviderUpsertResult
+            {
+                ObjectId = (apiEndpoint as APIEndpoint)!.ObjectId
+            };
+        }
+
         #endregion
 
         #region Event handling
 
-            /// <inheritdoc/>
+        /// <inheritdoc/>
         protected override async Task HandleEvents(EventSetEventArgs e)
         {
             _logger.LogInformation("{EventsCount} events received in the {EventsNamespace} events namespace.",

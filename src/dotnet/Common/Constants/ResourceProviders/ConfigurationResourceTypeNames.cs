@@ -13,6 +13,6 @@
         /// <summary>
         /// API Endpoint key values.
         /// </summary>
-        public const string APIEndpoint = "apiEndpoint";
+        public const string APIEndpoints = "apiEndpoints";
     }
 }

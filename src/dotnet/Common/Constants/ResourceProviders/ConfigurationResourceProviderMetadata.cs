@@ -33,9 +33,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
             }
             ,
             {
-                ConfigurationResourceTypeNames.APIEndpoint,
+                ConfigurationResourceTypeNames.APIEndpoints,
                 new ResourceTypeDescriptor(
-                        ConfigurationResourceTypeNames.APIEndpoint)
+                        ConfigurationResourceTypeNames.APIEndpoints)
                 {
                     AllowedTypes = [
                             new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpoint>)]),
