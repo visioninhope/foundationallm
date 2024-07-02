@@ -30,22 +30,22 @@ namespace FoundationaLLM.Core.Examples.Setup
 					{
 						throw new InvalidOperationException("Azure App Configuration connection string is not set.");
 					}
-					options.Connect(connectionString)
-						.ConfigureKeyVault(kv =>
+                    options.Connect(connectionString)
+                        .ConfigureKeyVault(kv =>
                         {
                             kv.SetCredential(DefaultAuthentication.AzureCredential);
                         })
                         // Select the configuration sections to load:
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
+                        .Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources);
+                        // .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
 				})
 				.Build();
 
