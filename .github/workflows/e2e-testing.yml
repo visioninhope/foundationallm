@@ -590,18 +590,6 @@ jobs:
           FLLM_SBX_AZURE_CREDENTIALS: |
             ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
 
-      - name: Sets Credentials for Target (E2E)
-        run: |
-          {
-            echo 'AZURE_CREDENTIALS<<EOF'
-            echo "$FLLM_E2E_AZURE_CREDENTIALS"
-            echo EOF
-          } >> "$GITHUB_ENV"
-        if: inputs.target == 'e2e'
-        env:
-          FLLM_E2E_AZURE_CREDENTIALS: |
-            ${{ secrets.FLLM_E2E_AZURE_CREDENTIALS }}
-
       - name: Pull Build Artifacts
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
