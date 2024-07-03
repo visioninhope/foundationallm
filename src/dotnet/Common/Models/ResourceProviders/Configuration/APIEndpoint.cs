@@ -19,7 +19,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The api endpoint category.
         /// </summary>
         [JsonPropertyName("category")]
-        public APIEndpointCategory Category { get; set; }
+        public required APIEndpointCategory Category { get; set; }
 
         /// <summary>
         /// The type of authentication required for accessing the API.
@@ -43,25 +43,25 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The API key used for authentication.
         /// </summary>
         [JsonPropertyName("api_key")]
-        public string APIKey { get; set; }
+        public string? APIKey { get; set; }
 
         /// <summary>
         /// The scope of the client.
         /// </summary>
         [JsonPropertyName("scope")]
-        public string Scope { get; set; }
+        public string? Scope { get; set; }
 
         /// <summary>
         /// The api key configuration name.
         /// </summary>
         [JsonPropertyName("api_key_configuration_name")]
-        public string APIKeyConfigurationName { get; set; }
+        public string? APIKeyConfigurationName { get; set; }
 
         /// <summary>
         /// The timeout duration in seconds for API calls.
         /// </summary>
         [JsonPropertyName("timeout_seconds")]
-        public int TimeoutSeconds { get; set; }
+        public required int TimeoutSeconds { get; set; }
 
         /// <summary>
         /// The name of the retry strategy.
