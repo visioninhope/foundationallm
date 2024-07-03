@@ -73,25 +73,13 @@ task Main -depends Configuration {
             type  = "bool"
             value = $script:createVpnGateway
         }
-        environmentName             = @{
-            type  = "string"
-            value = $script:environment
-        }
-        deployOpenAi                = @{
+        deployOpenAi                =@{
             type  = "bool"
             value = $script:deployOpenAi
         }
-        existingOpenAiInstanceName  = @{
+        environmentName             = @{
             type  = "string"
-            value = $script:existingOpenAiInstance.name
-        }
-        existingOpenAiInstanceRg    = @{
-            type  = "string"
-            value = $script:existingOpenAiInstance.resourceGroup
-        }
-        existingOpenAiInstanceSub   = @{
-            type  = "string"
-            value = $script:existingOpenAiInstance.subscriptionId
+            value = $script:environment
         }
         instanceId                  = @{
             type  = "string"
@@ -109,6 +97,23 @@ task Main -depends Configuration {
             type  = "string"
             value = $script:project
         }
+    }
+
+    if (-not $script:deployOpenAi) {
+        $parameters.Add("existingOpenAiInstanceName", @{
+            type = "string"
+            value = $script:existingOpenAiInstance.name
+        })
+
+        $parameters.Add("existingOpenAiInstanceRg", @{
+            type = "string"
+            value = $script:existingOpenAiInstance.resourceGroup
+        })
+
+        $parameters.Add("existingOpenAiInstanceSub", @{
+            type = "string"
+            value = $script:existingOpenAiInstance.subscriptionId
+        })
     }
 
     if ($script:useExternalDns) {
@@ -227,14 +232,11 @@ task Configuration {
     Write-Host -ForegroundColor Blue "Loading Deployment Manifest ../$($manifestName)"
     $manifest = $(Get-Content -Raw -Path ../$($manifestName) | ConvertFrom-Json)
 
-
     $script:administratorObjectId = $manifest.adminObjectId
     $script:chatUiClientSecret = "CHAT-CLIENT-SECRET"
     $script:coreApiClientSecret = "CORE-API-CLIENT-SECRET"
     $script:createVpnGateway = $manifest.createVpnGateway
     $script:environment = $manifest.environment
-    $script:deployOpenAi = $manifest.deployOpenAi
-    $script:existingOpenAiInstance = $manifest.existingOpenAiInstance
     $script:k8sNamespace = $manifest.k8sNamespace
     $script:location = $manifest.location
     $script:managementApiClientSecret = "MGMT-API-CLIENT-SECRET"
@@ -261,6 +263,15 @@ task Configuration {
     foreach ($property in $resourceGroups.PSObject.Properties) {
         $script:deployments.Add($property.Name, "$($property.Value)-${timestamp}")
         $script:resourceGroups.Add($property.Name, $property.Value)
+    }
+
+    $script:existingOpenAiInstance = $null
+    if ($manifest.PSobject.Properties.Name -contains "existingOpenAiInstance") {
+        $existingOpenAiInstance = $manifest.existingOpenAiInstance
+        $script:existingOpenAiInstance = @{}
+        foreach ($property in $existingOpenAiInstance.PSObject.Properties) {
+            $script:existingOpenAiInstance.Add($property.Name, $property.Value)
+        }
     }
 
     $script:externalResourceGroups = $null
@@ -302,6 +313,11 @@ task Configuration {
     $script:useExternalNetworking = $false
     if ($script:externalResourceGroups -ne $null -and $script:externalResourceGroups.ContainsKey("net")) {
         $script:useExternalNetworking = $true
+    }
+
+    $script:deployOpenAi = $true
+    if ($script:existingOpenAiInstance -ne $null -and $script:existingOpenAiInstance.ContainsKey("name")) {
+        $script:deployOpenAi = $false
     }
 
     Write-Host -ForegroundColor Blue "Configuration complete."

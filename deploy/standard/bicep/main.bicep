@@ -11,9 +11,9 @@ param environmentName string
 param externalDnsResourceGroupName string = ''
 param externalNetworkingResourceGroupName string = ''
 param deployOpenAi bool = true
-param existingOpenAiInstanceName string
-param existingOpenAiInstanceRg string
-param existingOpenAiInstanceSub string
+param existingOpenAiInstanceName string = ''
+param existingOpenAiInstanceRg string = ''
+param existingOpenAiInstanceSub string = ''
 param instanceId string
 param k8sNamespace string
 param location string
