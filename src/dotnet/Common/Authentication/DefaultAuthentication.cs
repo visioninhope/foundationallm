@@ -25,7 +25,7 @@ namespace FoundationaLLM.Common.Authentication
                 : new AzureCliCredential();
 
             var tokenResult = AzureCredential.GetToken(
-                new(["api://FoundationaLLM-Authorization-Auth/.default"]),
+                new(["api://FoundationaLLM-Authorization/.default"]),
                 default);
 
             var handler = new JwtSecurityTokenHandler();
