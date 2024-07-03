@@ -46,6 +46,12 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public string APIKey { get; set; }
 
         /// <summary>
+        /// The scope of the client.
+        /// </summary>
+        [JsonPropertyName("scope")]
+        public string Scope { get; set; }
+
+        /// <summary>
         /// The api key configuration name.
         /// </summary>
         [JsonPropertyName("api_key_configuration_name")]
