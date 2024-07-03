@@ -2937,6 +2937,76 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Authentication.DefaultAuthentication.ServiceIdentity
   nameWithType: DefaultAuthentication.ServiceIdentity
+- uid: FoundationaLLM.Common.Clients
+  name: FoundationaLLM.Common.Clients
+  href: api/dotnet/FoundationaLLM.Common.Clients.html
+  commentId: N:FoundationaLLM.Common.Clients
+  fullName: FoundationaLLM.Common.Clients
+  nameWithType: FoundationaLLM.Common.Clients
+- uid: FoundationaLLM.Common.Clients.PollingHttpClient`2
+  name: PollingHttpClient<TRequest, TResponse>
+  href: api/dotnet/FoundationaLLM.Common.Clients.PollingHttpClient-2.html
+  commentId: T:FoundationaLLM.Common.Clients.PollingHttpClient`2
+  name.vb: PollingHttpClient(Of TRequest, TResponse)
+  fullName: FoundationaLLM.Common.Clients.PollingHttpClient<TRequest, TResponse>
+  fullName.vb: FoundationaLLM.Common.Clients.PollingHttpClient(Of TRequest, TResponse)
+  nameWithType: PollingHttpClient<TRequest, TResponse>
+  nameWithType.vb: PollingHttpClient(Of TRequest, TResponse)
+- uid: FoundationaLLM.Common.Clients.PollingHttpClient`2.#ctor(System.Net.Http.HttpClient,`0,System.String,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger)
+  name: PollingHttpClient(HttpClient, TRequest, string, TimeSpan, TimeSpan, ILogger)
+  href: api/dotnet/FoundationaLLM.Common.Clients.PollingHttpClient-2.html#FoundationaLLM_Common_Clients_PollingHttpClient_2__ctor_System_Net_Http_HttpClient__0_System_String_System_TimeSpan_System_TimeSpan_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:FoundationaLLM.Common.Clients.PollingHttpClient`2.#ctor(System.Net.Http.HttpClient,`0,System.String,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger)
+  name.vb: New(HttpClient, TRequest, String, TimeSpan, TimeSpan, ILogger)
+  fullName: FoundationaLLM.Common.Clients.PollingHttpClient<TRequest, TResponse>.PollingHttpClient(System.Net.Http.HttpClient, TRequest, string, System.TimeSpan, System.TimeSpan, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: FoundationaLLM.Common.Clients.PollingHttpClient(Of TRequest, TResponse).New(System.Net.Http.HttpClient, TRequest, String, System.TimeSpan, System.TimeSpan, Microsoft.Extensions.Logging.ILogger)
+  nameWithType: PollingHttpClient<TRequest, TResponse>.PollingHttpClient(HttpClient, TRequest, string, TimeSpan, TimeSpan, ILogger)
+  nameWithType.vb: PollingHttpClient(Of TRequest, TResponse).New(HttpClient, TRequest, String, TimeSpan, TimeSpan, ILogger)
+- uid: FoundationaLLM.Common.Clients.PollingHttpClient`2.#ctor*
+  name: PollingHttpClient
+  href: api/dotnet/FoundationaLLM.Common.Clients.PollingHttpClient-2.html#FoundationaLLM_Common_Clients_PollingHttpClient_2__ctor_
+  commentId: Overload:FoundationaLLM.Common.Clients.PollingHttpClient`2.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Clients.PollingHttpClient<TRequest, TResponse>.PollingHttpClient
+  fullName.vb: FoundationaLLM.Common.Clients.PollingHttpClient(Of TRequest, TResponse).New
+  nameWithType: PollingHttpClient<TRequest, TResponse>.PollingHttpClient
+  nameWithType.vb: PollingHttpClient(Of TRequest, TResponse).New
+- uid: FoundationaLLM.Common.Clients.PollingHttpClient`2.GetResponseAsync(System.Threading.CancellationToken)
+  name: GetResponseAsync(CancellationToken)
+  href: api/dotnet/FoundationaLLM.Common.Clients.PollingHttpClient-2.html#FoundationaLLM_Common_Clients_PollingHttpClient_2_GetResponseAsync_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.Common.Clients.PollingHttpClient`2.GetResponseAsync(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.Common.Clients.PollingHttpClient<TRequest, TResponse>.GetResponseAsync(System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.Common.Clients.PollingHttpClient(Of TRequest, TResponse).GetResponseAsync(System.Threading.CancellationToken)
+  nameWithType: PollingHttpClient<TRequest, TResponse>.GetResponseAsync(CancellationToken)
+  nameWithType.vb: PollingHttpClient(Of TRequest, TResponse).GetResponseAsync(CancellationToken)
+- uid: FoundationaLLM.Common.Clients.PollingHttpClient`2.GetResponseAsync*
+  name: GetResponseAsync
+  href: api/dotnet/FoundationaLLM.Common.Clients.PollingHttpClient-2.html#FoundationaLLM_Common_Clients_PollingHttpClient_2_GetResponseAsync_
+  commentId: Overload:FoundationaLLM.Common.Clients.PollingHttpClient`2.GetResponseAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Clients.PollingHttpClient<TRequest, TResponse>.GetResponseAsync
+  fullName.vb: FoundationaLLM.Common.Clients.PollingHttpClient(Of TRequest, TResponse).GetResponseAsync
+  nameWithType: PollingHttpClient<TRequest, TResponse>.GetResponseAsync
+  nameWithType.vb: PollingHttpClient(Of TRequest, TResponse).GetResponseAsync
+- uid: FoundationaLLM.Common.Clients.RunningOperation
+  name: RunningOperation
+  href: api/dotnet/FoundationaLLM.Common.Clients.RunningOperation.html
+  commentId: T:FoundationaLLM.Common.Clients.RunningOperation
+  fullName: FoundationaLLM.Common.Clients.RunningOperation
+  nameWithType: RunningOperation
+- uid: FoundationaLLM.Common.Clients.RunningOperation.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Clients.RunningOperation.html#FoundationaLLM_Common_Clients_RunningOperation_OperationId
+  commentId: P:FoundationaLLM.Common.Clients.RunningOperation.OperationId
+  fullName: FoundationaLLM.Common.Clients.RunningOperation.OperationId
+  nameWithType: RunningOperation.OperationId
+- uid: FoundationaLLM.Common.Clients.RunningOperation.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Clients.RunningOperation.html#FoundationaLLM_Common_Clients_RunningOperation_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Clients.RunningOperation.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Clients.RunningOperation.OperationId
+  nameWithType: RunningOperation.OperationId
 - uid: FoundationaLLM.Common.Constants
   name: FoundationaLLM.Common.Constants
   href: api/dotnet/FoundationaLLM.Common.Constants.html
@@ -21086,6 +21156,15 @@ references:
   commentId: M:FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions
   fullName: FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions()
   nameWithType: CommonJsonSerializerOptions.GetJsonSerializerOptions()
+- uid: FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions(System.Func{System.Text.Json.JsonSerializerOptions,System.Text.Json.JsonSerializerOptions})
+  name: GetJsonSerializerOptions(Func<JsonSerializerOptions, JsonSerializerOptions>)
+  href: api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.html#FoundationaLLM_Common_Settings_CommonJsonSerializerOptions_GetJsonSerializerOptions_System_Func_System_Text_Json_JsonSerializerOptions_System_Text_Json_JsonSerializerOptions__
+  commentId: M:FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions(System.Func{System.Text.Json.JsonSerializerOptions,System.Text.Json.JsonSerializerOptions})
+  name.vb: GetJsonSerializerOptions(Func(Of JsonSerializerOptions, JsonSerializerOptions))
+  fullName: FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions(System.Func<System.Text.Json.JsonSerializerOptions, System.Text.Json.JsonSerializerOptions>)
+  fullName.vb: FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions(System.Func(Of System.Text.Json.JsonSerializerOptions, System.Text.Json.JsonSerializerOptions))
+  nameWithType: CommonJsonSerializerOptions.GetJsonSerializerOptions(Func<JsonSerializerOptions, JsonSerializerOptions>)
+  nameWithType.vb: CommonJsonSerializerOptions.GetJsonSerializerOptions(Func(Of JsonSerializerOptions, JsonSerializerOptions))
 - uid: FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.GetJsonSerializerOptions*
   name: GetJsonSerializerOptions
   href: api/dotnet/FoundationaLLM.Common.Settings.CommonJsonSerializerOptions.html#FoundationaLLM_Common_Settings_CommonJsonSerializerOptions_GetJsonSerializerOptions_
