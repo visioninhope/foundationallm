@@ -1,6 +1,8 @@
 param keyvaultName string
 param openAiInstance object
 param tags object = {}
+@description('Timestamp for nested deployments')
+param timestamp string = utcNow()
 
 var secretNames = [
   'openai-apikey'
@@ -26,6 +28,16 @@ resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
 resource openAi 'Microsoft.CognitiveServices/accounts@2023-05-01' existing = {
   name: openAiInstance.name
   scope: openAiResourceGroup
+}
+
+module roleAssignment 'utility/roleAssignments.bicep' = {
+  name: 'ra-${openAi.name}-${timestamp}'
+  params: {
+    principalId:  openAi.identity.principalId
+    roleDefinitionIds: {
+      'Key Vault Crypto User': '12338af0-0e69-4776-bea7-57ae8d297424'
+    }
+  }
 }
 
 output keySecretName string = apiKeySecret[0].name

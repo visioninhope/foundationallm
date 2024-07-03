@@ -226,13 +226,10 @@ module openai './modules/openai.bicep' = if (deployOpenAi) {
     deployments: deployments
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    opsKvResourceSuffix: kvResourceSuffix
-    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'openai')
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMOpenAI'
     tags: tags
-    keyVaultName: opsKeyVaultName
   }
 }
 
