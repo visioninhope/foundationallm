@@ -76,12 +76,19 @@ namespace FoundationaLLM.Common.Clients
                 var operationResultPath = $"{_operationStarterPath}/{runningOperation.OperationId}";
 
                 var pollingStartTime = DateTime.UtcNow;
+                var pollingCounter = 0;
 
                 while (true)
                 {
                     await Task.Delay(_pollingInterval, cancellationToken);
 
-                    _logger.LogInformation("Polling for the response on operation id {Operationid}...", runningOperation.OperationId);
+                    var totalPollingTime = DateTime.UtcNow - pollingStartTime;
+                    pollingCounter++;
+                    _logger.LogInformation(
+                        "Polling for operation id {Operationid} (counter: {PollingCounter}, time elapsed: {PollingSeconds} seconds)...",
+                        runningOperation.OperationId,
+                        pollingCounter,
+                        (int)totalPollingTime.TotalSeconds);
 
                     responseMessage = await _httpClient.GetAsync(
                         operationResultPath,
@@ -90,7 +97,6 @@ namespace FoundationaLLM.Common.Clients
                     switch (responseMessage.StatusCode)
                     {
                         case HttpStatusCode.NoContent:
-                            var totalPollingTime = DateTime.UtcNow - pollingStartTime;
                             if (totalPollingTime > _maxWaitTime)
                             {
                                 _logger.LogWarning("Total polling time ({TotalTime} seconds) exceeded to maximum allowed ({MaxTime} seconds).",
