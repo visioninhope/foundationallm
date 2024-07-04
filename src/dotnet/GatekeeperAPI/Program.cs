@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
@@ -210,7 +211,7 @@ namespace FoundationaLLM.Gatekeeper.API
             var gatekeeperIntegrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperIntegrationAPI_APIKey]!,
                 Timeout = TimeSpan.FromMinutes(30)
             };
 
