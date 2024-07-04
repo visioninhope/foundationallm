@@ -18,5 +18,12 @@
         /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
         /// <returns></returns>
         HttpClient CreateClient(string clientName);
+
+        /// <summary>
+        /// Creates an empty <see cref="HttpClient"/> instance with the default timeout.
+        /// </summary>
+        /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
+        /// <returns></returns>
+        HttpClient CreateEmptyClientWithDefaultTimeout(string clientName);
     }
 }

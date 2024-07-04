@@ -32,7 +32,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
     public class SemanticKernelKnowledgeManagementAgent(
         LLMCompletionRequest request,
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        ILoggerFactory loggerFactory) : SemanticKernelAgentBase(request, resourceProviderServices, loggerFactory.CreateLogger<SemanticKernelKnowledgeManagementAgent>())
+        ILoggerFactory loggerFactory,
+        IHttpClientFactoryService httpClientFactoryService) : SemanticKernelAgentBase(request, resourceProviderServices, loggerFactory.CreateLogger<SemanticKernelKnowledgeManagementAgent>())
     {
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
@@ -186,10 +187,18 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             var builder = Kernel.CreateBuilder();
             builder.Services.AddSingleton<ILoggerFactory>(_loggerFactory);
+
+            //create http client with the system default timeout to pass into AddAzureOpenAIChatCompletion           
+            var httpClient = httpClientFactoryService.CreateEmptyClientWithDefaultTimeout("AzureOpenAI");
+
             builder.AddAzureOpenAIChatCompletion(
                 _deploymentName,
                 _endpoint,
-                credential);
+                credential,
+                null,
+                null,
+                httpClient
+               );
             builder.Services.ConfigureHttpClientDefaults(c =>
             {
                 // Use a standard resiliency policy configured to retry on 429 (too many requests).

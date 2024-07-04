@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.Configuration.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace FoundationaLLM.Common.Tests.Authentication
         public void DownstreamAPIKeySettings_Properties_SetCorrectly()
         {
             // Arrange
-            var downstreamApiKeySettings = new DownstreamAPIKeySettings
+            var downstreamApiKeySettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = "URL_1",
                 APIKey = "API_KEY_SECRET"
@@ -28,9 +29,9 @@ namespace FoundationaLLM.Common.Tests.Authentication
         public void DownstreamAPISettings_DownstreamAPIs_SetCorrectly()
         {
             // Arrange
-            var downstreamAPIs = new Dictionary<string, DownstreamAPIKeySettings>
+            var downstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>
             {
-                { "API_1", new DownstreamAPIKeySettings { APIUrl = "URL_1", APIKey = "API_KEY_SECRET" } }
+                { "API_1", new DownstreamAPIClientConfiguration { APIUrl = "URL_1", APIKey = "API_KEY_SECRET" } }
             };
 
             var downstreamAPISettings = new DownstreamAPISettings
