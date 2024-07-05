@@ -18728,15 +18728,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.API.DownstreamAPIService
   fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService
   nameWithType: DownstreamAPIService
-- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: DownstreamAPIService(string, IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_System_String_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(String, IHttpClientFactoryService)
-  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.DownstreamAPIService(string, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.New(String, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: DownstreamAPIService.DownstreamAPIService(string, IHttpClientFactoryService)
-  nameWithType.vb: DownstreamAPIService.New(String, IHttpClientFactoryService)
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
+  name: DownstreamAPIService(string, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_System_String_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_DownstreamAPIService__
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
+  name.vb: New(String, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.DownstreamAPIService(string, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.API.DownstreamAPIService>)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.New(String, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.API.DownstreamAPIService))
+  nameWithType: DownstreamAPIService.DownstreamAPIService(string, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
+  nameWithType.vb: DownstreamAPIService.New(String, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
 - uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor*
   name: DownstreamAPIService
   href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_
