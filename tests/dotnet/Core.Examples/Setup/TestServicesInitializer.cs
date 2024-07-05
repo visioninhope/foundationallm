@@ -151,7 +151,10 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
 
             services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(
+                    HttpClients.VectorizationAPI,
+                    serviceProvider.GetService<IHttpClientFactoryService>()!,
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
 
             services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
