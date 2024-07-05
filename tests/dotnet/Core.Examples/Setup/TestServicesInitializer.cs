@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -91,7 +92,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 options.Timeout = TimeSpan.FromSeconds(120);
             });
 
-            var vectorizationAPISettings = new DownstreamAPIKeySettings
+            var vectorizationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
                 APIKey = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!
@@ -143,7 +144,10 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
 
             services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(
+                    HttpClients.VectorizationAPI,
+                    serviceProvider.GetService<IHttpClientFactoryService>()!,
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
 
             services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
