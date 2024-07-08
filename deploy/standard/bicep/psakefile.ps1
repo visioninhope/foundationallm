@@ -73,10 +73,6 @@ task Main -depends Configuration {
             type  = "bool"
             value = $script:createVpnGateway
         }
-        deployOpenAi                =@{
-            type  = "bool"
-            value = $script:deployOpenAi
-        }
         environmentName             = @{
             type  = "string"
             value = $script:environment

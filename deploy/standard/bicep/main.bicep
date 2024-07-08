@@ -10,7 +10,6 @@ param createVpnGateway bool = false
 param environmentName string
 param externalDnsResourceGroupName string = ''
 param externalNetworkingResourceGroupName string = ''
-param deployOpenAi bool = true
 param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
 param existingOpenAiInstanceSub string = ''
@@ -172,7 +171,6 @@ module openai 'openai-rg.bicep' = {
     actionGroupId: ops.outputs.actionGroupId
     dnsResourceGroupName: resourceGroups.dns
     environmentName: environmentName
-    deployOpenAi: deployOpenAi
     existingOpenAiInstance: existingOpenAiInstance
     location: location
     logAnalyticsWorkspaceId: ops.outputs.logAnalyticsWorkspaceId

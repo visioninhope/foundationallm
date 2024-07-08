@@ -10,7 +10,6 @@ param project string
 param timestamp string = utcNow()
 param vnetId string
 
-param deployOpenAi bool
 param existingOpenAiInstance object
 
 /** Locals **/
@@ -18,6 +17,7 @@ var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, 
 var kvResourceSuffix = '${project}-${environmentName}-${location}-ops'
 var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
 var workload = 'oai'
+var deployOpenAi = empty(existingOpenAiInstance.name)
 var azureOpenAiEndpoint = deployOpenAi ? openai.outputs.endpoint : customerOpenAi.properties.endpoint
 var azureOpenAiId = deployOpenAi ? openai.outputs.id : customerOpenAi.id
 var azureOpenAi = deployOpenAi ? openAiInstance : existingOpenAiInstance
