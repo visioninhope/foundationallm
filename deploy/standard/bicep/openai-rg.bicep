@@ -23,7 +23,7 @@ var azureOpenAiId = deployOpenAi ? openai.outputs.id : customerOpenAi.id
 var azureOpenAi = deployOpenAi ? openAiInstance : existingOpenAiInstance
 var azureOpenAiName = deployOpenAi ? openai.outputs.name : existingOpenAiInstance.name
 var azureOpenAiRg = deployOpenAi ? resourceGroup().name : existingOpenAiInstance.resourceGroup
-var azureOpenAiSub = deployOpenAi ? subscription().id : existingOpenAiInstance.subscriptionId
+var azureOpenAiSub = deployOpenAi ? subscription().subscriptionId : existingOpenAiInstance.subscriptionId
 var openAiInstance = {
   name: azureOpenAiName
   resourceGroup: azureOpenAiRg
@@ -243,6 +243,7 @@ module openAiSecrets './modules/openai-secrets.bicep' = {
   }
 
   scope: resourceGroup(opsResourceGroupName)
+  dependsOn: deployOpenAi ? [ openai ] : []
 }
 
 resource customerOpenAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing =
