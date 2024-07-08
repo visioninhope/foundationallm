@@ -30,15 +30,5 @@ resource openAi 'Microsoft.CognitiveServices/accounts@2023-05-01' existing = {
   scope: openAiResourceGroup
 }
 
-module roleAssignment 'utility/roleAssignments.bicep' = {
-  name: 'ra-${openAi.name}-${timestamp}'
-  params: {
-    principalId:  openAi.identity.principalId
-    roleDefinitionIds: {
-      'Key Vault Crypto User': '12338af0-0e69-4776-bea7-57ae8d297424'
-    }
-  }
-}
-
 output keySecretName string = apiKeySecret[0].name
 output keySecretRef string = apiKeySecret[0].properties.secretUri
