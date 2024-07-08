@@ -58,6 +58,12 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public string? APIKeyConfigurationName { get; set; }
 
         /// <summary>
+        /// The api key header name.
+        /// </summary>
+        [JsonPropertyName("api_key_header_name")]
+        public string? APIKeyHeaderName { get; set; }
+
+        /// <summary>
         /// The timeout duration in seconds for API calls.
         /// </summary>
         [JsonPropertyName("timeout_seconds")]
