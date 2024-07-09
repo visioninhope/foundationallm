@@ -669,19 +669,11 @@ Property definitions:
 
 #### Authentication
 
-Prior to running the test, open a command prompt and run the following commands to authenticate with the Azure AI Studio deployment:
+Prior to running the test, open a command prompt and run the following command to authenticate with the Azure AI Studio deployment:
 
-1. First, run:
-
-    ```bash
-    az login
-    ```
-
-2. Next, run:
-
-	```bash
-    azd auth login
-    ```
+```bash
+azd auth login
+```
 
 #### Running the example
 
