@@ -132,7 +132,7 @@ Interface ICompletionRESTClient  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetAgentsAsync" data-uid="FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetAgentsAsync">
   GetAgentsAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICompletionRESTClient.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICompletionRESTClient.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves agents available to the user for orchestration and session-based requests.</p>
@@ -164,10 +164,13 @@ Interface ICompletionRESTClient  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICompletionRESTClient_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Client.Core.Interfaces.ICompletionRESTClient.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetChatCompletionAsync(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICompletionRESTClient.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICompletionRESTClient.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Performs a completion request to the Core API.</p>
+  <div class="markdown level1 summary"><p>Performs a completion request to the Core API. For session-based requests, set the
+<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequest_SessionId">SessionId</a> property to the unique identifier for the session.
+Set the property to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> or empty for non-session-based requests.
+Session-less completion requests do not maintain message history or data retention in Cosmos DB.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
