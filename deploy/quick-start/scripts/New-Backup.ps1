@@ -52,14 +52,20 @@ try {
         New-Item -ItemType Directory -Path $testDataPath
     }
 
-    # Invoke-CLICommand "Copy vectorization-input data from the storage account: ${storageAccountName}" {
-    #     azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/vectorization-input" $testDataPath --recursive
-    # }
+    # Check if container exists in the storage account
+    az storage container create -n backups --account-name foundationallmdata
 
-    # Write-Host "Writing index-backup data to: $testDataPath" -ForegroundColor Yellow
-    # Invoke-CLICommand "Copy index-backup data from the storage account: ${storageAccountName}" {
-    #     azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/index-backup" $testDataPath --recursive
-    # }
+    # Get main storage account
+    $numStorageAccounts = az storage account list -g $resourceGroup --query "length(@ )"
+    if ($numStorageAccounts -eq 0) {
+        throw "There are $numStorageAccounts storage accounts in $resourceGroup. Target a resource group with one storage account."
+    }
+    $sourceStorageAccountName = (az storage account list -g $resourceGroup --query "@[0].name").Trim('"')
+
+    $env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
+    foreach ($container in ((az storage container list --account-name $sourceStorageAccountName --query "@[].name" --auth-mode login) | ConvertFrom-Json)) {
+        azcopy copy "https://$($sourceStorageAccountName).blob.core.windows.net/$container/" "https://foundationallmdata.blob.core.windows.net/backups/$resourceGroup/" --recursive
+    }
 }
 catch {
     $logFile = Get-ChildItem -Path "$env:HOME/.azcopy" -Filter "*.log" | `
