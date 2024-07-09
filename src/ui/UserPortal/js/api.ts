@@ -73,6 +73,71 @@ export default {
 	},
 
 	/**
+	 * Starts a long-running process by making a POST request to the specified URL with the given request body.
+	 * @param url - The URL to send the POST request to.
+	 * @param requestBody - The request body to send with the POST request.
+	 * @returns A Promise that resolves to the operation ID if the process is successfully started.
+	 * @throws An error if the process fails to start.
+	 */
+	async startLongRunningProcess(url: string, requestBody: any) {
+		const options = {
+			method: 'POST',
+			body: JSON.stringify(requestBody),
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${await this.getBearerToken()}`
+			}
+		};
+
+		try {
+			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			if (response.status === 202) {
+				return response.operationId;
+			} else {
+				throw new Error('Failed to start process');
+			}
+		} catch (error) {
+			throw new Error(this.formatError(error));
+		}
+	},
+
+	/**
+	 * Checks the status of a process operation.
+	 * @param operationId - The ID of the operation to check.
+	 * @returns A Promise that resolves to the response from the server.
+	 * @throws If an error occurs during the API call.
+	 */
+	async checkProcessStatus(operationId: string) {
+		try {
+			const response = await $fetch(`${this.apiUrl}/completions/${operationId}`, {
+				method: 'GET',
+				headers: {
+					'Authorization': `Bearer ${await this.getBearerToken()}`
+				}
+			});
+
+			return response;
+		} catch (error) {
+			throw new Error(this.formatError(error));
+		}
+	},
+
+	/**
+	 * Polls for the completion of an operation.
+	 * @param operationId - The ID of the operation to poll for completion.
+	 * @returns A promise that resolves to the result of the operation when it is completed.
+	 */
+	async pollForCompletion(operationId: string) {
+		while (true) {
+			const status = await this.checkProcessStatus(operationId);
+			if (status.isCompleted) {
+				return status.result;
+			}
+			await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+		}
+	},
+
+	/**
 	 * Retrieves the chat sessions from the API.
 	 * @returns {Promise<Array<Session>>} A promise that resolves to an array of sessions.
 	 */
@@ -180,10 +245,17 @@ export default {
 			settings: null,
 			attachments: attachments
 		};
-		return (await this.fetch(`/completions`, {
-			method: 'POST',
-			body: orchestrationRequest,
-		})) as string;
+
+		if (agent.long_running) {
+			const operationId = await this.startLongRunningProcess('/completions/long-running',
+				orchestrationRequest);
+			return this.pollForCompletion(operationId);
+		} else {
+			return (await this.fetch(`/completions`, {
+				method: 'POST',
+				body: orchestrationRequest,
+			})) as string;
+		}
 	},
 
 	/**
