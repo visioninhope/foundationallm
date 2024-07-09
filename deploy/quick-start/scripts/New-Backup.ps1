@@ -1,84 +1,113 @@
 #!/usr/bin/env pwsh
 
 Param(
-    [Parameter(Mandatory = $true)][string]$resourceGroup
+    [Parameter(Mandatory = $true)][string]$resourceGroup,
+    [Parameter(Mandatory = $true)][string]$destinationStorageAccount
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-function Get-AbsolutePath {
-    <#
-    .SYNOPSIS
-    Get the absolute path of a file or directory. Relative path does not need to exist.
-    #>
-    param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
-        [string]$RelatviePath
+function Get-SearchServiceIndexes {
+    param(
+        [Parameter(Mandatory = $true)][string]$searchServiceName,
+        [Parameter(Mandatory = $true)][string]$pathPrefix
     )
 
-    return $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($RelatviePath)
-}
+    # Credit: https://daron.blog/2021/backup-and-restore-azure-cognitive-search-indexes-with-powershell/
+    # Updated script to use Entra tokens for authentication
 
-function Invoke-CLICommand {
-    <#
-    .SYNOPSIS
-    Invoke a CLI Command and allow all output to print to the terminal.  Does not check for return values or pass the output to the caller.
-    #>
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$Message,
+    $serviceUri = "https://$searchServiceName.search.windows.net"
+    $uri = $serviceUri + "/indexes?api-version=2020-06-30&`$select=name"
+    $token = $(az account get-access-token --query accessToken --output tsv --scope "https://search.azure.com/.default")
+    $headers = @{"Authorization" = "Bearer $token"; "Accept" = "application/json"; "ContentType" = "application/json; charset=utf-8"}
 
-        [Parameter(Mandatory = $true, Position = 1)]
-        [ScriptBlock]$ScriptBlock
-    )
+    $indexes = $(Invoke-RestMethod -Uri $uri -Method GET -Headers $headers).value.name
+    foreach ($index in $indexes) {
+        $uri = $serviceUri `
+            + "/indexes/$index/docs/`$count?api-version=2020-06-30"
+        $req = [System.Net.WebRequest]::Create($uri)
 
-    Write-Host "${message}..." -ForegroundColor Blue
-    & $ScriptBlock
+        $req.ContentType = "application/json; charset=utf-8"
+        $req.Accept = "application/json"
+        $req.Headers["Authorization"] = "Bearer $token"
 
-    if ($LASTEXITCODE -ne 0) {
-        throw "Failed ${message} (code: ${LASTEXITCODE})"
+        $resp = $req.GetResponse()
+        $reader = new-object System.IO.StreamReader($resp.GetResponseStream())
+        $result = $reader.ReadToEnd()
+        $documentCount = [int]$result
+
+        $pageCount = [math]::ceiling($documentCount / 500) 
+
+        $job = 1..$pageCount  | ForEach-Object -Parallel {
+            $skip = ($_ - 1) * 500
+            $uri = $using:serviceUri + "/indexes/$($using:index)/docs?api-version=2020-06-30&search=*&`$skip=$($skip)&`$top=500&searchMode=all"
+            $outputPath = "$($using:index)_$($_).json"
+            Invoke-RestMethod -Uri $uri -Method GET -Headers $using:headers -ContentType "application/json" |
+                ConvertTo-Json -Depth 9 |
+                Set-Content $outputPath
+            "Output: $uri"
+            azcopy copy $outputPath "$($using:pathPrefix)/$($using:index)/"
+        } -ThrottleLimit 5 -AsJob
+        $job | Receive-Job -Wait
     }
 }
 
 # Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
-    $testDataPath = "../data/backup/$resourceGroup" | Get-AbsolutePath
-    Write-Host "Writing environment files to: $testDataPath" -ForegroundColor Yellow
-    # Create test data path if it doesn't already exist
-    if (-not (Test-Path $testDataPath)) {
-        New-Item -ItemType Directory -Path $testDataPath
-    }
-
-    # Check if container exists in the storage account
-    az storage container create -n backups --account-name foundationallmdata
+    # Create backups container
+    az storage container create -n backups --account-name $destinationStorageAccount
 
     # Get main storage account
-    $numStorageAccounts = az storage account list -g $resourceGroup --query "length(@ )"
-    if ($numStorageAccounts -eq 0) {
-        throw "There are $numStorageAccounts storage accounts in $resourceGroup. Target a resource group with one storage account."
+    $sourceStorageAccountName = ""
+    foreach ($resourceId in (az storage account list -g $resourceGroup --query "@[].id" --output tsv)) {
+        if ((az tag list --resource-id $resourceId --query "contains(keys(@.properties.tags), 'azd-env-name')") -eq $true) {
+            $sourceStorageAccountName = $(az resource show --ids $resourceId --query "@.name" --output tsv)
+            Write-Host "Selecting $sourceStorageAccountName as the storage account"
+            break;
+        }
     }
-    $sourceStorageAccountName = (az storage account list -g $resourceGroup --query "@[0].name").Trim('"')
 
-    $env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
-    foreach ($container in ((az storage container list --account-name $sourceStorageAccountName --query "@[].name" --auth-mode login) | ConvertFrom-Json)) {
-        azcopy copy "https://$($sourceStorageAccountName).blob.core.windows.net/$container/" "https://foundationallmdata.blob.core.windows.net/backups/$resourceGroup/" --recursive
+    if ([string]::IsNullOrEmpty($sourceStorageAccountName)) {
+        throw "Could not find any storage accounts with the azd-env-name tag in $resourceGroup."
     }
+
+    # Recursively copy storage account contents
+    $env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
+    foreach ($container in (az storage container list --account-name $sourceStorageAccountName --query "@[].name" --auth-mode login -o tsv)) {
+        azcopy copy "https://$($sourceStorageAccountName).blob.core.windows.net/$container/" "https://$destinationStorageAccount.blob.core.windows.net/backups/$resourceGroup/" --recursive
+    }
+
+    $sourceSearchServiceName = ""
+    foreach ($resourceId in (az search service list -g $resourceGroup --query "@[].id" --output tsv)) {
+        if ((az tag list --resource-id $resourceId --query "contains(keys(@.properties.tags), 'azd-env-name')") -eq $true) {
+            $sourceSearchServiceName = $(az resource show --ids $resourceId --query "@.name" --output tsv)
+            Write-Host "Selecting $sourceSearchServiceName as the search service"
+            break;
+        }
+    }
+    
+    if ([string]::IsNullOrEmpty($sourceSearchServiceName)) {
+        throw "Could not find any search services with the azd-env-name tag in $resourceGroup."
+    }
+
+    # Save Search Indexes
+    Get-SearchServiceIndexes -searchServiceName $sourceSearchServiceName -pathPrefix "https://$destinationStorageAccount.blob.core.windows.net/backups/$resourceGroup/data-sources/indexes"
 }
 catch {
-    $logFile = Get-ChildItem -Path "$env:HOME/.azcopy" -Filter "*.log" | `
-        Where-Object { $_.Name -notlike "*-scanning*" } | `
-        Sort-Object LastWriteTime -Descending | `
-        Select-Object -First 1
-    $logFileContent = Get-Content -Raw -Path $logFile.FullName
-    Write-Host $logFileContent
+    if (Test-Path -Path "$env:HOME/.azcopy") {
+        $logFile = Get-ChildItem -Path "$env:HOME/.azcopy" -Filter "*.log" | `
+            Where-Object { $_.Name -notlike "*-scanning*" } | `
+            Sort-Object LastWriteTime -Descending | `
+            Select-Object -First 1
+        $logFileContent = Get-Content -Raw -Path $logFile.FullName
+        Write-Host $logFileContent
+    }
+    Write-Host $_.Exception.Message
 }
 finally {
     Pop-Location
     Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 }
-
-# Copy the storage account contents
-# Copy the indexes
