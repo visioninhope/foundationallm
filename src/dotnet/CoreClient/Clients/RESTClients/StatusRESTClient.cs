@@ -1,10 +1,10 @@
-﻿using Azure.Core;
+﻿using System.Text.Json;
+using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Settings;
-using System.Text.Json;
 
-namespace FoundationaLLM.Client.Core.Clients.Rest
+namespace FoundationaLLM.Client.Core.Clients.RESTClients
 {
     internal class StatusRESTClient(
         IHttpClientFactory httpClientFactory,

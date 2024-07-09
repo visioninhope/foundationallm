@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Core;
-using FoundationaLLM.Client.Management.Clients.Rest;
+using FoundationaLLM.Client.Management.Clients.RESTClients;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Configuration.API;

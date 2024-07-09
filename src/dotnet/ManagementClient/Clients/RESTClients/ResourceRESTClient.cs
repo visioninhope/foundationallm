@@ -1,11 +1,11 @@
-﻿using Azure.Core;
+﻿using System.Text;
+using System.Text.Json;
+using Azure.Core;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Settings;
-using System.Text;
-using System.Text.Json;
 
-namespace FoundationaLLM.Client.Management.Clients.Rest
+namespace FoundationaLLM.Client.Management.Clients.RESTClients
 {
     internal class ResourceRESTClient(
         IHttpClientFactory httpClientFactory,

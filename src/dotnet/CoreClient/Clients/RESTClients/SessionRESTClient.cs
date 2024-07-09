@@ -1,10 +1,10 @@
-﻿using Azure.Core;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 
-namespace FoundationaLLM.Client.Core.Clients.Rest
+namespace FoundationaLLM.Client.Core.Clients.RESTClients
 {
     /// <summary>
     /// Provides methods to manage calls to the Core API's session endpoints.
