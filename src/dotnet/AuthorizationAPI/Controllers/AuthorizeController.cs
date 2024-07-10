@@ -1,9 +1,8 @@
 ﻿using FoundationaLLM.Authorization.Interfaces;
-using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthorizationAPI.Controllers
+namespace FoundationaLLM.Authorization.API.Controllers
 {
     /// <summary>
     /// Provides methods for processing authorization requests.
