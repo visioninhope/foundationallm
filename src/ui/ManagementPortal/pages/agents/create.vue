@@ -127,13 +127,18 @@
 					</div>
 				</div>
 
-				<div v-if="dedicated_pipeline">
+				<template v-if="dedicated_pipeline">
 					<div class="step-header">Where is the data?</div>
-				</div>
-				<div class="step-header">Where should the data be indexed?</div>
-				<div v-if="!dedicated_pipeline">
+				</template>
+				<template v-if="dedicated_pipeline">
+					<div class="step-header">Where should the data be indexed?</div>
+				</template>
+				<template v-else>
+					<div class="step-header">Select your index</div>
+				</template>
+				<template v-if="!dedicated_pipeline">
 					<div class="step-header">How should the data be processed for indexing?</div>
-				</div>
+				</template>
 
 				<!-- Data source -->
 				<div v-if="dedicated_pipeline">
