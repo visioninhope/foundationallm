@@ -892,7 +892,7 @@ export default {
 			this.selectedIndexSource =
 				this.indexSources.find(
 					(indexSource) =>
-						indexSource.object_id === agent.vectorization?.indexing_profile_object_id,
+						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids.includes(indexSource.object_id),
 				) || null;
 
 			this.selectedDataSource =
@@ -1049,7 +1049,7 @@ export default {
 
 				let textPartitioningProfileObjectId = '';
 				let dataSourceObjectId = '';
-				let indexingProfileObjectId = '';
+				let indexingProfileObjectId = [''];
 
 				if (!this.inline_context) {
 					// Handle TextPartitioningProfile creation/update.
@@ -1069,11 +1069,11 @@ export default {
 					}
 
 					// Select the default indexing profile, if any.
-					indexingProfileObjectId = this.selectedIndexSource?.object_id ?? '';
-					if (indexingProfileObjectId === '') {
+					indexingProfileObjectId = [this.selectedIndexSource?.object_id ?? ''];
+					if (indexingProfileObjectId.length === 0) {
 						const defaultAgentIndex = await api.getDefaultAgentIndex();
 						if (defaultAgentIndex !== null) {
-							indexingProfileObjectId = defaultAgentIndex.object_id;
+							indexingProfileObjectId = [defaultAgentIndex.object_id];
 						}
 					}
 				}
@@ -1089,7 +1089,7 @@ export default {
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,
 						text_embedding_profile_object_id: this.text_embedding_profile_object_id,
-						indexing_profile_object_id: indexingProfileObjectId,
+						indexing_profile_object_ids: indexingProfileObjectId,
 						text_partitioning_profile_object_id: textPartitioningProfileObjectId,
 						data_source_object_id: dataSourceObjectId,
 						vectorization_data_pipeline_object_id: this.vectorization_data_pipeline_object_id,
