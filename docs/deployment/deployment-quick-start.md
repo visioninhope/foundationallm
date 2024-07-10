@@ -141,7 +141,7 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
 
 ### Running script to allow MS Graph access through Role Permissions
 
-After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
+After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](https://github.com/solliancenet/foundationallm/blob/main/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
 This script will need to be executed twice for the principal IDs of the following:
 - Core API Managed Identity
 - Management API Managed Identity
