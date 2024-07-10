@@ -3,6 +3,7 @@ import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
 import type { Session, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
 import api from '@/js/api';
+import eventBus from '@/js/eventBus';
 
 export const useAppStore = defineStore('app', {
 	state: () => ({
@@ -140,72 +141,72 @@ export const useAppStore = defineStore('app', {
 		 * @returns A Promise that resolves when the message is sent.
 		 */
 		async sendMessage(text: string) {
-            if (!text) return;
+			if (!text) return;
 
-            const authStore = useAuthStore();
-            const tempUserMessage: Message = {
-                completionPromptId: null,
-                id: '',
-                rating: null,
-                sender: 'User',
-                senderDisplayName: authStore.currentAccount?.name ?? 'You',
-                sessionId: this.currentSession!.id,
-                text,
-                timeStamp: new Date().toISOString(),
-                tokens: 0,
-                type: 'Message',
-                vector: [],
-            };
-            this.currentMessages.push(tempUserMessage);
+			const authStore = useAuthStore();
+			const tempUserMessage: Message = {
+				completionPromptId: null,
+				id: '',
+				rating: null,
+				sender: 'User',
+				senderDisplayName: authStore.currentAccount?.name ?? 'You',
+				sessionId: this.currentSession!.id,
+				text,
+				timeStamp: new Date().toISOString(),
+				tokens: 0,
+				type: 'Message',
+				vector: [],
+			};
+			this.currentMessages.push(tempUserMessage);
 
-            const tempAssistantMessage: Message = {
-                completionPromptId: null,
-                id: '',
-                rating: null,
-                sender: 'Assistant',
-                senderDisplayName: 'Assistant',
-                sessionId: this.currentSession!.id,
-                text: '',
-                timeStamp: new Date().toISOString(),
-                tokens: 0,
-                type: 'LoadingMessage',
-                vector: [],
-            };
-            this.currentMessages.push(tempAssistantMessage);
+			const tempAssistantMessage: Message = {
+				completionPromptId: null,
+				id: '',
+				rating: null,
+				sender: 'Assistant',
+				senderDisplayName: 'Assistant',
+				sessionId: this.currentSession!.id,
+				text: '',
+				timeStamp: new Date().toISOString(),
+				tokens: 0,
+				type: 'LoadingMessage',
+				vector: [],
+			};
+			this.currentMessages.push(tempAssistantMessage);
 
-            const agent = this.getSessionAgent(this.currentSession!).resource;
-            if (agent.long_running) {
-                // Handle long-running operations
-                const operationId = await api.startLongRunningProcess('/completions', {
-                    session_id: this.currentSession!.id,
-                    user_prompt: text,
-                    agent_name: agent.name,
-                    settings: null,
-                    attachments: this.attachments.map(attachment => String(attachment.id))
-                });
+			const agent = this.getSessionAgent(this.currentSession!).resource;
+			if (agent.long_running) {
+				// Handle long-running operations
+				const operationId = await api.startLongRunningProcess('/completions', {
+					session_id: this.currentSession!.id,
+					user_prompt: text,
+					agent_name: agent.name,
+					settings: null,
+					attachments: this.attachments.map(attachment => String(attachment.id))
+				});
 
-                this.longRunningOperations.set(this.currentSession!.id, operationId);
-                this.pollForCompletion(this.currentSession!.id, operationId);
-            } else {
-                await api.sendMessage(
-                    this.currentSession!.id,
-                    text,
-                    agent,
-                    this.attachments.map(attachment => String(attachment.id)),
-                );
-                await this.getMessages();
-            }
+				this.longRunningOperations.set(this.currentSession!.id, operationId);
+				this.pollForCompletion(this.currentSession!.id, operationId);
+			} else {
+				await api.sendMessage(
+					this.currentSession!.id,
+					text,
+					agent,
+					this.attachments.map(attachment => String(attachment.id)),
+				);
+				await this.getMessages();
+			}
 
-            // Update the session name based on the message sent.
-            if (this.currentMessages.length === 2) {
-                const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
-                const { text: newSessionName } = await api.summarizeSessionName(
-                    this.currentSession!.id,
-                    sessionFullText,
-                );
-                await api.renameSession(this.currentSession!.id, newSessionName);
-                this.currentSession!.name = newSessionName;
-            }
+			// Update the session name based on the message sent.
+			if (this.currentMessages.length === 2) {
+				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
+				const { text: newSessionName } = await api.summarizeSessionName(
+					this.currentSession!.id,
+					sessionFullText,
+				);
+				await api.renameSession(this.currentSession!.id, newSessionName);
+				this.currentSession!.name = newSessionName;
+			}
         },
 
 		/**
@@ -214,18 +215,18 @@ export const useAppStore = defineStore('app', {
 		 * @param sessionId - The session ID associated with the operation.
 		 * @param operationId - The ID of the operation to check for completion.
 		 */
-        async pollForCompletion(sessionId: string, operationId: string) {
-            while (true) {
-                const status = await api.checkProcessStatus(operationId);
-                if (status.isCompleted) {
-                    this.longRunningOperations.delete(sessionId);
-					this.$emit('operation-completed', { sessionId, operationId });
-                    await this.getMessages();
-                    break;
-                }
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
-            }
-        },
+		async pollForCompletion(sessionId: string, operationId: string) {
+			while (true) {
+				const status = await api.checkProcessStatus(operationId);
+				if (status.isCompleted) {
+					this.longRunningOperations.delete(sessionId);
+					eventBus.emit('operation-completed', { sessionId, operationId });
+					await this.getMessages();
+					break;
+				}
+				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+			}
+		},
 
 		async rateMessage(messageToRate: Message, isLiked: Message['rating']) {
 			const existingMessage = this.currentMessages.find(
