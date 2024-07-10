@@ -31,7 +31,7 @@ export type Agent = ResourceBase & {
 
 	vectorization: {
 		dedicated_pipeline: boolean;
-		indexing_profile_object_id: string;
+		indexing_profile_object_ids: string[];
 		text_embedding_profile_object_id: string;
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
@@ -291,7 +291,7 @@ export type CreateAgentRequest = ResourceBase & {
 
 	vectorization: {
 		dedicated_pipeline: boolean;
-		indexing_profile_object_id: string;
+		indexing_profile_object_ids: string[];
 		text_embedding_profile_object_id: string;
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
