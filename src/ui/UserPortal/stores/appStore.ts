@@ -42,7 +42,7 @@ export const useAppStore = defineStore('app', {
 			if (this.currentSession) {
 				await this.getMessages();
 				this.updateSessionAgentFromMessages(this.currentSession);
-			  }
+			}
 		},
 
 		async getSessions(session?: Session) {
