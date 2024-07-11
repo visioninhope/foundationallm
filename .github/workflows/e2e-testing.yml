@@ -391,6 +391,12 @@ jobs:
           Pop-Location
         shell: pwsh
 
+      - name: Publish AZD Environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: azd-env
+          path: ./deploy/quick-start/.azure
+
       - name: Update App Registration OAuth Callbacks
         id: update-app-reg-oauth
         run: |
