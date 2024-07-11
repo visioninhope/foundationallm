@@ -135,9 +135,7 @@
 				</template>
 				<template v-else>
 					<div class="step-header">Select your index</div>
-				</template>
-				<template v-if="!dedicated_pipeline">
-					<div class="step-header">How should the data be processed for indexing?</div>
+					<div class="step-header">Select the text embedding profile</div>
 				</template>
 
 				<!-- Data source -->
@@ -211,7 +209,7 @@
 							<div class="step-container__header">{{ selectedIndexSource.name }}</div>
 							<div>
 								<span class="step-option__header">URL:</span>
-								<span>{{ selectedIndexSource.configuration_references.Endpoint }}</span>
+								<span>{{ selectedIndexSource.resolved_configuration_references.Endpoint }}</span>
 							</div>
 							<div>
 								<span class="step-option__header">Index Name:</span>
@@ -239,9 +237,9 @@
 						>
 							<div v-if="indexSource.object_id !== ''">
 								<div class="step-container__header">{{ indexSource.name }}</div>
-								<div v-if="indexSource.configuration_references.Endpoint">
+								<div v-if="indexSource.resolved_configuration_references.Endpoint">
 									<span class="step-option__header">URL:</span>
-									<span>{{ indexSource.configuration_references.Endpoint }}</span>
+									<span>{{ indexSource.resolved_configuration_references.Endpoint }}</span>
 								</div>
 								<div v-if="indexSource.settings.IndexName">
 									<span class="step-option__header">Index Name:</span>
@@ -256,44 +254,103 @@
 					</template>
 				</CreateAgentStepItem>
 
-				<div v-if="dedicated_pipeline">
-					<div class="step-header">How should the data be processed for indexing?</div>
-				</div>
-				<div v-if="dedicated_pipeline">
-					<div class="step-header">When should the data be indexed?</div>
-				</div>
+				<template v-if="dedicated_pipeline">
+					<div class="step-header">Select the text embedding profile</div>
+					<div class="step-header"></div>
+				</template>
 
-				<!-- Process indexing -->
-				<CreateAgentStepItem>
-					<div class="step-container__header">Splitting & Chunking</div>
-
-					<div>
-						<span class="step-option__header">Chunk size:</span>
-						<span>{{ chunkSize }}</span>
-					</div>
-
-					<div>
-						<span class="step-option__header">Overlap size:</span>
-						<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
-					</div>
+				<!-- Text embedding profiles -->
+				<CreateAgentStepItem v-model="editTextEmbeddingProfile">
+					<template v-if="selectedTextEmbeddingProfile">
+						<div v-if="selectedTextEmbeddingProfile.object_id !== ''">
+							<div class="step-container__header">{{ selectedTextEmbeddingProfile.name }}</div>
+							<div v-if="selectedTextEmbeddingProfile.resolved_configuration_references?.Endpoint">
+								<span class="step-option__header">URL:</span>
+								<span>{{ selectedTextEmbeddingProfile.resolved_configuration_references.Endpoint }}</span><br />
+								<span class="step-option__header">Deployment:</span>
+								<span>{{ selectedTextEmbeddingProfile.resolved_configuration_references.DeploymentName }}</span>
+							</div>
+							<div v-if="selectedTextEmbeddingProfile.settings?.model_name">
+								<span class="step-option__header">Model Name:</span>
+								<span>{{ selectedTextEmbeddingProfile.settings.model_name }}</span>
+							</div>
+						</div>
+						<div v-else>
+							<div class="step-container__header">DEFAULT</div>
+							{{ selectedTextEmbeddingProfile.name }}
+						</div>
+					</template>
+					<template v-else>Please select text embedding profile.</template>
 
 					<template #edit>
+						<div class="step-container__edit__header">Please select text embedding profile.</div>
+						<div
+							v-for="textEmbeddingProfile in textEmbeddingProfileSources"
+							:key="textEmbeddingProfile.name"
+							class="step-container__edit__option"
+							:class="{
+								'step-container__edit__option--selected':
+									textEmbeddingProfile.name === selectedTextEmbeddingProfile?.name,
+							}"
+							@click.stop="handleTextEmbeddingProfileSelected(textEmbeddingProfile)"
+						>
+							<div v-if="textEmbeddingProfile.object_id !== ''">
+								<div class="step-container__header">{{ textEmbeddingProfile.name }}</div>
+								<div v-if="textEmbeddingProfile.resolved_configuration_references?.Endpoint">
+									<span class="step-option__header">URL:</span>
+									<span>{{ textEmbeddingProfile.resolved_configuration_references.Endpoint }}</span><br />
+									<span class="step-option__header">Deployment:</span>
+									<span>{{ textEmbeddingProfile.resolved_configuration_references.DeploymentName }}</span>
+								</div>
+								<div v-if="textEmbeddingProfile.settings?.model_name">
+									<span class="step-option__header">Model Name:</span>
+									<span>{{ textEmbeddingProfile.settings.model_name }}</span>
+								</div>
+							</div>
+							<div v-else>
+								<div class="step-container__header">DEFAULT</div>
+								{{ textEmbeddingProfile.name }}
+							</div>
+						</div>
+					</template>
+				</CreateAgentStepItem>
+				<div></div>
+
+				<template v-if="dedicated_pipeline">
+					<div class="step-header">How should the data be processed for indexing?</div>
+					<div class="step-header">When should the data be indexed?</div>
+
+					<!-- Process indexing -->
+				
+					<CreateAgentStepItem>
 						<div class="step-container__header">Splitting & Chunking</div>
 
 						<div>
 							<span class="step-option__header">Chunk size:</span>
-							<InputText v-model="chunkSize" type="number" class="mt-2" />
+							<span>{{ chunkSize }}</span>
 						</div>
 
 						<div>
 							<span class="step-option__header">Overlap size:</span>
-							<InputText v-model="overlapSize" type="number" class="mt-2" />
+							<span>{{ overlapSize == 0 ? 'No Overlap' : overlapSize }}</span>
 						</div>
-					</template>
-				</CreateAgentStepItem>
 
-				<!-- Trigger -->
-				<div v-if="dedicated_pipeline">
+						<template #edit>
+							<div class="step-container__header">Splitting & Chunking</div>
+
+							<div>
+								<span class="step-option__header">Chunk size:</span>
+								<InputText v-model="chunkSize" type="number" class="mt-2" />
+							</div>
+
+							<div>
+								<span class="step-option__header">Overlap size:</span>
+								<InputText v-model="overlapSize" type="number" class="mt-2" />
+							</div>
+						</template>
+					</CreateAgentStepItem>
+
+					<!-- Trigger -->
 					<CreateAgentStepItem>
 						<div class="step-container__header">Trigger</div>
 						<div>Runs every time a new item is added to the data source.</div>
@@ -340,7 +397,7 @@
 							</div>
 						</template>
 					</CreateAgentStepItem>
-				</div>
+				</template>
 			</template>
 			<!-- End of Knowledge Source -->
 
@@ -591,8 +648,10 @@ import type {
 	Agent,
 	AgentIndex,
 	AgentDataSource,
+	DataSource,
 	CreateAgentRequest,
 	ExternalOrchestrationService,
+TextEmbeddingProfile,
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
@@ -618,6 +677,9 @@ const getDefaultFormValues = () => {
 
 		editIndexSource: false as boolean,
 		selectedIndexSource: null as null | AgentIndex,
+
+		editTextEmbeddingProfile: false as boolean,
+		selectedTextEmbeddingProfile: null as null | TextEmbeddingProfile,
 
 		chunkSize: 500,
 		overlapSize: 50,
@@ -699,8 +761,9 @@ export default {
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
 			validationMessage: '' as string,
 
-			dataSources: [] as AgentDataSource[],
+			dataSources: [] as DataSource[],
 			indexSources: [] as AgentIndex[],
+			textEmbeddingProfileSources: [] as TextEmbeddingProfile[],
 			externalOrchestratorOptions: [] as ExternalOrchestrationService[],
 
 			orchestratorOptions: [
@@ -792,6 +855,10 @@ export default {
 			this.loadingStatusText = 'Retrieving indexes...';
 			const indexSourcesResult = await api.getAgentIndexes(true);
 			this.indexSources = indexSourcesResult.map(result => result.resource);
+
+			this.loadingStatusText = 'Retrieving text embedding profiles...';
+			const embeddingProfileSourcesResult = await api.getTextEmbeddingProfiles();
+			this.textEmbeddingProfileSources = embeddingProfileSourcesResult.map(result => result.resource);
 
 			this.loadingStatusText = 'Retrieving data sources...';
 			const agentDataSourcesResult = await api.getAgentDataSources(true);
@@ -899,6 +966,12 @@ export default {
 					(indexSource) =>
 						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids.includes(indexSource.object_id),
 				) || null;
+			
+			this.selectedTextEmbeddingProfile =
+				this.textEmbeddingProfileSources.find(
+					(textEmbeddingProfile) =>
+						textEmbeddingProfile.object_id === agent.vectorization?.text_embedding_profile_object_id,
+				) || null;
 
 			this.selectedDataSource =
 				this.dataSources.find(
@@ -984,6 +1057,11 @@ export default {
 			this.editIndexSource = false;
 		},
 
+		handleTextEmbeddingProfileSelected(textEmbeddingProfile: TextEmbeddingProfile) {
+			this.selectedTextEmbeddingProfile = textEmbeddingProfile;
+			this.editTextEmbeddingProfile = false;
+		},
+
 		async handleCreateAgent() {
 			const errors = [];
 			if (!this.agentName) {
@@ -993,13 +1071,15 @@ export default {
 				errors.push(this.validationMessage);
 			}
 
-			if (!this.inline_context && this.text_embedding_profile_object_id === '') {
-				const textEmbeddingProfiles = await api.getTextEmbeddingProfiles();
-				if (textEmbeddingProfiles.length === 0) {
-					errors.push('No vectorization text embedding profiles found.');
-				} else {
-					this.text_embedding_profile_object_id = textEmbeddingProfiles[0].resource.object_id;
-				}
+			if (!this.inline_context && !this.selectedTextEmbeddingProfile) {
+				errors.push('Please select a text embedding profile.');
+			}
+			else {
+				this.text_embedding_profile_object_id = this.selectedTextEmbeddingProfile?.object_id ?? '';
+			}
+
+			if (this.systemPrompt === '') {
+				errors.push('Please provide a system prompt.');
 			}
 
 			// if (!this.selectedDataSource) {
