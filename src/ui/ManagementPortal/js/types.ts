@@ -208,6 +208,11 @@ export type AgentIndex = ResourceBase & {
 		AuthenticationType: string;
 		Endpoint: string;
 	};
+	resolved_configuration_references: {
+		APIKey: string;
+		AuthenticationType: string;
+		Endpoint: string;
+	};
 };
 
 export type TextPartitioningProfile = ResourceBase & {
@@ -232,6 +237,20 @@ export type TextEmbeddingProfile = ResourceBase & {
 		DeploymentName: string;
 		Endpoint: string;
 	};
+	settings: {
+		model_name: string;
+	}
+	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
+	resolved_configuration_references: {
+		APIKey: string;
+		APIVersion: string;
+		AuthenticationType: string;
+		DeploymentName: string;
+		Endpoint: string;
+	 };
+	 resolved_settings: {
+		model_name: string;
+	}
 };
 
 export type CheckNameResponse = {
