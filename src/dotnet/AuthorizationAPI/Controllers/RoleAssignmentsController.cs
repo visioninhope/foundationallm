@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Authorization.Interfaces;
-using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
