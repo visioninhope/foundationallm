@@ -91,6 +91,6 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="prompt">The prompt to use to generate the name.</param>
         [HttpPost("{sessionId}/summarize-name", Name = "SummarizeChatSessionName")]
         public async Task<Completion> SummarizeChatSessionName(string sessionId, [FromBody] string prompt) =>
-            await _coreService.SummarizeChatSessionNameAsync(sessionId, prompt);
+            await _coreService.SetChatSessionNameAsync(sessionId, prompt);
     }
 }
