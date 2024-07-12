@@ -1,0 +1,80 @@
+{
+  "adminObjectId": "d3bd4e8e-d413-477d-a420-0792b0504adf",
+  "baseDomain": "internal.foundationallm.ai",
+  "createVpnGateway": true,
+  "entraClientIds": {
+    "authorization": "850dafdb-409d-4150-87c3-c7beca5fa729",
+    "chat": "7ad883f1-c2d9-490b-81a6-4170f36310d0", 
+    "core":"b7bfdfd8-fd88-4bec-a6db-7fd1ecac40db", 
+    "managementapi": "dc4b7d98-e404-4044-8040-4c7a5551e862",
+    "managementui": "55262414-4a31-4776-8453-0c948778ca58"
+  },
+  "entraClientSecrets": {
+    "authorization": ""
+  },
+  "entraInstances": {
+    "authorization": "https://login.microsoftonline.com/"
+  },
+  "entraScopes": {
+    "authorization": "api://FoundationaLLM-Authorization/.default",
+    "chat": "api://FoundationaLLM/Data.Read",
+    "core": "Data.Read",
+    "managementapi": "Data.Manage",
+    "managementui": "api://FoundationaLLM-Management/Data.Manage"
+  },
+  "environment": "lt2",
+  "instanceId": "01002133-e801-48b5-a2f1-dcc8268321fc",
+  "k8sNamespace": "fllm",
+  "location": "swedencentral",
+  "letsEncryptEmail": "dan@solliance.net",
+  "project": "17398-lt",
+  "registry": "ghcr.io/solliancenet/foundationallm",
+  "subscription": "0a03d4f9-c6e4-4ee1-87fb-e2005d2c213d",
+  "version": "0.7.1",
+  "ingress": {
+    "apiIngress": {
+      "coreapi": {
+        "host": "17398-lt-api.internal.foundationallm.ai",
+        "path": "/core/",
+        "pathType": "ImplementationSpecific",
+        "serviceName": "core-api",
+        "sslCert": "coreapi"
+      },
+      "managementapi": {
+        "host": "17398-lt-management-api.internal.foundationallm.ai",
+        "path": "/management/",
+        "pathType": "ImplementationSpecific",
+        "serviceName": "management-api",
+        "sslCert": "managementapi"
+      }
+    },
+    "frontendIngress": {
+      "chatui": {
+        "host": "17398-lt-www.internal.foundationallm.ai",
+        "path": "/",
+        "pathType": "ImplementationSpecific",
+        "serviceName": "chat-ui",
+        "sslCert": "chatui"
+      },
+      "managementui": {
+        "host": "17398-lt-management.internal.foundationallm.ai",
+        "path": "/",
+        "pathType": "ImplementationSpecific",
+        "serviceName": "management-ui",
+        "sslCert": "managementui"
+      }
+    }
+  },
+  "resourceGroups": {
+    "app": "rg-17398-sbx-swedencentral-app",
+    "auth": "rg-17398-sbx-swedencentral-auth",
+    "data": "rg-17398-sbx-swedencentral-data",
+    "dns": "rg-17398-sbx-swedencentral-dns",
+    "jbx": "rg-17398-sbx-swedencentral-jbx",
+    "net": "rg-17398-sbx-swedencentral-net",
+    "oai": "rg-17398-sbx-swedencentral-oai",
+    "ops": "rg-17398-sbx-swedencentral-ops",
+    "storage": "rg-17398-sbx-swedencentral-str",
+    "vec": "rg-17398-sbx-swedencentral-vec"
+  }
+}
