@@ -1,8 +1,8 @@
 from typing import Optional
-from pydantic import BaseModel
-from .completion_response import CompletionResponse
+from pydantic import BaseModel, Field
+from foundationallm.models.orchestration import CompletionResponse
 
 class BackgroundResponse(BaseModel):
-    operation_id: str
-    completed: bool
-    response: Optional[CompletionResponse] = None
+    operation_id: str = Field(description='The unique identifier for the operation.')
+    completed: bool = Field(description='Flag indicating whether the operation has completed.')
+    response: Optional[CompletionResponse] = Field(description='The completion response object for the operation.')
