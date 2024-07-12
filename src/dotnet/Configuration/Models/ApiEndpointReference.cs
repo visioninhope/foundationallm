@@ -9,7 +9,7 @@ namespace FoundationaLLM.Configuration.Models
     /// <summary>
     /// Holds a reference to an api endpoint reference.
     /// </summary>
-    public class ApiEndpointReference : ResourceReference
+    public class APIEndpointReference : ResourceReference
     {
         /// <summary>
         /// The object type of the agent.

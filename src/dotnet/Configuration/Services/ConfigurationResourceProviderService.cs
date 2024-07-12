@@ -64,7 +64,7 @@ namespace FoundationaLLM.Configuration.Services
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             ConfigurationResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, ApiEndpointReference> _apiEndpointReferences = [];
+        private ConcurrentDictionary<string, APIEndpointReference> _apiEndpointReferences = [];
 
         private const string KEY_VAULT_REFERENCE_CONTENT_TYPE = "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8";
 
@@ -92,10 +92,10 @@ namespace FoundationaLLM.Configuration.Services
                     default);
 
                 var resourceReferenceStore =
-                    JsonSerializer.Deserialize<ResourceReferenceStore<ApiEndpointReference>>(
+                    JsonSerializer.Deserialize<ResourceReferenceStore<APIEndpointReference>>(
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
-                _apiEndpointReferences = new ConcurrentDictionary<string, ApiEndpointReference>(
+                _apiEndpointReferences = new ConcurrentDictionary<string, APIEndpointReference>(
                         resourceReferenceStore!.ToDictionary());
             }
             else
@@ -103,7 +103,7 @@ namespace FoundationaLLM.Configuration.Services
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>
                     {
                         ResourceReferences = []
                     }),
@@ -174,7 +174,7 @@ namespace FoundationaLLM.Configuration.Services
                 var apiEndpoints = (await Task.WhenAll(
                         _apiEndpointReferences.Values
                             .Where(apie => !apie.Deleted)
-                            .Select(apie => LoadApiEndpoint(apie)))).ToList();
+                            .Select(apie => LoadAPIEndpoint(apie)))).ToList();
 
                 return apiEndpoints.Select(service => new ResourceProviderGetResult<APIEndpoint>() { Resource = service, Actions = [], Roles = [] }).ToList();
             }
@@ -185,14 +185,14 @@ namespace FoundationaLLM.Configuration.Services
                     throw new ResourceProviderException($"Could not locate the {instance.ResourceId} api endpoint resource.",
                         StatusCodes.Status404NotFound);
 
-                var apiEndpoint = await LoadApiEndpoint(resourceReference);
+                var apiEndpoint = await LoadAPIEndpoint(resourceReference);
 
                 return [new ResourceProviderGetResult<APIEndpoint>() { Resource = apiEndpoint, Actions = [], Roles = [] }];
             }
         }
 
-        private async Task<APIEndpoint> LoadApiEndpoint(
-            ApiEndpointReference apiEndpointReference)
+        private async Task<APIEndpoint> LoadAPIEndpoint(
+            APIEndpointReference apiEndpointReference)
         {
             if (await _storageService.FileExistsAsync(_storageContainerName, apiEndpointReference.Filename, default))
             {
@@ -281,9 +281,9 @@ namespace FoundationaLLM.Configuration.Services
             };
         }
 
-        private async Task<ResourceProviderUpsertResult> UpdateAPIEndpoints(ResourcePath resourcePath, string serializedApiEndpoint, UnifiedUserIdentity userIdentity)
+        private async Task<ResourceProviderUpsertResult> UpdateAPIEndpoints(ResourcePath resourcePath, string serializedAPIEndpoint, UnifiedUserIdentity userIdentity)
         {
-            var apiEndpoint = JsonSerializer.Deserialize<APIEndpoint>(serializedApiEndpoint)
+            var apiEndpoint = JsonSerializer.Deserialize<APIEndpoint>(serializedAPIEndpoint)
                ?? throw new ResourceProviderException("The object definition is invalid.");
 
             if (_apiEndpointReferences.TryGetValue(apiEndpoint.Name!, out var existingApiEndpointReference)
@@ -295,7 +295,7 @@ namespace FoundationaLLM.Configuration.Services
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
-            var apiEndpointReference = new ApiEndpointReference
+            var apiEndpointReference = new APIEndpointReference
             {
                 Name = apiEndpoint.Name!,
                 Type = apiEndpoint.Type!,
@@ -322,7 +322,7 @@ namespace FoundationaLLM.Configuration.Services
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
                     default,
                     default);
 
@@ -346,7 +346,7 @@ namespace FoundationaLLM.Configuration.Services
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<ApiEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
                     default,
                     default);
             }
