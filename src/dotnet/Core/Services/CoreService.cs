@@ -175,45 +175,24 @@ public partial class CoreService(
     }
 
     /// <summary>
-    /// Generate a name for a chat message, based on the passed in prompt.
+    /// Sets the name for a chat session programmatically.
     /// </summary>
-    public async Task<Completion> SummarizeChatSessionNameAsync(string? sessionId, string prompt)
+    public async Task<Completion> SetChatSessionNameAsync(string? sessionId, string prompt)
     {
         try
         {
             ArgumentNullException.ThrowIfNull(sessionId);
 
-            var sessionNameSummary = string.Empty;
+            var sessionName = string.Empty;            
+            sessionName = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
+            await RenameChatSessionAsync(sessionId, sessionName);
 
-            switch (_settings.SessionSummarization)
-            {
-                case ChatSessionNameSummarizationType.Timestamp:
-                    sessionNameSummary = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
-                    break;
-                case ChatSessionNameSummarizationType.LLM:
-                    var summaryRequest = new SummaryRequest()
-                    {
-                        SessionId = sessionId,
-                        UserPrompt = prompt
-                    };
-
-                    var summaryResponse = await GetDownstreamAPIService(AgentGatekeeperOverrideOption.UseSystemOption).GetSummary(summaryRequest);
-
-                    // Remove any punctuation from the summary.
-                    sessionNameSummary = ChatSessionNameReplacementRegex().Replace(summaryResponse.Summary!, string.Empty);
-                    break;
-                default:
-                    throw new Exception($"The chat session summarization type {_settings.SessionSummarization} is not supported.");
-            }
-
-            await RenameChatSessionAsync(sessionId, sessionNameSummary);
-
-            return new Completion { Text = sessionNameSummary };
+            return new Completion { Text = sessionName };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error getting a summary in session {sessionId} for user prompt [{prompt}].");
-            return new Completion { Text = "[No Summary]" };
+            _logger.LogError(ex, $"Error getting setting session name for session {sessionId} for user prompt [{prompt}].");
+            return new Completion { Text = "[No Name]" };
         }
     }
 
