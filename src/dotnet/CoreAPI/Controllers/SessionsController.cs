@@ -18,7 +18,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// <see cref="SessionsController"/> type name.</param>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class SessionsController(ICoreService coreService,
         ILogger<SessionsController> logger) : ControllerBase
     {

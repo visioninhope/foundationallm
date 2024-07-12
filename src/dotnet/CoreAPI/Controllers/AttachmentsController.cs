@@ -18,7 +18,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// </summary>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class AttachmentsController : ControllerBase
     {
         private readonly IResourceProviderService _attachmentResourceProvider;

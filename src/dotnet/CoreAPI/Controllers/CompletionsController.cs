@@ -20,7 +20,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// </remarks>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class CompletionsController : ControllerBase
     {
         private readonly ICoreService _coreService;
