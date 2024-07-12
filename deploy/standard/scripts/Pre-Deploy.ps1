@@ -34,7 +34,7 @@ try {
     Write-Host "Loading Deployment Manifest ../${manifestName}" -ForegroundColor Blue
     $manifest = $(Get-Content -Raw -Path ../${manifestName} | ConvertFrom-Json)
 
-    if (-not $skipCertificates) {
+    if (-not $skipCertificates) { 
         Invoke-AndRequireSuccess "Generate Certificates" {
             ./pre-provision/Get-LetsEncryptCertificates.ps1 `
                 -baseDomain $manifest.baseDomain `

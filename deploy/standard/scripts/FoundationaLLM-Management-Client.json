@@ -1,0 +1,54 @@
+{
+  "api": {
+    "requestedAccessTokenVersion": 2
+  },
+  "identifierUris": [
+    "api://FoundationaLLM-Management-Client"
+  ],
+  "publicClient": {
+    "redirectUris": [
+      "https://oauth.pstmn.io/v1/callback"
+    ]
+  },
+  "servicePrincipalLockConfiguration": {
+    "allProperties": true,
+    "credentialsWithUsageSign": true,
+    "credentialsWithUsageVerify": true,
+    "identifierUris": false,
+    "isEnabled": true,
+    "tokenEncryptionKeyId": true
+  },
+  "signInAudience": "AzureADMyOrg",
+  "spa": {
+    "redirectUris": []
+  },
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "cbf22c42-679f-4b65-a8b6-4b4332bc5faa",
+      "resourceAccess": [
+        {
+          "id": "c57f4633-0e58-455a-8ede-5de815fe6c9c",
+          "type": "Scope"
+        }
+      ]
+    },
+    {
+      "resourceAppId": "00000003-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "web": {
+    "implicitGrantSettings": {
+      "enableAccessTokenIssuance": true,
+      "enableIdTokenIssuance": true
+    },
+    "redirectUris": [
+      "http://localhost"
+    ]
+  }
+}

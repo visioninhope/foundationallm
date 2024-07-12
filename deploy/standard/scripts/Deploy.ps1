@@ -14,7 +14,7 @@ $env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
 
 # Check for AzCopy and login status
 # Setting configuration for AzCopy
-$AZCOPY_VERSION = "10.25.0"
+$AZCOPY_VERSION = "10.25.1"
 
 if ($IsWindows) {
     $url = "https://aka.ms/downloadazcopy-v10-windows"
