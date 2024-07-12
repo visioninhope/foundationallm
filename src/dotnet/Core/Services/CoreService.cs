@@ -120,15 +120,21 @@ public partial class CoreService(
 
             completionRequest.MessageHistory = messageHistoryList;
 
+            // Add the user's UPN to the messages.
+            var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
+            // Create prompt message, then persist in Cosmos as transaction with the Session details.
+            var promptMessage = new Message(completionRequest.SessionId, nameof(Participants.User), null, completionRequest.UserPrompt, null, null, upn, _callContext.CurrentUserIdentity?.Name);
+            await AddSessionMessageAsync(completionRequest.SessionId, promptMessage);
+
             var agentOption = await ProcessGatekeeperOptions(completionRequest);
 
             // Generate the completion to return to the user.
             var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
 
-            // Add to prompt and completion to cache, then persist in Cosmos as transaction.
+            // Update prompt tokens and add completion, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
-            var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
-            var promptMessage = new Message(completionRequest.SessionId, nameof(Participants.User), result.PromptTokens, completionRequest.UserPrompt, result.UserPromptEmbedding, null, upn, _callContext.CurrentUserIdentity?.Name);
+            promptMessage.Tokens = result.PromptTokens;
+            promptMessage.Vector = result.UserPromptEmbedding;
             var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
@@ -237,6 +243,24 @@ public partial class CoreService(
         }
 
         return AgentGatekeeperOverrideOption.UseSystemOption;
+    }
+
+    /// <summary>
+    /// Add session message
+    /// </summary>
+    private async Task AddSessionMessageAsync(string sessionId, Message message)
+    {
+        var session = await _cosmosDbService.GetSessionAsync(sessionId);
+
+        // Update session cache with tokens used.
+        session.TokensUsed += message.Tokens;
+       
+        // Add the user's UPN to the messages.
+        var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
+        message.UPN = upn;
+
+        // Adds the incoming message to the session and updates the session with token usage.
+        await _cosmosDbService.UpsertSessionBatchAsync(message, session);
     }
 
     /// <summary>
