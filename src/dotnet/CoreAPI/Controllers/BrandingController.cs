@@ -11,7 +11,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// </summary>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class BrandingController : ControllerBase
     {
         private readonly ClientBrandingConfiguration _settings;
