@@ -16597,6 +16597,81 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.UserPrompt
   nameWithType: LLMCompletionResponse.UserPrompt
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState
+  name: OperationState
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.OperationState
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState
+  nameWithType: OperationState
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.Message
+  name: Message
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_Message
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OperationState.Message
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.Message
+  nameWithType: OperationState.Message
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.Message*
+  name: Message
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_Message_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OperationState.Message
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.Message
+  nameWithType: OperationState.Message
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_OperationId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId
+  nameWithType: OperationState.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.OperationId
+  nameWithType: OperationState.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.Status
+  name: Status
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_Status
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OperationState.Status
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.Status
+  nameWithType: OperationState.Status
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationState.Status*
+  name: Status
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html#FoundationaLLM_Common_Models_Orchestration_OperationState_Status_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OperationState.Status
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationState.Status
+  nameWithType: OperationState.Status
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus
+  name: OperationStatus
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.OperationStatus
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationStatus
+  nameWithType: OperationStatus
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Completed
+  name: Completed
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html#FoundationaLLM_Common_Models_Orchestration_OperationStatus_Completed
+  commentId: F:FoundationaLLM.Common.Models.Orchestration.OperationStatus.Completed
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Completed
+  nameWithType: OperationStatus.Completed
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Failed
+  name: Failed
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html#FoundationaLLM_Common_Models_Orchestration_OperationStatus_Failed
+  commentId: F:FoundationaLLM.Common.Models.Orchestration.OperationStatus.Failed
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Failed
+  nameWithType: OperationStatus.Failed
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus.InProgress
+  name: InProgress
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html#FoundationaLLM_Common_Models_Orchestration_OperationStatus_InProgress
+  commentId: F:FoundationaLLM.Common.Models.Orchestration.OperationStatus.InProgress
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationStatus.InProgress
+  nameWithType: OperationStatus.InProgress
+- uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Pending
+  name: Pending
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html#FoundationaLLM_Common_Models_Orchestration_OperationStatus_Pending
+  commentId: F:FoundationaLLM.Common.Models.Orchestration.OperationStatus.Pending
+  fullName: FoundationaLLM.Common.Models.Orchestration.OperationStatus.Pending
+  nameWithType: OperationStatus.Pending
 - uid: FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings
   name: OrchestrationSettings
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.html
@@ -16737,6 +16812,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper
   nameWithType: AgentBase.Gatekeeper
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning
+  name: LongRunning
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_LongRunning
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning
+  nameWithType: AgentBase.LongRunning
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning*
+  name: LongRunning
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_LongRunning_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning
+  nameWithType: AgentBase.LongRunning
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings
   name: OrchestrationSettings
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_OrchestrationSettings
