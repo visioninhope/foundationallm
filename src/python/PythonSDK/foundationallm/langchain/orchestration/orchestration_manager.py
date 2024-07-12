@@ -42,7 +42,7 @@ class OrchestrationManager:
         )
         return agent_factory.get_agent()
 
-    def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
+    async def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Executes a completion request against the LanguageModel using 
         the LangChain agent assembled by the OrchestrationManager.
