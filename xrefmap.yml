@@ -1,53 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: AuthorizationAPI.Controllers
-  name: AuthorizationAPI.Controllers
-  href: api/dotnet/AuthorizationAPI.Controllers.html
-  commentId: N:AuthorizationAPI.Controllers
-  fullName: AuthorizationAPI.Controllers
-  nameWithType: AuthorizationAPI.Controllers
-- uid: AuthorizationAPI.Controllers.AuthorizeController
-  name: AuthorizeController
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html
-  commentId: T:AuthorizationAPI.Controllers.AuthorizeController
-  fullName: AuthorizationAPI.Controllers.AuthorizeController
-  nameWithType: AuthorizeController
-- uid: AuthorizationAPI.Controllers.AuthorizeController.#ctor(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
-  name: AuthorizeController(IAuthorizationCore)
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController__ctor_FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_
-  commentId: M:AuthorizationAPI.Controllers.AuthorizeController.#ctor(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
-  name.vb: New(IAuthorizationCore)
-  fullName: AuthorizationAPI.Controllers.AuthorizeController.AuthorizeController(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
-  fullName.vb: AuthorizationAPI.Controllers.AuthorizeController.New(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
-  nameWithType: AuthorizeController.AuthorizeController(IAuthorizationCore)
-  nameWithType.vb: AuthorizeController.New(IAuthorizationCore)
-- uid: AuthorizationAPI.Controllers.AuthorizeController.#ctor*
-  name: AuthorizeController
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController__ctor_
-  commentId: Overload:AuthorizationAPI.Controllers.AuthorizeController.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: AuthorizationAPI.Controllers.AuthorizeController.AuthorizeController
-  fullName.vb: AuthorizationAPI.Controllers.AuthorizeController.New
-  nameWithType: AuthorizeController.AuthorizeController
-  nameWithType.vb: AuthorizeController.New
-- uid: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
-  fullName: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName.vb: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: AuthorizeController.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  nameWithType.vb: AuthorizeController.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
-- uid: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest*
-  name: ProcessAuthorizationRequest
-  href: api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html#AuthorizationAPI_Controllers_AuthorizeController_ProcessAuthorizationRequest_
-  commentId: Overload:AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest
-  isSpec: "True"
-  fullName: AuthorizationAPI.Controllers.AuthorizeController.ProcessAuthorizationRequest
-  nameWithType: AuthorizeController.ProcessAuthorizationRequest
 - uid: FoundationaLLM
   name: FoundationaLLM
   href: api/dotnet/FoundationaLLM.html
@@ -625,6 +578,47 @@ references:
   commentId: N:FoundationaLLM.Authorization.API.Controllers
   fullName: FoundationaLLM.Authorization.API.Controllers
   nameWithType: FoundationaLLM.Authorization.API.Controllers
+- uid: FoundationaLLM.Authorization.API.Controllers.AuthorizeController
+  name: AuthorizeController
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html
+  commentId: T:FoundationaLLM.Authorization.API.Controllers.AuthorizeController
+  fullName: FoundationaLLM.Authorization.API.Controllers.AuthorizeController
+  nameWithType: AuthorizeController
+- uid: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.#ctor(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  name: AuthorizeController(IAuthorizationCore)
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html#FoundationaLLM_Authorization_API_Controllers_AuthorizeController__ctor_FoundationaLLM_Authorization_Interfaces_IAuthorizationCore_
+  commentId: M:FoundationaLLM.Authorization.API.Controllers.AuthorizeController.#ctor(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  name.vb: New(IAuthorizationCore)
+  fullName: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.AuthorizeController(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  fullName.vb: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.New(FoundationaLLM.Authorization.Interfaces.IAuthorizationCore)
+  nameWithType: AuthorizeController.AuthorizeController(IAuthorizationCore)
+  nameWithType.vb: AuthorizeController.New(IAuthorizationCore)
+- uid: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.#ctor*
+  name: AuthorizeController
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html#FoundationaLLM_Authorization_API_Controllers_AuthorizeController__ctor_
+  commentId: Overload:FoundationaLLM.Authorization.API.Controllers.AuthorizeController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.AuthorizeController
+  fullName.vb: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.New
+  nameWithType: AuthorizeController.AuthorizeController
+  nameWithType.vb: AuthorizeController.New
+- uid: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html#FoundationaLLM_Authorization_API_Controllers_AuthorizeController_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
+  commentId: M:FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+  fullName: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  fullName.vb: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
+  nameWithType: AuthorizeController.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  nameWithType.vb: AuthorizeController.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest*
+  name: ProcessAuthorizationRequest
+  href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html#FoundationaLLM_Authorization_API_Controllers_AuthorizeController_ProcessAuthorizationRequest_
+  commentId: Overload:FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest
+  isSpec: "True"
+  fullName: FoundationaLLM.Authorization.API.Controllers.AuthorizeController.ProcessAuthorizationRequest
+  nameWithType: AuthorizeController.ProcessAuthorizationRequest
 - uid: FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController
   name: RoleAssignmentsController
   href: api/dotnet/FoundationaLLM.Authorization.API.Controllers.RoleAssignmentsController.html

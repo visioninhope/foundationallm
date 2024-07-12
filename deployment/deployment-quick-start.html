@@ -112,7 +112,7 @@ So for deployment purposes, it is recommended to use the latest release branch, 
 </div>
 <h2 id="deployment-steps">Deployment steps</h2>
 <p>Follow the steps below to deploy the solution to your Azure subscription.
-If you are upgrading from a previous version, like <code>0.5.0</code>, please refer to the changes in the <a href="changes-060.md">release notes</a>.</p>
+If you are upgrading from a previous version, like <code>0.5.0</code>, please refer to the changes in the <a href="../release-notes/breaking-changes.html">breaking changes notes</a>.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Follow the instructions in the <a href="authentication-authorization/index.html">Authentication and Authorization setup document</a> to finalize authentication and authorization for the solution. Bear in mind that creating the app registrations in the Entra ID tenant is a <strong>prerequisite</strong> for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.</p>
@@ -204,7 +204,7 @@ azd env set OPENAI_SUBSCRIPTION_ID &lt;OpenAI Subscription ID&gt;
 </li>
 </ol>
 <h3 id="running-script-to-allow-ms-graph-access-through-role-permissions">Running script to allow MS Graph access through Role Permissions</h3>
-<p>After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. <a href="/deploy/common/scripts/Assign-MSGraph-Roles.ps1">Role Permissions Script</a>
+<p>After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. <a href="https://github.com/solliancenet/foundationallm/blob/main/deploy/common/scripts/Assign-MSGraph-Roles.ps1">Role Permissions Script</a>
 This script will need to be executed twice for the principal IDs of the following:</p>
 <ul>
 <li>Core API Managed Identity</li>

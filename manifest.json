@@ -12,26 +12,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/AuthorizationAPI.Controllers.AuthorizeController.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/AuthorizationAPI.Controllers.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/AuthorizationAPI.Controllers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Agent.Models.Resources.AgentReference.yml",
       "output": {
         ".html": {
@@ -206,6 +186,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Attachment.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Authorization.API.Controllers.AuthorizeController.html"
         }
       },
       "version": ""
@@ -9639,6 +9629,66 @@
       "output": {
         ".html": {
           "relative_path": "setup-guides/agents/prompt-resource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "setup-guides/branding/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup-guides/branding/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/branding/media/branding-1.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/branding/media/branding-1.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/branding/media/branding-2.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/branding/media/branding-2.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/branding/media/branding-3.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/branding/media/branding-3.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/branding/media/branding-4.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/branding/media/branding-4.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "setup-guides/branding/media/branding-5.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "setup-guides/branding/media/branding-5.jpg"
         }
       },
       "version": ""
