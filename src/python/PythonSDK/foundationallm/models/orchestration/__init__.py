@@ -6,3 +6,5 @@ from .completion_request_base import CompletionRequestBase
 from .completion_response import CompletionResponse
 from .endpoint_settings import EndpointSettings
 from .operation_types import OperationTypes
+from .background_operation import BackgroundOperation
+from .background_response import BackgroundResponse

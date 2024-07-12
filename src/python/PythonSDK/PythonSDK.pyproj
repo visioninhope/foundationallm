@@ -46,6 +46,8 @@
     <Compile Include="foundationallm\models\classification\audio_prediction_request.py" />
     <Compile Include="foundationallm\models\classification\audio_prediction_response.py" />
     <Compile Include="foundationallm\models\classification\__init__.py" />
+    <Compile Include="foundationallm\models\orchestration\background_operation.py" />
+    <Compile Include="foundationallm\models\orchestration\background_response.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\authentication\authentication_types.py" />
