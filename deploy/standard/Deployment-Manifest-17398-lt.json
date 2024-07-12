@@ -4,10 +4,10 @@
   "createVpnGateway": true,
   "entraClientIds": {
     "authorization": "850dafdb-409d-4150-87c3-c7beca5fa729",
-    "chat": "7ad883f1-c2d9-490b-81a6-4170f36310d0", 
+    "chat": "0b08d115-b517-4d7f-b883-a1665191d14d", 
     "core":"b7bfdfd8-fd88-4bec-a6db-7fd1ecac40db", 
     "managementapi": "dc4b7d98-e404-4044-8040-4c7a5551e862",
-    "managementui": "55262414-4a31-4776-8453-0c948778ca58"
+    "managementui": "aa5cba99-e753-4d91-b2f8-85a6b650d022"
   },
   "entraClientSecrets": {
     "authorization": ""
@@ -16,11 +16,11 @@
     "authorization": "https://login.microsoftonline.com/"
   },
   "entraScopes": {
-    "authorization": "api://FoundationaLLM-Authorization/.default",
-    "chat": "api://FoundationaLLM/Data.Read",
+    "authorization": "api://FoundationaLLM-Authorization-Auth/.default",
+    "chat": "api://FoundationaLLM-Auth/Data.Read",
     "core": "Data.Read",
     "managementapi": "Data.Manage",
-    "managementui": "api://FoundationaLLM-Management/Data.Manage"
+    "managementui": "api://FoundationaLLM-Management-Auth/Data.Manage"
   },
   "environment": "lt2",
   "instanceId": "01002133-e801-48b5-a2f1-dcc8268321fc",
