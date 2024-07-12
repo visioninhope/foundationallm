@@ -53,16 +53,17 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
             raise ValueError(f"Unsupported agent type: {agent_type}")
 
 @router.post(
-    '/completion',
+    '/instances/{instance_id}/completions/operations',
     summary = 'Submit a completion request.',
     status_code = status.HTTP_202_ACCEPTED,
     responses = {
         202: {'description': 'Completion request accepted.'},
     }
 )
-async def start_completion(
+async def start_completion_operation(
     raw_request: Request,
     background_tasks: BackgroundTasks,
+    instance_id: str,
     completion_request: CompletionRequestBase = Depends(resolve_completion_request),
     x_user_identity: Optional[str] = Header(None)
 ) -> BackgroundOperation:
@@ -101,7 +102,7 @@ async def start_completion(
          handle_exception(e)
 
 @router.get(
-    '/completion/{operation_id}',
+    '/instances/{instance_id}/completions/operations/{operation_id}',
     summary = 'Retrieve the completion response for a specified operation ID.',
     responses = {
         200: {'description': 'Successfully retrieved the completion response.'},
@@ -109,8 +110,9 @@ async def start_completion(
         404: {'description': 'The operation was not found.'}
     }
 )
-async def get_completion(
+async def get_completion_operation(
     raw_request: Request,
+    instance_id: str,
     operation_id: str
 ) -> CompletionResponse:
     print('GET COMPLETION:', operation_id)
