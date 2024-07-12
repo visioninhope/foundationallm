@@ -42,7 +42,7 @@ class LangChainAgentBase():
         self.full_prompt = ""
 
     @abstractmethod
-    def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
+    async def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Gets the completion for the request.
         
