@@ -100,7 +100,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         return response['label']
     
-    def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
+    async def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
         """
         Executes a completion request by querying the vector index with the user prompt.
 
