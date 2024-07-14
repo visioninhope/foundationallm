@@ -89,17 +89,17 @@ async def start_completion_operation(
                 raw_request.app.extra['config'],
                 x_user_identity
             )
-        
-            background_responses[operation_id] = BackgroundResponse(
-                operation_id = operation_id,
-                completed = False,
-                response = None
-            )
 
-            return BackgroundOperation(operation_id=operation_id)
+            #background_responses[operation_id] = BackgroundResponse(
+            #    operation_id = operation_id,
+            #    completed = False,
+            #    response = None
+            #)
+
+            return OrchestrationManager.create_operation(operation_id) #BackgroundOperation(operation_id=operation_id)
     
         except Exception as e:
-         handle_exception(e)
+            handle_exception(e)
 
 @router.get(
     '/instances/{instance_id}/completions/operations/{operation_id}',
@@ -120,7 +120,9 @@ async def get_completion_operation(
     if operation_id not in background_responses:
         raise HTTPException(status_code=404)
 
-    background_response = background_responses[operation_id]
+    #background_response = background_responses[operation_id]
+
+    background_response = OrchestrationManager.get_operation_state('http://localhost:8080', operation_id)
 
     if not background_response.completed:
         return Response(status_code=204)
