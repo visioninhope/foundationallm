@@ -61,28 +61,5 @@ namespace Gatekeeper.Tests.Services
             // Assert
             Assert.Equal(expectedResult, actualResult);
         }
-
-        [Fact]
-        public async Task GetSummary_CallsOrchestrationAPIServiceWithSummaryRequest()
-        {
-            // Arrange
-            var summaryRequest = new SummaryRequest
-            {
-                UserPrompt = "Safe content for summary."
-            };
-
-            var expectedResult = new SummaryResponse { Summary = "Summary from Orchestration API Service." };
-
-            var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
-
-            _contentSafetyService.AnalyzeText(summaryRequest.UserPrompt).Returns(safeContentResult);
-            _orchestrationAPIService.GetSummary(summaryRequest).Returns(expectedResult);
-
-            // Act
-            var actualResult = await _testedService.GetSummary(summaryRequest);
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
-        }
     }
 }

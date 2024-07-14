@@ -307,31 +307,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
         #endregion
 
-        #region SummarizeChatSessionNameAsync
-
-        [Fact]
-        public async Task SummarizeChatSessionNameAsync_ShouldReturnACompletion()
-        {
-            // Arrange
-            var sessionId = Guid.NewGuid().ToString();
-            var prompt = "Prompt";
-            var summary = "[No Summary]";
-            var summaryRequest = new SummaryRequest
-            {
-                SessionId = sessionId,
-                UserPrompt = prompt
-            };
-            var expectedCompletion = new Completion() { Text = summary };
-
-            _gatekeeperAPIService.GetSummary(summaryRequest).Returns(summary);
-            _cosmosDbService.UpdateSessionNameAsync(sessionId, summary).Returns(new Session());
-
-            // Act
-            var actualCompletion = await _testedService.SummarizeChatSessionNameAsync(sessionId, prompt);
-
-            // Assert
-            Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
-        }
+        #region SetChatSessionNameAsync
 
         [Fact]
         public async Task SummarizeChatSessionNameAsync_ShouldReturnAnErrorMessageWhenSessionIdIsNull()
