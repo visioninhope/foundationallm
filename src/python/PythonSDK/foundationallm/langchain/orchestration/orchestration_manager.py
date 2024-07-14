@@ -1,6 +1,9 @@
+import requests
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
 from foundationallm.models.orchestration import (
+    BackgroundOperation,
+    BackgroundResponse,
     CompletionRequestBase,
     CompletionResponse
 )
@@ -58,3 +61,54 @@ class OrchestrationManager:
             Object containing the completion response and token usage details.
         """
         return self.agent.invoke(request)
+
+    @staticmethod
+    async def get_operation_state(state_api_endpoint: str, operation_id: str) -> BackgroundResponse:
+        """
+        Retrieves the state of an operation by its operation ID.
+        
+        Parameters
+        ----------
+        operation_id : str
+            The unique identifier for the operation.
+            
+        Returns
+        -------
+        CompletionResponse
+            Object containing the completion response and token usage details.
+        """
+        r = requests.get(f'{state_api_endpoint}/operations/{operation_id}')
+
+
+
+        return self.agent.get_state(operation_id)
+
+    @staticmethod
+    async def create_operation(state_api_endpoint: str, operation_id: str) -> BackgroundOperation:
+        """
+        Creates a background operation by settings its initial state through the State API.
+        
+        Parameters
+        ----------
+        operation_id : str
+            The unique identifier for the operation.
+        """
+        # Call the State API to create a new operation.
+        payload = {
+            'operation_id': operation_id,
+            'completed': False,
+            'response': None
+        }
+        headers = {"charset": "utf-8", "Content-Type": "application/json"}
+
+        r = requests.post(
+            f'{state_api_endpoint}/operations',
+            json=payload,
+            headers=headers
+        )
+
+        if r.status_code != 202:
+            raise Exception(f'Error: ({r.status_code}) {r.text}')
+
+        return BackgroundOperation(operation_id = operation_id)
+
