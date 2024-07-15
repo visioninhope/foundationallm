@@ -19,7 +19,7 @@ namespace FoundationaLLM.Core.Examples.Services
     /// Service for running agent conversations using the Core API.
     /// </summary>
     /// <param name="managementAPITestManager">Interfacing code with the Management API responsible for resource management.</param>
-    /// <param name="instanceSettings">Instance settings for the current environment.</param>
+    /// <param name="instanceSettings">InstanceName settings for the current environment.</param>
     public class VectorizationTestService(        
         IManagementAPITestManager managementAPITestManager,       
         IOptions<InstanceSettings> instanceSettings) : IVectorizationTestService
