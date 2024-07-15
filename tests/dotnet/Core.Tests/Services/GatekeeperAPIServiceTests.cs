@@ -10,6 +10,7 @@ namespace FoundationaLLM.Core.Tests.Services
 {
     public class GatekeeperAPIServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly GatekeeperAPIService _testedService;
 
         private readonly IHttpClientFactoryService _httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
@@ -37,7 +38,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
 
             // Act
-            var actual = await _testedService.GetCompletion(completionRequest);
+            var actual = await _testedService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.NotNull(actual);
@@ -60,7 +61,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
 
             // Act
-            var actual = await _testedService.GetCompletion(completionRequest);
+            var actual = await _testedService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.NotNull(actual);
