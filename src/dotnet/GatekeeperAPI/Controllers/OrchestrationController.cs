@@ -14,7 +14,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// <param name="gatekeeperService"></param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route("[controller]")]
+    [Route($"instances/{{instanceId}}")]
     public class OrchestrationController(
         IGatekeeperService gatekeeperService) : ControllerBase
     {
@@ -24,9 +24,10 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// Gets a completion from the Gatekeeper service.
         /// </summary>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <returns>The completion response.</returns>
-        [HttpPost("completion")]
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest) =>
-            await _gatekeeperService.GetCompletion(completionRequest);
+        [HttpPost("completions")]
+        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest, string instanceId) =>
+            await _gatekeeperService.GetCompletion(instanceId, completionRequest);
     }
 }
