@@ -191,7 +191,7 @@ public partial class CoreService(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error genarating session name for session {sessionId} for text [{text}].");
+            _logger.LogError(ex, $"Error generating session name for session {sessionId} for text [{text}].");
             return new Completion { Text = "[No Name]" };
         }
     }
