@@ -105,7 +105,7 @@ public partial class CoreService(
     /// Receive a prompt from a user, retrieve the message history from the related session,
     /// generate a completion response, and log full completion results.
     /// </summary>
-    public async Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest)
+    public async Task<Completion> GetChatCompletionAsync(string instanceId, CompletionRequest completionRequest)
     {
         try
         {
@@ -123,7 +123,7 @@ public partial class CoreService(
             var agentOption = await ProcessGatekeeperOptions(completionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, completionRequest);
 
             // Add to prompt and completion to cache, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
@@ -150,14 +150,14 @@ public partial class CoreService(
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    public async Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest)
+    public async Task<Completion> GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest)
     {
         try
         {
             var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentOption).GetCompletion(directCompletionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, directCompletionRequest);
 
             return new Completion { Text = result.Completion };
         }

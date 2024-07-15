@@ -10,9 +10,10 @@ public interface IGatekeeperAPIService
     /// <summary>
     /// Requests a completion from the downstream APIs via the Gatekeeper API.
     /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
     /// <param name="completionRequest">The completion request object.</param>
     /// <returns></returns>
-    Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
+    Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest);
 
     /// <summary>
     /// Adds the entity to the orchestrator's memory used by the RAG service.

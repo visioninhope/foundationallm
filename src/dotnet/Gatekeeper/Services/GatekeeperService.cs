@@ -37,9 +37,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             if (completionRequest.GatekeeperOptions != null && completionRequest.GatekeeperOptions.Length > 0)
             {
@@ -82,7 +83,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                     return new CompletionResponse() { Completion = contentSafetyResult.Reason };
             }
 
-            var completionResponse = await _orchestrationAPIService.GetCompletion(completionRequest);
+            var completionResponse = await _orchestrationAPIService.GetCompletion(instanceId, completionRequest);
 
             if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
                 completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
