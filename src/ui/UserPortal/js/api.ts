@@ -104,14 +104,14 @@ export default {
 	},
 
 	/**
-	 * Summarizes the session name.
+	 * Generates the session name.
 	 *
 	 * @param sessionId - The ID of the session.
-	 * @param text - The text to be summarized.
-	 * @returns The summarized text.
+	 * @param text - The text to be used when generating a session name.
+	 * @returns The generated text.
 	 */
-	async summarizeSessionName(sessionId: string, text: string) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/summarize-name`, {
+	async generateSessionName(sessionId: string, text: string) {
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/generate-name`, {
 			method: 'POST',
 			body: JSON.stringify(text),
 		})) as { text: string };

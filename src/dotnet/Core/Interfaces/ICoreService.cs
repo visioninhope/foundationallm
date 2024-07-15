@@ -48,7 +48,7 @@ public interface ICoreService
     /// <summary>
     /// Generate a name for a chat message, based on the passed in prompt.
     /// </summary>
-    Task<Completion> SetChatSessionNameAsync(string? sessionId, string prompt);
+    Task<Completion> GenerateChatSessionNameAsync(string? sessionId, string prompt);
 
     /// <summary>
     /// Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.

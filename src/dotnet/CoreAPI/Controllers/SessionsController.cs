@@ -88,9 +88,9 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Generate a name for a chat message, based on the passed in prompt.
         /// </summary>
         /// <param name="sessionId">The id of the session for which to generate a name.</param>
-        /// <param name="prompt">The prompt to use to generate the name.</param>
-        [HttpPost("{sessionId}/summarize-name", Name = "SummarizeChatSessionName")]
-        public async Task<Completion> SummarizeChatSessionName(string sessionId, [FromBody] string prompt) =>
-            await _coreService.SetChatSessionNameAsync(sessionId, prompt);
+        /// <param name="text">The prompt to use to generate the name.</param>
+        [HttpPost("{sessionId}/generate-name", Name = "GenerateChatSessionName")]
+        public async Task<Completion> GenerateChatSessionName(string sessionId, [FromBody] string text) =>
+            await _coreService.GenerateChatSessionNameAsync(sessionId, text);
     }
 }
