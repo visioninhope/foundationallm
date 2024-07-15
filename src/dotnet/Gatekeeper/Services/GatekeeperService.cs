@@ -90,5 +90,15 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
 
             return completionResponse;
         }
+
+        /// <inheritdoc/>
+        public async Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+            // TODO: Need to call State API to start the operation.
+            throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public async Task<CompletionRequest> GetCompletionOperation(string instanceId, string operationId) =>
+            // TODO: Need to call State API to get the operation.
+            throw new NotImplementedException();
     }
 }
