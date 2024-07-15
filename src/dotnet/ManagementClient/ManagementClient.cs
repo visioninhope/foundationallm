@@ -20,14 +20,14 @@ namespace FoundationaLLM.Client.Management
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManagementClient"/> class with
-        /// the specified Management API URI, TokenCredential, and Instance ID.
+        /// the specified Management API URI, TokenCredential, and InstanceName ID.
         /// </summary>
         /// <param name="managementUri">The base URI of the Core API.</param>
         /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
         /// user or service principle from which the client library can generate auth tokens.</param>
         /// <param name="instanceId">The unique (GUID) ID for the FoundationaLLM deployment.
         /// Locate this value in the FoundationaLLM Management Portal or in Azure App Config
-        /// (FoundationaLLM:Instance:Id key)</param>
+        /// (FoundationaLLM:InstanceName:Id key)</param>
         public ManagementClient(
             string managementUri,
             TokenCredential credential,
@@ -43,7 +43,7 @@ namespace FoundationaLLM.Client.Management
         /// user or service principle from which the client library can generate auth tokens.</param>
         /// <param name="instanceId">The unique (GUID) ID for the FoundationaLLM deployment.
         /// Locate this value in the FoundationaLLM Management Portal or in Azure App Config
-        /// (FoundationaLLM:Instance:Id key)</param>
+        /// (FoundationaLLM:InstanceName:Id key)</param>
         /// <param name="options">Additional options to configure the HTTP Client.</param>
         public ManagementClient(
             string managementUri,

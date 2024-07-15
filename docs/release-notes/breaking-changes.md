@@ -17,6 +17,7 @@ Core API changes:
 4. `/sessions/{sessionId}/summarize-name` has been removed. In the future, the `/completions` endpoint will be used to generate summaries.
 5. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
 6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
+7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
 
 ### Pre-0.8.0
 

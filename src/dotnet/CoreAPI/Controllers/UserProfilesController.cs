@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace FoundationaLLM.Core.API.Controllers
 {
     /// <summary>
@@ -23,8 +22,9 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <summary>
         /// Retrieves user profiles.
         /// </summary>
+        /// <param name="instanceId">The instance identifier.</param>
         [HttpGet(Name = "GetUserProfile")]
-        public async Task<IActionResult> Index() =>
-            Ok(await _userProfileService.GetUserProfileAsync());
+        public async Task<IActionResult> Index(string instanceId) =>
+            Ok(await _userProfileService.GetUserProfileAsync(instanceId));
     }
 }

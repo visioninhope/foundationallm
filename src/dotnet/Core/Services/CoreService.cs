@@ -51,27 +51,21 @@ public partial class CoreService(
         resourceProviderServices.ToDictionary<IResourceProviderService, string>(
             rps => rps.Name);
 
-    /// <summary>
-    /// Returns list of chat session ids and names.
-    /// </summary>
-    public async Task<List<Session>> GetAllChatSessionsAsync() =>
+    /// <inheritdoc/>
+    public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
         await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ?? 
                                                               throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat sessions."));
 
-    /// <summary>
-    /// Returns the chat messages related to an existing session.
-    /// </summary>
-    public async Task<List<Message>> GetChatSessionMessagesAsync(string sessionId)
+    /// <inheritdoc/>
+    public async Task<List<Message>> GetChatSessionMessagesAsync(string instanceId, string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
         return await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
     }
 
-    /// <summary>
-    /// Creates a new chat session.
-    /// </summary>
-    public async Task<Session> CreateNewChatSessionAsync()
+    /// <inheritdoc/>
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId)
     {
         Session session = new()
         {
@@ -81,10 +75,8 @@ public partial class CoreService(
         return await _cosmosDbService.InsertSessionAsync(session);
     }
 
-    /// <summary>
-    /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
-    /// </summary>
-    public async Task<Session> RenameChatSessionAsync(string sessionId, string newChatSessionName)
+    /// <inheritdoc/>
+    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
         ArgumentException.ThrowIfNullOrEmpty(newChatSessionName);
@@ -92,20 +84,15 @@ public partial class CoreService(
         return await _cosmosDbService.UpdateSessionNameAsync(sessionId, newChatSessionName);
     }
 
-    /// <summary>
-    /// Delete a chat session and related messages.
-    /// </summary>
-    public async Task DeleteChatSessionAsync(string sessionId)
+    /// <inheritdoc/>
+    public async Task DeleteChatSessionAsync(string instanceId, string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
         await _cosmosDbService.DeleteSessionAndMessagesAsync(sessionId);
     }
 
-    /// <summary>
-    /// Receive a prompt from a user, retrieve the message history from the related session,
-    /// generate a completion response, and log full completion results.
-    /// </summary>
-    public async Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest)
+    /// <inheritdoc/>
+    public async Task<Completion> GetChatCompletionAsync(string instanceId, CompletionRequest completionRequest)
     {
         try
         {
@@ -153,10 +140,8 @@ public partial class CoreService(
         }
     }
 
-    /// <summary>
-    /// Provides a completion for a user prompt, without a session.
-    /// </summary>
-    public async Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest)
+    /// <inheritdoc/>
+    public async Task<Completion> GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest)
     {
         try
         {
@@ -174,10 +159,8 @@ public partial class CoreService(
         }
     }
 
-    /// <summary>
-    /// Sets the name for a chat session programmatically.
-    /// </summary>
-    public async Task<Completion> GenerateChatSessionNameAsync(string? sessionId, string text)
+    /// <inheritdoc/>
+    public async Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)
     {
         try
         {
@@ -185,7 +168,7 @@ public partial class CoreService(
 
             var sessionName = string.Empty;            
             sessionName = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
-            await RenameChatSessionAsync(sessionId, sessionName);
+            await RenameChatSessionAsync(instanceId, sessionId, sessionName);
 
             return new Completion { Text = sessionName };
         }
@@ -260,10 +243,8 @@ public partial class CoreService(
         await _cosmosDbService.UpsertSessionBatchAsync(promptMessage, completionMessage, completionPrompt, session);
     }
 
-    /// <summary>
-    /// Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.
-    /// </summary>
-    public async Task<Message> RateMessageAsync(string id, string sessionId, bool? rating)
+    /// <inheritdoc/>
+    public async Task<Message> RateMessageAsync(string instanceId, string id, string sessionId, bool? rating)
     {
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(sessionId);
@@ -271,13 +252,8 @@ public partial class CoreService(
         return await _cosmosDbService.UpdateMessageRatingAsync(id, sessionId, rating);
     }
 
-    /// <summary>
-    /// Returns the completion prompt for a given session and completion prompt id.
-    /// </summary>
-    /// <param name="sessionId">The session id from which to retrieve the completion prompt.</param>
-    /// <param name="completionPromptId">The id of the completion prompt to retrieve.</param>
-    /// <returns></returns>
-    public async Task<CompletionPrompt> GetCompletionPrompt(string sessionId, string completionPromptId)
+    /// <inheritdoc/>
+    public async Task<CompletionPrompt> GetCompletionPrompt(string instanceId, string sessionId, string completionPromptId)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(sessionId);
         ArgumentNullException.ThrowIfNullOrEmpty(completionPromptId);
