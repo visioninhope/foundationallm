@@ -177,7 +177,7 @@ public partial class CoreService(
     /// <summary>
     /// Sets the name for a chat session programmatically.
     /// </summary>
-    public async Task<Completion> SetChatSessionNameAsync(string? sessionId, string prompt)
+    public async Task<Completion> GenerateChatSessionNameAsync(string? sessionId, string text)
     {
         try
         {
@@ -191,7 +191,7 @@ public partial class CoreService(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error getting setting session name for session {sessionId} for user prompt [{prompt}].");
+            _logger.LogError(ex, $"Error genarating session name for session {sessionId} for text [{text}].");
             return new Completion { Text = "[No Name]" };
         }
     }
