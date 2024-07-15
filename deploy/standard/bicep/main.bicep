@@ -10,9 +10,6 @@ param createVpnGateway bool = false
 param environmentName string
 param externalDnsResourceGroupName string = ''
 param externalNetworkingResourceGroupName string = ''
-param existingOpenAiInstanceName string = ''
-param existingOpenAiInstanceRg string = ''
-param existingOpenAiInstanceSub string = ''
 param instanceId string
 param k8sNamespace string
 param location string
@@ -27,12 +24,6 @@ param authClientSecret string
 var abbrs = loadJsonContent('./abbreviations.json')
 var useExternalDns = !empty(externalDnsResourceGroupName)
 var useExternalNetworking = !empty(externalNetworkingResourceGroupName)
-
-var existingOpenAiInstance = {
-  name: existingOpenAiInstanceName
-  resourceGroup: existingOpenAiInstanceRg
-  subscriptionId: existingOpenAiInstanceSub
-}
 
 var tags = {
   'compute-type': 'aks'
@@ -169,12 +160,11 @@ module openai 'openai-rg.bicep' = {
   scope: resourceGroup(resourceGroups.oai)
   params: {
     actionGroupId: ops.outputs.actionGroupId
+    administratorObjectId: administratorObjectId
     dnsResourceGroupName: resourceGroups.dns
     environmentName: environmentName
-    existingOpenAiInstance: existingOpenAiInstance
     location: location
     logAnalyticsWorkspaceId: ops.outputs.logAnalyticsWorkspaceId
-    opsKeyVaultName: ops.outputs.keyVaultName
     opsResourceGroupName: resourceGroups.ops
     project: project
     vnetId: networking.outputs.vnetId

@@ -81,19 +81,19 @@ namespace FoundationaLLM.Common.Constants.Authorization
         public const string FoundationaLLM_Configuration_KeyVaultSecrets_Delete = "FoundationaLLM.Configuration/keyVaultSecrets/delete";
 
         /// <summary>
-        /// Read API endpoints.
+        /// Read external orchestration services.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Read = "FoundationaLLM.Configuration/apiEndpoints/read";
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Read = "FoundationaLLM.Configuration/externalOrchestrationServices/read";
 
         /// <summary>
-        /// Create or update API endpoints.
+        /// Create or update external orchestration services.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Write = "FoundationaLLM.Configuration/apiEndpoints/write";
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Write = "FoundationaLLM.Configuration/externalOrchestrationServices/write";
 
         /// <summary>
-        /// Delete API endpoints.
+        /// Delete external orchestration services.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Delete = "FoundationaLLM.Configuration/apiEndpoints/delete";
+        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete = "FoundationaLLM.Configuration/externalOrchestrationServices/delete";
 
         #endregion
 

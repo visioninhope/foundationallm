@@ -63,17 +63,18 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
                 await configurationResourceProvider.WaitForInitialization();
 
-                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpoint>(
+                var externalOrchestrationServices = await configurationResourceProvider.GetResources<ExternalOrchestrationService>(
                     DefaultAuthentication.ServiceIdentity!);
 
-                _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos =>  eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                _externalOrchestrationServiceSettings = externalOrchestrationServices
+                    .Where(eos => eos.APIUrlConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs)
+                                && eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
                     .ToDictionary(
                         eos => eos.Name,
                         eos => new APISettingsBase
                         {
-                            APIKey = _configuration[eos.APIKey],
-                            APIUrl = _configuration[eos.Url]
+                            APIKey = _configuration[eos.APIKeyConfigurationName],
+                            APIUrl = _configuration[eos.APIUrlConfigurationName]
                         });
 
                 _initialized = true;

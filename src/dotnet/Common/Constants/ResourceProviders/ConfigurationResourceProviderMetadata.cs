@@ -30,16 +30,15 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             ])
                         ]
                 }
-            }
-            ,
+            },
             {
-                ConfigurationResourceTypeNames.APIEndpoints,
+                ConfigurationResourceTypeNames.ExternalOrchestrationServices,
                 new ResourceTypeDescriptor(
-                        ConfigurationResourceTypeNames.APIEndpoints)
+                        ConfigurationResourceTypeNames.ExternalOrchestrationServices)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpoint>)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpoint)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<ExternalOrchestrationService>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ExternalOrchestrationService)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }

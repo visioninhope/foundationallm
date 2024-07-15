@@ -104,24 +104,24 @@ namespace FoundationaLLM.Authorization.Models
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
-                        "Read API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
+                        "Read external orchestration services.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
-                        "Create or update API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
+                        "Create or update external orchestration services.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
-                        "Delete API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
+                        "Delete external orchestration services.",
                         "Configuration")
                 },
                 {
