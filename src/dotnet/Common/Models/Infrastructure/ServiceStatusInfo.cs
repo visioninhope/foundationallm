@@ -13,10 +13,15 @@ namespace FoundationaLLM.Common.Models.Infrastructure
         [JsonPropertyName("name")]
         public string? Name { get; set; }
         /// <summary>
-        /// The instance of the service.
+        /// The instance ID of the service.
         /// </summary>
-        [JsonPropertyName("instance")]
-        public string? Instance { get; set; }
+        [JsonPropertyName("instance_id")]
+        public string? InstanceId { get; set; }
+        /// <summary>
+        /// The instance name of the service.
+        /// </summary>
+        [JsonPropertyName("instance_name")]
+        public string? InstanceName { get; set; }
         /// <summary>
         /// The deployed FoundationaLLM version of the service.
         /// </summary>
