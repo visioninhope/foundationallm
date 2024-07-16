@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.Data.AppConfiguration;
-using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using FoundationaLLM.Common.Authentication;
 using Microsoft.Extensions.Logging;
@@ -136,7 +135,7 @@ namespace FoundationaLLM.Common.Services
             if (setting is SecretReferenceConfigurationSetting secretReference)
             {
                 var identifier = new KeyVaultSecretIdentifier(secretReference.SecretId);
-                _logger.LogInformation("App Configuration key {key} references Key Vault secret {identifier.Name}. Deleting and purging.", key, identifier.Name);
+                _logger.LogInformation("App Configuration key {key} references Key Vault secret {identifier.Name}. Deleting.", key, identifier.Name);
                 var secretClient = new SecretClient(identifier.VaultUri, DefaultAuthentication.AzureCredential);
                 try
                 {
