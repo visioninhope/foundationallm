@@ -104,7 +104,9 @@ export default {
 		}
 	},
 
-	async getAgentDataSources(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<DataSource>[]> {
+	async getAgentDataSources(
+		addDefaultOption: boolean = false,
+	): Promise<ResourceProviderGetResult<DataSource>[]> {
 		const data = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`,
 		)) as ResourceProviderGetResult<DataSource>[];
@@ -127,9 +129,9 @@ export default {
 	},
 
 	async getDataSource(dataSourceId: string): Promise<ResourceProviderGetResult<DataSource>> {
-		const [data] = await this.fetch(
+		const [data] = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSourceId}?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<DataSource>[];
+		)) as ResourceProviderGetResult<DataSource>[];
 		let dataSource = data.resource as DataSource;
 		dataSource.resolved_configuration_references = {};
 		// Retrieve all the app config values for the data source.
@@ -245,9 +247,9 @@ export default {
 	},
 
 	async getAppConfigs(filter?: string): Promise<ResourceProviderGetResult<AppConfigUnion>[]> {
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${filter}?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<AppConfigUnion>[];
+		)) as ResourceProviderGetResult<AppConfigUnion>[];
 	},
 
 	async upsertAppConfig(request): Promise<any> {
@@ -261,10 +263,12 @@ export default {
 	},
 
 	// Indexes
-	async getAgentIndexes(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<AgentIndex>[]> {
-		const data = await this.fetch(
+	async getAgentIndexes(
+		addDefaultOption: boolean = false,
+	): Promise<ResourceProviderGetResult<AgentIndex>[]> {
+		const data = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<AgentIndex>[];
+		)) as ResourceProviderGetResult<AgentIndex>[];
 		if (addDefaultOption) {
 			const defaultAgentIndex: AgentIndex = {
 				name: 'Select default index source',
@@ -304,9 +308,9 @@ export default {
 
 	// Text embedding profiles
 	async getTextEmbeddingProfiles(): Promise<ResourceProviderGetResult<TextEmbeddingProfile>[]> {
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<TextEmbeddingProfile>[];
+		)) as ResourceProviderGetResult<TextEmbeddingProfile>[];
 	},
 
 	// Agents
@@ -316,19 +320,19 @@ export default {
 			type: agentType,
 		};
 
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
 				body: payload,
 			},
-		) as CheckNameResponse;
+		)) as CheckNameResponse;
 	},
 
 	async getAgents(): Promise<ResourceProviderGetResult<Agent>[]> {
-		const agents = await this.fetch(
+		const agents = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<Agent>[];
+		)) as ResourceProviderGetResult<Agent>[];
 		// Sort the agents by name.
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
@@ -347,7 +351,8 @@ export default {
 			AzureAIDirect: 'AzureAI',
 		};
 
-		const orchestratorTypeKey = orchestratorTypeToKeyMap[agent.orchestration_settings?.orchestrator];
+		const orchestratorTypeKey =
+			orchestratorTypeToKeyMap[agent.orchestration_settings?.orchestrator];
 
 		// Retrieve all the app config values for the agent
 		const appConfigFilter = `FoundationaLLM:${orchestratorTypeKey}:${agent.name}:API:*`;
@@ -398,8 +403,10 @@ export default {
 		// Deep copy the agent object to prevent modifiying its references
 		const agent = JSON.parse(JSON.stringify(agentData)) as CreateAgentRequest;
 
-		if (agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
-			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel') {
+		if (
+			agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
+			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel'
+		) {
 			for (const [propertyName, propertyValue] of Object.entries(
 				agent.orchestration_settings.endpoint_configuration,
 			)) {
@@ -407,12 +414,12 @@ export default {
 					continue;
 				}
 
-				if (propertyValue.startsWith('FoundationaLLM:') &&
-					propertyName !== 'api_key') {
+				if (propertyValue.startsWith('FoundationaLLM:') && propertyName !== 'api_key') {
 					// Get the static value from the app config.
 					const appConfigResult = await this.getAppConfig(propertyValue);
 					// Set the static value to the endpoint configuration.
-					agent.orchestration_settings.endpoint_configuration[propertyName] = appConfigResult.resource.value;
+					agent.orchestration_settings.endpoint_configuration[propertyName] =
+						appConfigResult.resource.value;
 				}
 			}
 		}
@@ -428,7 +435,8 @@ export default {
 				// Get the static value from the app config.
 				const appConfigResult = await this.getAppConfig(propertyValue);
 				// Set the static value to the endpoint configuration.
-				agent.orchestration_settings.model_parameters[propertyName] = appConfigResult.resource.value;
+				agent.orchestration_settings.model_parameters[propertyName] =
+					appConfigResult.resource.value;
 			}
 		}
 
@@ -481,7 +489,9 @@ export default {
 		);
 	},
 
-	async getTextPartitioningProfile(profileId: string): Promise<ResourceProviderGetResult<TextPartitioningProfile>> {
+	async getTextPartitioningProfile(
+		profileId: string,
+	): Promise<ResourceProviderGetResult<TextPartitioningProfile>> {
 		const data = await this.fetch(`${profileId}?api-version=${this.apiVersion}`);
 		return data[0];
 	},
@@ -499,11 +509,13 @@ export default {
 		);
 	},
 
-	async getExternalOrchestrationServices(resolveApiKey: boolean = false): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
-		const data = await this.fetch(
+	async getExternalOrchestrationServices(
+		resolveApiKey: boolean = false,
+	): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
+		const data = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/externalOrchestrationServices?api-version=${this.apiVersion}`,
-		) as ResourceProviderGetResult<ExternalOrchestrationService>[];
-		
+		)) as ResourceProviderGetResult<ExternalOrchestrationService>[];
+
 		// Retrieve all the app config values for the external orchestration services..
 		const appConfigFilter = `FoundationaLLM:ExternalAPIs:*`;
 		const appConfigResults = await this.getAppConfigs(appConfigFilter);
@@ -513,13 +525,21 @@ export default {
 			externalOrchestrationService.resource.resolved_api_url = '';
 			externalOrchestrationService.resource.resolved_api_key = '';
 			// Find a matching app config for the API URL. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIUrl
-			const apiUrlAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIUrl`);
+			const apiUrlAppConfig = appConfigResults.find(
+				(appConfig) =>
+					appConfig.resource.name ===
+					`FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIUrl`,
+			);
 			if (apiUrlAppConfig) {
 				externalOrchestrationService.resource.resolved_api_url = apiUrlAppConfig.resource.value;
 			}
 			if (resolveApiKey) {
 				// Find a matching app config for the API Key. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIKey
-				const apiKeyAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIKey`);
+				const apiKeyAppConfig = appConfigResults.find(
+					(appConfig) =>
+						appConfig.resource.name ===
+						`FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIKey`,
+				);
 				if (apiKeyAppConfig) {
 					externalOrchestrationService.resource.resolved_api_key = apiKeyAppConfig.resource.value;
 				}
@@ -530,20 +550,31 @@ export default {
 		return data;
 	},
 
-	async getRoleAssignments(): RoleAssignment[] {
-		return await this.fetch(
+	async getRoleAssignments(scope): RoleAssignment[] {
+		// const agentScope = 'providers/FoundationaLLM.Agent/agents/KMAgentWithSemanticKernelInlineContext';
+		const assignments = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
-					scope: `/instances/${this.instanceId}`,
+					scope: `/instances/${this.instanceId}${scope ? `/${scope}` : ''}`,
 				}),
 			},
-		) as RoleAssignment[];
+		)) as RoleAssignment[];
+
+		assignments.map(assignment => {
+			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
+				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
+			} else if (assignment.resource.scope.endsWith('KMAgentWithSemanticKernelInlineContext')) {
+				assignment.resource.scope_name = 'Agent';
+			}
+		});
+
+		return assignments;
 	},
 
 	async getRoleAssignment(roleAssignmentId): RoleAssignment[] {
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}`,
 			{
 				method: 'POST',
@@ -551,19 +582,29 @@ export default {
 					scope: `/instances/${this.instanceId}`,
 				}),
 			},
-		) as RoleAssignment[];
+		)) as RoleAssignment[];
+	},
+
+	async createRoleAssignment(roleAssignmentId: string, request: Object): Promise<any> {
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}`,
+			{
+				method: 'POST',
+				body: request,
+			},
+		);
 	},
 
 	async getRoleDefinitions(): RoleAssignment[] {
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
-		) as Object[];
+		)) as Object[];
 	},
 
 	async getRoleDefinition(roleAssignmentId): RoleAssignment {
-		return await this.fetch(
+		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}`,
-		) as RoleAssignment[];
+		)) as RoleAssignment[];
 	},
 
 	async updateRoleAssignment(roleAssignment: RoleAssignment) {
@@ -572,8 +613,12 @@ export default {
 	},
 
 	async deleteRoleAssignment(roleAssignmentId): void {
-		await wait(1000);
-		return roleAssignmentId;
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
+			{
+				method: 'DELETE',
+			},
+		);
 	},
 
 	async getUsers(params) {
@@ -584,22 +629,17 @@ export default {
 			page_size: null,
 		};
 
-		return await this.fetch(
-			`/instances/${this.instanceId}/identity/users/retrieve`,
-			{
-				method: 'POST',
-				body: JSON.stringify({
-					...defaults,
-					...params,
-				}),
-			},
-		);
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/retrieve`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
 	},
 
 	async getUser(userId) {
-		return await this.fetch(
-			`/instances/${this.instanceId}/identity/users/${userId}`,
-		);
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}`);
 	},
 
 	async getGroups(params) {
@@ -610,31 +650,23 @@ export default {
 			page_size: null,
 		};
 
-		return await this.fetch(
-			`/instances/${this.instanceId}/identity/groups/retrieve`,
-			{
-				method: 'POST',
-				body: JSON.stringify({
-					...defaults,
-					...params,
-				}),
-			},
-		);
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/retrieve`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
 	},
 
 	async getGroup(groupId) {
-		return await this.fetch(
-			`/instances/${this.instanceId}/identity/groups/${groupId}`,
-		);
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}`);
 	},
 
 	async getObjects(params = { ids: [] }) {
-		return await this.fetch(
-			`/instances/${this.instanceId}/identity/objects/retrievebyids`,
-			{
-				method: 'POST',
-				body: JSON.stringify(params),
-			},
-		);
+		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids`, {
+			method: 'POST',
+			body: JSON.stringify(params),
+		});
 	},
 };
