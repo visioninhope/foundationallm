@@ -68,7 +68,9 @@ export default {
 		});
 	},
 
-	// Data sources
+	/*
+		Data Sources
+	 */
 	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -238,7 +240,9 @@ export default {
 		);
 	},
 
-	// App Configuration
+	/*
+		App Configuration
+	 */
 	async getAppConfig(key: string): Promise<ResourceProviderGetResult<AppConfigUnion>> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`,
@@ -262,7 +266,9 @@ export default {
 		);
 	},
 
-	// Indexes
+	/*
+		Indexes
+	 */
 	async getAgentIndexes(
 		addDefaultOption: boolean = false,
 	): Promise<ResourceProviderGetResult<AgentIndex>[]> {
@@ -306,14 +312,18 @@ export default {
 		}
 	},
 
-	// Text embedding profiles
+	/*
+		Text Embedding Profiles
+	 */
 	async getTextEmbeddingProfiles(): Promise<ResourceProviderGetResult<TextEmbeddingProfile>[]> {
 		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`,
 		)) as ResourceProviderGetResult<TextEmbeddingProfile>[];
 	},
 
-	// Agents
+	/*
+		Agents
+	 */
 	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -468,7 +478,9 @@ export default {
 		);
 	},
 
-	// Prompts
+	/*
+		Prompts
+	 */
 	async getPrompt(promptId: string): Promise<ResourceProviderGetResult<Prompt> | null> {
 		// Attempt to retrieve the prompt. If it doesn't exist, return an empty object.
 		try {
@@ -550,8 +562,10 @@ export default {
 		return data;
 	},
 
+	/*
+		Role Assignments
+	 */
 	async getRoleAssignments(scope): RoleAssignment[] {
-		// const agentScope = 'providers/FoundationaLLM.Agent/agents/KMAgentWithSemanticKernelInlineContext';
 		const assignments = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter`,
 			{
@@ -585,9 +599,9 @@ export default {
 		)) as RoleAssignment[];
 	},
 
-	async createRoleAssignment(roleAssignmentId: string, request: Object): Promise<any> {
+	async createRoleAssignment(request: Object): Promise<any> {
 		return await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments`,
 			{
 				method: 'POST',
 				body: request,
@@ -595,6 +609,9 @@ export default {
 		);
 	},
 
+	/*
+		Role Definitions
+	 */
 	async getRoleDefinitions(): RoleAssignment[] {
 		return (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
@@ -607,11 +624,6 @@ export default {
 		)) as RoleAssignment[];
 	},
 
-	async updateRoleAssignment(roleAssignment: RoleAssignment) {
-		await wait(1000);
-		return roleAssignment;
-	},
-
 	async deleteRoleAssignment(roleAssignmentId): void {
 		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
@@ -621,6 +633,9 @@ export default {
 		);
 	},
 
+	/*
+		Users
+	 */
 	async getUsers(params) {
 		const defaults = {
 			name: '',
@@ -642,6 +657,9 @@ export default {
 		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}`);
 	},
 
+	/*
+		Groups
+	 */
 	async getGroups(params) {
 		const defaults = {
 			name: '',
@@ -663,6 +681,9 @@ export default {
 		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}`);
 	},
 
+	/*
+		Combined User+Groups
+	 */
 	async getObjects(params = { ids: [] }) {
 		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids`, {
 			method: 'POST',
