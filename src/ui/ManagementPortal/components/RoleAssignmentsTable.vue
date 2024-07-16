@@ -195,7 +195,6 @@ export default {
 			this.loading = true;
 			try {
 				const roleAssignments = await api.getRoleAssignments(this.scope);
-				console.log(roleAssignments);
 
 				const principalIds = [];
 				for (let assignmentForPrincipalId of roleAssignments) {
