@@ -37,11 +37,34 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
+
+				<div class="mb-2 mt-2">Principal Type:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.object_type"
+						readonly
+						placeholder="Will appear after selection"
+						type="text"
+						class="w-50"
+					/>
+				</div>
+
+				<div class="mb-2 mt-2">Principal Name:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.display_name"
+						readonly
+						placeholder="Will appear after selection"
+						type="text"
+						class="w-50"
+					/>
+				</div>
 				
 				<div class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="roleAssignment.principal_id"
+						readonly
 						placeholder="Enter principal id (GUID)"
 						type="text"
 						class="w-50"
@@ -49,13 +72,13 @@
 					<Button
 						label="Browse"
 						severity="primary"
-						@click="openBrowsePrincipalsModal = true"
+						@click="selectPrincipalDialogOpen = true"
 					/>
 				</div>
 
 				<!-- Browse principals dialog -->
 				<Dialog
-					:visible="openBrowsePrincipalsModal"
+					:visible="selectPrincipalDialogOpen"
 					modal
 					header="Browse Principals"
 					:closable="false"
@@ -64,19 +87,35 @@
 					<div class="mb-2">Search type</div>
 					<Dropdown
 						v-model="principalSearchType"
-						:options="['User', 'Group']"
+						:options="principalTypeOptions"
 						placeholder="--Select--"
 						class="mb-2 w-100"
 					/>
 
 					<div class="mb-2">Search query</div>
-					<InputText
+					<!-- <InputText
 						v-model="principalSearch"
 						placeholder="Search"
 						type="text"
+					/> -->
+					<Dropdown
+						v-if="principalSearchType === 'User'"
+						v-model="dialogPrincipal"
+						:options="users"
+						option-label="display_name"
+						placeholder="--Select--"
+						class="w-100"
+					/>
+					<Dropdown
+						v-if="principalSearchType === 'Group'"
+						v-model="dialogPrincipal"
+						:options="groups"
+						option-label="display_name"
+						placeholder="--Select--"
+						class="w-100"
 					/>
 					<template #footer>
-						<Button label="Cancel" text @click="openBrowsePrincipalsModal = false" />
+						<Button label="Cancel" text @click="selectPrincipalDialogOpen = false" />
 						<Button label="Select" severity="primary" @click="handlePrincipalSelected" />
 					</template>
 				</Dialog>
@@ -142,9 +181,10 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			openBrowsePrincipalsModal: false,
+			selectPrincipalDialogOpen: false,
 			roleOptions: [] as Role[],
-			principalSearchType: null as null | string,
+			principalSearchType: 'User' as null | string,
+			principalTypeOptions: ['User', 'Group'],
 
 			roleAssignment: {
 				description: '',
@@ -152,6 +192,14 @@ export default {
 				role_definition_id: null,
 				cost_center: null,
 			} as null | RoleAssignment,
+
+			principal: {
+				object_type: null,
+				display_name: '',
+			},
+			dialogPrincipal: null,
+			users: [],
+			groups: [],
 		};
 	},
 
@@ -166,20 +214,43 @@ export default {
 			this.roleAssignment = await api.getRoleAssignment(this.editId);
 		}
 
-		const users = await api.getUsers();
-		const user = users.items[0];
+		const users = await this.getAllPrinciples(api.getUsers.bind(api));
+		this.users = users;
+		// const user = users[0];
 
-		const groups = await api.getGroups();
-		const group = groups.items[0];
+		const groups = await this.getAllPrinciples(api.getGroups.bind(api));
+		this.groups = groups;
+		// const group = groups[0];
 
-		const objects = await api.getObjects({
-			ids: [user.id, group.id],
-		});
+		// const objects = await api.getObjects({
+		// 	ids: [user.id, group.id],
+		// });
 
 		this.loading = false;
 	},
 
 	methods: {
+		async getAllPrinciples(apiMethod) {
+			let allPrincipals = [];
+			let currentPage = 1;
+			let hasMorePages = true;
+			while (hasMorePages) {
+				const usersCurrentPage = await apiMethod({
+					page_number: currentPage,
+				});
+
+				allPrincipals = [...allPrincipals, ...usersCurrentPage.items];
+
+				if (usersCurrentPage.has_next_page) {
+					currentPage += 1;
+				} else {
+					hasMorePages = false;
+				}
+			}
+
+			return allPrincipals;
+		},
+
 		handleCancel() {
 			if (!confirm('Are you sure you want to cancel?')) {
 				return;
@@ -189,7 +260,10 @@ export default {
 		},
 
 		handlePrincipalSelected() {
-
+			this.principal = this.dialogPrincipal;
+			this.roleAssignment.principal_id = this.dialogPrincipal.id;
+			this.dialogPrincipal = null;
+			this.selectPrincipalDialogOpen = false;
 		},
 
 		async handleCreateRoleAssignment() {
@@ -216,7 +290,7 @@ export default {
 			let successMessage = null as null | string;
 			try {
 				this.loadingStatusText = 'Saving role assignment...';
-				await api.updateRoleAssignment(this.roleAssignment);
+				await api.createRoleAssignment(this.roleAssignment);
 				successMessage = `Role assignment was successfully saved.`;
 			} catch (error) {
 				this.loading = false;
