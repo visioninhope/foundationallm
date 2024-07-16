@@ -567,7 +567,7 @@ export default {
 	 */
 	async getRoleAssignments(scope): RoleAssignment[] {
 		const assignments = (await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -589,7 +589,7 @@ export default {
 
 	async getRoleAssignment(roleAssignmentId): RoleAssignment[] {
 		return (await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
 				body: JSON.stringify({
@@ -605,7 +605,7 @@ export default {
 		}
 
 		return await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${request.name}`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${request.name}?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
 				body: JSON.stringify(request),
@@ -618,13 +618,13 @@ export default {
 	 */
 	async getRoleDefinitions(): RoleAssignment[] {
 		return (await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions?api-version=${this.apiVersion}`,
 		)) as Object[];
 	},
 
 	async getRoleDefinition(roleAssignmentId): RoleAssignment {
 		return (await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
 		)) as RoleAssignment[];
 	},
 
@@ -648,7 +648,7 @@ export default {
 			page_size: null,
 		};
 
-		return await this.fetch(`/instances/${this.instanceId}/identity/users/retrieve`, {
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/retrieve?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: JSON.stringify({
 				...defaults,
@@ -658,7 +658,7 @@ export default {
 	},
 
 	async getUser(userId) {
-		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}`);
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}?api-version=${this.apiVersion}`);
 	},
 
 	/*
@@ -672,7 +672,7 @@ export default {
 			page_size: null,
 		};
 
-		return await this.fetch(`/instances/${this.instanceId}/identity/groups/retrieve`, {
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/retrieve?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: JSON.stringify({
 				...defaults,
@@ -682,14 +682,14 @@ export default {
 	},
 
 	async getGroup(groupId) {
-		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}`);
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}?api-version=${this.apiVersion}`);
 	},
 
 	/*
 		Combined User+Groups
 	 */
 	async getObjects(params = { ids: [] }) {
-		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids`, {
+		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids?api-version=${this.apiVersion}`, {
 			method: 'POST',
 			body: JSON.stringify(params),
 		});
