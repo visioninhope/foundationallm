@@ -3452,6 +3452,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyBase.yml",
       "output": {
         ".html": {
@@ -3482,10 +3492,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html"
         }
       },
       "version": ""
@@ -3746,6 +3756,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceTypeInstance.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html"
         }
       },
       "version": ""
@@ -4622,10 +4642,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Configuration.Models.APIEndpointReference.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Configuration.Models.APIEndpointReference.html"
         }
       },
       "version": ""

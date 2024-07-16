@@ -4759,6 +4759,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Write
   fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Write
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete
+  name: FoundationaLLM_Configuration_APIEndpoints_Delete
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_APIEndpoints_Delete
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read
+  name: FoundationaLLM_Configuration_APIEndpoints_Read
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_APIEndpoints_Read
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write
+  name: FoundationaLLM_Configuration_APIEndpoints_Write
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_APIEndpoints_Write
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write
+  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write
 - uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Delete
   name: FoundationaLLM_Configuration_AppConfigurations_Delete
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_AppConfigurations_Delete
@@ -4777,24 +4795,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
   fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Write
-- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete
-- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read
-- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
-  name: FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
-  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
-  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
-  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
-  nameWithType: AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write
 - uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Configuration_KeyVaultSecrets_Delete
   name: FoundationaLLM_Configuration_KeyVaultSecrets_Delete
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Configuration_KeyVaultSecrets_Delete
@@ -5527,6 +5527,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys
   nameWithType: AppConfigurationKeys
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
+  name: FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey
   name: FoundationaLLM_APIs_AgentHubAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_AgentHubAPI_APIKey
@@ -7538,24 +7544,30 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames
   nameWithType: ConfigurationResourceTypeNames
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.APIEndpoints
+  name: APIEndpoints
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceTypeNames_APIEndpoints
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.APIEndpoints
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.APIEndpoints
+  nameWithType: ConfigurationResourceTypeNames.APIEndpoints
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.AppConfigurations
   name: AppConfigurations
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceTypeNames_AppConfigurations
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.AppConfigurations
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.AppConfigurations
   nameWithType: ConfigurationResourceTypeNames.AppConfigurations
-- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
-  name: ExternalOrchestrationServices
-  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationResourceTypeNames_ExternalOrchestrationServices
-  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
-  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationResourceTypeNames.ExternalOrchestrationServices
-  nameWithType: ConfigurationResourceTypeNames.ExternalOrchestrationServices
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes
   name: ConfigurationTypes
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html
   commentId: T:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes
   nameWithType: ConfigurationTypes
+- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.APIEndpoint
+  name: APIEndpoint
+  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationTypes_APIEndpoint
+  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.APIEndpoint
+  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.APIEndpoint
+  nameWithType: ConfigurationTypes.APIEndpoint
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.AppConfigurationKeyValue
   name: AppConfigurationKeyValue
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationTypes_AppConfigurationKeyValue
@@ -7574,12 +7586,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.Basic
   fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.Basic
   nameWithType: ConfigurationTypes.Basic
-- uid: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
-  name: ExternalOrchestrationService
-  href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.html#FoundationaLLM_Common_Constants_ResourceProviders_ConfigurationTypes_ExternalOrchestrationService
-  commentId: F:FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
-  fullName: FoundationaLLM.Common.Constants.ResourceProviders.ConfigurationTypes.ExternalOrchestrationService
-  nameWithType: ConfigurationTypes.ExternalOrchestrationService
 - uid: FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions
   name: DataSourceResourceProviderActions
   href: api/dotnet/FoundationaLLM.Common.Constants.ResourceProviders.DataSourceResourceProviderActions.html
@@ -17227,6 +17233,161 @@ references:
   commentId: N:FoundationaLLM.Common.Models.ResourceProviders.Configuration
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration
   nameWithType: FoundationaLLM.Common.Models.ResourceProviders.Configuration
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint
+  name: APIEndpoint
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint
+  nameWithType: APIEndpoint
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.#ctor
+  name: APIEndpoint()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIEndpoint()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.New()
+  nameWithType: APIEndpoint.APIEndpoint()
+  nameWithType.vb: APIEndpoint.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.#ctor*
+  name: APIEndpoint
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIEndpoint
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.New
+  nameWithType: APIEndpoint.APIEndpoint
+  nameWithType.vb: APIEndpoint.New
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKey
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey
+  nameWithType: APIEndpoint.APIKey
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey*
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKey_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKey
+  nameWithType: APIEndpoint.APIKey
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName
+  name: APIKeyConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKeyConfigurationName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName
+  nameWithType: APIEndpoint.APIKeyConfigurationName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName*
+  name: APIKeyConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKeyConfigurationName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyConfigurationName
+  nameWithType: APIEndpoint.APIKeyConfigurationName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName
+  name: APIKeyHeaderName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKeyHeaderName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName
+  nameWithType: APIEndpoint.APIKeyHeaderName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName*
+  name: APIKeyHeaderName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_APIKeyHeaderName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.APIKeyHeaderName
+  nameWithType: APIEndpoint.APIKeyHeaderName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_AuthenticationType
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType
+  nameWithType: APIEndpoint.AuthenticationType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType*
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_AuthenticationType_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.AuthenticationType
+  nameWithType: APIEndpoint.AuthenticationType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category
+  name: Category
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Category
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category
+  nameWithType: APIEndpoint.Category
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category*
+  name: Category
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Category_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Category
+  nameWithType: APIEndpoint.Category
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName
+  name: RetryStrategyName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_RetryStrategyName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName
+  nameWithType: APIEndpoint.RetryStrategyName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName*
+  name: RetryStrategyName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_RetryStrategyName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.RetryStrategyName
+  nameWithType: APIEndpoint.RetryStrategyName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope
+  name: Scope
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Scope
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope
+  nameWithType: APIEndpoint.Scope
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope*
+  name: Scope
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Scope_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Scope
+  nameWithType: APIEndpoint.Scope
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds
+  name: TimeoutSeconds
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_TimeoutSeconds
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds
+  nameWithType: APIEndpoint.TimeoutSeconds
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds*
+  name: TimeoutSeconds
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_TimeoutSeconds_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.TimeoutSeconds
+  nameWithType: APIEndpoint.TimeoutSeconds
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url
+  name: Url
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Url
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url
+  nameWithType: APIEndpoint.Url
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url*
+  name: Url
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_Url_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.Url
+  nameWithType: APIEndpoint.Url
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions
+  name: UrlExceptions
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_UrlExceptions
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions
+  nameWithType: APIEndpoint.UrlExceptions
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions*
+  name: UrlExceptions
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpoint_UrlExceptions_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpoint.UrlExceptions
+  nameWithType: APIEndpoint.UrlExceptions
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyBase
   name: AppConfigurationKeyBase
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyBase.html
@@ -17323,57 +17484,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyVaultReference.KeyVaultUri
   nameWithType: AppConfigurationKeyVaultReference.KeyVaultUri
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
-  name: ExternalOrchestrationService
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html
-  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService
-  nameWithType: ExternalOrchestrationService
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
-  name: ExternalOrchestrationService()
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService__ctor
-  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.ExternalOrchestrationService()
-  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.New()
-  nameWithType: ExternalOrchestrationService.ExternalOrchestrationService()
-  nameWithType.vb: ExternalOrchestrationService.New()
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor*
-  name: ExternalOrchestrationService
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.#ctor
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException
+  name: UrlException
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException
+  nameWithType: UrlException
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url
+  name: Url
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_UrlException_Url
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url
+  nameWithType: UrlException.Url
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url*
+  name: Url
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_UrlException_Url_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url
   isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.ExternalOrchestrationService
-  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.New
-  nameWithType: ExternalOrchestrationService.ExternalOrchestrationService
-  nameWithType.vb: ExternalOrchestrationService.New
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
-  name: APIKeyConfigurationName
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIKeyConfigurationName
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
-  nameWithType: ExternalOrchestrationService.APIKeyConfigurationName
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName*
-  name: APIKeyConfigurationName
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIKeyConfigurationName_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.Url
+  nameWithType: UrlException.Url
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName
+  name: UserPrincipalName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_UrlException_UserPrincipalName
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName
+  nameWithType: UrlException.UserPrincipalName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName*
+  name: UserPrincipalName
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_UrlException_UserPrincipalName_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIKeyConfigurationName
-  nameWithType: ExternalOrchestrationService.APIKeyConfigurationName
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
-  name: APIUrlConfigurationName
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIUrlConfigurationName
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
-  nameWithType: ExternalOrchestrationService.APIUrlConfigurationName
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName*
-  name: APIUrlConfigurationName
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.html#FoundationaLLM_Common_Models_ResourceProviders_Configuration_ExternalOrchestrationService_APIUrlConfigurationName_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.ExternalOrchestrationService.APIUrlConfigurationName
-  nameWithType: ExternalOrchestrationService.APIUrlConfigurationName
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Configuration.UrlException.UserPrincipalName
+  nameWithType: UrlException.UserPrincipalName
 - uid: FoundationaLLM.Common.Models.ResourceProviders.DataSource
   name: FoundationaLLM.Common.Models.ResourceProviders.DataSource
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.DataSource.html
@@ -18686,6 +18828,48 @@ references:
   commentId: N:FoundationaLLM.Common.Models.ResourceProviders.Vectorization
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization
   nameWithType: FoundationaLLM.Common.Models.ResourceProviders.Vectorization
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory
+  name: APIEndpointCategory
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory
+  nameWithType: APIEndpointCategory
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureAIDirect
+  name: AzureAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_AzureAIDirect
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureAIDirect
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureAIDirect
+  nameWithType: APIEndpointCategory.AzureAIDirect
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureOpenAIDirect
+  name: AzureOpenAIDirect
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_AzureOpenAIDirect
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureOpenAIDirect
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.AzureOpenAIDirect
+  nameWithType: APIEndpointCategory.AzureOpenAIDirect
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Gatekeeper
+  name: Gatekeeper
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_Gatekeeper
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Gatekeeper
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Gatekeeper
+  nameWithType: APIEndpointCategory.Gatekeeper
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.General
+  name: General
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_General
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.General
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.General
+  nameWithType: APIEndpointCategory.General
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.LLM
+  name: LLM
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_LLM
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.LLM
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.LLM
+  nameWithType: APIEndpointCategory.LLM
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Orchestration
+  name: Orchestration
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.html#FoundationaLLM_Common_Models_ResourceProviders_Vectorization_APIEndpointCategory_Orchestration
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Orchestration
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.APIEndpointCategory.Orchestration
+  nameWithType: APIEndpointCategory.Orchestration
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType
   name: IndexerType
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexerType.html
@@ -23220,25 +23404,25 @@ references:
   commentId: N:FoundationaLLM.Configuration.Models
   fullName: FoundationaLLM.Configuration.Models
   nameWithType: FoundationaLLM.Configuration.Models
-- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
-  name: ExternalOrchestrationServiceReference
-  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html
-  commentId: T:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
-  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference
-  nameWithType: ExternalOrchestrationServiceReference
-- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+- uid: FoundationaLLM.Configuration.Models.APIEndpointReference
+  name: APIEndpointReference
+  href: api/dotnet/FoundationaLLM.Configuration.Models.APIEndpointReference.html
+  commentId: T:FoundationaLLM.Configuration.Models.APIEndpointReference
+  fullName: FoundationaLLM.Configuration.Models.APIEndpointReference
+  nameWithType: APIEndpointReference
+- uid: FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType
   name: ResourceType
-  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html#FoundationaLLM_Configuration_Models_ExternalOrchestrationServiceReference_ResourceType
-  commentId: P:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
-  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
-  nameWithType: ExternalOrchestrationServiceReference.ResourceType
-- uid: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType*
+  href: api/dotnet/FoundationaLLM.Configuration.Models.APIEndpointReference.html#FoundationaLLM_Configuration_Models_APIEndpointReference_ResourceType
+  commentId: P:FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType
+  fullName: FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType
+  nameWithType: APIEndpointReference.ResourceType
+- uid: FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType*
   name: ResourceType
-  href: api/dotnet/FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.html#FoundationaLLM_Configuration_Models_ExternalOrchestrationServiceReference_ResourceType_
-  commentId: Overload:FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
+  href: api/dotnet/FoundationaLLM.Configuration.Models.APIEndpointReference.html#FoundationaLLM_Configuration_Models_APIEndpointReference_ResourceType_
+  commentId: Overload:FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType
   isSpec: "True"
-  fullName: FoundationaLLM.Configuration.Models.ExternalOrchestrationServiceReference.ResourceType
-  nameWithType: ExternalOrchestrationServiceReference.ResourceType
+  fullName: FoundationaLLM.Configuration.Models.APIEndpointReference.ResourceType
+  nameWithType: APIEndpointReference.ResourceType
 - uid: FoundationaLLM.Configuration.Services
   name: FoundationaLLM.Configuration.Services
   href: api/dotnet/FoundationaLLM.Configuration.Services.html
@@ -23321,6 +23505,19 @@ references:
   fullName.vb: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.New
   nameWithType: ConfigurationResourceProviderService.ConfigurationResourceProviderService
   nameWithType.vb: ConfigurationResourceProviderService.New
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ConfigurationResourceProviderService.DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync*
+  name: DeleteResourceAsync
+  href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_DeleteResourceAsync_
+  commentId: Overload:FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.DeleteResourceAsync
+  nameWithType: ConfigurationResourceProviderService.DeleteResourceAsync
 - uid: FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.Configuration.Services.ConfigurationResourceProviderService.html#FoundationaLLM_Configuration_Services_ConfigurationResourceProviderService_GetResourceTypes
