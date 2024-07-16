@@ -1,7 +1,21 @@
 <template>
 	<div>
-		<h2 class="page-header">All Agents</h2>
-		<div class="page-subheader">View your publicly accessible agents.</div>
+		<div style="display: flex">
+			<div style="flex: 1">
+				<h2 class="page-header">All Agents</h2>
+				<div class="page-subheader">View your publicly accessible agents.</div>
+			</div>
+
+			<div style="display: flex; align-items: center">
+				<Button @click="accessControlModalOpen = true">
+					<i class="pi pi-lock" style="color: var(--text-primary);"></i>
+				</Button>
+			</div>
+		</div>
+
+		<Dialog v-model:visible="accessControlModalOpen" modal header="Access Control" :style="{ minWidth: '70%' }">
+			<RoleAssignmentsTable scope="providers/FoundationaLLM.Agent/agents/KMAgentWithSemanticKernelInlineContext" />
+		</Dialog>
 
 		<div :class="{ 'grid--loading': loading }">
 			<!-- Loading overlay -->
@@ -113,6 +127,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 			agentToDelete: null as Agent | null,
+			accessControlModalOpen: false,
 		};
 	},
 
