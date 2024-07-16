@@ -600,11 +600,15 @@ export default {
 	},
 
 	async createRoleAssignment(request: Object): Promise<any> {
+		if (!request.scope) {
+			request.scope = `/instances/${this.instanceId}`;
+		}
+
 		return await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${request.name}`,
 			{
 				method: 'POST',
-				body: request,
+				body: JSON.stringify(request),
 			},
 		);
 	},
