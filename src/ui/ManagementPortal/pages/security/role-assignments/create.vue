@@ -159,6 +159,7 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
+import { v4 as uuidv4 } from 'uuid';
 
 import type {
 	Role,
@@ -187,10 +188,12 @@ export default {
 			principalTypeOptions: ['User', 'Group'],
 
 			roleAssignment: {
+				name: '',
 				description: '',
 				principal_id: null,
 				role_definition_id: null,
-				cost_center: null,
+				type: 'FoundationaLLM.Authorization/roleAssignments',
+				// cost_center: null,
 			} as null | RoleAssignment,
 
 			principal: {
@@ -262,6 +265,7 @@ export default {
 		handlePrincipalSelected() {
 			this.principal = this.dialogPrincipal;
 			this.roleAssignment.principal_id = this.dialogPrincipal.id;
+			this.roleAssignment.principal_type = this.dialogPrincipal.object_type;
 			this.dialogPrincipal = null;
 			this.selectPrincipalDialogOpen = false;
 		},
@@ -276,7 +280,7 @@ export default {
 			if (!this.roleAssignment.role_definition_id) {
 				errors.push('Please specify a role.');
 			}
-		
+
 			if (errors.length > 0) {
 				this.$toast.add({
 					severity: 'error',
@@ -290,7 +294,10 @@ export default {
 			let successMessage = null as null | string;
 			try {
 				this.loadingStatusText = 'Saving role assignment...';
-				await api.createRoleAssignment(this.roleAssignment);
+				await api.createRoleAssignment({
+					...this.roleAssignment,
+					name: uuidv4(),
+				});
 				successMessage = `Role assignment was successfully saved.`;
 			} catch (error) {
 				this.loading = false;
