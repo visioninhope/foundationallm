@@ -579,8 +579,8 @@ export default {
 		assignments.map(assignment => {
 			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
 				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
-			} else if (assignment.resource.scope.endsWith('KMAgentWithSemanticKernelInlineContext')) {
-				assignment.resource.scope_name = 'Agent';
+			} else if (assignment.resource.scope === `/instances/${this.instanceId}/${scope}`) {
+				assignment.resource.scope_name = 'This instance';
 			}
 		});
 
