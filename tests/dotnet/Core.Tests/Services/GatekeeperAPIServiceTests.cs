@@ -25,8 +25,8 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task GetCompletion_SuccessfulCompletionResponse()
         {
             // Arrange
-            var expected = new CompletionResponse { Completion = "Test Completion" };
-            var completionRequest = new CompletionRequest { UserPrompt = "Test Prompt", MessageHistory = new List<MessageHistoryItem>() };
+            var expected = new ClientCompletionResponse { Completion = "Test Completion" };
+            var completionRequest = new ClientCompletionRequest { UserPrompt = "Test Prompt", MessageHistory = new List<MessageHistoryItem>() };
 
             // Create a mock message handler
             var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, expected);
@@ -48,8 +48,8 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task GetCompletion_UnsuccessfulDefaultResponse()
         {
             // Arrange
-            var expected = new CompletionResponse { Completion = "A problem on my side prevented me from responding." };
-            var completionRequest = new CompletionRequest { UserPrompt = "Test Prompt", MessageHistory = new List<MessageHistoryItem>() };
+            var expected = new ClientCompletionResponse { Completion = "A problem on my side prevented me from responding." };
+            var completionRequest = new ClientCompletionRequest { UserPrompt = "Test Prompt", MessageHistory = new List<MessageHistoryItem>() };
 
             // Create a mock message handler
             var mockHandler = new MockHttpMessageHandler(HttpStatusCode.InternalServerError, string.Empty);

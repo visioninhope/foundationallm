@@ -17,7 +17,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), ICompletionRESTClient
     {
         /// <inheritdoc/>
-        public async Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest)
+        public async Task<Completion> GetChatCompletionAsync(ClientCompletionRequest completionRequest)
         {
             var coreClient = await GetCoreClientAsync();
             var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);

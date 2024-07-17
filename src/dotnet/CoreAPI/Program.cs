@@ -60,6 +60,8 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AIModel);
+
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -92,7 +94,7 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.AddAgentResourceProvider();
             builder.AddAttachmentResourceProvider();
-
+            builder.AddAIModelResourceProvider();
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
 

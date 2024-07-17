@@ -44,12 +44,12 @@ namespace Gatekeeper.Tests.Services
         public async Task GetCompletion_CallsOrchestrationAPIServiceWithCompletionRequest()
         {
             // Arrange
-            var completionRequest = new CompletionRequest
+            var completionRequest = new ClientCompletionRequest
             {
                 UserPrompt = "Safe content."
             };
 
-            var expectedResult = new CompletionResponse { Completion = "Completion from Orchestration API Service." };
+            var expectedResult = new ClientCompletionResponse { Completion = "Completion from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
             _contentSafetyService.AnalyzeText(completionRequest.UserPrompt).Returns(safeContentResult);

@@ -8,7 +8,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// Base class for an orchestration involving a FoundationaLLM agent.
     /// </summary>
     /// <remarks>
-    /// Constructor for the AgentBase class.
+    /// Constructor for the OrchestrationBase class.
     /// </remarks>
     /// <param name="orchestrationService"></param>
     public class OrchestrationBase(ILLMOrchestrationService orchestrationService)
@@ -23,7 +23,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// </summary>
         /// <param name="completionRequest"></param>
         /// <returns></returns>
-        public virtual async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public virtual async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
         {
             await Task.CompletedTask;
             return null!;

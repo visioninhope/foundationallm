@@ -74,9 +74,9 @@ namespace FoundationaLLM.Vectorization.Services.Text
 
         private ITextEmbeddingService CreateSemanticKernelTextEmbeddingService(TextEmbeddingProfile textEmbeddingProfile)
         {
-            if (!textEmbeddingProfile.ConfigurationReferences!.TryGetValue("Endpoint", out string? endpointConfigurationItem)
+            if (!textEmbeddingProfile.ConfigurationReferences!.TryGetValue("EndpointUrl", out string? endpointConfigurationItem)
                 || string.IsNullOrWhiteSpace(endpointConfigurationItem))
-                throw new VectorizationException("The text embedding profile does not contain a valid Endpoint configuration reference.");
+                throw new VectorizationException("The text embedding profile does not contain a valid EndpointUrl configuration reference.");
 
             if (!textEmbeddingProfile.ConfigurationReferences!.TryGetValue("DeploymentName", out string? deploymentNameConfigurationItem)
                 || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem))

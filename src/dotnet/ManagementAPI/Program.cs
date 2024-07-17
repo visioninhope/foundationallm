@@ -59,7 +59,8 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings                
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);                
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AIModel);
             });
 
             if (builder.Environment.IsDevelopment())
@@ -117,6 +118,7 @@ namespace FoundationaLLM.Management.API
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();
             builder.AddAttachmentResourceProvider();
+            builder.AddAIModelResourceProvider();
 
             // Add authentication configuration.
             var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;

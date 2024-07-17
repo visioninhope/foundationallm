@@ -28,7 +28,7 @@ namespace FoundationaLLM.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
         {
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
@@ -40,7 +40,7 @@ namespace FoundationaLLM.Core.Services
                     JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions),
                     Encoding.UTF8, "application/json"));
 
-            var defaultCompletionResponse = new CompletionResponse
+            var defaultCompletionResponse = new ClientCompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
@@ -52,7 +52,7 @@ namespace FoundationaLLM.Core.Services
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var completionResponse = JsonSerializer.Deserialize<CompletionResponse>(responseContent);
+                var completionResponse = JsonSerializer.Deserialize<ClientCompletionResponse>(responseContent);
 
                 return completionResponse ?? defaultCompletionResponse;
             }

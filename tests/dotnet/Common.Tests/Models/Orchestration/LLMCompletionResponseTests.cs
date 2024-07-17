@@ -17,7 +17,6 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
                 AgentName = "Agent name",
                 PromptTokens = 10,
                 CompletionTokens = 20,
-                TotalTokens = 30,
                 TotalCost = 15.5f
             };
 

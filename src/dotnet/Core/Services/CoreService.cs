@@ -105,7 +105,7 @@ public partial class CoreService(
     /// Receive a prompt from a user, retrieve the message history from the related session,
     /// generate a completion response, and log full completion results.
     /// </summary>
-    public async Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest)
+    public async Task<Completion> GetChatCompletionAsync(ClientCompletionRequest completionRequest)
     {
         try
         {
@@ -150,7 +150,7 @@ public partial class CoreService(
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    public async Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest)
+    public async Task<Completion> GetCompletionAsync(ClientCompletionRequest directCompletionRequest)
     {
         try
         {
@@ -217,7 +217,7 @@ public partial class CoreService(
             ? _orchestrationAPIService
             : _gatekeeperAPIService;
 
-    private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
+    private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(ClientCompletionRequest completionRequest)
     {
         if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
             throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");

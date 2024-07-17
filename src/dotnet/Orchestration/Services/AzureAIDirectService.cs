@@ -7,6 +7,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -57,13 +58,14 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var agent = request.Agent
                 ?? throw new Exception("Agent cannot be null.");
 
-            var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
-                ?? throw new Exception("Endpoint Configuration must be provided.");
+            var endpointConfiguration = (agent.OrchestrationSettings?.AIModel?.Endpoint)
+                ?? throw new Exception("AIModel endpoint settings must be provided.");
 
-            var endpointSettings = GetEndpointSettings(endpointConfiguration);
+            var deployment = request?.Settings?.AIModel?.DeploymentName ?? throw new Exception("Deployment name must be set on the AIModel");
 
             SystemCompletionMessage? systemPrompt = null;
             CompletionMessage? assistantPrompt = null;
+
             if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
             {
                 if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
@@ -115,21 +117,26 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
-            if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+            var endpointSettings = GetEndpointSettings(endpointConfiguration);
+            var endpoint = agent.OrchestrationSettings.AIModel.Endpoint;
+            var apiKey = endpointSettings.APIKey;
+
+            if (!string.IsNullOrWhiteSpace(endpoint.EndpointUrl) && !string.IsNullOrWhiteSpace(apiKey))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
-                if (endpointSettings.AuthenticationType == "key" && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+                if (endpointSettings.AuthenticationType == AuthenticationType.ApiKey && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
                 {
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
                         "Bearer", endpointSettings.APIKey
                     );
                 }
                 
-                client.BaseAddress = new Uri(endpointSettings.Endpoint);
+                client.BaseAddress = new Uri(endpointSettings.EndpointUrl!);
                 
-                var modelParameters = agent.OrchestrationSettings?.ModelParameters;
-                var modelOverrides = request.Settings?.ModelParameters;
-                
+                var modelParameters = agent.OrchestrationSettings?.AIModel.ModelParameters;
+                var modelOverrides = request.Settings?.AIModel?.ModelParameters;
+                modelParameters[ModelParameterKeys.DeploymentName] = deployment;
+
                 AzureAICompletionRequest azureAiCompletionRequest;
 
                 if (modelParameters != null)
@@ -150,10 +157,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                     var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
-                    if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
-                    {
-                        content.Headers.Add("azureml-model-deployment", deployment.ToString());
-                    }
 
                     var responseMessage = await client.PostAsync("", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
@@ -194,32 +197,26 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// Extracts endpoint configuration values from a dictionary and writes them into a
         /// <see cref="EndpointSettings"/> object.
         /// </summary>
-        /// <param name="endpointConfiguration">Dictionary containing orchestration endpoint configuration values.</param>
+        /// <param name="endpoint">EndpointUrl object containing orchestration endpoint configuration values.</param>
         /// <returns>Returns a <see cref="EndpointSettings"/> object containing the endpoint configuration.</returns>
         /// <exception cref="Exception"></exception>
-        private EndpointSettings GetEndpointSettings(Dictionary<string, object> endpointConfiguration)
+        private EndpointSettings GetEndpointSettings(AIModelEndpoint endpoint)
         {
-            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpointKeyName))
-                throw new Exception("An endpoint value must be passed in via an Azure App Config key name.");
-
-            var endpoint = _configuration.GetValue<string>(endpointKeyName?.ToString()!);
-
-            var authenticationType = endpointConfiguration.GetValueOrDefault(EndpointConfigurationKeys.AuthenticationType, "key").ToString();
             var apiKey = string.Empty;
 
-            if (authenticationType == "key")
+            if (endpoint.AuthenticationType == AuthenticationType.ApiKey)
             {
-                if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
+                if (!endpoint.AuthenticationParameters.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
                     throw new Exception("An API key must be passed in via an Azure App Config key name.");
 
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }
-            
+
             return new EndpointSettings
             {
-                Endpoint = endpoint!,
+                EndpointUrl = endpoint.EndpointUrl!,
                 APIKey = apiKey!,
-                AuthenticationType = authenticationType!
+                AuthenticationType = endpoint.AuthenticationType!
             };
         }
     }

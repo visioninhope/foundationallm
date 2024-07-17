@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
@@ -85,6 +86,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_AIModel, out var aiModelResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_AIModel} was not loaded.");
+
 
             var agentBase = await agentResourceProvider.GetResource<AgentBase>(
                 $"/{AgentResourceTypeNames.Agents}/{agentName}",
@@ -96,8 +100,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             var prompt = await promptResourceProvider.GetResource<PromptBase>(
                 agentBase.PromptObjectId!,
                 currentUserIdentity);
+            var aiModel = await aiModelResourceProvider.GetResource<AIModelBase>(
+                agentBase.AIModelObjectId,
+                currentUserIdentity);
 
             agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
+            agentBase.OrchestrationSettings.AIModel = aiModel;
 
             var allAgents = await agentResourceProvider.GetResources<AgentBase>(currentUserIdentity);
             var allAgentsDescriptions = allAgents

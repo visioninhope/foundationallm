@@ -283,6 +283,26 @@
 				"field_name": "FoundationaLLM_Attachment_Attachments_Delete"
 			}
 		]
+	},
+	{
+		"category": "AIModel",
+		"actions": [
+			{
+				"name": "FoundationaLLM.AIModel/aimodels/read",
+				"description": "Read aimodels models",
+				"field_name": "FoundationaLLM_AIModel_Models_Read"
+			},
+			{
+				"name": "FoundationaLLM.AIModel/aimodels/write",
+				"description": "Create or update models.",
+				"field_name": "FoundationaLLM_AIModel_Models_Write"
+			},
+			{
+				"name": "FoundationaLLM.AIModel/aimodels/delete",
+				"description": "Delete models.",
+				"field_name": "FoundationaLLM_AIModel_Models_Delete"
+			}
+		]
 	}
 
 ]

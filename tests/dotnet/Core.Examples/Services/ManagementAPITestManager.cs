@@ -219,15 +219,13 @@ namespace FoundationaLLM.Core.Examples.Services
 
             // Resolve App Config values for the endpoint configuration as necessary.
             // Note: This is a temporary workaround until we have the Models and Endpoints resource provider in place.
-            if (agent.OrchestrationSettings is {EndpointConfiguration: not null})
+            var endpoint = agent.OrchestrationSettings?.AIModel?.Endpoint;
+            if (endpoint != null)
             {
-                foreach (var (key, value) in agent.OrchestrationSettings.EndpointConfiguration)
-                {
-                    if (key.ToLower() == "api_key") continue;
-                    if (value is not string stringValue || !stringValue.StartsWith("FoundationaLLM:")) continue;
-                    var appConfigValue = await TestConfiguration.GetAppConfigValueAsync(value.ToString()!);
-                    agent.OrchestrationSettings.EndpointConfiguration[key] = appConfigValue;
-                }
+                if (endpoint.EndpointUrl != null && endpoint.EndpointUrl.StartsWith("FoundationaLLM:"))
+                    endpoint.EndpointUrl = await TestConfiguration.GetAppConfigValueAsync(endpoint.EndpointUrl!);
+                if (endpoint.APIVersion != null && endpoint.APIVersion.StartsWith("FoundationaLLM:"))
+                    endpoint.APIVersion = await TestConfiguration.GetAppConfigValueAsync(endpoint.APIVersion!);
             }
 
             var agentPrompt = await CreatePrompt(agentName);

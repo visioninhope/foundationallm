@@ -39,7 +39,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// </summary>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
         {
             if (completionRequest.GatekeeperOptions != null && completionRequest.GatekeeperOptions.Length > 0)
             {
@@ -55,7 +55,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new ClientCompletionResponse() { Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
@@ -63,7 +63,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new ClientCompletionResponse() { Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
@@ -71,7 +71,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new ClientCompletionResponse() { Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
@@ -79,7 +79,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)
-                    return new CompletionResponse() { Completion = contentSafetyResult.Reason };
+                    return new ClientCompletionResponse() { Completion = contentSafetyResult.Reason };
             }
 
             var completionResponse = await _orchestrationAPIService.GetCompletion(completionRequest);

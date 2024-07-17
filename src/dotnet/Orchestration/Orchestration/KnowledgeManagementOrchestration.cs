@@ -38,10 +38,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
         /// <inheritdoc/>
-        public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public override async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
         {
             if (_dataSourceAccessDenied)
-                return new CompletionResponse
+                return new ClientCompletionResponse
                 {
                     Completion = "I have no knowledge that can be used to answer this question.",
                     UserPrompt = completionRequest.UserPrompt!,
@@ -49,7 +49,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 };
 
             if (_agent.ExpirationDate.HasValue && _agent.ExpirationDate.Value < DateTime.UtcNow)
-                return new CompletionResponse
+                return new ClientCompletionResponse
                 {
                     Completion = $"The requested agent, {_agent.Name}, has expired and is unable to respond.",
                     UserPrompt = completionRequest.UserPrompt!,
@@ -63,7 +63,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     Agent = _agent,
                     MessageHistory = completionRequest.MessageHistory,
                     Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
-                    Settings = completionRequest.Settings
+                    Settings = _agent.OrchestrationSettings
                 });
 
             if (result.Citations != null)
@@ -74,7 +74,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     .ToArray();
             }
 
-            return new CompletionResponse
+            return new ClientCompletionResponse
             {
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt!,

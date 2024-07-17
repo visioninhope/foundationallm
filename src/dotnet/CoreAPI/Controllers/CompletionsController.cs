@@ -61,7 +61,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// </summary>
         /// <param name="completionRequest">The user prompt for which to generate a completion.</param>
         [HttpPost(Name = "GetCompletion")]
-        public async Task<IActionResult> GetCompletion([FromBody] CompletionRequest completionRequest) =>
+        public async Task<IActionResult> GetCompletion([FromBody] ClientCompletionRequest completionRequest) =>
             !string.IsNullOrWhiteSpace(completionRequest.SessionId) ? Ok(await _coreService.GetChatCompletionAsync(completionRequest)) :
                 Ok(await _coreService.GetCompletionAsync(completionRequest));
 

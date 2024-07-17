@@ -78,7 +78,7 @@ public class OrchestrationService : IOrchestrationService
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.
     /// </summary>
-    public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+    public async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
     {
         try
         {
@@ -90,7 +90,7 @@ public class OrchestrationService : IOrchestrationService
         {
             _logger.LogError(ex, "Error retrieving completion from the orchestration service for {UserPrompt}.",
                 completionRequest.UserPrompt);
-            return new CompletionResponse
+            return new ClientCompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
@@ -101,11 +101,11 @@ public class OrchestrationService : IOrchestrationService
         }
     }
 
-    private async Task<CompletionResponse> GetCompletionForAgentConversation(
-        CompletionRequest completionRequest,
+    private async Task<ClientCompletionResponse> GetCompletionForAgentConversation(
+        ClientCompletionRequest completionRequest,
         List<AgentConversationStep> agentConversationSteps)
     {
-        var currentCompletionResponse = default(CompletionResponse);
+        var currentCompletionResponse = default(ClientCompletionResponse);
 
         foreach (var conversationStep in agentConversationSteps)
         {
@@ -118,7 +118,7 @@ public class OrchestrationService : IOrchestrationService
                 _serviceProvider,
                 _loggerFactory);
 
-            var stepCompletionRequest = new CompletionRequest
+            var stepCompletionRequest = new ClientCompletionRequest
             {
                 AgentName = conversationStep.AgentName,
                 SessionId = completionRequest.SessionId,

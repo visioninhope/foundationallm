@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Core.Examples.Constants;
 
 namespace FoundationaLLM.Core.Examples.Catalogs
@@ -38,21 +39,29 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        //TODO-BDN - naming convention for AI Models?
+                        Name = TestAgentNames.GenericInlineContextAgentName,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            //TODO-BDN - naming convention for endpoints?
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -77,22 +86,28 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                    AIModel = new AIModelBase
+                    {
+                        Name = TestAgentNames.SemanticKernelInlineContextAgentName,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
                         },
-                    ModelParameters = new Dictionary<string, object>
+                        ModelParameters = new Dictionary<string, object>
                         {
                             { "temperature", 0 },
-                            { "deployment_name", "completions" }
                         }
+                    }
                 }
             },
             new KnowledgeManagementAgent
@@ -117,22 +132,28 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                    AIModel = new AIModelBase
+                    {
+                        Name = TestAgentNames.SemanticKernelAgentName,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
                         },
-                    ModelParameters = new Dictionary<string, object>
+                        ModelParameters = new Dictionary<string, object>
                         {
                             { "temperature", 0 },
-                            { "deployment_name", "completions" }
                         }
+                    }
                 }
             },
             new KnowledgeManagementAgent
@@ -157,22 +178,28 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
+                    AIModel = new AIModelBase
+                    {
+                        Name = TestAgentNames.LangChainAgentName,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
                         },
-                    ModelParameters = new Dictionary<string, object>
+                        ModelParameters = new Dictionary<string, object>
                         {
                             { "temperature", 0 },
-                            { "deployment_name", "completions" }
                         }
+                    }
                 }
             },
             new KnowledgeManagementAgent
@@ -196,21 +223,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.SemanticKernelSDZWA,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -235,21 +268,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.LangChainSDZWA,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -274,21 +313,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0.5 },
-                        { "deployment_name", "completions-gpt-4-32k" }
+                        Name = TestAgentNames.ConversationGeneratorAgent,
+                        DeploymentName = "completions-gpt-4-32k",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0.5 },
+                        }
                     }
                 }
             },
@@ -313,21 +358,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.Dune01,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -352,21 +403,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.Dune02,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -391,21 +448,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.Dune03,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -430,21 +493,27 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new LLMOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
+                    AIModel = new AIModelBase
                     {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
+                        Name = TestAgentNames.LangChainDune,
+                        DeploymentName = "completions",
+                        Endpoint = new AIModelEndpoint {
+                            Name = "Azure OpenAI",
+                            Provider = "microsoft",
+                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationType.ApiKey,
+                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
+                            AuthenticationParameters = new Dictionary<string, object> {
+                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
+                            }
+                        },
+                        ModelParameters = new Dictionary<string, object>
+                        {
+                            { "temperature", 0 },
+                        }
                     }
                 }
             },
@@ -460,7 +529,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
         {
             var agents = new List<AgentBase>();
             agents.AddRange(KnowledgeManagementAgents);
-            
+
             return agents;
         }
     }

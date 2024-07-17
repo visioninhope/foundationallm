@@ -16,5 +16,5 @@ public interface IOrchestrationService
     /// <summary>
     /// Retrieve a completion from the configured orchestration service.
     /// </summary>
-    Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
+    Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest);
 }

@@ -12,7 +12,7 @@ public interface IGatekeeperAPIService
     /// </summary>
     /// <param name="completionRequest">The completion request object.</param>
     /// <returns></returns>
-    Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
+    Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest);
     /// <summary>
     /// Requests a summary from the downstream APIs via the Gatekeeper API.
     /// </summary>

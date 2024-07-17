@@ -21,7 +21,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         public async Task GetCompletion_ShouldReturnNullCompletionResponse()
         {
             // Arrange
-            var completionRequest = new CompletionRequest(){ UserPrompt = ""};
+            var completionRequest = new ClientCompletionRequest(){ UserPrompt = ""};
 
             // Act
             var result = await _orchestrationBase.GetCompletion(completionRequest);

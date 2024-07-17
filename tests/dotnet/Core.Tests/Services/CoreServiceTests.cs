@@ -247,8 +247,8 @@ namespace FoundationaLLM.Core.Tests.Services
             var expectedMessages = new List<Message>();
             _cosmosDbService.GetSessionMessagesAsync(sessionId, upn).Returns(expectedMessages);
 
-            var completionResponse = new CompletionResponse() { Completion = "Completion" };
-            _downstreamAPIServices.Last().GetCompletion(Arg.Any<CompletionRequest>()).Returns(completionResponse);
+            var completionResponse = new ClientCompletionResponse() { Completion = "Completion" };
+            _downstreamAPIServices.Last().GetCompletion(Arg.Any<ClientCompletionRequest>()).Returns(completionResponse);
 
             _cosmosDbService.GetSessionAsync(sessionId).Returns(new Session());
             _cosmosDbService.UpsertSessionBatchAsync().Returns(Task.CompletedTask);

@@ -61,7 +61,7 @@ namespace FoundationaLLM.Client.Core
                 sessionId = await CreateChatSessionAsync(sessionName);
             }
 
-            var orchestrationRequest = new CompletionRequest
+            var orchestrationRequest = new ClientCompletionRequest
             {
                 AgentName = agentName,
                 SessionId = sessionId,
@@ -71,7 +71,7 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> GetCompletionWithSessionAsync(CompletionRequest completionRequest)
+        public async Task<Completion> GetCompletionWithSessionAsync(ClientCompletionRequest completionRequest)
         {
             if (string.IsNullOrWhiteSpace(completionRequest.SessionId) ||
                 string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
@@ -87,7 +87,7 @@ namespace FoundationaLLM.Client.Core
         /// <inheritdoc/>
         public async Task<Completion> GetCompletionAsync(string userPrompt, string agentName)
         {
-            var completionRequest = new CompletionRequest
+            var completionRequest = new ClientCompletionRequest
             {
                 AgentName = agentName,
                 UserPrompt = userPrompt
@@ -97,7 +97,7 @@ namespace FoundationaLLM.Client.Core
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> GetCompletionAsync(CompletionRequest completionRequest)
+        public async Task<Completion> GetCompletionAsync(ClientCompletionRequest completionRequest)
         {
             if (string.IsNullOrWhiteSpace(completionRequest.AgentName) ||
                 string.IsNullOrWhiteSpace(completionRequest.UserPrompt))
@@ -127,7 +127,7 @@ namespace FoundationaLLM.Client.Core
                     sessionId = await CreateChatSessionAsync(sessionName);
                 }
 
-                var orchestrationRequest = new CompletionRequest
+                var orchestrationRequest = new ClientCompletionRequest
                 {
                     AgentName = agentName,
                     SessionId = sessionId,
@@ -140,7 +140,7 @@ namespace FoundationaLLM.Client.Core
             }
 
             // Use the orchestrated completion request to ask a question about the file.
-            var completionRequest = new CompletionRequest
+            var completionRequest = new ClientCompletionRequest
             {
                 AgentName = agentName,
                 UserPrompt = question,

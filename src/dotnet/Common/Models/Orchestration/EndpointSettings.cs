@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
@@ -10,7 +11,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <summary>
         /// Uri of the orchestration endpoint.
         /// </summary>
-        public string? Endpoint { get; set; }
+        public string? EndpointUrl { get; set; }
 
         /// <summary>
         /// API key for authorizing against an endpoint.

@@ -111,7 +111,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     || textEmbeddingProfile.ConfigurationReferences == null
                     || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("DeploymentName", out var deploymentNameConfigurationItem)
                     || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem)
-                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("Endpoint", out var textEmbeddingEndpointConfigurationItem)
+                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("EndpointUrl", out var textEmbeddingEndpointConfigurationItem)
                     || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
                     throw new SemanticKernelException("The text embedding profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
 
@@ -168,7 +168,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             {
                 case IndexerType.AzureAISearchIndexer:
                     valid = indexingProfile.ConfigurationReferences != null
-                       && indexingProfile.ConfigurationReferences.TryGetValue("Endpoint",
+                       && indexingProfile.ConfigurationReferences.TryGetValue("EndpointUrl",
                                out indexingEndpointConfigurationItem)
                        && !string.IsNullOrWhiteSpace(indexingEndpointConfigurationItem)
                        && indexingProfile.ConfigurationReferences.TryGetValue("AuthenticationType",
@@ -251,7 +251,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     AgentName = _request.Agent.Name,
                     PromptTokens = completionUsage!.PromptTokens,
                     CompletionTokens = completionUsage.CompletionTokens,
-                    TotalTokens = completionUsage.TotalTokens
                 };
             }
             catch (Exception ex)

@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Interfaces
         /// </summary>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
-        Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
+        Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest);
 
         /// <summary>
         /// Gets a summary from the downstream API.

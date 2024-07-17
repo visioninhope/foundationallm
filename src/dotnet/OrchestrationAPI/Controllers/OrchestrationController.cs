@@ -29,7 +29,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// <param name="completionRequest"></param>
         /// <returns></returns>
         [HttpPost("completion")]
-        public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest completionRequest) =>
+        public async Task<ClientCompletionResponse> GetCompletion([FromBody] ClientCompletionRequest completionRequest) =>
             await _orchestrationService.GetCompletion(completionRequest);
     }
 }

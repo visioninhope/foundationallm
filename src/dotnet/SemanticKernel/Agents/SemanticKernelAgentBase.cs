@@ -110,30 +110,33 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             if (_request.Agent.OrchestrationSettings == null)
                 throw new SemanticKernelException("The OrchestrationSettings property of the agent cannot be null.", StatusCodes.Status400BadRequest);
 
-            if (_request.Agent.OrchestrationSettings.EndpointConfiguration == null)
-                throw new SemanticKernelException("The EndpointConfiguration property of the agent's OrchestrationSettings property cannot be null.", StatusCodes.Status400BadRequest);
+            var aiModel = _request.Agent.OrchestrationSettings.AIModel;
+            if (aiModel == null)
+                throw new SemanticKernelException("The AIModel for the agent OrchestrationSettings cannot be null");
 
-            if (!_request.Agent.OrchestrationSettings.EndpointConfiguration.TryGetValue(EndpointConfigurationKeys.Provider, out var llmProvider)
-                || string.IsNullOrWhiteSpace(llmProvider.ToString()))
-                throw new SemanticKernelException("The Provider property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", StatusCodes.Status400BadRequest);
+            var endpoint = aiModel.Endpoint;
 
-            if (!LanguageModelProviders.All.Contains(llmProvider.ToString()))
-                throw new SemanticKernelException($"The LLM provider '{llmProvider}' is not supported.", StatusCodes.Status400BadRequest);
+            if (endpoint == null)
+                throw new SemanticKernelException("The EndpointUrl property of the AIModel cannot be null.", StatusCodes.Status400BadRequest);
 
-            if (!_request.Agent.OrchestrationSettings.EndpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpoint)
-                || string.IsNullOrWhiteSpace(endpoint.ToString()))
-                throw new SemanticKernelException("The Endpoint property of the agent's OrchestrationSettings.EndpointConfiguration property cannot be null.", StatusCodes.Status400BadRequest);
+            if ( string.IsNullOrWhiteSpace(endpoint?.Provider))
+                throw new SemanticKernelException("The Provider property of the AIModel endpoint property cannot be null.", StatusCodes.Status400BadRequest);
 
-            if (_request.Agent.OrchestrationSettings.ModelParameters == null)
-                throw new SemanticKernelException("The ModelParameters property of the agent's OrchestrationSettings property cannot be null.", StatusCodes.Status400BadRequest);
+            if (!LanguageModelProviders.All.Contains(endpoint?.Provider))
+                throw new SemanticKernelException($"The LLM provider '{endpoint?.Provider}' is not supported.", StatusCodes.Status400BadRequest);
 
-            if (!_request.Agent.OrchestrationSettings.ModelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deploymentName)
-                || string.IsNullOrWhiteSpace(deploymentName.ToString()))
-                throw new SemanticKernelException("The DeploymentName property of the agent's OrchestrationSettings.ModelParameters property cannot be null.", StatusCodes.Status400BadRequest);
+            if (string.IsNullOrWhiteSpace(endpoint?.EndpointUrl))
+                throw new SemanticKernelException("The EndpointUrl property of the AIModel's endpoint property cannot be null.", StatusCodes.Status400BadRequest);
 
-            _llmProvider = llmProvider.ToString()!;
-            _endpoint = endpoint.ToString()!;
-            _deploymentName = deploymentName.ToString()!;
+            if (aiModel.ModelParameters == null)
+                throw new SemanticKernelException("The ModelParameters property of the AIModel cannot be null.", StatusCodes.Status400BadRequest);
+
+            if (string.IsNullOrWhiteSpace(aiModel.DeploymentName))
+                throw new SemanticKernelException("The DeploymentName property of the AIModel property cannot be null.", StatusCodes.Status400BadRequest);
+
+            _llmProvider = endpoint.Provider!;
+            _endpoint = endpoint.EndpointUrl!;
+            _deploymentName = aiModel.DeploymentName!;
         }
     }
 }

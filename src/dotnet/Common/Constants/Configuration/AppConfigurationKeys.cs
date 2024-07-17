@@ -898,6 +898,10 @@
         /// </summary>
         public const string FoundationaLLM_Prompt = "FoundationaLLM:Prompt:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModel = "FoundationaLLM:AIModel:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:Events:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Events = "FoundationaLLM:Events:*";
@@ -1083,6 +1087,10 @@
         /// The key section for the FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = "FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings";
+        /// <summary>
+        /// The key section for the FoundationaLLM:AIModels app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModels = "FoundationaLLM:AIModels";
 
         #region Resource providers
 
@@ -1115,6 +1123,11 @@
         /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Attachment_ResourceProviderService_Storage = "FoundationaLLM:Attachment:ResourceProviderService:Storage";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModel_ResourceProviderService_Storage = "FoundationaLLM:AIModel:ResourceProviderService:Storage";
         #endregion
 
         #region Event Grid events

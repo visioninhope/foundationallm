@@ -41,7 +41,7 @@ namespace FoundationaLLM.Core.Examples.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendSessionCompletionRequestAsync(CompletionRequest completionRequest)
+        public async Task<Completion> SendSessionCompletionRequestAsync(ClientCompletionRequest completionRequest)
         {
             var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.CoreAPI);
             var serializedRequest = JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions);
@@ -97,7 +97,7 @@ namespace FoundationaLLM.Core.Examples.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest)
+        public async Task<Completion> SendOrchestrationCompletionRequestAsync(ClientCompletionRequest completionRequest)
         {
             var coreClient = await httpClientManager.GetHttpClientAsync(HttpClients.CoreAPI);
             var serializedRequest = JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions);

@@ -78,7 +78,7 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task<ReadOnlyMemory<float>> GetVector(TextEmbeddingProfile embedProfile, string query)
         {
             //embed the query
-            string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["Endpoint"]);
+            string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["EndpointUrl"]);
             string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);            
             OpenAIClient openAIClient;
             switch(authType)
@@ -106,7 +106,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         async public Task<SearchIndexClient> GetIndexClient(IndexingProfile indexProfile)
         {
-            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["Endpoint"]);
+            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["EndpointUrl"]);
             string authType = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["AuthenticationType"]);
 
             SearchIndexClient indexClient = null;

@@ -9,11 +9,14 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
@@ -56,11 +59,11 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var agent = request.Agent
                 ?? throw new Exception("Agent cannot be null.");
 
-            var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
-                ?? throw new Exception("Endpoint Configuration must be provided.");
+            var endpointConfiguration = (agent.OrchestrationSettings?.AIModel?.Endpoint)
+                ?? throw new Exception("Endpoint must be provided.");
+            var deployment = request?.Settings?.AIModel?.DeploymentName ?? throw new Exception("Deployment name must be set on the AIModel");
 
             var endpointSettings = GetEndpointSettings(endpointConfiguration);
-
 
             var inputStrings = new List<CompletionMessage>();
             SystemCompletionMessage? systemPrompt = null;
@@ -106,17 +109,17 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 inputStrings.Add(userPrompt);
             }
 
-            if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+            if (!string.IsNullOrWhiteSpace(endpointSettings.EndpointUrl) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureOpenAIDirect);
-                if (endpointSettings.AuthenticationType == "key" && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+                if (endpointSettings.AuthenticationType == AuthenticationType.ApiKey && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
                 {
                     client.DefaultRequestHeaders.Add("api-key", endpointSettings.APIKey);
                 }
 
-                client.BaseAddress = new Uri(endpointSettings.Endpoint);
+                client.BaseAddress = new Uri(endpointSettings.EndpointUrl);
 
-                var modelParameters = agent.OrchestrationSettings?.ModelParameters;
+                var modelParameters = agent.OrchestrationSettings?.AIModel.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
 
                 if (modelParameters != null)
@@ -135,14 +138,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
                             break;
                     }
 
-                    if (modelOverrides != null && modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
-                    {
-                        modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
-                    }
-
                     var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
                     var content = new StringContent(body, Encoding.UTF8, "application/json");
-                    modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment);
 
                     var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}{chatOperation}/completions?api-version={endpointSettings.APIVersion}", content);
                     var responseContent = await responseMessage.Content.ReadAsStringAsync();
@@ -188,39 +185,26 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <param name="endpointConfiguration">Dictionary containing orchestration endpoint configuration values.</param>
         /// <returns>Returns a <see cref="EndpointSettings"/> object containing the endpoint configuration.</returns>
         /// <exception cref="Exception"></exception>
-        private EndpointSettings GetEndpointSettings(Dictionary<string, object> endpointConfiguration)
+        private EndpointSettings GetEndpointSettings(AIModelEndpoint endpoint)
         {
-            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpointKeyName))
-                throw new Exception("An endpoint value must be passed in via an Azure App Config key name.");
-
-            var endpoint = _configuration.GetValue<string>(endpointKeyName?.ToString()!);
-
-            var authenticationType = endpointConfiguration.GetValueOrDefault(EndpointConfigurationKeys.AuthenticationType, "key").ToString();
             var apiKey = string.Empty;
 
-            if (authenticationType == "key")
+            if (endpoint.AuthenticationType == AuthenticationType.ApiKey)
             {
-                if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
+                if (!endpoint.AuthenticationParameters.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
                     throw new Exception("An API key must be passed in via an Azure App Config key name.");
 
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }
 
-            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIVersion, out var apiVersionKeyName))
-                throw new Exception("An API version must be passed in via an Azure App Config key name.");
-
-            var apiVersion = _configuration.GetValue<string>(apiVersionKeyName?.ToString()!);
-
-            var operationType = string.Empty;
-            if (endpointConfiguration.TryGetValue(EndpointConfigurationKeys.OperationType, out var operationTypeKeyName))
-                operationType = _configuration.GetValue<string>(operationTypeKeyName?.ToString()!) ?? OperationTypes.Chat;
+            var operationType = endpoint.OperationType ?? OperationTypes.Chat;
 
             return new EndpointSettings
             {
-                Endpoint = endpoint!,
+                EndpointUrl = endpoint.EndpointUrl!,
                 APIKey = apiKey!,
-                APIVersion = apiVersion!,
-                AuthenticationType = authenticationType!,
+                APIVersion = endpoint.APIVersion!,
+                AuthenticationType = endpoint.AuthenticationType!,
                 OperationType = operationType
             };
         }

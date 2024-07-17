@@ -36,12 +36,18 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         /// Settings for the orchestration service.
         /// </summary>
         [JsonPropertyName("orchestration_settings")]
-        public OrchestrationSettings? OrchestrationSettings { get; set; }
+        public LLMOrchestrationSettings? OrchestrationSettings { get; set; }
         /// <summary>
         /// The agent's prompt.
         /// </summary>
         [JsonPropertyName("prompt_object_id")]
         public string? PromptObjectId { get; set; }
+		
+		/// <summary>
+        /// The agent's AIModel.
+        /// </summary>
+        [JsonPropertyName("aimodel_object_id")]
+        public string? AIModelObjectId { get; set; }
 
         /// <summary>
         /// Indicates whether the agent is long running and should use the polling pattern.

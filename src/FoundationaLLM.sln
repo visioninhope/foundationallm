@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementClient", "dotnet\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management.Client.Tests", "..\tests\dotnet\Management.Client.Tests\Management.Client.Tests.csproj", "{2B369949-0297-485E-9455-E8F54D078DB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIModel", "AIModel\AIModel.csproj", "{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -286,6 +288,10 @@ Global
 		{2B369949-0297-485E-9455-E8F54D078DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B369949-0297-485E-9455-E8F54D078DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B369949-0297-485E-9455-E8F54D078DB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -340,6 +346,7 @@ Global
 		{95676184-9498-465C-B4FE-C67AA09A0397} = {C757E76C-AE42-4700-A92C-ED321D9CDB39}
 		{69E631C8-3266-4D40-9A7A-D67C07972BE2} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{2B369949-0297-485E-9455-E8F54D078DB3} = {C757E76C-AE42-4700-A92C-ED321D9CDB39}
+		{DEBAF1D6-7A6B-4835-A5EC-3A11DA5A0FCF} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF5DE858-4B85-4EE8-8A6D-46E8E4FBA078}
