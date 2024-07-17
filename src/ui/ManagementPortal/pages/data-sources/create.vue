@@ -1,13 +1,30 @@
 <template>
 	<div>
-		<!-- Header -->
-		<h2 class="page-header">{{ editId ? 'Edit Data Source' : 'Create Data Source' }}</h2>
-		<div class="page-subheader">
-			{{
-				editId
-					? 'Edit your data source settings below.'
-					: 'Complete the settings below to configure the data source.'
-			}}
+		<div style="display: flex">
+			<!-- Title -->
+			<div style="flex: 1">
+				<h2 class="page-header">{{ editId ? 'Edit Data Source' : 'Create Data Source' }}</h2>
+				<div class="page-subheader">
+					{{
+						editId
+							? 'Edit your data source settings below.'
+							: 'Complete the settings below to configure the data source.'
+					}}
+				</div>
+			</div>
+
+			<!-- Edit access control -->
+			<div style="display: flex; align-items: center">
+				<Button @click="accessControlModalOpen = true">
+					<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
+					Access Control
+				</Button>
+			</div>
+
+			<!-- RBAC modal -->
+			<Dialog v-model:visible="accessControlModalOpen" modal header="Access Control" :style="{ minWidth: '70%' }">
+				<RoleAssignmentsTable :scope="`providers/FoundationaLLM.DataSource/dataSources/${this.dataSource.name}`" />
+			</Dialog>
 		</div>
 
 		<!-- Steps -->
@@ -339,6 +356,8 @@ export default {
 
 	data() {
 		return {
+			accessControlModalOpen: false,
+
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
