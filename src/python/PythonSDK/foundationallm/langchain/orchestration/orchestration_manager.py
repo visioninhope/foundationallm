@@ -1,6 +1,7 @@
 import requests
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.models.orchestration import (
     BackgroundOperation,
     BackgroundResponse,
@@ -45,7 +46,7 @@ class OrchestrationManager:
         )
         return agent_factory.get_agent()
 
-    async def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
+    def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Executes a completion request against the LanguageModel using 
         the LangChain agent assembled by the OrchestrationManager.
@@ -61,9 +62,58 @@ class OrchestrationManager:
             Object containing the completion response and token usage details.
         """
         return self.agent.invoke(request)
+        return completion_response
+
+    async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:
+        """
+        Executes a completion request against the LanguageModel using 
+        the LangChain agent assembled by the OrchestrationManager.
+        
+        Parameters
+        ----------
+        prompt : str
+            The prompt for which a completion is being generated.
+            
+        Returns
+        -------
+        CompletionResponse
+            Object containing the completion response and token usage details.
+        """
+        completion_response = await self.agent.ainvoke(request)
+        return completion_response
 
     @staticmethod
-    async def get_operation_state(state_api_endpoint: str, operation_id: str) -> BackgroundResponse:
+    async def create_operation(operation_id: str, completion_request: KnowledgeManagementCompletionRequest) -> BackgroundOperation:
+        """
+        Creates a background operation by settings its initial state through the State API.
+        
+        Parameters
+        ----------
+        operation_id : str
+            The unique identifier for the operation.
+        """
+        print(f'Creating operation: {operation_id}')
+        # Call the State API to create a new operation.
+        #payload = {
+        #    'operation_id': operation_id,
+        #    'completed': False,
+        #    'response': None
+        #}
+        #headers = {"charset": "utf-8", "Content-Type": "application/json"}
+
+        #r = requests.post(
+        #    f'{state_api_endpoint}/operations',
+        #    json=payload,
+        #    headers=headers
+        #)
+
+        #if r.status_code != 202:
+        #    raise Exception(f'Error: ({r.status_code}) {r.text}')
+
+        return BackgroundOperation(operation_id=operation_id)
+
+    @staticmethod
+    async def get_operation_state(state_endpoint: str, operation_id: str) -> BackgroundResponse:
         """
         Retrieves the state of an operation by its operation ID.
         
@@ -77,38 +127,27 @@ class OrchestrationManager:
         CompletionResponse
             Object containing the completion response and token usage details.
         """
-        r = requests.get(f'{state_api_endpoint}/operations/{operation_id}')
+        #r = requests.get(f'{state_api_endpoint}/operations/{operation_id}')
 
+        # self.agent.get_state(operation_id)
 
-
-        return self.agent.get_state(operation_id)
-
-    @staticmethod
-    async def create_operation(state_api_endpoint: str, operation_id: str) -> BackgroundOperation:
-        """
-        Creates a background operation by settings its initial state through the State API.
-        
-        Parameters
-        ----------
-        operation_id : str
-            The unique identifier for the operation.
-        """
-        # Call the State API to create a new operation.
-        payload = {
-            'operation_id': operation_id,
-            'completed': False,
-            'response': None
-        }
-        headers = {"charset": "utf-8", "Content-Type": "application/json"}
-
-        r = requests.post(
-            f'{state_api_endpoint}/operations',
-            json=payload,
-            headers=headers
-        )
-
-        if r.status_code != 202:
-            raise Exception(f'Error: ({r.status_code}) {r.text}')
-
-        return BackgroundOperation(operation_id = operation_id)
-
+        return BackgroundResponse(
+            operation_id = operation_id,
+            completed = True,
+            response = CompletionResponse(
+                completion = 'Test completion',
+                citations = [],
+                user_prompt = 'Who are you?',
+                full_prompt = '',
+                completion_tokens = 1,
+                prompt_tokens = 1,
+                total_tokens = 1,
+                total_cost = 1.00
+            )
+        )    
+            
+        #return BackgroundResponse(
+        #    operation_id = operation_id,
+        #    completed = r.json()['completed'],
+        #    response = r.json()['response']
+        #)
