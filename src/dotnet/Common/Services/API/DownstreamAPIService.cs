@@ -2,6 +2,8 @@
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
+using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.Common.Services.API
 {
@@ -15,6 +17,7 @@ namespace FoundationaLLM.Common.Services.API
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
     public class DownstreamAPIService(
         string downstreamHttpClientName,
+        ICallContext callContext,
         IHttpClientFactoryService httpClientFactoryService,
         ILogger<DownstreamAPIService> logger) : IDownstreamAPIService
     {

@@ -310,15 +310,16 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
                 => new DownstreamAPIService(
                     HttpClients.GatekeeperAPI,
+                    serviceProvider.GetService<ICallContext>()!,
                     serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!),
-                    serviceProvider.GetService<ICallContext>()!);
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
+
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
                 => new DownstreamAPIService(
                     HttpClients.OrchestrationAPI,
+                    serviceProvider.GetService<ICallContext>()!,
                     serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!),
-                    serviceProvider.GetService<ICallContext>()!);
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
         }
     }
 }

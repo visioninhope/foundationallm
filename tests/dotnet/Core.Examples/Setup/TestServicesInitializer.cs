@@ -161,9 +161,9 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
                 => new DownstreamAPIService(
                     HttpClients.VectorizationAPI,
+                    serviceProvider.GetService<ICallContext>()!,
                     serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!),
-                    serviceProvider.GetService<ICallContext>()!);
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
 
             services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }

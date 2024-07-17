@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Clients;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Infrastructure;
@@ -7,7 +7,6 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
