@@ -14,7 +14,7 @@
 			</div>
 
 			<!-- Edit access control -->
-			<div style="display: flex; align-items: center">
+			<div v-if="editId" style="display: flex; align-items: center">
 				<Button @click="accessControlModalOpen = true">
 					<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
 					Access Control
