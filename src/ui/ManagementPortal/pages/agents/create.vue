@@ -978,7 +978,7 @@ export default {
 			this.selectedIndexSource =
 				this.indexSources.find(
 					(indexSource) =>
-						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids.includes(indexSource.object_id),
+						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids?.includes(indexSource.object_id),
 				) || null;
 			
 			this.selectedTextEmbeddingProfile =
