@@ -1,12 +1,30 @@
 <template>
 	<div>
-		<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
-		<div class="page-subheader">
-			{{
-				editAgent
-					? 'Edit your agent settings below.'
-					: 'Complete the settings below to create and deploy your new agent.'
-			}}
+		<div style="display: flex">
+			<!-- Title -->
+			<div style="flex: 1">
+				<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
+				<div class="page-subheader">
+					{{
+						editAgent
+							? 'Edit your agent settings below.'
+							: 'Complete the settings below to create and deploy your new agent.'
+					}}
+				</div>
+			</div>
+
+			<!-- Edit access control -->
+			<div style="display: flex; align-items: center">
+				<Button @click="accessControlModalOpen = true">
+					<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
+					Access Control
+				</Button>
+			</div>
+
+			<!-- RBAC modal -->
+			<Dialog v-model:visible="accessControlModalOpen" modal header="Access Control" :style="{ minWidth: '70%' }">
+				<RoleAssignmentsTable :scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`" />
+			</Dialog>
 		</div>
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
@@ -595,6 +613,8 @@ const defaultSystemPrompt: string = '';
 
 const getDefaultFormValues = () => {
 	return {
+		accessControlModalOpen: false,
+
 		agentName: '',
 		agentDescription: '',
 		object_id: '',
