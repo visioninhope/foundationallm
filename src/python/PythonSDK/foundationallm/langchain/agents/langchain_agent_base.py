@@ -42,9 +42,26 @@ class LangChainAgentBase():
         self.full_prompt = ""
 
     @abstractmethod
-    async def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
+    def invoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
         Gets the completion for the request.
+        
+        Parameters
+        ----------
+        request : CompletionRequestBase
+            The completion request to execute.
+
+        Returns
+        -------
+        CompletionResponse
+            Returns a completion response.
+        """
+        raise NotImplementedError()
+
+    @abstractmethod
+    async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:
+        """
+        Gets the completion for the request using an async request.
         
         Parameters
         ----------
