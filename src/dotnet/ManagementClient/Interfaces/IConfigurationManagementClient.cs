@@ -28,7 +28,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// Retrieves all external orchestration services.
         /// </summary>
         /// <returns></returns>
-        Task<List<ResourceProviderGetResult<ExternalOrchestrationService>>> GetExternalOrchestrationServicesAsync();
+        Task<List<ResourceProviderGetResult<APIEndpoint>>> GetExternalOrchestrationServicesAsync();
 
         /// <summary>
         /// Returns a specific external orchestration service by name.
@@ -36,7 +36,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <param name="externalOrchestrationServiceName">The name of the external orchestration
         /// service to retrieve.</param>
         /// <returns></returns>
-        Task<ResourceProviderGetResult<ExternalOrchestrationService>> GetExternalOrchestrationServiceAsync(string externalOrchestrationServiceName);
+        Task<ResourceProviderGetResult<APIEndpoint>> GetExternalOrchestrationServiceAsync(string externalOrchestrationServiceName);
 
         /// <summary>
         /// Upserts an app configuration value. If the value does not exist, it will be created.

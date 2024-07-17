@@ -1,4 +1,4 @@
-﻿using Azure.Messaging;
+using Azure.Messaging;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -219,6 +219,23 @@ namespace FoundationaLLM.Configuration.Services
                     StatusCodes.Status400BadRequest)
             };
 
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
+        {
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
+            {
+                case ConfigurationResourceTypeNames.APIEndpoints:
+                    await DeleteAPIEndpoint(resourcePath.ResourceTypeInstances);
+                    break;
+                case ConfigurationResourceTypeNames.AppConfigurations:
+                    await DeleteAppConfigurationKey(resourcePath.ResourceTypeInstances);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
+
         #endregion
 
         #region Helpers for UpsertResourceAsync
@@ -266,6 +283,37 @@ namespace FoundationaLLM.Configuration.Services
             };
         }
 
+        #endregion
+
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeleteAPIEndpoint(List<ResourceTypeInstance> instances)
+        {
+            if (_apiEndpointReferences.TryGetValue(instances.Last().ResourceId!, out var apiEndpointReference)
+                || apiEndpointReference!.Deleted)
+            {
+                apiEndpointReference.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    default,
+                    default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} api endpoint resource.",
+                            StatusCodes.Status404NotFound);
+        }
+
+        private async Task DeleteAppConfigurationKey(List<ResourceTypeInstance> instances)
+        {
+            string key = instances.Last().ResourceId!.Split("/").Last();
+            if (!await _appConfigurationService.CheckAppConfigurationSettingExistsAsync(key))
+                throw new ResourceProviderException($"Could not locate the {key} App Configuration key.",
+                                StatusCodes.Status404NotFound);
+            await _appConfigurationService.DeleteAppConfigurationSettingAsync(key);
+        }
         #endregion
 
         #region Event handling
