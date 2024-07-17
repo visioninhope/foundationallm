@@ -20682,6 +20682,22 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.New
   nameWithType: AzureAppConfigurationService.AzureAppConfigurationService
   nameWithType.vb: AzureAppConfigurationService.New
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(System.String)
+  name: CheckAppConfigurationSettingExistsAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(System.String)
+  name.vb: CheckAppConfigurationSettingExistsAsync(String)
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(String)
+  nameWithType: AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(string)
+  nameWithType.vb: AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(String)
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync*
+  name: CheckAppConfigurationSettingExistsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
+  nameWithType: AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
 - uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
   name: CheckAppConfigurationSettingsExistAsync()
   href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingsExistAsync
@@ -20695,6 +20711,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
   nameWithType: AzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(System.String)
+  name: DeleteAppConfigurationSettingAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_DeleteAppConfigurationSettingAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(System.String)
+  name.vb: DeleteAppConfigurationSettingAsync(String)
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(String)
+  nameWithType: AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(string)
+  nameWithType.vb: AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(String)
+- uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync*
+  name: DeleteAppConfigurationSettingAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_DeleteAppConfigurationSettingAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync
+  nameWithType: AzureAppConfigurationService.DeleteAppConfigurationSettingAsync
 - uid: FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingAsync(System.String)
   name: GetConfigurationSettingAsync(string)
   href: api/dotnet/FoundationaLLM.Common.Services.AzureAppConfigurationService.html#FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingAsync_System_String_
@@ -21163,6 +21195,22 @@ references:
   commentId: T:FoundationaLLM.Common.Services.IAzureAppConfigurationService
   fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService
   nameWithType: IAzureAppConfigurationService
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(System.String)
+  name: CheckAppConfigurationSettingExistsAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(System.String)
+  name.vb: CheckAppConfigurationSettingExistsAsync(String)
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(String)
+  nameWithType: IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(string)
+  nameWithType.vb: IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(String)
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync*
+  name: CheckAppConfigurationSettingExistsAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
+  nameWithType: IAzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync
 - uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
   name: CheckAppConfigurationSettingsExistAsync()
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_CheckAppConfigurationSettingsExistAsync
@@ -21176,6 +21224,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
   nameWithType: IAzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(System.String)
+  name: DeleteAppConfigurationSettingAsync(string)
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_DeleteAppConfigurationSettingAsync_System_String_
+  commentId: M:FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(System.String)
+  name.vb: DeleteAppConfigurationSettingAsync(String)
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(string)
+  fullName.vb: FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(String)
+  nameWithType: IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(string)
+  nameWithType.vb: IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync(String)
+- uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync*
+  name: DeleteAppConfigurationSettingAsync
+  href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_DeleteAppConfigurationSettingAsync_
+  commentId: Overload:FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync
+  nameWithType: IAzureAppConfigurationService.DeleteAppConfigurationSettingAsync
 - uid: FoundationaLLM.Common.Services.IAzureAppConfigurationService.GetConfigurationSettingAsync(System.String)
   name: GetConfigurationSettingAsync(string)
   href: api/dotnet/FoundationaLLM.Common.Services.IAzureAppConfigurationService.html#FoundationaLLM_Common_Services_IAzureAppConfigurationService_GetConfigurationSettingAsync_System_String_

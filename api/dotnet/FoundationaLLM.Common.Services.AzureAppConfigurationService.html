@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Services_AzureAppConfigurationService" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService" class="text-break">
-Class AzureAppConfigurationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class AzureAppConfigurationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService__ctor_Azure_Data_AppConfiguration_ConfigurationClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_AzureAppConfigurationService__" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.#ctor(Azure.Data.AppConfiguration.ConfigurationClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.AzureAppConfigurationService})">
   AzureAppConfigurationService(ConfigurationClient, ILogger&lt;AzureAppConfigurationService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Provides access to and management of Azure App Configuration.</p>
@@ -206,11 +206,48 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingExistsAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingExistsAsync(System.String)">
+  CheckAppConfigurationSettingExistsAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Check if an individual Azure App Configuration key exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; CheckAppConfigurationSettingExistsAsync(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingsExistAsync_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync*"></a>
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_CheckAppConfigurationSettingsExistAsync" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.CheckAppConfigurationSettingsExistAsync">
   CheckAppConfigurationSettingsExistAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a map of configuration setting keys and whether they exist in Azure App Configuration.</p>
@@ -238,11 +275,49 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
 
 
+  <a id="FoundationaLLM_Common_Services_AzureAppConfigurationService_DeleteAppConfigurationSettingAsync_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_DeleteAppConfigurationSettingAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.DeleteAppConfigurationSettingAsync(System.String)">
+  DeleteAppConfigurationSettingAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deletes an Azure App Configuration setting and its associated Azure Key Vault secret.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task DeleteAppConfigurationSettingAsync(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The App Configuration setting key.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingAsync_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingAsync*"></a>
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingAsync(System.String)">
   GetConfigurationSettingAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the value of a configuration setting from Azure App Configuration.</p>
@@ -280,7 +355,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_GetConfigurationSettingsAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.GetConfigurationSettingsAsync(System.String)">
   GetConfigurationSettingsAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the values of configuration settings from Azure App Configuration.</p>
@@ -318,7 +393,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_GetFeatureFlagAsync_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.GetFeatureFlagAsync(System.String)">
   GetFeatureFlagAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the value of a feature flag from Azure App Configuration.</p>
@@ -356,7 +431,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_SetConfigurationSettingAsync_System_String_System_String_System_String_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.SetConfigurationSettingAsync(System.String,System.String,System.String)">
   SetConfigurationSettingAsync(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the value of a configuration setting in Azure App Configuration.</p>
@@ -400,7 +475,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Services_AzureAppConfigurationService_SetFeatureFlagAsync_System_String_System_Boolean_" data-uid="FoundationaLLM.Common.Services.AzureAppConfigurationService.SetFeatureFlagAsync(System.String,System.Boolean)">
   SetFeatureFlagAsync(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Sets the value of a feature flag in Azure App Configuration.</p>
@@ -441,7 +516,7 @@ Class AzureAppConfigurationService  <a class="header-action link-secondary" titl
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/AzureAppConfigurationService.cs/#L15" class="edit-link">Edit this page</a>
         </div>
 
 
