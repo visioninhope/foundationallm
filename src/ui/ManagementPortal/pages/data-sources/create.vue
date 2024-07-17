@@ -14,17 +14,10 @@
 			</div>
 
 			<!-- Edit access control -->
-			<div v-if="editId" style="display: flex; align-items: center">
-				<Button @click="accessControlModalOpen = true">
-					<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
-					Access Control
-				</Button>
-			</div>
-
-			<!-- RBAC modal -->
-			<Dialog v-model:visible="accessControlModalOpen" modal header="Access Control" :style="{ minWidth: '70%' }">
-				<RoleAssignmentsTable :scope="`providers/FoundationaLLM.DataSource/dataSources/${this.dataSource.name}`" />
-			</Dialog>
+			<AccessControl
+				v-if="editId"
+				:scope="`providers/FoundationaLLM.DataSource/dataSources/${this.dataSource.name}`"
+			/>
 		</div>
 
 		<!-- Steps -->

@@ -20,6 +20,21 @@
 				</div>
 			</template>
 
+			<!-- Scope -->
+			<div class="step-header span-2">What is the assignment scope?</div>
+			<div class="span-2">
+				<div class="mb-2">Scope</div>
+				<div class="input-wrapper">
+					<InputText
+						v-model="scope"
+						readonly
+						placeholder="Instance"
+						type="text"
+						class="w-100"
+					/>
+				</div>
+			</div>
+
 			<!-- Description -->
 			<div class="step-header span-2">What is the description of the role assignment?</div>
 			<div class="span-2">
@@ -187,6 +202,7 @@ export default {
 			principalSearchType: 'User' as null | string,
 			principalTypeOptions: ['User', 'Group'],
 
+			scope: this.$route.query.scope ?? null,
 			roleAssignment: {
 				name: '',
 				description: '',
@@ -299,6 +315,7 @@ export default {
 				await api.createRoleAssignment({
 					...this.roleAssignment,
 					name: uuidv4(),
+					...(this.scope ? { scope: `/instances/${api.instanceId}/${this.scope}` } : {}),
 				});
 				successMessage = `Role assignment was successfully saved.`;
 			} catch (error) {

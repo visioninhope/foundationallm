@@ -14,18 +14,12 @@
 			</div>
 
 			<!-- Edit access control -->
-			<div v-if="editId" style="display: flex; align-items: center">
-				<Button @click="accessControlModalOpen = true">
-					<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
-					Access Control
-				</Button>
-			</div>
-
-			<!-- RBAC modal -->
-			<Dialog v-model:visible="accessControlModalOpen" modal header="Access Control" :style="{ minWidth: '70%' }">
-				<RoleAssignmentsTable :scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`" />
-			</Dialog>
+			<AccessControl
+				v-if="editAgent"
+				:scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`"
+			/>
 		</div>
+
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
 			<!-- Loading overlay -->
