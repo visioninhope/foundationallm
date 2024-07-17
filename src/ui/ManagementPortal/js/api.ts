@@ -18,7 +18,6 @@ import type {
 	RoleAssignment,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
-import { mockRoles, mockRoleAssignmentsResponse } from './mock';
 import { $fetch } from 'ofetch';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
@@ -106,9 +105,7 @@ export default {
 		}
 	},
 
-	async getAgentDataSources(
-		addDefaultOption: boolean = false,
-	): Promise<ResourceProviderGetResult<DataSource>[]> {
+	async getAgentDataSources(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<DataSource>[]> {
 		const data = (await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources?api-version=${this.apiVersion}`,
 		)) as ResourceProviderGetResult<DataSource>[];
@@ -131,9 +128,9 @@ export default {
 	},
 
 	async getDataSource(dataSourceId: string): Promise<ResourceProviderGetResult<DataSource>> {
-		const [data] = (await this.fetch(
+		const [data] = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.DataSource/dataSources/${dataSourceId}?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<DataSource>[];
+		) as ResourceProviderGetResult<DataSource>[];
 		let dataSource = data.resource as DataSource;
 		dataSource.resolved_configuration_references = {};
 		// Retrieve all the app config values for the data source.
@@ -251,9 +248,9 @@ export default {
 	},
 
 	async getAppConfigs(filter?: string): Promise<ResourceProviderGetResult<AppConfigUnion>[]> {
-		return (await this.fetch(
+		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${filter}?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<AppConfigUnion>[];
+		) as ResourceProviderGetResult<AppConfigUnion>[];
 	},
 
 	async upsertAppConfig(request): Promise<any> {
@@ -269,12 +266,42 @@ export default {
 	/*
 		Indexes
 	 */
-	async getAgentIndexes(
-		addDefaultOption: boolean = false,
-	): Promise<ResourceProviderGetResult<AgentIndex>[]> {
-		const data = (await this.fetch(
+	async getAgentIndexes(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<AgentIndex>[]> {
+		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<AgentIndex>[];
+		) as ResourceProviderGetResult<AgentIndex>[];
+		// If data is empty, return an empty array.
+		if (!data) {
+			return [];
+		}
+		// Retrieve all the app config values for the vectorization resources.
+		const appConfigFilter = `FoundationaLLM:Vectorization:*`;
+		const appConfigResults = await this.getAppConfigs(appConfigFilter);
+		if (appConfigResults) {
+			// Store all of the app config values (resource property of each result) in a map for easy access.
+			const appConfigValues = new Map<string, AppConfigUnion>();
+			for (const appConfigResult of appConfigResults) {
+				appConfigValues.set(appConfigResult.resource.name, appConfigResult.resource);
+			}
+
+			// Loop through the text embedding profiles and replace the app config keys with the real values.
+			for (const indexingProfile of data) {
+				if (indexingProfile.resource.configuration_references === undefined) {
+					continue;
+				}
+				indexingProfile.resource.resolved_configuration_references = { ...indexingProfile.resource.configuration_references };
+				if (appConfigValues.has(indexingProfile.resource.configuration_references?.APIKey)) {
+					indexingProfile.resource.resolved_configuration_references.APIKey = appConfigValues.get(indexingProfile.resource.configuration_references.APIKey)?.value || '';
+				}
+				if (appConfigValues.has(indexingProfile.resource.configuration_references?.AuthenticationType)) {
+					indexingProfile.resource.resolved_configuration_references.AuthenticationType = appConfigValues.get(indexingProfile.resource.configuration_references.AuthenticationType)?.value || '';
+				}
+				if (appConfigValues.has(indexingProfile.resource.configuration_references?.Endpoint)) {
+					indexingProfile.resource.resolved_configuration_references.Endpoint = appConfigValues.get(indexingProfile.resource.configuration_references.Endpoint)?.value || '';
+				}
+			}
+		}
+
 		if (addDefaultOption) {
 			const defaultAgentIndex: AgentIndex = {
 				name: 'Select default index source',
@@ -316,9 +343,47 @@ export default {
 		Text Embedding Profiles
 	 */
 	async getTextEmbeddingProfiles(): Promise<ResourceProviderGetResult<TextEmbeddingProfile>[]> {
-		return (await this.fetch(
+		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<TextEmbeddingProfile>[];
+		) as ResourceProviderGetResult<TextEmbeddingProfile>[];
+		// If data is empty, return an empty array.
+		if (!data) {
+			return [];
+		}
+		// Retrieve all the app config values for the vectorization resources.
+		const appConfigFilter = `FoundationaLLM:Vectorization:*`;
+		const appConfigResults = await this.getAppConfigs(appConfigFilter);
+		if (appConfigResults) {
+			// Store all of the app config values (resource property of each result) in a map for easy access.
+			const appConfigValues = new Map<string, AppConfigUnion>();
+			for (const appConfigResult of appConfigResults) {
+				appConfigValues.set(appConfigResult.resource.name, appConfigResult.resource);
+			}
+
+			// Loop through the text embedding profiles and replace the app config keys with the real values.
+			for (const textEmbeddingProfile of data) {
+				if (textEmbeddingProfile.resource.configuration_references === undefined) {
+					continue;
+				}
+				textEmbeddingProfile.resource.resolved_configuration_references = { ...textEmbeddingProfile.resource.configuration_references };
+				if (appConfigValues.has(textEmbeddingProfile.resource.configuration_references?.APIKey)) {
+					textEmbeddingProfile.resource.resolved_configuration_references.APIKey = appConfigValues.get(textEmbeddingProfile.resource.configuration_references.APIKey)?.value || '';
+				}
+				if (appConfigValues.has(textEmbeddingProfile.resource.configuration_references?.APIVersion)) {
+					textEmbeddingProfile.resource.resolved_configuration_references.APIVersion = appConfigValues.get(textEmbeddingProfile.resource.configuration_references.APIVersion)?.value || '';
+				}
+				if (appConfigValues.has(textEmbeddingProfile.resource.configuration_references?.AuthenticationType)) {
+					textEmbeddingProfile.resource.resolved_configuration_references.AuthenticationType = appConfigValues.get(textEmbeddingProfile.resource.configuration_references.AuthenticationType)?.value || '';
+				}
+				if (appConfigValues.has(textEmbeddingProfile.resource.configuration_references?.DeploymentName)) {
+					textEmbeddingProfile.resource.resolved_configuration_references.DeploymentName = appConfigValues.get(textEmbeddingProfile.resource.configuration_references.DeploymentName)?.value || '';
+				}
+				if (appConfigValues.has(textEmbeddingProfile.resource.configuration_references?.Endpoint)) {
+					textEmbeddingProfile.resource.resolved_configuration_references.Endpoint = appConfigValues.get(textEmbeddingProfile.resource.configuration_references.Endpoint)?.value || '';
+				}
+			}
+		}
+		return data;
 	},
 
 	/*
@@ -330,19 +395,19 @@ export default {
 			type: agentType,
 		};
 
-		return (await this.fetch(
+		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/checkname?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
 				body: payload,
 			},
-		)) as CheckNameResponse;
+		) as CheckNameResponse;
 	},
 
 	async getAgents(): Promise<ResourceProviderGetResult<Agent>[]> {
-		const agents = (await this.fetch(
+		const agents = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<Agent>[];
+		) as ResourceProviderGetResult<Agent>[];
 		// Sort the agents by name.
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
@@ -361,8 +426,7 @@ export default {
 			AzureAIDirect: 'AzureAI',
 		};
 
-		const orchestratorTypeKey =
-			orchestratorTypeToKeyMap[agent.orchestration_settings?.orchestrator];
+		const orchestratorTypeKey = orchestratorTypeToKeyMap[agent.orchestration_settings?.orchestrator];
 
 		// Retrieve all the app config values for the agent
 		const appConfigFilter = `FoundationaLLM:${orchestratorTypeKey}:${agent.name}:API:*`;
@@ -413,10 +477,8 @@ export default {
 		// Deep copy the agent object to prevent modifiying its references
 		const agent = JSON.parse(JSON.stringify(agentData)) as CreateAgentRequest;
 
-		if (
-			agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
-			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel'
-		) {
+		if (agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
+			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel') {
 			for (const [propertyName, propertyValue] of Object.entries(
 				agent.orchestration_settings.endpoint_configuration,
 			)) {
@@ -424,12 +486,12 @@ export default {
 					continue;
 				}
 
-				if (propertyValue.startsWith('FoundationaLLM:') && propertyName !== 'api_key') {
+				if (propertyValue.startsWith('FoundationaLLM:') &&
+					propertyName !== 'api_key') {
 					// Get the static value from the app config.
 					const appConfigResult = await this.getAppConfig(propertyValue);
 					// Set the static value to the endpoint configuration.
-					agent.orchestration_settings.endpoint_configuration[propertyName] =
-						appConfigResult.resource.value;
+					agent.orchestration_settings.endpoint_configuration[propertyName] = appConfigResult.resource.value;
 				}
 			}
 		}
@@ -445,8 +507,7 @@ export default {
 				// Get the static value from the app config.
 				const appConfigResult = await this.getAppConfig(propertyValue);
 				// Set the static value to the endpoint configuration.
-				agent.orchestration_settings.model_parameters[propertyName] =
-					appConfigResult.resource.value;
+				agent.orchestration_settings.model_parameters[propertyName] = appConfigResult.resource.value;
 			}
 		}
 
@@ -501,9 +562,7 @@ export default {
 		);
 	},
 
-	async getTextPartitioningProfile(
-		profileId: string,
-	): Promise<ResourceProviderGetResult<TextPartitioningProfile>> {
+	async getTextPartitioningProfile(profileId: string): Promise<ResourceProviderGetResult<TextPartitioningProfile>> {
 		const data = await this.fetch(`${profileId}?api-version=${this.apiVersion}`);
 		return data[0];
 	},
@@ -521,13 +580,11 @@ export default {
 		);
 	},
 
-	async getExternalOrchestrationServices(
-		resolveApiKey: boolean = false,
-	): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
-		const data = (await this.fetch(
+	async getExternalOrchestrationServices(resolveApiKey: boolean = false): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
+		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/externalOrchestrationServices?api-version=${this.apiVersion}`,
-		)) as ResourceProviderGetResult<ExternalOrchestrationService>[];
-
+		) as ResourceProviderGetResult<ExternalOrchestrationService>[];
+		
 		// Retrieve all the app config values for the external orchestration services..
 		const appConfigFilter = `FoundationaLLM:ExternalAPIs:*`;
 		const appConfigResults = await this.getAppConfigs(appConfigFilter);
@@ -537,21 +594,13 @@ export default {
 			externalOrchestrationService.resource.resolved_api_url = '';
 			externalOrchestrationService.resource.resolved_api_key = '';
 			// Find a matching app config for the API URL. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIUrl
-			const apiUrlAppConfig = appConfigResults.find(
-				(appConfig) =>
-					appConfig.resource.name ===
-					`FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIUrl`,
-			);
+			const apiUrlAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIUrl`);
 			if (apiUrlAppConfig) {
 				externalOrchestrationService.resource.resolved_api_url = apiUrlAppConfig.resource.value;
 			}
 			if (resolveApiKey) {
 				// Find a matching app config for the API Key. The app config name should be in the format FoundationaLLM:ExternalAPIs:<ServiceName>:APIKey
-				const apiKeyAppConfig = appConfigResults.find(
-					(appConfig) =>
-						appConfig.resource.name ===
-						`FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIKey`,
-				);
+				const apiKeyAppConfig = appConfigResults.find(appConfig => appConfig.resource.name === `FoundationaLLM:ExternalAPIs:${externalOrchestrationService.resource.name}:APIKey`);
 				if (apiKeyAppConfig) {
 					externalOrchestrationService.resource.resolved_api_key = apiKeyAppConfig.resource.value;
 				}
