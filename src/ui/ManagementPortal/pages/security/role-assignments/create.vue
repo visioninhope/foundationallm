@@ -38,12 +38,12 @@
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
 
-				<div class="mb-2 mt-2">Principal Type:</div>
+				<div class="mb-2">Principal Type:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="principal.object_type"
 						readonly
-						placeholder="Will appear after selection"
+						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
 					/>
@@ -54,7 +54,7 @@
 					<InputText
 						v-model="principal.display_name"
 						readonly
-						placeholder="Will appear after selection"
+						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
 					/>
@@ -65,7 +65,7 @@
 					<InputText
 						v-model="roleAssignment.principal_id"
 						readonly
-						placeholder="Enter principal id (GUID)"
+						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
 					/>
@@ -217,10 +217,12 @@ export default {
 			this.roleAssignment = await api.getRoleAssignment(this.editId);
 		}
 
+		this.loadingStatusText = `Retrieving users...`;
 		const users = await this.getAllPrinciples(api.getUsers.bind(api));
 		this.users = users;
 		// const user = users[0];
 
+		this.loadingStatusText = `Retrieving groups...`;
 		const groups = await this.getAllPrinciples(api.getGroups.bind(api));
 		this.groups = groups;
 		// const group = groups[0];
