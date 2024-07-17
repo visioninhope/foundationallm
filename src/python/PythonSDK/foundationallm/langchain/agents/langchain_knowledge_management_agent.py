@@ -75,8 +75,6 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         base_url = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:APIUrl').rstrip('/')
         endpoint = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:Classification:PredictionEndpoint')
-        #base_url = 'http://localhost:8865'.rstrip('/')
-        #endpoint = '/classification/predict'
         api_endpoint = f'{base_url}{endpoint}'
         print(api_endpoint)
 
@@ -193,7 +191,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | StrOutputParser()
                 )
                 
-                completion = chain.invoke(request.user_prompt)
+                completion = await chain.ainvoke(request.user_prompt)
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
