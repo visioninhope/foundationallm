@@ -32,13 +32,13 @@ tracer = Telemetry.get_tracer(__name__)
 
 # Initialize API routing
 router = APIRouter(
-    prefix='/orchestration',
-    tags=['orchestration'],
+    prefix='/instances/{instance_id}',
+    tags=['completions'],
     dependencies=[Depends(validate_api_key_header)],
     responses={404: {'description':'Not found'}}
 )
 
-background_responses = {}
+#background_responses = {}
 
 # temporary to support legacy agents alongside the knowledge-management and internal context agent
 async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:   
@@ -53,14 +53,15 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
             raise ValueError(f"Unsupported agent type: {agent_type}")
 
 @router.post(
-    '/instances/{instance_id}/completions/operations',
-    summary = 'Submit a completion request.',
+    '/async-completions',
+    summary = 'Submit a completion request operation.',
     status_code = status.HTTP_202_ACCEPTED,
     responses = {
         202: {'description': 'Completion request accepted.'},
     }
 )
-async def start_completion_operation(
+async def request_completion(
+    response: Response,
     raw_request: Request,
     background_tasks: BackgroundTasks,
     instance_id: str,
@@ -75,13 +76,18 @@ async def start_completion_operation(
     BackgroundOperation
         Object containing the operation ID.
     """
-    with tracer.start_as_current_span('completion') as span:
+    with tracer.start_as_current_span('async-completions') as span:
         try:
             operation_id = str(uuid.uuid4())
             span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
             span.set_attribute('request_id', completion_request.request_id)
             span.set_attribute('user_identity', x_user_identity)
-            
+
+            # Add the location response header.
+            response.headers['location'] = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}'
+
+            # Kick of the background task to create the completion response.
             background_tasks.add_task(
                 create_completion_response,
                 operation_id,
@@ -90,44 +96,48 @@ async def start_completion_operation(
                 x_user_identity
             )
 
-            #background_responses[operation_id] = BackgroundResponse(
-            #    operation_id = operation_id,
-            #    completed = False,
-            #    response = None
-            #)
-
-            return OrchestrationManager.create_operation(operation_id) #BackgroundOperation(operation_id=operation_id)
+            background_operation = await OrchestrationManager.create_operation(operation_id, completion_request)
+            return background_operation
     
         except Exception as e:
             handle_exception(e)
 
 @router.get(
-    '/instances/{instance_id}/completions/operations/{operation_id}',
-    summary = 'Retrieve the completion response for a specified operation ID.',
+    '/async-completions/{operation_id}',
+    summary = 'Retrieve the status of a completion request operation for the specified operation ID.',
     responses = {
-        200: {'description': 'Successfully retrieved the completion response.'},
+        200: {'description': 'The operation has completed.'},
         204: {'description': 'The operation has not completed.'},
         404: {'description': 'The operation was not found.'}
     }
 )
-async def get_completion_operation(
+async def get_completion(
     raw_request: Request,
     instance_id: str,
     operation_id: str
 ) -> CompletionResponse:
-    print('GET COMPLETION:', operation_id)
+    with tracer.start_as_current_span(f'async-completions/{operation_id}') as span:
+        try:
+            span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
+            
+            #if operation_id not in background_responses:
+            #    raise HTTPException(status_code=404)
 
-    if operation_id not in background_responses:
-        raise HTTPException(status_code=404)
+            #background_response = background_responses[operation_id]
 
-    #background_response = background_responses[operation_id]
+            background_response = await OrchestrationManager.get_operation_state('http://localhost:8080', operation_id)
+            print('BACKGROUND RESPONSE:', background_response)
 
-    background_response = OrchestrationManager.get_operation_state('http://localhost:8080', operation_id)
+            if background_response is None:
+                raise HTTPException(status_code=404)
 
-    if not background_response.completed:
-        return Response(status_code=204)
+            if not background_response.completed:
+                return Response(status_code=204)
 
-    return background_response.response
+            return background_response.response
+        except Exception as e:
+            handle_exception(e)
 
 async def create_completion_response(
     operation_id: str,
@@ -142,18 +152,21 @@ async def create_completion_response(
             context = Context(user_identity=x_user_identity)
         )
 
-        result = await orchestration_manager.invoke(completion_request)
+        completion = await orchestration_manager.ainvoke(completion_request)
 
-        background_responses[operation_id].response = result
-        background_responses[operation_id].completed = True
+        # TODO: This needs to write the completion response to the state API and update the result of the operation object.
+        
 
-        print('COMPLETION RESPONSE:', result)
+        #background_responses[operation_id].response = completion
+        #background_responses[operation_id].completed = True
+
+        print('COMPLETION RESPONSE:', completion)
         
     except Exception as e:
-        background_responses[operation_id].response = CompletionResponse(
-            user_prompt = completion_request.user_prompt,
-            completion = 'An error occurred in the external orchestration service will processing the completion request.'
-        )
-        background_responses[operation_id].completed = True
+        #background_responses[operation_id].response = CompletionResponse(
+        #    user_prompt = completion_request.user_prompt,
+        #    completion = 'An error occurred in the LangChain orchestration service while processing the completion request.'
+        #)
+        #background_responses[operation_id].completed = True
 
         print('COMPLETION ERROR:', e)
