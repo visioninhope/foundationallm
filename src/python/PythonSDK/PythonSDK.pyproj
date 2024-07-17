@@ -46,8 +46,12 @@
     <Compile Include="foundationallm\models\classification\audio_prediction_request.py" />
     <Compile Include="foundationallm\models\classification\audio_prediction_response.py" />
     <Compile Include="foundationallm\models\classification\__init__.py" />
+    <Compile Include="foundationallm\models\operations\execution_log_entry.py" />
+    <Compile Include="foundationallm\models\operations\__init__.py" />
     <Compile Include="foundationallm\models\orchestration\background_operation.py" />
     <Compile Include="foundationallm\models\orchestration\background_response.py" />
+    <Compile Include="foundationallm\models\operations\long_running_operation_base.py" />
+    <Compile Include="foundationallm\models\orchestration\completion_operation.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\authentication\authentication_types.py" />
@@ -152,6 +156,7 @@
     <Folder Include="foundationallm\models\language_models\" />
     <Folder Include="foundationallm\models\agents\" />
     <Folder Include="foundationallm\models\authentication\" />
+    <Folder Include="foundationallm\models\operations\" />
     <Folder Include="foundationallm\models\utils\" />
     <Folder Include="foundationallm\models\classification\" />
     <Folder Include="foundationallm\models\resource_providers\" />
