@@ -20,7 +20,7 @@ namespace FoundationaLLM.Client.Management
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManagementClient"/> class with
-        /// the specified Management API URI, TokenCredential, and InstanceName ID.
+        /// the specified Management API URI, TokenCredential, and Instance ID.
         /// </summary>
         /// <param name="managementUri">The base URI of the Core API.</param>
         /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
