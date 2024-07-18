@@ -35329,19 +35329,32 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Worker.Controllers.StatusController
   fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus
-  name: GetWorkerStatus()
-  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_GetWorkerStatus
-  commentId: M:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus
-  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus()
-  nameWithType: StatusController.GetWorkerStatus()
-- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus*
-  name: GetWorkerStatus
-  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_GetWorkerStatus_
-  commentId: Overload:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus
+- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get
+  name: Get()
+  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_Get
+  commentId: M:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get
+  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get()
+  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get*
+  name: Get
+  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_Get_
+  commentId: Overload:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get
   isSpec: "True"
-  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.GetWorkerStatus
-  nameWithType: StatusController.GetWorkerStatus
+  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Get
+  nameWithType: StatusController.Get
+- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options
+  name: Options()
+  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_Options
+  commentId: M:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options
+  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options()
+  nameWithType: StatusController.Options()
+- uid: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options*
+  name: Options
+  href: api/dotnet/FoundationaLLM.Vectorization.Worker.Controllers.StatusController.html#FoundationaLLM_Vectorization_Worker_Controllers_StatusController_Options_
+  commentId: Overload:FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options
+  isSpec: "True"
+  fullName: FoundationaLLM.Vectorization.Worker.Controllers.StatusController.Options
+  nameWithType: StatusController.Options
 - uid: FoundationaLLM.Vectorization.Worker.Worker
   name: Worker
   href: api/dotnet/FoundationaLLM.Vectorization.Worker.Worker.html
