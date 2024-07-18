@@ -288,17 +288,17 @@
 		"category": "AIModel",
 		"actions": [
 			{
-				"name": "FoundationaLLM.AIModel/aimodels/read",
-				"description": "Read aimodels models",
+				"name": "FoundationaLLM.AIModel/aiModels/read",
+				"description": "Read aiModels models",
 				"field_name": "FoundationaLLM_AIModel_Models_Read"
 			},
 			{
-				"name": "FoundationaLLM.AIModel/aimodels/write",
+				"name": "FoundationaLLM.AIModel/aiModels/write",
 				"description": "Create or update models.",
 				"field_name": "FoundationaLLM_AIModel_Models_Write"
 			},
 			{
-				"name": "FoundationaLLM.AIModel/aimodels/delete",
+				"name": "FoundationaLLM.AIModel/aiModels/delete",
 				"description": "Delete models.",
 				"field_name": "FoundationaLLM_AIModel_Models_Delete"
 			}

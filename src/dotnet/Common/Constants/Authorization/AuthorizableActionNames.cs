@@ -285,19 +285,19 @@ namespace FoundationaLLM.Common.Constants.Authorization
         #region AIModel
 
         /// <summary>
-        /// Read aimodels models
+        /// Read aiModels models
         /// </summary>
-        public const string FoundationaLLM_AIModel_AIModels_Read = "FoundationaLLM.AIModel/aimodels/read";
+        public const string FoundationaLLM_AIModel_AIModels_Read = "FoundationaLLM.AIModel/aiModels/read";
 
         /// <summary>
         /// Create or update models.
         /// </summary>
-        public const string FoundationaLLM_AIModel_AIModels_Write = "FoundationaLLM.AIModel/aimodels/write";
+        public const string FoundationaLLM_AIModel_AIModels_Write = "FoundationaLLM.AIModel/aiModels/write";
 
         /// <summary>
         /// Delete models.
         /// </summary>
-        public const string FoundationaLLM_AIModel_AIModels_Delete = "FoundationaLLM.AIModel/aimodels/delete";
+        public const string FoundationaLLM_AIModel_AIModels_Delete = "FoundationaLLM.AIModel/aiModels/delete";
 
         #endregion
     }

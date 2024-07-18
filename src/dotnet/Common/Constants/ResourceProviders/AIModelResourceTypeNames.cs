@@ -8,6 +8,6 @@
         /// <summary>
         /// AIModels.
         /// </summary>
-        public const string AIModels = "aimodels";
+        public const string AIModels = "aiModels";
     }
 }
