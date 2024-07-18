@@ -26,7 +26,7 @@
         AzureAIDirect,
 
         /// <summary>
-        /// Endpoints for direct interactions with Microsoft Azure open AI services.
+        /// Endpoints for direct interactions with Microsoft Azure OpenAI services.
         /// </summary>
         AzureOpenAIDirect,
 
