@@ -67,7 +67,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     DefaultAuthentication.ServiceIdentity!);
 
                 _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos =>  eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                    .Where(eos => eos.APIKeyConfigurationName is not null &&  eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
                     .ToDictionary(
                         eos => eos.Name,
                         eos => new APISettingsBase
