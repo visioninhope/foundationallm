@@ -2916,6 +2916,22 @@ references:
   commentId: T:FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient
   fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient
   nameWithType: IConfigurationManagementClient
+- uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync(System.String)
+  name: DeleteAppConfigurationAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_DeleteAppConfigurationAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync(System.String)
+  name.vb: DeleteAppConfigurationAsync(String)
+  fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync(string)
+  fullName.vb: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync(String)
+  nameWithType: IConfigurationManagementClient.DeleteAppConfigurationAsync(string)
+  nameWithType.vb: IConfigurationManagementClient.DeleteAppConfigurationAsync(String)
+- uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync*
+  name: DeleteAppConfigurationAsync
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_DeleteAppConfigurationAsync_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync
+  nameWithType: IConfigurationManagementClient.DeleteAppConfigurationAsync
 - uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.GetAppConfigurationsAsync
   name: GetAppConfigurationsAsync()
   href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_GetAppConfigurationsAsync
