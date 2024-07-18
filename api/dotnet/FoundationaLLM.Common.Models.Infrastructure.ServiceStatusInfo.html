@@ -160,11 +160,44 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Instance_" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance*"></a>
+  <a id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceId_" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Instance" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance">
-  Instance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceId" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId">
+  InstanceId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The instance ID of the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;instance_id&quot;)]
+public string? InstanceId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceName_" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceName" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName">
+  InstanceName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The instance of the service.</p>
@@ -172,8 +205,8 @@ Class ServiceStatusInfo  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;instance&quot;)]
-public string? Instance { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;instance_name&quot;)]
+public string? InstanceName { get; set; }</code></pre>
   </div>
 
 
@@ -197,7 +230,7 @@ public string? Instance { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Message" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Message">
   Message
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The message associated with the status.</p>
@@ -239,7 +272,7 @@ public string? Message { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;name&quot;)]
-public string? Name { get; set; }</code></pre>
+public required string Name { get; set; }</code></pre>
   </div>
 
 
@@ -263,7 +296,7 @@ public string? Name { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Status" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Status">
   Status
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The status of the service.</p>
@@ -296,7 +329,7 @@ public string? Status { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_SubordinateServices" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.SubordinateServices">
   SubordinateServices
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The status of all the subordinate services.</p>
@@ -329,7 +362,7 @@ public List&lt;ServiceStatusInfo&gt;? SubordinateServices { get; set; }</code></
 
   <h3 id="FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Version" data-uid="FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Version">
   Version
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Infrastructure/ServiceStatusInfo.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The deployed FoundationaLLM version of the service.</p>

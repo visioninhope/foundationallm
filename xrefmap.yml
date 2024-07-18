@@ -14470,19 +14470,32 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo
   fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo
   nameWithType: ServiceStatusInfo
-- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance
-  name: Instance
-  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Instance
-  commentId: P:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance
-  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance
-  nameWithType: ServiceStatusInfo.Instance
-- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance*
-  name: Instance
-  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Instance_
-  commentId: Overload:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId
+  name: InstanceId
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceId
+  commentId: P:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId
+  nameWithType: ServiceStatusInfo.InstanceId
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId*
+  name: InstanceId
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceId_
+  commentId: Overload:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Instance
-  nameWithType: ServiceStatusInfo.Instance
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceId
+  nameWithType: ServiceStatusInfo.InstanceId
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName
+  name: InstanceName
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceName
+  commentId: P:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName
+  nameWithType: ServiceStatusInfo.InstanceName
+- uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName*
+  name: InstanceName
+  href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_InstanceName_
+  commentId: Overload:FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.InstanceName
+  nameWithType: ServiceStatusInfo.InstanceName
 - uid: FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.Message
   name: Message
   href: api/dotnet/FoundationaLLM.Common.Models.Infrastructure.ServiceStatusInfo.html#FoundationaLLM_Common_Models_Infrastructure_ServiceStatusInfo_Message
@@ -23779,12 +23792,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.AttachmentsController.New
   nameWithType: AttachmentsController.AttachmentsController
   nameWithType.vb: AttachmentsController.New
-- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
-  name: Index()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Index
-  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
-  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index()
-  nameWithType: AttachmentsController.Index()
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index(System.String)
+  name: Index(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Index_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Index(System.String)
+  name.vb: Index(String)
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index(String)
+  nameWithType: AttachmentsController.Index(string)
+  nameWithType.vb: AttachmentsController.Index(String)
 - uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index*
   name: Index
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Index_
@@ -23792,12 +23808,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Index
   nameWithType: AttachmentsController.Index
-- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
-  name: Upload(IFormFile)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Upload_Microsoft_AspNetCore_Http_IFormFile_
-  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
-  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(Microsoft.AspNetCore.Http.IFormFile)
-  nameWithType: AttachmentsController.Upload(IFormFile)
+- uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFile)
+  name: Upload(string, IFormFile)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Upload_System_String_Microsoft_AspNetCore_Http_IFormFile_
+  commentId: M:FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFile)
+  name.vb: Upload(String, IFormFile)
+  fullName: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(string, Microsoft.AspNetCore.Http.IFormFile)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload(String, Microsoft.AspNetCore.Http.IFormFile)
+  nameWithType: AttachmentsController.Upload(string, IFormFile)
+  nameWithType.vb: AttachmentsController.Upload(String, IFormFile)
 - uid: FoundationaLLM.Core.API.Controllers.AttachmentsController.Upload*
   name: Upload
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html#FoundationaLLM_Core_API_Controllers_AttachmentsController_Upload_
@@ -23811,15 +23830,15 @@ references:
   commentId: T:FoundationaLLM.Core.API.Controllers.BrandingController
   fullName: FoundationaLLM.Core.API.Controllers.BrandingController
   nameWithType: BrandingController
-- uid: FoundationaLLM.Core.API.Controllers.BrandingController.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
-  name: BrandingController(IOptions<ClientBrandingConfiguration>)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__
-  commentId: M:FoundationaLLM.Core.API.Controllers.BrandingController.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
-  name.vb: New(IOptions(Of ClientBrandingConfiguration))
-  fullName: FoundationaLLM.Core.API.Controllers.BrandingController.BrandingController(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.BrandingController.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration))
-  nameWithType: BrandingController.BrandingController(IOptions<ClientBrandingConfiguration>)
-  nameWithType.vb: BrandingController.New(IOptions(Of ClientBrandingConfiguration))
+- uid: FoundationaLLM.Core.API.Controllers.BrandingController.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
+  name: BrandingController(string, IOptions<ClientBrandingConfiguration>)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__
+  commentId: M:FoundationaLLM.Core.API.Controllers.BrandingController.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration})
+  name.vb: New(String, IOptions(Of ClientBrandingConfiguration))
+  fullName: FoundationaLLM.Core.API.Controllers.BrandingController.BrandingController(string, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.BrandingController.New(String, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration))
+  nameWithType: BrandingController.BrandingController(string, IOptions<ClientBrandingConfiguration>)
+  nameWithType.vb: BrandingController.New(String, IOptions(Of ClientBrandingConfiguration))
 - uid: FoundationaLLM.Core.API.Controllers.BrandingController.#ctor*
   name: BrandingController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController__ctor_
@@ -23830,12 +23849,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.BrandingController.New
   nameWithType: BrandingController.BrandingController
   nameWithType.vb: BrandingController.New
-- uid: FoundationaLLM.Core.API.Controllers.BrandingController.Index
-  name: Index()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController_Index
-  commentId: M:FoundationaLLM.Core.API.Controllers.BrandingController.Index
-  fullName: FoundationaLLM.Core.API.Controllers.BrandingController.Index()
-  nameWithType: BrandingController.Index()
+- uid: FoundationaLLM.Core.API.Controllers.BrandingController.Index(System.String)
+  name: Index(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController_Index_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.BrandingController.Index(System.String)
+  name.vb: Index(String)
+  fullName: FoundationaLLM.Core.API.Controllers.BrandingController.Index(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.BrandingController.Index(String)
+  nameWithType: BrandingController.Index(string)
+  nameWithType.vb: BrandingController.Index(String)
 - uid: FoundationaLLM.Core.API.Controllers.BrandingController.Index*
   name: Index
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.html#FoundationaLLM_Core_API_Controllers_BrandingController_Index_
@@ -23868,12 +23890,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.CompletionsController.New
   nameWithType: CompletionsController.CompletionsController
   nameWithType.vb: CompletionsController.New
-- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
-  name: GetAgents()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetAgents
-  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
-  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents()
-  nameWithType: CompletionsController.GetAgents()
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents(System.String)
+  name: GetAgents(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetAgents_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents(System.String)
+  name.vb: GetAgents(String)
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents(String)
+  nameWithType: CompletionsController.GetAgents(string)
+  nameWithType.vb: CompletionsController.GetAgents(String)
 - uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents*
   name: GetAgents
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetAgents_
@@ -23881,12 +23906,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetAgents
   nameWithType: CompletionsController.GetAgents
-- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: CompletionsController.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: CompletionsController.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Core.API.Controllers.CompletionsController.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html#FoundationaLLM_Core_API_Controllers_CompletionsController_GetCompletion_
@@ -23919,12 +23947,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.New
   nameWithType: SessionsController.SessionsController
   nameWithType.vb: SessionsController.New
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession
-  name: CreateNewChatSession()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession()
-  nameWithType: SessionsController.CreateNewChatSession()
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String)
+  name: CreateNewChatSession(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String)
+  name.vb: CreateNewChatSession(String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(String)
+  nameWithType: SessionsController.CreateNewChatSession(string)
+  nameWithType.vb: SessionsController.CreateNewChatSession(String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession*
   name: CreateNewChatSession
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_
@@ -23932,15 +23963,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession
   nameWithType: SessionsController.CreateNewChatSession
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String)
-  name: DeleteChatSession(string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String)
-  name.vb: DeleteChatSession(String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(String)
-  nameWithType: SessionsController.DeleteChatSession(string)
-  nameWithType.vb: SessionsController.DeleteChatSession(String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String,System.String)
+  name: DeleteChatSession(string, string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String,System.String)
+  name.vb: DeleteChatSession(String, String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(string, string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(String, String)
+  nameWithType: SessionsController.DeleteChatSession(string, string)
+  nameWithType.vb: SessionsController.DeleteChatSession(String, String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession*
   name: DeleteChatSession
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_
@@ -23948,12 +23979,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession
   nameWithType: SessionsController.DeleteChatSession
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions
-  name: GetAllChatSessions()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions()
-  nameWithType: SessionsController.GetAllChatSessions()
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(System.String,System.String,System.String)
+  name: GenerateChatSessionName(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(System.String,System.String,System.String)
+  name.vb: GenerateChatSessionName(String, String, String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(string, string, string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(String, String, String)
+  nameWithType: SessionsController.GenerateChatSessionName(string, string, string)
+  nameWithType.vb: SessionsController.GenerateChatSessionName(String, String, String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName*
+  name: GenerateChatSessionName
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_
+  commentId: Overload:FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName
+  nameWithType: SessionsController.GenerateChatSessionName
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions(System.String)
+  name: GetAllChatSessions(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions(System.String)
+  name.vb: GetAllChatSessions(String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions(String)
+  nameWithType: SessionsController.GetAllChatSessions(string)
+  nameWithType.vb: SessionsController.GetAllChatSessions(String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions*
   name: GetAllChatSessions
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions_
@@ -23961,15 +24011,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions
   nameWithType: SessionsController.GetAllChatSessions
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String)
-  name: GetChatSessionMessages(string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String)
-  name.vb: GetChatSessionMessages(String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(String)
-  nameWithType: SessionsController.GetChatSessionMessages(string)
-  nameWithType.vb: SessionsController.GetChatSessionMessages(String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String,System.String)
+  name: GetChatSessionMessages(string, string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(System.String,System.String)
+  name.vb: GetChatSessionMessages(String, String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(string, string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages(String, String)
+  nameWithType: SessionsController.GetChatSessionMessages(string, string)
+  nameWithType.vb: SessionsController.GetChatSessionMessages(String, String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages*
   name: GetChatSessionMessages
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetChatSessionMessages_
@@ -23977,15 +24027,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetChatSessionMessages
   nameWithType: SessionsController.GetChatSessionMessages
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(System.String,System.String)
-  name: GetCompletionPrompt(string, string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetCompletionPrompt_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(System.String,System.String)
-  name.vb: GetCompletionPrompt(String, String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(string, string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(String, String)
-  nameWithType: SessionsController.GetCompletionPrompt(string, string)
-  nameWithType.vb: SessionsController.GetCompletionPrompt(String, String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(System.String,System.String,System.String)
+  name: GetCompletionPrompt(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetCompletionPrompt_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(System.String,System.String,System.String)
+  name.vb: GetCompletionPrompt(String, String, String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(string, string, string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt(String, String, String)
+  nameWithType: SessionsController.GetCompletionPrompt(string, string, string)
+  nameWithType.vb: SessionsController.GetCompletionPrompt(String, String, String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt*
   name: GetCompletionPrompt
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetCompletionPrompt_
@@ -23993,15 +24043,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GetCompletionPrompt
   nameWithType: SessionsController.GetCompletionPrompt
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(System.String,System.String,System.Nullable{System.Boolean})
-  name: RateMessage(string, string, bool?)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RateMessage_System_String_System_String_System_Nullable_System_Boolean__
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(System.String,System.String,System.Nullable{System.Boolean})
-  name.vb: RateMessage(String, String, Boolean?)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(string, string, bool?)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(String, String, Boolean?)
-  nameWithType: SessionsController.RateMessage(string, string, bool?)
-  nameWithType.vb: SessionsController.RateMessage(String, String, Boolean?)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name: RateMessage(string, string, string, bool?)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RateMessage_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name.vb: RateMessage(String, String, String, Boolean?)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(string, string, string, bool?)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage(String, String, String, Boolean?)
+  nameWithType: SessionsController.RateMessage(string, string, string, bool?)
+  nameWithType.vb: SessionsController.RateMessage(String, String, String, Boolean?)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage*
   name: RateMessage
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RateMessage_
@@ -24009,15 +24059,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage
   nameWithType: SessionsController.RateMessage
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String)
-  name: RenameChatSession(string, string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String)
-  name.vb: RenameChatSession(String, String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(string, string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(String, String)
-  nameWithType: SessionsController.RenameChatSession(string, string)
-  nameWithType.vb: SessionsController.RenameChatSession(String, String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,System.String)
+  name: RenameChatSession(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,System.String)
+  name.vb: RenameChatSession(String, String, String)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(string, string, string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(String, String, String)
+  nameWithType: SessionsController.RenameChatSession(string, string, string)
+  nameWithType.vb: SessionsController.RenameChatSession(String, String, String)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession*
   name: RenameChatSession
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_
@@ -24025,34 +24075,21 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession
   nameWithType: SessionsController.RenameChatSession
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName(System.String,System.String)
-  name: SummarizeChatSessionName(string, string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_SummarizeChatSessionName_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName(System.String,System.String)
-  name.vb: SummarizeChatSessionName(String, String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName(string, string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName(String, String)
-  nameWithType: SessionsController.SummarizeChatSessionName(string, string)
-  nameWithType.vb: SessionsController.SummarizeChatSessionName(String, String)
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName*
-  name: SummarizeChatSessionName
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_SummarizeChatSessionName_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.SummarizeChatSessionName
-  nameWithType: SessionsController.SummarizeChatSessionName
 - uid: FoundationaLLM.Core.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html
   commentId: T:FoundationaLLM.Core.API.Controllers.StatusController
   fullName: FoundationaLLM.Core.API.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
-  name: GetAuthStatus()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetAuthStatus
-  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
-  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus()
-  nameWithType: StatusController.GetAuthStatus()
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus(System.String)
+  name: GetAuthStatus(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetAuthStatus_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus(System.String)
+  name.vb: GetAuthStatus(String)
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus(String)
+  nameWithType: StatusController.GetAuthStatus(string)
+  nameWithType.vb: StatusController.GetAuthStatus(String)
 - uid: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus*
   name: GetAuthStatus
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetAuthStatus_
@@ -24060,12 +24097,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetAuthStatus
   nameWithType: StatusController.GetAuthStatus
-- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
-  name: GetServiceStatus()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetServiceStatus
-  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus
-  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus()
-  nameWithType: StatusController.GetServiceStatus()
+- uid: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus(System.String)
+  name: GetServiceStatus(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetServiceStatus_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus(System.String)
+  name.vb: GetServiceStatus(String)
+  fullName: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus(String)
+  nameWithType: StatusController.GetServiceStatus(string)
+  nameWithType.vb: StatusController.GetServiceStatus(String)
 - uid: FoundationaLLM.Core.API.Controllers.StatusController.GetServiceStatus*
   name: GetServiceStatus
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.StatusController.html#FoundationaLLM_Core_API_Controllers_StatusController_GetServiceStatus_
@@ -24111,12 +24151,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.UserProfilesController.New
   nameWithType: UserProfilesController.UserProfilesController
   nameWithType.vb: UserProfilesController.New
-- uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index
-  name: Index()
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController_Index
-  commentId: M:FoundationaLLM.Core.API.Controllers.UserProfilesController.Index
-  fullName: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index()
-  nameWithType: UserProfilesController.Index()
+- uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index(System.String)
+  name: Index(string)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController_Index_System_String_
+  commentId: M:FoundationaLLM.Core.API.Controllers.UserProfilesController.Index(System.String)
+  name.vb: Index(String)
+  fullName: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index(string)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index(String)
+  nameWithType: UserProfilesController.Index(string)
+  nameWithType.vb: UserProfilesController.Index(String)
 - uid: FoundationaLLM.Core.API.Controllers.UserProfilesController.Index*
   name: Index
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.UserProfilesController.html#FoundationaLLM_Core_API_Controllers_UserProfilesController_Index_
@@ -24158,12 +24201,15 @@ references:
   commentId: T:FoundationaLLM.Core.Interfaces.ICoreService
   fullName: FoundationaLLM.Core.Interfaces.ICoreService
   nameWithType: ICoreService
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync
-  name: CreateNewChatSessionAsync()
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync()
-  nameWithType: ICoreService.CreateNewChatSessionAsync()
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String)
+  name: CreateNewChatSessionAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String)
+  name.vb: CreateNewChatSessionAsync(String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(String)
+  nameWithType: ICoreService.CreateNewChatSessionAsync(string)
+  nameWithType.vb: ICoreService.CreateNewChatSessionAsync(String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync*
   name: CreateNewChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_
@@ -24171,15 +24217,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync
   nameWithType: ICoreService.CreateNewChatSessionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String)
-  name: DeleteChatSessionAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String)
-  name.vb: DeleteChatSessionAsync(String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(String)
-  nameWithType: ICoreService.DeleteChatSessionAsync(string)
-  nameWithType.vb: ICoreService.DeleteChatSessionAsync(String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String,System.String)
+  name: DeleteChatSessionAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String,System.String)
+  name.vb: DeleteChatSessionAsync(String, String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(String, String)
+  nameWithType: ICoreService.DeleteChatSessionAsync(string, string)
+  nameWithType.vb: ICoreService.DeleteChatSessionAsync(String, String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync*
   name: DeleteChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_
@@ -24187,12 +24233,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync
   nameWithType: ICoreService.DeleteChatSessionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync
-  name: GetAllChatSessionsAsync()
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync()
-  nameWithType: ICoreService.GetAllChatSessionsAsync()
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
+  name: GenerateChatSessionNameAsync(string, string?, string?)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
+  name.vb: GenerateChatSessionNameAsync(String, String, String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(string, string?, string?)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(String, String, String)
+  nameWithType: ICoreService.GenerateChatSessionNameAsync(string, string?, string?)
+  nameWithType.vb: ICoreService.GenerateChatSessionNameAsync(String, String, String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync*
+  name: GenerateChatSessionNameAsync
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_
+  commentId: Overload:FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync
+  nameWithType: ICoreService.GenerateChatSessionNameAsync
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(System.String)
+  name: GetAllChatSessionsAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(System.String)
+  name.vb: GetAllChatSessionsAsync(String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(String)
+  nameWithType: ICoreService.GetAllChatSessionsAsync(string)
+  nameWithType.vb: ICoreService.GetAllChatSessionsAsync(String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync*
   name: GetAllChatSessionsAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync_
@@ -24200,12 +24265,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync
   nameWithType: ICoreService.GetAllChatSessionsAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetChatCompletionAsync(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: ICoreService.GetChatCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetChatCompletionAsync(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetChatCompletionAsync(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreService.GetChatCompletionAsync(string, CompletionRequest)
+  nameWithType.vb: ICoreService.GetChatCompletionAsync(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync*
   name: GetChatCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_
@@ -24213,15 +24281,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync
   nameWithType: ICoreService.GetChatCompletionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String)
-  name: GetChatSessionMessagesAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String)
-  name.vb: GetChatSessionMessagesAsync(String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(String)
-  nameWithType: ICoreService.GetChatSessionMessagesAsync(string)
-  nameWithType.vb: ICoreService.GetChatSessionMessagesAsync(String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String,System.String)
+  name: GetChatSessionMessagesAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String,System.String)
+  name.vb: GetChatSessionMessagesAsync(String, String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(String, String)
+  nameWithType: ICoreService.GetChatSessionMessagesAsync(string, string)
+  nameWithType.vb: ICoreService.GetChatSessionMessagesAsync(String, String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync*
   name: GetChatSessionMessagesAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_
@@ -24229,12 +24297,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync
   nameWithType: ICoreService.GetChatSessionMessagesAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletionAsync(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: ICoreService.GetCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletionAsync(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: ICoreService.GetCompletionAsync(string, CompletionRequest)
+  nameWithType.vb: ICoreService.GetCompletionAsync(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync*
   name: GetCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_
@@ -24242,15 +24313,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync
   nameWithType: ICoreService.GetCompletionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String)
-  name: GetCompletionPrompt(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String)
-  name.vb: GetCompletionPrompt(String, String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(string, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(String, String)
-  nameWithType: ICoreService.GetCompletionPrompt(string, string)
-  nameWithType.vb: ICoreService.GetCompletionPrompt(String, String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String,System.String)
+  name: GetCompletionPrompt(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String,System.String)
+  name.vb: GetCompletionPrompt(String, String, String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(string, string, string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(String, String, String)
+  nameWithType: ICoreService.GetCompletionPrompt(string, string, string)
+  nameWithType.vb: ICoreService.GetCompletionPrompt(String, String, String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt*
   name: GetCompletionPrompt
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_
@@ -24258,15 +24329,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt
   nameWithType: ICoreService.GetCompletionPrompt
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.Nullable{System.Boolean})
-  name: RateMessageAsync(string, string, bool?)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_System_String_System_String_System_Nullable_System_Boolean__
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.Nullable{System.Boolean})
-  name.vb: RateMessageAsync(String, String, Boolean?)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(string, string, bool?)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(String, String, Boolean?)
-  nameWithType: ICoreService.RateMessageAsync(string, string, bool?)
-  nameWithType.vb: ICoreService.RateMessageAsync(String, String, Boolean?)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name: RateMessageAsync(string, string, string, bool?)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name.vb: RateMessageAsync(String, String, String, Boolean?)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(string, string, string, bool?)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(String, String, String, Boolean?)
+  nameWithType: ICoreService.RateMessageAsync(string, string, string, bool?)
+  nameWithType.vb: ICoreService.RateMessageAsync(String, String, String, Boolean?)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync*
   name: RateMessageAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_
@@ -24274,15 +24345,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync
   nameWithType: ICoreService.RateMessageAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String)
-  name: RenameChatSessionAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String)
-  name.vb: RenameChatSessionAsync(String, String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(string, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(String, String)
-  nameWithType: ICoreService.RenameChatSessionAsync(string, string)
-  nameWithType.vb: ICoreService.RenameChatSessionAsync(String, String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,System.String)
+  name: RenameChatSessionAsync(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,System.String)
+  name.vb: RenameChatSessionAsync(String, String, String)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(string, string, string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(String, String, String)
+  nameWithType: ICoreService.RenameChatSessionAsync(string, string, string)
+  nameWithType.vb: ICoreService.RenameChatSessionAsync(String, String, String)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync*
   name: RenameChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_
@@ -24290,22 +24361,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync
   nameWithType: ICoreService.RenameChatSessionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync(System.String,System.String)
-  name: SummarizeChatSessionNameAsync(string?, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_SummarizeChatSessionNameAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync(System.String,System.String)
-  name.vb: SummarizeChatSessionNameAsync(String, String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync(string?, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync(String, String)
-  nameWithType: ICoreService.SummarizeChatSessionNameAsync(string?, string)
-  nameWithType.vb: ICoreService.SummarizeChatSessionNameAsync(String, String)
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync*
-  name: SummarizeChatSessionNameAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_SummarizeChatSessionNameAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync
-  nameWithType: ICoreService.SummarizeChatSessionNameAsync
 - uid: FoundationaLLM.Core.Interfaces.ICosmosDbChangeFeedService
   name: ICosmosDbChangeFeedService
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICosmosDbChangeFeedService.html
@@ -24665,12 +24720,15 @@ references:
   commentId: T:FoundationaLLM.Core.Interfaces.IUserProfileService
   fullName: FoundationaLLM.Core.Interfaces.IUserProfileService
   nameWithType: IUserProfileService
-- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync
-  name: GetUserProfileAsync()
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileAsync
-  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync
-  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync()
-  nameWithType: IUserProfileService.GetUserProfileAsync()
+- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync(System.String)
+  name: GetUserProfileAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync(System.String)
+  name.vb: GetUserProfileAsync(String)
+  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync(string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync(String)
+  nameWithType: IUserProfileService.GetUserProfileAsync(string)
+  nameWithType.vb: IUserProfileService.GetUserProfileAsync(String)
 - uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync*
   name: GetUserProfileAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileAsync_
@@ -24678,15 +24736,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileAsync
   nameWithType: IUserProfileService.GetUserProfileAsync
-- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(System.String)
-  name: GetUserProfileForUserAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileForUserAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(System.String)
-  name.vb: GetUserProfileForUserAsync(String)
-  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(String)
-  nameWithType: IUserProfileService.GetUserProfileForUserAsync(string)
-  nameWithType.vb: IUserProfileService.GetUserProfileForUserAsync(String)
+- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(System.String,System.String)
+  name: GetUserProfileForUserAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileForUserAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(System.String,System.String)
+  name.vb: GetUserProfileForUserAsync(String, String)
+  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync(String, String)
+  nameWithType: IUserProfileService.GetUserProfileForUserAsync(string, string)
+  nameWithType.vb: IUserProfileService.GetUserProfileForUserAsync(String, String)
 - uid: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync*
   name: GetUserProfileForUserAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_GetUserProfileForUserAsync_
@@ -24694,12 +24752,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.GetUserProfileForUserAsync
   nameWithType: IUserProfileService.GetUserProfileForUserAsync
-- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  name: UpsertUserProfileAsync(UserProfile)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_UpsertUserProfileAsync_FoundationaLLM_Common_Models_Configuration_Users_UserProfile_
-  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  nameWithType: IUserProfileService.UpsertUserProfileAsync(UserProfile)
+- uid: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(System.String,FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  name: UpsertUserProfileAsync(string, UserProfile)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_UpsertUserProfileAsync_System_String_FoundationaLLM_Common_Models_Configuration_Users_UserProfile_
+  commentId: M:FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(System.String,FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  name.vb: UpsertUserProfileAsync(String, UserProfile)
+  fullName: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(string, FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  fullName.vb: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync(String, FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  nameWithType: IUserProfileService.UpsertUserProfileAsync(string, UserProfile)
+  nameWithType.vb: IUserProfileService.UpsertUserProfileAsync(String, UserProfile)
 - uid: FoundationaLLM.Core.Interfaces.IUserProfileService.UpsertUserProfileAsync*
   name: UpsertUserProfileAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IUserProfileService.html#FoundationaLLM_Core_Interfaces_IUserProfileService_UpsertUserProfileAsync_
@@ -24842,12 +24903,15 @@ references:
   fullName.vb: FoundationaLLM.Core.Services.CoreService.New
   nameWithType: CoreService.CoreService
   nameWithType.vb: CoreService.New
-- uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync
-  name: CreateNewChatSessionAsync()
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync
-  commentId: M:FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync
-  fullName: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync()
-  nameWithType: CoreService.CreateNewChatSessionAsync()
+- uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String)
+  name: CreateNewChatSessionAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String)
+  name.vb: CreateNewChatSessionAsync(String)
+  fullName: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(String)
+  nameWithType: CoreService.CreateNewChatSessionAsync(string)
+  nameWithType.vb: CoreService.CreateNewChatSessionAsync(String)
 - uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync*
   name: CreateNewChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync_
@@ -24855,15 +24919,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync
   nameWithType: CoreService.CreateNewChatSessionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(System.String)
-  name: DeleteChatSessionAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_DeleteChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(System.String)
-  name.vb: DeleteChatSessionAsync(String)
-  fullName: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(String)
-  nameWithType: CoreService.DeleteChatSessionAsync(string)
-  nameWithType.vb: CoreService.DeleteChatSessionAsync(String)
+- uid: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(System.String,System.String)
+  name: DeleteChatSessionAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_DeleteChatSessionAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(System.String,System.String)
+  name.vb: DeleteChatSessionAsync(String, String)
+  fullName: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync(String, String)
+  nameWithType: CoreService.DeleteChatSessionAsync(string, string)
+  nameWithType.vb: CoreService.DeleteChatSessionAsync(String, String)
 - uid: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync*
   name: DeleteChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_DeleteChatSessionAsync_
@@ -24871,12 +24935,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync
   nameWithType: CoreService.DeleteChatSessionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync
-  name: GetAllChatSessionsAsync()
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetAllChatSessionsAsync
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync
-  fullName: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync()
-  nameWithType: CoreService.GetAllChatSessionsAsync()
+- uid: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
+  name: GenerateChatSessionNameAsync(string, string?, string?)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GenerateChatSessionNameAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
+  name.vb: GenerateChatSessionNameAsync(String, String, String)
+  fullName: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(string, string?, string?)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(String, String, String)
+  nameWithType: CoreService.GenerateChatSessionNameAsync(string, string?, string?)
+  nameWithType.vb: CoreService.GenerateChatSessionNameAsync(String, String, String)
+- uid: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync*
+  name: GenerateChatSessionNameAsync
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GenerateChatSessionNameAsync_
+  commentId: Overload:FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync
+  nameWithType: CoreService.GenerateChatSessionNameAsync
+- uid: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync(System.String)
+  name: GetAllChatSessionsAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetAllChatSessionsAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync(System.String)
+  name.vb: GetAllChatSessionsAsync(String)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync(string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync(String)
+  nameWithType: CoreService.GetAllChatSessionsAsync(string)
+  nameWithType.vb: CoreService.GetAllChatSessionsAsync(String)
 - uid: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync*
   name: GetAllChatSessionsAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetAllChatSessionsAsync_
@@ -24884,12 +24967,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync
   nameWithType: CoreService.GetAllChatSessionsAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetChatCompletionAsync(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: CoreService.GetChatCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetChatCompletionAsync(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetChatCompletionAsync(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreService.GetChatCompletionAsync(string, CompletionRequest)
+  nameWithType.vb: CoreService.GetChatCompletionAsync(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync*
   name: GetChatCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatCompletionAsync_
@@ -24897,15 +24983,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetChatCompletionAsync
   nameWithType: CoreService.GetChatCompletionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(System.String)
-  name: GetChatSessionMessagesAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatSessionMessagesAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(System.String)
-  name.vb: GetChatSessionMessagesAsync(String)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(String)
-  nameWithType: CoreService.GetChatSessionMessagesAsync(string)
-  nameWithType.vb: CoreService.GetChatSessionMessagesAsync(String)
+- uid: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(System.String,System.String)
+  name: GetChatSessionMessagesAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatSessionMessagesAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(System.String,System.String)
+  name.vb: GetChatSessionMessagesAsync(String, String)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync(String, String)
+  nameWithType: CoreService.GetChatSessionMessagesAsync(string, string)
+  nameWithType.vb: CoreService.GetChatSessionMessagesAsync(String, String)
 - uid: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync*
   name: GetChatSessionMessagesAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetChatSessionMessagesAsync_
@@ -24913,12 +24999,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetChatSessionMessagesAsync
   nameWithType: CoreService.GetChatSessionMessagesAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletionAsync(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: CoreService.GetCompletionAsync(CompletionRequest)
+- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletionAsync(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletionAsync(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CoreService.GetCompletionAsync(string, CompletionRequest)
+  nameWithType.vb: CoreService.GetCompletionAsync(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync*
   name: GetCompletionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionAsync_
@@ -24926,15 +25015,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionAsync
   nameWithType: CoreService.GetCompletionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(System.String,System.String)
-  name: GetCompletionPrompt(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionPrompt_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(System.String,System.String)
-  name.vb: GetCompletionPrompt(String, String)
-  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(string, string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(String, String)
-  nameWithType: CoreService.GetCompletionPrompt(string, string)
-  nameWithType.vb: CoreService.GetCompletionPrompt(String, String)
+- uid: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(System.String,System.String,System.String)
+  name: GetCompletionPrompt(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionPrompt_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(System.String,System.String,System.String)
+  name.vb: GetCompletionPrompt(String, String, String)
+  fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(string, string, string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt(String, String, String)
+  nameWithType: CoreService.GetCompletionPrompt(string, string, string)
+  nameWithType.vb: CoreService.GetCompletionPrompt(String, String, String)
 - uid: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt*
   name: GetCompletionPrompt
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetCompletionPrompt_
@@ -24942,15 +25031,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.GetCompletionPrompt
   nameWithType: CoreService.GetCompletionPrompt
-- uid: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(System.String,System.String,System.Nullable{System.Boolean})
-  name: RateMessageAsync(string, string, bool?)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RateMessageAsync_System_String_System_String_System_Nullable_System_Boolean__
-  commentId: M:FoundationaLLM.Core.Services.CoreService.RateMessageAsync(System.String,System.String,System.Nullable{System.Boolean})
-  name.vb: RateMessageAsync(String, String, Boolean?)
-  fullName: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(string, string, bool?)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(String, String, Boolean?)
-  nameWithType: CoreService.RateMessageAsync(string, string, bool?)
-  nameWithType.vb: CoreService.RateMessageAsync(String, String, Boolean?)
+- uid: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name: RateMessageAsync(string, string, string, bool?)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RateMessageAsync_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  commentId: M:FoundationaLLM.Core.Services.CoreService.RateMessageAsync(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  name.vb: RateMessageAsync(String, String, String, Boolean?)
+  fullName: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(string, string, string, bool?)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.RateMessageAsync(String, String, String, Boolean?)
+  nameWithType: CoreService.RateMessageAsync(string, string, string, bool?)
+  nameWithType.vb: CoreService.RateMessageAsync(String, String, String, Boolean?)
 - uid: FoundationaLLM.Core.Services.CoreService.RateMessageAsync*
   name: RateMessageAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RateMessageAsync_
@@ -24958,15 +25047,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.RateMessageAsync
   nameWithType: CoreService.RateMessageAsync
-- uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String)
-  name: RenameChatSessionAsync(string, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String)
-  name.vb: RenameChatSessionAsync(String, String)
-  fullName: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(string, string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(String, String)
-  nameWithType: CoreService.RenameChatSessionAsync(string, string)
-  nameWithType.vb: CoreService.RenameChatSessionAsync(String, String)
+- uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,System.String)
+  name: RenameChatSessionAsync(string, string, string)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_System_String_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,System.String)
+  name.vb: RenameChatSessionAsync(String, String, String)
+  fullName: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(string, string, string)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(String, String, String)
+  nameWithType: CoreService.RenameChatSessionAsync(string, string, string)
+  nameWithType.vb: CoreService.RenameChatSessionAsync(String, String, String)
 - uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync*
   name: RenameChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_
@@ -24974,22 +25063,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync
   nameWithType: CoreService.RenameChatSessionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync(System.String,System.String)
-  name: SummarizeChatSessionNameAsync(string?, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_SummarizeChatSessionNameAsync_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync(System.String,System.String)
-  name.vb: SummarizeChatSessionNameAsync(String, String)
-  fullName: FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync(string?, string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync(String, String)
-  nameWithType: CoreService.SummarizeChatSessionNameAsync(string?, string)
-  nameWithType.vb: CoreService.SummarizeChatSessionNameAsync(String, String)
-- uid: FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync*
-  name: SummarizeChatSessionNameAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_SummarizeChatSessionNameAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CoreService.SummarizeChatSessionNameAsync
-  nameWithType: CoreService.SummarizeChatSessionNameAsync
 - uid: FoundationaLLM.Core.Services.CosmosDbChangeFeedService
   name: CosmosDbChangeFeedService
   href: api/dotnet/FoundationaLLM.Core.Services.CosmosDbChangeFeedService.html
@@ -25425,12 +25498,15 @@ references:
   fullName.vb: FoundationaLLM.Core.Services.UserProfileService.New
   nameWithType: UserProfileService.UserProfileService
   nameWithType.vb: UserProfileService.New
-- uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync
-  name: GetUserProfileAsync()
-  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileAsync
-  commentId: M:FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync
-  fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync()
-  nameWithType: UserProfileService.GetUserProfileAsync()
+- uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync(System.String)
+  name: GetUserProfileAsync(string)
+  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileAsync_System_String_
+  commentId: M:FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync(System.String)
+  name.vb: GetUserProfileAsync(String)
+  fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync(string)
+  fullName.vb: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync(String)
+  nameWithType: UserProfileService.GetUserProfileAsync(string)
+  nameWithType.vb: UserProfileService.GetUserProfileAsync(String)
 - uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync*
   name: GetUserProfileAsync
   href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileAsync_
@@ -25438,15 +25514,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileAsync
   nameWithType: UserProfileService.GetUserProfileAsync
-- uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(System.String)
-  name: GetUserProfileForUserAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileForUserAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(System.String)
-  name.vb: GetUserProfileForUserAsync(String)
-  fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(string)
-  fullName.vb: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(String)
-  nameWithType: UserProfileService.GetUserProfileForUserAsync(string)
-  nameWithType.vb: UserProfileService.GetUserProfileForUserAsync(String)
+- uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(System.String,System.String)
+  name: GetUserProfileForUserAsync(string, string)
+  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileForUserAsync_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(System.String,System.String)
+  name.vb: GetUserProfileForUserAsync(String, String)
+  fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(string, string)
+  fullName.vb: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync(String, String)
+  nameWithType: UserProfileService.GetUserProfileForUserAsync(string, string)
+  nameWithType.vb: UserProfileService.GetUserProfileForUserAsync(String, String)
 - uid: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync*
   name: GetUserProfileForUserAsync
   href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_GetUserProfileForUserAsync_
@@ -25454,12 +25530,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.UserProfileService.GetUserProfileForUserAsync
   nameWithType: UserProfileService.GetUserProfileForUserAsync
-- uid: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  name: UpsertUserProfileAsync(UserProfile)
-  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_UpsertUserProfileAsync_FoundationaLLM_Common_Models_Configuration_Users_UserProfile_
-  commentId: M:FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  fullName: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
-  nameWithType: UserProfileService.UpsertUserProfileAsync(UserProfile)
+- uid: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(System.String,FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  name: UpsertUserProfileAsync(string, UserProfile)
+  href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_UpsertUserProfileAsync_System_String_FoundationaLLM_Common_Models_Configuration_Users_UserProfile_
+  commentId: M:FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(System.String,FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  name.vb: UpsertUserProfileAsync(String, UserProfile)
+  fullName: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(string, FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  fullName.vb: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync(String, FoundationaLLM.Common.Models.Configuration.Users.UserProfile)
+  nameWithType: UserProfileService.UpsertUserProfileAsync(string, UserProfile)
+  nameWithType.vb: UserProfileService.UpsertUserProfileAsync(String, UserProfile)
 - uid: FoundationaLLM.Core.Services.UserProfileService.UpsertUserProfileAsync*
   name: UpsertUserProfileAsync
   href: api/dotnet/FoundationaLLM.Core.Services.UserProfileService.html#FoundationaLLM_Core_Services_UserProfileService_UpsertUserProfileAsync_

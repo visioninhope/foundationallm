@@ -131,9 +131,9 @@ orchestrator.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync">
-  CreateNewChatSessionAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String)">
+  CreateNewChatSessionAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new chat session.</p>
@@ -141,9 +141,15 @@ orchestrator.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Session&gt; CreateNewChatSessionAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;Session&gt; CreateNewChatSessionAsync(string instanceId)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance Id.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -163,9 +169,9 @@ orchestrator.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String)">
-  DeleteChatSessionAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_DeleteChatSessionAsync_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync(System.String,System.String)">
+  DeleteChatSessionAsync(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Delete a chat session and related messages.</p>
@@ -173,13 +179,17 @@ orchestrator.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task DeleteChatSessionAsync(string sessionId)</code></pre>
+    <pre><code class="lang-csharp hljs">Task DeleteChatSessionAsync(string instanceId, string sessionId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The session id to delete.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -198,11 +208,55 @@ orchestrator.</p>
 
 
 
+  <a id="FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync*"></a>
+
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_System_String_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)">
+  GenerateChatSessionNameAsync(string, string?, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Generate a name for a chat message, based on the passed in prompt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
+    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The session id to rename.</p>
+</dd>
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The text to use when generating the name.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Completion.html">Completion</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync">
-  GetAllChatSessionsAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(System.String)">
+  GetAllChatSessionsAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns list of chat session ids and names.</p>
@@ -210,9 +264,15 @@ orchestrator.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;List&lt;Session&gt;&gt; GetAllChatSessionsAsync()</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;List&lt;Session&gt;&gt; GetAllChatSessionsAsync(string instanceId)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id for which to retrieve chat sessions.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -232,9 +292,9 @@ orchestrator.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
-  GetChatCompletionAsync(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  GetChatCompletionAsync(string, CompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Receive a prompt from a user, retrieve the message history from the related session,
@@ -243,13 +303,17 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; GetChatCompletionAsync(CompletionRequest completionRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; GetChatCompletionAsync(string instanceId, CompletionRequest completionRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
     <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
-    <dd></dd>
+    <dd><p>The completion request.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -270,9 +334,9 @@ generate a completion response, and log full completion results.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String)">
-  GetChatSessionMessagesAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetChatSessionMessagesAsync_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetChatSessionMessagesAsync(System.String,System.String)">
+  GetChatSessionMessagesAsync(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the chat messages related to an existing session.</p>
@@ -280,13 +344,17 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;List&lt;Message&gt;&gt; GetChatSessionMessagesAsync(string sessionId)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;List&lt;Message&gt;&gt; GetChatSessionMessagesAsync(string instanceId, string sessionId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id for which to retrieve chat messages.</p>
+</dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The session id for which to retrieve chat messages.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -307,9 +375,9 @@ generate a completion response, and log full completion results.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
-  GetCompletionAsync(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionAsync_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionAsync(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  GetCompletionAsync(string, CompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Provides a completion for a user prompt, without a session.</p>
@@ -317,13 +385,17 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; GetCompletionAsync(CompletionRequest directCompletionRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
     <dt><code>directCompletionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
-    <dd></dd>
+    <dd><p>The completion request.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -344,9 +416,9 @@ generate a completion response, and log full completion results.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String)">
-  GetCompletionPrompt(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_GetCompletionPrompt_System_String_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.GetCompletionPrompt(System.String,System.String,System.String)">
+  GetCompletionPrompt(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the completion prompt for a given session and completion prompt id.</p>
@@ -354,11 +426,14 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;CompletionPrompt&gt; GetCompletionPrompt(string sessionId, string completionPromptId)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;CompletionPrompt&gt; GetCompletionPrompt(string instanceId, string sessionId, string completionPromptId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance Id.</p>
+</dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The session id from which to retrieve the completion prompt.</p>
 </dd>
@@ -385,9 +460,9 @@ generate a completion response, and log full completion results.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_System_String_System_String_System_Nullable_System_Boolean__" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.Nullable{System.Boolean})">
-  RateMessageAsync(string, string, bool?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_RateMessageAsync_System_String_System_String_System_String_System_Nullable_System_Boolean__" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync(System.String,System.String,System.String,System.Nullable{System.Boolean})">
+  RateMessageAsync(string, string, string, bool?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.</p>
@@ -395,17 +470,23 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Message&gt; RateMessageAsync(string id, string sessionId, bool? rating)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;Message&gt; RateMessageAsync(string instanceId, string id, string sessionId, bool? rating)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
     <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The message id to rate.</p>
+</dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The session id to which the message belongs.</p>
+</dd>
     <dt><code>rating</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</dt>
-    <dd></dd>
+    <dd><p>The rating to assign to the message.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -426,9 +507,9 @@ generate a completion response, and log full completion results.</p>
 
   <a id="FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String)">
-  RenameChatSessionAsync(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,System.String)">
+  RenameChatSessionAsync(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Rename the chat session from its default (eg., &quot;New Chat&quot;) to the summary provided by OpenAI.</p>
@@ -436,59 +517,25 @@ generate a completion response, and log full completion results.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Session&gt; RenameChatSessionAsync(string sessionId, string newChatSessionName)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;Session&gt; RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The instance id.</p>
+</dd>
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The session id to rename.</p>
+</dd>
     <dt><code>newChatSessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The new name for the chat session.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Session.html">Session</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_Interfaces_ICoreService_SummarizeChatSessionNameAsync_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync*"></a>
-
-  <h3 id="FoundationaLLM_Core_Interfaces_ICoreService_SummarizeChatSessionNameAsync_System_String_System_String_" data-uid="FoundationaLLM.Core.Interfaces.ICoreService.SummarizeChatSessionNameAsync(System.String,System.String)">
-  SummarizeChatSessionNameAsync(string?, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Core/Interfaces/ICoreService.cs/#L51"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Generate a name for a chat message, based on the passed in prompt.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;Completion&gt; SummarizeChatSessionNameAsync(string? sessionId, string prompt)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>prompt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Completion.html">Completion</a>&gt;</dt>
     <dd></dd>
   </dl>
 
