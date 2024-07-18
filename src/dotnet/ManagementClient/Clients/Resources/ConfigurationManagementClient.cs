@@ -53,5 +53,12 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                 $"{ConfigurationResourceTypeNames.AppConfigurations}/{appConfiguration.Name}",
                 appConfiguration
             );
+
+        /// <inheritdoc/>
+        public async Task DeleteAppConfigurationAsync(string key) =>
+            await managementRestClient.Resources.DeleteResourceAsync(
+                ResourceProviderNames.FoundationaLLM_Configuration,
+                $"{ConfigurationResourceTypeNames.AppConfigurations}/{key}"
+            );
     }
 }

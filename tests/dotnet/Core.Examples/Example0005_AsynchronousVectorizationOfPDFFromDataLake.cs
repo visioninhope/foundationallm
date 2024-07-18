@@ -187,6 +187,12 @@ namespace FoundationaLLM.Core.Examples
             }
             finally
             {
+                WriteLine($"Delete the App Configuration key {accountNameAppConfigKey}");
+                await _vectorizationTestService.DeleteAppConfiguration(accountNameAppConfigKey);
+
+                WriteLine($"Delete the App Configuration key {authenticationTypeAppConfigKey}");
+                await _vectorizationTestService.DeleteAppConfiguration(authenticationTypeAppConfigKey);
+
                 WriteLine($"Delete the data source: {dataSourceName} via the Management API");
                 await _vectorizationTestService.DeleteDataSource(dataSourceName);
 

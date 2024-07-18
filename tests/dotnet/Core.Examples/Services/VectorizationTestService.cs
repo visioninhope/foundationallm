@@ -228,5 +228,10 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             await managementAPITestManager.CreateAppConfiguration(appConfigurationKeyValue);
         }
+
+        async public Task DeleteAppConfiguration(string key)
+        {
+            await managementAPITestManager.DeleteAppConfiguration(key);
+        }
     }
 }
