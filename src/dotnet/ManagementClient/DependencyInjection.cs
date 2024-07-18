@@ -20,7 +20,7 @@ namespace FoundationaLLM
         /// user or service principle from which the client library can generate auth tokens.</param>
         /// <param name="instanceId">The unique (GUID) ID for the FoundationaLLM deployment.
         /// Locate this value in the FoundationaLLM Management Portal or in Azure App Config
-        /// (FoundationaLLM:InstanceName:Id key)</param>
+        /// (FoundationaLLM:Instance:Id key)</param>
         /// <param name="options">Additional options to configure the HTTP Client.</param>
         public static void AddManagementClient(
             this IServiceCollection services,
