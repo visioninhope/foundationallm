@@ -228,6 +228,9 @@ namespace FoundationaLLM.Configuration.Services
                 case ConfigurationResourceTypeNames.APIEndpoints:
                     await DeleteAPIEndpoint(resourcePath.ResourceTypeInstances);
                     break;
+                case ConfigurationResourceTypeNames.AppConfigurations:
+                    await DeleteAppConfigurationKey(resourcePath.ResourceTypeInstances);
+                    break;
                 default:
                     throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest);
@@ -353,6 +356,15 @@ namespace FoundationaLLM.Configuration.Services
             else
                 throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} api endpoint resource.",
                             StatusCodes.Status404NotFound);
+        }
+
+        private async Task DeleteAppConfigurationKey(List<ResourceTypeInstance> instances)
+        {
+            string key = instances.Last().ResourceId!.Split("/").Last();
+            if (!await _appConfigurationService.CheckAppConfigurationSettingExistsAsync(key))
+                throw new ResourceProviderException($"Could not locate the {key} App Configuration key.",
+                                StatusCodes.Status404NotFound);
+            await _appConfigurationService.DeleteAppConfigurationSettingAsync(key);
         }
         #endregion
 

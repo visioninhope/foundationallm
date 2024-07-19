@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
@@ -312,6 +312,30 @@ namespace FoundationaLLM.Core.Tests.Services
         #region SetChatSessionNameAsync
 
         [Fact]
+        public async Task SummarizeChatSessionNameAsync_ShouldReturnACompletion()
+        {
+            // Arrange
+            var sessionId = Guid.NewGuid().ToString();
+            var prompt = "Prompt";
+            var summary = "[No Summary]";
+            var summaryRequest = new SummaryRequest
+            {
+                SessionId = sessionId,
+                UserPrompt = prompt
+            };
+            var expectedCompletion = new Completion() { Text = summary };
+
+            _gatekeeperAPIService.GetSummary(summaryRequest).Returns(summary);
+            _cosmosDbService.UpdateSessionNameAsync(sessionId, summary).Returns(new Session());
+
+            // Act
+            var actualCompletion = await _testedService.GenerateChatSessionNameAsync(sessionId, prompt);
+
+            // Assert
+            Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
+        }
+
+        [Fact]
         public async Task SummarizeChatSessionNameAsync_ShouldReturnAnErrorMessageWhenSessionIdIsNull()
         {
             // Arrange
@@ -319,7 +343,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var expectedCompletion = new Completion { Text = "[No Summary]" };
 
             // Act
-            var actualSummary = await _testedService.SummarizeChatSessionNameAsync(null, prompt);
+            var actualSummary = await _testedService.GenerateChatSessionNameAsync(null, prompt);
 
             // Assert
             Assert.Equal(expectedCompletion.Text, actualSummary.Text);
@@ -334,7 +358,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var sessionId = Guid.NewGuid().ToString();
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.SummarizeChatSessionNameAsync(sessionId, null!));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(sessionId, null!));
 
             // Assert
             Assert.Null(exception);
@@ -347,7 +371,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var prompt = "Prompt";
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.SummarizeChatSessionNameAsync(null, prompt));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(null, prompt));
 
             // Assert
             Assert.Null(exception);

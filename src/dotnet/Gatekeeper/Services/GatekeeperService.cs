@@ -97,8 +97,12 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             throw new NotImplementedException();
 
         /// <inheritdoc/>
-        public async Task<CompletionRequest> GetCompletionOperation(string instanceId, string operationId) =>
+        public Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
             // TODO: Need to call State API to get the operation.
             throw new NotImplementedException();
+        
     }
 }

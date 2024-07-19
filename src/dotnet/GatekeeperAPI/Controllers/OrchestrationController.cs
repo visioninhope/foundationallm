@@ -31,14 +31,29 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
             await _gatekeeperService.GetCompletion(instanceId, completionRequest);
 
         /// <summary>
-        /// /// Begins a completion operation.
+        /// Begins a completion operation.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
-        [HttpPost("completions/operations")]
-        public async Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
-            await _gatekeeperService.StartCompletionOperation(instanceId, completionRequest);
+        [HttpPost("async-completions")]
+        public async Task<ActionResult<OperationState>> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
+        {
+            var state = await _gatekeeperService.StartCompletionOperation(instanceId, completionRequest);
+            return Accepted(state);
+        }
+        
+            
+
+        /// <summary>
+        /// Gets the status of a completion operation.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
+        /// <param name="operationId">The OperationId for which to retrieve the status.</param>
+        /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
+        [HttpGet("async-completions/{operationId}/status")]
+        public async Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId) =>
+            throw new NotImplementedException();
 
         /// <summary>
         /// Gets a completion operation from the Gatekeeper service.
@@ -46,8 +61,9 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="operationId">The ID of the operation to retrieve.</param>
         /// <returns>Returns a completion response</returns>
-        [HttpGet("completions/operations/{operationId}")]
+        [HttpGet("async-completions/{operationId}/result")]
         public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
-            await _gatekeeperService.GetCompletionOperation(instanceId, operationId);
+            await _gatekeeperService.GetCompletionOperation(instanceId, operationId);        
+           
     }
 }

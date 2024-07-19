@@ -24,6 +24,14 @@ public interface IGatekeeperService
     Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest);
 
     /// <summary>
+    /// Gets the status of a completion operation.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="operationId">The OperationId to retrieve the status for.</param>
+    /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
+    Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId);
+
+    /// <summary>
     /// Gets a completion operation from the Gatekeeper service.
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance id.</param>

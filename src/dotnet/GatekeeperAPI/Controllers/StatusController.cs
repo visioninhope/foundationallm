@@ -1,4 +1,4 @@
-﻿using Asp.Versioning;
+using Asp.Versioning;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Infrastructure;
@@ -20,7 +20,6 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         public IActionResult Get(string instanceId) => new OkObjectResult(new ServiceStatusInfo
         {
             Name = ServiceNames.GatekeeperAPI,
-            InstanceId = instanceId,
             InstanceName = ValidatedEnvironment.MachineName,
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready
