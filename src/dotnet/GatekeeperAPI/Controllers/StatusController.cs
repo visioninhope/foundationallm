@@ -10,7 +10,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// Provides methods for checking the status of the service.
     /// </summary>
     [ApiController]
-    [Route($"instances/{{instanceId}}/[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class StatusController : ControllerBase
     {
         /// <summary>
@@ -20,6 +20,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         public IActionResult Get(string instanceId) => new OkObjectResult(new ServiceStatusInfo
         {
             Name = ServiceNames.GatekeeperAPI,
+            InstanceId = instanceId,
             InstanceName = ValidatedEnvironment.MachineName,
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready

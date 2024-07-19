@@ -14,8 +14,8 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// <param name="gatekeeperService"></param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route($"instances/{{instanceId}}")]
-    public class OrchestrationController(
+    [Route("instances/{instanceId}/[controller]")]
+    public class CompletionsController(
         IGatekeeperService gatekeeperService) : ControllerBase
     {
         private readonly IGatekeeperService _gatekeeperService = gatekeeperService;
@@ -41,10 +41,8 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         {
             var state = await _gatekeeperService.StartCompletionOperation(instanceId, completionRequest);
             return Accepted(state);
-        }
-        
-            
-
+        }       
+           
         /// <summary>
         /// Gets the status of a completion operation.
         /// </summary>
@@ -53,7 +51,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
         [HttpGet("async-completions/{operationId}/status")]
         public async Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId) =>
-            throw new NotImplementedException();
+            await _gatekeeperService.GetCompletionOperationStatus(instanceId, operationId);
 
         /// <summary>
         /// Gets a completion operation from the Gatekeeper service.
