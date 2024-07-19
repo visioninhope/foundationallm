@@ -22,4 +22,28 @@ public interface IOrchestrationService
     /// <param name="completionRequest">The completion request.</param>
     /// <returns>The completion response.</returns>
     Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest);
+
+    /// <summary>
+    /// Begins a completion operation.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
+    /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
+    Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest);
+
+    /// <summary>
+    /// Gets the status of a completion operation.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="operationId">The OperationId to retrieve the status for.</param>
+    /// <returns>Returns an <see cref="OperationState"/> object containing the OperationId and Status.</returns>
+    Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId);
+
+    /// <summary>
+    /// Gets a completion operation from the Orchestration service.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="operationId">The ID of the operation to retrieve.</param>
+    /// <returns>Returns a <see cref="CompletionResponse" /> object.</returns>
+    Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId);
 }

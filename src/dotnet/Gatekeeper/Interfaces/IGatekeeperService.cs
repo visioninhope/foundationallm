@@ -36,6 +36,6 @@ public interface IGatekeeperService
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance id.</param>
     /// <param name="operationId">The ID of the operation to retrieve.</param>
-    /// <returns>Returns a completion response</returns>
+    /// <returns>Returns a <see cref="CompletionResponse" /> object.</returns>
     Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId);
 }
