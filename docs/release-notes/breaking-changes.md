@@ -22,6 +22,10 @@ Gatekeeper API changes:
 1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
 2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
 
+Orchestration API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+
 ### Pre-0.8.0
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.

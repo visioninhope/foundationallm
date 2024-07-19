@@ -15,7 +15,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     /// <param name="logger"></param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route("instances/{instanceId}/[controller]")]
+    [Route("instances/{instanceId}")]
     public class CompletionsController(
         IOrchestrationService orchestrationService,
         ILogger<CompletionsController> logger) : ControllerBase
@@ -29,7 +29,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="completionRequest">The completion request.</param>
         /// <returns>The completion response.</returns>
-        [HttpPost(Name = "GetCompletion")]
+        [HttpPost("completions")]
         public async Task<CompletionResponse> GetCompletion(string instanceId, [FromBody] CompletionRequest completionRequest) =>
             await _orchestrationService.GetCompletion(instanceId, completionRequest);
 
