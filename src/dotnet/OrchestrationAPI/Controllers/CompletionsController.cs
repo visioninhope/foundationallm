@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FoundationaLLM.Orchestration.API.Controllers
 {
     /// <summary>
-    /// OrchestrationController class
+    /// CompletionsController class
     /// </summary>
     /// <remarks>
     /// Constructor for the Orchestration orchestration controller
@@ -15,21 +15,22 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     /// <param name="logger"></param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route("[controller]")]
-    public class OrchestrationController(
+    [Route("instances/{instanceId}/[controller]")]
+    public class CompletionsController(
         IOrchestrationService orchestrationService,
-        ILogger<OrchestrationController> logger) : ControllerBase
+        ILogger<CompletionsController> logger) : ControllerBase
     {
         private readonly IOrchestrationService _orchestrationService = orchestrationService;
-        private readonly ILogger<OrchestrationController> _logger = logger;
+        private readonly ILogger<CompletionsController> _logger = logger;
 
         /// <summary>
         /// Retrieves a completion from an orchestration service
         /// </summary>
-        /// <param name="completionRequest"></param>
-        /// <returns></returns>
-        [HttpPost("completion")]
-        public async Task<CompletionResponse> GetCompletion([FromBody] CompletionRequest completionRequest) =>
-            await _orchestrationService.GetCompletion(completionRequest);
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
+        /// <param name="completionRequest">The completion request.</param>
+        /// <returns>The completion response.</returns>
+        [HttpPost(Name = "GetCompletion")]
+        public async Task<CompletionResponse> GetCompletion(string instanceId, [FromBody] CompletionRequest completionRequest) =>
+            await _orchestrationService.GetCompletion(instanceId, completionRequest);
     }
 }
