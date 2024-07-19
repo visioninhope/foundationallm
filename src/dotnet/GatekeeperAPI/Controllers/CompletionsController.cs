@@ -14,7 +14,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// <param name="gatekeeperService"></param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route("instances/{instanceId}/[controller]")]
+    [Route("instances/{instanceId}")]
     public class CompletionsController(
         IGatekeeperService gatekeeperService) : ControllerBase
     {
