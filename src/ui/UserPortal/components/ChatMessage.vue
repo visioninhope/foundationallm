@@ -133,6 +133,7 @@ import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import truncate from 'truncate-html';
+import DOMPurify from 'dompurify';
 
 // marked.use(markedHighlight({
 //   langPrefix: 'hljs language-',
@@ -183,7 +184,7 @@ export default {
 
 	computed: {
 		compiledMarkdown() {
-			return marked(this.message.text);
+			return DOMPurify.sanitize(marked(this.message.text));
 		}
 	},
 
