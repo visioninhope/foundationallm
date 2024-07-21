@@ -188,7 +188,7 @@ export default {
 
 	methods: {
 		displayWordByWord() {
-			if (this.currentWordIndex >= this.compiledMarkdown.length) return;
+			if (this.currentWordIndex >= this.compiledMarkdown.split(/\s+/).length) return;
 
 			this.currentWordIndex += 1;
 			this.displayHtml = truncate(this.compiledMarkdown, this.currentWordIndex, {
