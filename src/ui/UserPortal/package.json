@@ -31,6 +31,7 @@
 		"@azure/app-configuration": "^1.4.1",
 		"@azure/msal-browser": "^3.2.0",
 		"@pinia/nuxt": "^0.5.1",
+		"dompurify": "^3.1.6",
 		"highlight.js": "^11.10.0",
 		"javascript-time-ago": "^2.5.9",
 		"marked": "^13.0.2",
