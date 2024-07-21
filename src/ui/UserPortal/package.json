@@ -38,6 +38,7 @@
 		"pinia": "^2.1.7",
 		"primeicons": "^6.0.1",
 		"primevue": "^3.35.0",
+		"truncate-html": "^1.1.1",
 		"vue-mention": "^2.0.0-alpha.3"
 	}
 }
