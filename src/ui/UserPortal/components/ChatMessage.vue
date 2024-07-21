@@ -135,16 +135,6 @@ import { markedHighlight } from 'marked-highlight';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
 
-// marked.use(markedHighlight({
-//   langPrefix: 'hljs language-',
-//   highlight(code, lang) {
-//     if (hljs.getLanguage(lang)) {
-//       return hljs.highlight(code, { language: lang }).value;
-//     }
-//     return hljs.highlightAuto(code).value;
-//   }
-// }));
-
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {
 	const validLanguage = !!(language && hljs.getLanguage(language));
