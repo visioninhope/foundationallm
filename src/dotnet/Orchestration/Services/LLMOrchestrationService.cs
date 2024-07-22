@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Clients;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Infrastructure;
@@ -45,11 +46,11 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus()
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
         {
             var client = CreateClient();
             var responseMessage = await client.SendAsync(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
+                new HttpRequestMessage(HttpMethod.Get, $"/instances/{instanceId}/status"));
 
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
@@ -61,26 +62,27 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             var client = CreateClient();
+            var pollingClient = new PollingHttpClient<LLMCompletionRequest, LLMCompletionResponse>(
+                client,
+                request,
+                $"instances/{instanceId}/completions",
+                TimeSpan.FromSeconds(10),
+                client.Timeout.Subtract(TimeSpan.FromSeconds(1)),
+                _logger);
 
-            var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
-            var responseMessage = await client.PostAsync("orchestration/completion",
-                new StringContent(
-                    body,
-                    Encoding.UTF8, "application/json"));
-            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            var completionResponse = await pollingClient.GetResponseAsync();
 
-            if (responseMessage.IsSuccessStatusCode)
+            if (completionResponse != null)
             {
-                var completionResponse = JsonSerializer.Deserialize<LLMCompletionResponse>(responseContent);
-
                 return new LLMCompletionResponse
                 {
-                    Completion = completionResponse!.Completion,
+                    Completion = completionResponse.Completion,
                     Citations = completionResponse.Citations,
                     UserPrompt = completionResponse.UserPrompt,
                     FullPrompt = completionResponse.FullPrompt,
@@ -91,8 +93,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 };
             }
 
-            _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
-                responseMessage.StatusCode, responseContent);
+            _logger.LogWarning("The orchestration service was not able to return a response.");
 
             return new LLMCompletionResponse
             {

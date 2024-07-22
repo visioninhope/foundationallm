@@ -11,7 +11,7 @@ namespace FoundationaLLM.Orchestration.API.Controllers
     /// </summary>
     /// <param name="orchestrationService">The <see cref="IOrchestrationService"/> that provides orchestration capabilities.</param>
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class StatusController(
         IOrchestrationService orchestrationService) : ControllerBase
     {
@@ -21,8 +21,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// Returns the status of the Orchestration API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public async Task<IActionResult> Get() =>
-            new OkObjectResult(await _orchestrationService.GetStatus());
+        public async Task<IActionResult> Get(string instanceId) =>
+            new OkObjectResult(await _orchestrationService.GetStatus(instanceId));
 
         /// <summary>
         /// Returns the allowed HTTP methods for the Orchestration API service.

@@ -16,14 +16,16 @@ namespace FoundationaLLM.Orchestration.Core.Interfaces
         /// <summary>
         /// Get the status of the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <returns></returns>
-        Task<ServiceStatusInfo> GetStatus();
+        Task<ServiceStatusInfo> GetStatus(string instanceId);
 
         /// <summary>
         /// Method for retrieving a completion from the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Hub populated request object containing agent, prompt, language model, and data source information</param>
         /// <returns></returns>
-        Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request);
+        Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request);
     }
 }

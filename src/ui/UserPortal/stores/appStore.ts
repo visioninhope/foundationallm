@@ -25,7 +25,7 @@ export const useAppStore = defineStore('app', {
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
 				const newSession = await api.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
@@ -33,10 +33,15 @@ export const useAppStore = defineStore('app', {
 
 			if (this.sessions.length === 0) {
 				await this.addSession();
-				this.changeSession(this.sessions[0]);
+				await this.changeSession(this.sessions[0]);
 			} else {
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-				this.changeSession(existingSession || this.sessions[0]);
+				await this.changeSession(existingSession || this.sessions[0]);
+			}
+
+			if (this.currentSession) {
+				await this.getMessages();
+				this.updateSessionAgentFromMessages(this.currentSession);
 			}
 		},
 
@@ -98,13 +103,13 @@ export const useAppStore = defineStore('app', {
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
 				const newSession = await this.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
 			const firstSession = this.sessions[0];
 			if (firstSession) {
-				this.changeSession(firstSession);
+				await this.changeSession(firstSession);
 			}
 		},
 
@@ -113,7 +118,20 @@ export const useAppStore = defineStore('app', {
 			this.currentMessages = data;
 		},
 
+		updateSessionAgentFromMessages(session: Session) {
+			const lastAssistantMessage = this.currentMessages
+			  .filter((message) => message.sender.toLowerCase() === 'assistant')
+			  .pop();
+			if (lastAssistantMessage) {
+			  const agent = this.agents.find(agent => agent.resource.name === lastAssistantMessage.senderDisplayName);
+			  if (agent) {
+				this.setSessionAgent(session, agent);
+			  }
+			}
+		  },
+
 		getSessionAgent(session: Session) {
+			if (!session) return null;
 			let selectedAgent = this.selectedAgents.get(session.id);
 			if (!selectedAgent) {
 				if (this.lastSelectedAgent) {
@@ -177,11 +195,11 @@ export const useAppStore = defineStore('app', {
 			// Update the session name based on the message sent.
 			if (this.currentMessages.length === 2) {
 				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
-				const { text: newSessionName } = await api.summarizeSessionName(
+				const { text: newSessionName } = await api.generateSessionName(
 					this.currentSession!.id,
 					sessionFullText,
-				);
-				await api.renameSession(this.currentSession!.id, newSessionName);
+				);				
+				// the generate session name already renames the session in the backend
 				this.currentSession!.name = newSessionName;
 			}
 		},
@@ -202,7 +220,7 @@ export const useAppStore = defineStore('app', {
 			}
 		},
 
-		changeSession(newSession: Session) {
+		async changeSession(newSession: Session) {
 			const nuxtApp = useNuxtApp();
 			const appConfigStore = useAppConfigStore();
 
@@ -214,6 +232,8 @@ export const useAppStore = defineStore('app', {
 			}
 
 			this.currentSession = newSession;
+			await this.getMessages();
+			this.updateSessionAgentFromMessages(newSession);
 		},
 
 		toggleSidebar() {

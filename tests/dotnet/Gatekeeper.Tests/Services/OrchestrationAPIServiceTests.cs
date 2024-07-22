@@ -12,14 +12,17 @@ namespace Gatekeeper.Tests.Services
 {
     public class OrchestrationAPIServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly DownstreamAPIService _testedService;
 
         private readonly IHttpClientFactoryService _httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
         
         public OrchestrationAPIServiceTests()
         {
-            _testedService = new DownstreamAPIService(HttpClients.AgentHubAPI, 
-                _httpClientFactoryService);
+            _testedService = new DownstreamAPIService(
+                HttpClients.AgentHubAPI, 
+                _httpClientFactoryService,
+                null);
         }
 
         [Fact]
@@ -38,7 +41,7 @@ namespace Gatekeeper.Tests.Services
             _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
 
             // Act
-            var completionResponse = await _testedService.GetCompletion(completionRequest);
+            var completionResponse = await _testedService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.NotNull(completionResponse);
@@ -61,7 +64,7 @@ namespace Gatekeeper.Tests.Services
             _httpClientFactoryService.CreateClient(Arg.Any<string>()).Returns(httpClient);
 
             // Act
-            var completionResponse = await _testedService.GetCompletion(completionRequest);
+            var completionResponse = await _testedService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.NotNull(completionResponse);
