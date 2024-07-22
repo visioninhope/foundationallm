@@ -222,8 +222,8 @@ namespace FoundationaLLM.Core.Examples.Services
             var endpoint = agent.OrchestrationSettings?.AIModel?.Endpoint;
             if (endpoint != null)
             {
-                if (endpoint.EndpointUrl != null && endpoint.EndpointUrl.StartsWith("FoundationaLLM:"))
-                    endpoint.EndpointUrl = await TestConfiguration.GetAppConfigValueAsync(endpoint.EndpointUrl!);
+                if (endpoint.Url != null && endpoint.Url.StartsWith("FoundationaLLM:"))
+                    endpoint.Url = await TestConfiguration.GetAppConfigValueAsync(endpoint.Url!);
                 if (endpoint.APIVersion != null && endpoint.APIVersion.StartsWith("FoundationaLLM:"))
                     endpoint.APIVersion = await TestConfiguration.GetAppConfigValueAsync(endpoint.APIVersion!);
             }

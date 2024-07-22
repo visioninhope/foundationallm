@@ -1,7 +1,10 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Constants;
 
 namespace FoundationaLLM.Core.Examples.Catalogs
@@ -44,19 +47,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     Orchestrator = LLMOrchestrationServiceNames.LangChain,
                     AIModel = new AIModelBase
                     {
-                        //TODO-BDN - naming convention for AI Models?
                         Name = TestAgentNames.GenericInlineContextAgentName,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
-                            //TODO-BDN - naming convention for endpoints?
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -93,15 +97,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.SemanticKernelInlineContextAgentName,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -139,15 +146,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.SemanticKernelAgentName,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -185,15 +195,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.LangChainAgentName,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -230,15 +243,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.SemanticKernelSDZWA,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -275,15 +291,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.LangChainSDZWA,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -320,15 +339,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.ConversationGeneratorAgent,
                         DeploymentName = "completions-gpt-4-32k",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -365,15 +387,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.Dune01,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -410,15 +435,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.Dune02,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -455,15 +483,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.Dune03,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {
@@ -500,15 +531,18 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     {
                         Name = TestAgentNames.LangChainDune,
                         DeploymentName = "completions",
-                        Endpoint = new AIModelEndpoint {
+                        Endpoint = new APIEndpointConfiguration {
                             Name = "Azure OpenAI",
                             Provider = "microsoft",
-                            EndpointUrl = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationType.ApiKey,
+                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
+                            AuthenticationType = AuthenticationTypes.APIKey,
                             APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
                             AuthenticationParameters = new Dictionary<string, object> {
                                 { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            }
+                            },
+                            Category = APIEndpointCategory.LLM,
+                            RetryStrategyName = "ExponentialBackoff",
+                            TimeoutSeconds = 60
                         },
                         ModelParameters = new Dictionary<string, object>
                         {

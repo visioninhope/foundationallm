@@ -25,6 +25,7 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel.Connectors.AzureCosmosDBNoSQL;
 using Microsoft.SemanticKernel.Connectors.Postgres;
 using System.Runtime;
+using FoundationaLLM.Common.Constants.Authentication;
 
 #pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0050, SKEXP0060
 
@@ -179,7 +180,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                         _azureAISearchIndexingServiceSettings = new AzureAISearchIndexingServiceSettings
                         {
                             Endpoint = await GetConfigurationValue(indexingEndpointConfigurationItem!),
-                            AuthenticationType = Enum.Parse<AzureAISearchAuthenticationTypes>(await GetConfigurationValue(authenticationType!))
+                            AuthenticationType = Enum.Parse<AuthenticationTypes>(await GetConfigurationValue(authenticationType!))
                         };
                     }
                     break;

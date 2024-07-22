@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Models.Configuration.Storage
+﻿namespace FoundationaLLM.Common.Constants.Authentication
 {
     /// <summary>
-    /// Types of authentication for blob storage accounts.
+    /// Authentication types for API Endpoints
     /// </summary>
-    public enum BlobStorageAuthenticationTypes
+    public enum AuthenticationTypes
     {
         /// <summary>
         /// Unknown authentication type.
@@ -20,6 +14,11 @@ namespace FoundationaLLM.Common.Models.Configuration.Storage
         /// Azure managed identity authentication type.
         /// </summary>
         AzureIdentity,
+
+        /// <summary>
+        /// API key authentication type.
+        /// </summary>
+        APIKey,
 
         /// <summary>
         /// Connection string authentication type.

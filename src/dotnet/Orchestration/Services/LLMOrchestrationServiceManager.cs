@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -63,15 +64,19 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
                 await configurationResourceProvider.WaitForInitialization();
 
-                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpoint>(
+                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpointConfiguration>(
                     DefaultAuthentication.ServiceIdentity!);
 
                 _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos => eos.APIKeyConfigurationName is not null &&  eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                    .Where(eos => eos.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                        && apiKeyConfigObj is string apiKeyConfig
+                        && !string.IsNullOrWhiteSpace(apiKeyConfig)
+                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
                     .ToDictionary(
                         eos => eos.Name,
                         eos => new APISettingsBase
                         {
+                            //TODO - how to  structure getting this here
                             APIKey = _configuration[eos.APIKey],
                             APIUrl = _configuration[eos.Url]
                         });
@@ -97,7 +102,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 .ToAsyncEnumerable()
                 .SelectAwait(async x => await x.GetStatus());
 
-            await foreach(var serviceStatus in serviceStatuses)
+            await foreach (var serviceStatus in serviceStatuses)
                 result.Add(serviceStatus);
 
             return result;

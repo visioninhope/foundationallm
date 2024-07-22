@@ -125,7 +125,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             if (!LanguageModelProviders.All.Contains(endpoint?.Provider))
                 throw new SemanticKernelException($"The LLM provider '{endpoint?.Provider}' is not supported.", StatusCodes.Status400BadRequest);
 
-            if (string.IsNullOrWhiteSpace(endpoint?.EndpointUrl))
+            if (string.IsNullOrWhiteSpace(endpoint?.Url))
                 throw new SemanticKernelException("The EndpointUrl property of the AIModel's endpoint property cannot be null.", StatusCodes.Status400BadRequest);
 
             if (aiModel.ModelParameters == null)
@@ -135,7 +135,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 throw new SemanticKernelException("The DeploymentName property of the AIModel property cannot be null.", StatusCodes.Status400BadRequest);
 
             _llmProvider = endpoint.Provider!;
-            _endpoint = endpoint.EndpointUrl!;
+            _endpoint = endpoint.Url!;
             _deploymentName = aiModel.DeploymentName!;
         }
     }

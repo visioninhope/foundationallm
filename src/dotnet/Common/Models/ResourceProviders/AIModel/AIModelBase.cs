@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using System.Text.Json.Serialization;
 
@@ -19,7 +20,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
         /// The endpoint metadata needed to call the AI model endpoint
         /// </summary>
         [JsonPropertyName("endpoint")]
-        public AIModelEndpoint? Endpoint { get; set; }
+        public APIEndpointConfiguration? Endpoint { get; set; }
         /// <summary>
         /// The version for the AI model
         /// </summary>

@@ -33,13 +33,13 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
             }
             ,
             {
-                ConfigurationResourceTypeNames.APIEndpoints,
+                ConfigurationResourceTypeNames.APIEndpointConfigurations,
                 new ResourceTypeDescriptor(
-                        ConfigurationResourceTypeNames.APIEndpoints)
+                        ConfigurationResourceTypeNames.APIEndpointConfigurations)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpoint>)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpoint)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpointConfiguration>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpointConfiguration)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }

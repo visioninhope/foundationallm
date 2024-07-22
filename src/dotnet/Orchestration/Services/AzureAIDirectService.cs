@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
@@ -117,25 +118,33 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
-            var endpointSettings = GetEndpointSettings(endpointConfiguration);
             var endpoint = agent.OrchestrationSettings.AIModel.Endpoint;
-            var apiKey = endpointSettings.APIKey;
+            var apiKey = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(endpoint.EndpointUrl) && !string.IsNullOrWhiteSpace(apiKey))
+            if (endpoint.AuthenticationType == AuthenticationTypes.APIKey)
+            {
+                if (!endpoint.AuthenticationParameters.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
+                    throw new Exception("An API key must be passed in via an Azure App Config key name.");
+
+                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
+            }
+
+            if (!string.IsNullOrWhiteSpace(endpoint.Url) && !string.IsNullOrWhiteSpace(apiKey))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
-                if (endpointSettings.AuthenticationType == AuthenticationType.ApiKey && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+                if (!string.IsNullOrWhiteSpace(apiKey))
                 {
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                        "Bearer", endpointSettings.APIKey
+                        "Bearer", apiKey
                     );
                 }
                 
-                client.BaseAddress = new Uri(endpointSettings.EndpointUrl!);
-                
+                client.BaseAddress = new Uri(endpoint.Url!);
+
+                //TODO - not clear what needs to be changed here in terms of things in the ModelParameters vs modelOverrides,
+                // particularly with the deployment name that is now a property on the AIModel instead of a key vault pair in the modelParameters
                 var modelParameters = agent.OrchestrationSettings?.AIModel.ModelParameters;
                 var modelOverrides = request.Settings?.AIModel?.ModelParameters;
-                modelParameters[ModelParameterKeys.DeploymentName] = deployment;
 
                 AzureAICompletionRequest azureAiCompletionRequest;
 
@@ -190,33 +199,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 AgentName = agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0
-            };
-        }
-
-        /// <summary>
-        /// Extracts endpoint configuration values from a dictionary and writes them into a
-        /// <see cref="EndpointSettings"/> object.
-        /// </summary>
-        /// <param name="endpoint">EndpointUrl object containing orchestration endpoint configuration values.</param>
-        /// <returns>Returns a <see cref="EndpointSettings"/> object containing the endpoint configuration.</returns>
-        /// <exception cref="Exception"></exception>
-        private EndpointSettings GetEndpointSettings(AIModelEndpoint endpoint)
-        {
-            var apiKey = string.Empty;
-
-            if (endpoint.AuthenticationType == AuthenticationType.ApiKey)
-            {
-                if (!endpoint.AuthenticationParameters.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
-                    throw new Exception("An API key must be passed in via an Azure App Config key name.");
-
-                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
-            }
-
-            return new EndpointSettings
-            {
-                EndpointUrl = endpoint.EndpointUrl!,
-                APIKey = apiKey!,
-                AuthenticationType = endpoint.AuthenticationType!
             };
         }
     }

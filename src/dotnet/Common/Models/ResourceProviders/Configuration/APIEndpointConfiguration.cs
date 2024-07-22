@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using System.Text.Json.Serialization;
 
@@ -7,13 +9,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
     /// <summary>
     /// Represents an api endpoint resource.
     /// </summary>
-    public class APIEndpoint : ResourceBase
+    public class APIEndpointConfiguration : ResourceBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="APIEndpoint"/>.
+        /// Creates a new instance of <see cref="APIEndpointConfiguration"/>.
         /// </summary>
-        public APIEndpoint() =>
-            Type = ConfigurationTypes.APIEndpoint;
+        public APIEndpointConfiguration() =>
+            Type = ConfigurationTypes.APIEndpointConfiguration;
 
         /// <summary>
         /// The api endpoint category.
@@ -25,7 +27,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The type of authentication required for accessing the API.
         /// </summary>
         [JsonPropertyName("authentication_type")]
-        public required string AuthenticationType { get; set; }
+        public required AuthenticationTypes AuthenticationType { get; set; }
 
         /// <summary>
         /// The base URL of the API endpoint.
@@ -40,28 +42,9 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public List<UrlException> UrlExceptions { get; set; } = new List<UrlException>();
 
         /// <summary>
-        /// The API key used for authentication.
+        /// Dictionary of settings for authenticating that support the AuthenticationType 
         /// </summary>
-        [JsonPropertyName("api_key")]
-        public string? APIKey { get; set; }
-
-        /// <summary>
-        /// The scope of the client.
-        /// </summary>
-        [JsonPropertyName("scope")]
-        public string? Scope { get; set; }
-
-        /// <summary>
-        /// The api key configuration name.
-        /// </summary>
-        [JsonPropertyName("api_key_configuration_name")]
-        public string? APIKeyConfigurationName { get; set; }
-
-        /// <summary>
-        /// The api key header name.
-        /// </summary>
-        [JsonPropertyName("api_key_header_name")]
-        public string? APIKeyHeaderName { get; set; }
+        public Dictionary<string, object> AuthenticationParameters { get; set; } = new Dictionary<string, object>();
 
         /// <summary>
         /// The timeout duration in seconds for API calls.
@@ -74,6 +57,24 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// </summary>
         [JsonPropertyName("retry_strategy_name")]
         public required string RetryStrategyName { get; set; }
+
+        /// <summary>
+        /// The API provider
+        /// </summary>
+        public string? Provider { get; set; }
+
+        /// <summary>
+        /// The version of the API to call
+        /// </summary>
+        public string? APIVersion { get; set; }
+
+        /// <summary>
+        /// Type of operation the endpoint is performing.
+        /// This value should be completions or chat.
+        /// Default value is chat.
+        /// </summary>
+        public string? OperationType { get; set; }
+
     }
 
     /// <summary>

@@ -22,18 +22,18 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
             );
 
         /// <inheritdoc/>
-        public async Task<List<ResourceProviderGetResult<APIEndpoint>>> GetExternalOrchestrationServicesAsync() =>
-            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+        public async Task<List<ResourceProviderGetResult<APIEndpointConfiguration>>> GetExternalOrchestrationServicesAsync() =>
+            await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                 ResourceProviderNames.FoundationaLLM_Configuration,
-                ConfigurationResourceTypeNames.APIEndpoints
+                ConfigurationResourceTypeNames.APIEndpointConfigurations
             );
 
         /// <inheritdoc/>
-        public async Task<ResourceProviderGetResult<APIEndpoint>> GetExternalOrchestrationServiceAsync(string externalOrchestrationServiceName)
+        public async Task<ResourceProviderGetResult<APIEndpointConfiguration>> GetExternalOrchestrationServiceAsync(string externalOrchestrationServiceName)
         {
-            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+            var result = await managementRestClient.Resources.GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                 ResourceProviderNames.FoundationaLLM_Configuration,
-                $"{ConfigurationResourceTypeNames.APIEndpoints}/{externalOrchestrationServiceName}"
+                $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{externalOrchestrationServiceName}"
             );
 
             if (result == null || result.Count == 0)

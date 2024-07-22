@@ -1,3 +1,4 @@
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -91,7 +92,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
             return new SemanticKernelTextEmbeddingService(
                 Options.Create<SemanticKernelTextEmbeddingServiceSettings>(new SemanticKernelTextEmbeddingServiceSettings
                 {
-                    AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
+                    AuthenticationType = AuthenticationTypes.AzureIdentity,
                     Endpoint = _configuration[endpointConfigurationItem]!,
                     DeploymentName = deploymentName!
                 }),
