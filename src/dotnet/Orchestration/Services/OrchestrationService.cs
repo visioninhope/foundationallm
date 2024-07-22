@@ -60,12 +60,13 @@ public class OrchestrationService : IOrchestrationService
     }
 
     /// <inheritdoc/>
-    public async Task<ServiceStatusInfo> GetStatus()
+    public async Task<ServiceStatusInfo> GetStatus(string instanceId)
     {
-        var subordinateStatuses = await _llmOrchestrationServiceManager.GetAggregateStatus(_serviceProvider);
+        var subordinateStatuses = await _llmOrchestrationServiceManager.GetAggregateStatus(instanceId, _serviceProvider);
         return new ServiceStatusInfo
         {
             Name = ServiceNames.OrchestrationAPI,
+            InstanceId = instanceId,
             InstanceName = ValidatedEnvironment.MachineName,
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = subordinateStatuses.All(s => s.Status!.Equals("ready", StringComparison.CurrentCultureIgnoreCase))
@@ -75,15 +76,13 @@ public class OrchestrationService : IOrchestrationService
         };
     }
 
-    /// <summary>
-    /// Retrieve a completion from the configured orchestration service.
-    /// </summary>
-    public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+    /// <inheritdoc/>
+    public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
     {
         try
         {
-            var conversationSteps = await GetAgentConversationSteps(completionRequest.AgentName!, completionRequest.UserPrompt);
-            return await GetCompletionForAgentConversation(completionRequest, conversationSteps);
+            var conversationSteps = await GetAgentConversationSteps(instanceId, completionRequest.AgentName!, completionRequest.UserPrompt);
+            return await GetCompletionForAgentConversation(instanceId, completionRequest, conversationSteps);
             
         }
         catch (Exception ex)
@@ -101,7 +100,21 @@ public class OrchestrationService : IOrchestrationService
         }
     }
 
+    /// <inheritdoc/>
+    public async Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+        // TODO: Need to call State API to start the operation.
+        throw new NotImplementedException();
+
+    /// <inheritdoc/>
+    public Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+
+    /// <inheritdoc/>
+    public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+        // TODO: Need to call State API to get the operation.
+        throw new NotImplementedException();
+
     private async Task<CompletionResponse> GetCompletionForAgentConversation(
+        string instanceId,
         CompletionRequest completionRequest,
         List<AgentConversationStep> agentConversationSteps)
     {
@@ -110,6 +123,7 @@ public class OrchestrationService : IOrchestrationService
         foreach (var conversationStep in agentConversationSteps)
         {
             var orchestration = await OrchestrationBuilder.Build(
+                instanceId,
                 conversationStep.AgentName,
                 _callContext,
                 _configuration,
@@ -132,21 +146,22 @@ public class OrchestrationService : IOrchestrationService
 
             currentCompletionResponse = orchestration == null
                 ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
-                : await orchestration.GetCompletion(stepCompletionRequest);
+                : await orchestration.GetCompletion(instanceId, stepCompletionRequest);
 
             var newConversationSteps = await GetAgentConversationSteps(
+                instanceId,
                 currentCompletionResponse.AgentName!,
                 currentCompletionResponse.Completion);
             if (newConversationSteps.Count > 0
                 && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
                 currentCompletionResponse =
-                    await GetCompletionForAgentConversation(completionRequest, newConversationSteps);
+                    await GetCompletionForAgentConversation(instanceId, completionRequest, newConversationSteps);
         }
 
         return currentCompletionResponse!;
     }
 
-    private async Task<List<AgentConversationStep>> GetAgentConversationSteps(string agentName, string userPrompt)
+    private async Task<List<AgentConversationStep>> GetAgentConversationSteps(string instanceId, string agentName, string userPrompt)
     {
         var currentPrompt = new StringBuilder();
         var result = new List<AgentConversationStep>();
@@ -161,7 +176,7 @@ public class OrchestrationService : IOrchestrationService
                 {
                     var tokens = line.Split([' ', ',']);
                     var candidateAgentName = tokens.First().Replace("@", string.Empty);
-                    var isValid = await ValidAgentName(candidateAgentName);
+                    var isValid = await ValidAgentName(instanceId, candidateAgentName);
 
                     if (isValid)
                     {
@@ -196,12 +211,12 @@ public class OrchestrationService : IOrchestrationService
         return result;
     }
 
-    private async Task<bool> ValidAgentName(string agentName)
+    private async Task<bool> ValidAgentName(string instanceId, string agentName)
     {
         var agentResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Agent];
 
         var result = await agentResourceProvider.HandlePostAsync(
-            $"/{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
+            $"/instances/{instanceId}/{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
             JsonSerializer.Serialize(new ResourceName { Name = agentName }),
             _callContext.CurrentUserIdentity!);
 

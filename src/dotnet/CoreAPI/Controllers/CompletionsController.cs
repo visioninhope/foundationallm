@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
@@ -72,6 +72,6 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <returns>A list of available agents.</returns>
         [HttpGet("agents", Name = "GetAgents")]
         public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgents(string instanceId) =>
-            await _agentResourceProvider.GetResourcesWithRBAC<AgentBase>(_callContext.CurrentUserIdentity!);
+            await _agentResourceProvider.GetResourcesWithRBAC<AgentBase>(instanceId, _callContext.CurrentUserIdentity!);
     }
 }

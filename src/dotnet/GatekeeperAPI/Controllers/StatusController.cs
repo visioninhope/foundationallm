@@ -1,4 +1,4 @@
-﻿using Asp.Versioning;
+using Asp.Versioning;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Infrastructure;
@@ -10,16 +10,17 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
     /// Provides methods for checking the status of the service.
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class StatusController : ControllerBase
     {
         /// <summary>
         /// Returns the status of the Gatekeeper API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
+        public IActionResult Get(string instanceId) => new OkObjectResult(new ServiceStatusInfo
         {
             Name = ServiceNames.GatekeeperAPI,
+            InstanceId = instanceId,
             InstanceName = ValidatedEnvironment.MachineName,
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready

@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
@@ -20,11 +20,13 @@ namespace FoundationaLLM.Core.Tests.Services
 {
     public class CoreServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly CoreService _testedService;
 
         private readonly ICosmosDbService _cosmosDbService = Substitute.For<ICosmosDbService>();
         private readonly IGatekeeperAPIService _gatekeeperAPIService = Substitute.For<IGatekeeperAPIService>();
         private readonly ICallContext _callContext = Substitute.For<ICallContext>();
+        private readonly IEnumerable<IResourceProviderService> _resourceProviderServices = Substitute.For<IEnumerable<IResourceProviderService>>();
         private readonly ILogger<CoreService> _logger = Substitute.For<ILogger<CoreService>>();
         private readonly IOptions<ClientBrandingConfiguration> _brandingConfig = Substitute.For<IOptions<ClientBrandingConfiguration>>();
         private readonly IEnumerable<IDownstreamAPIService> _downstreamAPIServices;
@@ -56,7 +58,7 @@ namespace FoundationaLLM.Core.Tests.Services
                 UPN = "test@foundationallm.ai",
                 Username = "test@foundationallm.ai"
             });
-            _testedService = new CoreService(_cosmosDbService, _downstreamAPIServices, _logger, _brandingConfig, _options, _callContext);
+            _testedService = new CoreService(_cosmosDbService, _downstreamAPIServices, _logger, _brandingConfig, _options, _callContext, _resourceProviderServices);
         }
 
         #region GetAllChatSessionsAsync
@@ -69,7 +71,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.GetSessionsAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(expectedSessions);
 
             // Act
-            var actualSessions = await _testedService.GetAllChatSessionsAsync();
+            var actualSessions = await _testedService.GetAllChatSessionsAsync(_instanceId);
 
             // Assert
             Assert.Equivalent(expectedSessions, actualSessions);
@@ -91,7 +93,7 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(expectedMessages);
 
             // Act
-            var messages = await _testedService.GetChatSessionMessagesAsync(sessionId);
+            var messages = await _testedService.GetChatSessionMessagesAsync(_instanceId, sessionId);
 
             // Assert
             Assert.Equal(expectedMessages, messages);
@@ -107,7 +109,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.GetChatSessionMessagesAsync(sessionId);
+                await _testedService.GetChatSessionMessagesAsync(_instanceId, sessionId);
             });
         }
 
@@ -130,7 +132,7 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync();
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId);
 
             // Assert
             Assert.NotNull(resultSession);
@@ -161,7 +163,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.UpdateSessionNameAsync(session.Id, expectedName).Returns(expectedSession);
 
             // Act
-            var actualSession = await _testedService.RenameChatSessionAsync(session.Id, expectedName);
+            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, expectedName);
 
             // Assert
             Assert.Equivalent(expectedSession, actualSession);
@@ -177,7 +179,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(null!, newChatSessionName);
+                await _testedService.RenameChatSessionAsync(_instanceId, null!, newChatSessionName);
             });
         }
 
@@ -190,12 +192,12 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(sessionId, null!);
+                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, null!);
             });
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(sessionId, string.Empty);
+                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, string.Empty);
             });
         }
 
@@ -212,7 +214,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.DeleteSessionAndMessagesAsync(sessionId).Returns(expected);
 
             // Act
-            Task actual = _testedService.DeleteChatSessionAsync(sessionId);
+            Task actual = _testedService.DeleteChatSessionAsync(_instanceId, sessionId);
             await actual;
 
             // Assert
@@ -226,7 +228,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.DeleteChatSessionAsync(null!);
+                await _testedService.DeleteChatSessionAsync(_instanceId, null!);
             });
         }
 
@@ -240,7 +242,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var sessionId = Guid.NewGuid().ToString();
             var userPrompt = "Prompt";
-            var orchestrationRequest = new OrchestrationRequest { SessionId = sessionId, UserPrompt = userPrompt };
+            var orchestrationRequest = new CompletionRequest { SessionId = sessionId, UserPrompt = userPrompt };
             var upn = "test@foundationallm.ai";
             var expectedCompletion = new Completion() { Text = "Completion" };
 
@@ -248,13 +250,13 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.GetSessionMessagesAsync(sessionId, upn).Returns(expectedMessages);
 
             var completionResponse = new CompletionResponse() { Completion = "Completion" };
-            _downstreamAPIServices.Last().GetCompletion(Arg.Any<CompletionRequest>()).Returns(completionResponse);
+            _downstreamAPIServices.Last().GetCompletion(_instanceId, Arg.Any<CompletionRequest>()).Returns(completionResponse);
 
             _cosmosDbService.GetSessionAsync(sessionId).Returns(new Session());
             _cosmosDbService.UpsertSessionBatchAsync().Returns(Task.CompletedTask);
 
             // Act
-            var actualCompletion = await _testedService.GetChatCompletionAsync(orchestrationRequest);
+            var actualCompletion = await _testedService.GetChatCompletionAsync(_instanceId, orchestrationRequest);
 
             // Assert
             Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
@@ -265,11 +267,11 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var userPrompt = "Prompt";
-            var orchestrationRequest = new OrchestrationRequest { UserPrompt = userPrompt };
+            var orchestrationRequest = new CompletionRequest { UserPrompt = userPrompt };
             var expectedCompletion = new Completion { Text = "Could not generate a completion due to an internal error." };
 
             // Act
-            var actualCompletion = await _testedService.GetChatCompletionAsync(orchestrationRequest);
+            var actualCompletion = await _testedService.GetChatCompletionAsync(_instanceId, orchestrationRequest);
 
             // Assert
             Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
@@ -282,10 +284,10 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var sessionId = Guid.NewGuid().ToString();
-            var orchestrationRequest = new OrchestrationRequest { SessionId = sessionId, UserPrompt = null! };
+            var orchestrationRequest = new CompletionRequest { SessionId = sessionId, UserPrompt = null! };
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(orchestrationRequest));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(_instanceId, orchestrationRequest));
 
             // Assert
             Assert.Null(exception);
@@ -296,10 +298,10 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var userPrompt = "Prompt";
-            var orchestrationRequest = new OrchestrationRequest { UserPrompt = userPrompt };
+            var orchestrationRequest = new CompletionRequest { UserPrompt = userPrompt };
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(orchestrationRequest));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(_instanceId, orchestrationRequest));
 
             // Assert
             Assert.Null(exception);
@@ -307,7 +309,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
         #endregion
 
-        #region SummarizeChatSessionNameAsync
+        #region SetChatSessionNameAsync
 
         [Fact]
         public async Task SummarizeChatSessionNameAsync_ShouldReturnACompletion()
@@ -323,11 +325,11 @@ namespace FoundationaLLM.Core.Tests.Services
             };
             var expectedCompletion = new Completion() { Text = summary };
 
-            _gatekeeperAPIService.GetSummary(summaryRequest).Returns(summary);
+          
             _cosmosDbService.UpdateSessionNameAsync(sessionId, summary).Returns(new Session());
 
             // Act
-            var actualCompletion = await _testedService.GenerateChatSessionNameAsync(sessionId, prompt);
+            var actualCompletion = await _testedService.GenerateChatSessionNameAsync(_instanceId, sessionId, prompt);
 
             // Assert
             Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
@@ -341,7 +343,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var expectedCompletion = new Completion { Text = "[No Summary]" };
 
             // Act
-            var actualSummary = await _testedService.GenerateChatSessionNameAsync(null, prompt);
+            var actualSummary = await _testedService.GenerateChatSessionNameAsync(_instanceId, null, prompt);
 
             // Assert
             Assert.Equal(expectedCompletion.Text, actualSummary.Text);
@@ -356,7 +358,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var sessionId = Guid.NewGuid().ToString();
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(sessionId, null!));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(_instanceId, sessionId, null!));
 
             // Assert
             Assert.Null(exception);
@@ -369,7 +371,7 @@ namespace FoundationaLLM.Core.Tests.Services
             var prompt = "Prompt";
 
             // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(null, prompt));
+            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(_instanceId, null, prompt));
 
             // Assert
             Assert.Null(exception);
@@ -391,7 +393,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.UpdateMessageRatingAsync(id, sessionId, rating).Returns(expectedMessage);
 
             // Act
-            var actualMessage = await _testedService.RateMessageAsync(id, sessionId, rating);
+            var actualMessage = await _testedService.RateMessageAsync(_instanceId, id, sessionId, rating);
 
             // Assert
             Assert.Equivalent(expectedMessage, actualMessage);
@@ -407,7 +409,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RateMessageAsync(null!, sessionId, rating);
+                await _testedService.RateMessageAsync(_instanceId, null!, sessionId, rating);
             });
         }
 
@@ -421,7 +423,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RateMessageAsync(id, null!, rating);
+                await _testedService.RateMessageAsync(_instanceId, id, null!, rating);
             });
         }
 
@@ -440,7 +442,7 @@ namespace FoundationaLLM.Core.Tests.Services
             _cosmosDbService.GetCompletionPrompt(sessionId, completionPromptId).Returns(expectedPrompt);
 
             // Act
-            var actualPrompt = await _testedService.GetCompletionPrompt(sessionId, completionPromptId);
+            var actualPrompt = await _testedService.GetCompletionPrompt(_instanceId, sessionId, completionPromptId);
 
             // Assert
             Assert.Equivalent(actualPrompt, expectedPrompt);
@@ -455,7 +457,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.GetCompletionPrompt(null!, completionPromptId);
+                await _testedService.GetCompletionPrompt(_instanceId, null!, completionPromptId);
             });
         }
 
@@ -468,7 +470,7 @@ namespace FoundationaLLM.Core.Tests.Services
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.GetCompletionPrompt(sessionId, null!);
+                await _testedService.GetCompletionPrompt(_instanceId, sessionId, null!);
             });
         }
 
