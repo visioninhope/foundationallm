@@ -47,6 +47,7 @@
     <Compile Include="foundationallm\models\classification\audio_prediction_response.py" />
     <Compile Include="foundationallm\models\classification\__init__.py" />
     <Compile Include="foundationallm\models\operations\execution_log_entry.py" />
+    <Compile Include="foundationallm\models\operations\operation_state.py" />
     <Compile Include="foundationallm\models\operations\__init__.py" />
     <Compile Include="foundationallm\models\orchestration\background_operation.py" />
     <Compile Include="foundationallm\models\orchestration\background_response.py" />
