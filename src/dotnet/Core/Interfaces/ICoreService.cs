@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.Core.Interfaces;

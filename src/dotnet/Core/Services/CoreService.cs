@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
@@ -116,7 +116,7 @@ public partial class CoreService(
             var agentOption = await ProcessGatekeeperOptions(completionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentOption).GetCompletion(completionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, completionRequest);
 
             // Update prompt tokens and add completion, then persist in Cosmos as transaction.
             // Add the user's UPN to the messages.
@@ -148,7 +148,7 @@ public partial class CoreService(
             var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
-            var result = await GetDownstreamAPIService(agentOption).GetCompletion(directCompletionRequest);
+            var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, directCompletionRequest);
 
             return new Completion { Text = result.Completion };
         }

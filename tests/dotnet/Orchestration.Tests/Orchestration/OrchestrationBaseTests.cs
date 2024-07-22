@@ -9,6 +9,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
 {
     public class OrchestrationBaseTest
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly OrchestrationBase _orchestrationBase;
         private readonly ILLMOrchestrationService _orchestrationService = Substitute.For<ILLMOrchestrationService>();
 
@@ -24,7 +25,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
             var completionRequest = new CompletionRequest(){ UserPrompt = ""};
 
             // Act
-            var result = await _orchestrationBase.GetCompletion(completionRequest);
+            var result = await _orchestrationBase.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.Null(result);
