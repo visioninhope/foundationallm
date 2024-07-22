@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AIModel\AIModel.csproj" />
     <ProjectReference Include="..\Attachments\Attachment.csproj" />
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Orchestration\Orchestration.csproj" />
