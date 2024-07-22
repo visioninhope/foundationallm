@@ -1,26 +1,24 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+﻿using Azure.Messaging;
+using FluentValidation;
+using FoundationaLLM.AIModel.Models;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Events;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Common.Validation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Azure.Messaging;
-using FluentValidation;
-using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Events;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
-using FoundationaLLM.Common.Models.ResourceProviders;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Concurrent;
-using FoundationaLLM.AIModel.Models;
-using System.Text.Json;
 using System.Text;
-using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using System.Text.Json;
 
 namespace FoundationaLLM.AIModel.ResourceProviders
 {
@@ -58,14 +56,13 @@ namespace FoundationaLLM.AIModel.ResourceProviders
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
             AIModelResourceProviderMetadata.AllowedResourceTypes;
 
-        private ConcurrentDictionary<string, AIModelReference> _aiModelReferences = [];
+        private ConcurrentDictionary<string, AIModelReference> _aiModelReferences;
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_AIModel;
         private const string AIMODEL_REFERENCES_FILE_NAME = "_aiModel-references.json";
         private const string AIMODEL_REFERENCES_FILE_PATH =
             $"/{ResourceProviderNames.FoundationaLLM_AIModel}/{AIMODEL_REFERENCES_FILE_NAME}";
-
 
         /// <inheritdoc/>
         protected override async Task InitializeInternal()
