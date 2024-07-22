@@ -15,7 +15,7 @@ from fastapi import (
     status
 )
 from foundationallm.config import Configuration, Context
-from foundationallm.models.operations import OperationState
+from foundationallm.models.operations import LongRunningOperation
 from foundationallm.models.orchestration import (
     CompletionOperation,
     CompletionRequestBase,    
@@ -52,20 +52,20 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
 
 @router.post(
     '/async-completions',
-    summary = 'Submit a completion request operation.',
+    summary = 'Submit an async completion request.',
     status_code = status.HTTP_202_ACCEPTED,
     responses = {
         202: {'description': 'Completion request accepted.'},
     }
 )
 async def submit_completion_request(
-    response: Response,
+    #response: Response,
     raw_request: Request,
     background_tasks: BackgroundTasks,
     instance_id: str,
     completion_request: CompletionRequestBase = Depends(resolve_completion_request),
     x_user_identity: Optional[str] = Header(None)
-) -> OperationState:
+) -> LongRunningOperation:
     """
     Initiates the creation of a completion response in the background.
     
@@ -76,16 +76,16 @@ async def submit_completion_request(
     """
     with tracer.start_as_current_span('async-completions') as span:
         try:
-            operation_id = str(uuid.uuid4())
+            #operation_id = str(uuid.uuid4())
+            operation_id = completion_request.operation_id
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
-            span.set_attribute('request_id', completion_request.request_id)
             span.set_attribute('user_identity', x_user_identity)
 
             # Add a location header to the response.
-            response.headers['location'] = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}'
+            #response.headers['location'] = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}'
 
-            # Kick of the background task to create the completion response.
+            # Start a background task to perform the completion request.
             background_tasks.add_task(
                 create_completion_response,
                 operation_id,
@@ -96,16 +96,15 @@ async def submit_completion_request(
             )
 
             # Submit the completion request operation to the state API.
-            operation_state = await OrchestrationManager.create_operation(
+            operation = await OrchestrationManager.create_operation(
                 operation_id,
                 instance_id,
                 completion_request,
-                raw_request.app.extra['config'],
-                x_user_identity
+                raw_request.app.extra['config']
             )
 
             # Append the status and result URLs to the operation state.
-            return operation_state
+            return operation
     
         except Exception as e:
             handle_exception(e)
@@ -123,7 +122,7 @@ async def get_operation_status(
     instance_id: str,
     operation_id: str,
     x_user_identity: Optional[str] = Header(None)
-) -> OperationState:
+) -> LongRunningOperation:
     with tracer.start_as_current_span(f'get_operation_status') as span:
         try:
             span.set_attribute('operation_id', operation_id)
@@ -160,7 +159,7 @@ async def get_operation_result(
     operation_id: str,
     x_user_identity: Optional[str] = Header(None)
 ) -> CompletionResponse:
-    with tracer.start_as_current_span(f'get_operatin_result') as span:
+    with tracer.start_as_current_span(f'get_operation_result') as span:
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
@@ -192,7 +191,6 @@ async def create_completion_response(
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
-            span.set_attribute('request_id', completion_request.request_id)
             span.set_attribute('user_identity', x_user_identity)
             
             orchestration_manager = OrchestrationManager(

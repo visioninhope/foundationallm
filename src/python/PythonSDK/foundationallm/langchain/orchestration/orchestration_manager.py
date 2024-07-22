@@ -2,7 +2,7 @@ import requests
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
-from foundationallm.models.operations import OperationState
+from foundationallm.models.operations import LongRunningOperation
 from foundationallm.models.orchestration import (
     CompletionOperation,
     CompletionRequestBase,
@@ -62,7 +62,6 @@ class OrchestrationManager:
             Object containing the completion response and token usage details.
         """
         return self.agent.invoke(request)
-        return completion_response
 
     async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:
         """
@@ -87,8 +86,7 @@ class OrchestrationManager:
         operation_id: str,
         instance_id: str,
         completion_request: KnowledgeManagementCompletionRequest,
-        config: Configuration,
-        x_user_identity: Optional[str] = Header(None)) -> OperationState:
+        config: Configuration) -> LongRunningOperation:
         """
         Creates a background operation by settings its initial state through the State API.
         
