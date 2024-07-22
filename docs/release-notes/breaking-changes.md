@@ -25,6 +25,33 @@ Gatekeeper API changes:
 Orchestration API changes:
 1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
 2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+=======
+#### New APIs
+
+**Gateway Adapter API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl`
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIKey` (mapped to the `foundationallm-apis-gatewayadapterapi-apikey` secret)
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+- 
+**Stater API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:StateAPI:APIUrl`
+- `FoundationaLLM:APIs:StateAPI:APIKey` (mapped to the `foundationallm-apis-stateapi-apikey` secret)
+- `FoundationaLLM:APIs:StateAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+
+> [!NOTE]
+> These new APIs will be converted to use the new `APIEndpoint` artifacts.
+
+#### Changes in app registration names
+
+API Name | Entra ID app registration name | Application ID URI | Scope name
+--- | --- | --- | ---
+Core API | `FoundationaLLM-Core-API` | `api://FoundationaLLM-Core` | `Data.Read`
+Management API | `FoundationaLLM-Management-API` | `api://FoundationaLLM-Management` | `Data.Manage`
+Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-Authorization` | `Authorization.Manage`
+User Portal | `FoundationaLLM-User-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
+Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
 
 ### Pre-0.8.0
 
@@ -163,3 +190,6 @@ Orchestration API changes:
 
     - `lakera-guard-api-key`
     - `enkrypt-guardrails-apikey`
+
+
+
