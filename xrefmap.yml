@@ -8913,15 +8913,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC
   nameWithType: ResourceProviderServiceExtensions.GetResourcesWithRBAC
-- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourcesWithRBAC<T>(IResourceProviderService, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourcesWithRBAC(Of T)(IResourceProviderService, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ResourceProviderServiceExtensions.GetResourcesWithRBAC<T>(IResourceProviderService, UnifiedUserIdentity)
-  nameWithType.vb: ResourceProviderServiceExtensions.GetResourcesWithRBAC(Of T)(IResourceProviderService, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetResourcesWithRBAC<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetResourcesWithRBAC(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ResourceProviderServiceExtensions.GetResourcesWithRBAC<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  nameWithType.vb: ResourceProviderServiceExtensions.GetResourcesWithRBAC(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name: GetResources<T>(IResourceProviderService, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
@@ -9446,12 +9446,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.APIName
   nameWithType: IDownstreamAPIService.APIName
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: IDownstreamAPIService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IDownstreamAPIService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: IDownstreamAPIService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletion_
@@ -20543,12 +20546,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.APIName
   nameWithType: DownstreamAPIService.APIName
-- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: DownstreamAPIService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: DownstreamAPIService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: DownstreamAPIService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletion_
@@ -24784,12 +24790,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.AddMemory
   nameWithType: IGatekeeperAPIService.AddMemory
-- uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: IGatekeeperAPIService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IGatekeeperAPIService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: IGatekeeperAPIService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_GetCompletion_
@@ -24797,19 +24806,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetCompletion
   nameWithType: IGatekeeperAPIService.GetCompletion
-- uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: IGatekeeperAPIService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_GetSummary_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.GetSummary
-  nameWithType: IGatekeeperAPIService.GetSummary
 - uid: FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.RemoveMemory(System.Object)
   name: RemoveMemory(object)
   href: api/dotnet/FoundationaLLM.Core.Interfaces.IGatekeeperAPIService.html#FoundationaLLM_Core_Interfaces_IGatekeeperAPIService_RemoveMemory_System_Object_
@@ -25543,12 +25539,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.AddMemory
   nameWithType: GatekeeperAPIService.AddMemory
-- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: GatekeeperAPIService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: GatekeeperAPIService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: GatekeeperAPIService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_GetCompletion_
@@ -25556,19 +25555,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GetCompletion
   nameWithType: GatekeeperAPIService.GetCompletion
-- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: GatekeeperAPIService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_GetSummary_
-  commentId: Overload:FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GetSummary
-  nameWithType: GatekeeperAPIService.GetSummary
 - uid: FoundationaLLM.Core.Services.GatekeeperAPIService.RemoveMemory(System.Object)
   name: RemoveMemory(object)
   href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService_RemoveMemory_System_Object_
@@ -26537,69 +26523,110 @@ references:
   commentId: N:FoundationaLLM.Gatekeeper.API.Controllers
   fullName: FoundationaLLM.Gatekeeper.API.Controllers
   nameWithType: FoundationaLLM.Gatekeeper.API.Controllers
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html
-  commentId: T:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController
-  nameWithType: OrchestrationController
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
-  name: OrchestrationController(IGatekeeperService)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html
+  commentId: T:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController
+  nameWithType: CompletionsController
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
+  name: CompletionsController(IGatekeeperService)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
   name.vb: New(IGatekeeperService)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.New(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
-  nameWithType: OrchestrationController.OrchestrationController(IGatekeeperService)
-  nameWithType.vb: OrchestrationController.New(IGatekeeperService)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.#ctor*
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController__ctor_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.#ctor
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.CompletionsController(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.New(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)
+  nameWithType: CompletionsController.CompletionsController(IGatekeeperService)
+  nameWithType.vb: CompletionsController.New(IGatekeeperService)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.#ctor*
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController__ctor_
+  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.OrchestrationController
-  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.New
-  nameWithType: OrchestrationController.OrchestrationController
-  nameWithType.vb: OrchestrationController.New
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(CompletionRequest)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion*
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.CompletionsController
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.New
+  nameWithType: CompletionsController.CompletionsController
+  nameWithType.vb: CompletionsController.New
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: CompletionsController.GetCompletion(String, CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion*
   name: GetCompletion
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController_GetCompletion_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletion_
+  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion
   isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetCompletion
-  nameWithType: OrchestrationController.GetCompletion
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: OrchestrationController.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html#FoundationaLLM_Gatekeeper_API_Controllers_OrchestrationController_GetSummary_
-  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion
+  nameWithType: CompletionsController.GetCompletion
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation(String, String)
+  nameWithType: CompletionsController.GetCompletionOperation(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation
   isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.GetSummary
-  nameWithType: OrchestrationController.GetSummary
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperation
+  nameWithType: CompletionsController.GetCompletionOperation
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus(String, String)
+  nameWithType: CompletionsController.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  nameWithType: CompletionsController.GetCompletionOperationStatus
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: CompletionsController.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html#FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation
+  nameWithType: CompletionsController.StartCompletionOperation
 - uid: FoundationaLLM.Gatekeeper.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.StatusController.html
   commentId: T:FoundationaLLM.Gatekeeper.API.Controllers.StatusController
   fullName: FoundationaLLM.Gatekeeper.API.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get
-  name: Get()
-  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.StatusController.html#FoundationaLLM_Gatekeeper_API_Controllers_StatusController_Get
-  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get
-  fullName: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get()
-  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get(System.String)
+  name: Get(string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.StatusController.html#FoundationaLLM_Gatekeeper_API_Controllers_StatusController_Get_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get(System.String)
+  name.vb: Get(String)
+  fullName: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get(string)
+  fullName.vb: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get(String)
+  nameWithType: StatusController.Get(string)
+  nameWithType.vb: StatusController.Get(String)
 - uid: FoundationaLLM.Gatekeeper.API.Controllers.StatusController.Get*
   name: Get
   href: api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.StatusController.html#FoundationaLLM_Gatekeeper_API_Controllers_StatusController_Get_
@@ -26755,12 +26782,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService
   nameWithType: IGatekeeperService
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: IGatekeeperService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IGatekeeperService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: IGatekeeperService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletion_
@@ -26768,19 +26798,54 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletion
   nameWithType: IGatekeeperService.GetCompletion
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: IGatekeeperService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetSummary_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation(String, String)
+  nameWithType: IGatekeeperService.GetCompletionOperation(string, string)
+  nameWithType.vb: IGatekeeperService.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation
   isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetSummary
-  nameWithType: IGatekeeperService.GetSummary
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation
+  nameWithType: IGatekeeperService.GetCompletionOperation
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus(String, String)
+  nameWithType: IGatekeeperService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: IGatekeeperService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationStatus
+  nameWithType: IGatekeeperService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IGatekeeperService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: IGatekeeperService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.StartCompletionOperation
+  nameWithType: IGatekeeperService.StartCompletionOperation
 - uid: FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService
   name: ILakeraGuardService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Interfaces.ILakeraGuardService.html
@@ -27689,12 +27754,15 @@ references:
   fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.New
   nameWithType: GatekeeperService.GatekeeperService
   nameWithType.vb: GatekeeperService.New
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: GatekeeperService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: GatekeeperService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: GatekeeperService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletion_
@@ -27702,19 +27770,54 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletion
   nameWithType: GatekeeperService.GetCompletion
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: GatekeeperService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetSummary_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation(String, String)
+  nameWithType: GatekeeperService.GetCompletionOperation(string, string)
+  nameWithType.vb: GatekeeperService.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation
   isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetSummary
-  nameWithType: GatekeeperService.GetSummary
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperation
+  nameWithType: GatekeeperService.GetCompletionOperation
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus(String, String)
+  nameWithType: GatekeeperService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: GatekeeperService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.GetCompletionOperationStatus
+  nameWithType: GatekeeperService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: GatekeeperService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: GatekeeperService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperService.StartCompletionOperation
+  nameWithType: GatekeeperService.StartCompletionOperation
 - uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
   name: LakeraGuardService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html
@@ -28985,44 +29088,95 @@ references:
   commentId: N:FoundationaLLM.Orchestration.API.Controllers
   fullName: FoundationaLLM.Orchestration.API.Controllers
   nameWithType: FoundationaLLM.Orchestration.API.Controllers
-- uid: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html
-  commentId: T:FoundationaLLM.Orchestration.API.Controllers.OrchestrationController
-  fullName: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController
-  nameWithType: OrchestrationController
-- uid: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.API.Controllers.OrchestrationController})
-  name: OrchestrationController(IOrchestrationService, ILogger<OrchestrationController>)
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html#FoundationaLLM_Orchestration_API_Controllers_OrchestrationController__ctor_FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_API_Controllers_OrchestrationController__
-  commentId: M:FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.API.Controllers.OrchestrationController})
-  name.vb: New(IOrchestrationService, ILogger(Of OrchestrationController))
-  fullName: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.API.Controllers.OrchestrationController>)
-  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.New(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.API.Controllers.OrchestrationController))
-  nameWithType: OrchestrationController.OrchestrationController(IOrchestrationService, ILogger<OrchestrationController>)
-  nameWithType.vb: OrchestrationController.New(IOrchestrationService, ILogger(Of OrchestrationController))
-- uid: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.#ctor*
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html#FoundationaLLM_Orchestration_API_Controllers_OrchestrationController__ctor_
-  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.#ctor
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html
+  commentId: T:FoundationaLLM.Orchestration.API.Controllers.CompletionsController
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController
+  nameWithType: CompletionsController
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.API.Controllers.CompletionsController})
+  name: CompletionsController(IOrchestrationService, ILogger<CompletionsController>)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController__ctor_FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_API_Controllers_CompletionsController__
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.API.Controllers.CompletionsController})
+  name.vb: New(IOrchestrationService, ILogger(Of CompletionsController))
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.CompletionsController(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.API.Controllers.CompletionsController>)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.New(FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.API.Controllers.CompletionsController))
+  nameWithType: CompletionsController.CompletionsController(IOrchestrationService, ILogger<CompletionsController>)
+  nameWithType.vb: CompletionsController.New(IOrchestrationService, ILogger(Of CompletionsController))
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.#ctor*
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController__ctor_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.OrchestrationController
-  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.New
-  nameWithType: OrchestrationController.OrchestrationController
-  nameWithType.vb: OrchestrationController.New
-- uid: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html#FoundationaLLM_Orchestration_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(CompletionRequest)
-- uid: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion*
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.CompletionsController
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.New
+  nameWithType: CompletionsController.CompletionsController
+  nameWithType.vb: CompletionsController.New
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: CompletionsController.GetCompletion(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion*
   name: GetCompletion
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html#FoundationaLLM_Orchestration_API_Controllers_OrchestrationController_GetCompletion_
-  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletion_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion
   isSpec: "True"
-  fullName: FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.GetCompletion
-  nameWithType: OrchestrationController.GetCompletion
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletion
+  nameWithType: CompletionsController.GetCompletion
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation(String, String)
+  nameWithType: CompletionsController.GetCompletionOperation(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperation
+  nameWithType: CompletionsController.GetCompletionOperation
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus(String, String)
+  nameWithType: CompletionsController.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  nameWithType: CompletionsController.GetCompletionOperationStatus
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: CompletionsController.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: CompletionsController.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html#FoundationaLLM_Orchestration_API_Controllers_CompletionsController_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.API.Controllers.CompletionsController.StartCompletionOperation
+  nameWithType: CompletionsController.StartCompletionOperation
 - uid: FoundationaLLM.Orchestration.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html
@@ -29048,12 +29202,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.API.Controllers.StatusController.New
   nameWithType: StatusController.StatusController
   nameWithType.vb: StatusController.New
-- uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get
-  name: Get()
-  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController_Get
-  commentId: M:FoundationaLLM.Orchestration.API.Controllers.StatusController.Get
-  fullName: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get()
-  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get(System.String)
+  name: Get(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController_Get_System_String_
+  commentId: M:FoundationaLLM.Orchestration.API.Controllers.StatusController.Get(System.String)
+  name.vb: Get(String)
+  fullName: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get(string)
+  fullName.vb: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get(String)
+  nameWithType: StatusController.Get(string)
+  nameWithType.vb: StatusController.Get(String)
 - uid: FoundationaLLM.Orchestration.API.Controllers.StatusController.Get*
   name: Get
   href: api/dotnet/FoundationaLLM.Orchestration.API.Controllers.StatusController.html#FoundationaLLM_Orchestration_API_Controllers_StatusController_Get_
@@ -29123,12 +29280,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService
   nameWithType: ILLMOrchestrationService
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: ILLMOrchestrationService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: ILLMOrchestrationService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: ILLMOrchestrationService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetCompletion_
@@ -29136,12 +29296,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetCompletion
   nameWithType: ILLMOrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus()
-  nameWithType: ILLMOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus(String)
+  nameWithType: ILLMOrchestrationService.GetStatus(string)
+  nameWithType.vb: ILLMOrchestrationService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationService_GetStatus_
@@ -29168,12 +29331,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager
   nameWithType: ILLMOrchestrationServiceManager
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  name: GetAggregateStatus(IServiceProvider)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetAggregateStatus_System_IServiceProvider_
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  nameWithType: ILLMOrchestrationServiceManager.GetAggregateStatus(IServiceProvider)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.String,System.IServiceProvider)
+  name: GetAggregateStatus(string, IServiceProvider)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetAggregateStatus_System_String_System_IServiceProvider_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(System.String,System.IServiceProvider)
+  name.vb: GetAggregateStatus(String, IServiceProvider)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(string, System.IServiceProvider)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus(String, System.IServiceProvider)
+  nameWithType: ILLMOrchestrationServiceManager.GetAggregateStatus(string, IServiceProvider)
+  nameWithType.vb: ILLMOrchestrationServiceManager.GetAggregateStatus(String, IServiceProvider)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus*
   name: GetAggregateStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetAggregateStatus_
@@ -29181,15 +29347,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetAggregateStatus
   nameWithType: ILLMOrchestrationServiceManager.GetAggregateStatus
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
-  name: GetService(string, IServiceProvider, ICallContext)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetService_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
-  name.vb: GetService(String, IServiceProvider, ICallContext)
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
-  nameWithType: ILLMOrchestrationServiceManager.GetService(string, IServiceProvider, ICallContext)
-  nameWithType.vb: ILLMOrchestrationServiceManager.GetService(String, IServiceProvider, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: GetService(string, string, IServiceProvider, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetService_System_String_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(System.String,System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: GetService(String, String, IServiceProvider, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(string, string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService(String, String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: ILLMOrchestrationServiceManager.GetService(string, string, IServiceProvider, ICallContext)
+  nameWithType.vb: ILLMOrchestrationServiceManager.GetService(String, String, IServiceProvider, ICallContext)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.GetService*
   name: GetService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_GetService_
@@ -29209,12 +29375,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService
   nameWithType: IOrchestrationService
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: IOrchestrationService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IOrchestrationService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: IOrchestrationService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_
@@ -29222,12 +29391,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion
   nameWithType: IOrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus()
-  nameWithType: IOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation(String, String)
+  nameWithType: IOrchestrationService.GetCompletionOperation(string, string)
+  nameWithType.vb: IOrchestrationService.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperation
+  nameWithType: IOrchestrationService.GetCompletionOperation
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus(String, String)
+  nameWithType: IOrchestrationService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: IOrchestrationService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus
+  nameWithType: IOrchestrationService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus(String)
+  nameWithType: IOrchestrationService.GetStatus(string)
+  nameWithType.vb: IOrchestrationService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus_
@@ -29235,6 +29439,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus
   nameWithType: IOrchestrationService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IOrchestrationService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: IOrchestrationService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.html#FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation
+  nameWithType: IOrchestrationService.StartCompletionOperation
 - uid: FoundationaLLM.Orchestration.Core.Interfaces.ISemanticKernelService
   name: ISemanticKernelService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Interfaces.ISemanticKernelService.html
@@ -29353,12 +29573,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New
   nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration
   nameWithType.vb: KnowledgeManagementOrchestration.New
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: KnowledgeManagementOrchestration.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: KnowledgeManagementOrchestration.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: KnowledgeManagementOrchestration.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_
@@ -29391,12 +29614,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.New
   nameWithType: OrchestrationBase.OrchestrationBase
   nameWithType.vb: OrchestrationBase.New
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationBase.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: OrchestrationBase.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: OrchestrationBase.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_
@@ -29416,15 +29642,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder
   fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder
   nameWithType: OrchestrationBuilder
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
-  name: Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_System_String_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(string, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(String, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: OrchestrationBuilder.Build(string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
-  nameWithType.vb: OrchestrationBuilder.Build(String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name: Build(string, string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_System_String_System_String_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Configuration_IConfiguration_System_Collections_Generic_Dictionary_System_String_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Orchestration_Core_Interfaces_ILLMOrchestrationServiceManager_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(System.String,System.String,FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Configuration.IConfiguration,System.Collections.Generic.Dictionary{System.String,FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: Build(String, String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(string, string, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary<string, FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build(String, String, FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Configuration.IConfiguration, System.Collections.Generic.Dictionary(Of String, FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Orchestration.Core.Interfaces.ILLMOrchestrationServiceManager, System.IServiceProvider, Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: OrchestrationBuilder.Build(string, string, ICallContext, IConfiguration, Dictionary<string, IResourceProviderService>, ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
+  nameWithType.vb: OrchestrationBuilder.Build(String, String, ICallContext, IConfiguration, Dictionary(Of String, IResourceProviderService), ILLMOrchestrationServiceManager, IServiceProvider, ILoggerFactory)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.Build*
   name: Build
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBuilder.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBuilder_Build_
@@ -29463,12 +29689,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.New
   nameWithType: AzureAIDirectService.AzureAIDirectService
   nameWithType.vb: AzureAIDirectService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: AzureAIDirectService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: AzureAIDirectService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: AzureAIDirectService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_
@@ -29476,12 +29705,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion
   nameWithType: AzureAIDirectService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus()
-  nameWithType: AzureAIDirectService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus(String)
+  nameWithType: AzureAIDirectService.GetStatus(string)
+  nameWithType.vb: AzureAIDirectService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus_
@@ -29527,12 +29759,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.New
   nameWithType: AzureOpenAIDirectService.AzureOpenAIDirectService
   nameWithType.vb: AzureOpenAIDirectService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: AzureOpenAIDirectService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: AzureOpenAIDirectService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: AzureOpenAIDirectService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_
@@ -29540,12 +29775,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion
   nameWithType: AzureOpenAIDirectService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus()
-  nameWithType: AzureOpenAIDirectService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(String)
+  nameWithType: AzureOpenAIDirectService.GetStatus(string)
+  nameWithType.vb: AzureOpenAIDirectService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus_
@@ -29591,12 +29829,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New
   nameWithType: LLMOrchestrationService.LLMOrchestrationService
   nameWithType.vb: LLMOrchestrationService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: LLMOrchestrationService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: LLMOrchestrationService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: LLMOrchestrationService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_
@@ -29604,12 +29845,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion
   nameWithType: LLMOrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus()
-  nameWithType: LLMOrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus(String)
+  nameWithType: LLMOrchestrationService.GetStatus(string)
+  nameWithType.vb: LLMOrchestrationService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus_
@@ -29655,12 +29899,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.New
   nameWithType: LLMOrchestrationServiceManager.LLMOrchestrationServiceManager
   nameWithType.vb: LLMOrchestrationServiceManager.New
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  name: GetAggregateStatus(IServiceProvider)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetAggregateStatus_System_IServiceProvider_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.IServiceProvider)
-  nameWithType: LLMOrchestrationServiceManager.GetAggregateStatus(IServiceProvider)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.String,System.IServiceProvider)
+  name: GetAggregateStatus(string, IServiceProvider)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetAggregateStatus_System_String_System_IServiceProvider_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(System.String,System.IServiceProvider)
+  name.vb: GetAggregateStatus(String, IServiceProvider)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(string, System.IServiceProvider)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus(String, System.IServiceProvider)
+  nameWithType: LLMOrchestrationServiceManager.GetAggregateStatus(string, IServiceProvider)
+  nameWithType.vb: LLMOrchestrationServiceManager.GetAggregateStatus(String, IServiceProvider)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus*
   name: GetAggregateStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetAggregateStatus_
@@ -29668,15 +29915,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetAggregateStatus
   nameWithType: LLMOrchestrationServiceManager.GetAggregateStatus
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
-  name: GetService(string, IServiceProvider, ICallContext)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetService_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
-  name.vb: GetService(String, IServiceProvider, ICallContext)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
-  nameWithType: LLMOrchestrationServiceManager.GetService(string, IServiceProvider, ICallContext)
-  nameWithType.vb: LLMOrchestrationServiceManager.GetService(String, IServiceProvider, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: GetService(string, string, IServiceProvider, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetService_System_String_System_String_System_IServiceProvider_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(System.String,System.String,System.IServiceProvider,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: GetService(String, String, IServiceProvider, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(string, string, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService(String, String, System.IServiceProvider, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: LLMOrchestrationServiceManager.GetService(string, string, IServiceProvider, ICallContext)
+  nameWithType.vb: LLMOrchestrationServiceManager.GetService(String, String, IServiceProvider, ICallContext)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.GetService*
   name: GetService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationServiceManager.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationServiceManager_GetService_
@@ -29709,12 +29956,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.LangChainService.New
   nameWithType: LangChainService.LangChainService
   nameWithType.vb: LangChainService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: LangChainService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: LangChainService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: LangChainService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_
@@ -29722,12 +29972,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion
   nameWithType: LangChainService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus()
-  nameWithType: LangChainService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus(String)
+  nameWithType: LangChainService.GetStatus(string)
+  nameWithType.vb: LangChainService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_
@@ -29773,12 +30026,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.New
   nameWithType: OrchestrationService.OrchestrationService
   nameWithType.vb: OrchestrationService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  name: GetCompletion(CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
-  nameWithType: OrchestrationService.GetCompletion(CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: GetCompletion(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: GetCompletion(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: OrchestrationService.GetCompletion(string, CompletionRequest)
+  nameWithType.vb: OrchestrationService.GetCompletion(String, CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletion_
@@ -29786,12 +30042,47 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletion
   nameWithType: OrchestrationService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus()
-  nameWithType: OrchestrationService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation(System.String,System.String)
+  name: GetCompletionOperation(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletionOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation(System.String,System.String)
+  name.vb: GetCompletionOperation(String, String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation(String, String)
+  nameWithType: OrchestrationService.GetCompletionOperation(string, string)
+  nameWithType.vb: OrchestrationService.GetCompletionOperation(String, String)
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation*
+  name: GetCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperation
+  nameWithType: OrchestrationService.GetCompletionOperation
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus(String, String)
+  nameWithType: OrchestrationService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: OrchestrationService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetCompletionOperationStatus
+  nameWithType: OrchestrationService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus(String)
+  nameWithType: OrchestrationService.GetStatus(string)
+  nameWithType.vb: OrchestrationService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_GetStatus_
@@ -29799,6 +30090,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.GetStatus
   nameWithType: OrchestrationService.GetStatus
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: OrchestrationService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: OrchestrationService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.OrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_OrchestrationService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Orchestration.Core.Services.OrchestrationService.StartCompletionOperation
+  nameWithType: OrchestrationService.StartCompletionOperation
 - uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html
@@ -29824,12 +30131,15 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.New
   nameWithType: SemanticKernelService.SemanticKernelService
   nameWithType.vb: SemanticKernelService.New
-- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: SemanticKernelService.GetCompletion(LLMCompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: GetCompletion(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: GetCompletion(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: SemanticKernelService.GetCompletion(string, LLMCompletionRequest)
+  nameWithType.vb: SemanticKernelService.GetCompletion(String, LLMCompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetCompletion_
@@ -29837,12 +30147,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetCompletion
   nameWithType: SemanticKernelService.GetCompletion
-- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
-  name: GetStatus()
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus
-  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus()
-  nameWithType: SemanticKernelService.GetStatus()
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus(System.String)
+  name: GetStatus(string)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus_System_String_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus(System.String)
+  name.vb: GetStatus(String)
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus(string)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus(String)
+  nameWithType: SemanticKernelService.GetStatus(string)
+  nameWithType.vb: SemanticKernelService.GetStatus(String)
 - uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.GetStatus*
   name: GetStatus
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService_GetStatus_

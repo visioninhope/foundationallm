@@ -245,9 +245,9 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
   <a id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
-  GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  GetCompletion(string, LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes a completion request against the orchestration service.</p>
@@ -255,11 +255,14 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion(string instanceId, LLMCompletionRequest request)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
     <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
     <dd><p>Request object populated from the hub APIs including agent, prompt, data source, and model information.</p>
 </dd>
@@ -284,8 +287,8 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
 
   <a id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus">
-  GetStatus()
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_LangChainService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Services.LangChainService.GetStatus(System.String)">
+  GetStatus(string)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LangChainService.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -294,9 +297,15 @@ Class LangChainService  <a class="header-action link-secondary" title="View sour
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus(string instanceId)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">

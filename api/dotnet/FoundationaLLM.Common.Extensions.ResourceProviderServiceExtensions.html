@@ -206,9 +206,9 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 
   <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC*"></a>
 
-  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
-  GetResourcesWithRBAC&lt;T&gt;(IResourceProviderService, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetResourcesWithRBAC&lt;T&gt;(IResourceProviderService, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of resources with RBAC information from the resource provider service.</p>
@@ -216,13 +216,16 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;List&lt;ResourceProviderGetResult&lt;T&gt;&gt;&gt; GetResourcesWithRBAC&lt;T&gt;(this IResourceProviderService resourceProviderService, UnifiedUserIdentity userIdentity) where T : ResourceBase</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;List&lt;ResourceProviderGetResult&lt;T&gt;&gt;&gt; GetResourcesWithRBAC&lt;T&gt;(this IResourceProviderService resourceProviderService, string instanceId, UnifiedUserIdentity userIdentity) where T : ResourceBase</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>resourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> providing the resource provider services.</p>
+</dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
 </dd>
     <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
@@ -314,7 +317,7 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_FoundationaLLM_Common_Interfaces_IResourceProviderService_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization(FoundationaLLM.Common.Interfaces.IResourceProviderService)">
   WaitForInitialization(IResourceProviderService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L101"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Waits for the resource provider service to be initialized.</p>

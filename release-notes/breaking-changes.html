@@ -81,23 +81,28 @@
 <h3 id="starting-with-080">Starting with 0.8.0</h3>
 <p>Core API changes:</p>
 <ol>
-<li><p>All Core API endpoints have been moved to the <code>/instances/{instanceId}</code> path. For example, the <code>/status</code> endpoint is now <code>/instances/{instanceId}/status</code>.</p>
-</li>
-<li><p>The <code>/orchestration/*</code> endpoints have been moved to <code>/instances/{instanceId}/completions/*</code>.</p>
+<li>All Core API endpoints have been moved to the <code>/instances/{instanceId}</code> path. For example, the <code>/status</code> endpoint is now <code>/instances/{instanceId}/status</code>.</li>
+<li>The <code>/orchestration/*</code> endpoints have been moved to <code>/instances/{instanceId}/completions/*</code>.
 <ol>
 <li>The previous <code>/orchestration/completions</code> endpoint is now <code>/instances/{instanceId}/completions</code>.</li>
 </ol>
 </li>
-<li><p>The <code>/sessions/{sessionId}/completion</code> endpoint has been moved to <code>/instances/{instanceId}/completions</code>. Instead of having the <code>sessionId</code> as a path parameter, it is now in the request body as part of the <code>CompletionRequest</code> payload.</p>
-</li>
-<li><p><code>/sessions/{sessionId}/summarize-name</code> has been removed. In the future, the <code>/completions</code> endpoint will be used to generate summaries.</p>
-</li>
-<li><p><code>OrchestrationRequest</code> and <code>CompletionRequest</code> have combined into a single <code>CompletionRequest</code> object.</p>
-</li>
-<li><p><code>DirectionCompletionRequest</code> has been removed. Use <code>CompletionRequest</code> instead.</p>
-</li>
-<li><p><code>Status</code> controllers <code>\status</code> action in the .NET API projects return value has renamed the <code>Instance</code> property to <code>InstanceName</code>.</p>
-</li>
+<li>The <code>/sessions/{sessionId}/completion</code> endpoint has been moved to <code>/instances/{instanceId}/completions</code>. Instead of having the <code>sessionId</code> as a path parameter, it is now in the request body as part of the <code>CompletionRequest</code> payload.</li>
+<li><code>/sessions/{sessionId}/summarize-name</code> has been removed. In the future, the <code>/completions</code> endpoint will be used to generate summaries.</li>
+<li><code>OrchestrationRequest</code> and <code>CompletionRequest</code> have combined into a single <code>CompletionRequest</code> object.</li>
+<li><code>DirectionCompletionRequest</code> has been removed. Use <code>CompletionRequest</code> instead.</li>
+<li><code>Status</code> controllers <code>\status</code> action in the .NET API projects return value has renamed the <code>Instance</code> property to <code>InstanceName</code>.</li>
+</ol>
+<p>Gatekeeper API changes:</p>
+<ol>
+<li>All Gatekeeper API endpoints have been moved to the <code>/instances/{instanceId}</code> path. For example, the <code>/status</code> endpoint is now <code>/instances/{instanceId}/status</code>.</li>
+<li>The <code>/orchestration/*</code> endpoints have been moved to <code>/instances/{instanceId}/completions/*</code>.</li>
+</ol>
+<p>Orchestration API changes:</p>
+<ol>
+<li>All Gatekeeper API endpoints have been moved to the <code>/instances/{instanceId}</code> path. For example, the <code>/status</code> endpoint is now <code>/instances/{instanceId}/status</code>.</li>
+<li>The <code>/orchestration/*</code> endpoints have been moved to <code>/instances/{instanceId}/completions/*</code>.
+=======</li>
 </ol>
 <h4 id="new-apis">New APIs</h4>
 <p><strong>Gateway Adapter API</strong> - requires the following configuration settings:</p>

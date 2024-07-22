@@ -5182,10 +5182,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.OrchestrationController.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.html"
         }
       },
       "version": ""
@@ -5982,10 +5982,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Orchestration.API.Controllers.OrchestrationController.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Orchestration.API.Controllers.CompletionsController.html"
         }
       },
       "version": ""
@@ -8014,11 +8014,11 @@
       "type": "Toc",
       "source_relative_path": "api/dotnet/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/dotnet/toc.html"
-        },
         ".json": {
           "relative_path": "api/dotnet/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/dotnet/toc.html"
         }
       },
       "version": ""
@@ -10197,11 +10197,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""

@@ -220,7 +220,7 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureAIDirectService.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureAIDirectService.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
@@ -254,9 +254,9 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
-  GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureAIDirectService.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  GetCompletion(string, LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureAIDirectService.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -264,11 +264,14 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LLMCompletionResponse&gt; GetCompletion(string instanceId, LLMCompletionRequest request)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
     <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
     <dd><p>Hub populated request object containing agent, prompt, language model, and data source information</p>
 </dd>
@@ -292,8 +295,8 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus">
-  GetStatus()
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.GetStatus(System.String)">
+  GetStatus(string)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureAIDirectService.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -302,9 +305,15 @@ Class AzureAIDirectService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ServiceStatusInfo&gt; GetStatus(string instanceId)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
