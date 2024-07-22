@@ -165,7 +165,10 @@ function addCodeHeaderComponents(htmlString) {
 		element.parentNode.insertBefore(header.firstChild, element);
 	});
 
-	return doc.body.innerHTML;
+	const html = doc.body.innerHTML;
+	const withVueCurlyBracesRemoved = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
+
+	return withVueCurlyBracesRemoved;
 }
 
 export default {
