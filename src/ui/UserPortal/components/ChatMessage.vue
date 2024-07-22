@@ -166,9 +166,9 @@ function addCodeHeaderComponents(htmlString) {
 	});
 
 	const html = doc.body.innerHTML;
-	const withVueCurlyBracesRemoved = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
+	const withVueCurlyBracesSanitized = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
 
-	return withVueCurlyBracesRemoved;
+	return withVueCurlyBracesSanitized;
 }
 
 export default {
