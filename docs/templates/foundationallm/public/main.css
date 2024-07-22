@@ -53,7 +53,7 @@
   --material-info-background-dark: #2c4557;
 
   --material-danger-header: #d32f2f1a;
-  --material-danger-background: #ffebee;
+  --material-danger-background: #fdf5aa; /* #ffebee; */
   --material-danger-background-dark: #572c2c;
 }
 
