@@ -5075,6 +5075,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI
+  name: FoundationaLLM_APIs_GatewayAdapterAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_GatewayAdapterAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI
+  name: FoundationaLLM_APIs_StateAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_StateAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI
   name: FoundationaLLM_APIs_VectorizationAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_VectorizationAPI
@@ -5237,6 +5249,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Refinement
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Refinement
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Refinement
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_State
+  name: FoundationaLLM_State
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_State
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_State
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_State
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_State
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Vectorization
   name: FoundationaLLM_Vectorization
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Vectorization
@@ -5303,6 +5321,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAdapterAPI
+  name: FoundationaLLM_APIs_GatewayAdapterAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_APIs_GatewayAdapterAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAdapterAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAdapterAPI
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAdapterAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_LangChainAPI
   name: FoundationaLLM_APIs_LangChainAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_APIs_LangChainAPI
@@ -5327,6 +5351,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_StateAPI
+  name: FoundationaLLM_APIs_StateAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_APIs_StateAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_StateAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_StateAPI
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_APIs_StateAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI
   name: FoundationaLLM_APIs_VectorizationAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_APIs_VectorizationAPI
@@ -5489,6 +5519,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_State
+  name: FoundationaLLM_State
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_State
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_State
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_State
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_State
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService
   name: FoundationaLLM_Vectorization_AzureAISearchIndexingService
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Vectorization_AzureAISearchIndexingService
@@ -5771,6 +5807,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  name: FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+  name: FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
+  name: FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey
   name: FoundationaLLM_APIs_LangChainAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_LangChainAPI_APIKey
@@ -5855,6 +5909,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIKey
+  name: FoundationaLLM_APIs_StateAPI_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_StateAPI_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIKey
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIUrl
+  name: FoundationaLLM_APIs_StateAPI_APIUrl
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_StateAPI_APIUrl
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIUrl
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIUrl
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIUrl
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
+  name: FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey
   name: FoundationaLLM_APIs_VectorizationAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIs_VectorizationAPI_APIKey
@@ -6839,6 +6911,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey
   fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey
   nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  name: FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
+  nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey
 - uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_LangChainAPI_APIKey
   name: FoundationaLLM_APIs_LangChainAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_LangChainAPI_APIKey
@@ -6863,6 +6941,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_SemanticKernelAPI_APIKey
   fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_SemanticKernelAPI_APIKey
   nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_SemanticKernelAPI_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey
+  name: FoundationaLLM_APIs_StateAPI_APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_StateAPI_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey
+  fullName: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey
+  nameWithType: KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey
 - uid: FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.FoundationaLLM_APIs_VectorizationAPI_APIKey
   name: FoundationaLLM_APIs_VectorizationAPI_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.KeyVaultSecretNames.html#FoundationaLLM_Common_Constants_Configuration_KeyVaultSecretNames_FoundationaLLM_APIs_VectorizationAPI_APIKey
@@ -7971,6 +8055,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ServiceNames.GatewayAPI
   fullName: FoundationaLLM.Common.Constants.ServiceNames.GatewayAPI
   nameWithType: ServiceNames.GatewayAPI
+- uid: FoundationaLLM.Common.Constants.ServiceNames.GatewayAdapterAPI
+  name: GatewayAdapterAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.html#FoundationaLLM_Common_Constants_ServiceNames_GatewayAdapterAPI
+  commentId: F:FoundationaLLM.Common.Constants.ServiceNames.GatewayAdapterAPI
+  fullName: FoundationaLLM.Common.Constants.ServiceNames.GatewayAdapterAPI
+  nameWithType: ServiceNames.GatewayAdapterAPI
 - uid: FoundationaLLM.Common.Constants.ServiceNames.LangChainAPI
   name: LangChainAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.html#FoundationaLLM_Common_Constants_ServiceNames_LangChainAPI
@@ -8001,6 +8091,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.ServiceNames.SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.ServiceNames.SemanticKernelAPI
   nameWithType: ServiceNames.SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.ServiceNames.StateAPI
+  name: StateAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.html#FoundationaLLM_Common_Constants_ServiceNames_StateAPI
+  commentId: F:FoundationaLLM.Common.Constants.ServiceNames.StateAPI
+  fullName: FoundationaLLM.Common.Constants.ServiceNames.StateAPI
+  nameWithType: ServiceNames.StateAPI
 - uid: FoundationaLLM.Common.Constants.ServiceNames.VectorizationAPI
   name: VectorizationAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.ServiceNames.html#FoundationaLLM_Common_Constants_ServiceNames_VectorizationAPI
@@ -26387,6 +26483,32 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddSemanticKernelService
   nameWithType: DependencyInjection.AddSemanticKernelService
+- uid: FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddState(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddState_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddState(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddState*
+  name: AddState
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddState_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddState
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddState
+  nameWithType: DependencyInjection.AddState
+- uid: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddStateGenericExceptionHandling(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddStateGenericExceptionHandling_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddStateGenericExceptionHandling(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling*
+  name: AddStateGenericExceptionHandling
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddStateGenericExceptionHandling_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling
+  nameWithType: DependencyInjection.AddStateGenericExceptionHandling
 - uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddVectorizationResourceProvider(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -27728,6 +27850,44 @@ references:
   commentId: Overload:FoundationaLLM.Gateway.API.Controllers.StatusController.Options
   isSpec: "True"
   fullName: FoundationaLLM.Gateway.API.Controllers.StatusController.Options
+  nameWithType: StatusController.Options
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers
+  name: FoundationaLLM.Gateway.AdapterAPI.Controllers
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.html
+  commentId: N:FoundationaLLM.Gateway.AdapterAPI.Controllers
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers
+  nameWithType: FoundationaLLM.Gateway.AdapterAPI.Controllers
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController
+  name: StatusController
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.html
+  commentId: T:FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController
+  nameWithType: StatusController
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get
+  name: Get()
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.html#FoundationaLLM_Gateway_AdapterAPI_Controllers_StatusController_Get
+  commentId: M:FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get()
+  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get*
+  name: Get
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.html#FoundationaLLM_Gateway_AdapterAPI_Controllers_StatusController_Get_
+  commentId: Overload:FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Get
+  nameWithType: StatusController.Get
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options
+  name: Options()
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.html#FoundationaLLM_Gateway_AdapterAPI_Controllers_StatusController_Options
+  commentId: M:FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options()
+  nameWithType: StatusController.Options()
+- uid: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options*
+  name: Options
+  href: api/dotnet/FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.html#FoundationaLLM_Gateway_AdapterAPI_Controllers_StatusController_Options_
+  commentId: Overload:FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.AdapterAPI.Controllers.StatusController.Options
   nameWithType: StatusController.Options
 - uid: FoundationaLLM.Gateway.Client
   name: FoundationaLLM.Gateway.Client
@@ -30892,6 +31052,189 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
   nameWithType: SemanticKernelTextEmbeddingService.GetEmbeddingsAsync
+- uid: FoundationaLLM.State
+  name: FoundationaLLM.State
+  href: api/dotnet/FoundationaLLM.State.html
+- uid: FoundationaLLM.State.API.Controllers
+  name: FoundationaLLM.State.API.Controllers
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.html
+  commentId: N:FoundationaLLM.State.API.Controllers
+  fullName: FoundationaLLM.State.API.Controllers
+  nameWithType: FoundationaLLM.State.API.Controllers
+- uid: FoundationaLLM.State.API.Controllers.StatusController
+  name: StatusController
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html
+  commentId: T:FoundationaLLM.State.API.Controllers.StatusController
+  fullName: FoundationaLLM.State.API.Controllers.StatusController
+  nameWithType: StatusController
+- uid: FoundationaLLM.State.API.Controllers.StatusController.Get
+  name: Get()
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html#FoundationaLLM_State_API_Controllers_StatusController_Get
+  commentId: M:FoundationaLLM.State.API.Controllers.StatusController.Get
+  fullName: FoundationaLLM.State.API.Controllers.StatusController.Get()
+  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.State.API.Controllers.StatusController.Get*
+  name: Get
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html#FoundationaLLM_State_API_Controllers_StatusController_Get_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.StatusController.Get
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.StatusController.Get
+  nameWithType: StatusController.Get
+- uid: FoundationaLLM.State.API.Controllers.StatusController.Options
+  name: Options()
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html#FoundationaLLM_State_API_Controllers_StatusController_Options
+  commentId: M:FoundationaLLM.State.API.Controllers.StatusController.Options
+  fullName: FoundationaLLM.State.API.Controllers.StatusController.Options()
+  nameWithType: StatusController.Options()
+- uid: FoundationaLLM.State.API.Controllers.StatusController.Options*
+  name: Options
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html#FoundationaLLM_State_API_Controllers_StatusController_Options_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.StatusController.Options
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.StatusController.Options
+  nameWithType: StatusController.Options
+- uid: FoundationaLLM.State.Exceptions
+  name: FoundationaLLM.State.Exceptions
+  href: api/dotnet/FoundationaLLM.State.Exceptions.html
+  commentId: N:FoundationaLLM.State.Exceptions
+  fullName: FoundationaLLM.State.Exceptions
+  nameWithType: FoundationaLLM.State.Exceptions
+- uid: FoundationaLLM.State.Exceptions.StateException
+  name: StateException
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateException.html
+  commentId: T:FoundationaLLM.State.Exceptions.StateException
+  fullName: FoundationaLLM.State.Exceptions.StateException
+  nameWithType: StateException
+- uid: FoundationaLLM.State.Exceptions.StateException.#ctor
+  name: StateException()
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateException.html#FoundationaLLM_State_Exceptions_StateException__ctor
+  commentId: M:FoundationaLLM.State.Exceptions.StateException.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.State.Exceptions.StateException.StateException()
+  fullName.vb: FoundationaLLM.State.Exceptions.StateException.New()
+  nameWithType: StateException.StateException()
+  nameWithType.vb: StateException.New()
+- uid: FoundationaLLM.State.Exceptions.StateException.#ctor(System.String,System.Exception,System.Int32)
+  name: StateException(string?, Exception?, int)
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateException.html#FoundationaLLM_State_Exceptions_StateException__ctor_System_String_System_Exception_System_Int32_
+  commentId: M:FoundationaLLM.State.Exceptions.StateException.#ctor(System.String,System.Exception,System.Int32)
+  name.vb: New(String, Exception, Integer)
+  fullName: FoundationaLLM.State.Exceptions.StateException.StateException(string?, System.Exception?, int)
+  fullName.vb: FoundationaLLM.State.Exceptions.StateException.New(String, System.Exception, Integer)
+  nameWithType: StateException.StateException(string?, Exception?, int)
+  nameWithType.vb: StateException.New(String, Exception, Integer)
+- uid: FoundationaLLM.State.Exceptions.StateException.#ctor(System.String,System.Int32)
+  name: StateException(string?, int)
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateException.html#FoundationaLLM_State_Exceptions_StateException__ctor_System_String_System_Int32_
+  commentId: M:FoundationaLLM.State.Exceptions.StateException.#ctor(System.String,System.Int32)
+  name.vb: New(String, Integer)
+  fullName: FoundationaLLM.State.Exceptions.StateException.StateException(string?, int)
+  fullName.vb: FoundationaLLM.State.Exceptions.StateException.New(String, Integer)
+  nameWithType: StateException.StateException(string?, int)
+  nameWithType.vb: StateException.New(String, Integer)
+- uid: FoundationaLLM.State.Exceptions.StateException.#ctor*
+  name: StateException
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateException.html#FoundationaLLM_State_Exceptions_StateException__ctor_
+  commentId: Overload:FoundationaLLM.State.Exceptions.StateException.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.Exceptions.StateException.StateException
+  fullName.vb: FoundationaLLM.State.Exceptions.StateException.New
+  nameWithType: StateException.StateException
+  nameWithType.vb: StateException.New
+- uid: FoundationaLLM.State.Exceptions.StateExceptionHandler
+  name: StateExceptionHandler
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateExceptionHandler.html
+  commentId: T:FoundationaLLM.State.Exceptions.StateExceptionHandler
+  fullName: FoundationaLLM.State.Exceptions.StateExceptionHandler
+  nameWithType: StateExceptionHandler
+- uid: FoundationaLLM.State.Exceptions.StateExceptionHandler.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Exceptions.StateExceptionHandler})
+  name: StateExceptionHandler(ILogger<StateExceptionHandler>)
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateExceptionHandler.html#FoundationaLLM_State_Exceptions_StateExceptionHandler__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Exceptions_StateExceptionHandler__
+  commentId: M:FoundationaLLM.State.Exceptions.StateExceptionHandler.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Exceptions.StateExceptionHandler})
+  name.vb: New(ILogger(Of StateExceptionHandler))
+  fullName: FoundationaLLM.State.Exceptions.StateExceptionHandler.StateExceptionHandler(Microsoft.Extensions.Logging.ILogger<FoundationaLLM.State.Exceptions.StateExceptionHandler>)
+  fullName.vb: FoundationaLLM.State.Exceptions.StateExceptionHandler.New(Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.State.Exceptions.StateExceptionHandler))
+  nameWithType: StateExceptionHandler.StateExceptionHandler(ILogger<StateExceptionHandler>)
+  nameWithType.vb: StateExceptionHandler.New(ILogger(Of StateExceptionHandler))
+- uid: FoundationaLLM.State.Exceptions.StateExceptionHandler.#ctor*
+  name: StateExceptionHandler
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateExceptionHandler.html#FoundationaLLM_State_Exceptions_StateExceptionHandler__ctor_
+  commentId: Overload:FoundationaLLM.State.Exceptions.StateExceptionHandler.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.Exceptions.StateExceptionHandler.StateExceptionHandler
+  fullName.vb: FoundationaLLM.State.Exceptions.StateExceptionHandler.New
+  nameWithType: StateExceptionHandler.StateExceptionHandler
+  nameWithType.vb: StateExceptionHandler.New
+- uid: FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception,System.Threading.CancellationToken)
+  name: TryHandleAsync(HttpContext, Exception, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateExceptionHandler.html#FoundationaLLM_State_Exceptions_StateExceptionHandler_TryHandleAsync_Microsoft_AspNetCore_Http_HttpContext_System_Exception_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync(Microsoft.AspNetCore.Http.HttpContext, System.Exception, System.Threading.CancellationToken)
+  nameWithType: StateExceptionHandler.TryHandleAsync(HttpContext, Exception, CancellationToken)
+- uid: FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync*
+  name: TryHandleAsync
+  href: api/dotnet/FoundationaLLM.State.Exceptions.StateExceptionHandler.html#FoundationaLLM_State_Exceptions_StateExceptionHandler_TryHandleAsync_
+  commentId: Overload:FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Exceptions.StateExceptionHandler.TryHandleAsync
+  nameWithType: StateExceptionHandler.TryHandleAsync
+- uid: FoundationaLLM.State.Interfaces
+  name: FoundationaLLM.State.Interfaces
+  href: api/dotnet/FoundationaLLM.State.Interfaces.html
+  commentId: N:FoundationaLLM.State.Interfaces
+  fullName: FoundationaLLM.State.Interfaces
+  nameWithType: FoundationaLLM.State.Interfaces
+- uid: FoundationaLLM.State.Interfaces.IStateService
+  name: IStateService
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html
+  commentId: T:FoundationaLLM.State.Interfaces.IStateService
+  fullName: FoundationaLLM.State.Interfaces.IStateService
+  nameWithType: IStateService
+- uid: FoundationaLLM.State.Models.Configuration
+  name: FoundationaLLM.State.Models.Configuration
+  href: api/dotnet/FoundationaLLM.State.Models.Configuration.html
+  commentId: N:FoundationaLLM.State.Models.Configuration
+  fullName: FoundationaLLM.State.Models.Configuration
+  nameWithType: FoundationaLLM.State.Models.Configuration
+- uid: FoundationaLLM.State.Models.Configuration.StateServiceSettings
+  name: StateServiceSettings
+  href: api/dotnet/FoundationaLLM.State.Models.Configuration.StateServiceSettings.html
+  commentId: T:FoundationaLLM.State.Models.Configuration.StateServiceSettings
+  fullName: FoundationaLLM.State.Models.Configuration.StateServiceSettings
+  nameWithType: StateServiceSettings
+- uid: FoundationaLLM.State.Services
+  name: FoundationaLLM.State.Services
+  href: api/dotnet/FoundationaLLM.State.Services.html
+  commentId: N:FoundationaLLM.State.Services
+  fullName: FoundationaLLM.State.Services
+  nameWithType: FoundationaLLM.State.Services
+- uid: FoundationaLLM.State.Services.StateService
+  name: StateService
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html
+  commentId: T:FoundationaLLM.State.Services.StateService
+  fullName: FoundationaLLM.State.Services.StateService
+  nameWithType: StateService
+- uid: FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
+  name: StateService(IOptions<StateServiceSettings>, ILogger<StateService>)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_State_Models_Configuration_StateServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_StateService__
+  commentId: M:FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
+  name.vb: New(IOptions(Of StateServiceSettings), ILogger(Of StateService))
+  fullName: FoundationaLLM.State.Services.StateService.StateService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.State.Models.Configuration.StateServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.State.Services.StateService>)
+  fullName.vb: FoundationaLLM.State.Services.StateService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.State.Models.Configuration.StateServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.State.Services.StateService))
+  nameWithType: StateService.StateService(IOptions<StateServiceSettings>, ILogger<StateService>)
+  nameWithType.vb: StateService.New(IOptions(Of StateServiceSettings), ILogger(Of StateService))
+- uid: FoundationaLLM.State.Services.StateService.#ctor*
+  name: StateService
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService__ctor_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.Services.StateService.StateService
+  fullName.vb: FoundationaLLM.State.Services.StateService.New
+  nameWithType: StateService.StateService
+  nameWithType.vb: StateService.New
 - uid: FoundationaLLM.ValidatedEnvironment
   name: ValidatedEnvironment
   href: api/dotnet/FoundationaLLM.ValidatedEnvironment.html

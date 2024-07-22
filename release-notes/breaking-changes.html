@@ -99,6 +99,67 @@
 <li><p><code>Status</code> controllers <code>\status</code> action in the .NET API projects return value has renamed the <code>Instance</code> property to <code>InstanceName</code>.</p>
 </li>
 </ol>
+<h4 id="new-apis">New APIs</h4>
+<p><strong>Gateway Adapter API</strong> - requires the following configuration settings:</p>
+<ul>
+<li><code>FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl</code></li>
+<li><code>FoundationaLLM:APIs:GatewayAdapterAPI:APIKey</code> (mapped to the <code>foundationallm-apis-gatewayadapterapi-apikey</code> secret)</li>
+<li><code>FoundationaLLM:APIs:GatewayAdapterAPI:APIAppInsightsConnectionString</code> (mapped to the <code>foundationallm-app-insights-connection-string</code> secret)</li>
+<li></li>
+</ul>
+<p><strong>Stater API</strong> - requires the following configuration settings:</p>
+<ul>
+<li><code>FoundationaLLM:APIs:StateAPI:APIUrl</code></li>
+<li><code>FoundationaLLM:APIs:StateAPI:APIKey</code> (mapped to the <code>foundationallm-apis-stateapi-apikey</code> secret)</li>
+<li><code>FoundationaLLM:APIs:StateAPI:APIAppInsightsConnectionString</code> (mapped to the <code>foundationallm-app-insights-connection-string</code> secret)</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>These new APIs will be converted to use the new <code>APIEndpoint</code> artifacts.</p>
+</div>
+<h4 id="changes-in-app-registration-names">Changes in app registration names</h4>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>Entra ID app registration name</th>
+<th>Application ID URI</th>
+<th>Scope name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core API</td>
+<td><code>FoundationaLLM-Core-API</code></td>
+<td><code>api://FoundationaLLM-Core</code></td>
+<td><code>Data.Read</code></td>
+</tr>
+<tr>
+<td>Management API</td>
+<td><code>FoundationaLLM-Management-API</code></td>
+<td><code>api://FoundationaLLM-Management</code></td>
+<td><code>Data.Manage</code></td>
+</tr>
+<tr>
+<td>Authorization API</td>
+<td><code>FoundationaLLM-Authorization-API</code></td>
+<td><code>api://FoundationaLLM-Authorization</code></td>
+<td><code>Authorization.Manage</code></td>
+</tr>
+<tr>
+<td>User Portal</td>
+<td><code>FoundationaLLM-User-Portal</code></td>
+<td><code>api://FoundationaLLM-Core-Portal</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Management Portal</td>
+<td><code>FoundationaLLM-Management-Portal</code></td>
+<td><code>api://FoundationaLLM-Management-Portal</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
 <h3 id="pre-080">Pre-0.8.0</h3>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
