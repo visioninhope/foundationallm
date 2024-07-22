@@ -1,9 +1,9 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FoundationaLLM.Vectorization.Worker.Controllers
+namespace FoundationaLLM.Gateway.AdapterAPI.Controllers
 {
     /// <summary>
     /// Provides methods for checking the status of the service.
@@ -13,21 +13,21 @@ namespace FoundationaLLM.Vectorization.Worker.Controllers
     public class StatusController : ControllerBase
     {
         /// <summary>
-        /// Returns the status of the Vectorization Worker service.
+        /// Returns the status of the Vectorization API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
         public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
         {
-            Name = ServiceNames.VectorizationWorker,
+            Name = ServiceNames.GatewayAdapterAPI,
             InstanceName = ValidatedEnvironment.MachineName,
             Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
             Status = ServiceStatuses.Ready
         });
 
-        private static readonly string[] MethodNames = ["GET", "OPTIONS"];
+        private static readonly string[] MethodNames = ["GET", "POST", "OPTIONS", "DELETE"];
 
         /// <summary>
-        /// Returns the allowed HTTP methods for the Vectorization Worker service.
+        /// Returns the allowed HTTP methods for the Vectorization API service.
         /// </summary>
         [HttpOptions]
         public IActionResult Options()
