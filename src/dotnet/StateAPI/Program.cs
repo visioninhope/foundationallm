@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 DefaultAuthentication.Initialize(
     builder.Environment.IsProduction(),
-    ServiceNames.GatewayAdapterAPI);
+    ServiceNames.StateAPI);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -24,21 +24,21 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Gateway);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_State);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString,
-    ServiceNames.GatewayAdapterAPI);
+    AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString,
+    ServiceNames.StateAPI);
 
 // CORS policies
 builder.AddCorsPolicies();
 
 // Generic exception handling
-builder.AddGatewayGenericExceptionHandling();
+builder.AddStateGenericExceptionHandling();
 
 // Open API (Swagger)
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -52,7 +52,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAdapterAPI));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_StateAPI));
 
 builder.Services
     .AddApiVersioning(options =>
