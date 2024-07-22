@@ -51,7 +51,7 @@
     <Compile Include="foundationallm\models\operations\__init__.py" />
     <Compile Include="foundationallm\models\orchestration\background_operation.py" />
     <Compile Include="foundationallm\models\orchestration\background_response.py" />
-    <Compile Include="foundationallm\models\operations\long_running_operation_base.py" />
+    <Compile Include="foundationallm\models\operations\long_running_operation.py" />
     <Compile Include="foundationallm\models\orchestration\completion_operation.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
