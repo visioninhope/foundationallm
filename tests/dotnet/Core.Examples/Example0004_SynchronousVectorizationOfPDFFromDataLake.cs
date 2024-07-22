@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
@@ -59,8 +60,36 @@ namespace FoundationaLLM.Core.Examples
 
         private async Task RunExampleAsync()
         {
+            string accountNameAppConfigKey = $"FoundationaLLM:DataSources:{dataSourceName}:AccountName";
+            string authenticationTypeAppConfigKey = $"FoundationaLLM:DataSources:{dataSourceName}:AuthenticationType";
+
             try
             {
+                WriteLine($"Create the App Configuration key {accountNameAppConfigKey}");
+                await _vectorizationTestService.CreateAppConfiguration(
+                    new AppConfigurationKeyValue
+                    {
+                        Name = accountNameAppConfigKey,
+                        Key = accountNameAppConfigKey,
+                        Value = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_NAME"),
+                        ContentType = ""
+                    }
+                );
+
+                WriteLine($"Create the App Configuration key {authenticationTypeAppConfigKey}");
+                await _vectorizationTestService.CreateAppConfiguration(
+                    new AppConfigurationKeyValue
+                    {
+                        Name = authenticationTypeAppConfigKey,
+                        Key = authenticationTypeAppConfigKey,
+                        Value = "AzureIdentity",
+                        ContentType = ""
+                    }
+                );
+
+                WriteLine($"Create the data source: {dataSourceName} via the Management API");
+                await _vectorizationTestService.CreateDataSource(dataSourceName);
+
                 WriteLine($"Create the data source: {dataSourceName} via the Management API");
                 await _vectorizationTestService.CreateDataSource(dataSourceName);
 
@@ -139,6 +168,12 @@ namespace FoundationaLLM.Core.Examples
             }
             finally
             {
+                WriteLine($"Delete the App Configuration key {accountNameAppConfigKey}");
+                await _vectorizationTestService.DeleteAppConfiguration(accountNameAppConfigKey);
+
+                WriteLine($"Delete the App Configuration key {authenticationTypeAppConfigKey}");
+                await _vectorizationTestService.DeleteAppConfiguration(authenticationTypeAppConfigKey);
+                
                 WriteLine($"Delete the data source: {dataSourceName} via the Management API");
                 try
                 {

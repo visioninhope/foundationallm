@@ -103,8 +103,6 @@ export const useAppConfigStore = defineStore('appConfig', {
 				api.getConfigValue('FoundationaLLM:APIs:VectorizationAPI:APIUrl'),
 				api.getConfigValue('FoundationaLLM:APIs:VectorizationWorker:APIUrl'),
 
-				api.getConfigValue('FoundationaLLM:Instance:Id'),
-
 				getConfigValueSafe('FoundationaLLM:Branding:FavIconUrl'),
 				getConfigValueSafe('FoundationaLLM:Branding:LogoUrl', 'foundationallm-logo-white.svg'),
 				getConfigValueSafe('FoundationaLLM:Branding:LogoText'),
@@ -120,7 +118,8 @@ export const useAppConfigStore = defineStore('appConfig', {
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonBackgroundColor', '#70829a'),
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonTextColor', '#fff'),
 				getConfigValueSafe('FoundationaLLM:Branding:FooterText'),
-
+				api.getConfigValueSafe('FoundationaLLM:Instance:Id','00000000-0000-0000-0000-000000000000'),
+				
 				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:TenantId'),
