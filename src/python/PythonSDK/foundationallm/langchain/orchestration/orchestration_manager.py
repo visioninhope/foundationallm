@@ -2,9 +2,9 @@ import requests
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
+from foundationallm.models.operations import OperationState
 from foundationallm.models.orchestration import (
-    BackgroundOperation,
-    BackgroundResponse,
+    CompletionOperation,
     CompletionRequestBase,
     CompletionResponse
 )
@@ -83,7 +83,12 @@ class OrchestrationManager:
         return completion_response
 
     @staticmethod
-    async def create_operation(operation_id: str, completion_request: KnowledgeManagementCompletionRequest) -> BackgroundOperation:
+    async def create_operation(
+        operation_id: str,
+        instance_id: str,
+        completion_request: KnowledgeManagementCompletionRequest,
+        config: Configuration,
+        x_user_identity: Optional[str] = Header(None)) -> OperationState:
         """
         Creates a background operation by settings its initial state through the State API.
         
@@ -94,6 +99,8 @@ class OrchestrationManager:
         """
         print(f'Creating operation: {operation_id}')
         # Call the State API to create a new operation.
+        # This should essentially just be a POST request to the State API to create it.
+
         #payload = {
         #    'operation_id': operation_id,
         #    'completed': False,
@@ -110,7 +117,21 @@ class OrchestrationManager:
         #if r.status_code != 202:
         #    raise Exception(f'Error: ({r.status_code}) {r.text}')
 
-        return BackgroundOperation(operation_id=operation_id)
+        completion_operation = OperationState(
+            id=operation_id,
+            description='The operation has been submitted and is awaiting completion.'
+            status='Accepted'
+        )
+
+        # completion_operation.execution_log.append(
+        #     ExecutionLogEntry(
+        #         status='Accepted',
+        #         status_message=f'Operation {operation_id} submitted and accepted.',
+        #         timestamp=datetime.now()
+        #     )
+        # )
+
+        return completion_operation
 
     @staticmethod
     async def get_operation_state(state_endpoint: str, operation_id: str) -> BackgroundResponse:
