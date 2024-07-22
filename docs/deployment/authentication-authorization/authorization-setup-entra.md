@@ -2,23 +2,6 @@
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authorization. This means that you can use your Microsoft Entra ID to setup authorization access to FoundationaLLM's platform.
 
-## Create the Microsoft Entra ID applications
-
-To enable Microsoft Entra ID authorization to the FoundationaLLM platform, you need to register an application in the Microsoft Azure portal Entra ID:
-
-### Pre-requisites
-
-> [!NOTE]
-> Make sure you create this App Registration before you run the [deployment scripts](../../deployment/index.md) using `azd up` as you will need some of the generated information during your `azd env set` calls
-
-#### Setup App Configuration access
-
-1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
-2. Navigate to the Resource Group that was created as part of the deployment.
-> [!NOTE]
-> If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with `ME_` or `MC_` in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that **does not start with** `ME_` or `MC_` to access the App Configuration resource.
-3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authorization setup. To add your user account to the appropriate role, follow the instructions in the [Configure access control for services](../../deployment/configure-access-control-for-services.md#azure-app-configuration-service) document.
-
 ### Create the client application
 
 #### Register the client application in the Microsoft Entra ID admin center
@@ -29,7 +12,7 @@ To enable Microsoft Entra ID authorization to the FoundationaLLM platform, you n
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
 3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Authorization*. 
+4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Authorization-API*. 
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
 7. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
