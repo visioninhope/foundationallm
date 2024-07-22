@@ -15,11 +15,11 @@ from fastapi import (
     status
 )
 from foundationallm.config import Configuration, Context
+from foundationallm.models.operations import OperationState
 from foundationallm.models.orchestration import (
+    CompletionOperation,
     CompletionRequestBase,    
-    CompletionResponse,
-    BackgroundOperation,
-    BackgroundResponse
+    CompletionResponse
 )
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.langchain.orchestration import OrchestrationManager
@@ -37,8 +37,6 @@ router = APIRouter(
     dependencies=[Depends(validate_api_key_header)],
     responses={404: {'description':'Not found'}}
 )
-
-#background_responses = {}
 
 # temporary to support legacy agents alongside the knowledge-management and internal context agent
 async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:   
@@ -60,21 +58,21 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
         202: {'description': 'Completion request accepted.'},
     }
 )
-async def request_completion(
+async def submit_completion_request(
     response: Response,
     raw_request: Request,
     background_tasks: BackgroundTasks,
     instance_id: str,
     completion_request: CompletionRequestBase = Depends(resolve_completion_request),
     x_user_identity: Optional[str] = Header(None)
-) -> BackgroundOperation:
+) -> OperationState:
     """
     Initiates the creation of a completion response in the background.
     
     Returns
     -------
-    BackgroundOperation
-        Object containing the operation ID.
+    CompletionOperation
+        Object containing the operation ID and status.
     """
     with tracer.start_as_current_span('async-completions') as span:
         try:
@@ -84,50 +82,94 @@ async def request_completion(
             span.set_attribute('request_id', completion_request.request_id)
             span.set_attribute('user_identity', x_user_identity)
 
-            # Add the location response header.
+            # Add a location header to the response.
             response.headers['location'] = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}'
 
             # Kick of the background task to create the completion response.
             background_tasks.add_task(
                 create_completion_response,
                 operation_id,
+                instance_id,
                 completion_request,
                 raw_request.app.extra['config'],
                 x_user_identity
             )
 
-            background_operation = await OrchestrationManager.create_operation(operation_id, completion_request)
-            return background_operation
+            # Submit the completion request operation to the state API.
+            operation_state = await OrchestrationManager.create_operation(
+                operation_id,
+                instance_id,
+                completion_request,
+                raw_request.app.extra['config'],
+                x_user_identity
+            )
+
+            # Append the status and result URLs to the operation state.
+            return operation_state
     
         except Exception as e:
             handle_exception(e)
 
 @router.get(
-    '/async-completions/{operation_id}',
-    summary = 'Retrieve the status of a completion request operation for the specified operation ID.',
+    '/async-completions/{operation_id}/status',
+    summary = 'Retrieve the status of the completion request operation with the specified operation ID.',
     responses = {
         200: {'description': 'The operation has completed.'},
-        204: {'description': 'The operation has not completed.'},
         404: {'description': 'The operation was not found.'}
     }
 )
-async def get_completion(
+async def get_operation_status(
     raw_request: Request,
     instance_id: str,
-    operation_id: str
-) -> CompletionResponse:
-    with tracer.start_as_current_span(f'async-completions/{operation_id}') as span:
+    operation_id: str,
+    x_user_identity: Optional[str] = Header(None)
+) -> OperationState:
+    with tracer.start_as_current_span(f'get_operation_status') as span:
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
-            #if operation_id not in background_responses:
-            #    raise HTTPException(status_code=404)
-
-            #background_response = background_responses[operation_id]
-
-            background_response = await OrchestrationManager.get_operation_state('http://localhost:8080', operation_id)
+            background_response = await OrchestrationManager.get_operation_state(
+                operation_id,
+                raw_request.app.extra['config'],
+                x_user_identity
+            )
             print('BACKGROUND RESPONSE:', background_response)
+
+            if background_response is None:
+                raise HTTPException(status_code=404)
+
+            if not background_response.completed:
+                return Response(status_code=204)
+
+            return background_response.response
+        except Exception as e:
+            handle_exception(e)
+
+@router.get(
+    '/async-completions/{operation_id}/result',
+    summary = 'Retrieve the completion result of the operation with the specified operation ID.',
+    responses = {
+        200: {'description': 'The operation has completed.'},
+        404: {'description': 'The operation was not found.'}
+    }
+)
+async def get_operation_result(
+    raw_request: Request,
+    instance_id: str,
+    operation_id: str,
+    x_user_identity: Optional[str] = Header(None)
+) -> CompletionResponse:
+    with tracer.start_as_current_span(f'get_operatin_result') as span:
+        try:
+            span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
+            
+            background_response = await OrchestrationManager.get_operation_result(
+                operation_id,
+                raw_request.app.extra['config'],
+                x_user_identity
+            )
 
             if background_response is None:
                 raise HTTPException(status_code=404)
@@ -141,32 +183,39 @@ async def get_completion(
 
 async def create_completion_response(
     operation_id: str,
+    instance_id: str,
     completion_request: KnowledgeManagementCompletionRequest,
     configuration: Configuration,
     x_user_identity: Optional[str] = Header(None)
 ):
-    try:
-        orchestration_manager = OrchestrationManager(
-            completion_request = completion_request,
-            configuration = configuration,
-            context = Context(user_identity=x_user_identity)
-        )
+    with tracer.start_as_current_span(f'create_completion_response') as span:
+        try:
+            span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
+            span.set_attribute('request_id', completion_request.request_id)
+            span.set_attribute('user_identity', x_user_identity)
+            
+            orchestration_manager = OrchestrationManager(
+                completion_request = completion_request,
+                configuration = configuration,
+                context = Context(user_identity=x_user_identity)
+            )
 
-        completion = await orchestration_manager.ainvoke(completion_request)
+            completion = await orchestration_manager.ainvoke(completion_request)
 
-        # TODO: This needs to write the completion response to the state API and update the result of the operation object.
+            # TODO: This needs to send the completion to the state API and update the result of the operation object.
         
 
-        #background_responses[operation_id].response = completion
-        #background_responses[operation_id].completed = True
+            #background_responses[operation_id].response = completion
+            #background_responses[operation_id].completed = True
 
-        print('COMPLETION RESPONSE:', completion)
+            print('COMPLETION RESPONSE:', completion)
         
-    except Exception as e:
-        #background_responses[operation_id].response = CompletionResponse(
-        #    user_prompt = completion_request.user_prompt,
-        #    completion = 'An error occurred in the LangChain orchestration service while processing the completion request.'
-        #)
-        #background_responses[operation_id].completed = True
+        except Exception as e:
+            #background_responses[operation_id].response = CompletionResponse(
+            #    user_prompt = completion_request.user_prompt,
+            #    completion = 'An error occurred in the LangChain orchestration service while processing the completion request.'
+            #)
+            #background_responses[operation_id].completed = True
 
-        print('COMPLETION ERROR:', e)
+            print('COMPLETION ERROR:', e)
