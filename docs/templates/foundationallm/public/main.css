@@ -461,6 +461,10 @@ img {
   background-color: var(--material-danger-header);
 }
 
+.alert-danger > h5:before {
+  content: '\f431' !important; 
+}
+
 /* CODE HIGHLIGHT */
 code {
   border-radius: var(--bs-border-radius);
