@@ -38,7 +38,7 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         public void ConversationHistory_SetAndGet_ReturnsCorrectValue()
         {
             // Arrange
-            var conversationHistory = new ConversationHistory { Enabled = true, MaxHistory = 100 };
+            var conversationHistory = new ConversationHistorySettings { Enabled = true, MaxHistory = 100 };
             _agentBase.ConversationHistory = conversationHistory;
 
             // Assert
@@ -49,7 +49,7 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         public void Gatekeeper_SetAndGet_ReturnsCorrectValue()
         {
             // Arrange
-            var gatekeeper = new Gatekeeper { UseSystemSetting = false, Options = new string[] { "Option1", "Option2" } };
+            var gatekeeper = new GatekeeperSettings { UseSystemSetting = false, Options = new string[] { "Option1", "Option2" } };
             _agentBase.Gatekeeper = gatekeeper;
 
             // Assert

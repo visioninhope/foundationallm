@@ -38,12 +38,12 @@ public interface ICoreService
     /// Receive a prompt from a user, retrieve the message history from the related session,
     /// generate a completion response, and log full completion results.
     /// </summary>
-    Task<Completion> GetChatCompletionAsync(ClientCompletionRequest completionRequest);
+    Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest);
 
     /// <summary>
     /// Provides a completion for a user prompt, without a session.
     /// </summary>
-    Task<Completion> GetCompletionAsync(ClientCompletionRequest directCompletionRequest);
+    Task<Completion> GetCompletionAsync(CompletionRequest directCompletionRequest);
 
     /// <summary>
     /// Generate a name for a chat message, based on the passed in prompt.

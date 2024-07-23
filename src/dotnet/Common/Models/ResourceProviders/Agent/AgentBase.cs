@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
@@ -25,26 +26,27 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         /// The agent's conversation history configuration.
         /// </summary>
         [JsonPropertyName("conversation_history")]
-        public ConversationHistory? ConversationHistory { get; set; }
+        public ConversationHistorySettings? ConversationHistory { get; set; }
         /// <summary>
         /// The agent's Gatekeeper configuration.
         /// </summary>
         [JsonPropertyName("gatekeeper")]
-        public Gatekeeper? Gatekeeper { get; set; }
+        public GatekeeperSettings? Gatekeeper { get; set; }
 
         /// <summary>
         /// Settings for the orchestration service.
         /// </summary>
         [JsonPropertyName("orchestration_settings")]
-        public LLMOrchestrationSettings? OrchestrationSettings { get; set; }
+        public AgentOrchestrationSettings? OrchestrationSettings { get; set; }
+
         /// <summary>
-        /// The agent's prompt.
+        /// The object identifier of the <see cref="PromptBase"/> object providing the prompt for the agent.
         /// </summary>
         [JsonPropertyName("prompt_object_id")]
         public string? PromptObjectId { get; set; }
 		
 		/// <summary>
-        /// The agent's AIModel.
+        /// The object identifier of the <see cref="AIModelBase"/> object providing the AI model for the agent.
         /// </summary>
         [JsonPropertyName("aimodel_object_id")]
         public string? AIModelObjectId { get; set; }
@@ -71,7 +73,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// <summary>
     /// Agent conversation history settings.
     /// </summary>
-    public class ConversationHistory
+    public class ConversationHistorySettings
     {
         /// <summary>
         /// Indicates whether the conversation history is enabled.
@@ -88,7 +90,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// <summary>
     /// Agent Gatekeeper settings.
     /// </summary>
-    public class Gatekeeper
+    public class GatekeeperSettings
     {
         /// <summary>
         /// Indicates whether to abide by or override the system settings for the Gatekeeper.

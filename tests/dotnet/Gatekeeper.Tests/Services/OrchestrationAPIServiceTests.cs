@@ -28,10 +28,10 @@ namespace Gatekeeper.Tests.Services
         public async Task GetCompletion_SuccessfulCompletionResponse()
         {
             // Arrange
-            var completionRequest = new ClientCompletionRequest { UserPrompt = "Prompt_1", MessageHistory = new List<MessageHistoryItem>() };
+            var completionRequest = new CompletionRequest { UserPrompt = "Prompt_1", MessageHistory = new List<MessageHistoryItem>() };
 
             // Create a mock message handler
-            var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, new ClientCompletionResponse { Completion = "Test Completion" });
+            var mockHandler = new MockHttpMessageHandler(HttpStatusCode.OK, new CompletionResponse { Completion = "Test Completion" });
 
             var httpClient = new HttpClient(mockHandler)
             {
@@ -51,7 +51,7 @@ namespace Gatekeeper.Tests.Services
         public async Task GetCompletion_UnsuccessfulDefaultResponse()
         {
             // Arrange
-            var completionRequest = new ClientCompletionRequest { UserPrompt = "Prompt_1", MessageHistory = new List<MessageHistoryItem>() };
+            var completionRequest = new CompletionRequest { UserPrompt = "Prompt_1", MessageHistory = new List<MessageHistoryItem>() };
 
             // Create a mock message handler
             var mockHandler = new MockHttpMessageHandler(HttpStatusCode.InternalServerError, string.Empty);

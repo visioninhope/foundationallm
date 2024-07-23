@@ -22,7 +22,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             };
 
             // Act
-            var completionRequest = new ClientCompletionRequest
+            var completionRequest = new CompletionRequest
             {
                 UserPrompt = expectedPrompt,
                 MessageHistory = expectedMessageHistory

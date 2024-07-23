@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using System.Text.Json.Serialization;
@@ -42,9 +43,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public List<UrlException> UrlExceptions { get; set; } = new List<UrlException>();
 
         /// <summary>
-        /// Dictionary of settings for authenticating that support the AuthenticationType 
+        /// Dictionary with values used for authentication.
+        /// <para>
+        /// For the list of supported keys, see <see cref="AuthenticationParameterKeys"/>.
+        /// </para>
         /// </summary>
-        public Dictionary<string, object> AuthenticationParameters { get; set; } = new Dictionary<string, object>();
+        [JsonPropertyName("authentication_parameters")]
+        public Dictionary<string, object> AuthenticationParameters { get; set; } = [];
 
         /// <summary>
         /// The timeout duration in seconds for API calls.
@@ -59,13 +64,18 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public required string RetryStrategyName { get; set; }
 
         /// <summary>
-        /// The API provider
+        /// The API endpoint provider.
+        /// <para>
+        /// For a list of available API endpoint providers, see <see cref="APIEndpointProviders"/>.
+        /// </para>
         /// </summary>
+        [JsonPropertyName("provider")]
         public string? Provider { get; set; }
 
         /// <summary>
         /// The version of the API to call
         /// </summary>
+        [JsonPropertyName("api_version")]
         public string? APIVersion { get; set; }
 
         /// <summary>
@@ -73,6 +83,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// This value should be completions or chat.
         /// Default value is chat.
         /// </summary>
+        [JsonPropertyName("operation_type")]
         public string? OperationType { get; set; }
 
     }

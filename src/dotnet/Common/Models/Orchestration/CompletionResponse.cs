@@ -5,7 +5,7 @@ namespace FoundationaLLM.Common.Models.Orchestration;
 /// <summary>
 /// Response from a language model.
 /// </summary>
-public class ClientCompletionResponse : CompletionResponseBase
+public class CompletionResponse : CompletionResponseBase
 {
 
     /// <summary>
@@ -22,7 +22,7 @@ public class ClientCompletionResponse : CompletionResponseBase
     /// <param name="userPromptTokens">The number of tokens in the prompt.</param>
     /// <param name="responseTokens">The number of tokens in the completion.</param>
     /// <param name="userPromptEmbedding">User prompt embedding.</param>
-    public ClientCompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,
+    public CompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,
         float[]? userPromptEmbedding)
     {
         Completion = completion;
@@ -35,7 +35,7 @@ public class ClientCompletionResponse : CompletionResponseBase
     /// <summary>
     /// Initialize a completion response.
     /// </summary>
-    public ClientCompletionResponse()
+    public CompletionResponse()
     {
         Completion = string.Empty;
         UserPrompt = string.Empty;

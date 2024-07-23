@@ -26,7 +26,7 @@ namespace FoundationaLLM.Gatekeeper.API.Controllers
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
         [HttpPost("completion")]
-        public async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest) =>
+        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest) =>
             await _gatekeeperService.GetCompletion(completionRequest);
 
         /// <summary>

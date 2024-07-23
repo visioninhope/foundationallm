@@ -1,6 +1,6 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
-using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
@@ -16,26 +16,33 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
         /// <inheritdoc/>
         [JsonIgnore]
         public override string? Type { get; set; }
+
         /// <summary>
-        /// The endpoint metadata needed to call the AI model endpoint
+        /// The object id of the <see cref="APIEndpointConfiguration"/> object providing the configuration for the API endpoint used to interact with the model.
         /// </summary>
         [JsonPropertyName("endpoint")]
-        public APIEndpointConfiguration? Endpoint { get; set; }
+
+        public required string EndpointObjectId { get; set; }
+
         /// <summary>
         /// The version for the AI model
         /// </summary>
         [JsonPropertyName("version")]
         public string? Version { get; set; }
+
         /// <summary>
         /// Deployment name for the AI model
-        [JsonPropertyName("deployment_name")]
         /// </summary>
+        [JsonPropertyName("deployment_name")]
         public string? DeploymentName { get; set; }
+
         /// <summary>
-        /// Key value parameters configured for the model
+        /// Dictionary with default values for the model parameters.
+        /// <para>
+        /// For the list of supported keys, see <see cref="ModelParameterKeys"/>.
+        /// </para>
         /// </summary>
         [JsonPropertyName("model_parameters")]
-        public Dictionary<string, object> ModelParameters { get; set; } = new Dictionary<string, object>();
-
+        public Dictionary<string, object> ModelParameters { get; set; } = [];
     }
 }

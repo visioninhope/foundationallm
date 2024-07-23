@@ -41,7 +41,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="completionRequestest">The orchestration request that contains the
         /// SessionID, AgentName, and UserPrompt at a minimum.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> GetCompletionWithSessionAsync(ClientCompletionRequest completionRequest);
+        Task<Completion> GetCompletionWithSessionAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Runs a single completion with an agent using the Core API without a chat session
@@ -63,7 +63,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="completionRequest">The orchestration request that contains the AgentName
         /// and UserPrompt at a minimum.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> GetCompletionAsync(ClientCompletionRequest completionRequest);
+        Task<Completion> GetCompletionAsync(CompletionRequest completionRequest);
 
         /// <summary>
         /// Attaches a file to the completion request and sends a question to the agent using the

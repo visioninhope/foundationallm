@@ -32,7 +32,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         public async Task GetCompletion_ReturnsCompletionResponse()
         {
             // Arrange
-            var completionRequest = new ClientCompletionRequest() { UserPrompt = "Test_userprompt"};
+            var completionRequest = new CompletionRequest() { UserPrompt = "Test_userprompt"};
             var orchestrationResult = new LLMCompletionResponse { Completion = "Completion" };
             _orchestrationService.GetCompletion(Arg.Any<LLMCompletionRequest>())
                 .Returns(Task.FromResult(orchestrationResult));

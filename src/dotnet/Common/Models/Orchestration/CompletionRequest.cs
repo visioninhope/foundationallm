@@ -1,12 +1,11 @@
-﻿using FoundationaLLM.Common.Models.Chat;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration;
 
 /// <summary>
 /// The completion request object.
 /// </summary>
-public class ClientCompletionRequest : CompletionRequestBase
+public class CompletionRequest : CompletionRequestBase
 {
     /// <summary>
     /// The name of the selected agent.
@@ -22,8 +21,8 @@ public class ClientCompletionRequest : CompletionRequestBase
     public string[]? GatekeeperOptions { get; set; }
 
     /// <summary>
-    /// Collection of model settings to override with the orchestration request.
+    /// Settings that override some aspects of behaviour of the orchestration.
     /// </summary>
     [JsonPropertyName("settings")]
-    public ClientOrchestrationSettings? Settings { get; set; }
+    public OrchestrationSettings? Settings { get; set; }
 }

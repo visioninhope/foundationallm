@@ -1,12 +1,12 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+﻿using FoundationaLLM.Common.Constants.Agents;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
 {
     /// <summary>
-    /// Shared settings for an orchestration request
+    /// Completion request for invoking the LLM
     /// </summary>
-    public class OrchestrationSettingsBase
+    public class AgentOrchestrationSettings
     {
         /// <summary>
         /// The agent's LLM orchestrator type.
@@ -15,7 +15,10 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public string? Orchestrator { get; set; }
 
         /// <summary>
-        /// AzureAICompletionParameters to override the behavior of the agent.
+        /// Dictionary with override values for the agent parameters.
+        /// <para>
+        /// For the list of supported keys, see <see cref="AgentParameterKeys"/>.
+        /// </para>
         /// </summary>
         [JsonPropertyName("agent_parameters")]
         public Dictionary<string, object>? AgentParameters { get; set; }

@@ -6,16 +6,6 @@
     public static class ModelParameterKeys
     {
         /// <summary>
-        /// The key name for the deployment_name model parameter.
-        /// This value should be a string representing the name of the model deployment in Azure OpenAI.
-        /// </summary>
-        public const string DeploymentName = "deployment_name";
-        /// <summary>
-        /// The key name for the model version parameter.
-        /// This value should be a string representing the version of the model to use.
-        /// </summary>
-        public const string Version = "version";
-        /// <summary>
         /// Controls randomness. Lowering the temperature means that the model will produce more repetitive and
         /// deterministic responses. Increasing the temperature will result in more unexpected or creative responses.
         /// Try adjusting temperature or Top P but not both. This value should be a float between 0.0 and 1.0.

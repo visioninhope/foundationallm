@@ -8,7 +8,6 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -123,7 +122,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             if (endpoint.AuthenticationType == AuthenticationTypes.APIKey)
             {
-                if (!endpoint.AuthenticationParameters.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
+                if (!endpoint.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKey, out var apiKeyKeyName))
                     throw new Exception("An API key must be passed in via an Azure App Config key name.");
 
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;

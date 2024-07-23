@@ -1,9 +1,9 @@
-﻿namespace FoundationaLLM.Common.Constants.Agents
+﻿namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
     /// Language Model provider constants.
     /// </summary>
-    public static class LanguageModelProviders
+    public static class APIEndpointProviders
     {
         /// <summary>
         /// Microsoft

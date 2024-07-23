@@ -21,7 +21,7 @@ public interface ICoreAPITestManager
     /// <param name="completionRequestest"></param>
     /// <returns>Returns a completion response.</returns>
     /// <exception cref="FoundationaLLMException"></exception>
-    Task<Completion> SendSessionCompletionRequestAsync(ClientCompletionRequest completionRequest);
+    Task<Completion> SendSessionCompletionRequestAsync(CompletionRequest completionRequest);
 
     /// <summary>
     /// Gets a completion prompt by session ID and completion prompt ID.
@@ -43,7 +43,7 @@ public interface ICoreAPITestManager
     /// </summary>
     /// <param name="completionRequest"></param>
     /// <returns></returns>
-    Task<Completion> SendOrchestrationCompletionRequestAsync(ClientCompletionRequest completionRequest);
+    Task<Completion> SendOrchestrationCompletionRequestAsync(CompletionRequest completionRequest);
 
     /// <summary>
     /// Deletes a chat session.

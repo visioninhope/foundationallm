@@ -60,13 +60,13 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         {
             var agent = _request.Agent as KnowledgeManagementAgent;
 
-            if (agent!.OrchestrationSettings!.AgentParameters == null)
-                throw new SemanticKernelException("The agent parameters are missing in the orchestration settings.", StatusCodes.Status400BadRequest);
+            if (_request.Objects == null)
+                throw new SemanticKernelException("The Objects dictionary is missing in the LLM orchestration request.", StatusCodes.Status400BadRequest);
 
             #region Other agent descriptions
 
-            if (agent.OrchestrationSettings.AgentParameters.TryGetValue(
-                        "AllAgents", out var allAgentDescriptions))
+            if (_request.Objects.TryGetValue(
+                "AllAgents", out var allAgentDescriptions))
             {
                 _agentDescriptions = allAgentDescriptions is JsonElement allAgentDescriptionsJsonElement
                     ? allAgentDescriptionsJsonElement.Deserialize<Dictionary<string, string>>()
@@ -77,12 +77,12 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             #region Prompt
 
-            if (string.IsNullOrWhiteSpace(agent.PromptObjectId))
+            if (string.IsNullOrWhiteSpace(agent!.PromptObjectId))
                 throw new SemanticKernelException("Invalid prompt object id.", StatusCodes.Status400BadRequest);
 
-            if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
+            if (!_request.Objects.TryGetValue(
                     agent.PromptObjectId, out var promptObject))
-                throw new SemanticKernelException("The prompt object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
+                throw new SemanticKernelException("The prompt object is missing from the request's objects.", StatusCodes.Status400BadRequest);
 
             var prompt = promptObject is JsonElement promptJsonElement
                 ? promptJsonElement.Deserialize<MultipartPrompt>()
@@ -90,7 +90,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             if (prompt == null
                 || string.IsNullOrWhiteSpace(prompt.Prefix))
-                throw new SemanticKernelException("The prompt object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
+                throw new SemanticKernelException("The prompt object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
 
             _prompt = prompt.Prefix;
 
@@ -100,9 +100,9 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             if (!string.IsNullOrWhiteSpace(agent.Vectorization.TextEmbeddingProfileObjectId))
             {
-                if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
+                if (!_request.Objects.TryGetValue(
                         agent.Vectorization.TextEmbeddingProfileObjectId, out var textEmbeddingProfileObject))
-                    throw new SemanticKernelException("The text embedding profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The text embedding profile object is missing from the request's objects.", StatusCodes.Status400BadRequest);
 
                 var textEmbeddingProfile = textEmbeddingProfileObject is JsonElement textEmbeddingProfileJsonElement
                     ? textEmbeddingProfileJsonElement.Deserialize<TextEmbeddingProfile>()
@@ -114,7 +114,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem)
                     || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("EndpointUrl", out var textEmbeddingEndpointConfigurationItem)
                     || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
-                    throw new SemanticKernelException("The text embedding profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The text embedding profile object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
 
                 _textEmbeddingDeploymentName = textEmbeddingProfile.Settings != null
                     && textEmbeddingProfile.Settings.TryGetValue("deployment_name", out string? deploymentNameOverride)
@@ -126,12 +126,12 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             if ((agent.Vectorization.IndexingProfileObjectIds ?? []).Count > 0)
             {
-                if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds[0]))
+                if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds![0]))
                     throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
 
-                if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
+                if (!_request.Objects.TryGetValue(
                         agent.Vectorization.IndexingProfileObjectIds[0], out var indexingProfileObject))
-                    throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The indexing profile object is missing from the request's objects.", StatusCodes.Status400BadRequest);
 
                 var indexingProfile = indexingProfileObject is JsonElement indexingProfileJsonElement
                     ? indexingProfileJsonElement.Deserialize<IndexingProfile>()
@@ -142,7 +142,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     || indexingProfile.Settings == null
                     || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
                     || string.IsNullOrWhiteSpace(indexName))
-                    throw new SemanticKernelException("The indexing profile object provided in the agent parameters is invalid.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The indexing profile object provided in the request's is invalid.", StatusCodes.Status400BadRequest);
 
                 _indexerName = indexingProfile.Indexer.ToString();
                 _indexName = indexName;

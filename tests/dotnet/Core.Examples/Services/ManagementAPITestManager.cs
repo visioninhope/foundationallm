@@ -217,16 +217,19 @@ namespace FoundationaLLM.Core.Examples.Services
                 throw new InvalidOperationException($"The agent {agentName} was not found.");
             }
 
+            // TODO: we need support for creating APIEndpointConfiguration and AIModel object in ManagementClient
+            // This will break everything in the E2E tests.
+
             // Resolve App Config values for the endpoint configuration as necessary.
             // Note: This is a temporary workaround until we have the Models and Endpoints resource provider in place.
-            var endpoint = agent.OrchestrationSettings?.AIModel?.Endpoint;
-            if (endpoint != null)
-            {
-                if (endpoint.Url != null && endpoint.Url.StartsWith("FoundationaLLM:"))
-                    endpoint.Url = await TestConfiguration.GetAppConfigValueAsync(endpoint.Url!);
-                if (endpoint.APIVersion != null && endpoint.APIVersion.StartsWith("FoundationaLLM:"))
-                    endpoint.APIVersion = await TestConfiguration.GetAppConfigValueAsync(endpoint.APIVersion!);
-            }
+            //var endpoint = agent.OrchestrationSettings?.AIModel?.Endpoint;
+            //if (endpoint != null)
+            //{
+            //    if (endpoint.Url != null && endpoint.Url.StartsWith("FoundationaLLM:"))
+            //        endpoint.Url = await TestConfiguration.GetAppConfigValueAsync(endpoint.Url!);
+            //    if (endpoint.APIVersion != null && endpoint.APIVersion.StartsWith("FoundationaLLM:"))
+            //        endpoint.APIVersion = await TestConfiguration.GetAppConfigValueAsync(endpoint.APIVersion!);
+            //}
 
             var agentPrompt = await CreatePrompt(agentName);
             // Add the prompt ObjectId to the agent.

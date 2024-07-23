@@ -76,7 +76,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
         public void TestTotalTokensCalculation()
         {
             // Arrange
-            var completionResponse = new ClientCompletionResponse();
+            var completionResponse = new CompletionResponse();
             completionResponse.PromptTokens = 5;
             completionResponse.CompletionTokens = 10;
 
@@ -91,7 +91,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
         public void TestDefaultCompletionResponseInitialization()
         {
             // Arrange
-            var completionResponse = new ClientCompletionResponse();
+            var completionResponse = new CompletionResponse();
 
             // Act
 
@@ -111,7 +111,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             string expectedUserPrompt = "Test user prompt";
 
             // Act
-            var orchestrationRequest = new ClientCompletionRequest
+            var orchestrationRequest = new CompletionRequest
             {
                 SessionId = expectedSessionId,
                 UserPrompt = expectedUserPrompt
@@ -122,9 +122,9 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             Assert.Equal(expectedUserPrompt, orchestrationRequest.UserPrompt);
         }
 
-        public ClientCompletionResponse CreateCompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,float[]? userPromptEmbedding)
+        public CompletionResponse CreateCompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,float[]? userPromptEmbedding)
         {
-            var completionResponse = new ClientCompletionResponse(completion, userPrompt, userPromptTokens, responseTokens, userPromptEmbedding);
+            var completionResponse = new CompletionResponse(completion, userPrompt, userPromptTokens, responseTokens, userPromptEmbedding);
             return completionResponse;
         }
     }

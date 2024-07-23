@@ -29,9 +29,9 @@ namespace FoundationaLLM.Common.Services.API
         public string APIName => _downstreamHttpClientName;
 
         /// <inheritdoc/>
-        public async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
-            var fallback = new ClientCompletionResponse
+            var fallback = new CompletionResponse
             {
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
@@ -61,7 +61,7 @@ namespace FoundationaLLM.Common.Services.API
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var completionResponse = JsonSerializer.Deserialize<ClientCompletionResponse>(responseContent);
+                var completionResponse = JsonSerializer.Deserialize<CompletionResponse>(responseContent);
 
                 return completionResponse ?? fallback;
             }

@@ -1,14 +1,17 @@
-﻿using FoundationaLLM.Common.Constants.Agents;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
+using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.Core.Agents
 {
@@ -44,8 +47,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             return _llmProvider switch
             {
-                LanguageModelProviders.MICROSOFT => await BuildResponseWithAzureOpenAI(),
-                LanguageModelProviders.OPENAI => await BuildResponseWithOpenAI(),
+                APIEndpointProviders.MICROSOFT => await BuildResponseWithAzureOpenAI(),
+                APIEndpointProviders.OPENAI => await BuildResponseWithOpenAI(),
                 _ => throw new SemanticKernelException($"The LLM provider '{_llmProvider}' is not supported.")
             };
         }
@@ -110,29 +113,39 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
             if (_request.Agent.OrchestrationSettings == null)
                 throw new SemanticKernelException("The OrchestrationSettings property of the agent cannot be null.", StatusCodes.Status400BadRequest);
 
-            var aiModel = _request.Agent.OrchestrationSettings.AIModel;
-            if (aiModel == null)
-                throw new SemanticKernelException("The AIModel for the agent OrchestrationSettings cannot be null");
+            if (_request.Objects == null)
+                throw new SemanticKernelException("The Objects property of the completion request cannot be null.", StatusCodes.Status400BadRequest);
 
-            var endpoint = aiModel.Endpoint;
+            if (string.IsNullOrWhiteSpace(_request.Agent.AIModelObjectId))
+                throw new SemanticKernelException("Invalid AI model object id.", StatusCodes.Status400BadRequest);
 
-            if (endpoint == null)
-                throw new SemanticKernelException("The EndpointUrl property of the AIModel cannot be null.", StatusCodes.Status400BadRequest);
+            if (!_request.Objects.TryGetValue(
+                    _request.Agent.AIModelObjectId, out var aiModelObject))
+                throw new SemanticKernelException("The AI model object is missing from the request's objects.", StatusCodes.Status400BadRequest);
 
-            if ( string.IsNullOrWhiteSpace(endpoint?.Provider))
-                throw new SemanticKernelException("The Provider property of the AIModel endpoint property cannot be null.", StatusCodes.Status400BadRequest);
+            var aiModel = aiModelObject is JsonElement aiModelJsonElement
+                ? aiModelJsonElement.Deserialize<AIModelBase>()
+                : aiModelObject as AIModelBase;
 
-            if (!LanguageModelProviders.All.Contains(endpoint?.Provider))
-                throw new SemanticKernelException($"The LLM provider '{endpoint?.Provider}' is not supported.", StatusCodes.Status400BadRequest);
+            if (aiModel == null
+                || string.IsNullOrWhiteSpace(aiModel.EndpointObjectId)
+                || string.IsNullOrWhiteSpace(aiModel.DeploymentName)
+                || aiModel.ModelParameters == null)
+                throw new SemanticKernelException("The AI model object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
 
-            if (string.IsNullOrWhiteSpace(endpoint?.Url))
-                throw new SemanticKernelException("The EndpointUrl property of the AIModel's endpoint property cannot be null.", StatusCodes.Status400BadRequest);
+            if (!_request.Objects.TryGetValue(
+                    aiModel.EndpointObjectId, out var endpointObject))
+                throw new SemanticKernelException("The API endpoint configuration object is missing from the request's objects.", StatusCodes.Status400BadRequest);
 
-            if (aiModel.ModelParameters == null)
-                throw new SemanticKernelException("The ModelParameters property of the AIModel cannot be null.", StatusCodes.Status400BadRequest);
+            var endpoint = endpointObject is JsonElement endpointJsonElement
+                ? endpointJsonElement.Deserialize<APIEndpointConfiguration>()
+                : endpointObject as APIEndpointConfiguration;
 
-            if (string.IsNullOrWhiteSpace(aiModel.DeploymentName))
-                throw new SemanticKernelException("The DeploymentName property of the AIModel property cannot be null.", StatusCodes.Status400BadRequest);
+            if (endpoint == null
+                || string.IsNullOrWhiteSpace(endpoint.Provider)
+                || !APIEndpointProviders.All.Contains(endpoint.Provider)
+                || string.IsNullOrWhiteSpace(endpoint.Url))
+                throw new SemanticKernelException("The API endpoint configuration object provided in the requets's objects is invalid.", StatusCodes.Status400BadRequest);
 
             _llmProvider = endpoint.Provider!;
             _endpoint = endpoint.Url!;

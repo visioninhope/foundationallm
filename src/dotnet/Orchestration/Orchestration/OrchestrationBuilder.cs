@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
@@ -57,6 +58,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)result.Agent,
+                    result.ExplodedObjects ?? [],
                     callContext,
                     orchestrationService,
                     loggerFactory.CreateLogger<OrchestrationBase>(),
@@ -69,7 +71,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return null;
         }
 
-        private static async Task<(AgentBase? Agent, bool DataSourceAccessDenied)> LoadAgent(
+        private static async Task<(AgentBase? Agent, Dictionary<string, object>? ExplodedObjects, bool DataSourceAccessDenied)> LoadAgent(
             string? agentName,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             UnifiedUserIdentity currentUserIdentity,
@@ -88,24 +90,28 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_AIModel, out var aiModelResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_AIModel} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Configuration, out var configurationResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
 
+            var explodedObjects = new Dictionary<string, object>();
 
             var agentBase = await agentResourceProvider.GetResource<AgentBase>(
                 $"/{AgentResourceTypeNames.Agents}/{agentName}",
                 currentUserIdentity);
 
-            if (agentBase.OrchestrationSettings!.AgentParameters == null)
-                agentBase.OrchestrationSettings.AgentParameters = [];
-
             var prompt = await promptResourceProvider.GetResource<PromptBase>(
                 agentBase.PromptObjectId!,
                 currentUserIdentity);
             var aiModel = await aiModelResourceProvider.GetResource<AIModelBase>(
-                agentBase.AIModelObjectId,
+                agentBase.AIModelObjectId!,
+                currentUserIdentity);
+            var apiEndpointConfiguration = await configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+                aiModel.EndpointObjectId!,
                 currentUserIdentity);
 
-            agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
-            agentBase.OrchestrationSettings.AIModel = aiModel;
+            explodedObjects[agentBase.PromptObjectId!] = prompt;
+            explodedObjects[agentBase.AIModelObjectId!] = aiModel;
+            explodedObjects[aiModel.EndpointObjectId!] = apiEndpointConfiguration;
 
             var allAgents = await agentResourceProvider.GetResources<AgentBase>(currentUserIdentity);
             var allAgentsDescriptions = allAgents
@@ -116,7 +122,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     a.Description
                 })
                 .ToDictionary(x => x.Name, x => x.Description);
-            agentBase.OrchestrationSettings.AgentParameters["AllAgents"] = allAgentsDescriptions;
+            explodedObjects["AllAgents"] = allAgentsDescriptions;
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {
@@ -132,12 +138,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                                 currentUserIdentity);
 
                             if (dataSource == null)
-                                return (null, false);
+                                return (null, null, false);
                         }
                         catch (ResourceProviderException ex) when (ex.StatusCode == (int)HttpStatusCode.Forbidden)
                         {
                             // Access is denied to the underlying data source.
-                            return (agentBase, true);
+                            return (agentBase, null, true);
                         }
                     }
 
@@ -147,7 +153,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                             indexingProfileName,
                             currentUserIdentity);
 
-                        kmAgent.OrchestrationSettings!.AgentParameters![indexingProfileName] = indexingProfile;
+                        explodedObjects[indexingProfileName] = indexingProfile;
                     }
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
@@ -156,12 +162,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                             kmAgent.Vectorization.TextEmbeddingProfileObjectId,
                             currentUserIdentity);
 
-                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                        explodedObjects[kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
                     }
                 }
             }
 
-            return (agentBase, false);
+            return (agentBase, explodedObjects, false);
         }
     }
 }

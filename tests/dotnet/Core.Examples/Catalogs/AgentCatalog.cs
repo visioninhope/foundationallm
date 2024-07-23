@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Authentication;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
@@ -16,6 +16,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     public static class AgentCatalog
     {
         #region Knowledge Management agents
+
         /// <summary>
         /// Catalog of knowledge management agents.
         /// </summary>
@@ -33,41 +34,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.GenericInlineContextAgentName,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -81,41 +61,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null,
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.SemanticKernelInlineContextAgentName,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -130,41 +89,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     TextEmbeddingProfileObjectId = null,
                     DataSourceObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.SemanticKernelAgentName,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -179,41 +117,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     TextEmbeddingProfileObjectId = null,
                     DataSourceObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.LangChainAgentName,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -227,41 +144,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.SemanticKernelSDZWA,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -275,41 +171,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.LangChainSDZWA,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -323,41 +198,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.ConversationGeneratorAgent,
-                        DeploymentName = "completions-gpt-4-32k",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0.5 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_GPT4_32K
             },
             new KnowledgeManagementAgent
             {
@@ -371,41 +225,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.Dune01,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -419,41 +252,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.Dune02,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -467,41 +279,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.Dune03,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
             new KnowledgeManagementAgent
             {
@@ -515,41 +306,20 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                     IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistory = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                Gatekeeper = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new LLMOrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    AIModel = new AIModelBase
-                    {
-                        Name = TestAgentNames.LangChainDune,
-                        DeploymentName = "completions",
-                        Endpoint = new APIEndpointConfiguration {
-                            Name = "Azure OpenAI",
-                            Provider = "microsoft",
-                            Url = "FoundationaLLM:AzureOpenAI:API:Endpoint",
-                            AuthenticationType = AuthenticationTypes.APIKey,
-                            APIVersion = "FoundationaLLM:AzureOpenAI:API:Version",
-                            AuthenticationParameters = new Dictionary<string, object> {
-                                { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" }
-                            },
-                            Category = APIEndpointCategory.LLM,
-                            RetryStrategyName = "ExponentialBackoff",
-                            TimeoutSeconds = 60
-                        },
-                        ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                        }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Default
             },
 
         ];

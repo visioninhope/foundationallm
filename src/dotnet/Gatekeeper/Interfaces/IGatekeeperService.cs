@@ -12,7 +12,7 @@ public interface IGatekeeperService
     /// </summary>
     /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
     /// <returns>The completion response.</returns>
-    Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest);
+    Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
 
     /// <summary>
     /// Gets a summary from the Gatekeeper service.

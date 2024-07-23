@@ -23,7 +23,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// </summary>
         /// <param name="completionRequest"></param>
         /// <returns></returns>
-        public virtual async Task<ClientCompletionResponse> GetCompletion(ClientCompletionRequest completionRequest)
+        public virtual async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
             await Task.CompletedTask;
             return null!;

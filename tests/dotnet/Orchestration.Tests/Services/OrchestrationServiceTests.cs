@@ -43,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         public async Task GetCompletion_ValidCompletionRequest_ReturnsCompletionResponse()
         {
             // Arrange
-            var completionRequest = new ClientCompletionRequest
+            var completionRequest = new CompletionRequest
             {
                 UserPrompt = "TestPrompt"
             };
@@ -60,7 +60,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         public async Task GetCompletion_ExceptionThrown_ReturnsErrorResponse()
         {
             // Act 
-            var result = await _orchestrationService.GetCompletion(new ClientCompletionRequest() { UserPrompt = "Error" });
+            var result = await _orchestrationService.GetCompletion(new CompletionRequest() { UserPrompt = "Error" });
 
             // Assert
             Assert.NotNull(result);
