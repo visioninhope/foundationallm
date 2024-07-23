@@ -42,8 +42,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         [HttpPost("async-completions")]
         public async Task<ActionResult<LongRunningOperation>> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
         {
-            var state = await _orchestrationService.StartCompletionOperation(instanceId, completionRequest);
-            return Accepted(state);
+            var longRunningOperation = await _orchestrationService.StartCompletionOperation(instanceId, completionRequest);
+            return Accepted(longRunningOperation);
         }
 
         /// <summary>
