@@ -49,8 +49,6 @@
     <Compile Include="foundationallm\models\operations\execution_log_entry.py" />
     <Compile Include="foundationallm\models\operations\operation_status.py" />
     <Compile Include="foundationallm\models\operations\__init__.py" />
-    <Compile Include="foundationallm\models\orchestration\background_operation.py" />
-    <Compile Include="foundationallm\models\orchestration\background_response.py" />
     <Compile Include="foundationallm\models\operations\long_running_operation.py" />
     <Compile Include="foundationallm\models\orchestration\completion_operation.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
@@ -122,8 +120,6 @@
     <Compile Include="foundationallm\config\__init__.py" />
     <Compile Include="foundationallm\operations\operations_manager.py" />
     <Compile Include="foundationallm\operations\__init__.py" />
-    <Compile Include="foundationallm\state\state_manager.py" />
-    <Compile Include="foundationallm\state\__init__.py" />
     <Compile Include="foundationallm\storage\blob_storage_manager.py" />
     <Compile Include="foundationallm\storage\storage_manager_base.py" />
     <Compile Include="foundationallm\storage\__init__.py" />
@@ -174,7 +170,6 @@
     <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\" />
     <Folder Include="foundationallm\operations\" />
-    <Folder Include="foundationallm\state\" />
     <Folder Include="foundationallm\telemetry\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
