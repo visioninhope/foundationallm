@@ -8655,6 +8655,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "deployment/authentication-authorization/pre-requisites.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication-authorization/pre-requisites.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "deployment/configure-access-control-for-services.md",
       "output": {
         ".html": {

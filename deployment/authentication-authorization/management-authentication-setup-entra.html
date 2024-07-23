@@ -80,22 +80,6 @@
 <li>A client application that will be used by the management portal to authenticate users.</li>
 <li>An API application that will be used by the Management API to authenticate users.</li>
 </ul>
-<h3 id="pre-requisites">Pre-requisites</h3>
-<div class="IMPORTANT">
-<h5>Important</h5>
-<p>Be aware that after completing this registration and the other app registrations in Entra ID as instructed in the <a href="docs/deployment/authentication-authorization/index.md">docs</a> you will complete the deployment steps outlined at <a href="../../deployment/deployment-starter.md">deploy the solution</a> then you will be revisiting your app registrations to complete some of the settings that require the solution to be deployed before the entire app registration is completed successfully.</p>
-</div>
-<h4 id="setup-app-configuration-access">Setup App Configuration access</h4>
-<ol>
-<li>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</li>
-<li>Navigate to the Resource Group that was created as part of the deployment.
-<div class="NOTE">
-<h5>Note</h5>
-<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.</p>
-</div>
-</li>
-<li>Select the <strong>App Configuration</strong> resource and select <strong>Configuration explorer</strong> to view the values. If you cannot access the configurations, add your user account as an <strong>App Configuration Data Owner</strong> through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the <a href="../configure-access-control-for-services.html#azure-app-configuration-service">Configure access control for services</a> document.</li>
-</ol>
 <h3 id="create-the-client-application">Create the client application</h3>
 <h4 id="register-the-client-application-in-the-microsoft-entra-id-admin-center">Register the client application in the Microsoft Entra ID admin center</h4>
 <ol>
@@ -106,7 +90,7 @@
 </li>
 <li><p>On the page that appears, select <strong>+ New registration</strong>.</p>
 </li>
-<li><p>When the <strong>Register an application</strong> page appears, enter a name for your application, such as <em>FoundationaLLM-ManagementClient</em>. You should indicate that this is for the management client application by appending <em>-ManagementClient</em> to the name.</p>
+<li><p>When the <strong>Register an application</strong> page appears, enter the name <em>FoundationaLLM-Management-Portal</em> for your application.</p>
 </li>
 <li><p>Under <strong>Supported account types</strong>, select <em>Accounts in this organizational directory only</em>.</p>
 </li>
@@ -232,7 +216,7 @@
 <li><p>Select <strong>Add scope</strong> to complete the scope addition.</p>
 <p><img src="media/entra-management-management-api-app-add-scope.png" alt="The Add a scope form is displayed as described in the bulleted list above."></p>
 </li>
-<li><p>Copy the <strong>Scope name</strong> value to add to your App Configuration settings later. For example, it should look something like <code>api://c79a09ce067141d5832b/Data.Manage</code>.</p>
+<li><p>Copy the <strong>Scope name</strong> value to add to your App Configuration settings later. It should look like <code>api://FoundationaLLM-Management/Data.Manage</code>.</p>
 <p><img src="media/entra-management-api-app-scope-copy-name.png" alt="The new scope name is displayed with the Copy button highlighted."></p>
 </li>
 </ol>
@@ -263,13 +247,13 @@
 <li><p>Browse to <strong>Identity</strong> &gt; <strong>Applications</strong> &gt; <strong>App registrations</strong>.</p>
 <p><img src="media/entra-app-registrations.png" alt="The app registrations menu item in the left-hand menu is highlighted."></p>
 </li>
-<li><p>Select the <code>FoundationaLLM-ManagementClient</code> application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</p>
+<li><p>Select the <code>FoundationaLLM-Management-Portal</code> application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</p>
 </li>
 <li><p>Select <strong>API permissions</strong>.</p>
 </li>
 <li><p>Select <strong>+ Add a permission</strong> under the &quot;Configured permissions&quot; section.</p>
 </li>
-<li><p>In the &quot;Request API permissions&quot; pan, select the <strong>My APIs</strong> tab, then select the <code>FoundationaLLM-Management</code> API application.</p>
+<li><p>In the &quot;Request API permissions&quot; pan, select the <strong>My APIs</strong> tab, then select the <code>FoundationaLLM-Management-API</code> application.</p>
 <p><img src="media/entra-app-add-management-api-permission.png" alt="The FoundationaLLM API is selected under My APIs."></p>
 </li>
 <li><p>Select the <code>Data.Manage</code> scope that you created earlier, then select <strong>Add permissions</strong>.</p>
@@ -296,7 +280,7 @@
 <li><p>Replace the values for the following settings with the values that you recorded earlier:</p>
 <ul>
 <li><code>FoundationaLLM:Management:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
-<li><code>FoundationaLLM:Management:Entra:Scopes</code>: The fully-qualified scopes path for the API application that you <a href="#expose-an-api-for-the-api-application">created earlier</a>. For example, it should look something like <code>api://d85a09ce067141d5807a/Data.Manage</code>.</li>
+<li><code>FoundationaLLM:Management:Entra:Scopes</code>: The fully-qualified scopes path for the API application that you <a href="#expose-an-api-for-the-api-application">created earlier</a>. It should look like <code>api://FoundationaLLM.Management-API/Data.Manage</code>.</li>
 <li><code>FoundationaLLM:Management:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the client application that you <a href="#register-the-client-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
 <li><code>FoundationaLLM:ManagementAPI:Entra:ClientId</code>: The <strong>Application (client) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
 <li><code>FoundationaLLM:ManagementAPI:Entra:TenantId</code>: The <strong>Directory (tenant) ID</strong> of the API application that you <a href="#register-the-api-application-in-the-microsoft-entra-admin-center">created earlier</a>.</li>
