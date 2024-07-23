@@ -31,6 +31,20 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The foundationallm-apis-gatekeeperapi-apikey Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_APIs_GatekeeperAPI_APIKey = "foundationallm-apis-gatekeeperapi-apikey";
+
+        /// <summary>
+        /// The foundationallm-apis-gatekeeper-lakeraguard-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_LakeraGuard_APIKey = "foundationallm-apis-gatekeeper-lakeraguard-apikey";
+        /// <summary>
+        /// The foundationallm-apis-gatekeeper-enkryptguardrails-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails_APIKey = "foundationallm-apis-gatekeeper-enkryptguardrails-apikey";
+        /// <summary>
+        /// The foundationallm-apis-gatekeeper-azurecontentsafety-apikey Key Vault secret name.
+        /// </summary>
+        public const string FoundationaLLM_APIs_Gatekeeper_AzureContentSafety_APIKey = "foundationallm-apis-gatekeeper-azurecontentsafety-apikey";
+
         /// <summary>
         /// The foundationallm-apis-gatekeeperintegrationapi-apikey Key Vault secret name.
         /// </summary>
@@ -47,10 +61,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The foundationallm-apis-semantickernelapi-apikey Key Vault secret name.
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_APIKey = "foundationallm-apis-semantickernelapi-apikey";
-        /// <summary>
-        /// The foundationallm-azurecontentsafety-apikey Key Vault secret name.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIKey = "foundationallm-azurecontentsafety-apikey";
         /// <summary>
         /// The foundationallm-azureopenai-api-key Key Vault secret name.
         /// </summary>
@@ -107,6 +117,16 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The API key of the Gateway API.
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI_APIKey = "foundationallm-apis-gatewayapi-apikey";
+        /// <summary>
+        /// The foundationallm-apis-gatewayadapterapi-apikey Key Vault secret name.
+        /// The API key of the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI_APIKey = "foundationallm-apis-gatewayadapterapi-apikey";
+        /// <summary>
+        /// The foundationallm-apis-stateapi-apikey Key Vault secret name.
+        /// The API key of the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI_APIKey = "foundationallm-apis-stateapi-apikey";
 
         #region Authorization API
 

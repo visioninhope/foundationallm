@@ -123,11 +123,13 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
             }
 
-            if (!string.IsNullOrWhiteSpace(agent.Vectorization.IndexingProfileObjectId))
+            if ((agent.Vectorization.IndexingProfileObjectIds ?? []).Count > 0)
             {
+                if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds[0]))
+                    throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
 
                 if (!agent.OrchestrationSettings.AgentParameters.TryGetValue(
-                        agent.Vectorization.IndexingProfileObjectId, out var indexingProfileObject))
+                        agent.Vectorization.IndexingProfileObjectIds[0], out var indexingProfileObject))
                     throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
 
                 var indexingProfile = indexingProfileObject is JsonElement indexingProfileJsonElement

@@ -29,6 +29,10 @@ on:
           - EastUS2
           - SwedenCentral
         default: EastUS2
+      notificationsEnabled:
+        description: Enable Slack Notifications
+        type: boolean
+        default: false
       enableTeardown:
         description: Enable teardown of environment
         type: boolean
@@ -44,6 +48,10 @@ on:
           - sandbox
           - e2e
         default: e2e
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       environment:
@@ -61,6 +69,9 @@ on:
       location:
         description: AZD Target Location
         type: string
+      notificationsEnabled:
+        description: Enable Slack Notifications
+        type: boolean
       enableTeardown:
         description: Enable teardown of environment
         type: boolean
@@ -70,6 +81,9 @@ on:
       target:
         description: Select target tenant/subscription
         type: string
+      deployAMLResources:
+        description: Deploy Azure Machine Learning resources & run tests that depend on them
+        type: boolean
 
 jobs:
   generate_matrix:
@@ -129,7 +143,7 @@ jobs:
       - name: Set Git and Helm Tag
         id: docker-tag
         run: |
-          if [ ${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }} ]; then
+          if [ '${{ (startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/poc/')) }}' == 'true' ]; then
             DOCKER_TAG=$(echo ${{ github.ref_name }} |  cut -d'/' -f 2)
           else
             DOCKER_TAG=0.0.0-${GITHUB_REF#refs/heads/}
@@ -236,22 +250,22 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
         shell: pwsh
 
-      - name: Provision App Registrations
-        id: provision-app-registrations
+      - name: Deploy Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
         run: |
-          Write-Host "Provision App Registrations"
-          Push-Location ./tests/scripts
-          ./Create-FllmEntraIdApps.ps1 `
-            -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./tests/extended-test-env
+          azd env new ext-${{ inputs.environment }}
+          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
+          azd up --no-prompt
           Pop-Location
         shell: pwsh
 
@@ -313,7 +327,7 @@ jobs:
           azd env set PIPELINE_DEPLOY "$true"
           azd env set FLLM_E2E_SP_OBJECT_ID $spObjectId
 
-          if (${{ inputs.deployOpenAi }}) {
+          if ('${{ inputs.deployOpenAi }}' -eq 'false') {
             azd env set OPENAI_NAME ${{ inputs.openAiName }}
             azd env set OPENAI_RESOURCE_GROUP ${{ inputs.openAiResourceGroup }}
             azd env set OPENAI_SUBSCRIPTION_ID $($info.subscriptionId)
@@ -344,11 +358,11 @@ jobs:
             -tenantId $($info.tenantId) `
             -principalType ServicePrincipal `
             -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176 `
-            -fllmApiName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmClientName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtApiName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtClientName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmAuthApiName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
+            -fllmApiName FoundationaLLM-Core-API `
+            -fllmClientName FoundationaLLM-Core-Portal `
+            -fllmMgmtApiName FoundationaLLM-Management-API `
+            -fllmMgmtClientName FoundationaLLM-Management-Portal `
+            -fllmAuthApiName FoundationaLLM-Authorization-API `
             -fllmAdminGroupName FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }}
           Pop-Location
         shell: pwsh
@@ -377,14 +391,20 @@ jobs:
           Pop-Location
         shell: pwsh
 
+      - name: Publish AZD Environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: azd-env
+          path: ./deploy/quick-start/.azure
+
       - name: Update App Registration OAuth Callbacks
         id: update-app-reg-oauth
         run: |
           Write-Host "Update App Registration OAuth Callbacks"
           Push-Location ./deploy/quick-start
-          pwsh -File ../../tests/scripts/Update-OAuthCallbackUris.ps1 `
-            -fllmChatUiName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -fllmMgmtUiName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }}
+          pwsh -File ../common/scripts/Update-OAuthCallbackUris.ps1 `
+            -fllmChatUiName FoundationaLLM-Core-Portal `
+            -fllmMgmtUiName FoundationaLLM-Management-Portal
           Pop-Location
         shell: pwsh
 
@@ -473,6 +493,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Download AZD Environment
+        uses: actions/download-artifact@v4
+        with:
+          name: azd-env
+          path: ./deploy/quick-start/.azure
+
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
         with:
@@ -506,21 +532,7 @@ jobs:
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Write-Host "::add-mask::$($info.clientSecret)"
 
-          Write-Host "Create new AZD Environment"
           Push-Location ./deploy/quick-start
-          azd env new ${{ inputs.environment }}
-          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
-          azd env set PIPELINE_DEPLOY "$true"
-          Pop-Location
-
-          Push-Location ./deploy/quick-start
-          ../../tests/scripts/Set-AzdEnv.ps1 `
-            -tenantId $($info.tenantId) `
-            -principalType ServicePrincipal `
-            -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
-
-          azd env refresh --no-prompt
-
           (azd env get-values) | foreach {
               $name, $value = $_.split('=')
               $value = $value.Trim('"')
@@ -538,19 +550,74 @@ jobs:
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($src.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($src.clientId)" `
             --tenant-id "$($src.tenantId)"
           ./deploy/common/scripts/Get-TestData.ps1 -storageAccountName foundationallmdata
 
           $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
           azcopy login `
-            --service-principal `
+            --login-type=SPN `
             --application-id "$($info.clientId)" `
             --tenant-id "$($info.tenantId)"
           ./deploy/common/scripts/Set-TestData.ps1 `
             -storageAccountName $env:AZURE_STORAGE_ACCOUNT_NAME `
             -aiSearchName $env:AZURE_COGNITIVE_SEARCH_NAME
+
+  build_e2e_tests:
+    name: Build End to End Tests
+    if: ${{ !inputs.bypassAndTeardown }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
+
+      - name: Sets Credentials for Source (SBX)
+        run: |
+          {
+            echo 'AZURE_CREDENTIALS<<EOF'
+            echo "$FLLM_SBX_AZURE_CREDENTIALS"
+            echo EOF
+          } >> "$GITHUB_ENV"
+        env:
+          FLLM_SBX_AZURE_CREDENTIALS: |
+            ${{ secrets.FLLM_SBX_AZURE_CREDENTIALS }}
+
+      - name: Pull Build Artifacts
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./deploy/common/scripts
+          $env:AZCOPY_SPA_CLIENT_SECRET="$($info.clientSecret)"
+          azcopy login `
+            --login-type=SPN `
+            --application-id "$($info.clientId)" `
+            --tenant-id "$($info.tenantId)"
+          ./Get-TestSettings.ps1 -storageAccountName foundationallmdata
+          Pop-Location
+        shell: pwsh
+      
+      - name: Build Tests
+        shell: pwsh
+        run: |
+          dotnet restore ./src/FoundationaLLM.sln --output ./dist
+          dotnet build ./tests/dotnet/Common.Tests/Common.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Core.Examples/Core.Examples.csproj --output ./dist
+          dotnet build ./tests/dotnet/Core.Test/Core.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Gatekeeper.Tests/Gatekeeper.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Orchestration.Tests/Orchestration.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/SemanticKernel.Tests/SemanticKernel.Tests.csproj --output ./dist
+          dotnet build ./tests/dotnet/Vectorization.Tests/Vectorization.Tests.csproj --output ./dist
+
+      - name: Publish Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: ./dist
 
   run_e2e_tests:
     name: Run End to End Tests
@@ -560,9 +627,10 @@ jobs:
     env:
       AZURE_ENV_NAME: ${{ inputs.environment }}
       AZURE_LOCATION: ${{ inputs.location }}
-    needs: [generate_matrix, deploy_quickstart, add_test_data]
+    needs: [generate_matrix, deploy_quickstart, add_test_data, build_e2e_tests]
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         object: ${{ fromJson(needs.generate_matrix.outputs.test_matrix) }}
     steps:
@@ -593,6 +661,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Download Build
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ./dist
+
+      - name: Download AZD Environment
+        uses: actions/download-artifact@v4
+        with:
+          name: azd-env
+          path: ./deploy/quick-start/.azure
+
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
         with:
@@ -615,7 +695,7 @@ jobs:
             --username "$($info.clientId)" `
             --password "$($info.clientSecret)" `
             --tenant "$($info.tenantId)" `
-            --scope api://FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }}/.default
+            --scope api://FoundationaLLM-Core/.default
         shell: pwsh
 
       - name: Running End to End Tests
@@ -624,21 +704,7 @@ jobs:
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Write-Host "::add-mask::$($info.clientSecret)"
 
-          Write-Host "Create new AZD Environment"
           Push-Location ./deploy/quick-start
-          azd env new ${{ inputs.environment }}
-          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
-          azd env set PIPELINE_DEPLOY "$true"
-          Pop-Location
-
-          Push-Location ./deploy/quick-start
-          ../../tests/scripts/Set-AzdEnv.ps1 `
-            -tenantId $($info.tenantId) `
-            -principalType ServicePrincipal `
-            -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
-
-          azd env refresh --no-prompt
-
           (azd env get-values) | foreach {
               $name, $value = $_.split('=')
               set-content env:\$name $value
@@ -653,9 +719,73 @@ jobs:
           $env:FoundationaLLM_AppConfig_ConnectionString=$connectionString
 
           echo "Running End to End Test: ${{ matrix.object.name }}"
-          dotnet test --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" ${{ matrix.object.target }}
+          dotnet test `
+            --output ./dist `
+            --no-build `
+            --filter "FullyQualifiedName=${{ matrix.object.namespace }}.${{ matrix.object.task_name }}" `
+            --logger:"html;verbosity=detailed;LogFileName=${{ github.workspace }}/${{ matrix.object.name }}.html" `
+            ${{ matrix.object.target }}
         shell: pwsh
 
+      - name: Publish Test Results
+        if: (success() || failure())
+        id: publish-results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.object.name }}-results
+          path: ${{ github.workspace }}/${{ matrix.object.name }}.html
+
+      - name: Send Test Failure Notification
+        if: (inputs.notificationsEnabled && failure())
+        uses: slackapi/slack-github-action@v1.26.0
+        id: notify-failed-test
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.FLLM_SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*End to End Test Failure: ${{ matrix.object.name }}*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "End to End Test ${{ matrix.object.name }} failed in branch `${{ github.head_ref || github.ref_name }}`"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Download Test Results"
+                      },
+                      "url": "${{ steps.publish-results.outputs.artifact-url }}"
+                    }
+                  ]
+                }
+              ]
+            }
+
+      - name: Output Job Status
+        if: (success() || failure())
+        uses: cloudposse/github-action-matrix-outputs-write@v1
+        id: job-status
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ matrix.object.name }}
+          outputs: |
+            passed: ${{ steps.e2e-test-exec.outcome }}
+            
   teardown_quickstart:
     name: Tear Down Quick Start
     if: ${{ (cancelled() && inputs.bypassAndTeardown) || inputs.enableTeardown }}
@@ -692,6 +822,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Download AZD Environment
+        uses: actions/download-artifact@v4
+        with:
+          name: azd-env
+          path: ./deploy/quick-start/.azure
+
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
         with:
@@ -715,40 +851,57 @@ jobs:
             --tenant "$($info.tenantId)"
         shell: pwsh
 
+      - name: Tearing Down Azure Machine Learning
+        if: ${{ inputs.deployAMLResources }}
+        env:
+          AZURE_ENV_NAME: ext-${{ inputs.environment }}
+          AZURE_LOCATION: ${{ inputs.location }}
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Push-Location ./tests/extended-test-env
+          azd env new ext-${{ inputs.environment }}
+          $env:AZURE_SUBSCRIPTION_ID = $($info.subscriptionId)
+          azd env refresh --no-prompt
+          azd down --force --purge --no-prompt
+          Pop-Location
+        shell: pwsh
+      
       - name: Tearing Down AZD Deployment
         id: azd-down
         run: |
           $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
           Write-Host "::add-mask::$($info.clientSecret)"
 
-          Write-Host "Create new AZD Environment"
           Push-Location ./deploy/quick-start
-          azd env new ${{ inputs.environment }}
-          azd env set AZURE_SUBSCRIPTION_ID $($info.subscriptionId)
-          azd env set PIPELINE_DEPLOY "$true"
-          Pop-Location
+          Write-Host "Removing App Registration OAuth Callbacks"
+          pwsh -File ../common/scripts/Remove-OAuthCallbackUris.ps1 `
+            -fllmChatUiName FoundationaLLM-Core-Portal `
+            -fllmMgmtUiName FoundationaLLM-Management-Portal
 
-          Push-Location ./deploy/quick-start
-          ../../tests/scripts/Set-AzdEnv.ps1 `
-            -tenantId $($info.tenantId) `
-            -principalType ServicePrincipal `
-            -instanceId 6fa496ce-d5c0-4e02-9223-06a98c9c0176
-
-          azd env refresh --no-prompt
           azd down --force --purge --no-prompt
           Pop-Location
 
           Write-Host "Remove Admin Group"
           az ad group delete --group FLLM-E2E-Admins-${{ needs.generate_matrix.outputs.unique_id }} --output json
-
-          Write-Host "Tear down App Registrations"
-          Push-Location ./tests/scripts
-          ./Remove-EntraIdApps.ps1 `
-            -authAppName FoundationaLLM-Authorization-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreAppName FoundationaLLM-Core-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -coreClientAppName FoundationaLLM-Core-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtAppName FoundationaLLM-Management-E2E-${{ needs.generate_matrix.outputs.unique_id }} `
-            -mgmtClientAppName FoundationaLLM-Management-E2E-Client-${{ needs.generate_matrix.outputs.unique_id }} `
-            -interactiveMode $false
-          Pop-Location
         shell: pwsh
+
+      - name: Get E2E Test Results
+        uses: cloudposse/github-action-matrix-outputs-read@v1
+        id: get-e2e-results
+        with:
+          matrix-step-name: run_e2e_tests
+  
+      - name: Check E2E Test Status
+        uses: actions/github-script@v7
+        env:
+          TEST_RESULTS: ${{ steps.get-e2e-results.outputs.result }}
+        with:
+          script: |
+            const jsonString = process.env.TEST_RESULTS
+            var data = JSON.parse(jsonString)
+            var tests = data.passed
+            for (const testName of Object.keys(tests)) {
+              if (tests[testName] !== 'success') {
+                process.exit(1);
+              }
+            }

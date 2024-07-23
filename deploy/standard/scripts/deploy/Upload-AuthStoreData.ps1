@@ -44,24 +44,6 @@ function Invoke-AndRequireSuccess {
     return $result
 }
 
-# Check for AzCopy and login status
-# Setting configuration for AzCopy
-$AZCOPY_VERSION = "10.25.0"
-
-if ($IsWindows) {
-    $url = "https://aka.ms/downloadazcopy-v10-windows"
-    $os = "windows"
-    $ext = "zip"
-}elseif ($IsMacOS) {
-    $url = "https://aka.ms/downloadazcopy-v10-mac"
-    $os = "darwin"
-    $ext = "zip"
-}elseif ($IsLinux) {
-    $url = "https://aka.ms/downloadazcopy-v10-linux"
-    $os = "linux"
-    $ext = "tar.gz"
-}
-
 $storageAccountAdls = Invoke-AndRequireSuccess "Get ADLS Auth Storage Account" {
     az storage account list `
         --resource-group $resourceGroup `
@@ -74,11 +56,5 @@ if (-not (Test-Path "../data/role-assignments/$($instanceId)`.json")) {
 }
 
 $target = "https://$storageAccountAdls.blob.core.windows.net/role-assignments/"
-    
-& ../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}/azcopy cp "../data/role-assignments/$($instanceId)`.json" "$target"
 
-# Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-#     $target = "https://$storageAccountAdls.blob.core.windows.net/role-assignments/"
-    
-#     & ../tools/azcopy_${os}_amd64_${AZCOPY_VERSION}/azcopy cp "../data/role-assignments/$($instanceId)`.json" "$target"
-# }
+& ../../common/tools/azcopy/azcopy cp "../data/role-assignments/$($instanceId)`.json" "$target"

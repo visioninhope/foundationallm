@@ -38,7 +38,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
         /// <inheritdoc/>
-        public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public override async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
@@ -48,7 +48,16 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     AgentName = _agent.Name
                 };
 
+            if (_agent.ExpirationDate.HasValue && _agent.ExpirationDate.Value < DateTime.UtcNow)
+                return new CompletionResponse
+                {
+                    Completion = $"The requested agent, {_agent.Name}, has expired and is unable to respond.",
+                    UserPrompt = completionRequest.UserPrompt!,
+                    AgentName = _agent.Name
+                };
+
             var result = await _orchestrationService.GetCompletion(
+                instanceId,
                 new LLMCompletionRequest
                 {
                     UserPrompt = completionRequest.UserPrompt!,

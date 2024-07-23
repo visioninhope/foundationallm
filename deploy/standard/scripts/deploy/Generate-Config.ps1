@@ -237,8 +237,6 @@ $tokens.managementEntraScopes = $entraScopes.managementui
 $tokens.opsResourceGroup = $resourceGroups.ops
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.subscriptionId = $subscriptionId
-$tokens.vectorizationApiEntraClientId = $entraClientIds.vectorizationapi
-$tokens.vectorizationApiEntraScopes = $entraScopes.vectorizationapi
 $tokens.authorizationApiScope = $entraScopes.authorization
 
 $tenantId = Invoke-AndRequireSuccess "Get Tenant ID" {
@@ -255,18 +253,38 @@ $vectorizationConfig = Invoke-AndRequireSuccess "Get Vectorization Config" {
 $tokens.vectorizationConfig = $vectorizationConfig
 
 $openAiEndpointUri = Invoke-AndRequireSuccess "Get OpenAI endpoint" {
-    az cognitiveservices account list `
-        --output tsv `
-        --query "[?contains(kind,'OpenAI')] | [0].properties.endpoint" `
-        --resource-group $($resourceGroups.oai) 
+    $oaiEndpoint=""
+    if ($manifest.deployOpenAi)
+    {
+        $oaiEndpoint = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI')] | [0].properties.endpoint" `
+            --resource-group $($resourceGroups.oai) )
+    } else {
+        $oaiEndpoint = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI') && name=='$($manifest.existingOpenAiInstance.name)'] | [0].properties.endpoint" `
+            --resource-group $($manifest.existingOpenAiInstance.resourceGroup) )
+    }
+    return $oaiEndpoint
 }
 $tokens.openAiEndpointUri = $openAiEndpointUri
 
 $openAiAccountName = Invoke-AndRequireSuccess "Get OpenAI Account name" {
-    az cognitiveservices account list `
-        --output tsv `
-        --query "[?contains(kind,'OpenAI')] | [0].id" `
-        --resource-group $($resourceGroups.oai) 
+    $oaiAccount = ""
+    if ($manifest.deployOpenAi)
+    {
+        $oaiAccount = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI')] | [0].id" `
+            --resource-group $($resourceGroups.oai) )
+    } else {
+        $oaiAccount = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI') && name=='$($manifest.existingOpenAiInstance.name)'] | [0].id" `
+            --resource-group $($manifest.existingOpenAiInstance.resourceGroup) )
+    }
+    return $oaiAccount
 }
 $tokens.azureOpenAiAccountName = $openAiAccountName
 
@@ -289,6 +307,16 @@ $appConfigCredential = Invoke-AndRequireSuccess "Get AppConfig Credential" {
         ConvertFrom-Json
 }
 $tokens.appConfigConnectionString = $appConfigCredential.connectionString
+
+$appConfigRWCredential = Invoke-AndRequireSuccess "Get AppConfig Credential" {
+    az appconfig credential list `
+        --name $appConfig.name `
+        --resource-group $($resourceGroups.ops) `
+        --query "[?name=='Primary'].{connectionString: connectionString}" `
+        --output json | `
+        ConvertFrom-Json
+}
+$tokens.appConfigRWConnectionString = $appConfigRWCredential.connectionString
 
 $cogSearchName = Invoke-AndRequireSuccess "Get Cognitive Search endpoint" {
     az search service list `

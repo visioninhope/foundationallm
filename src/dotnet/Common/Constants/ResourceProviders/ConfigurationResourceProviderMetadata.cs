@@ -1,9 +1,8 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
-namespace FoundationaLLM.Configuration.Services
+namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Provides metadata for the FoundationaLLM.Configuration resource provider.
@@ -31,15 +30,16 @@ namespace FoundationaLLM.Configuration.Services
                             ])
                         ]
                 }
-            },
+            }
+            ,
             {
-                ConfigurationResourceTypeNames.ExternalOrchestrationServices,
+                ConfigurationResourceTypeNames.APIEndpoints,
                 new ResourceTypeDescriptor(
-                        ConfigurationResourceTypeNames.ExternalOrchestrationServices)
+                        ConfigurationResourceTypeNames.APIEndpoints)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<ExternalOrchestrationService>)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ExternalOrchestrationService)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpoint>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpoint)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }
