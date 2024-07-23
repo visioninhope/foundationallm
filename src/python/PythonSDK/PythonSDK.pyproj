@@ -50,7 +50,6 @@
     <Compile Include="foundationallm\models\operations\operation_status.py" />
     <Compile Include="foundationallm\models\operations\__init__.py" />
     <Compile Include="foundationallm\models\operations\long_running_operation.py" />
-    <Compile Include="foundationallm\models\orchestration\completion_operation.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\authentication\authentication_types.py" />
