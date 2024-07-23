@@ -163,7 +163,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         # Create the prompt template.
         return PromptTemplate.from_template(prompt_builder)
 
-    def invoke(self, request: KnowledgeManagementAgent) -> CompletionResponse:
+    def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
         """
         Executes a synchronous completion request.
         If a vector index exists, it will be queryied with the user prompt.
