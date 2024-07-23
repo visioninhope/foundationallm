@@ -1,7 +1,7 @@
 {
 	"type": "api-endpoint",
 	"name": "OrchestrationAPI",
-	"object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfiguration/OrchestrationAPI",
+	"object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfigurations/OrchestrationAPI",
 	"display_name": null,
 	"description": null,
 	"cost_center": null,

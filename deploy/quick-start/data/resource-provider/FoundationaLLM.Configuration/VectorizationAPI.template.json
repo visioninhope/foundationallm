@@ -1,7 +1,7 @@
 {
   "type": "api-endpoint",
   "name": "VectorizationAPI",
-  "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfiguration/VectorizationAPI",
+  "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfigurations/VectorizationAPI",
   "display_name": null,
   "description": null,
   "cost_center": null,

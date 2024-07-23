@@ -1,7 +1,7 @@
 {
   "type": "api-endpoint",
   "name": "GatekeeperIntegrationAPI",
-  "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfiguration/GatekeeperIntegrationAPI",
+  "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfigurations/GatekeeperIntegrationAPI",
   "display_name": null,
   "description": null,
   "cost_center": null,
