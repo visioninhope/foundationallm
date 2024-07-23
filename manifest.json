@@ -8014,11 +8014,11 @@
       "type": "Toc",
       "source_relative_path": "api/dotnet/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/dotnet/toc.html"
-        },
         ".json": {
           "relative_path": "api/dotnet/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/dotnet/toc.html"
         }
       },
       "version": ""
@@ -8649,6 +8649,36 @@
       "output": {
         "resource": {
           "relative_path": "deployment/authentication-authorization/media/web-platform-selection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication-authorization/post-authorization-deployment.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication-authorization/post-authorization-deployment.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication-authorization/post-core-deployment.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication-authorization/post-core-deployment.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "deployment/authentication-authorization/post-management-deployment.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/authentication-authorization/post-management-deployment.html"
         }
       },
       "version": ""
@@ -10207,11 +10237,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""

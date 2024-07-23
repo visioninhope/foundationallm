@@ -74,8 +74,8 @@
 <h1 id="authorization-setup-microsoft-entra-id">Authorization setup: Microsoft Entra ID</h1>
 
 <p>FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authorization. This means that you can use your Microsoft Entra ID to setup authorization access to FoundationaLLM's platform.</p>
-<h3 id="create-the-client-application">Create the client application</h3>
-<h4 id="register-the-client-application-in-the-microsoft-entra-id-admin-center">Register the client application in the Microsoft Entra ID admin center</h4>
+<h3 id="create-the-api-application">Create the API application</h3>
+<h4 id="register-the-api-application-in-the-microsoft-entra-id-admin-center">Register the API application in the Microsoft Entra ID admin center</h4>
 <ol>
 <li><p>Sign in to the <a href="https://entra.microsoft.com/">Microsoft Entra ID admin center</a> as at least a Cloud Application Administrator.</p>
 </li>
@@ -133,19 +133,6 @@
 <p><img src="media/set-grant-and-hybrid-flows.png" alt="Select &quot;Access Tokens&quot; and &quot;ID Tokens&quot;."></p>
 </li>
 </ol>
-<h3 id="update-app-configuration-settings">Update App Configuration settings</h3>
-<ol>
-<li>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</li>
-<li>Navigate to the resource group that was created as part of the deployment.</li>
-<li>Select the <strong>App Configuration</strong> resource and select <strong>Configuration explorer</strong> to view the values.</li>
-<li>Enter <code>authorization</code> in the search box to filter the results.</li>
-<li>Check the box next to <strong>Key</strong> in the header to select all items.</li>
-<li>Find the key for <code>FoundationaLLM:APIs:AuthorizationAPI:APIScope</code> and click on edit.</li>
-<li>Replace the value with the value from the scope we created earlier, as <code>api://FoundationaLLM-Authorization</code></li>
-<li>Select <strong>Apply</strong> to save the changes.</li>
-</ol>
-<h2 id="next-steps">Next steps</h2>
-<p>Now that Entra authorization is fully configured, navigate to your Entra ID management console and make sure you completed all app registrations for all the other apps mentioned in the deployment documentation.</p>
 
 </article>
 
