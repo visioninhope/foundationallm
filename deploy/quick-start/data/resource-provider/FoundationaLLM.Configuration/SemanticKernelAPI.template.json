@@ -7,10 +7,10 @@
   "cost_center": null,
   "category": 1,
   "authentication_type": "APIKey",
-  "authentication_parameters":{
+  "authentication_parameters": {
     "api_key_configuration_name": "FoundationaLLM:APIs:SemanticKernelAPI:APIKey",
     "api_key_header_name": "Bearer"
-	},
+  },
   "url": "${env:SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL}",
   "url_exceptions": [],
   "timeout_seconds": 60,

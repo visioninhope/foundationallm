@@ -8,8 +8,8 @@
 	"category": 0,
 	"authentication_type": "APIKey",
 	"authentication_parameters": {
-		"api_key_configuration_name": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
-		"api_key_header_name": "Bearer"
+	  "api_key_configuration_name": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
+	  "api_key_header_name": "Bearer"
 	},
 	"url": "${env:SERVICE_ORCHESTRATION_API_ENDPOINT_URL}",
 	"url_exceptions": [],
@@ -20,4 +20,4 @@
 	"created_by": null,
 	"updated_by": "SYSTEM",
 	"deleted": false
-}
+  }
