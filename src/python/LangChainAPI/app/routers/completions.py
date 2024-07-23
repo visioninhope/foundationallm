@@ -215,11 +215,6 @@ async def get_operation_result(
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
-            background_response = await OrchestrationManager.get_operation_result(
-                operation_id,
-                instance_id
-            )
-
             completion_response = operations_manager.get_operation_result(
                 operation_id,
                 instance_id
