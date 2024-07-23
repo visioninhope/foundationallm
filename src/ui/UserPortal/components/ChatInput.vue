@@ -52,14 +52,25 @@
 					accept="audio/mpeg,audio/wav"
 					:auto="true"
 					:custom-upload="true"
-					mode="advanced"
 					@uploader="handleUpload"
+					ref="fileUpload"
 				>
+					<template #header>
+						File Uploader
+					</template>
 					<template #content>
-						<p class="p-m-0">
-							Use the <strong>+ Choose</strong> button to browse for a file or drag and drop a file here to upload.
-							The file will be used as an attachment for this chat as a context for the agent.
-						</p>
+						<div class="">
+							<i class="pi pi-cloud-upload file-upload-icon" />
+							<div style="width: 500px">
+								<p style="text-align: center;">
+									Drag and drop files here
+									<br />
+									or
+									<br />
+									<a @click="browseFiles" style="color: blue; cursor: pointer;">Browse for files</a>
+								</p>
+							</div>
+						</div>
 					</template>
 				</FileUpload>
 			</Dialog>
@@ -219,6 +230,10 @@ export default {
 		removeAttachment(file: any) {
 			this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
 		},
+
+		browseFiles() {
+			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
+		},
 	},
 };
 </script>
@@ -333,6 +348,11 @@ export default {
 .file-remove {
 	margin-left: 1rem;
 }
+
+.p-fileupload-content {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
 </style>
 
 <style lang="scss">
@@ -353,5 +373,16 @@ export default {
 .mention-selected {
 	background-color: #131833;
 	color: #fff;
+}
+
+.file-upload-icon {
+	width: 100%;
+	text-align: center;
+	font-size: 5rem;
+    color: #000;
+}
+
+.p-fileupload-buttonbar {
+	display: none;
 }
 </style>
