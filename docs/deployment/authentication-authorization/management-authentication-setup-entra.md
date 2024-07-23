@@ -19,7 +19,7 @@ To enable Microsoft Entra ID authentication for the Management API and portal, y
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
 3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-ManagementClient*. You should indicate that this is for the management client application by appending *-ManagementClient* to the name.
+4. When the **Register an application** page appears, enter the name *FoundationaLLM-Management-Portal* for your application.
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
 
