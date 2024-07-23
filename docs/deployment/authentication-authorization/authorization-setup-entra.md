@@ -12,7 +12,7 @@ FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authoriz
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
 3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-Authorization-API*. 
+4. When the **Register an application** page appears, enter the name *FoundationaLLM-Authorization-API* for your application. 
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
 7. The application's **Overview** pane displays upon successful registration. Record the **Application (client) ID** and **Directory (tenant) ID** to add to your App Configuration settings later.
@@ -21,7 +21,7 @@ FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authoriz
 
 #### Expose an API for the API application
 
-1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, accept the default or specify a custom one like `api://FoundationaLLM-Authorization-Auth`, then select **Save and continue**, and then enter the following details:
+1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, enter `api://FoundationaLLM-Authorization`, then select **Save and continue**, and then enter the following details:
    - **Scope name**: `Authorization.Manage`
    - **Who can consent?**: **Admins and users**
    - **Admin consent display name**: `Manage Authorization`
@@ -33,7 +33,7 @@ FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authoriz
 
    ![The Add a scope form is displayed as described in the bulleted list above.](media/entra-authorization-add-scope.png)
 
-3. Copy the **Scope name** value to add to your App Configuration settings later. For example, it should look something like `api://c79a09ce067141d5832b/Data.Manage`.
+3. Copy the **Scope name** value to add to your App Configuration settings later. It should look like `api://FoundationaLLM-Authorization/Authorization.Manage`.
 
    ![The new scope name is displayed with the Copy button highlighted.](media/entra-authorization-copy-scope.png)
 
@@ -64,7 +64,7 @@ FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authoriz
 4. Enter `authorization` in the search box to filter the results.
 5. Check the box next to **Key** in the header to select all items.
 6. Find the key for `FoundationaLLM:APIs:AuthorizationAPI:APIScope` and click on edit.
-7. Replace the value with the value from the scope we created earlier, like `api://FoundationaLLM-Authorization-Auth` 
+7. Replace the value with the value from the scope we created earlier, as `api://FoundationaLLM-Authorization` 
 8. Select **Apply** to save the changes.
 
 ## Next steps
