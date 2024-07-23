@@ -1,3 +1,6 @@
+## Post Deployment
+Follow the instruction below to complete the setup of Microsoft Entra ID authentication for the Management API and Management Portal applications after the deployment is complete.
+
 ### Update App Configuration settings
 
 1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
