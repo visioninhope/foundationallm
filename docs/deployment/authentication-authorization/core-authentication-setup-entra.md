@@ -123,7 +123,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
 #### Expose an API for the API application
 
-1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, accept the default or specify a custom one, then select **Save and continue**, and then enter the following details:
+1. Under **Manage**, select **Expose an API** > **Add a scope**. For **Application ID URI**, make sure to use `api://FoundationaLLM-Core`, then enter the following details:
    - **Scope name**: `Data.Read`
    - **Who can consent?**: **Admins and users**
    - **Admin consent display name**: `Read data on behalf of users`
@@ -135,7 +135,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
    ![The Add a scope form is displayed as described in the bulleted list above.](media/entra-api-app-add-scope.png)
 
-3. Copy the **Scope name** value to add to your App Configuration settings later. For example, it should look something like `api://d85a09ce067141d5807a/Data.Read`.
+3. Copy the **Scope name** value to add to your App Configuration settings later. For example, it should look something like `api://FoundationaLLM-Core/Data.Read`.
 
    ![The new scope name is displayed with the Copy button highlighted.](media/entra-api-app-scope-copy-name.png)
 
@@ -191,7 +191,7 @@ The client application's configured permissions should now look like the followi
 
 7. Replace the values for the following settings with the values that you recorded earlier:
    - `FoundationaLLM:Chat:Entra:ClientId`: The **Application (client) ID** of the client application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
-   - `FoundationaLLM:Chat:Entra:Scopes`: The fully-qualified scopes path for the API application that you [created earlier](#expose-an-api-for-the-api-application). For example, it should look something like `api://d85a09ce067141d5807a/Data.Read`.
+   - `FoundationaLLM:Chat:Entra:Scopes`: The fully-qualified scopes path for the API application that you [created earlier](#expose-an-api-for-the-api-application). For example, it should look something like `api://FoundationaLLM-Core/Data.Read`.
    - `FoundationaLLM:Chat:Entra:TenantId`: The **Directory (tenant) ID** of the client application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
    - `FoundationaLLM:CoreAPI:Entra:ClientId`: The **Application (client) ID** of the API application that you [created earlier](#register-the-api-application-in-the-microsoft-entra-admin-center).
    - `FoundationaLLM:CoreAPI:Entra:TenantId`: The **Directory (tenant) ID** of the API application that you [created earlier](#register-the-api-application-in-the-microsoft-entra-admin-center).
