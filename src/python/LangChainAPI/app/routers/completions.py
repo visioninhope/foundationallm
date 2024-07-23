@@ -20,7 +20,7 @@ from foundationallm.models.orchestration import (
     CompletionResponse
 )
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
-from foundationallm.operations import OperationsManager, operations_manager
+from foundationallm.operations import OperationsManager
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
 from app.dependencies import handle_exception, validate_api_key_header
