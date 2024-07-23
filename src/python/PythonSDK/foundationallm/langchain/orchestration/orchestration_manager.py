@@ -1,10 +1,7 @@
-import requests
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
-from foundationallm.models.operations import LongRunningOperation
 from foundationallm.models.orchestration import (
-    CompletionOperation,
     CompletionRequestBase,
     CompletionResponse
 )
@@ -80,93 +77,3 @@ class OrchestrationManager:
         """
         completion_response = await self.agent.ainvoke(request)
         return completion_response
-
-    @staticmethod
-    async def create_operation(
-        operation_id: str,
-        instance_id: str,
-        completion_request: KnowledgeManagementCompletionRequest,
-        config: Configuration) -> LongRunningOperation:
-        """
-        Creates a background operation by settings its initial state through the State API.
-        
-        Parameters
-        ----------
-        operation_id : str
-            The unique identifier for the operation.
-        """
-        print(f'Creating operation: {operation_id}')
-        # Call the State API to create a new operation.
-        # This should essentially just be a POST request to the State API to create it.
-
-        #payload = {
-        #    'operation_id': operation_id,
-        #    'completed': False,
-        #    'response': None
-        #}
-        #headers = {"charset": "utf-8", "Content-Type": "application/json"}
-
-        #r = requests.post(
-        #    f'{state_api_endpoint}/operations',
-        #    json=payload,
-        #    headers=headers
-        #)
-
-        #if r.status_code != 202:
-        #    raise Exception(f'Error: ({r.status_code}) {r.text}')
-
-        completion_operation = OperationState(
-            id=operation_id,
-            description='The operation has been submitted and is awaiting completion.'
-            status='Accepted'
-        )
-
-        # completion_operation.execution_log.append(
-        #     ExecutionLogEntry(
-        #         status='Accepted',
-        #         status_message=f'Operation {operation_id} submitted and accepted.',
-        #         timestamp=datetime.now()
-        #     )
-        # )
-
-        return completion_operation
-
-    @staticmethod
-    async def get_operation_state(state_endpoint: str, operation_id: str) -> BackgroundResponse:
-        """
-        Retrieves the state of an operation by its operation ID.
-        
-        Parameters
-        ----------
-        operation_id : str
-            The unique identifier for the operation.
-            
-        Returns
-        -------
-        CompletionResponse
-            Object containing the completion response and token usage details.
-        """
-        #r = requests.get(f'{state_api_endpoint}/operations/{operation_id}')
-
-        # self.agent.get_state(operation_id)
-
-        return BackgroundResponse(
-            operation_id = operation_id,
-            completed = True,
-            response = CompletionResponse(
-                completion = 'Test completion',
-                citations = [],
-                user_prompt = 'Who are you?',
-                full_prompt = '',
-                completion_tokens = 1,
-                prompt_tokens = 1,
-                total_tokens = 1,
-                total_cost = 1.00
-            )
-        )    
-            
-        #return BackgroundResponse(
-        #    operation_id = operation_id,
-        #    completed = r.json()['completed'],
-        #    response = r.json()['response']
-        #)
