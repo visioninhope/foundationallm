@@ -1,17 +1,18 @@
 {
 	"type": "api-endpoint",
 	"name": "OrchestrationAPI",
-	"object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpoints/OrchestrationAPI",
+	"object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfiguration/OrchestrationAPI",
 	"display_name": null,
 	"description": null,
 	"cost_center": null,
 	"category": 0,
 	"authentication_type": "APIKey",
+	"authentication_parameters": {
+		"api_key_configuration_name": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
+		"api_key_header_name": "Bearer"
+	},
 	"url": "${env:SERVICE_ORCHESTRATION_API_ENDPOINT_URL}",
 	"url_exceptions": [],
-	"api_key": null,
-	"api_key_configuration_name": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
-	"api_key_header_name": "Bearer",
 	"timeout_seconds": 60,
 	"retry_strategy_name": "ExponentialBackoff",
 	"created_on": "0001-01-01T00:00:00+00:00",
