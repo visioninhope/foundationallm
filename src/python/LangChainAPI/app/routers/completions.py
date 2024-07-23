@@ -1,7 +1,6 @@
 """
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
-import uuid
 from typing import Optional
 from fastapi import (
     APIRouter,
@@ -11,17 +10,16 @@ from fastapi import (
     Header,
     HTTPException,
     Request,
-    Response,
     status
 )
 from foundationallm.config import Configuration, Context
-from foundationallm.models.operations import LongRunningOperation
+from foundationallm.models.operations import LongRunningOperation, OperationStatus
 from foundationallm.models.orchestration import (
-    CompletionOperation,
     CompletionRequestBase,    
     CompletionResponse
 )
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
+from foundationallm.operations import OperationsManager, operations_manager
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
 from app.dependencies import handle_exception, validate_api_key_header
@@ -59,7 +57,6 @@ async def resolve_completion_request(request_body: dict = Body(...)) -> Completi
     }
 )
 async def submit_completion_request(
-    #response: Response,
     raw_request: Request,
     background_tasks: BackgroundTasks,
     instance_id: str,
@@ -74,17 +71,20 @@ async def submit_completion_request(
     CompletionOperation
         Object containing the operation ID and status.
     """
-    with tracer.start_as_current_span('async-completions') as span:
+    with tracer.start_as_current_span('submit_completion_request') as span:
         try:
-            #operation_id = str(uuid.uuid4())
+            # Get the operation_id from the completion request.
             operation_id = completion_request.operation_id
+            
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             span.set_attribute('user_identity', x_user_identity)
 
-            # Add a location header to the response.
-            #response.headers['location'] = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}'
-
+            # Create an operations manager to create the operation.
+            operations_manager = OperationsManager(raw_request.app.extra['config'])
+            # Submit the completion request operation to the state API.
+            operation = await operations_manager.create_operation(operation_id, instance_id)
+            
             # Start a background task to perform the completion request.
             background_tasks.add_task(
                 create_completion_response,
@@ -95,19 +95,66 @@ async def submit_completion_request(
                 x_user_identity
             )
 
-            # Submit the completion request operation to the state API.
-            operation = await OrchestrationManager.create_operation(
-                operation_id,
-                instance_id,
-                completion_request,
-                raw_request.app.extra['config']
-            )
-
-            # Append the status and result URLs to the operation state.
+            # Return the long running operation object.
             return operation
     
         except Exception as e:
             handle_exception(e)
+
+async def create_completion_response(
+    operation_id: str,
+    instance_id: str,
+    completion_request: KnowledgeManagementCompletionRequest,
+    configuration: Configuration,
+    x_user_identity: Optional[str] = Header(None)
+):
+    """
+    Generates the completion response for the specified completion request.
+    """
+    with tracer.start_as_current_span(f'create_completion_response') as span:
+        # Create an operations manager to update the operation status.
+        operations_manager = OperationsManager(configuration)
+            
+        try:
+            span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
+            span.set_attribute('user_identity', x_user_identity)
+
+            # Update the operation status to 'InProgress'.
+            operations_manager.update_operation(
+                operation_id,
+                instance_id,
+                status = OperationStatus.INPROGRESS,
+                status_message = 'Operation is running.'
+            )
+            
+            # Create an orchestration manager to process the completion request.
+            orchestration_manager = OrchestrationManager(
+                completion_request = completion_request,
+                configuration = configuration,
+                context = Context(user_identity=x_user_identity)
+            )
+            # Await the completion response from the orchestration manager.
+            completion = await orchestration_manager.ainvoke(completion_request)
+
+            # Send the completion response to the State API and mark the operation as completed.
+            await operations_manager.update_operation(
+                operation_id,
+                instance_id,
+                status = OperationStatus.COMPLETED,
+                status_message = 'Operation is complete.',
+                response = completion
+            )
+        except Exception as e:
+            # TODO: Log the error and return an appropriate response to the caller.
+            # Send the completion response to the State API and mark the operation as failed.
+            await operations_manager.update_operation(
+                operation_id,
+                instance_id,
+                status = OperationStatus.FAILED,
+                status_message = f'Operation failed with error: {e}',
+                response = completion
+            )
 
 @router.get(
     '/async-completions/{operation_id}/status',
@@ -120,28 +167,25 @@ async def submit_completion_request(
 async def get_operation_status(
     raw_request: Request,
     instance_id: str,
-    operation_id: str,
-    x_user_identity: Optional[str] = Header(None)
+    operation_id: str
 ) -> LongRunningOperation:
     with tracer.start_as_current_span(f'get_operation_status') as span:
+        # Create an operations manager to get the operation status.
+        operations_manager = OperationsManager(raw_request.app.extra['config'])
+        
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
-            background_response = await OrchestrationManager.get_operation_state(
+            operation = operations_manager.get_operation_state(
                 operation_id,
-                raw_request.app.extra['config'],
-                x_user_identity
+                instance_id
             )
-            print('BACKGROUND RESPONSE:', background_response)
-
-            if background_response is None:
+            
+            if operation is None:
                 raise HTTPException(status_code=404)
 
-            if not background_response.completed:
-                return Response(status_code=204)
-
-            return background_response.response
+            return operation
         except Exception as e:
             handle_exception(e)
 
@@ -156,64 +200,29 @@ async def get_operation_status(
 async def get_operation_result(
     raw_request: Request,
     instance_id: str,
-    operation_id: str,
-    x_user_identity: Optional[str] = Header(None)
+    operation_id: str
 ) -> CompletionResponse:
     with tracer.start_as_current_span(f'get_operation_result') as span:
+        # Create an operations manager to get the operation status.
+        operations_manager = OperationsManager(raw_request.app.extra['config'])
+        
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
             background_response = await OrchestrationManager.get_operation_result(
                 operation_id,
-                raw_request.app.extra['config'],
-                x_user_identity
+                instance_id
             )
 
-            if background_response is None:
+            completion_response = operations_manager.get_operation_result(
+                operation_id,
+                instance_id
+            )
+            
+            if completion_response is None:
                 raise HTTPException(status_code=404)
 
-            if not background_response.completed:
-                return Response(status_code=204)
-
-            return background_response.response
+            return completion_response
         except Exception as e:
             handle_exception(e)
-
-async def create_completion_response(
-    operation_id: str,
-    instance_id: str,
-    completion_request: KnowledgeManagementCompletionRequest,
-    configuration: Configuration,
-    x_user_identity: Optional[str] = Header(None)
-):
-    with tracer.start_as_current_span(f'create_completion_response') as span:
-        try:
-            span.set_attribute('operation_id', operation_id)
-            span.set_attribute('instance_id', instance_id)
-            span.set_attribute('user_identity', x_user_identity)
-            
-            orchestration_manager = OrchestrationManager(
-                completion_request = completion_request,
-                configuration = configuration,
-                context = Context(user_identity=x_user_identity)
-            )
-
-            completion = await orchestration_manager.ainvoke(completion_request)
-
-            # TODO: This needs to send the completion to the state API and update the result of the operation object.
-        
-
-            #background_responses[operation_id].response = completion
-            #background_responses[operation_id].completed = True
-
-            print('COMPLETION RESPONSE:', completion)
-        
-        except Exception as e:
-            #background_responses[operation_id].response = CompletionResponse(
-            #    user_prompt = completion_request.user_prompt,
-            #    completion = 'An error occurred in the LangChain orchestration service while processing the completion request.'
-            #)
-            #background_responses[operation_id].completed = True
-
-            print('COMPLETION ERROR:', e)
