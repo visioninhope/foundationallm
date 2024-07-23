@@ -14,7 +14,7 @@ FoundationaLLM uses the [Microsoft Entra ID](https://learn.microsoft.com/entra/f
 - [Authorization pre-deployment - Microsoft Entra ID](authorization-setup-entra.md)
 
 ### Steps to perform after the deployment
-[Core API and user portal authentication post-deployment - Microsoft Entra ID](post-core-deployment.md)
+- [Core API and user portal authentication post-deployment - Microsoft Entra ID](post-core-deployment.md)
 - [Management API and portal authentication post-deployment - Microsoft Entra ID](post-management-deployment.md)
 - [Authorization post-deployment - Microsoft Entra ID](post-authorization-deployment.md)
 
