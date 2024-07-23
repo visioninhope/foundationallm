@@ -35,7 +35,7 @@ public interface IOrchestrationService
     /// Gets the status of a completion operation.
     /// </summary>
     /// <param name="instanceId">The FoundationaLLM instance id.</param>
-    /// <param name="operationId">The OperationId to retrieve the status for.</param>
+    /// <param name="operationId">The OperationId for which to retrieve the status.</param>
     /// <returns>Returns an <see cref="LongRunningOperation"/> object containing the OperationId and Status.</returns>
     Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId);
 
