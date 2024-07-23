@@ -263,7 +263,10 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | StrOutputParser()
                 )
                 
-                completion = await chain.ainvoke(request.user_prompt)
+                # ainvoke isn't working because search is possibly involved in the completion request. Need to dive deeper into how to get this working.
+                # completion = await chain.ainvoke(request.user_prompt)
+                completion = chain.invoke(request.user_prompt)
+                
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
