@@ -2,9 +2,9 @@
 
 FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authorization. This means that you can use your Microsoft Entra ID to setup authorization access to FoundationaLLM's platform.
 
-### Create the client application
+### Create the API application
 
-#### Register the client application in the Microsoft Entra ID admin center
+#### Register the API application in the Microsoft Entra ID admin center
 
 1. Sign in to the [Microsoft Entra ID admin center](https://entra.microsoft.com/) as at least a Cloud Application Administrator.
 2. Browse to **Identity** > **Applications** > **App registrations**.
@@ -55,18 +55,3 @@ FoundationaLLM comes with out-of-the-box support for Microsoft Entra ID authoriz
 2. Enter `http://localhost` under **Redirect URIs**. Then, below **Implicit grant and hybrid flows**, select both **Access tokens** and **ID tokens**. Finally, select **Configure**.
 
     ![Select "Access Tokens" and "ID Tokens".](media/set-grant-and-hybrid-flows.png)
-
-### Update App Configuration settings
-
-1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
-2. Navigate to the resource group that was created as part of the deployment.
-3. Select the **App Configuration** resource and select **Configuration explorer** to view the values.
-4. Enter `authorization` in the search box to filter the results.
-5. Check the box next to **Key** in the header to select all items.
-6. Find the key for `FoundationaLLM:APIs:AuthorizationAPI:APIScope` and click on edit.
-7. Replace the value with the value from the scope we created earlier, as `api://FoundationaLLM-Authorization` 
-8. Select **Apply** to save the changes.
-
-## Next steps
-
-Now that Entra authorization is fully configured, navigate to your Entra ID management console and make sure you completed all app registrations for all the other apps mentioned in the deployment documentation.
