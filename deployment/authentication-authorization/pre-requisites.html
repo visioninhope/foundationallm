@@ -72,7 +72,7 @@
 
         <article data-uid="">
 
-<h3 id="pre-requisites">Pre-requisites</h3>
+<h3 id="pre-requisites-for-post-deployment-configuration">Pre-requisites for post-deployment configuration</h3>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Be aware that after completing this registration and the other app registrations in Entra ID as instructed in the <a href="docs/deployment/authentication-authorization/index.md">docs</a> you will complete the deployment steps outlined at <a href="../../deployment/deployment-starter.md">deploy the solution</a> then you will be revisiting your app registrations to complete some of the settings that require the solution to be deployed before the entire app registration is completed successfully.</p>
@@ -80,14 +80,13 @@
 <h4 id="setup-app-configuration-access">Setup App Configuration access</h4>
 <ol>
 <li>Sign in to the <a href="https://portal.azure.com/">Azure portal</a> as at least a Contributor.</li>
-<li>Navigate to the Resource Group that was created as part of the deployment.
+<li>Navigate to the Resource Group that was created as part of the deployment.</li>
+</ol>
 <div class="NOTE">
 <h5>Note</h5>
-<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.</p>
+<p>If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with <code>ME_</code> or <code>MC_</code> in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that <strong>does not start with</strong> <code>ME_</code> or <code>MC_</code> to access the App Configuration resource.
+3. Select the <strong>App Configuration</strong> resource and select <strong>Configuration explorer</strong> to view the values. If you cannot access the configurations, add your user account as an <strong>App Configuration Data Owner</strong> through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the <a href="../configure-access-control-for-services.html#azure-app-configuration-service">Configure access control for services</a> document.</p>
 </div>
-</li>
-<li>Select the <strong>App Configuration</strong> resource and select <strong>Configuration explorer</strong> to view the values. If you cannot access the configurations, add your user account as an <strong>App Configuration Data Owner</strong> through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the <a href="../configure-access-control-for-services.html#azure-app-configuration-service">Configure access control for services</a> document.</li>
-</ol>
 <h4 id="obtain-the-url-for-the-chat-ui-application">Obtain the URL for the chat UI application</h4>
 <p>You need this URL to assign the redirect URI for the client application.</p>
 <p>If you performed an <strong>Azure Container Apps (ACA)</strong> deployment, follow these steps to obtain the URL for the chat UI application:</p>
