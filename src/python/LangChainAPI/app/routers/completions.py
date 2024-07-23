@@ -17,7 +17,7 @@ from fastapi import (
 from foundationallm.config import Configuration, Context
 from foundationallm.models.operations import LongRunningOperation, OperationStatus
 from foundationallm.models.orchestration import (
-    CompletionRequestBase,    
+    CompletionRequestBase,
     CompletionResponse
 )
 from foundationallm.models.agents import KnowledgeManagementCompletionRequest
@@ -129,14 +129,14 @@ async def create_completion_response(
             # Change the operation status to 'InProgress' using an async task.
             loop = asyncio.get_running_loop()
             loop.create_task(
-            operations_manager.update_operation(
-                operation_id,
-                instance_id,
-                status = OperationStatus.INPROGRESS,
+                operations_manager.update_operation(
+                    operation_id,
+                    instance_id,
+                    status = OperationStatus.INPROGRESS,
                     status_message = f'Operation state changed to {OperationStatus.INPROGRESS}.'
+                )
             )
-            )
-            
+           
             # Create an orchestration manager to process the completion request.
             orchestration_manager = OrchestrationManager(
                 completion_request = completion_request,
@@ -158,16 +158,16 @@ async def create_completion_response(
                     status=OperationStatus.COMPLETED,
                     status_message=f'Operation {operation_id} completed successfully.'
                 )
-            )
+            )            
         except Exception as e:
             # TODO: Log the error and return an appropriate response to the caller.
             # Send the completion response to the State API and mark the operation as failed.
+            print(f'Operation {operation_id} failed with error: {e}')
             await operations_manager.update_operation(
                 operation_id,
                 instance_id,
                 status = OperationStatus.FAILED,
-                status_message = f'Operation failed with error: {e}',
-                response = completion
+                status_message = f'Operation failed with error: {e}'
             )
 
 @router.get(
