@@ -1,5 +1,6 @@
 ﻿from langchain_community.callbacks import get_openai_callback
 from langchain_core.prompts import PromptTemplate
+from langchain_core.retrievers import BaseRetriever
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from foundationallm.langchain.agents import LangChainAgentBase
@@ -98,7 +99,10 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         return response['label']
 
-    def _get_document_retriever(agent: KnowledgeManagementAgent):
+    def _get_document_retriever(
+        self,
+        request: KnowledgeManagementCompletionRequest,
+        agent: KnowledgeManagementAgent):
         """
         Get the vector document retriever, if it exists.
         """
@@ -126,7 +130,11 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 retriever = retriever_factory.get_retriever()
         return retriever
 
-    def _get_prompt_template(agent: KnowledgeManagementAgent, retriever: BaseRetriever = None) -> PromptTemplate:
+    def _get_prompt_template(
+        self,
+        request: KnowledgeManagementCompletionRequest,
+        agent: KnowledgeManagementAgent,
+        retriever: BaseRetriever = None) -> PromptTemplate:
         """
         Build a prompt template.
         """
@@ -180,15 +188,15 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             generated full prompt with context and token utilization and execution cost details.
         """
         self._validate_request(request)
-        
+
         agent = request.agent
         
         with get_openai_callback() as cb:
             try:
                 # Get the vector document retriever, if it exists.
-                retriever = self._get_document_retriever(agent)
+                retriever = self._get_document_retriever(request, agent)
                 # Get the prompt template.
-                prompt_template = self._get_prompt_template(agent, retriever)
+                prompt_template = self._get_prompt_template(request, agent, retriever)
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
@@ -241,13 +249,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
         
         agent = request.agent
-        
+                
         with get_openai_callback() as cb:
             try:
                 # Get the vector document retriever, if it exists.
-                retriever = self._get_document_retriever(agent)
+                retriever = self._get_document_retriever(request, agent)
                 # Get the prompt template.
-                prompt_template = self._get_prompt_template(agent, retriever)
+                prompt_template = self._get_prompt_template(request, agent, retriever)
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
@@ -262,7 +270,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | self._get_language_model(agent.orchestration_settings, request.settings)
                     | StrOutputParser()
                 )
-                
+
                 # ainvoke isn't working because search is possibly involved in the completion request. Need to dive deeper into how to get this working.
                 # completion = await chain.ainvoke(request.user_prompt)
                 completion = chain.invoke(request.user_prompt)
