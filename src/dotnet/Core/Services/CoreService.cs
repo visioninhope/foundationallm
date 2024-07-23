@@ -160,6 +160,18 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
+    public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+        throw new NotImplementedException();
+
+    /// <inheritdoc/>
+    public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
+        throw new NotImplementedException();
+
+    /// <inheritdoc/>
+    public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+        throw new NotImplementedException();
+
+    /// <inheritdoc/>
     public async Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)
     {
         try
