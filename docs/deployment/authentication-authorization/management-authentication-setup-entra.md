@@ -9,19 +9,6 @@ To enable Microsoft Entra ID authentication for the Management API and portal, y
 - A client application that will be used by the management portal to authenticate users.
 - An API application that will be used by the Management API to authenticate users.
 
-### Pre-requisites
-
-> [!IMPORTANT]
-> Be aware that after completing this registration and the other app registrations in Entra ID as instructed in the [docs](docs/deployment/authentication-authorization/index.md) you will complete the deployment steps outlined at [deploy the solution](../../deployment/deployment-starter.md) then you will be revisiting your app registrations to complete some of the settings that require the solution to be deployed before the entire app registration is completed successfully.
-
-#### Setup App Configuration access
-
-1. Sign in to the [Azure portal](https://portal.azure.com/) as at least a Contributor.
-2. Navigate to the Resource Group that was created as part of the deployment.
-    > [!NOTE]
-    > If you performed an Azure Container Apps (ACA) or Azure Kubernetes Service (AKS) deployment, you will see an extra Resource Group that starts with `ME_` or `MC_` in addition to the Resource Group defined during the deployment. You will need to navigate to the Resource Group that **does not start with** `ME_` or `MC_` to access the App Configuration resource.
-3. Select the **App Configuration** resource and select **Configuration explorer** to view the values. If you cannot access the configurations, add your user account as an **App Configuration Data Owner** through Access Control (IAM). You need this role in order to update the configurations as a required part of the authentication setup. To add your user account to the appropriate role, follow the instructions in the [Configure access control for services](../../deployment/configure-access-control-for-services.md#azure-app-configuration-service) document.
-
 ### Create the client application
 
 #### Register the client application in the Microsoft Entra ID admin center
@@ -32,7 +19,7 @@ To enable Microsoft Entra ID authentication for the Management API and portal, y
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
 3. On the page that appears, select **+ New registration**.
-4. When the **Register an application** page appears, enter a name for your application, such as *FoundationaLLM-ManagementClient*. You should indicate that this is for the management client application by appending *-ManagementClient* to the name.
+4. When the **Register an application** page appears, enter the name *FoundationaLLM-Management-Portal* for your application.
 5. Under **Supported account types**, select *Accounts in this organizational directory only*.
 6. Select **Register**.
 
@@ -148,7 +135,7 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
    ![The Add a scope form is displayed as described in the bulleted list above.](media/entra-management-management-api-app-add-scope.png)
 
-3. Copy the **Scope name** value to add to your App Configuration settings later. For example, it should look something like `api://c79a09ce067141d5832b/Data.Manage`.
+3. Copy the **Scope name** value to add to your App Configuration settings later. It should look like `api://FoundationaLLM-Management/Data.Manage`.
 
    ![The new scope name is displayed with the Copy button highlighted.](media/entra-management-api-app-scope-copy-name.png)
 
@@ -176,10 +163,10 @@ If you wish to [configure authentication in Postman](../../development/directly-
 
     ![The app registrations menu item in the left-hand menu is highlighted.](media/entra-app-registrations.png)
 
-2. Select the `FoundationaLLM-ManagementClient` application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
+2. Select the `FoundationaLLM-Management-Portal` application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
 3. Select **API permissions**.
 4. Select **+ Add a permission** under the "Configured permissions" section.
-5. In the "Request API permissions" pan, select the **My APIs** tab, then select the `FoundationaLLM-Management` API application.
+5. In the "Request API permissions" pan, select the **My APIs** tab, then select the `FoundationaLLM-Management-API` application.
 
     ![The FoundationaLLM API is selected under My APIs.](media/entra-app-add-management-api-permission.png)
 
@@ -204,7 +191,7 @@ The client application's configured permissions should now look like the followi
 
 7. Replace the values for the following settings with the values that you recorded earlier:
    - `FoundationaLLM:Management:Entra:ClientId`: The **Application (client) ID** of the client application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
-   - `FoundationaLLM:Management:Entra:Scopes`: The fully-qualified scopes path for the API application that you [created earlier](#expose-an-api-for-the-api-application). For example, it should look something like `api://d85a09ce067141d5807a/Data.Manage`.
+   - `FoundationaLLM:Management:Entra:Scopes`: The fully-qualified scopes path for the API application that you [created earlier](#expose-an-api-for-the-api-application). It should look like `api://FoundationaLLM.Management-API/Data.Manage`.
    - `FoundationaLLM:Management:Entra:TenantId`: The **Directory (tenant) ID** of the client application that you [created earlier](#register-the-client-application-in-the-microsoft-entra-admin-center).
    - `FoundationaLLM:ManagementAPI:Entra:ClientId`: The **Application (client) ID** of the API application that you [created earlier](#register-the-api-application-in-the-microsoft-entra-admin-center).
    - `FoundationaLLM:ManagementAPI:Entra:TenantId`: The **Directory (tenant) ID** of the API application that you [created earlier](#register-the-api-application-in-the-microsoft-entra-admin-center).

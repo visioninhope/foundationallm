@@ -50,7 +50,7 @@ API Name | Entra ID app registration name | Application ID URI | Scope name
 Core API | `FoundationaLLM-Core-API` | `api://FoundationaLLM-Core` | `Data.Read`
 Management API | `FoundationaLLM-Management-API` | `api://FoundationaLLM-Management` | `Data.Manage`
 Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-Authorization` | `Authorization.Manage`
-User Portal | `FoundationaLLM-User-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
+User Portal | `FoundationaLLM-Core-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
 Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
 
 ### Pre-0.8.0
