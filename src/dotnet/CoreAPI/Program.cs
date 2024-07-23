@@ -94,7 +94,7 @@ namespace FoundationaLLM.Core.API
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
             builder.AddAgentResourceProvider();
             builder.AddAttachmentResourceProvider();
-            builder.AddAIModelResourceProvider();
+
             // Register the downstream services and HTTP clients.
             RegisterDownstreamServices(builder);
 

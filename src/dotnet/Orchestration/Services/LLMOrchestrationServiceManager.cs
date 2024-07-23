@@ -76,7 +76,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                         eos => eos.Name,
                         eos => new APISettingsBase
                         {
-                            //TODO - how to  structure getting this here
                             APIKey = _configuration[eos.APIKey],
                             APIUrl = _configuration[eos.Url]
                         });
