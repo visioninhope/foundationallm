@@ -1,6 +1,7 @@
 """
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
+import asyncio
 from typing import Optional
 from fastapi import (
     APIRouter,
@@ -125,12 +126,15 @@ async def create_completion_response(
             span.set_attribute('instance_id', instance_id)
             span.set_attribute('user_identity', x_user_identity)
 
-            # Update the operation status to 'InProgress'.
+            # Change the operation status to 'InProgress' using an async task.
+            loop = asyncio.get_running_loop()
+            loop.create_task(
             operations_manager.update_operation(
                 operation_id,
                 instance_id,
                 status = OperationStatus.INPROGRESS,
-                status_message = 'Operation is running.'
+                    status_message = f'Operation state changed to {OperationStatus.INPROGRESS}.'
+            )
             )
             
             # Create an orchestration manager to process the completion request.
@@ -143,12 +147,17 @@ async def create_completion_response(
             completion = await orchestration_manager.ainvoke(completion_request)
 
             # Send the completion response to the State API and mark the operation as completed.
-            await operations_manager.update_operation(
-                operation_id,
-                instance_id,
-                status = OperationStatus.COMPLETED,
-                status_message = 'Operation is complete.',
-                response = completion
+            await asyncio.gather(
+                operations_manager.set_operation_result(
+                    operation_id=operation_id,
+                    instance_id=instance_id,
+                    completion_response=completion),
+                operations_manager.update_operation(
+                    operation_id=operation_id,
+                    instance_id=instance_id,
+                    status=OperationStatus.COMPLETED,
+                    status_message=f'Operation {operation_id} completed successfully.'
+                )
             )
         except Exception as e:
             # TODO: Log the error and return an appropriate response to the caller.
