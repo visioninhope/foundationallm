@@ -78,14 +78,14 @@ namespace FoundationaLLM.Orchestration.Core.Services
             };
 
             // Add conversation history.
-            if (request.Agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
+            if (request.Agent.ConversationHistorySettings?.Enabled == true && request.MessageHistory != null)
             {
                 // The message history needs to be in a continuous order of user and assistant messages.
                 // If the MaxHistory value is odd, add one to the number of messages to take to ensure proper pairing.
-                if (request.Agent.ConversationHistory.MaxHistory % 2 != 0)
-                    request.Agent.ConversationHistory.MaxHistory++;
+                if (request.Agent.ConversationHistorySettings.MaxHistory % 2 != 0)
+                    request.Agent.ConversationHistorySettings.MaxHistory++;
 
-                var messageHistoryItems = request.MessageHistory?.TakeLast(request.Agent.ConversationHistory.MaxHistory);
+                var messageHistoryItems = request.MessageHistory?.TakeLast(request.Agent.ConversationHistorySettings.MaxHistory);
                 
                 foreach(var item in messageHistoryItems!)
                 {
