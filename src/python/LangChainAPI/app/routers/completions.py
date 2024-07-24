@@ -2,7 +2,7 @@
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
 import asyncio
-from typing import Optional
+from typing import Optional, List
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -15,7 +15,11 @@ from fastapi import (
     status
 )
 from foundationallm.config import Configuration, Context
-from foundationallm.models.operations import LongRunningOperation, OperationStatus
+from foundationallm.models.operations import (
+    LongRunningOperation,
+    LongRunningOperationLogEntry,
+    OperationStatus
+)
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionResponse
@@ -174,8 +178,8 @@ async def create_completion_response(
     '/async-completions/{operation_id}/status',
     summary = 'Retrieve the status of the completion request operation with the specified operation ID.',
     responses = {
-        200: {'description': 'The operation has completed.'},
-        404: {'description': 'The operation was not found.'}
+        200: {'description': 'The operation status was retrieved successfully.'},
+        404: {'description': 'The specified operation was not found.'}
     }
 )
 async def get_operation_status(
@@ -207,8 +211,8 @@ async def get_operation_status(
     '/async-completions/{operation_id}/result',
     summary = 'Retrieve the completion result of the operation with the specified operation ID.',
     responses = {
-        200: {'description': 'The operation has completed.'},
-        404: {'description': 'The operation was not found.'}
+        200: {'description': 'The operation result was retrieved successfully.'},
+        404: {'description': 'The specified operation or its result was not found.'}
     }
 )
 async def get_operation_result(
@@ -217,7 +221,7 @@ async def get_operation_result(
     operation_id: str
 ) -> CompletionResponse:
     with tracer.start_as_current_span(f'get_operation_result') as span:
-        # Create an operations manager to get the operation status.
+        # Create an operations manager to get the operation result.
         operations_manager = OperationsManager(raw_request.app.extra['config'])
         
         try:
@@ -233,5 +237,38 @@ async def get_operation_result(
                 raise HTTPException(status_code=404)
 
             return completion_response
+        except Exception as e:
+            handle_exception(e)
+
+@router.get(
+    '/async-completions/{operation_id}/log',
+    summary = 'Retrieve the log of operational steps for the specified operation ID.',
+    responses = {
+        200: {'description': 'The operation log was retrieved successfully.'},
+        404: {'description': 'The specified operation or its log was not found.'}
+    }
+)
+async def get_operation_log(
+    raw_request: Request,
+    instance_id: str,
+    operation_id: str
+) -> List[LongRunningOperationLogEntry]:
+    with tracer.start_as_current_span(f'get_operation_log') as span:
+        # Create an operations manager to get the operation log.
+        operations_manager = OperationsManager(raw_request.app.extra['config'])
+        
+        try:
+            span.set_attribute('operation_id', operation_id)
+            span.set_attribute('instance_id', instance_id)
+            
+            log = operations_manager.get_operation_log(
+                operation_id,
+                instance_id
+            )
+            
+            if log is None:
+                raise HTTPException(status_code=404)
+
+            return log
         except Exception as e:
             handle_exception(e)

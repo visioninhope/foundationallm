@@ -1,8 +1,13 @@
 import json
 import requests
 from datetime import datetime
+from typing import List
 from foundationallm.config import Configuration
-from foundationallm.models.operations import LongRunningOperation, OperationStatus
+from foundationallm.models.operations import (
+    LongRunningOperation,
+    LongRunningOperationLogEntry,
+    OperationStatus
+)
 from foundationallm.models.orchestration import CompletionResponse
 
 class OperationsManager():
@@ -78,6 +83,12 @@ class OperationsManager():
         ----------
         operation : LongRunningOperation
             The operation to update.
+        instance_id : str
+            The unique identifier for the FLLM instance.
+        status: OperationStatus
+            The new status to assign to the operation.
+        status_message: str
+            The message to associate with the new status.
         
         Returns
         -------
@@ -128,6 +139,8 @@ class OperationsManager():
         ----------
         operation_id : str
             The unique identifier for the operation.
+        instance_id : str
+            The unique identifier for the FLLM instance.
         
         Returns
         -------
@@ -173,6 +186,8 @@ class OperationsManager():
         ----------
         operation_id : str
             The unique identifier for the operation.
+        instance_id : str
+            The unique identifier for the FLLM instance.
         completion_response : CompletionResponse
             The result of the operation.
         """
@@ -212,6 +227,8 @@ class OperationsManager():
         ----------
         operation_id : str
             The unique identifier for the operation.
+        instance_id : str
+            The unique identifier for the FLLM instance.
         
         Returns
         -------
@@ -240,5 +257,51 @@ class OperationsManager():
             completion_json = json.loads(r.json())
             completion = CompletionResponse(**completion_json)
             return completion
+        except Exception as e:
+            raise e
+
+    async def get_operation_log(
+        self,
+        operation_id: str,
+        instance_id: str) -> List[LongRunningOperationLogEntry]:
+        """
+        Retrieves a list of log entries for an async operation through the State API.
+
+        GET {state_api_url}/instances/{instanceId}/operations/{operationId}/log -> List[LongRunningOperationLogEntry]
+        
+        Parameters
+        ----------
+        operation_id : str
+            The unique identifier for the operation.
+        instance_id : str
+            The unique identifier for the FLLM instance.
+        
+        Returns
+        -------
+        List[LongRunningOperationLogEntry]
+            List of log entries for the operation.
+        """
+        try:
+            # Call the State API to create a new operation.
+            headers = {
+                "x-api-key": self.state_api_key,
+                "charset":"utf-8",
+                "Content-Type":"application/json"
+            }
+
+            r = requests.get(
+                f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/log',
+                headers=headers
+            )
+
+            if r.status_code == 404:
+                return None
+
+            if r.status_code != 200:
+                raise Exception(f'An error occurred while retrieving the log of steps for the operation {operation_id}: ({r.status_code}) {r.text}')
+
+            log_json = json.loads(r.json())
+            log = CompletionResponse(**log_json)
+            return log
         except Exception as e:
             raise e
