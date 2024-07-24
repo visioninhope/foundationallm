@@ -58,7 +58,7 @@ class OperationsManager():
             # Call the State API to create a new operation.
             r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
-                json=json.dumps(operation),
+                json=json.dumps(operation.__dict__, default=str),
                 headers=headers
             )
 
