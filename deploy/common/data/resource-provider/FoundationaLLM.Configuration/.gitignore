@@ -7,3 +7,6 @@ LangChainAPI.json
 OrchestrationAPI.json
 SemanticKernelAPI.json
 VectorizationAPI.json
+VectorizationWorker.json
+StateAPI.json
+GatewayAdapterAPI.json
