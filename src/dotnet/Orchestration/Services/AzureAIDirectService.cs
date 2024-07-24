@@ -11,6 +11,8 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -100,6 +102,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             var endpointConfiguration = request.AIModelEndpointConfiguration;
             var apiKey = string.Empty;
+            var apiKeyHeaderName = string.Empty;
+            var apiKeyPrefix = string.Empty;
 
             if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
             {
@@ -109,14 +113,34 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }
 
-            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url) && !string.IsNullOrWhiteSpace(apiKey))
+            // The expected value for the header name is "Authorization".
+            if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyHeaderName, out var apiKeyHeaderNameObject))
+                throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyHeaderName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+            apiKeyHeaderName = apiKeyHeaderNameObject.ToString();
+
+            // The optional expected value for the API key prefix is "Bearer".
+            if (endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyPrefix, out var  apiKeyPrefixObject))
+                apiKeyPrefix = apiKeyPrefixObject.ToString();
+
+            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url)
+                && !string.IsNullOrWhiteSpace(apiKey)
+                && !string.IsNullOrWhiteSpace(apiKeyHeaderName))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect);
-                if (!string.IsNullOrWhiteSpace(apiKey))
+
+                if (apiKeyHeaderName == HeaderNames.Authorization)
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                        "Bearer", apiKey
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                        apiKeyPrefix ?? string.Empty, apiKey
                     );
+                }
+                else
+                {
+                    client.DefaultRequestHeaders.Add(
+                        apiKeyHeaderName,
+                        string.IsNullOrWhiteSpace(apiKeyPrefix)
+                            ? apiKey
+                            : $"{apiKeyPrefix} {apiKey}");
                 }
                 
                 client.BaseAddress = new Uri(endpointConfiguration.Url!);

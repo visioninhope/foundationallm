@@ -96,6 +96,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
             }
 
             var apiKey = string.Empty;
+            var apiKeyHeaderName = string.Empty;
 
             if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
             {
@@ -106,14 +107,20 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }
 
+            // The expected value for the header name is "api-key".
+            if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyHeaderName, out var apiKeyHeaderNameObject))
+                throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyHeaderName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+            apiKeyHeaderName = apiKeyHeaderNameObject.ToString();
+
             if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url)
                 && !string.IsNullOrWhiteSpace(apiKey)
-                && !string.IsNullOrWhiteSpace(request.AIModel.DeploymentName))
+                && !string.IsNullOrWhiteSpace(request.AIModel.DeploymentName)
+                && !string.IsNullOrWhiteSpace(apiKeyHeaderName))
             {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureOpenAIDirect);
                 if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey && !string.IsNullOrWhiteSpace(apiKey))
                 {
-                    client.DefaultRequestHeaders.Add("api-key", apiKey);
+                    client.DefaultRequestHeaders.Add(apiKeyHeaderName, apiKey);
                 }
 
                 client.BaseAddress = new Uri(endpointConfiguration.Url);
