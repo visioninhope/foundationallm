@@ -1,9 +1,11 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
@@ -24,8 +26,13 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     {
         /// <summary>
         /// Builds the orchestration based on the user prompt, the session id, and the call context.
+        /// <para>
+        /// Note that the agent name in <paramref name="agentName"/> can be different from the agent name in <paramref name="originalRequest"/>.
+        /// This happens when the original completion request results in the need to bring in additional agents to the conversation.
+        /// </para>
         /// </summary>
         /// <param name="agentName">The unique name of the agent for which the orchestration is built.</param>
+        /// <param name="originalRequest">The <see cref="CompletionRequest"/> request for which the orchestration is built.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
@@ -36,6 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
             string agentName,
+            CompletionRequest originalRequest,
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
@@ -45,7 +53,13 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
 
-            var result = await LoadAgent(agentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
+            var result = await LoadAgent(
+                agentName,
+                originalRequest.Settings?.ModelParameters,
+                resourceProviderServices,
+                callContext.CurrentUserIdentity!,
+                logger);
+
             if (result.Agent == null) return null;
             
             if (result.Agent.AgentType == typeof(KnowledgeManagementAgent))
@@ -73,6 +87,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
         private static async Task<(AgentBase? Agent, Dictionary<string, object>? ExplodedObjects, bool DataSourceAccessDenied)> LoadAgent(
             string? agentName,
+            Dictionary<string, object>? modelParameterOverrides,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             UnifiedUserIdentity currentUserIdentity,
             ILogger<OrchestrationBuilder> logger)
@@ -108,6 +123,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             var apiEndpointConfiguration = await configurationResourceProvider.GetResource<APIEndpointConfiguration>(
                 aiModel.EndpointObjectId!,
                 currentUserIdentity);
+
+            // Merge model parameter overrides
+
+            if (modelParameterOverrides != null)
+            {
+                // Only considering the supported list of keys
+                foreach (var key in modelParameterOverrides.Keys.Where(k => ModelParameterKeys.All.Contains(k)))
+                {
+                    aiModel.ModelParameters[key] = modelParameterOverrides[key];
+                }
+            }
 
             explodedObjects[agentBase.PromptObjectId!] = prompt;
             explodedObjects[agentBase.AIModelObjectId!] = aiModel;

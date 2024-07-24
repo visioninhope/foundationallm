@@ -11,10 +11,18 @@
         /// by the index.
         /// </summary>
         public const string IndexFilterExpression = "index_filter_expression";
+
         /// <summary>
         /// Controls the number of search results to return from an index for prompt augmentation.
         /// </summary>
         public const string IndexTopN = "index_top_n";
 
+        /// <summary>
+        /// All agent parameter keys.
+        /// </summary>
+        public readonly static string[] All = [
+            IndexFilterExpression,
+            IndexTopN
+        ];
     }
 }

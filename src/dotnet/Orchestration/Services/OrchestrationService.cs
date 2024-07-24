@@ -111,6 +111,7 @@ public class OrchestrationService : IOrchestrationService
         {
             var orchestration = await OrchestrationBuilder.Build(
                 conversationStep.AgentName,
+                completionRequest,
                 _callContext,
                 _configuration,
                 _resourceProviderServices,
@@ -127,7 +128,7 @@ public class OrchestrationService : IOrchestrationService
                 Attachments = completionRequest.Attachments,
                 UserPrompt = currentCompletionResponse == null
                     ? conversationStep.UserPrompt
-                    : $"{currentCompletionResponse.Completion}{Environment.NewLine}{conversationStep.UserPrompt}"
+                    : $"{currentCompletionResponse.Completion}{Environment.NewLine}{conversationStep.UserPrompt}",
             };
 
             currentCompletionResponse = orchestration == null

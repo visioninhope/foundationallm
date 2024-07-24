@@ -1,8 +1,6 @@
-﻿using FoundationaLLM.Common.Constants.Agents;
-using FoundationaLLM.Common.Constants.Authentication;
+﻿using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
@@ -22,6 +20,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The api endpoint category.
         /// </summary>
         [JsonPropertyName("category")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public required APIEndpointCategory Category { get; set; }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// A list of URL exceptions.
         /// </summary>
         [JsonPropertyName("url_exceptions")]
-        public List<UrlException> UrlExceptions { get; set; } = new List<UrlException>();
+        public List<UrlException> UrlExceptions { get; set; } = [];
 
         /// <summary>
         /// Dictionary with values used for authentication.

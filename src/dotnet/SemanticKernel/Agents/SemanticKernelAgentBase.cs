@@ -1,17 +1,14 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.SemanticKernel;
-using System.Text.Json;
 
 namespace FoundationaLLM.SemanticKernel.Core.Agents
 {
@@ -33,7 +30,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         protected readonly ILogger _logger = logger;
 
         protected string _llmProvider = string.Empty;
-        protected string _endpoint = string.Empty;
+        protected string _endpointUrl = string.Empty;
         protected string _deploymentName = string.Empty;
 
         /// <summary>
@@ -42,7 +39,19 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
         /// <returns>A <see cref="LLMCompletionResponse"/> object containing the completion response.</returns>
         public async Task<LLMCompletionResponse> GetCompletion()
         {
-            ValidateRequest();
+            try
+            {
+                _request.Validate();
+                _deploymentName = _request.AIModel.DeploymentName!;
+                _llmProvider = _request.AIModelEndpointConfiguration.Provider!;
+                _endpointUrl = _request.AIModelEndpointConfiguration.Url!;
+
+            }
+            catch (OrchestrationException ex)
+            {
+                throw new SemanticKernelException(ex.Message, StatusCodes.Status400BadRequest);
+            }
+
             await ExpandAndValidateAgent();
 
             return _llmProvider switch
@@ -103,53 +112,6 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 });
             var resource = (result as List<ResourceProviderGetResult<T>>)!.First().Resource;
             return resource;
-        }
-
-        private void ValidateRequest()
-        {
-            if (_request.Agent == null)
-                throw new SemanticKernelException("The Agent property of the completion request cannot be null.", StatusCodes.Status400BadRequest);
-
-            if (_request.Agent.OrchestrationSettings == null)
-                throw new SemanticKernelException("The OrchestrationSettings property of the agent cannot be null.", StatusCodes.Status400BadRequest);
-
-            if (_request.Objects == null)
-                throw new SemanticKernelException("The Objects property of the completion request cannot be null.", StatusCodes.Status400BadRequest);
-
-            if (string.IsNullOrWhiteSpace(_request.Agent.AIModelObjectId))
-                throw new SemanticKernelException("Invalid AI model object id.", StatusCodes.Status400BadRequest);
-
-            if (!_request.Objects.TryGetValue(
-                    _request.Agent.AIModelObjectId, out var aiModelObject))
-                throw new SemanticKernelException("The AI model object is missing from the request's objects.", StatusCodes.Status400BadRequest);
-
-            var aiModel = aiModelObject is JsonElement aiModelJsonElement
-                ? aiModelJsonElement.Deserialize<AIModelBase>()
-                : aiModelObject as AIModelBase;
-
-            if (aiModel == null
-                || string.IsNullOrWhiteSpace(aiModel.EndpointObjectId)
-                || string.IsNullOrWhiteSpace(aiModel.DeploymentName)
-                || aiModel.ModelParameters == null)
-                throw new SemanticKernelException("The AI model object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
-
-            if (!_request.Objects.TryGetValue(
-                    aiModel.EndpointObjectId, out var endpointObject))
-                throw new SemanticKernelException("The API endpoint configuration object is missing from the request's objects.", StatusCodes.Status400BadRequest);
-
-            var endpoint = endpointObject is JsonElement endpointJsonElement
-                ? endpointJsonElement.Deserialize<APIEndpointConfiguration>()
-                : endpointObject as APIEndpointConfiguration;
-
-            if (endpoint == null
-                || string.IsNullOrWhiteSpace(endpoint.Provider)
-                || !APIEndpointProviders.All.Contains(endpoint.Provider)
-                || string.IsNullOrWhiteSpace(endpoint.Url))
-                throw new SemanticKernelException("The API endpoint configuration object provided in the requets's objects is invalid.", StatusCodes.Status400BadRequest);
-
-            _llmProvider = endpoint.Provider!;
-            _endpoint = endpoint.Url!;
-            _deploymentName = aiModel.DeploymentName!;
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using AngleSharp.Dom.Events;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
@@ -9,21 +9,20 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using FoundationaLLM.Common.Models.ResourceProviders.Agent;
-using FoundationaLLM.Common.Constants.Authentication;
+using System.Text;
+using System.Text.Json;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
     /// <summary>
     /// The Azure OpenAI direct orchestration service.
     /// </summary>
+    /// <param name="callContext">The <see cref="ICallContext"/> providing details about the call context.</param>
     /// <param name="logger">The logger used for logging.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
@@ -57,45 +56,30 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <inheritdoc/>
         public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
         {
-            var agent = request.Agent
-                ?? throw new Exception("Agent cannot be null.");
+            request.Validate();
 
-            var endpointConfiguration = (agent.OrchestrationSettings?.AIModel?.Endpoint)
-                ?? throw new Exception("Endpoint must be provided.");
-            var deployment = request?.Settings?.AIModel?.DeploymentName ?? throw new Exception("Deployment name must be set on the AIModel");
-
-            //var endpointSettings = GetEndpointSettings(endpointConfiguration);
-
+            var endpointConfiguration = request.AIModelEndpointConfiguration;
             var inputStrings = new List<CompletionMessage>();
             SystemCompletionMessage? systemPrompt = null;
 
-            if (endpointConfiguration.OperationType == OperationTypes.Chat)
+            if (!string.IsNullOrWhiteSpace(endpointConfiguration.OperationType)
+                && endpointConfiguration.OperationType == OperationTypes.Chat)
             {
-                if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
+                inputStrings.Add(new SystemCompletionMessage
                 {
-                    if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-                        throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+                    Role = InputMessageRoles.System,
+                    Content = request.Prompt.Prefix ?? string.Empty
+                });
 
-                    var prompt = await promptResourceProvider.GetResource<PromptBase>(agent.PromptObjectId, _callContext.CurrentUserIdentity!) as MultipartPrompt;
-
-                    systemPrompt = new SystemCompletionMessage
-                    {
-                        Role = InputMessageRoles.System,
-                        Content = prompt?.Prefix ?? string.Empty
-                    };
-                }
-
-                // Add system prompt, if exists.
-                if (systemPrompt != null) inputStrings.Add(systemPrompt);
                 // Add conversation history.
-                if (agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
+                if (request.Agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
                 {
                     // The message history needs to be in a continuous order of user and assistant messages.
                     // If the MaxHistory value is odd, add one to the number of messages to take to ensure proper pairing.
-                    if (agent.ConversationHistory.MaxHistory % 2 != 0)
-                        agent.ConversationHistory.MaxHistory++;
+                    if (request.Agent.ConversationHistory.MaxHistory % 2 != 0)
+                        request.Agent.ConversationHistory.MaxHistory++;
 
-                    var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
+                    var messageHistoryItems = request.MessageHistory?.TakeLast(request.Agent.ConversationHistory.MaxHistory);
                     foreach (var item in messageHistoryItems!)
                     {
                         inputStrings.Add(new CompletionMessage
@@ -110,10 +94,21 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 inputStrings.Add(userPrompt);
             }
 
-            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url) &&
-                endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKey, out var apiKeyVal))
-              {
-                var apiKey = apiKeyVal.ToString();
+            var apiKey = string.Empty;
+
+            if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
+            {
+                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                    AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyKeyName))
+                    throw new OrchestrationException($"The {AuthenticationParameterKeys.APIKeyConfigurationName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+
+                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
+            }
+
+            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url)
+                && !string.IsNullOrWhiteSpace(apiKey)
+                && !string.IsNullOrWhiteSpace(request.AIModel.DeploymentName))
+            {
                 var client = _httpClientFactoryService.CreateClient(HttpClients.AzureOpenAIDirect);
                 if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey && !string.IsNullOrWhiteSpace(apiKey))
                 {
@@ -122,53 +117,48 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 client.BaseAddress = new Uri(endpointConfiguration.Url);
 
-                var modelParameters = agent.OrchestrationSettings?.AIModel.ModelParameters;
-                var modelOverrides = request.Settings?.ModelParameters;
+                var modelParameters = request.AIModel.ModelParameters;
 
-                if (modelParameters != null)
+                var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>();
+                var chatOperation = string.Empty;
+
+                switch (endpointConfiguration.OperationType)
                 {
-                    var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>(modelOverrides);
-                    var chatOperation = string.Empty;
-
-                    switch (endpointConfiguration.OperationType)
-                    {
-                        case OperationTypes.Completions:
-                            azureOpenAIDirectRequest.Prompt = request.UserPrompt;
-                            break;
-                        case OperationTypes.Chat:
-                            chatOperation = "/chat";
-                            azureOpenAIDirectRequest.Messages = [.. inputStrings];
-                            break;
-                    }
-
-                    var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
-                    var content = new StringContent(body, Encoding.UTF8, "application/json");
-
-                    var responseMessage = await client.PostAsync($"/openai/deployments/{deployment}{chatOperation}/completions?api-version={endpointConfiguration.APIVersion}", content);
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
-
-                    if (responseMessage.IsSuccessStatusCode)
-                    {
-                        var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
-
-                        return new LLMCompletionResponse
-                        {
-                            Completion = !string.IsNullOrEmpty(endpointConfiguration.OperationType) && endpointConfiguration.OperationType == OperationTypes.Chat
-                                ? completionResponse!.Choices?[0].Message?.Content
-                                : completionResponse!.Choices?[0].Text,
-                            UserPrompt = request.UserPrompt,
-                            FullPrompt = body,
-                            PromptTemplate = systemPrompt?.Content,
-                            AgentName = agent.Name,
-                            PromptTokens = completionResponse!.Usage!.PromptTokens,
-                            CompletionTokens = completionResponse!.Usage!.CompletionTokens
-                        };
-                    }
-
-                    _logger.LogWarning("The AzureOpenAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
-                        responseMessage.StatusCode, responseContent);
+                    case OperationTypes.Completions:
+                        azureOpenAIDirectRequest.Prompt = request.UserPrompt;
+                        break;
+                    case OperationTypes.Chat:
+                        chatOperation = "/chat";
+                        azureOpenAIDirectRequest.Messages = [.. inputStrings];
+                        break;
                 }
 
+                var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
+                var content = new StringContent(body, Encoding.UTF8, "application/json");
+
+                var responseMessage = await client.PostAsync($"/openai/deployments/{request.AIModel.DeploymentName}{chatOperation}/completions?api-version={endpointConfiguration.APIVersion}", content);
+                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
+
+                    return new LLMCompletionResponse
+                    {
+                        Completion = !string.IsNullOrEmpty(endpointConfiguration.OperationType) && endpointConfiguration.OperationType == OperationTypes.Chat
+                            ? completionResponse!.Choices?[0].Message?.Content
+                            : completionResponse!.Choices?[0].Text,
+                        UserPrompt = request.UserPrompt,
+                        FullPrompt = body,
+                        PromptTemplate = systemPrompt?.Content,
+                        AgentName = request.Agent.Name,
+                        PromptTokens = completionResponse!.Usage!.PromptTokens,
+                        CompletionTokens = completionResponse!.Usage!.CompletionTokens
+                    };
+                }
+
+                _logger.LogWarning("The AzureOpenAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
+                    responseMessage.StatusCode, responseContent);
             }
 
             return new LLMCompletionResponse
@@ -176,7 +166,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = systemPrompt?.Content,
-                AgentName = agent.Name,
+                AgentName = request.Agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0
             };

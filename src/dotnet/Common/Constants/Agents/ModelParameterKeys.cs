@@ -11,11 +11,13 @@
         /// Try adjusting temperature or Top P but not both. This value should be a float between 0.0 and 1.0.
         /// </summary>
         public const string Temperature = "temperature";
+
         /// <summary>
         /// The number of highest probability vocabulary tokens to keep for top-k-filtering.
         /// Default value is null, which disables top-k-filtering.
         /// </summary>
         public const string TopK = "top_k";
+
         /// <summary>
         /// The cumulative probability of parameter highest probability vocabulary tokens to keep for nucleus sampling.
         /// Top P (or Top Probabilities) is imilar to temperature, this controls randomness but uses a different method.
@@ -23,25 +25,42 @@
         /// choose from tokens with both high and low likelihood. Try adjusting temperature or Top P but not both.
         /// </summary>
         public const string TopP = "top_p";
+
         /// <summary>
         /// Whether or not to use sampling; use greedy decoding otherwise.
         /// </summary>
         public const string DoSample = "do_sample";
+
         /// <summary>
         /// Sets a limit on the number of tokens per model response. The API supports a maximum of 4000 tokens shared
         /// between the prompt (including system message, examples, message history, and user query) and the model's
         /// response. One token is roughly 4 characters for typical English text.
         /// </summary>
         public const string MaxNewTokens = "max_new_tokens";
+
         /// <summary>
         /// Whether or not to return the full text (prompt + response) or only the generated part (response).
         /// Default value is false.
         /// </summary>
         public const string ReturnFullText = "return_full_text";
+
         /// <summary>
         /// Whether to ignore the EOS token and continue generating tokens after the EOS token is generated.
         /// Defaults to False.
         /// </summary>
         public const string IgnoreEOS = "ignore_eos";
+
+        /// <summary>
+        /// All model parameter keys.
+        /// </summary>
+        public readonly static string[] All = [
+            Temperature,
+            TopK,
+            TopP,
+            DoSample,
+            MaxNewTokens,
+            ReturnFullText,
+            IgnoreEOS
+        ];
     }
 }

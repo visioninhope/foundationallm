@@ -68,16 +68,17 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     DefaultAuthentication.ServiceIdentity!);
 
                 _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos => eos.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                    .Where(ae => ae.Category == APIEndpointCategory.ExternalOrchestration
+                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
                         && apiKeyConfigObj is string apiKeyConfig
                         && !string.IsNullOrWhiteSpace(apiKeyConfig)
                         && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
                     .ToDictionary(
-                        eos => eos.Name,
-                        eos => new APISettingsBase
+                        ae => ae.Name,
+                        ae => new APISettingsBase
                         {
-                            APIKey = _configuration[eos.APIKey],
-                            APIUrl = _configuration[eos.Url]
+                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParameterKeys.APIKeyConfigurationName].ToString()!],
+                            APIUrl = ae.Url
                         });
 
                 _initialized = true;
