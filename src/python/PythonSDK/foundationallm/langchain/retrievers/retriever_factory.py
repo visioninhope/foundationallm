@@ -1,35 +1,25 @@
-from typing import Optional, List
-from azure.core.credentials import AzureKeyCredential
+from typing import List
 from azure.identity import DefaultAzureCredential
 from langchain_core.retrievers import BaseRetriever
 from foundationallm.config import Configuration
 from foundationallm.langchain.language_models.openai import OpenAIModel
-from foundationallm.models.orchestration import OrchestrationSettings
 from foundationallm.models.language_models import EmbeddingModel, LanguageModelType, LanguageModelProvider
-from .agent_parameter_retriever_keys import FILTERS, TOP_N
 from .azure_ai_search_service_retriever import AzureAISearchServiceRetriever
-from .multi_index_retriever import MultiIndexRetriever
-from foundationallm.models.resource_providers.vectorization import (
-    AzureAISearchIndexingProfile,
-    AzureOpenAIEmbeddingProfile
-)
+from foundationallm.models.resource_providers.vectorization import AzureAISearchIndexingProfile
 
 class RetrieverFactory:
     """
     Factory class for determine which retriever to use.
     """
     def __init__(
-                self,
-                indexing_profiles: List[AzureAISearchIndexingProfile],
-                text_embedding_profile:str,
-                config: Configuration,
-                settings: Optional[OrchestrationSettings] = None
-                ):
+        self,
+        indexing_profiles: List[AzureAISearchIndexingProfile],
+        text_embedding_profile:str,
+        config: Configuration):
 
         self.config = config
         self.indexing_profiles = indexing_profiles
         self.text_embedding_profile = text_embedding_profile
-        self.orchestration_settings = settings
 
     def get_retriever(self) -> BaseRetriever:
         """
@@ -69,14 +59,6 @@ class RetrieverFactory:
         # use indexing profile to build the retriever (current only supporting Azure AI Search)
         top_n = self.indexing_profile.settings.top_n
         filters = self.indexing_profile.settings.filters
-       
-        # check for settings override
-        if self.orchestration_settings is not None:
-            if self.orchestration_settings.agent_parameters is not None:
-                if TOP_N in self.orchestration_settings.agent_parameters:
-                    top_n = self.orchestration_settings.agent_parameters[TOP_N]
-                if FILTERS in self.orchestration_settings.agent_parameters:
-                    filters = self.orchestration_settings.agent_parameters[FILTERS]
         """
 
         retriever = AzureAISearchServiceRetriever(
