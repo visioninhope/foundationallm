@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
 {
     /// <summary>
-    /// Represents an api endpoint resource.
+    /// Provides the configuration for an API endpoint resource.
     /// </summary>
     public class APIEndpointConfiguration : ResourceBase
     {
@@ -72,7 +72,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         public string? Provider { get; set; }
 
         /// <summary>
-        /// The version of the API to call
+        /// The version to use when calling the API represented by the endpoint.
         /// </summary>
         [JsonPropertyName("api_version")]
         public string? APIVersion { get; set; }

@@ -126,11 +126,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 aiModel.EndpointObjectId!,
                 currentUserIdentity);
 
-            // Merge model parameter overrides
-
+            // Merge the model parameter overrides with the existing model parameter values from the AI model.
             if (modelParameterOverrides != null)
             {
-                // Only considering the supported list of keys
+                // Allowing the override only for the keys that are supported.
                 foreach (var key in modelParameterOverrides.Keys.Where(k => ModelParametersKeys.All.Contains(k)))
                 {
                     aiModel.ModelParameters[key] = modelParameterOverrides[key];

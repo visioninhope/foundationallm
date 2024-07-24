@@ -3,7 +3,7 @@
 namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
 {
     /// <summary>
-    /// Embedding AI Model
+    /// Provides the properties for AI models used for embeddings.
     /// </summary>
     public class EmbeddingAIModel : AIModelBase
     {

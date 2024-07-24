@@ -85,7 +85,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     || indexingProfile.Settings == null
                     || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
                     || string.IsNullOrWhiteSpace(indexName))
-                    throw new SemanticKernelException("The indexing profile object provided in the request's is invalid.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The indexing profile object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
 
                 _indexerName = indexingProfile.Indexer.ToString();
                 _indexName = indexName;

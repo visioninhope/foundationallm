@@ -3,7 +3,7 @@
 namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
 {
     /// <summary>
-    /// Completion AI Model
+    /// Provides the properties for AI models used for completions.
     /// </summary>
     public class CompletionAIModel : AIModelBase
     {

@@ -45,7 +45,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         [JsonPropertyName("prompt_object_id")]
         public string? PromptObjectId { get; set; }
 		
-		/// <summary>
+        /// <summary>
         /// The object identifier of the <see cref="AIModelBase"/> object providing the AI model for the agent.
         /// </summary>
         [JsonPropertyName("aimodel_object_id")]

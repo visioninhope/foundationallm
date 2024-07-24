@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
 {
     /// <summary>
-    /// Completion request for invoking the LLM
+    /// Provides agent-related orchestration settings.
     /// </summary>
     public class AgentOrchestrationSettings
     {
