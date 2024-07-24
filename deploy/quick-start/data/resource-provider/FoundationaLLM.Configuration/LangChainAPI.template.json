@@ -8,7 +8,7 @@
   "category": "Orchestration",
   "authentication_type": "APIKey",
   "authentication_parameters":{
-    "api_key_configuration_name": "FoundationaLLM:APIs:LangChainAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:LangChainAPI:APIKey",
     "api_key_header_name": "Bearer"
   },
   "url": "${env:SERVICE_LANGCHAIN_API_ENDPOINT_URL}",

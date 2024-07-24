@@ -8,7 +8,7 @@
   "category": "General",
   "authentication_type": "APIKey",
   "authentication_parameters": {
-    "api_key_configuration_name": "FoundationaLLM:APIs:StateAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:StateAPI:APIKey",
     "api_key_header_name": "Bearer"
   },
   "url": "${env:SERVICE_STATE_API_ENDPOINT_URL}",

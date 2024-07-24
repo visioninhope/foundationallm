@@ -8,7 +8,7 @@
   "category": "LLM",
   "authentication_type": "APIKey",
   "authentication_parameters": {
-    "api_key_configuration_name": "FoundationaLLM:APIs:SemanticKernelAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:SemanticKernelAPI:APIKey",
     "api_key_header_name": "Bearer"
   },
   "url": "${env:SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL}",
