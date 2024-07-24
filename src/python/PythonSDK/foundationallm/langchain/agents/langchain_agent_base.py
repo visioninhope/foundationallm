@@ -58,6 +58,23 @@ class LangChainAgentBase():
         """
         raise NotImplementedError()
 
+    @abstractmethod
+    async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:
+        """
+        Gets the completion for the request using an async request.
+        
+        Parameters
+        ----------
+        request : CompletionRequestBase
+            The completion request to execute.
+
+        Returns
+        -------
+        CompletionResponse
+            Returns a completion response.
+        """
+        raise NotImplementedError()
+
     def _get_prompt_from_object_id(self, prompt_object_id: str, agent_parameters: dict) -> MultipartPrompt:
         """
         Get the prompt from the object id.
