@@ -94,6 +94,16 @@ namespace FoundationaLLM.Configuration.Catalog
                 secretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAPI_APIKey,
                 minimumVersion: "0.7.0",
                 description: "The API key of the Gateway API"
+            ),
+            new (
+                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey,
+                minimumVersion: "0.8.0",
+                description: "The API key of the Gateway Adapter API"
+            ),
+            new (
+                secretName: KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey,
+                minimumVersion: "0.8.0",
+                description: "The API key of the State API"
             )
         ];
 

@@ -49,5 +49,12 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// setting or a Key Vault reference, respectively.</param>
         /// <returns></returns>
         Task<ResourceProviderUpsertResult> UpsertAppConfigurationAsync(AppConfigurationKeyBase appConfiguration);
+
+        /// <summary>
+        /// Deletes an Azure App Configuration key and associated Azure Key Vault secret.
+        /// </summary>
+        /// <param name="key">The name of the Azure App Configuration key to delete.</param>
+        /// <returns></returns>
+        Task DeleteAppConfigurationAsync(string key);
     }
 }

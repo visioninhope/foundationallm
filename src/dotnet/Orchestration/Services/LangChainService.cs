@@ -39,7 +39,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus()
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
         {
             var client = _httpClientFactoryService.CreateClient(HttpClients.LangChainAPI);
             var responseMessage = await client.SendAsync(
@@ -55,9 +55,10 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
 

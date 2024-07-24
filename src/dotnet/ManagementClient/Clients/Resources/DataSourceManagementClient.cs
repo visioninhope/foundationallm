@@ -2,8 +2,6 @@
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
-using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 
 namespace FoundationaLLM.Client.Management.Clients.Resources
 {

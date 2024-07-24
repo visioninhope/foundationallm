@@ -31,6 +31,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// This happens when the original completion request results in the need to bring in additional agents to the conversation.
         /// </para>
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="agentName">The unique name of the agent for which the orchestration is built.</param>
         /// <param name="originalRequest">The <see cref="CompletionRequest"/> request for which the orchestration is built.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
@@ -42,6 +43,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
+            string instanceId,
             string agentName,
             CompletionRequest originalRequest,
             ICallContext callContext,
@@ -68,7 +70,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     ? LLMOrchestrationServiceNames.LangChain
                     : result.Agent.OrchestrationSettings?.Orchestrator;
 
-                var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!, serviceProvider, callContext);
+                var orchestrationService = llmOrchestrationServiceManager.GetService(instanceId, orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)result.Agent,
