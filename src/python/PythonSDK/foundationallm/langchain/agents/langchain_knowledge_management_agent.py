@@ -218,6 +218,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = retriever.get_document_citations()
 
                 return CompletionResponse(
+                    operation_id = request.operation_id,
                     completion = completion,
                     citations = citations,
                     user_prompt = request.user_prompt,
@@ -280,6 +281,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = retriever.get_document_citations()
 
                 return CompletionResponse(
+                    operation_id = request.operation_id,
                     completion = completion,
                     citations = citations,
                     user_prompt = request.user_prompt,
