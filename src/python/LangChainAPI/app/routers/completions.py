@@ -42,14 +42,13 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-# temporary to support legacy agents alongside the knowledge-management and internal context agent
 async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:   
     agent_type = request_body.get("agent", {}).get("type", None)    
     
     match agent_type:
-        case "knowledge-management" | "internal-context":
+        case "knowledge-management":
             request = KnowledgeManagementCompletionRequest(**request_body)
-            request.agent.type = "knowledge-management"
+            request.agent.type = agent_type
             return request
         case _:
             raise ValueError(f"Unsupported agent type: {agent_type}")

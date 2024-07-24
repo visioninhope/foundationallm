@@ -47,7 +47,7 @@ class AgentFactory:
             raise ValueError("Agent not constructed. Cannot access an object of 'NoneType'.")
         
         match agent.type:
-            case 'knowledge-management' | 'internal-context':
+            case 'knowledge-management':
                 return LangChainKnowledgeManagementAgent(config=self.config)
             case _:
-                raise ValueError(f'The specified agent type {agent.type} is not supported.')
+                raise ValueError(f'The agent type {agent.type} is not supported.')

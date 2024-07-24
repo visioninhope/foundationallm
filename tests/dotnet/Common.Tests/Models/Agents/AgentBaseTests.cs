@@ -15,16 +15,6 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         }
 
         [Fact]
-        public void AgentType_InternalContext_ReturnsCorrectType()
-        {
-            // Arrange
-            _agentBase.Type = AgentTypes.InternalContext;
-
-            // Assert
-            Assert.Equal(typeof(KnowledgeManagementAgent), _agentBase.AgentType);
-        }
-
-        [Fact]
         public void AgentType_UnsupportedType_ThrowsException()
         {
             // Arrange
