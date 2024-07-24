@@ -170,10 +170,10 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
 
 
 
-  <a id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperation_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation*"></a>
+  <a id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperationResult_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationResult*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperation_System_String_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperation(System.String,System.String)">
-  GetCompletionOperation(string, string)
+  <h3 id="FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_GetCompletionOperationResult_System_String_System_String_" data-uid="FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService.GetCompletionOperationResult(System.String,System.String)">
+  GetCompletionOperationResult(string, string)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gatekeeper/Interfaces/IGatekeeperService.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -182,7 +182,7 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;CompletionResponse&gt; GetCompletionOperation(string instanceId, string operationId)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;CompletionResponse&gt; GetCompletionOperationResult(string instanceId, string operationId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -224,7 +224,7 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;OperationState&gt; GetCompletionOperationStatus(string instanceId, string operationId)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;LongRunningOperation&gt; GetCompletionOperationStatus(string instanceId, string operationId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -239,8 +239,8 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OperationState.html">OperationState</a>&gt;</dt>
-    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OperationState.html">OperationState</a> object containing the OperationId and Status.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a>&gt;</dt>
+    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a> object containing the OperationId and Status.</p>
 </dd>
   </dl>
 
@@ -266,7 +266,7 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;OperationState&gt; StartCompletionOperation(string instanceId, CompletionRequest completionRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;LongRunningOperation&gt; StartCompletionOperation(string instanceId, CompletionRequest completionRequest)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -281,8 +281,8 @@ Interface IGatekeeperService  <a class="header-action link-secondary" title="Vie
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OperationState.html">OperationState</a>&gt;</dt>
-    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OperationState.html">OperationState</a> object containing the OperationId and Status.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a>&gt;</dt>
+    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a> object containing the OperationId and Status.</p>
 </dd>
   </dl>
 

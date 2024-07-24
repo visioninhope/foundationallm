@@ -3292,10 +3292,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationState.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html"
         }
       },
       "version": ""
