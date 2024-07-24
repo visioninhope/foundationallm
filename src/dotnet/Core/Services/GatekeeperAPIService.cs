@@ -28,14 +28,14 @@ namespace FoundationaLLM.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
 
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
                        
-            var responseMessage = await client.PostAsync("orchestration/completion",
+            var responseMessage = await client.PostAsync($"instances/{instanceId}/completions",
             new StringContent(
                     JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions),
                     Encoding.UTF8, "application/json"));
@@ -58,30 +58,6 @@ namespace FoundationaLLM.Core.Services
             }
 
             return defaultCompletionResponse;
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetSummary(SummaryRequest summaryRequest)
-        {
-            // TODO: Call RefinementService to refine userPrompt
-            // await _refinementService.RefineUserPrompt(content);
-
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
-
-            var responseMessage = await client.PostAsync("orchestration/summary",
-                new StringContent(
-                    JsonSerializer.Serialize(summaryRequest, _jsonSerializerOptions),
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var summarizeResponse = JsonSerializer.Deserialize<SummaryResponse>(responseContent);
-
-                return summarizeResponse?.Summary ?? string.Empty;
-            }
-            else
-                return "A problem on my side prevented me from responding.";
         }
 
         /// <inheritdoc/>

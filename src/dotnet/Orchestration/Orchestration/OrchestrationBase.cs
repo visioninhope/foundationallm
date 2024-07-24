@@ -21,9 +21,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <summary>
         /// The call to execute a completion after the agent is configured.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="completionRequest"></param>
         /// <returns></returns>
-        public virtual async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public virtual async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             await Task.CompletedTask;
             return null!;

@@ -10,7 +10,6 @@
 Core API changes:
 
 1. All Core API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
-
 2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
    1. The previous `/orchestration/completions` endpoint is now `/instances/{instanceId}/completions`.
 3. The `/sessions/{sessionId}/completion` endpoint has been moved to `/instances/{instanceId}/completions`. Instead of having the `sessionId` as a path parameter, it is now in the request body as part of the `CompletionRequest` payload.
@@ -19,6 +18,14 @@ Core API changes:
 6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
 7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
 
+Gatekeeper API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+
+Orchestration API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+=======
 #### New APIs
 
 **Gateway Adapter API** - requires the following configuration settings:
@@ -43,7 +50,7 @@ API Name | Entra ID app registration name | Application ID URI | Scope name
 Core API | `FoundationaLLM-Core-API` | `api://FoundationaLLM-Core` | `Data.Read`
 Management API | `FoundationaLLM-Management-API` | `api://FoundationaLLM-Management` | `Data.Manage`
 Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-Authorization` | `Authorization.Manage`
-User Portal | `FoundationaLLM-User-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
+User Portal | `FoundationaLLM-Core-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
 Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
 
 ### Pre-0.8.0

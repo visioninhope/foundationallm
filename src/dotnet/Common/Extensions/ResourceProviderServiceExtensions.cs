@@ -69,11 +69,13 @@ namespace FoundationaLLM.Common.Extensions
         /// </summary>
         /// <typeparam name="T">The object type of the resources being retrieved.</typeparam>
         /// <param name="resourceProviderService">The <see cref="IResourceProviderService"/> providing the resource provider services.</param>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>A list of resource objects of type <typeparamref name="T"/>.</returns>
         /// <exception cref="ResourceProviderException"></exception>
         public static async Task<List<ResourceProviderGetResult<T>>> GetResourcesWithRBAC<T>(
             this IResourceProviderService resourceProviderService,
+            string instanceId,
             UnifiedUserIdentity userIdentity)
             where T : ResourceBase
         {
@@ -85,7 +87,7 @@ namespace FoundationaLLM.Common.Extensions
                 ?? throw new ResourceProviderException($"The resource provider {resourceProviderService.Name} does not support retrieving resources of type {typeof(T).Name}.");
 
             var result = await resourceProviderService.HandleGetAsync(
-                $"/{resourceTypeDescriptor.ResourceType}",
+                $"{resourceTypeDescriptor.ResourceType}",
                 userIdentity);
 
             return (result as List<ResourceProviderGetResult<T>>)!;
