@@ -82,12 +82,14 @@
           "gatekeeper-api": "${SERVICE_GATEKEEPERAPI_RESOURCE_EXISTS=false}",
           "gatekeeper-integration-api": "${SERVICE_GATEKEEPERINTEGRATIONAPI_RESOURCE_EXISTS=false}",
           "gateway-api": "${SERVICE_GATEWAYAPI_RESOURCE_EXISTS=false}",
+          "gateway-adapter-api": "${SERVICE_GATEWAYADAPTERAPI_RESOURCE_EXISTS=false}",
           "langchain-api": "${SERVICE_LANGCHAINAPI_RESOURCE_EXISTS=false}",
           "management-api": "${SERVICE_MANAGEMENTAPI_RESOURCE_EXISTS=false}",
           "management-ui": "${SERVICE_MANAGEMENTUI_RESOURCE_EXISTS=false}",
           "orchestration-api": "${SERVICE_ORCHESTRATIONAPI_RESOURCE_EXISTS=false}",
           "prompt-hub-api": "${SERVICE_PROMPTHUBAPI_RESOURCE_EXISTS=false}",
           "semantic-kernel-api": "${SERVICE_SEMANTICKERNELAPI_RESOURCE_EXISTS=false}",
+          "state-api": "${SERVICE_STATEAPI_RESOURCE_EXISTS=false}",
           "vectorization-api": "${SERVICE_VECTORIZATIONAPI_RESOURCE_EXISTS=false}",
           "vectorization-job": "${SERVICE_VECTORIZATIONJOB_RESOURCE_EXISTS=false}"
         }
