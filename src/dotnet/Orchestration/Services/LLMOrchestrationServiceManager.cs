@@ -72,7 +72,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                         && ae.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
                         && apiKeyConfigObj is string apiKeyConfig
                         && !string.IsNullOrWhiteSpace(apiKeyConfig)
-                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_APIEndpoints))
                     .ToDictionary(
                         ae => ae.Name,
                         ae => new APISettingsBase

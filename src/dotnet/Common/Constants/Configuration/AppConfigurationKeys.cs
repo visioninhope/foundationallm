@@ -830,9 +830,9 @@
         /// </summary>
         public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
         /// <summary>
-        /// The key filter for the FoundationaLLM:ExternalAPIs:* app configuration settings.
+        /// The key filter for the FoundationaLLM:APIEndpoints:* app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs:*";
+        public const string FoundationaLLM_APIEndpoints = "FoundationaLLM:APIEndpoints:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
         /// </summary>
@@ -1008,9 +1008,9 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
         /// <summary>
-        /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
+        /// The key section for the FoundationaLLM:APIEndpoints app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
+        public const string FoundationaLLM_APIEndpoints = "FoundationaLLM:APIEndpoints";
         /// <summary>
         /// The key section for the FoundationaLLM:Orchestration app configuration settings.
         /// </summary>
