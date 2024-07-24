@@ -23,6 +23,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <summary>
         /// Builds the orchestration based on the user prompt, the session id, and the call context.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="agentName">The unique name of the agent for which the orchestration is built.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
@@ -33,6 +34,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
+            string instanceId,
             string agentName,
             ICallContext callContext,
             IConfiguration configuration,
@@ -52,7 +54,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     ? LLMOrchestrationServiceNames.LangChain
                     : result.Agent.OrchestrationSettings?.Orchestrator;
 
-                var orchestrationService = llmOrchestrationServiceManager.GetService(orchestrationName!, serviceProvider, callContext);
+                var orchestrationService = llmOrchestrationServiceManager.GetService(instanceId, orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
                     (KnowledgeManagementAgent)result.Agent,
@@ -133,13 +135,13 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                         }
                     }
 
-                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.IndexingProfileObjectId))
+                    foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds ?? [])
                     {
                         var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
-                            kmAgent.Vectorization.IndexingProfileObjectId,
+                            indexingProfileName,
                             currentUserIdentity);
 
-                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.IndexingProfileObjectId!] = indexingProfile;
+                        kmAgent.OrchestrationSettings!.AgentParameters![indexingProfileName] = indexingProfile;
                     }
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))

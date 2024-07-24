@@ -247,6 +247,12 @@ var searchWriterRoleTargets = [
   'vectorization-job'
 ]
 
+var openAiRoleTargets = [
+  'gateway-api'
+  'semantic-kernel-api'
+  'langchain-api'
+]
+
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
@@ -388,18 +394,6 @@ module storage './shared/storage.bicep' = {
   params: {
     containers: [
       {
-        name: 'agents'
-      }
-      {
-        name: 'data-sources'
-      }
-      {
-        name: 'foundationallm-source'
-      }
-      {
-        name: 'prompts'
-      }
-      {
         name: 'resource-provider'
       }
       {
@@ -436,22 +430,28 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'configuration'
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'storage'
     location: location
     tags: tags
     storageAccountName: storage.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
@@ -521,6 +521,9 @@ module authAcaService './app/authAcaService.bicep' = {
     keyvaultName: authKeyvault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
+    cpu: authService.cpu
+    memory: authService.memory
+    replicaCount: empty(authService.replicaCount) ? 0 : int(authService.replicaCount)
     exists: authServiceExists == 'true'
     appDefinition: serviceDefinition
     hasIngress: true
@@ -548,13 +551,16 @@ module acaServices './app/acaService.bicep' = [
       appDefinition: serviceDefinition
       applicationInsightsName: monitoring.outputs.applicationInsightsName
       containerAppsEnvironmentName: appsEnv.outputs.name
+      cpu: service.cpu
       exists: servicesExist['${service.name}'] == 'true'
       hasIngress: service.hasIngress
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
       imageName: service.image
       keyvaultName: keyVault.outputs.name
       location: location
+      memory: service.memory
       name: '${abbrs.appContainerApps}${service.name}'
+      replicaCount: empty(service.replicaCount) ? 0 : int(service.replicaCount)
       resourceToken: resourceToken
       serviceName: service.name
       tags: tags
@@ -607,28 +613,48 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   }
 ]
 
-module openAiRoles './shared/roleAssignments.bicep' = {
-  scope: rg
-  name: 'gateway-api-openai-roles'
-  params: {
-    principalId: acaServices[indexOf(serviceNames, 'gateway-api')].outputs.miPrincipalId
-    roleDefinitionNames: [
-      'Cognitive Services OpenAI User'
-      'Reader'
-    ]
+module openAiRoles './shared/roleAssignments.bicep' = [
+  for target in openAiRoleTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services OpenAI User'
+        'Reader'
+      ]
+    }
   }
-}
+]
+
+var contentSafetyTargets = [
+  'gatekeeper-api'
+]
+
+module contentSafetyRoles './shared/roleAssignments.bicep' = [
+  for target in contentSafetyTargets: {
+    scope: rg
+    name: '${target}-cs-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services User'
+      ]
+    }
+  }
+]
 
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
+output AZURE_COGNITIVE_SEARCH_NAME string = cogSearch.outputs.name
 output AZURE_CONTENT_SAFETY_ENDPOINT string = contentSafety.outputs.endpoint
-output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_COSMOS_DB_ENDPOINT string = cosmosDb.outputs.endpoint
+output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_EVENT_GRID_ENDPOINT string = eventgrid.outputs.endpoint
 output AZURE_EVENT_GRID_ID string = eventgrid.outputs.id
-output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
+output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_OPENAI_ENDPOINT string = azureOpenAiEndpoint
 output AZURE_OPENAI_ID string = azureOpenAiId
 output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name

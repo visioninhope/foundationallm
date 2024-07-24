@@ -116,7 +116,7 @@ $svcResourceSuffix = "${resourceSuffix}-svc"
 $tokens = @{}
 
 $authServices = @{
-    authorizationapi              = @{
+    authorizationapi = @{
         miName         = "mi-authorization-api-$svcResourceSuffix"
         miConfigName   = "authorizationApiMiClientId"
         ingressEnabled = $false
@@ -124,7 +124,7 @@ $authServices = @{
 }
 
 $services = @{
-    orchestrationapi          = @{
+    orchestrationapi         = @{
         miName         = "mi-orchestration-api-$svcResourceSuffix"
         miConfigName   = "orchestrationApiMiClientId"
         ingressEnabled = $false
@@ -164,6 +164,11 @@ $services = @{
     gatekeeperintegrationapi = @{
         miName         = "mi-gatekeeper-integration-api-$svcResourceSuffix"
         miConfigName   = "gatekeeperIntegrationApiMiClientId"
+        ingressEnabled = $false
+    }
+    gatewayapi               = @{
+        miName         = "mi-gateway-api-$svcResourceSuffix"
+        miConfigName   = "gatewayApiMiClientId"
         ingressEnabled = $false
     }
     langchainapi             = @{
@@ -232,9 +237,7 @@ $tokens.managementEntraScopes = $entraScopes.managementui
 $tokens.opsResourceGroup = $resourceGroups.ops
 $tokens.storageResourceGroup = $resourceGroups.storage
 $tokens.subscriptionId = $subscriptionId
-$tokens.vectorizationApiEntraClientId = $entraClientIds.vectorizationapi
-$tokens.vectorizationApiEntraScopes = $entraScopes.vectorizationapi
-$tokens.vectorizationApiHostname = $ingress.apiIngress.vectorizationapi.host
+$tokens.authorizationApiScope = $entraScopes.authorization
 
 $tenantId = Invoke-AndRequireSuccess "Get Tenant ID" {
     az account show --query homeTenantId --output tsv
@@ -250,12 +253,40 @@ $vectorizationConfig = Invoke-AndRequireSuccess "Get Vectorization Config" {
 $tokens.vectorizationConfig = $vectorizationConfig
 
 $openAiEndpointUri = Invoke-AndRequireSuccess "Get OpenAI endpoint" {
-    az cognitiveservices account list `
-        --output tsv `
-        --query "[?contains(kind,'OpenAI')] | [0].properties.endpoint" `
-        --resource-group $($resourceGroups.oai) 
+    $oaiEndpoint=""
+    if ($manifest.deployOpenAi)
+    {
+        $oaiEndpoint = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI')] | [0].properties.endpoint" `
+            --resource-group $($resourceGroups.oai) )
+    } else {
+        $oaiEndpoint = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI') && name=='$($manifest.existingOpenAiInstance.name)'] | [0].properties.endpoint" `
+            --resource-group $($manifest.existingOpenAiInstance.resourceGroup) )
+    }
+    return $oaiEndpoint
 }
 $tokens.openAiEndpointUri = $openAiEndpointUri
+
+$openAiAccountName = Invoke-AndRequireSuccess "Get OpenAI Account name" {
+    $oaiAccount = ""
+    if ($manifest.deployOpenAi)
+    {
+        $oaiAccount = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI')] | [0].id" `
+            --resource-group $($resourceGroups.oai) )
+    } else {
+        $oaiAccount = $(az cognitiveservices account list `
+            --output tsv `
+            --query "[?contains(kind,'OpenAI') && name=='$($manifest.existingOpenAiInstance.name)'] | [0].id" `
+            --resource-group $($manifest.existingOpenAiInstance.resourceGroup) )
+    }
+    return $oaiAccount
+}
+$tokens.azureOpenAiAccountName = $openAiAccountName
 
 $appConfig = Invoke-AndRequireSuccess "Get AppConfig Instance" {
     az appconfig list `
@@ -276,6 +307,16 @@ $appConfigCredential = Invoke-AndRequireSuccess "Get AppConfig Credential" {
         ConvertFrom-Json
 }
 $tokens.appConfigConnectionString = $appConfigCredential.connectionString
+
+$appConfigRWCredential = Invoke-AndRequireSuccess "Get AppConfig Credential" {
+    az appconfig credential list `
+        --name $appConfig.name `
+        --resource-group $($resourceGroups.ops) `
+        --query "[?name=='Primary'].{connectionString: connectionString}" `
+        --output json | `
+        ConvertFrom-Json
+}
+$tokens.appConfigRWConnectionString = $appConfigRWCredential.connectionString
 
 $cogSearchName = Invoke-AndRequireSuccess "Get Cognitive Search endpoint" {
     az search service list `
@@ -435,6 +476,7 @@ $tokens.semanticKernelApiMiClientId = $services["semantickernelapi"].miClientId
 $tokens.vectorizationApiMiClientId = $services["vectorizationapi"].miClientId
 $tokens.vectorizationApiMiObjectId = $services["vectorizationapi"].miObjectId
 $tokens.vectorizationJobMiClientId = $services["vectorizationjob"].miClientId
+$tokens.gatewayApiMiClientId = $services["gatewayapi"].miClientId
 
 $eventGridProfiles = @{}
 $eventGridProfileNames = @(
@@ -463,6 +505,7 @@ $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]
 $tokens.vectorizationWorkerEventGridProfile = $eventGridProfiles["vectorization-worker-event-profile"]
 $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
+$tokens.authKeyvaultUri = $authKeyvault.uri
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
 PopulateTemplate $tokens "..,config,kubernetes,spc.foundationallm-certificates.backend.template.yml" "..,config,kubernetes,spc.foundationallm-certificates.backend.yml"
@@ -474,7 +517,6 @@ PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,Foundat
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Prompt,FoundationaLLM.json"
 
 $($ingress.apiIngress).PSObject.Properties | ForEach-Object {
-    $tokens.authKeyvaultUri = $authKeyvault.uri
     $tokens.serviceBaseUrl = $_.Value.path
     $tokens.serviceHostname = $_.Value.host
     $tokens.serviceName = $_.Value.serviceName

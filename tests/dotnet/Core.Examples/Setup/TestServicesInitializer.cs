@@ -18,13 +18,14 @@ using FoundationaLLM.Core.Examples.Services;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
@@ -46,6 +47,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
 
             RegisterInstance(services, configRoot);
+            RegisterClientLibraries(services, configRoot);
 			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
@@ -68,6 +70,18 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
                 DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
 
+        }
+
+        private static void RegisterClientLibraries(IServiceCollection services, IConfiguration configuration)
+        {
+            var instanceId = configuration.GetValue<string>(AppConfigurationKeys.FoundationaLLM_Instance_Id);
+            services.AddCoreClient(
+                configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!,
+                DefaultAuthentication.AzureCredential!);
+            services.AddManagementClient(
+                configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!,
+                DefaultAuthentication.AzureCredential!,
+                instanceId);
         }
 
         private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
@@ -145,7 +159,10 @@ namespace FoundationaLLM.Core.Examples.Setup
             services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
 
             services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(
+                    HttpClients.VectorizationAPI,
+                    serviceProvider.GetService<IHttpClientFactoryService>()!,
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
 
             services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
@@ -207,7 +224,8 @@ namespace FoundationaLLM.Core.Examples.Setup
         private static void RegisterServiceManagers(IServiceCollection services)
         {
             services.AddScoped<ICoreAPITestManager, CoreAPITestManager>();
-			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();            
+			services.AddScoped<IManagementAPITestManager, ManagementAPITestManager>();
+            services.AddScoped<IAuthenticationService, MicrosoftEntraIDAuthenticationService>();
             services.AddScoped<IHttpClientManager, HttpClientManager>();
 			services.AddScoped<IAgentConversationTestService, AgentConversationTestService>();
             services.AddScoped<IVectorizationTestService, VectorizationTestService>();

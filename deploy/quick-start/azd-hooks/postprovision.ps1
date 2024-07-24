@@ -49,18 +49,6 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
-if ($IsWindows) {
-    $os = "windows"
-}
-elseif ($IsMacOS) {
-    $os = "mac"
-}
-elseif ($IsLinux) {
-    $os = "linux"
-}
-
-$AZCOPY_VERSION = "10.24.0"
-
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
@@ -143,18 +131,18 @@ if ($env:PIPELINE_DEPLOY) {
     $roleAssignments = (Get-Content "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" | ConvertFrom-Json)
     $spRoleAssignmentName = $(New-Guid).Guid
     $spRoleAssignment = @{
-        type = "FoundationaLLM.Authorization/roleAssignments"
-        name = $spRoleAssignmentName
-        object_id = "/providers/FoundationaLLM.Authorization/roleAssignments/$($spRoleAssignmentName)"
-        description = "Contributor role on the FoundationaLLM instance for the test service principal."
+        type               = "FoundationaLLM.Authorization/roleAssignments"
+        name               = $spRoleAssignmentName
+        object_id          = "/providers/FoundationaLLM.Authorization/roleAssignments/$($spRoleAssignmentName)"
+        description        = "Contributor role on the FoundationaLLM instance for the test service principal."
         role_definition_id = "/providers/FoundationaLLM.Authorization/roleDefinitions/a9f0020f-6e3a-49bf-8d1d-35fd53058edf"
-        principal_id = "${env:FLLM_E2E_SP_OBJECT_ID}"
-        principal_type = "User"
-        scope = "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}"
-        created_on = "${env:DEPLOY_TIME}"
-        updated_on = "${env:DEPLOY_TIME}"
-        created_by = "SYSTEM"
-        updated_by = "SYSTEM"
+        principal_id       = "${env:FLLM_E2E_SP_OBJECT_ID}"
+        principal_type     = "User"
+        scope              = "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}"
+        created_on         = "${env:DEPLOY_TIME}"
+        updated_on         = "${env:DEPLOY_TIME}"
+        created_by         = "SYSTEM"
+        updated_by         = "SYSTEM"
     }
     $roleAssignments.role_assignments += $spRoleAssignment
     Set-Content -Path "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" "$($roleAssignments | ConvertTo-Json -Compress)"
@@ -176,28 +164,20 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
 }
 
 if ($IsWindows) {
-    $os = "windows"
     $separator = ";"
 }
 elseif ($IsMacOS) {
-    $os = "mac"
     $separator = ":"
 }
 elseif ($IsLinux) {
-    $os = "linux"
     $separator = ":"
 }
 
 if ($env:PIPELINE_DEPLOY) {
     Write-Host "Using agent provided AzCopy"
-} else {
-    $env:PATH = $env:PATH, "$($pwd.Path)/tools/azcopy_${os}_amd64_${AZCOPY_VERSION}" -join $separator
 }
-
-$status = (azcopy login status)
-if (-not $status.contains("Your login session is still active")) {
-    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
-    azcopy login
+else {
+    $env:PATH = $env:PATH, "$(Split-Path -Path $pwd.Path -Parent)/common/tools/azcopy" -join $separator
 }
 
 $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
@@ -208,22 +188,21 @@ $target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windo
 
 azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target --recursive=True
 
-Invoke-AndRequireSuccess "Restarting Authorization API" {
-    # Grab suffix
-    $suffix = ($env:AZURE_KEY_VAULT_NAME).Substring(3)
-    $authApiContainerName = "caauthapi$suffix"
+Invoke-AndRequireSuccess "Restarting Container Apps" {
+
     $resourceGroup = "rg-$env:AZURE_ENV_NAME"
-    $revision = $(
-        az containerapp show `
-            --name  $authApiContainerName `
+
+    $apps = @(
+        az containerapp list `
             --resource-group $resourceGroup `
             --subscription $env:AZURE_SUBSCRIPTION_ID `
-            --query "properties.latestRevisionName" `
-            -o tsv
-    )
-    az containerapp revision restart `
-        --revision $revision `
-        --name $authApiContainerName `
-        --resource-group $resourceGroup `
-        --subscription $env:AZURE_SUBSCRIPTION_ID
+            --query "[].{name:name,revision:properties.latestRevisionName}" -o json | ConvertFrom-Json)
+
+    foreach ($app in $apps) {
+        az containerapp revision restart `
+            --revision $app.revision `
+            --name $app.name `
+            --resource-group $resourceGroup `
+            --subscription $env:AZURE_SUBSCRIPTION_ID
+    }
 }

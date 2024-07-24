@@ -136,6 +136,36 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString";
         /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl app configuration setting.
+        /// The URL of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl = "FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAdapterAPI:APIKey app configuration setting.
+        /// The API key of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI_APIKey = "FoundationaLLM:APIs:GatewayAdapterAPI:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:GatewayAdapterAPI:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the Gateway Adapter API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:GatewayAdapterAPI:AppInsightsConnectionString";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:StateAPI:APIUrl app configuration setting.
+        /// The URL of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI_APIUrl = "FoundationaLLM:APIs:StateAPI:APIUrl";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:StateAPI:APIKey app configuration setting.
+        /// The API key of the gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI_APIKey = "FoundationaLLM:APIs:StateAPI:APIKey";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIs:StateAPI:AppInsightsConnectionString app configuration setting.
+        /// The connection string to the Application Insights instance used by the State API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:StateAPI:AppInsightsConnectionString";
+        /// <summary>
         /// The key for the FoundationaLLM:DataSource:ResourceProviderService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
         /// </summary>
@@ -296,31 +326,6 @@
         /// This is a Key Vault reference.
         /// </summary>
         public const string FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString = "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:APIKey app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIKey = "FoundationaLLM:AzureContentSafety:APIKey";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:APIUrl app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_APIUrl = "FoundationaLLM:AzureContentSafety:APIUrl";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:HateSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_HateSeverity = "FoundationaLLM:AzureContentSafety:HateSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:SelfHarmSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_SelfHarmSeverity = "FoundationaLLM:AzureContentSafety:SelfHarmSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:SexualSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_SexualSeverity = "FoundationaLLM:AzureContentSafety:SexualSeverity";
-        /// <summary>
-        /// The key for the FoundationaLLM:AzureContentSafety:ViolenceSeverity app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AzureContentSafety_ViolenceSeverity = "FoundationaLLM:AzureContentSafety:ViolenceSeverity";
         /// <summary>
         /// The key for the FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey app configuration setting.
         /// This is a Key Vault reference.
@@ -494,6 +499,10 @@
         /// The key for the FoundationaLLM:Branding:SecondaryButtonTextColor app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Branding_SecondaryButtonTextColor = "FoundationaLLM:Branding:SecondaryButtonTextColor";
+        /// <summary>
+        /// The key for the FoundationaLLM:Branding:FooterText app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_Branding_FooterText = "FoundationaLLM:Branding:FooterText";
         /// <summary>
         /// The key for the FoundationaLLM:Chat:Entra:CallbackPath app configuration setting.
         /// </summary>
@@ -823,6 +832,10 @@
         /// The key for the FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker app configuration setting.
         /// </summary>
         public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker";
+        /// <summary>
+        /// The key for the FoundationaLLM:APIEndpoints:AzureContentSafety01:APIKey app configuration setting.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey = "FoundationaLLM:APIEndpoints:AzureContentSafety01:APIKey";
     }
 
     /// <summary>
@@ -862,6 +875,14 @@
         /// The key filter for the FoundationaLLM:APIs:GatewayAPI:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:GatewayAdapterAPI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI = "FoundationaLLM:APIs:GatewayAdapterAPI:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:APIs:StateAPI:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI = "FoundationaLLM:APIs:StateAPI:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:CosmosDB:* app configuration settings.
         /// </summary>
@@ -946,6 +967,10 @@
         /// </summary>
         public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway:*";
         /// <summary>
+        /// The key filter for the FoundationaLLM:State:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_State = "FoundationaLLM:State:*";
+        /// <summary>
         /// The key filter for the FoundationaLLM:AzureAIStudio:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureAIStudio = "FoundationaLLM:AzureAIStudio:*";
@@ -1021,6 +1046,14 @@
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI = "FoundationaLLM:APIs:GatewayAPI";
         /// <summary>
+        /// The key section for the FoundationaLLM:APIs:GatewayAdapterAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI = "FoundationaLLM:APIs:GatewayAdapterAPI";
+        /// <summary>
+        /// The key section for the FoundationaLLM:APIs:StateAPI app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI = "FoundationaLLM:APIs:StateAPI";
+        /// <summary>
         /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
         /// </summary>
         public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
@@ -1081,6 +1114,14 @@
         /// </summary>
         public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
         /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService = "FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService";
+        /// <summary>
+        /// The key section for the FoundationaLLM:Vectorization:PostgresIndexingService app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
+        /// <summary>
         /// The key section for the FoundationaLLM:Gateway app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Gateway = "FoundationaLLM:Gateway";
@@ -1092,6 +1133,10 @@
         /// The key section for the FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings app configuration settings.
         /// </summary>
         public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = "FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings";
+        /// <summary>
+        /// The key section for the FoundationaLLM:State app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_State = "FoundationaLLM:State";
 
         #region Resource providers
 

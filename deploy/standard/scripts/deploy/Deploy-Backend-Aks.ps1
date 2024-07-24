@@ -7,10 +7,10 @@ Param(
     [parameter(Mandatory = $false)][string]$resourceGroup,
     [parameter(Mandatory = $false)][string]$secretProviderClassManifest,
     [parameter(Mandatory = $false)][string]$serviceNamespace = "fllm",
-    [parameter(Mandatory = $false)][string]$version = "0.5.1"
+    [parameter(Mandatory = $false)][string]$registry = "ghcr.io/solliancenet",
+    [parameter(Mandatory = $false)][string]$version = "0.7.0"
 )
 
-Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable, 2 to enable verbose)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
@@ -32,10 +32,10 @@ function Invoke-AndRequireSuccess {
 
     return $result
 }
-
 Invoke-AndRequireSuccess "Retrieving credentials for AKS cluster ${aksName}" {
-    az aks get-credentials --name $aksName --resource-group $resourceGroup
+    az aks get-credentials --name $aksName --resource-group $resourceGroup --overwrite-existing
 }
+Write-Host "Successfully retrieved credentials for AKS cluster ${aksName}" -ForegroundColor Green
 
 # **** Service Namespace ****
 $serviceNamespaceYaml = @"
@@ -56,12 +56,13 @@ $chartNames = @{
     "data-source-hub-api"        = "../config/helm/microservice-values.yml"
     "gatekeeper-api"             = "../config/helm/microservice-values.yml"
     "gatekeeper-integration-api" = "../config/helm/microservice-values.yml"
+    "gateway-api"                = "../config/helm/microservice-values.yml"
     "langchain-api"              = "../config/helm/microservice-values.yml"
     "management-api"             = "../config/helm/managementapi-values.yml"
     "orchestration-api"          = "../config/helm/microservice-values.yml"
     "prompt-hub-api"             = "../config/helm/microservice-values.yml"
     "semantic-kernel-api"        = "../config/helm/microservice-values.yml"
-    "vectorization-api"          = "../config/helm/vectorizationapi-values.yml"
+    "vectorization-api"          = "../config/helm/microservice-values.yml"
     "vectorization-job"          = "../config/helm/microservice-values.yml"
 }
 $chartsToInstall = $chartNames | Where-Object { $charts.Contains("*") -or $charts.Contains($_) }
@@ -72,9 +73,11 @@ foreach ($chart in $chartsToInstall.GetEnumerator()) {
 
         helm upgrade `
             --version $version `
-            --install $releaseName oci://ghcr.io/solliancenet/foundationallm/helm/$($chart.Key) `
+            --install $releaseName oci://$($registry)/helm/$($chart.Key) `
             --namespace ${serviceNamespace} `
             --values $valuesFile `
+            --set image.repository=$($registry)/$($chart.Key) `
+            --set image.tag=$version
     }
 }
 
@@ -102,13 +105,15 @@ Invoke-AndRequireSuccess "Deploy ingress-nginx" {
     helm upgrade `
         --install gateway ingress-nginx/ingress-nginx `
         --namespace ${gatewayNamespace} `
-        --values ${ingressNginxValues}
+        --values ${ingressNginxValues} `
+        --version 4.10.0
 }
+
+Start-Sleep -Seconds 60
 
 $ingressNames = @{
     "core-api"          = "../config/helm/coreapi-ingress.yml"
     "management-api"    = "../config/helm/managementapi-ingress.yml"
-    "vectorization-api" = "../config/helm/vectorizationapi-ingress.yml"
 }
 foreach ($ingress in $ingressNames.GetEnumerator()) {
     Invoke-AndRequireSuccess "Deploying ingress for $($ingress.Key)" {

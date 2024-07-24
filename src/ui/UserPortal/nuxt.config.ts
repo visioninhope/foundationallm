@@ -21,6 +21,9 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			title: process.env.BRANDING_PAGE_TITLE ?? 'FoundationaLLM',
+			htmlAttrs: {
+				lang: 'en',
+			},
 			link: [
 				{
 					rel: 'icon',
@@ -40,6 +43,13 @@ export default defineNuxtConfig({
 	],
 	build: {
 		transpile: ['primevue'],
+	},
+	hooks: {
+		'vite:extendConfig': (config, { isClient, isServer }) => {
+			if (isClient) {
+				config.resolve.alias.vue = 'vue/dist/vue.esm-bundler.js';
+			}
+		},
 	},
 	devServer: {
 		...(buildLoadingTemplate ? { loadingTemplate: () => buildLoadingTemplate } : {}),

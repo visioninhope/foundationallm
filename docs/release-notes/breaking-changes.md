@@ -5,6 +5,56 @@
 
 ## Breaking changes that will affect future releases
 
+### Starting with 0.8.0
+
+Core API changes:
+
+1. All Core API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+   1. The previous `/orchestration/completions` endpoint is now `/instances/{instanceId}/completions`.
+3. The `/sessions/{sessionId}/completion` endpoint has been moved to `/instances/{instanceId}/completions`. Instead of having the `sessionId` as a path parameter, it is now in the request body as part of the `CompletionRequest` payload.
+4. `/sessions/{sessionId}/summarize-name` has been removed. In the future, the `/completions` endpoint will be used to generate summaries.
+5. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
+6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
+7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
+
+Gatekeeper API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+
+Orchestration API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+=======
+#### New APIs
+
+**Gateway Adapter API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl`
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIKey` (mapped to the `foundationallm-apis-gatewayadapterapi-apikey` secret)
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+- 
+**Stater API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:StateAPI:APIUrl`
+- `FoundationaLLM:APIs:StateAPI:APIKey` (mapped to the `foundationallm-apis-stateapi-apikey` secret)
+- `FoundationaLLM:APIs:StateAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+
+> [!NOTE]
+> These new APIs will be converted to use the new `APIEndpoint` artifacts.
+
+#### Changes in app registration names
+
+API Name | Entra ID app registration name | Application ID URI | Scope name
+--- | --- | --- | ---
+Core API | `FoundationaLLM-Core-API` | `api://FoundationaLLM-Core` | `Data.Read`
+Management API | `FoundationaLLM-Management-API` | `api://FoundationaLLM-Management` | `Data.Manage`
+Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-Authorization` | `Authorization.Manage`
+User Portal | `FoundationaLLM-Core-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
+Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
+
+### Pre-0.8.0
+
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.
 2. The items in the `index_references` collection have a property incorrectly named `type` which was renamed to `index_entry_id`.
 3. New gateway API, requires the following app configurations:
@@ -122,10 +172,9 @@
 
 15. The following App Config setting needs to be added/updated as key-values:
 
-   - `FoundationaLLM_APIs_GatekeeperAPI_Configuration_EnableAzureContentSafetyPromptShield` (By default, the Gatekeeper API has Azure Content Safety Prompt Shield integration enabled. To disable this feature, set this value to false.)
-   - `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard`
-   - ` FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails`
-
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield`
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard`
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails`
    - Rename `FoundationaLLM:AzureContentSafety:APIKey` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey`
    - Rename `FoundationaLLM:AzureContentSafety:APIUrl` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl`
    - Rename `FoundationaLLM:AzureContentSafety:HateSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity`
@@ -141,3 +190,6 @@
 
     - `lakera-guard-api-key`
     - `enkrypt-guardrails-apikey`
+
+
+

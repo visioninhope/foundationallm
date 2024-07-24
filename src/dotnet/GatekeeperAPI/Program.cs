@@ -50,6 +50,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 {
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Refinement);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureContentSafety);
@@ -235,7 +236,10 @@ namespace FoundationaLLM.Gatekeeper.API
 
             builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
             builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(HttpClients.OrchestrationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+                => new DownstreamAPIService(
+                    HttpClients.OrchestrationAPI,
+                    serviceProvider.GetService<IHttpClientFactoryService>()!,
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
         }
     }
 }
