@@ -46,6 +46,10 @@
     <Compile Include="foundationallm\models\classification\audio_prediction_request.py" />
     <Compile Include="foundationallm\models\classification\audio_prediction_response.py" />
     <Compile Include="foundationallm\models\classification\__init__.py" />
+    <Compile Include="foundationallm\models\operations\long_running_operation_log_entry.py" />
+    <Compile Include="foundationallm\models\operations\operation_status.py" />
+    <Compile Include="foundationallm\models\operations\__init__.py" />
+    <Compile Include="foundationallm\models\operations\long_running_operation.py" />
     <Compile Include="foundationallm\models\orchestration\operation_types.py" />
     <Compile Include="foundationallm\models\agents\__init__.py" />
     <Compile Include="foundationallm\models\authentication\authentication_types.py" />
@@ -113,6 +117,8 @@
     <Compile Include="foundationallm\models\__init__.py" />
     <Compile Include="foundationallm\config\configuration.py" />
     <Compile Include="foundationallm\config\__init__.py" />
+    <Compile Include="foundationallm\operations\operations_manager.py" />
+    <Compile Include="foundationallm\operations\__init__.py" />
     <Compile Include="foundationallm\storage\blob_storage_manager.py" />
     <Compile Include="foundationallm\storage\storage_manager_base.py" />
     <Compile Include="foundationallm\storage\__init__.py" />
@@ -150,6 +156,7 @@
     <Folder Include="foundationallm\models\language_models\" />
     <Folder Include="foundationallm\models\agents\" />
     <Folder Include="foundationallm\models\authentication\" />
+    <Folder Include="foundationallm\models\operations\" />
     <Folder Include="foundationallm\models\utils\" />
     <Folder Include="foundationallm\models\classification\" />
     <Folder Include="foundationallm\models\resource_providers\" />
@@ -161,6 +168,7 @@
     <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\" />
     <Folder Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\" />
+    <Folder Include="foundationallm\operations\" />
     <Folder Include="foundationallm\telemetry\" />
     <Folder Include="foundationallm\storage\" />
   </ItemGroup>
