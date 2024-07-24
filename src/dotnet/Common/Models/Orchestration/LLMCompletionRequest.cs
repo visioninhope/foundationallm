@@ -111,7 +111,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 || string.IsNullOrWhiteSpace(endpoint.Provider)
                 || !APIEndpointProviders.All.Contains(endpoint.Provider)
                 || string.IsNullOrWhiteSpace(endpoint.Url))
-                throw new OrchestrationException("The API endpoint configuration object provided in the requets's objects is invalid.");
+                throw new OrchestrationException("The API endpoint configuration object provided in the request's objects is invalid.");
 
             if (string.IsNullOrWhiteSpace(Agent.PromptObjectId))
                 throw new OrchestrationException("Invalid prompt object id.");
