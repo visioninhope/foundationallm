@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -36,17 +38,27 @@ namespace FoundationaLLM.Orchestration.Core.Services
             _jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         }
 
-        /// <summary>
-        /// Flag indicating whether the orchestration service has been initialized.
-        /// </summary>
-        public bool IsInitialized => GetServiceStatus();
+        /// <inheritdoc/>
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
+        {
+            var client = _httpClientFactoryService.CreateClient(HttpClients.LangChainAPI);
+            var responseMessage = await client.SendAsync(
+                new HttpRequestMessage(HttpMethod.Get, "status"));
+
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
+        }
+
+        /// <inheritdoc/>
+        public string Name => LLMOrchestrationServiceNames.LangChain;
 
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
 
@@ -86,19 +98,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-        /// <summary>
-        /// Retrieves the status of the orchestration service.
-        /// </summary>
-        /// <returns>True if the service is ready. Otherwise, returns false.</returns>
-        private bool GetServiceStatus()
-        {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
-            var responseMessage = client.Send(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
-
-            return responseMessage.Content.ToString() == "ready";
         }
     }
 }

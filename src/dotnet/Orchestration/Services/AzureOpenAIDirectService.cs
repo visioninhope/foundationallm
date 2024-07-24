@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
@@ -39,10 +40,19 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public bool IsInitialized => true;
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId) =>
+            await Task.FromResult(new ServiceStatusInfo
+            {
+                InstanceId = instanceId,
+                Name = Name,
+                Status = "ready",
+            });
 
         /// <inheritdoc/>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public string Name => LLMOrchestrationServiceNames.AzureOpenAIDirect;
+
+        /// <inheritdoc/>
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             var agent = request.Agent
                 ?? throw new Exception("Agent cannot be null.");
@@ -63,16 +73,13 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
                         throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
 
-                    var resource = await promptResourceProvider.HandleGetAsync(agent.PromptObjectId, _callContext.CurrentUserIdentity);
-                    if (resource is List<PromptBase> prompts)
+                    var prompt = await promptResourceProvider.GetResource<PromptBase>(agent.PromptObjectId, _callContext.CurrentUserIdentity!) as MultipartPrompt;
+
+                    systemPrompt = new SystemCompletionMessage
                     {
-                        var prompt = prompts.FirstOrDefault() as MultipartPrompt;
-                        systemPrompt = new SystemCompletionMessage
-                        {
-                            Role = InputMessageRoles.System,
-                            Content = prompt?.Prefix ?? string.Empty
-                        };
-                    }
+                        Role = InputMessageRoles.System,
+                        Content = prompt?.Prefix ?? string.Empty
+                    };
                 }
 
                 // Add system prompt, if exists.
@@ -107,9 +114,9 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 {
                     client.DefaultRequestHeaders.Add("api-key", endpointSettings.APIKey);
                 }
-                
+
                 client.BaseAddress = new Uri(endpointSettings.Endpoint);
-                
+
                 var modelParameters = agent.OrchestrationSettings?.ModelParameters;
                 var modelOverrides = request.Settings?.ModelParameters;
 

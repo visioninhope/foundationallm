@@ -19,5 +19,10 @@
         /// Azure App Configuration key vault reference.
         /// </summary>
         public const string AppConfigurationKeyVaultReference = "appconfiguration-key-vault-reference";
+
+        /// <summary>
+        /// Api endpoint resource.
+        /// </summary>
+        public const string APIEndpoint = "api-endpoint";
     }
 }

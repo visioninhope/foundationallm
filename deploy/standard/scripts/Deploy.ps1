@@ -2,12 +2,34 @@
 
 Param(
     [parameter(Mandatory = $false)][bool]$init = $true,
-    [parameter(Mandatory = $false)][string]$manifestName = "Deployment-Manifest.json"
+    [parameter(Mandatory = $false)][string]$manifestName = "Deployment-Manifest.json",
+    [parameter(Mandatory = $false)][string]$authAzCLI = $true
 )
 
 Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
+
+$env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
+
+# Check if AzCopy already exists
+if (Test-Path -Path "../../common/tools/azcopy") {
+    Write-Host "azcopy exists."
+}
+else {
+    throw "Azcopy not found. Please run the ./Pre-Deploy.ps1 script to download AzCopy."
+}
+
+# Check if AzCopy login session is still active
+Write-Host -ForegroundColor Blue "Checking AzCopy login status..."
+$status = & ../../common/tools/azcopy/azcopy login status
+if (-not $status.contains("Your login session is still active")) {
+    Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
+    & ../../common/tools/azcopy/azcopy login
+}
+ else {
+     Write-Host -ForegroundColor Blue "AzCopy login session is still active."
+}
 
 # Load the Invoke-AndRequireSuccess function
 . ./utility/Invoke-AndRequireSuccess.ps1
@@ -27,10 +49,12 @@ try {
             }
         }
 
-        Invoke-AndRequireSuccess "Login to Azure" {
-            az login
-            az account set --subscription $manifest.subscription
-            az account show
+        if ($authAzCLI) {
+            Invoke-AndRequireSuccess "Login to Azure" {
+                az login
+                az account set --subscription $manifest.subscription
+                az account show
+            }
         }
     }
 
@@ -38,6 +62,12 @@ try {
     $resourceGroup = @{}
     $manifest.resourceGroups.PSObject.Properties | ForEach-Object { $resourceGroup[$_.Name] = $_.Value }
     $resourceSuffix = "$($manifest.project)-$($manifest.environment)-$($manifest.location)"
+
+    # Get frontend and backend hostnames
+    $frontEndHosts = @()
+    $manifest.ingress.frontendIngress.PSObject.Properties | ForEach-Object { $frontEndHosts += $_.Value.host }
+    $backendHosts = @()
+    $manifest.ingress.apiIngress.PSObject.Properties | ForEach-Object { $backendHosts += $_.Value.host }
 
     Invoke-AndRequireSuccess "Generate Configuration" {
         ./deploy/Generate-Config.ps1 `
@@ -71,16 +101,13 @@ try {
             --output none
     }
 
-    Invoke-AndRequireSuccess "Uploading Auth Store Data" {
-        ./Upload-AuthStoreData.ps1 `
-            -resourceGroup $resourceGroup["auth"]
-    }
+    ./deploy/Upload-AuthStoreData.ps1 `
+        -resourceGroup $resourceGroup["auth"] `
+        -instanceId $manifest.instanceId
 
-    Invoke-AndRequireSuccess "Uploading System Prompts" {
-        ./deploy/UploadSystemPrompts.ps1 `
-            -resourceGroup $resourceGroup["storage"] `
-            -location $manifest.location
-    }
+    ./deploy/Upload-SystemPrompts.ps1 `
+        -resourceGroup $resourceGroup["storage"] `
+        -location $manifest.location
 
     $backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
         az aks list `
@@ -94,9 +121,12 @@ try {
     Invoke-AndRequireSuccess "Deploy Backend" {
         ./deploy/Deploy-Backend-Aks.ps1 `
             -aksName $backendAks `
+            -ingressNginxValues $ingressNginxValuesBackend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestBackend `
-            -ingressNginxValues $ingressNginxValuesBackend
+            -serviceNamespace $manifest.k8sNamespace `
+            -registry $manifest.registry `
+            -version $manifest.version
     }
 
     $frontendAks = Invoke-AndRequireSuccess "Get Frontend AKS" {
@@ -111,24 +141,31 @@ try {
     Invoke-AndRequireSuccess "Deploy Frontend" {
         ./deploy/Deploy-Frontend-Aks.ps1 `
             -aksName $frontendAks `
+            -ingressNginxValues $ingressNginxValuesFrontend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestFrontend `
-            -ingressNginxValues $ingressNginxValuesFrontend
+            -serviceNamespace $manifest.k8sNamespace `
+            -registry $manifest.registry `
+            -version $manifest.version
+    }
+
+    $clusters = @(
+        @{
+            cluster = $frontendAks
+            hosts   = $frontEndHosts
+        }
+        @{
+            cluster = $backendAks
+            hosts   = $backendHosts
+        }
+    )
+    Invoke-AndRequireSuccess "Generate AKS Ingress Host Entires" {
+        ./deploy/Generate-Ingress-Hosts.ps1 `
+            -resourceGroup $resourceGroup.app `
+            -clusters $clusters
     }
 }
 finally {
     Pop-Location
     Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 }
-
-
-
-
-
-
-
-
-# # Write-Host "===========================================================" -ForegroundColor Yellow
-# # Write-Host "The frontend is hosted at https://$webappHostname" -ForegroundColor Yellow
-# # Write-Host "The Core API is hosted at $coreApiUri" -ForegroundColor Yellow
-# # Write-Host "===========================================================" -ForegroundColor Yellow

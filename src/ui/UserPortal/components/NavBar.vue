@@ -2,7 +2,7 @@
 	<div class="navbar">
 		<!-- Sidebar header -->
 		<div class="navbar__header">
-			<img v-if="$appConfigStore.logoUrl !== ''" :src="$appConfigStore.logoUrl" />
+			<img v-if="$appConfigStore.logoUrl !== ''" :src="$appConfigStore.logoUrl" alt="Logo" />
 			<span v-else>{{ $appConfigStore.logoText }}</span>
 
 			<template v-if="!$appConfigStore.isKioskMode">
@@ -12,6 +12,7 @@
 					severity="secondary"
 					class="secondary-button"
 					@click="$appStore.toggleSidebar"
+					aria-label="Toggle sidebar"
 				/>
 			</template>
 		</div>
@@ -30,6 +31,7 @@
 							text
 							severity="secondary"
 							@click="handleCopySession"
+							aria-label="Copy link to chat session"
 						/>
 						<Toast position="top-center" />
 					</template>
@@ -41,7 +43,6 @@
 
 			<!-- Right side content -->
 			<div class="navbar__content__right">
-				<!-- <template v-if="currentSession && $appConfigStore.allowAgentHint"> -->
 				<template v-if="currentSession">
 					<span class="header__dropdown">
 						<img
@@ -60,6 +61,7 @@
 							option-label="label"
 							placeholder="--Select--"
 							@change="handleAgentChange"
+							:style="{ maxHeight: '300px' }"
 						/>
 					</span>
 				</template>
@@ -75,7 +77,7 @@ interface AgentDropdownOption {
 	label: string;
 	value: any;
 	disabled?: boolean;
-	private?: boolean;
+	my_agent?: boolean;
 	type: string;
 	object_id: string;
 	description: string;
@@ -105,12 +107,15 @@ export default {
 
 	watch: {
 		currentSession(newSession: Session, oldSession: Session) {
-			if (newSession.id === oldSession?.id) return;
-
-			this.agentSelection =
-				this.agentOptions.find(
-					(agent) => agent.value === this.$appStore.getSessionAgent(newSession),
-				) || null;
+			if (newSession.id !== oldSession?.id) {
+				this.updateAgentSelection();
+			}
+		},
+		'$appStore.selectedAgents': {
+			handler() {
+				this.updateAgentSelection();
+			},
+			deep: true,
 		},
 	},
 
@@ -118,16 +123,16 @@ export default {
 		await this.$appStore.getAgents();
 
 		this.agentOptions = this.$appStore.agents.map((agent) => ({
-			label: agent.name,
-			type: agent.type,
-			object_id: agent.object_id,
-			description: agent.description,
-			private: false,
+			label: agent.resource.name,
+			type: agent.resource.type,
+			object_id: agent.resource.object_id,
+			description: agent.resource.description,
+			my_agent: agent.roles.includes('Owner'),
 			value: agent,
 		}));
 
-		const publicAgentOptions = this.agentOptions.filter((agent) => !agent.private);
-		const privateAgentOptions = this.agentOptions.filter((agent) => agent.private);
+		const publicAgentOptions = this.agentOptions;
+		const privateAgentOptions = this.agentOptions.filter((agent) => agent.my_agent);
 		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
 
 		this.agentOptionsGroup.push({
@@ -136,14 +141,18 @@ export default {
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Public',
+			label: 'All Agents',
 			items: publicAgentOptions.length > 0 ? publicAgentOptions : noAgentOptions,
 		});
 
 		this.agentOptionsGroup.push({
-			label: 'Private',
+			label: 'My Agents',
 			items: privateAgentOptions.length > 0 ? privateAgentOptions : noAgentOptions,
 		});
+	},
+
+	mounted() {
+		this.updateAgentSelection();
 	},
 
 	methods: {
@@ -173,6 +182,11 @@ export default {
 
 		async handleLogout() {
 			await this.$authStore.logout();
+		},
+
+		updateAgentSelection() {
+			const agent = this.$appStore.getSessionAgent(this.currentSession);
+			this.agentSelection = this.agentOptions.find((option) => option.value.resource.object_id === agent.resource.object_id) || null;
 		},
 	},
 };
@@ -223,6 +237,7 @@ export default {
 	align-items: center;
 	padding: 24px;
 	border-bottom: 1px solid #eaeaea;
+	color: var(--accent-text);
 	background-color: var(--accent-color);
 }
 
@@ -243,6 +258,7 @@ export default {
 
 .button--share {
 	margin-left: 8px;
+	color: var(--accent-text);
 }
 
 .button--auth {
@@ -287,5 +303,9 @@ export default {
 	.dropdown--agent .p-dropdown-trigger {
 		height: 40px;
 	}
+}
+
+.p-dropdown-items-wrapper {
+  max-height: 300px !important;
 }
 </style>

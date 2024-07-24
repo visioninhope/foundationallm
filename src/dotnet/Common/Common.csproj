@@ -16,7 +16,7 @@
   
   <ItemGroup>
     <PackageReference Include="Azure.Data.AppConfiguration" Version="1.4.0" />
-    <PackageReference Include="Azure.Identity" Version="1.11.0" />
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
     <PackageReference Include="Azure.Messaging.EventGrid" Version="4.22.0-beta.1" />
     <PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.1.0" />
     <PackageReference Include="Azure.ResourceManager.CognitiveServices" Version="1.3.2" />
@@ -36,6 +36,34 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.4.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Constants\Authorization\AuthorizableActionNames.tt">
+      <LastGenOutput>AuthorizableActionNames.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Constants\Authorization\RoleDefinitionNames.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RoleDefinitionNames.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Constants\Authorization\AuthorizableActionNames.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AuthorizableActionNames.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Constants\Authorization\RoleDefinitionNames.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RoleDefinitionNames.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   
 </Project>

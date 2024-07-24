@@ -2,14 +2,13 @@
 The API endpoint for returning the completion from the LLM for the specified user prompt.
 """
 from typing import Optional
-from urllib import request
 from fastapi import APIRouter, Depends, Header, Request, Body
 from foundationallm.config import Context
 from foundationallm.models.orchestration import (
-    CompletionRequestBase,
-    KnowledgeManagementCompletionRequest,
+    CompletionRequestBase,    
     CompletionResponse
 )
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
 from app.dependencies import handle_exception, validate_api_key_header
@@ -64,12 +63,13 @@ async def get_completion(
     with tracer.start_as_current_span('completion') as span:
         try:
             span.set_attribute('request_id', completion_request.request_id)
+            span.set_attribute('user_identity', x_user_identity)
 
             orchestration_manager = OrchestrationManager(
                 completion_request = completion_request,
                 configuration=request.app.extra['config'],
                 context=Context(user_identity=x_user_identity)
             )
-            return orchestration_manager.invoke(completion_request.user_prompt)
+            return orchestration_manager.invoke(completion_request)
         except Exception as e:
             handle_exception(e)

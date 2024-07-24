@@ -24,6 +24,9 @@
 			<div class="step-header span-2">What is the name of the data source?</div>
 			<div class="span-2">
 				<div class="mb-2">Data source name:</div>
+				<div class="mb-2">
+					No special characters or spaces, use letters and numbers with dashes and underscores only.
+				</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="dataSource.name"
@@ -135,8 +138,75 @@
 						/>
 					</div>
 
-					<div class="mb-2 mt-2">Folder(s):</div>
-					<InputText v-model="foldersString" class="w-100" type="text" />
+					<div class="step-header mb-2 mt-2">Folder(s):</div>
+					<div class="mb-2">
+						Press <strong>Enter</strong> or <strong>,</strong> after typing each folder name.
+					</div>
+					<Chips v-model="folders" class="w-100" separator="," v-create-chip-on-blur:folders />
+				</div>
+
+				<!-- OneLake -->
+				<div v-if="isOneLakeDataSource(dataSource)">
+					<div class="mb-2">Authentication type:</div>
+					<Dropdown
+						v-model="dataSource.resolved_configuration_references.AuthenticationType"
+						:options="authenticationTypeOptions"
+						option-label="label"
+						option-value="value"
+						placeholder="--Select--"
+						class="dropdown--agent"
+					/>
+
+					<!-- Connection string -->
+					<div
+						v-if="
+							dataSource.resolved_configuration_references.AuthenticationType === 'ConnectionString'
+						"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">Connection string:</div>
+						<SecretKeyInput
+							v-model="dataSource.resolved_configuration_references.ConnectionString"
+							textarea
+						/>
+					</div>
+
+					<!-- API Key -->
+					<div
+						v-if="dataSource.resolved_configuration_references.AuthenticationType === 'AccountKey'"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">API Key:</div>
+						<SecretKeyInput v-model="dataSource.resolved_configuration_references.APIKey" />
+
+						<div class="mb-2 mt-2">Endpoint:</div>
+						<InputText
+							v-model="dataSource.resolved_configuration_references.Endpoint"
+							class="w-100"
+							type="text"
+						/>
+					</div>
+
+					<!-- API Key -->
+					<div
+						v-if="
+							dataSource.resolved_configuration_references.AuthenticationType === 'AzureIdentity'
+						"
+						class="span-2"
+					>
+						<div class="mb-2 mt-2">Account name:</div>
+						<InputText
+							v-model="dataSource.resolved_configuration_references.AccountName"
+							class="w-100"
+							type="text"
+						/>
+					</div>
+
+					<div class="step-header mb-2 mt-2">Workspace(s):</div>
+					<div class="mb-2">
+						Press <strong>Enter</strong> or <strong>,</strong> after typing each workspace name.
+					</div>
+					<Chips v-model="workspaces" class="w-100" separator="," v-create-chip-on-blur:workspaces />
 				</div>
 
 				<!-- Azure SQL database -->
@@ -150,8 +220,11 @@
 						/>
 
 						<template v-if="dataSource.tables">
-							<div class="mb-2 mt-2">Table Name(s):</div>
-							<InputText v-model="tablesString" class="w-100" type="text" />
+							<div class="step-header mb-2 mt-2">Table Name(s):</div>
+							<div class="mb-2">
+								Press <strong>Enter</strong> or <strong>,</strong> after typing each table name.
+							</div>
+							<Chips v-model="tables" class="w-100" separator="," v-create-chip-on-blur:tables />
 						</template>
 					</div>
 				</div>
@@ -191,11 +264,25 @@
 						<InputText v-model="dataSource.site_url" class="w-100" type="text" />
 
 						<template v-if="dataSource.document_libraries">
-							<div class="mb-2 mt-2">Document Library(s):</div>
-							<InputText v-model="documentLibrariesString" class="w-100" type="text" />
+							<div class="step-header mb-2 mt-2">Document Library(s):</div>
+							<div class="mb-2">
+								Press <strong>Enter</strong> or <strong>,</strong> after typing each document library name.
+							</div>
+							<Chips v-model="documentLibraries" class="w-100" separator="," v-create-chip-on-blur:documentLibraries />
 						</template>
 					</div>
 				</div>
+
+			</div>
+
+			<div class="step-header span-2">Would you like to assign this data source to a cost center?</div>
+			<div class="span-2">
+				<InputText
+					v-model="dataSource.cost_center"
+					placeholder="Enter cost center name"
+					type="text"
+					class="w-50"
+				/>
 			</div>
 
 			<!-- Buttons -->
@@ -233,6 +320,7 @@ import type {
 } from '@/js/types';
 import {
 	isAzureDataLakeDataSource,
+	isOneLakeDataSource,
 	isAzureSQLDatabaseDataSource,
 	isSharePointOnlineSiteDataSource,
 	convertToDataSource,
@@ -255,29 +343,34 @@ export default {
 			loadingStatusText: 'Retrieving data...' as string,
 
 			nameValidationStatus: null as string | null, // 'valid', 'invalid', or null
-			validationMessage: '' as string,
+			validationMessage: null as string | null,
 
-			foldersString: '',
-			documentLibrariesString: '',
-			tablesString: '',
+			folders: [] as string[],
+			workspaces: [] as string[],
+			documentLibraries: [] as string[],
+			tables: [] as string[],
 
 			// Create a default Azure Data Lake data source.
 			dataSource: {
 				type: 'azure-data-lake',
 				name: '',
+				display_name: '',
 				object_id: '',
 				description: '',
+				cost_center: '',
 				resolved_configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_reference_metadata: {} as { [key: string]: ConfigurationReferenceMetadata },
 			} as null | DataSource,
@@ -329,36 +422,44 @@ export default {
 
 		if (this.editId) {
 			this.loadingStatusText = `Retrieving data source "${this.editId}"...`;
-			const dataSource = await api.getDataSource(this.editId);
+			const dataSourceResult = await api.getDataSource(this.editId);
+			const dataSource = dataSourceResult.resource;
 			this.dataSource = dataSource;
 
 			if (this.dataSource.folders) {
-				this.foldersString = this.dataSource.folders.join(', ');
+				this.folders = this.dataSource.folders;
+			}
+			if (this.dataSource.workspaces) {
+				this.workspaces = this.dataSource.workspaces;
 			}
 			if (this.dataSource.document_libraries) {
-				this.documentLibrariesString = this.dataSource.document_libraries.join(', ');
+				this.documentLibraries = this.dataSource.document_libraries;
 			}
 			if (this.dataSource.tables) {
-				this.tablesString = this.dataSource.tables.join(', ');
+				this.tables = this.dataSource.tables;
 			}
 		} else {
 			// Create a new DataSource object of type Azure Data Lake.
 			const newDataSource: DataSource = {
 				type: 'azure-data-lake',
 				name: '',
+				display_name: '',
 				object_id: '',
 				description: '',
+				cost_center: '',
 				resolved_configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_references: {
 					AuthenticationType: '',
 					ConnectionString: '',
 					APIKey: '',
 					Endpoint: '',
+					AccountName: '',
 				},
 				configuration_reference_metadata: {} as { [key: string]: ConfigurationReferenceMetadata },
 			};
@@ -372,6 +473,7 @@ export default {
 
 	methods: {
 		isAzureDataLakeDataSource,
+		isOneLakeDataSource,
 		isSharePointOnlineSiteDataSource,
 		isAzureSQLDatabaseDataSource,
 		convertToDataSource,
@@ -430,19 +532,20 @@ export default {
 
 			// Convert string representations of array fields back to arrays.
 			if (isAzureDataLakeDataSource(this.dataSource)) {
-				this.dataSource.folders = this.foldersString.split(',').map((s) => s.trim());
+				this.dataSource.folders = this.folders;
+			} else if (isOneLakeDataSource(this.dataSource)) {
+				this.dataSource.workspaces = this.workspaces;
 			} else if (isSharePointOnlineSiteDataSource(this.dataSource)) {
-				this.dataSource.document_libraries = this.documentLibrariesString
-					.split(',')
-					.map((s) => s.trim());
+				this.dataSource.document_libraries = this.documentLibraries;
 			} else if (isAzureSQLDatabaseDataSource(this.dataSource)) {
-				this.dataSource.tables = this.tablesString.split(',').map((s) => s.trim());
+				this.dataSource.tables = this.tables;
 			}
 
 			if (errors.length > 0) {
 				this.$toast.add({
 					severity: 'error',
 					detail: errors.join('\n'),
+					life: 5000,
 				});
 
 				return;
@@ -465,6 +568,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: successMessage,
+				life: 5000,
 			});
 
 			this.loading = false;
@@ -700,5 +804,16 @@ input {
 
 .flex-item-button {
 	margin-left: 8px; /* Add some space between the textarea and the button */
+}
+
+.p-chips {
+	ul {
+		width: 100%;
+		li {
+			input {
+				width: 100%!important;
+			}
+		}
+	}
 }
 </style>

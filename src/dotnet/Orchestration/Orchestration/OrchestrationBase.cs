@@ -19,18 +19,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         protected readonly ILLMOrchestrationService _orchestrationService = orchestrationService;
 
         /// <summary>
-        /// This will setup the agent based on its metadata.
-        /// </summary>
-        /// <returns></returns>
-        public virtual async Task Configure(CompletionRequest completionRequest) =>
-            await Task.CompletedTask;
-
-        /// <summary>
         /// The call to execute a completion after the agent is configured.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="completionRequest"></param>
         /// <returns></returns>
-        public virtual async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public virtual async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             await Task.CompletedTask;
             return null!;

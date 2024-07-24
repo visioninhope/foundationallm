@@ -1,18 +1,11 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Authentication;
-using Microsoft.AspNetCore.Http;
-
-using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using FoundationaLLM.Common.Models.Agents;
+using NSubstitute;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace FoundationaLLM.Common.Tests.Middleware
@@ -25,7 +18,7 @@ namespace FoundationaLLM.Common.Tests.Middleware
             // Arrange
             var context = new DefaultHttpContext();
             var claimsProviderService = Substitute.For<IUserClaimsProviderService>();
-            var groupMembershipService = Substitute.For<IGroupMembershipService>();
+            var identityManagementService = Substitute.For<IIdentityManagementService>();
             var callContext = Substitute.For<ICallContext>();
             var instanceSettings = Options.Create<InstanceSettings>(Substitute.For<InstanceSettings>());
             var middleware = new CallContextMiddleware(next: _ => Task.FromResult(0));
@@ -38,7 +31,7 @@ namespace FoundationaLLM.Common.Tests.Middleware
             }, "mock"));
 
             // Act
-            await middleware.InvokeAsync(context, claimsProviderService, groupMembershipService, callContext, instanceSettings);
+            await middleware.InvokeAsync(context, claimsProviderService, identityManagementService, callContext, instanceSettings);
 
             // Assert
             claimsProviderService.Received(1).GetUserIdentity(context.User);
@@ -51,7 +44,7 @@ namespace FoundationaLLM.Common.Tests.Middleware
             // Arrange
             var context = new DefaultHttpContext();
             var claimsProviderService = Substitute.For<IUserClaimsProviderService>();
-            var groupMembershipService = Substitute.For<IGroupMembershipService>();
+            var groupMembershipService = Substitute.For<IIdentityManagementService>();
             var callContext = Substitute.For<ICallContext>();
             var instanceSettings = Options.Create<InstanceSettings>(Substitute.For<InstanceSettings>());
             var middleware = new CallContextMiddleware(next: _ => Task.FromResult(0));

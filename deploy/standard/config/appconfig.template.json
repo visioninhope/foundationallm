@@ -1,13 +1,6 @@
 {
     "items": [
       {
-        "key": "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer",
-        "value": "agents",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:Agent:ResourceProviderService:Storage:AccountName",
         "value": "{{storageAccountAdlsName}}",
         "label": null,
@@ -22,29 +15,8 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-orchestrationapi-apikey\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:APIs:OrchestrationAPI:APIUrl",
-        "value": "http://orchestration-api/orchestration",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:APIs:OrchestrationAPI:AppInsightsConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:APIs:OrchestrationAPI:ForceHttpsRedirection",
-        "value": "false",
+        "key": "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer",
+        "value": "agents",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -64,17 +36,17 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:APIs:AuthorizationAPI:APIScope",
-        "value": "{{authorizationApiScope}}",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:APIs:AgentHubAPI:AppInsightsConnectionString",
         "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:AuthorizationAPI:APIScope",
+        "value": "{{authorizationApiScope}}",
+        "label": null,
+        "content_type": "",
         "tags": {}
       },
       {
@@ -134,6 +106,13 @@
         "tags": {}
       },
       {
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield",
+        "value": "false",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
         "key": "FoundationaLLM:APIs:GatekeeperAPI:APIUrl",
         "value": "http://gatekeeper-api/gatekeeper",
         "label": null,
@@ -150,6 +129,20 @@
       {
         "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety",
         "value": "true",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard",
+        "value": "false",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails",
+        "value": "false",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -184,6 +177,27 @@
       },
       {
         "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:AppInsightsConnectionString",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAPI:APIKey",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-gatewayapi-apikey\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAPI:APIUrl",
+        "value": "http://gateway-api/gateway",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString",
         "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
@@ -225,15 +239,29 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AccountName",
-        "value": "{{storageAccountAdlsName}}",
+        "key": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-orchestrationapi-apikey\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:OrchestrationAPI:APIUrl",
+        "value": "http://orchestration-api/orchestration",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
-        "value": "AzureIdentity",
+        "key": "FoundationaLLM:APIs:OrchestrationAPI:AppInsightsConnectionString",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:OrchestrationAPI:ForceHttpsRedirection",
+        "value": "false",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -296,7 +324,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:VectorizationAPI:APIUrl",
-        "value": "https://{{vectorizationApiHostname}}/vectorization",
+        "value": "http://vectorization-api/vectorization",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -337,42 +365,56 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:APIKey",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-azurecontentsafety-apikey\"}",
+        "key": "FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName",
+        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-gatekeeper-azurecontentsafety-apikey\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:APIUrl",
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl",
         "value": "{{contentSafetyEndpointUri}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:HateSeverity",
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity",
         "value": "2",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:SelfHarmSeverity",
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity",
         "value": "2",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:SexualSeverity",
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity",
         "value": "2",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:AzureContentSafety:ViolenceSeverity",
+        "key": "FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity",
         "value": "2",
         "label": null,
         "content_type": "",
@@ -827,6 +869,13 @@
         "tags": {}
       },
       {
+        "key": "FoundationaLLM:Gateway:AzureOpenAIAccounts",
+        "value": "{{azureOpenAiAccountName}}",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
         "key": "FoundationaLLM:Instance:Id",
         "value": "{{instanceId}}",
         "label": null,
@@ -859,13 +908,6 @@
         "value": "gpt-35-turbo",
         "label": null,
         "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:LangChainAPI:Key",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-langchainapi-apikey\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
       },
       {
@@ -974,6 +1016,20 @@
         "tags": {}
       },
       {
+        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AccountName",
+        "value": "{{storageAccountAdlsName}}",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:Prompt:ResourceProviderService:Storage:AuthenticationType",
+        "value": "AzureIdentity",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
         "key": "FoundationaLLM:PromptHub:PromptMetadata:StorageContainer",
         "value": "prompts",
         "label": null,
@@ -981,6 +1037,13 @@
         "tags": {}
       },
       {
+        "key": "FoundationaLLM:Refinement",
+        "value": " ",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+        {
         "key": "FoundationaLLM:SemanticKernelAPI:OpenAI.ChatCompletionPromptName",
         "value": "RetailAssistant.Default",
         "label": null,
@@ -1101,28 +1164,28 @@
       },
       {
         "key": "FoundationaLLM:Vectorization:Queues:Embed:AccountName",
-        "value": "{{accountName}}",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
         "key": "FoundationaLLM:Vectorization:Queues:Extract:AccountName",
-        "value": "{{accountName}}",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
         "key": "FoundationaLLM:Vectorization:Queues:Index:AccountName",
-        "value": "{{accountName}}",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
       },
       {
         "key": "FoundationaLLM:Vectorization:Queues:Partition:AccountName",
-        "value": "{{accountName}}",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -1157,7 +1220,7 @@
       },
       {
         "key": "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService:AuthenticationType",
-        "value": "APIKey",
+        "value": "AzureIdentity",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -1195,48 +1258,6 @@
         "value": "{{vectorizationConfig}}",
         "label": null,
         "content_type": "application/json",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:CallbackPath",
-        "value": "/signin-oidc",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:ClientId",
-        "value": "{{vectorizationApiEntraClientId}}",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:ClientSecret",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-management-api-entra-clientsecret\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:Instance",
-        "value": "https://login.microsoftonline.com/",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:Scopes",
-        "value": "{{vectorizationApiEntraScopes}}",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:VectorizationAPI:Entra:TenantId",
-        "value": "{{tenantId}}",
-        "label": null,
-        "content_type": "",
         "tags": {}
       }
     ]

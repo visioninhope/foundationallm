@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, Message, Agent } from '@/js/types';
+import type { Session, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
 import api from '@/js/api';
 
 export const useAppStore = defineStore('app', {
@@ -10,9 +10,10 @@ export const useAppStore = defineStore('app', {
 		currentSession: null as Session | null,
 		currentMessages: [] as Message[],
 		isSidebarClosed: false as boolean,
-		agents: [] as Agent[],
+		agents: [] as ResourceProviderGetResult<Agent>[],
 		selectedAgents: new Map(),
-		lastSelectedAgent: null as Agent | null,
+		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
+		attachments: [] as Attachment[],
 	}),
 
 	getters: {},
@@ -24,7 +25,7 @@ export const useAppStore = defineStore('app', {
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
 				const newSession = await api.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
@@ -32,10 +33,15 @@ export const useAppStore = defineStore('app', {
 
 			if (this.sessions.length === 0) {
 				await this.addSession();
-				this.changeSession(this.sessions[0]);
+				await this.changeSession(this.sessions[0]);
 			} else {
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-				this.changeSession(existingSession || this.sessions[0]);
+				await this.changeSession(existingSession || this.sessions[0]);
+			}
+
+			if (this.currentSession) {
+				await this.getMessages();
+				this.updateSessionAgentFromMessages(this.currentSession);
 			}
 		},
 
@@ -97,13 +103,13 @@ export const useAppStore = defineStore('app', {
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
 				const newSession = await this.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
 			const firstSession = this.sessions[0];
 			if (firstSession) {
-				this.changeSession(firstSession);
+				await this.changeSession(firstSession);
 			}
 		},
 
@@ -112,7 +118,20 @@ export const useAppStore = defineStore('app', {
 			this.currentMessages = data;
 		},
 
+		updateSessionAgentFromMessages(session: Session) {
+			const lastAssistantMessage = this.currentMessages
+			  .filter((message) => message.sender.toLowerCase() === 'assistant')
+			  .pop();
+			if (lastAssistantMessage) {
+			  const agent = this.agents.find(agent => agent.resource.name === lastAssistantMessage.senderDisplayName);
+			  if (agent) {
+				this.setSessionAgent(session, agent);
+			  }
+			}
+		  },
+
 		getSessionAgent(session: Session) {
+			if (!session) return null;
 			let selectedAgent = this.selectedAgents.get(session.id);
 			if (!selectedAgent) {
 				if (this.lastSelectedAgent) {
@@ -126,7 +145,7 @@ export const useAppStore = defineStore('app', {
 			return selectedAgent;
 		},
 
-		setSessionAgent(session: Session, agent: Agent) {
+		setSessionAgent(session: Session, agent: ResourceProviderGetResult<Agent>) {
 			this.lastSelectedAgent = agent;
 			return this.selectedAgents.set(session.id, agent);
 		},
@@ -168,18 +187,19 @@ export const useAppStore = defineStore('app', {
 			await api.sendMessage(
 				this.currentSession!.id,
 				text,
-				this.getSessionAgent(this.currentSession!),
+				this.getSessionAgent(this.currentSession!).resource,
+				this.attachments.map(attachment => String(attachment.id)), // Convert attachments to an array of strings
 			);
 			await this.getMessages();
 
 			// Update the session name based on the message sent.
 			if (this.currentMessages.length === 2) {
 				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
-				const { text: newSessionName } = await api.summarizeSessionName(
+				const { text: newSessionName } = await api.generateSessionName(
 					this.currentSession!.id,
 					sessionFullText,
-				);
-				await api.renameSession(this.currentSession!.id, newSessionName);
+				);				
+				// the generate session name already renames the session in the backend
 				this.currentSession!.name = newSessionName;
 			}
 		},
@@ -200,7 +220,7 @@ export const useAppStore = defineStore('app', {
 			}
 		},
 
-		changeSession(newSession: Session) {
+		async changeSession(newSession: Session) {
 			const nuxtApp = useNuxtApp();
 			const appConfigStore = useAppConfigStore();
 
@@ -212,6 +232,8 @@ export const useAppStore = defineStore('app', {
 			}
 
 			this.currentSession = newSession;
+			await this.getMessages();
+			this.updateSessionAgentFromMessages(newSession);
 		},
 
 		toggleSidebar() {
@@ -221,6 +243,19 @@ export const useAppStore = defineStore('app', {
 		async getAgents() {
 			this.agents = await api.getAllowedAgents();
 			return this.agents;
+		},
+
+		async uploadAttachment(file: FormData) {
+			try {
+				const id = await api.uploadAttachment(file);
+				const fileName = file.get('file')?.name;
+				// this.attachments.push(id);
+				// For now, we want to just replace the attachments with the new one.
+				this.attachments = [{ id, fileName}];
+				return id;
+			} catch (error) {
+				throw error;
+			}
 		},
 	},
 });

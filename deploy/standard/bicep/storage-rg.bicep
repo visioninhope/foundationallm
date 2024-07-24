@@ -14,10 +14,6 @@ param logAnalyticsWorkspaceId string
 @description('DNS Resource Group name')
 param dnsResourceGroupName string
 
-@description('OPS Resource Group name')
-param opsResourceGroupName string
-param opsKeyVaultName string
-
 @description('Project Name, used in naming resources.')
 param project string
 
@@ -73,19 +69,13 @@ module storage 'modules/storageAccount.bicep' = {
     actionGroupId: actionGroupId
     enableHns: true
     isDataLake: true
-    keyVaultName: opsKeyVaultName
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
-    opsResourceGroupName: opsResourceGroupName
     privateDnsZones: dnsZones.outputs.idsStorage
     resourceSuffix: resourceSuffix
     subnetId: '${vnetId}/subnets/FLLMStorage'
     tags: tags
     containers: [
-      'agents'
-      'data-sources'
-      'foundationallm-source'
-      'prompts'
       'resource-provider'
       'vectorization-input'
       'vectorization-state'

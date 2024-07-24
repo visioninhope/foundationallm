@@ -47,14 +47,22 @@ namespace FoundationaLLM.Vectorization.Handlers
                 && a.Position == 1 && !string.IsNullOrWhiteSpace(a.Content));
 
             if (extractedTextArtifact == null)
-            {
-                state.Log(this, request.Id!, _messageId, "The extracted text artifact was not found.");
-                return false;
+            {                
+                if(state.Artifacts.Count > 0)
+                {
+                    state.Log(this, request.Name!, _messageId, "The extracted text artifact does not contain any text");
+                    throw new VectorizationException($"The extracted text artifact did not have text content. Request id: {request.Name} canonical id: {request.ContentIdentifier.CanonicalId}");
+                }
+                else
+                {
+                    state.Log(this, request.Name!, _messageId, "No extracted text artifacts found.");
+                    throw new VectorizationException($"No extracted text artifacts were found for request id: {request.Name} canonical id: {request.ContentIdentifier.CanonicalId}");
+                }
             }
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextSplitterService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
-            var textSplitter = serviceFactory.GetService(_parameters["text_partition_profile_name"]);
+            var textSplitter = serviceFactory.GetService(_parameters["text_partitioning_profile_name"]);
 
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 

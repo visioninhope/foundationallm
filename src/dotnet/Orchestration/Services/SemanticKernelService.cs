@@ -1,6 +1,9 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
@@ -29,19 +32,29 @@ namespace FoundationaLLM.Orchestration.Core.Services
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
 
-        /// <summary>
-        /// Checks the Semantic Service returns a call to signal it is initialized and ready for requests.
-        /// </summary>
-        public bool IsInitialized => GetServiceStatus();
+        /// <inheritdoc/>
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
+        {
+            var client = _httpClientFactoryService.CreateClient(HttpClients.SemanticKernelAPI);
+            var responseMessage = await client.SendAsync(
+                new HttpRequestMessage(HttpMethod.Get, "status"));
+
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
+        }
+
+        /// <inheritdoc/>
+        public string Name => LLMOrchestrationServiceNames.SemanticKernel;
 
         /// <summary>
         /// Gets a completion from the Semantic Kernel service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI);
+            var client = _httpClientFactoryService.CreateClient(HttpClients.SemanticKernelAPI);
 
             var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",
@@ -66,7 +79,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 };
             }
 
-            _logger.LogWarning("The LangChain orchestration service returned status code {StatusCode}: {ResponseContent}",
+            _logger.LogWarning("The Semantic Kernel orchestration service returned status code {StatusCode}: {ResponseContent}",
                 responseMessage.StatusCode, responseContent);
 
             return new LLMCompletionResponse
@@ -78,19 +91,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-        /// <summary>
-        /// Gets the target Semantic Kernel API status.
-        /// </summary>
-        /// <returns></returns>
-        private bool GetServiceStatus()
-        {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI);
-            var responseMessage = client.Send(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
-
-            return responseMessage.Content.ToString() == "ready";
         }
     }
 }

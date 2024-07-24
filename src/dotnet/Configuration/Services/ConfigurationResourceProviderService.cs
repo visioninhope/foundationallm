@@ -12,11 +12,14 @@ using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.ResourceProviders;
+using FoundationaLLM.Configuration.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
+using System.Text;
 using System.Text.Json;
 
 namespace FoundationaLLM.Configuration.Services
@@ -57,7 +60,17 @@ namespace FoundationaLLM.Configuration.Services
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Configuration
             ])
     {
+        /// <inheritdoc/>
+        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
+            ConfigurationResourceProviderMetadata.AllowedResourceTypes;
+
+        private ConcurrentDictionary<string, APIEndpointReference> _apiEndpointReferences = [];
+
         private const string KEY_VAULT_REFERENCE_CONTENT_TYPE = "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8";
+
+        private const string API_ENDPOINT_REFERENCES_FILE_NAME = "_api-endpoint-references.json";
+        private const string API_ENDPOINT_REFERENCES_FILE_PATH =
+            $"/{ResourceProviderNames.FoundationaLLM_Configuration}/{API_ENDPOINT_REFERENCES_FILE_NAME}";
 
         private readonly IAzureAppConfigurationService _appConfigurationService = appConfigurationService;
         private readonly IAzureKeyVaultService _keyVaultService = keyVaultService;
@@ -67,12 +80,39 @@ namespace FoundationaLLM.Configuration.Services
         protected override string _name => ResourceProviderNames.FoundationaLLM_Configuration;
 
         /// <inheritdoc/>
-        protected override async Task InitializeInternal() =>
-            await Task.CompletedTask;
+        protected override async Task InitializeInternal()
+        {
+            _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
-        /// <inheritdoc/>
-        protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
-            ConfigurationResourceProviderMetadata.AllowedResourceTypes;
+            if (await _storageService.FileExistsAsync(_storageContainerName, API_ENDPOINT_REFERENCES_FILE_PATH, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    default);
+
+                var resourceReferenceStore =
+                    JsonSerializer.Deserialize<ResourceReferenceStore<APIEndpointReference>>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()));
+
+                _apiEndpointReferences = new ConcurrentDictionary<string, APIEndpointReference>(
+                        resourceReferenceStore!.ToDictionary());
+            }
+            else
+            {
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>
+                    {
+                        ResourceReferences = []
+                    }),
+                    default,
+                    default);
+            }
+
+            _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
+        }
 
         #region Support for Management API
 
@@ -81,16 +121,17 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await LoadAppConfigurationKeys(resourcePath.ResourceTypeInstances[0]),
+                ConfigurationResourceTypeNames.APIEndpoints => await LoadAPIEndpoints(resourcePath.ResourceTypeInstances[0]),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<AppConfigurationKeyBase>> LoadAppConfigurationKeys(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<AppConfigurationKeyBase>>> LoadAppConfigurationKeys(ResourceTypeInstance instance)
         {
             var keyFilter = instance.ResourceId ?? "FoundationaLLM:*";
-            var result = new List<AppConfigurationKeyBase>(); 
+            var result = new List<ResourceProviderGetResult<AppConfigurationKeyBase>>(); 
 
             var settings = await _appConfigurationService.GetConfigurationSettingsAsync(keyFilter);
             foreach (var setting in settings)
@@ -108,7 +149,7 @@ namespace FoundationaLLM.Configuration.Services
 
                 if (string.IsNullOrEmpty(setting.Value))
                 {
-                    result.Add(appConfig);
+                    result.Add(new ResourceProviderGetResult<AppConfigurationKeyBase>() { Resource = appConfig, Actions = [], Roles = [] });
                     continue;
                 }
 
@@ -120,10 +161,51 @@ namespace FoundationaLLM.Configuration.Services
                         appConfig = kvAppConfig;
                 }
 
-                result.Add(appConfig);
+                result.Add(new ResourceProviderGetResult<AppConfigurationKeyBase>() { Resource = appConfig, Actions = [], Roles = [] });
             }
 
             return result;
+        }
+
+        private async Task<List<ResourceProviderGetResult<APIEndpoint>>> LoadAPIEndpoints(ResourceTypeInstance instance)
+        {
+            if (instance.ResourceId == null)
+            {
+                var apiEndpoints = (await Task.WhenAll(
+                        _apiEndpointReferences.Values
+                            .Where(apie => !apie.Deleted)
+                            .Select(apie => LoadAPIEndpoint(apie)))).ToList();
+
+                return apiEndpoints.Select(service => new ResourceProviderGetResult<APIEndpoint>() { Resource = service, Actions = [], Roles = [] }).ToList();
+            }
+            else
+            {
+                if (!_apiEndpointReferences.TryGetValue(instance.ResourceId, out var resourceReference)
+                    || resourceReference.Deleted)
+                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} api endpoint resource.",
+                        StatusCodes.Status404NotFound);
+
+                var apiEndpoint = await LoadAPIEndpoint(resourceReference);
+
+                return [new ResourceProviderGetResult<APIEndpoint>() { Resource = apiEndpoint, Actions = [], Roles = [] }];
+            }
+        }
+
+        private async Task<APIEndpoint> LoadAPIEndpoint(
+            APIEndpointReference apiEndpointReference)
+        {
+            if (await _storageService.FileExistsAsync(_storageContainerName, apiEndpointReference.Filename, default))
+            {
+                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, apiEndpointReference.Filename, default);
+                return JsonSerializer.Deserialize<APIEndpoint>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()),
+                    _serializerSettings)
+                    ?? throw new ResourceProviderException($"Failed to load the api endpoint {apiEndpointReference.Name}.",
+                        StatusCodes.Status400BadRequest);
+            }
+
+            throw new ResourceProviderException($"Could not locate the {apiEndpointReference.Name} api endpoint resource.",
+                StatusCodes.Status404NotFound);
         }
 
         #endregion
@@ -133,9 +215,27 @@ namespace FoundationaLLM.Configuration.Services
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
                 ConfigurationResourceTypeNames.AppConfigurations => await UpdateAppConfigurationKey(resourcePath, serializedResource),
+                ConfigurationResourceTypeNames.APIEndpoints => await UpdateAPIEndpoints(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
+
+        /// <inheritdoc/>
+        protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
+        {
+            switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
+            {
+                case ConfigurationResourceTypeNames.APIEndpoints:
+                    await DeleteAPIEndpoint(resourcePath.ResourceTypeInstances);
+                    break;
+                case ConfigurationResourceTypeNames.AppConfigurations:
+                    await DeleteAppConfigurationKey(resourcePath.ResourceTypeInstances);
+                    break;
+                default:
+                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances.Last().ResourceType} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+            };
+        }
 
         #endregion
 
@@ -160,12 +260,8 @@ namespace FoundationaLLM.Configuration.Services
                 var kvAppConfig = JsonSerializer.Deserialize<AppConfigurationKeyVaultReference>(serializedAppConfig)
                     ?? throw new ResourceProviderException("Invalid key vault reference value.", StatusCodes.Status400BadRequest);
 
-                if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultUri))
-                    throw new ResourceProviderException("The key vault URI is invalid.", StatusCodes.Status400BadRequest);
-
-                if ((new Uri(_keyVaultService.KeyVaultUri)).Host.ToLower().CompareTo((new Uri(kvAppConfig.KeyVaultUri)).Host.ToLower()) != 0)
-                    throw new ResourceProviderException("The key vault URI does not match the key vault URI of the key vault service.", StatusCodes.Status400BadRequest);
-
+                kvAppConfig.KeyVaultUri = _keyVaultService.KeyVaultUri;
+                
                 if (string.IsNullOrWhiteSpace(kvAppConfig.KeyVaultSecretName))
                     throw new ResourceProviderException("The key vault secret name is invalid.", StatusCodes.Status400BadRequest);
 
@@ -188,11 +284,93 @@ namespace FoundationaLLM.Configuration.Services
             };
         }
 
+        private async Task<ResourceProviderUpsertResult> UpdateAPIEndpoints(ResourcePath resourcePath, string serializedAPIEndpoint, UnifiedUserIdentity userIdentity)
+        {
+            var apiEndpoint = JsonSerializer.Deserialize<APIEndpoint>(serializedAPIEndpoint)
+               ?? throw new ResourceProviderException("The object definition is invalid.");
+
+            if (_apiEndpointReferences.TryGetValue(apiEndpoint.Name!, out var existingApiEndpointReference)
+                && existingApiEndpointReference!.Deleted)
+                throw new ResourceProviderException($"The api endpoint resource {existingApiEndpointReference.Name} cannot be added or updated.",
+                        StatusCodes.Status400BadRequest);
+
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != apiEndpoint.Name)
+                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
+                    StatusCodes.Status400BadRequest);
+
+            var apiEndpointReference = new APIEndpointReference
+            {
+                Name = apiEndpoint.Name!,
+                Type = apiEndpoint.Type!,
+                Filename = $"/{_name}/{apiEndpoint.Name}.json",
+                Deleted = false
+            };
+
+            apiEndpoint.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            if (existingApiEndpointReference == null)
+                apiEndpoint.CreatedBy = userIdentity.UPN;
+            else
+                apiEndpoint.UpdatedBy = userIdentity.UPN;
+
+            await _storageService.WriteFileAsync(
+                _storageContainerName,
+                apiEndpointReference.Filename,
+                JsonSerializer.Serialize(apiEndpoint, _serializerSettings),
+                default,
+                default);
+
+            _apiEndpointReferences.AddOrUpdate(apiEndpointReference.Name, apiEndpointReference, (k, v) => v);
+
+            await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    default,
+                    default);
+
+            return new ResourceProviderUpsertResult
+            {
+                ObjectId = (apiEndpoint as APIEndpoint)!.ObjectId
+            };
+        }
+
+        #endregion
+
+        #region Helpers for DeleteResourceAsync
+
+        private async Task DeleteAPIEndpoint(List<ResourceTypeInstance> instances)
+        {
+            if (_apiEndpointReferences.TryGetValue(instances.Last().ResourceId!, out var apiEndpointReference)
+                || apiEndpointReference!.Deleted)
+            {
+                apiEndpointReference.Deleted = true;
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    API_ENDPOINT_REFERENCES_FILE_PATH,
+                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    default,
+                    default);
+            }
+            else
+                throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} api endpoint resource.",
+                            StatusCodes.Status404NotFound);
+        }
+
+        private async Task DeleteAppConfigurationKey(List<ResourceTypeInstance> instances)
+        {
+            string key = instances.Last().ResourceId!.Split("/").Last();
+            if (!await _appConfigurationService.CheckAppConfigurationSettingExistsAsync(key))
+                throw new ResourceProviderException($"Could not locate the {key} App Configuration key.",
+                                StatusCodes.Status404NotFound);
+            await _appConfigurationService.DeleteAppConfigurationSettingAsync(key);
+        }
         #endregion
 
         #region Event handling
 
-            /// <inheritdoc/>
+        /// <inheritdoc/>
         protected override async Task HandleEvents(EventSetEventArgs e)
         {
             _logger.LogInformation("{EventsCount} events received in the {EventsNamespace} events namespace.",

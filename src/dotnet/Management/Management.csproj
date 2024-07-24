@@ -10,9 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="Azure.Data.AppConfiguration" Version="1.4.0" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.39.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.41.0-preview.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Polly.Core" Version="8.3.1" />
   </ItemGroup>
@@ -21,10 +27,6 @@
     <ProjectReference Include="..\Agent\Agent.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Vectorization\Vectorization.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

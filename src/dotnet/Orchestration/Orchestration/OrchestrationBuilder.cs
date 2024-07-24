@@ -1,12 +1,17 @@
-﻿using FoundationaLLM.Common.Constants.Agents;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
+using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
@@ -18,74 +23,46 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         /// <summary>
         /// Builds the orchestration based on the user prompt, the session id, and the call context.
         /// </summary>
-        /// <param name="completionRequest">The <see cref="CompletionRequest"/> containing details about the completion request.</param>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
+        /// <param name="agentName">The unique name of the agent for which the orchestration is built.</param>
         /// <param name="callContext">The call context of the request being handled.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
-        /// <param name="orchestrationServices"></param>
+        /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> that manages internal and external orchestration services.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> provding dependency injection services for the current scope.</param>
         /// <param name="loggerFactory">The logger factory used to create new loggers.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static async Task<OrchestrationBase?> Build(
-            CompletionRequest completionRequest,
+            string instanceId,
+            string agentName,
             ICallContext callContext,
             IConfiguration configuration,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
-            IEnumerable<ILLMOrchestrationService> orchestrationServices,
+            ILLMOrchestrationServiceManager llmOrchestrationServiceManager,
+            IServiceProvider serviceProvider,
             ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
-            if (completionRequest.AgentName == null)
-                logger.LogInformation("The AgentBuilder is starting to build an agent without an agent name.");
-            else
-                logger.LogInformation("The AgentBuilder is starting to build an agent with the following agent name: {AgentName}.",
-                    completionRequest.AgentName);
 
-            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
-                throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
-
-            // TODO: Implement a cleaner pattern for handling missing resources
-            AgentBase? agentBase = default;
-
-            if (!string.IsNullOrWhiteSpace(completionRequest.AgentName))
-            {
-                try
-                {
-                    var agents = await agentResourceProvider.HandleGetAsync($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", callContext.CurrentUserIdentity);
-                    agentBase = ((List<AgentBase>)agents)[0];
-                }
-                catch (ResourceProviderException)
-                {
-                    logger.LogInformation("AgentBuilder: The requested agent was not found in the resource provider, defaulting to legacy agent path.");
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "The AgentBuilder failed to properly retrieve the agent: /{Agents}/{AgentName}",
-                        AgentResourceTypeNames.Agents, completionRequest.AgentName);
-                    throw;
-                }
-            }
-
-            if (agentBase == null) return null;
+            var result = await LoadAgent(agentName, resourceProviderServices, callContext.CurrentUserIdentity!, logger);
+            if (result.Agent == null) return null;
             
-            if (agentBase.AgentType == typeof(KnowledgeManagementAgent))
+            if (result.Agent.AgentType == typeof(KnowledgeManagementAgent))
             {
-                var orchestrationType = string.IsNullOrWhiteSpace(agentBase.OrchestrationSettings?.Orchestrator)
-                    ? LLMOrchestrationService.LangChain.ToString()
-                    : agentBase.OrchestrationSettings?.Orchestrator;
+                var orchestrationName = string.IsNullOrWhiteSpace(result.Agent.OrchestrationSettings?.Orchestrator)
+                    ? LLMOrchestrationServiceNames.LangChain
+                    : result.Agent.OrchestrationSettings?.Orchestrator;
 
-                var validType = Enum.TryParse(orchestrationType, out LLMOrchestrationService llmOrchestrationType);
-                if (!validType)
-                    throw new ArgumentException($"The orchestration does not support the {orchestrationType} orchestration type.");
-
-                var orchestrationService = SelectOrchestrationService(llmOrchestrationType, orchestrationServices);
+                var orchestrationService = llmOrchestrationServiceManager.GetService(instanceId, orchestrationName!, serviceProvider, callContext);
                 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
-                    (KnowledgeManagementAgent)agentBase,
+                    (KnowledgeManagementAgent)result.Agent,
                     callContext,
                     orchestrationService,
-                    loggerFactory.CreateLogger<OrchestrationBase>());
-                await kmOrchestration.Configure(completionRequest);
+                    loggerFactory.CreateLogger<OrchestrationBase>(),
+                    resourceProviderServices,
+                    result.DataSourceAccessDenied);
 
                 return kmOrchestration;
             }
@@ -93,31 +70,92 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return null;
         }
 
-        /// <summary>
-        /// Used to select the orchestration service for the agent.
-        /// </summary>
-        /// <param name="orchestrationType"></param>
-        /// <param name="orchestrationServices"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        private static ILLMOrchestrationService SelectOrchestrationService(
-            LLMOrchestrationService orchestrationType,
-            IEnumerable<ILLMOrchestrationService> orchestrationServices)
+        private static async Task<(AgentBase? Agent, bool DataSourceAccessDenied)> LoadAgent(
+            string? agentName,
+            Dictionary<string, IResourceProviderService> resourceProviderServices,
+            UnifiedUserIdentity currentUserIdentity,
+            ILogger<OrchestrationBuilder> logger)
         {
-            Type? orchestrationServiceType = null;
+            if (string.IsNullOrWhiteSpace(agentName))
+                throw new OrchestrationException("The agent name provided in the completion request is invalid.");
 
-            orchestrationServiceType = orchestrationType switch
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
+
+            var agentBase = await agentResourceProvider.GetResource<AgentBase>(
+                $"/{AgentResourceTypeNames.Agents}/{agentName}",
+                currentUserIdentity);
+
+            if (agentBase.OrchestrationSettings!.AgentParameters == null)
+                agentBase.OrchestrationSettings.AgentParameters = [];
+
+            var prompt = await promptResourceProvider.GetResource<PromptBase>(
+                agentBase.PromptObjectId!,
+                currentUserIdentity);
+
+            agentBase.OrchestrationSettings.AgentParameters[agentBase.PromptObjectId!] = prompt;
+
+            var allAgents = await agentResourceProvider.GetResources<AgentBase>(currentUserIdentity);
+            var allAgentsDescriptions = allAgents
+                .Where(a => !string.IsNullOrWhiteSpace(a.Description) && a.Name != agentBase.Name)
+                .Select(a => new
+                {
+                    a.Name,
+                    a.Description
+                })
+                .ToDictionary(x => x.Name, x => x.Description);
+            agentBase.OrchestrationSettings.AgentParameters["AllAgents"] = allAgentsDescriptions;
+
+            if (agentBase is KnowledgeManagementAgent kmAgent)
             {
-                LLMOrchestrationService.AzureAIDirect => typeof(IAzureAIDirectService),
-                LLMOrchestrationService.AzureOpenAIDirect => typeof(IAzureOpenAIDirectService),
-                LLMOrchestrationService.LangChain => typeof(ILangChainService),
-                LLMOrchestrationService.SemanticKernel => typeof(ISemanticKernelService),
-                _ => throw new ArgumentException($"The orchestration type {orchestrationType} is not supported."),
-            };
+                // check for inline-context agents, they are valid KM agents that do not have a vectorization section.
+                if(kmAgent.Vectorization != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.DataSourceObjectId))
+                    {
+                        try
+                        {
+                            var dataSource = await dataSourceResourceProvider.GetResource<DataSourceBase>(
+                                kmAgent.Vectorization.DataSourceObjectId,
+                                currentUserIdentity);
 
-            var orchestrationService = orchestrationServices.FirstOrDefault(x => orchestrationServiceType.IsAssignableFrom(x.GetType()));
-            return orchestrationService
-                ?? throw new ArgumentException($"There is no orchestration service available for orchestration type {orchestrationType}.");
+                            if (dataSource == null)
+                                return (null, false);
+                        }
+                        catch (ResourceProviderException ex) when (ex.StatusCode == (int)HttpStatusCode.Forbidden)
+                        {
+                            // Access is denied to the underlying data source.
+                            return (agentBase, true);
+                        }
+                    }
+
+                    foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds ?? [])
+                    {
+                        var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                            indexingProfileName,
+                            currentUserIdentity);
+
+                        kmAgent.OrchestrationSettings!.AgentParameters![indexingProfileName] = indexingProfile;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
+                    {
+                        var textEmbeddingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                            kmAgent.Vectorization.TextEmbeddingProfileObjectId,
+                            currentUserIdentity);
+
+                        kmAgent.OrchestrationSettings!.AgentParameters![kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                    }
+                }
+            }
+
+            return (agentBase, false);
         }
     }
 }

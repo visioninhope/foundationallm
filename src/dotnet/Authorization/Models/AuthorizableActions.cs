@@ -1,4 +1,4 @@
-using FoundationaLLM.Authorization.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
@@ -31,6 +31,13 @@ namespace FoundationaLLM.Authorization.Models
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Delete,
                         "Delete role assignments.",
+                        "Authorization")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read,
+                        "Read role definitions.",
                         "Authorization")
                 },
                 {
@@ -94,6 +101,27 @@ namespace FoundationaLLM.Authorization.Models
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Configuration_KeyVaultSecrets_Delete,
                         "Delete key vault secrets.",
+                        "Configuration")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
+                        "Read API endpoints.",
+                        "Configuration")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
+                        "Create or update API endpoints.",
+                        "Configuration")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
+                        "Delete API endpoints.",
                         "Configuration")
                 },
                 {
@@ -305,6 +333,27 @@ namespace FoundationaLLM.Authorization.Models
                         AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Delete,
                         "Delete direct completions.",
                         "Completion")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                        "Read attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                        "Create or update attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                        "Delete attachments.",
+                        "Attachment")
                 },
             });
 

@@ -120,7 +120,6 @@ module authStore 'modules/storageAccount.bicep' = {
     actionGroupId: actionGroupId
     enableHns: true
     isDataLake: true
-    keyVaultName: authKeyvault.outputs.name
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains(['blob', 'dfs'], zone.key))

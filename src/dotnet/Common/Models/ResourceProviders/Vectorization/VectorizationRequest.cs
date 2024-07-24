@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Vectorization;
 using System.Text.Json.Serialization;
 
@@ -7,66 +7,115 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
     /// <summary>
     /// Represents a vectorization request.
     /// </summary>
-    public class VectorizationRequest
-    {
+    public class VectorizationRequest : ResourceBase
+    {       
         /// <summary>
-        /// The unique identifier of the vectorization request.
-        /// The responsibility to create this identifier belongs to the initiator of the vectorization request.
+        /// Path to the vectorization request resource file.
         /// </summary>
-        [JsonPropertyOrder(-1)]
-        [JsonPropertyName("id")]
-        public string? Id { get; set; }
-
-        /// <summary>
-        /// The unique identifier of the vectorization request.
-        /// The responsibility to create this identifier belongs to the FoundationaLLM.Vectorization resource provider.
-        /// Subsequent vectorization requests referring to the same content will have different unique identifiers.
-        /// </summary>
-        [JsonPropertyOrder(0)]
-        [JsonPropertyName("object_id")]
-        public string? ObjectId { get; set; }
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("resource_filepath")]
+        public string? ResourceFilePath { get; set; }
 
         /// <summary>
         /// The <see cref="ContentIdentifier"/> object identifying the content being vectorized.
         /// </summary>
-        [JsonPropertyOrder(1)]
+        [JsonPropertyOrder(2)]
         [JsonPropertyName("content_identifier")]
         public required ContentIdentifier ContentIdentifier { get; set; }
 
         /// <summary>
         /// The <see cref="VectorizationProcessingType"/> indicating how should the request be processed.
         /// </summary>
-        [JsonPropertyOrder(2)]
+        [JsonPropertyOrder(3)]
         [JsonPropertyName("processing_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public required VectorizationProcessingType ProcessingType { get; set; }
 
         /// <summary>
+        /// If run in the context of a pipeline, the object id of the pipeline resource being executed.
+        /// </summary>
+        [JsonPropertyOrder(50)]
+        [JsonPropertyName("pipeline_object_id")]
+        public string? PipelineObjectId { get; set; }
+
+        /// <summary>
+        /// If run in the context of a pipeline, the name of the pipeline resource being executed.
+        /// </summary>
+        [JsonPropertyOrder(51)]
+        [JsonPropertyName("pipeline_name")]
+        public string? PipelineName { get; set; }
+
+        /// <summary>
+        /// If run in the context of a pipeline, the unique identifier of the pipeline execution.
+        /// </summary>
+        [JsonPropertyOrder(52)]
+        [JsonPropertyName("pipeline_execution_id")]
+        public string? PipelineExecutionId { get; set; }
+
+        /// <summary>
+        /// The <see cref="VectorizationProcessingState"/> indicating the current state of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(100)]
+        [JsonPropertyName("processing_state")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public VectorizationProcessingState ProcessingState { get; set; }
+
+        /// <summary>
+        /// The time when the vectorization request started being processed.
+        /// </summary>
+        [JsonPropertyOrder(101)]
+        [JsonPropertyName("execution_start")]
+        public DateTime? ExecutionStart { get; set; }
+
+        /// <summary>
+        /// The time when the vectorization request finished being processed.
+        /// </summary>
+        [JsonPropertyOrder(102)]
+        [JsonPropertyName("execution_end")]
+        public DateTime? ExecutionEnd { get; set; }
+
+        /// <summary>
+        /// Error messages that occurred during the processing of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(103)]
+        [JsonPropertyName("error_messages")]
+        public List<string> ErrorMessages { get; set; } = [];
+
+        /// <summary>
         /// The list of vectorization steps requested by the vectorization request.
         /// Vectorization steps are identified by unique names like "extract", "partition", "embed", "index", etc.
         /// </summary>
-        [JsonPropertyOrder(10)]
+        [JsonPropertyOrder(200)]
         [JsonPropertyName("steps")]
         public required List<VectorizationStep> Steps { get; set; }
 
         /// <summary>
         /// The ordered list of the names of the vectorization steps that were already completed.
         /// </summary>
-        [JsonPropertyOrder(11)]
+        [JsonPropertyOrder(201)]
         [JsonPropertyName("completed_steps")]
         public List<string> CompletedSteps { get; set; } = [];
 
         /// <summary>
         /// The ordered list of the names of the vectorization steps that still need to be executed.
         /// </summary>
-        [JsonPropertyOrder(12)]
+        [JsonPropertyOrder(202)]
         [JsonPropertyName("remaining_steps")]
         public List<string> RemainingSteps { get; set; } = [];
 
         /// <summary>
+        /// The current step of the vectorization request.
+        /// </summary>
+        [JsonPropertyOrder(203)]
+        [JsonPropertyName("current_step")]
+        public string? CurrentStep => RemainingSteps.Count == 0
+            ? null
+            : RemainingSteps.First();
+
+        /// <summary>
         /// The number of times the processing of the current step resulted in an error.
         /// </summary>
-        [JsonPropertyOrder(13)]
+        [JsonPropertyOrder(204)]
         [JsonPropertyName("error_count")]
         public int ErrorCount { get; set; }
 
@@ -74,14 +123,14 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// A dictionary of running operation identifiers indexed by step name.
         /// Some steps can be executed via long-running operations that required the persistence of operation identifiers.
         /// </summary>
-        [JsonPropertyOrder(14)]
+        [JsonPropertyOrder(205)]
         [JsonPropertyName("running_operations")]
         public Dictionary<string, VectorizationLongRunningOperation> RunningOperations { get; set; } = [];
 
         /// <summary>
         /// The time of the last successful processing of a step.
         /// </summary>
-        [JsonPropertyOrder(14)]
+        [JsonPropertyOrder(206)]
         [JsonPropertyName("last_successful_step_time")]
         public DateTime LastSuccessfulStepTime { get; set; } = DateTime.UtcNow;
 
@@ -92,14 +141,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         public bool Complete => RemainingSteps.Count == 0;
 
         /// <summary>
-        /// The current step of the vectorization request.
-        /// </summary>
-        [JsonIgnore]
-        public string? CurrentStep => RemainingSteps.Count == 0
-            ? null
-            : RemainingSteps.First();
-
-        /// <summary>
         /// Advances the vectorization pipeline to the next step.
         /// The newly set current step is used to choose the next request source to which the vectorization request will be added.
         /// </summary>
@@ -108,7 +149,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         public (string PreviousStep, string? CurrentStep) MoveToNextStep()
         {
             if (RemainingSteps.Count == 0)
-                throw new VectorizationException($"Attempting to move to the next step when no steps remain for vectorization request with id {Id}.");
+                throw new VectorizationException($"Attempting to move to the next step when no steps remain for vectorization request with id {Name}.");
 
             var previousStepName = RemainingSteps.First();
             RemainingSteps.RemoveAt(0);
@@ -137,5 +178,11 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Vectorization
         /// </summary>
         public bool Expired =>
             (DateTime.UtcNow - LastSuccessfulStepTime).TotalHours > 240;
+
+        /// <summary>
+        /// Set default property values.
+        /// </summary>
+        public VectorizationRequest() =>
+            Type = "vectorization-request";
     }
 }

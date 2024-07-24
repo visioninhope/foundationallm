@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
@@ -12,6 +13,10 @@ using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
+using FoundationaLLM.Vectorization.Client;
+using FoundationaLLM.Vectorization.Interfaces;
+using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Services.RequestProcessors;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Polly;
@@ -31,7 +36,9 @@ namespace FoundationaLLM.Management.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.ManagementAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -39,18 +46,20 @@ namespace FoundationaLLM.Management.API
             builder.Configuration.AddAzureAppConfiguration(options =>
             {
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
-                options.ConfigureKeyVault(options => { options.SetCredential(DefaultAuthentication.GetAzureCredential()); });
+                options.ConfigureKeyVault(options => { options.SetCredential(DefaultAuthentication.AzureCredential); });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings                
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);                
             });
 
             if (builder.Environment.IsDevelopment())
@@ -62,6 +71,8 @@ namespace FoundationaLLM.Management.API
             // CORS policies
             builder.AddCorsPolicies();
 
+            builder.Services.AddOptions<VectorizationServiceSettings>()
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
             builder.Services.AddOptions<CosmosDbSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
             builder.Services.AddOptions<ClientBrandingConfiguration>()
@@ -93,22 +104,31 @@ namespace FoundationaLLM.Management.API
             // Resource validation.
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
+            // Register the remote vectorization processor, for calls into the Vectorization API.            
+            builder.Services.AddSingleton<IVectorizationRequestProcessor, RemoteVectorizationRequestProcessor>();
+
             //----------------------------
             // Resource providers
             //----------------------------
             builder.AddAuthorizationResourceProvider();
             builder.AddConfigurationResourceProvider();
-            builder.AddVectorizationResourceProvider();
+            builder.AddVectorizationResourceProvider();            
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();
+            builder.AddAttachmentResourceProvider();
 
             // Add authentication configuration.
+            var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
+            var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
             builder.AddAuthenticationConfiguration(
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
                 AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes);
+                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes,
+                requireScopes: !isE2ETestEnvironment,
+                allowACLAuthorization: isE2ETestEnvironment
+            );
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
@@ -243,7 +263,7 @@ namespace FoundationaLLM.Management.API
             var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
 
             // OrchestrationAPI:
-            var orchestrationAPISettings = new DownstreamAPIKeySettings
+            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
@@ -261,7 +281,7 @@ namespace FoundationaLLM.Management.API
                     });
 
             // AgentHubAPI:
-            var agentHubAPISettings = new DownstreamAPIKeySettings
+            var agentHubAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey]!
@@ -279,7 +299,7 @@ namespace FoundationaLLM.Management.API
                         });
 
             // DataSourceHubAPI:
-            var dataSourceHubAPISettings = new DownstreamAPIKeySettings
+            var dataSourceHubAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey]!
@@ -297,7 +317,7 @@ namespace FoundationaLLM.Management.API
                     });
 
             // PromptHubAPI:
-            var promptHubAPISettings = new DownstreamAPIKeySettings
+            var promptHubAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl]!,
                 APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey]!
@@ -315,10 +335,11 @@ namespace FoundationaLLM.Management.API
                         });
 
             // LangChainAPI:
-            var langChainAPISettings = new DownstreamAPIKeySettings
+            var langChainAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!,
+                Timeout = Timeout.InfiniteTimeSpan
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
 
@@ -333,10 +354,11 @@ namespace FoundationaLLM.Management.API
                         });
 
             // SemanticKernelAPI:
-            var semanticKernelAPISettings = new DownstreamAPIKeySettings
+            var semanticKernelAPISettings = new DownstreamAPIClientConfiguration
             {
                 APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!
+                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!,
+                Timeout = Timeout.InfiniteTimeSpan
             };
             downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
 

@@ -11,12 +11,13 @@ namespace Gatekeeper.Tests.Services
 {
     public class GatekeeperServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly GatekeeperService _testedService;
 
         private readonly IContentSafetyService _contentSafetyService = Substitute.For<IContentSafetyService>();
         private readonly ILakeraGuardService _lakeraGuardService = Substitute.For<ILakeraGuardService>();
+        private readonly IEnkryptGuardrailsService _enkryptGuardrailsService = Substitute.For<IEnkryptGuardrailsService>();
         private readonly IDownstreamAPIService _orchestrationAPIService = Substitute.For<IDownstreamAPIService>();
-        private readonly IRefinementService _refinementService = Substitute.For<IRefinementService>();
         private readonly IGatekeeperIntegrationAPIService _gatekeeperIntegrationAPIService = Substitute.For<IGatekeeperIntegrationAPIService>();
         private IOptions<GatekeeperServiceSettings> _gatekeeperServiceSettings;
 
@@ -26,13 +27,16 @@ namespace Gatekeeper.Tests.Services
             {
                 EnableAzureContentSafety = true,
                 EnableMicrosoftPresidio = true,
+                EnableAzureContentSafetyPromptShield = true,
                 EnableLakeraGuard = true,
+                EnableEnkryptGuardrails = true,
             });
 
             _testedService = new GatekeeperService(
                 _orchestrationAPIService,
                 _contentSafetyService,
                 _lakeraGuardService,
+                _enkryptGuardrailsService,
                 _gatekeeperIntegrationAPIService,
                 _gatekeeperServiceSettings);
         }
@@ -50,33 +54,10 @@ namespace Gatekeeper.Tests.Services
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
             _contentSafetyService.AnalyzeText(completionRequest.UserPrompt).Returns(safeContentResult);
-            _orchestrationAPIService.GetCompletion(completionRequest).Returns(expectedResult);
+            _orchestrationAPIService.GetCompletion(_instanceId, completionRequest).Returns(expectedResult);
 
             // Act
-            var actualResult = await _testedService.GetCompletion(completionRequest);
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
-        }
-
-        [Fact]
-        public async Task GetSummary_CallsOrchestrationAPIServiceWithSummaryRequest()
-        {
-            // Arrange
-            var summaryRequest = new SummaryRequest
-            {
-                UserPrompt = "Safe content for summary."
-            };
-
-            var expectedResult = new SummaryResponse { Summary = "Summary from Orchestration API Service." };
-
-            var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
-
-            _contentSafetyService.AnalyzeText(summaryRequest.UserPrompt).Returns(safeContentResult);
-            _orchestrationAPIService.GetSummary(summaryRequest).Returns(expectedResult);
-
-            // Act
-            var actualResult = await _testedService.GetSummary(summaryRequest);
+            var actualResult = await _testedService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.Equal(expectedResult, actualResult);

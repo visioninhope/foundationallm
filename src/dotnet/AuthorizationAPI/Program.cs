@@ -1,5 +1,7 @@
 using FoundationaLLM;
+using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Middleware;
+using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
@@ -8,14 +10,16 @@ using FoundationaLLM.Common.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.AuthorizationAPI);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddAzureKeyVault(
     new Uri(Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_AuthorizationAPI_KeyVaultURI)!),
-    DefaultAuthentication.GetAzureCredential());
+    DefaultAuthentication.AzureCredential);
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 

@@ -2,15 +2,17 @@
 using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Events;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Data;
 using System.Text;
 using System.Text.Json;
 
@@ -98,52 +101,90 @@ namespace FoundationaLLM.Agent.ResourceProviders
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0]),
+                AgentResourceTypeNames.Agents => await LoadAgents(resourcePath.ResourceTypeInstances[0], userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<AgentBase>> LoadAgents(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<AgentBase>>> LoadAgents(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var agents = new List<AgentBase>();
+
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _agentReferences.Values
-                            .Where(ar => !ar.Deleted)
-                            .Select(ar => LoadAgent(ar))))
-                ];
+                agents = (await Task.WhenAll(_agentReferences.Values
+                                    .Where(ar => !ar.Deleted)
+                                    .Select(ar => LoadAgent(ar))))
+                                        .Where(agent => agent != null)
+                                        .Select(agent => agent!)
+                                        .ToList();
             }
             else
             {
-                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference)
-                    || agentReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
-                        StatusCodes.Status404NotFound);
+                AgentBase? agent;
+                if (!_agentReferences.TryGetValue(instance.ResourceId, out var agentReference))
+                {
+                    agent = await LoadAgent(null, instance.ResourceId);
+                    if (agent != null)
+                        agents.Add(agent);
+                }
+                else
+                {
+                    if (agentReference.Deleted)
+                        throw new ResourceProviderException($"Could not locate the {instance.ResourceId} agent resource.",
+                            StatusCodes.Status404NotFound);
 
-                var agent = await LoadAgent(agentReference!);
-
-                return [agent];
+                    agent = await LoadAgent(agentReference);
+                    if (agent != null)
+                        agents.Add(agent);
+                }
             }
+
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, agents,
+                AuthorizableActionNames.FoundationaLLM_Agent_Agents_Read);
         }
 
-        private async Task<AgentBase> LoadAgent(AgentReference agentReference)
+        private async Task<AgentBase?> LoadAgent(AgentReference? agentReference, string? resourceId = null)
         {
             // agentReference is null for legacy agents
-            if (agentReference != null)
+            if (agentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
+                agentReference ??= new AgentReference
+                {
+                    Name = resourceId!,
+                    Type = AgentTypes.Basic,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
                 if (await _storageService.FileExistsAsync(_storageContainerName, agentReference.Filename, default))
                 {
                     var fileContent = await _storageService.ReadFileAsync(_storageContainerName, agentReference.Filename, default);
-                    return JsonSerializer.Deserialize(
+
+                    var agent = JsonSerializer.Deserialize(
                         Encoding.UTF8.GetString(fileContent.ToArray()),
                         agentReference.AgentType,
                         _serializerSettings) as AgentBase
                         ?? throw new ResourceProviderException($"Failed to load the agent {agentReference.Name}.",
                             StatusCodes.Status400BadRequest);
+
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        // The agent file exists, but the agent reference is not in the dictionary. Update the dictionary with the missing reference.
+                        agentReference.Type = agent.Type!;
+                        _agentReferences.AddOrUpdate(agentReference.Name, agentReference, (k, v) => agentReference);
+                    }
+
+                    return agent;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _agentReferences.TryRemove(agentReference.Name, out _);
+                    return null;
                 }
             }
 
@@ -194,8 +235,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
-            if ((agent is KnowledgeManagementAgent kmAgent)
-                && kmAgent.Vectorization.DedicatedPipeline)
+            if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
                 var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
                     .HandlePostAsync(
@@ -208,7 +248,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                             DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
                             TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
                             TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
-                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
+                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectIds[0]!,
                             TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!,
                             TriggerCronSchedule = kmAgent.Vectorization.TriggerCronSchedule
                         }),
@@ -234,6 +274,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
             }
 
+            if (existingAgentReference == null)
+                agent.CreatedBy = userIdentity.UPN;
+            else
+                agent.UpdatedBy = userIdentity.UPN;
+
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 agentReference.Filename,
@@ -252,7 +297,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             return new ResourceProviderUpsertResult
             {
-                ObjectId = (agent as AgentBase)!.ObjectId
+                ObjectId = agent!.ObjectId,
+                ResourceExists = existingAgentReference != null
             };
         }
 
@@ -266,6 +312,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
+                    AgentResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -292,6 +339,44 @@ namespace FoundationaLLM.Agent.ResourceProviders
                     Type = resourceName.Type,
                     Status = NameCheckResultType.Allowed
                 };
+        }
+
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_agentReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _agentReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        AGENT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(AgentReferenceStore.FromDictionary(_agentReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"The {resourceName} agent resource is not soft-deleted and cannot be purged.",
+                                               StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} agent resource.",
+                    StatusCodes.Status404NotFound);
+            }
         }
 
         #endregion
@@ -379,9 +464,9 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 Deleted = false
             };
 
-            var agent = await LoadAgent(agentReference);
-            agentReference.Name = agent.Name;
-            agentReference.Type = agent.Type;
+            var getAgentResult = await LoadAgent(agentReference, null);
+            agentReference.Name = getAgentResult.Name;
+            agentReference.Type = getAgentResult.Type;
 
             _agentReferences.AddOrUpdate(
                 agentReference.Name,

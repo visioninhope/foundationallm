@@ -5,6 +5,7 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
@@ -12,18 +13,24 @@ using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
+using FoundationaLLM.Vectorization.Serializers;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using FoundationaLLM.Vectorization.Services.Text;
 using FoundationaLLM.Vectorization.Services.VectorizationStates;
 using FoundationaLLM.Vectorization.Worker;
+using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DefaultAuthentication.Production = builder.Environment.IsProduction();
+DefaultAuthentication.Initialize(
+    builder.Environment.IsProduction(),
+    ServiceNames.VectorizationWorker);
 
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -33,15 +40,17 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
     options.ConfigureKeyVault(options =>
     {
-        options.SetCredential(DefaultAuthentication.GetAzureCredential());
+        options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);    
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization); //vectorization settings
 });
 
 if (builder.Environment.IsDevelopment())
@@ -50,10 +59,6 @@ if (builder.Environment.IsDevelopment())
 // NOTE: This is required while the service uses API key authentication.
 // Once the service is moved over to Entra ID authentication, this must be replaced with the proper implementation.
 builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
-
-// Add resource providers.
-builder.AddDataSourceResourceProvider();
-builder.AddConfigurationResourceProvider();
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
@@ -87,6 +92,12 @@ builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
 builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
 
+builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService));
+
+builder.Services.AddOptions<PostgresIndexingServiceSettings>()
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
+
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
     DependencyInjectionKeys.FoundationaLLM_Vectorization_Queues,
@@ -98,6 +109,15 @@ builder.Services.AddKeyedSingleton(
     builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_Steps));
 
 // Add services to the container.
+
+builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
+{
+    var settings = serviceProvider.GetRequiredService<IOptions<AzureCosmosDBNoSQLIndexingServiceSettings>>().Value;
+    return new CosmosClientBuilder(settings.ConnectionString)
+        .WithCustomSerializer(new CosmosSystemTextJsonSerializer(JsonSerializerOptions.Default))
+        .WithConnectionModeGateway()
+        .Build();
+});
 
 builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService, (sp, obj) =>
@@ -117,7 +137,9 @@ builder.Services.AddSingleton<IVectorizationStateService, BlobStorageVectorizati
 // Resource validation
 builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
-// Vectorization resource provider
+// Add resource providers
+builder.AddDataSourceResourceProvider();
+builder.AddConfigurationResourceProvider();
 builder.AddVectorizationResourceProvider();
 
 // Service factories
@@ -130,9 +152,7 @@ builder.Services.AddSingleton<IVectorizationServiceFactory<IIndexingService>, In
 builder.Services.AddKeyedSingleton<ITokenizerService, MicrosoftBPETokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames.MICROSOFT_BPE_TOKENIZER);
 
-// Text embedding
-builder.Services.AddKeyedSingleton<ITextEmbeddingService, SemanticKernelTextEmbeddingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService);
+// Gateway text embedding
 builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
 builder.AddGatewayService();
@@ -141,6 +161,10 @@ builder.Services.AddHttpClient();
 // Indexing
 builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+builder.Services.AddKeyedSingleton<IIndexingService, AzureCosmosDBNoSQLIndexingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService);
+builder.Services.AddKeyedSingleton<IIndexingService, PostgresIndexingService>(
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService);
 
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 

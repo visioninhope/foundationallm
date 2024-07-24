@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using FoundationaLLM.Authorization.Interfaces;
-using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Authorization.Validation;
@@ -43,7 +42,6 @@ namespace FoundationaLLM
 
             // Register validators.
             builder.Services.AddSingleton<IValidator<ActionAuthorizationRequest>, ActionAuthorizationRequestValidator>();
-            builder.Services.AddSingleton<IValidator<RoleAssignment>, RoleAssignmentValidator>();
 
             builder.Services.AddSingleton<IAuthorizationCore, AuthorizationCore>(sp => new AuthorizationCore(
                     Options.Create<AuthorizationCoreSettings>(new AuthorizationCoreSettings

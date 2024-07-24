@@ -71,5 +71,13 @@ namespace FoundationaLLM.Common.Constants
         /// The name of the Gateway API service.
         /// </summary>
         public const string GatewayAPI = "GatewayAPI";
+        /// <summary>
+        /// The name of the Gateway Adapter API service.
+        /// </summary>
+        public const string GatewayAdapterAPI = "GatewayAdapterAPI";
+        /// <summary>
+        /// The name of the State API service.
+        /// </summary>
+        public const string StateAPI = "StateAPI";
     }
 }

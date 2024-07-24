@@ -97,43 +97,86 @@ namespace FoundationaLLM.Prompt.ResourceProviders
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<PromptBase>> LoadPrompts(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<PromptBase>>> LoadPrompts(ResourceTypeInstance instance)
         {
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
+                var prompts = (await Task.WhenAll(
                         _promptReferences.Values
                             .Where(pr => !pr.Deleted)
                             .Select(pr => LoadPrompt(pr))))
-                ];
+                  .Where(pr => pr != null)
+                  .ToList();
+
+                return prompts.Select(prompt => new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }).ToList();
             }
             else
             {
-                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference)
-                    || promptReference.Deleted)
-                    throw new ResourceProviderException($"Could not locate the {instance.ResourceId} prompt resource.",
+                PromptBase? prompt;
+                if (!_promptReferences.TryGetValue(instance.ResourceId, out var promptReference))
+                {
+                    prompt = await LoadPrompt(null, instance.ResourceId);
+                    if (prompt != null)
+                    {
+                        return [new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }];
+                    }
+                    return [];
+                }
+
+                if (promptReference.Deleted)
+                {
+                    throw new ResourceProviderException(
+                        $"Could not locate the {instance.ResourceId} prompt resource.",
                         StatusCodes.Status404NotFound);
+                }
 
-                var prompt = await LoadPrompt(promptReference!);
-
-                return [prompt];
+                prompt = await LoadPrompt(promptReference);
+                if (prompt != null)
+                {
+                    return [new ResourceProviderGetResult<PromptBase>() { Resource = prompt, Actions = [], Roles = [] }];
+                }
+                return [];
             }
         }
 
-        private async Task<MultipartPrompt> LoadPrompt(PromptReference promptReference)
+        private async Task<PromptBase?> LoadPrompt(PromptReference? promptReference, string? resourceId = null)
         {
-            if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
+            if (promptReference != null || !string.IsNullOrEmpty(resourceId))
             {
-                var fileContent = await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
-                return JsonSerializer.Deserialize(
-                    Encoding.UTF8.GetString(fileContent.ToArray()),
-                    promptReference.PromptType,
-                    _serializerSettings) as MultipartPrompt
-                    ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.");
-            }
+                promptReference ??= new PromptReference
+                {
+                    Name = resourceId!,
+                    Type = PromptTypes.Multipart,
+                    Filename = $"/{_name}/{resourceId}.json",
+                    Deleted = false
+                };
+                if (await _storageService.FileExistsAsync(_storageContainerName, promptReference.Filename, default))
+                {
+                    var fileContent =
+                        await _storageService.ReadFileAsync(_storageContainerName, promptReference.Filename, default);
+                    var prompt = JsonSerializer.Deserialize(
+                               Encoding.UTF8.GetString(fileContent.ToArray()),
+                               promptReference.PromptType,
+                               _serializerSettings) as PromptBase
+                           ?? throw new ResourceProviderException($"Failed to load the prompt {promptReference.Name}.",
+                               StatusCodes.Status400BadRequest);
 
+                    if (!string.IsNullOrWhiteSpace(resourceId))
+                    {
+                        promptReference.Type = prompt.Type!;
+                        _promptReferences.AddOrUpdate(promptReference.Name, promptReference, (k, v) => promptReference);
+                    }
+
+                    return prompt;
+                }
+
+                if (string.IsNullOrWhiteSpace(resourceId))
+                {
+                    // Remove the reference from the dictionary since the file does not exist.
+                    _promptReferences.TryRemove(promptReference.Name, out _);
+                    return null;
+                }
+            }
             throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.",
                 StatusCodes.Status404NotFound);
         }
@@ -144,14 +187,14 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                PromptResourceTypeNames.Prompts => await UpdatePrompt(resourcePath, serializedResource),
+                PromptResourceTypeNames.Prompts => await UpdatePrompt(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest),
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdatePrompt(ResourcePath resourcePath, string serializedPrompt)
+        private async Task<ResourceProviderUpsertResult> UpdatePrompt(ResourcePath resourcePath, string serializedPrompt, UnifiedUserIdentity userIdentity)
         {
             var prompt = JsonSerializer.Deserialize<PromptBase>(serializedPrompt)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
@@ -174,6 +217,11 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             };
 
             prompt.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            if (existingPromptReference == null)
+                prompt.CreatedBy = userIdentity.UPN;
+            else
+                prompt.UpdatedBy = userIdentity.UPN;
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
@@ -207,6 +255,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
                     PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    PromptResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -235,9 +284,48 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                 };
         }
 
+        private async Task<ResourceProviderActionResult> PurgeResource(ResourcePath resourcePath)
+        {
+            var resourceName = resourcePath.ResourceTypeInstances.Last().ResourceId!;
+            if (_promptReferences.TryGetValue(resourceName, out var agentReference))
+            {
+                if (agentReference.Deleted)
+                {
+                    // Delete the resource file from storage.
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        agentReference.Filename,
+                        default);
+
+                    // Remove this resource reference from the store.
+                    _promptReferences.TryRemove(resourceName, out _);
+
+                    await _storageService.WriteFileAsync(
+                        _storageContainerName,
+                        PROMPT_REFERENCES_FILE_PATH,
+                        JsonSerializer.Serialize(PromptReferenceStore.FromDictionary(_promptReferences.ToDictionary())),
+                        default,
+                        default);
+
+                    return new ResourceProviderActionResult(true);
+                }
+                else
+                {
+                    throw new ResourceProviderException(
+                        $"The {resourceName} prompt resource is not soft-deleted and cannot be purged.",
+                        StatusCodes.Status400BadRequest);
+                }
+            }
+            else
+            {
+                throw new ResourceProviderException($"Could not locate the {resourceName} prompt resource.",
+                    StatusCodes.Status404NotFound);
+            }
+        }
+
         #endregion
 
-        /// <inheritdoc/>
+            /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
         {
             switch (resourcePath.ResourceTypeInstances.Last().ResourceType)
@@ -256,7 +344,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         private async Task DeletePrompt(List<ResourceTypeInstance> instances)
         {
             if (_promptReferences.TryGetValue(instances.Last().ResourceId!, out var promptReference)
-                || promptReference!.Deleted)
+                && !promptReference.Deleted)
             {
                 promptReference.Deleted = true;
 

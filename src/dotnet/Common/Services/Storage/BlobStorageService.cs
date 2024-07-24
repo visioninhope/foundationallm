@@ -31,7 +31,7 @@ namespace FoundationaLLM.Common.Services.Storage
         ILogger<BlobStorageService> logger) : StorageServiceBase(storageOptions, logger), IStorageService
     {
         private BlobServiceClient _blobServiceClient;
-
+        
         /// <inheritdoc/>
         public async Task<BinaryData> ReadFileAsync(
             string containerName,
@@ -145,6 +145,24 @@ namespace FoundationaLLM.Common.Services.Storage
                 cancellationToken).ConfigureAwait(false);
 
         /// <inheritdoc/>
+        public async Task DeleteFileAsync(string containerName, string filePath,
+            CancellationToken cancellationToken = default)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var blobClient = containerClient.GetBlobClient(filePath);
+
+            try
+            {
+                await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException e) when (e.Status == 404)
+            {
+                _logger.LogWarning("File not found: {FilePath}", filePath);
+                throw new ContentException("File not found.", e);
+            }
+        }
+
+        /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(
             string containerName,
             string filePath,
@@ -170,6 +188,75 @@ namespace FoundationaLLM.Common.Services.Storage
         protected override void CreateClientFromIdentity(string accountName) =>
             _blobServiceClient = new BlobServiceClient(
                 new Uri($"https://{accountName}.blob.core.windows.net"),
-                DefaultAuthentication.GetAzureCredential());
+                DefaultAuthentication.AzureCredential);
+
+        /// <inheritdoc/>
+        public async Task<List<string>> GetFilePathsAsync(string containerName, string? directoryPath = null, bool recursive = true, CancellationToken cancellationToken = default)
+        {
+            var fullListing = new List<string>(); // Full listing of directory and file paths  
+            var filePaths = new List<string>(); // List to store only file paths  
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+            if (recursive)
+            {
+                // Flat listing (recursive)  
+                await foreach (var blob in containerClient.GetBlobsAsync(prefix: directoryPath, cancellationToken: cancellationToken))
+                {
+                    if (!blob.Name.Equals(directoryPath))
+                    {
+                        fullListing.Add(blob.Name);
+                    }                    
+                }
+                // Filter out subpaths, note that empty folders will not be filtered out
+                // there is no way of knowing if an empty folder is a blob or a virtual directory
+                filePaths = FilterSubpaths(fullListing);
+            }
+            else
+            {
+                // Hierarchical listing (non-recursive)  
+                var prefix = string.IsNullOrEmpty(directoryPath) ? null : directoryPath.TrimEnd('/');
+
+                if (!directoryPath.Contains("requests"))
+                    directoryPath += "/";
+
+                await foreach (var blobHierarchyItem in containerClient.GetBlobsByHierarchyAsync(delimiter: "/", prefix: prefix, cancellationToken: cancellationToken))
+                {
+                    if (blobHierarchyItem.IsBlob)
+                    {
+                        filePaths.Add(blobHierarchyItem.Blob.Name);
+                    }
+                    // Do not add if the item is a prefix (which represents a virtual directory)  
+                }
+            }
+
+            return filePaths;
+        }
+
+        /// <summary>
+        /// Removes subpaths (directories) from the list of paths.
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <returns>List of file paths.</returns>
+        private List<string> FilterSubpaths(List<string> paths)
+        {          
+            List<string> filteredPaths = new List<string>(paths);
+
+            // Sort the list by length in descending order to ensure we always keep the longest strings  
+            filteredPaths.Sort((a, b) => b.Length.CompareTo(a.Length));
+
+            // Compare each path with all others to see if it's contained within any other path (indicative of directory)
+            for (int i = 0; i < filteredPaths.Count; i++)
+            {
+                for (int j = i + 1; j < filteredPaths.Count; j++)
+                {                    
+                    if (filteredPaths[i].Contains(filteredPaths[j]))
+                    {
+                        filteredPaths.RemoveAt(j);                         
+                        j--;
+                    }
+                }
+            }
+            return filteredPaths;
+        }
     }
 }

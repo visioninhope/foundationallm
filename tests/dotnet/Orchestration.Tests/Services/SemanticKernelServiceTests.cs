@@ -1,18 +1,19 @@
-﻿using System.Net;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Orchestration.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
+using System.Net;
 using Xunit;
 
 namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class SemanticKernelServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly IOptions<SemanticKernelServiceSettings> options = Substitute.For<IOptions<SemanticKernelServiceSettings>>();
         private readonly ILogger<SemanticKernelService> logger = Substitute.For<ILogger<SemanticKernelService>>();
         private readonly IHttpClientFactoryService httpClientFactoryService = Substitute.For<IHttpClientFactoryService>();
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI).Returns(httpClient);
 
             // Act
-            var result = await semanticKernelService.GetCompletion(request);
+            var result = await semanticKernelService.GetCompletion(_instanceId, request);
 
             // Assert
             Assert.NotNull(result);

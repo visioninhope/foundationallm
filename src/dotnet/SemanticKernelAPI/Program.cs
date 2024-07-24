@@ -5,8 +5,11 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
@@ -27,7 +30,9 @@ namespace FoundationaLLM.SemanticKernel.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            DefaultAuthentication.Production = builder.Environment.IsProduction();
+            DefaultAuthentication.Initialize(
+                builder.Environment.IsProduction(),
+                ServiceNames.SemanticKernelAPI);
 
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -37,7 +42,7 @@ namespace FoundationaLLM.SemanticKernel.API
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
                 {
-                    options.SetCredential(DefaultAuthentication.GetAzureCredential());
+                    options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
@@ -82,6 +87,13 @@ namespace FoundationaLLM.SemanticKernel.API
             #endregion
 
             builder.Services.AddHttpClient();
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>()
+            };
+            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+            builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services

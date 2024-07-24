@@ -13,6 +13,8 @@ local.settings.json
 *.userosscache
 *.sln.docstates
 
+testsettings.json
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -390,3 +392,6 @@ deploy/quick-start/.env
 
 # SonarCube
 .sonarqube/
+
+*.lutconfig
+dist

@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 
 namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
@@ -19,13 +19,16 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         AgentResourceTypeNames.Agents)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AgentBase)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<AgentBase>)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AgentBase)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
                             new ResourceTypeAction(AgentResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
+                            ]),
+                            new ResourceTypeAction(AgentResourceProviderActions.Purge, true, false, [
+                                new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
                 }

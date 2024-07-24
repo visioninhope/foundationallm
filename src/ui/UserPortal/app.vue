@@ -3,6 +3,7 @@
 		<Head>
 			<Title>{{ pageTitle }}</Title>
 			<Meta name="description" :content="pageTitle" />
+			<Link rel="icon" type="image/x-icon" :href="iconLink" />
 		</Head>
 
 		<!-- Page to render -->
@@ -27,7 +28,8 @@
 export default {
 	data() {
 		return {
-			pageTitle: 'FoundationaLLM',
+			pageTitle: this.$appConfigStore.pageTitle || 'FoundationaLLM',
+			iconLink: this.$appConfigStore.favIconUrl || '/favicon.ico',
 		};
 	},
 

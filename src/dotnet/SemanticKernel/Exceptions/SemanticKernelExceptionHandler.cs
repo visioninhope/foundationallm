@@ -21,7 +21,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Exceptions
 
             var problemDetails = new ProblemDetails
             {
-                Title = "FoundationaLLM Gateway error"
+                Title = "Semantic Kernel Error"
             };
 
             if (exception is SemanticKernelException skException)

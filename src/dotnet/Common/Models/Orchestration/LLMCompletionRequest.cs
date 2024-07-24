@@ -1,5 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Agents;
-using FoundationaLLM.Common.Models.Chat;
+﻿using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
@@ -37,5 +37,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("settings")]
         public OrchestrationSettings? Settings { get; set; }
+
+        /// <summary>
+        /// The list of attachments associated with the request.
+        /// </summary>
+        [JsonPropertyName("attachments")]
+        public List<string> Attachments { get; init; } = [];
     }
 }

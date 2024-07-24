@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using Azure.AI.OpenAI;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -46,7 +45,9 @@ namespace FoundationaLLM.Vectorization.Handlers
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextEmbeddingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text embedding service factory instance.");
-            var textEmbedding = serviceFactory.GetService(_parameters["text_embedding_profile_name"]);
+            var (textEmbeddingService, textEmbeddingProfileResourceBase) = serviceFactory.GetServiceWithResource(_parameters["text_embedding_profile_name"]);
+            var textEmbeddingProfile = textEmbeddingProfileResourceBase as TextEmbeddingProfile;
+            var embeddingModelName = textEmbeddingProfile!.Settings?.TryGetValue("model_name", out var modelName) == true ? modelName : null;
 
             var embeddingResult = default(TextEmbeddingResult);
 
@@ -54,7 +55,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             {
                 // We have an ongoing operation, so we need to attempt to retrieve the emebdding results
 
-                embeddingResult = await textEmbedding.GetEmbeddingsAsync(runningOperation.OperationId);
+                embeddingResult = await textEmbeddingService.GetEmbeddingsAsync(runningOperation.OperationId);
 
                 runningOperation.LastResponseTime = DateTime.UtcNow;
                 runningOperation.PollingCount++;
@@ -84,17 +85,18 @@ namespace FoundationaLLM.Vectorization.Handlers
                 if (textPartitioningArtifacts == null
                     || textPartitioningArtifacts.Count == 0)
                 {
-                    state.Log(this, request.Id!, _messageId, "The text partition artifacts were not found.");
+                    state.Log(this, request.Name!, _messageId, "The text partition artifacts were not found.");
                     return false;
                 }
 
-                embeddingResult = await textEmbedding.GetEmbeddingsAsync(
+                embeddingResult = await textEmbeddingService.GetEmbeddingsAsync(
                     textPartitioningArtifacts.Select(tpa => new TextChunk
                     {
                         Position = tpa.Position,
                         Content = tpa.Content!,
                         TokensCount = tpa.Size
-                    }).ToList());
+                    }).ToList(),
+                    embeddingModelName);
 
                 if (embeddingResult.InProgress)
                 {

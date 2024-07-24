@@ -9,7 +9,7 @@ from foundationallm.models.agents import AgentConversationHistorySettings, Agent
 class AgentBase(BaseModel):
     """ Agent Base model."""
     name: str
-    description: str
+    description: Optional[str]
     type: str
     object_id: Optional[str] = None
     prompt_object_id: Optional[str] = None

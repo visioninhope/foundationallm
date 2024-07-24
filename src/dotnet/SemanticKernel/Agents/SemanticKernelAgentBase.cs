@@ -1,13 +1,10 @@
 ﻿using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
-using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -101,7 +98,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     UserId = "SemanticKernelAPI",
                     Username = "SemanticKernelAPI"
                 });
-            return (result as List<T>)!.First();
+            var resource = (result as List<ResourceProviderGetResult<T>>)!.First().Resource;
+            return resource;
         }
 
         private void ValidateRequest()

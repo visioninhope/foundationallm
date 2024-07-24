@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Agents;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Logging;
@@ -11,6 +11,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
 {
     public class KnowledgeManagementOrchestrationTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private KnowledgeManagementOrchestration _knowledgeManagementOrchestration;
         private KnowledgeManagementAgent _agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId="Test_objctid", Type = AgentTypes.KnowledgeManagement };
         private ICallContext _callContext = Substitute.For<ICallContext>();
@@ -23,7 +24,9 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
                 _agent,
                 _callContext,
                 _orchestrationService,
-                _logger);
+                _logger,
+                null,
+                false);
         }
 
         [Fact]
@@ -32,11 +35,11 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
             // Arrange
             var completionRequest = new CompletionRequest() { UserPrompt = "Test_userprompt"};
             var orchestrationResult = new LLMCompletionResponse { Completion = "Completion" };
-            _orchestrationService.GetCompletion(Arg.Any<LLMCompletionRequest>())
+            _orchestrationService.GetCompletion(_instanceId, Arg.Any<LLMCompletionRequest>())
                 .Returns(Task.FromResult(orchestrationResult));
 
             // Act
-            var completionResponse = await _knowledgeManagementOrchestration.GetCompletion(completionRequest);
+            var completionResponse = await _knowledgeManagementOrchestration.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.Equal(orchestrationResult.Completion, completionResponse.Completion);

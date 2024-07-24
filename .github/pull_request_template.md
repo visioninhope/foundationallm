@@ -1,10 +1,6 @@
 # {PR title}
 
-<!-- Thank you for contributing to FoundationaLLM!  Open source is only as strong as its contributors. -->
-
 ## The issue or feature being addressed
-
-<!-- Please include the existing GitHub issue number where relevant -->
 
 Fixes #{bug number} (in this specific format)
 

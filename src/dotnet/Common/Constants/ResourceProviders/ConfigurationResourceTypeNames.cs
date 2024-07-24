@@ -9,5 +9,10 @@
         /// Azure App Configuration key values.
         /// </summary>
         public const string AppConfigurations = "appConfigurations";
+
+        /// <summary>
+        /// API Endpoint key values.
+        /// </summary>
+        public const string APIEndpoints = "apiEndpoints";
     }
 }

@@ -26,6 +26,16 @@
         /// The dictionary of resource descriptors specifying the resource's allowed subtypes.
         /// </summary>
         public Dictionary<string, ResourceTypeDescriptor> SubTypes { get; set; } = [];
+
+        /// <summary>
+        /// Indicates whether the resource type allows the the retrieval of the specified type.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> being checked.</param>
+        /// <returns><see langword="true"/> is the specified type can be retrieved, <see langword="false"/> otherwise.</returns>
+        public bool TypeAllowedForHttpGet(Type type) =>
+            AllowedTypes.Any(rtat =>
+                rtat.HttpMethod == HttpMethod.Get.Method
+                && rtat.AllowedReturnTypes.Any(art => art.IsAssignableFrom(type)));
     }
 
     /// <summary>

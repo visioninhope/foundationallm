@@ -10,10 +10,12 @@ class OrchestrationSettings(BaseModel):
         agent_parameters : dict
             Parameters to set or override the behavior of the agent.
         endpoint_configuration : dict
-            Options to set or override endpoint configuration (endpoint and key) used to access a
-            language model by the orchestrator.
+            Parameters to set or override the endpoint configuration used by the orchestrator
+            to access a language model.
         model_parameters : dict
             Parameters to set or override the behavior of the language model as defined on the agent.
+        orchestrator : str
+            The orchestrator to use for the orchestration. Defaults to 'LangChain'.
     """
     agent_parameters: Optional[dict] = None
     endpoint_configuration: Optional[dict] = None

@@ -14,7 +14,8 @@ Foundationa**LLM** provides the platform for deploying, scaling, securing and go
 - Control access to the AI agents and the resources they access using role-based access controls (RBAC).
 - Harness the rapidly evolving capabilities from Azure AI and Azure OpenAI from one integrated stack. 
 
-> NOTE: Foundationa**LLM** is not a large language model. It enables you to use the large language models of your choice (e.g., OpenAI GPT-4, Mistral, LLama 2, etc.) 
+> [!NOTE] 
+> Foundationa**LLM** is not a large language model. It enables you to use the large language models of your choice (e.g., OpenAI GPT-4, Mistral, LLama 2, etc.) 
 
 Foundationa**LLM** deploys a secure, comprehensive and highly configurable copilot platform to your Azure cloud environment:
 
@@ -79,6 +80,10 @@ Get up to speed with Foundationa**LLM** by reading the [documentation](https://d
 Foundationa**LLM** provides a simple command line driven approach to getting your first deployment up and running. Basically, it's two commands. After that, you can customize the solution, run it locally on your machine and update the deployment with your customizations.
 
 Follow the [Quick Start Deployment instructions](./docs/deployment/deployment-quick-start.md) to get Foundationa**LLM** deployed in your Azure subscription.
+
+## Reporting Issues and Support
+
+If you encounter any issues with Foundationa**LLM**, please [open an issue](https://github.com/solliancenet/foundationallm/issues) on GitHub. We will respond to your issue as soon as possible. Please use the Labels (`bug`, `documentation`, `general question`, `release x.x.x`) to categorize your issue and provide as much detail as possible to help us understand and resolve the issue.
 
 ## Contributing to Foundationa**LLM**
 

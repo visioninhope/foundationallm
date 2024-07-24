@@ -1,4 +1,5 @@
-import type { Message, Session, CompletionPrompt, Agent, OrchestrationRequest } from '@/js/types';
+import type { Message, Session, CompletionPrompt, Agent,
+	CompletionRequest, ResourceProviderGetResult } from '@/js/types';
 
 export default {
 	apiUrl: null as string | null,
@@ -58,7 +59,17 @@ export default {
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
 
-		return await $fetch(`${this.apiUrl}${url}`, options);
+		try {
+			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			if (response.status >= 400) {
+                throw response;
+            }
+            return response;
+		} catch (error) {
+			// If the error is an HTTP error, extract the message directly.
+			const errorMessage = formatError(error);
+            throw new Error(errorMessage);
+		}
 	},
 
 	/**
@@ -66,7 +77,7 @@ export default {
 	 * @returns {Promise<Array<Session>>} A promise that resolves to an array of sessions.
 	 */
 	async getSessions() {
-		return (await this.fetch(`/sessions`)) as Array<Session>;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions`)) as Array<Session>;
 	},
 
 	/**
@@ -74,7 +85,7 @@ export default {
 	 * @returns {Promise<Session>} A promise that resolves to the created session.
 	 */
 	async addSession() {
-		return (await this.fetch(`/sessions`, { method: 'POST' })) as Session;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions`, { method: 'POST' })) as Session;
 	},
 
 	/**
@@ -84,7 +95,7 @@ export default {
 	 * @returns The renamed session.
 	 */
 	async renameSession(sessionId: string, newChatSessionName: string) {
-		return (await this.fetch(`/sessions/${sessionId}/rename`, {
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/rename`, {
 			method: 'POST',
 			params: {
 				newChatSessionName,
@@ -93,14 +104,14 @@ export default {
 	},
 
 	/**
-	 * Summarizes the session name.
+	 * Generates the session name.
 	 *
 	 * @param sessionId - The ID of the session.
-	 * @param text - The text to be summarized.
-	 * @returns The summarized text.
+	 * @param text - The text to be used when generating a session name.
+	 * @returns The generated text.
 	 */
-	async summarizeSessionName(sessionId: string, text: string) {
-		return (await this.fetch(`/sessions/${sessionId}/summarize-name`, {
+	async generateSessionName(sessionId: string, text: string) {
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/generate-name`, {
 			method: 'POST',
 			body: JSON.stringify(text),
 		})) as { text: string };
@@ -112,7 +123,7 @@ export default {
 	 * @returns A promise that resolves to the deleted session.
 	 */
 	async deleteSession(sessionId: string) {
-		return (await this.fetch(`/sessions/${sessionId}`, { method: 'DELETE' })) as Session;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}`, { method: 'DELETE' })) as Session;
 	},
 
 	/**
@@ -121,7 +132,7 @@ export default {
 	 * @returns An array of messages.
 	 */
 	async getMessages(sessionId: string) {
-		return (await this.fetch(`/sessions/${sessionId}/messages`)) as Array<Message>;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/messages`)) as Array<Message>;
 	},
 
 	/**
@@ -132,7 +143,7 @@ export default {
 	 */
 	async getPrompt(sessionId: string, promptId: string) {
 		return (await this.fetch(
-			`/sessions/${sessionId}/completionprompts/${promptId}`,
+			`/instances/${this.instanceId}/sessions/${sessionId}/completionprompts/${promptId}`,
 		)) as CompletionPrompt;
 	},
 
@@ -148,7 +159,7 @@ export default {
 		} = {};
 		if (rating !== null) params.rating = rating;
 
-		return (await this.fetch(`/sessions/${message.sessionId}/message/${message.id}/rate`, {
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${message.sessionId}/message/${message.id}/rate`, {
 			method: 'POST',
 			params,
 		})) as Message;
@@ -161,14 +172,15 @@ export default {
 	 * @param agent The agent object.
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
-	async sendMessage(sessionId: string, text: string, agent: Agent) {
-		const orchestrationRequest: OrchestrationRequest = {
+	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
+		const orchestrationRequest: CompletionRequest = {
 			session_id: sessionId,
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
+			attachments: attachments
 		};
-		return (await this.fetch(`/sessions/${sessionId}/completion`, {
+		return (await this.fetch(`/instances/${this.instanceId}/completions`, {
 			method: 'POST',
 			body: orchestrationRequest,
 		})) as string;
@@ -179,6 +191,40 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		return (await this.fetch('/orchestration/agents')) as Agent[];
+		const agents = (await this.fetch(`/instances/${this.instanceId}/completions/agents`)) as ResourceProviderGetResult<Agent>[];
+		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
+		return agents;
+	},
+
+	/**
+	 * Uploads attachment to the API.
+	 * @param file The file formData to upload.
+	 * @returns The ObjectID of the uploaded attachment.
+	 */
+	async uploadAttachment(file: FormData) {
+		const response = await this.fetch(`/instances/${this.instanceId}/attachments/upload`, {
+			method: 'POST',
+			body: file,
+		});
+
+		return response;
 	},
 };
+
+function formatError(error: any): string {
+    if (error.errors || error.data?.errors) {
+		const errors = error.errors || error.data.errors;
+        // Flatten the error messages and join them into a single string
+        return Object.values(errors).flat().join(' ');
+    }
+	if (error.data) {
+		return error.data.message || error.data || 'An unknown error occurred';
+	}
+    if (error.message) {
+        return error.message;
+    }
+    if (typeof error === 'string') {
+        return error;
+    }
+    return 'An unknown error occurred';
+}

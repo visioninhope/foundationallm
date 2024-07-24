@@ -29,6 +29,11 @@ function envsubst {
     $ExecutionContext.InvokeCommand.ExpandString($InputObject)
 }
 
+function Format-Json {
+    param([Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$json)
+    return $json | ConvertFrom-Json -Depth 50 | ConvertTo-Json -Compress -Depth 50 | ForEach-Object { $_ -replace '"', '\"' }
+}
+
 function Format-EnvironmentVariables {
     param(
         [Parameter(Mandatory = $true)][string]$template,
@@ -44,15 +49,6 @@ function Format-EnvironmentVariables {
     $result | Out-File $render -Force
 }
 
-Invoke-AndRequireSuccess "Setting Azure Subscription" {
-    az account set -s $env:AZURE_SUBSCRIPTION_ID
-}
-
-Invoke-AndRequireSuccess "Loading storage-preview extension" {
-    az extension add --name storage-preview --allow-preview true --yes
-    az extension update --name storage-preview --allow-preview true
-}
-
 $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))
 $env:GUID01 = $($(New-Guid).Guid)
 $env:GUID02 = $($(New-Guid).Guid)
@@ -60,9 +56,6 @@ $env:GUID03 = $($(New-Guid).Guid)
 $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
-
-$env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE = Get-Content ./config/management-api-event-profile.json
-$env:VECTORIZATION_WORKER_CONFIG = Get-Content ./config/vectorization.json
 
 $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
@@ -74,6 +67,16 @@ $envConfiguraitons = @{
         template     = './config/core-api-event-profile.template.json'
         render       = './config/core-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE'
+    }
+    "management-api-event-profile"       = @{
+        template     = './config/management-api-event-profile.template.json'
+        render       = './config/management-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE'
+    }
+    "vectorization"                      = @{
+        template     = './config/vectorization.template.json'
+        render       = './config/vectorization.json'
+        variableName = 'VECTORIZATION_WORKER_CONFIG'
     }
     "vectorization-api-event-profile"    = @{
         template     = './config/vectorization-api-event-profile.template.json'
@@ -94,7 +97,7 @@ foreach ($envConfiguraiton in $envConfiguraitons.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 
     $name = $envConfiguraiton.Value.variableName
-    $value = Get-Content $render
+    $value = Get-Content $render -Raw | Format-Json
     Set-Content env:\$name $value
 }
 
@@ -124,6 +127,31 @@ foreach ($configuration in $configurations.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 }
 
+if ($env:PIPELINE_DEPLOY) {
+    $roleAssignments = (Get-Content "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" | ConvertFrom-Json)
+    $spRoleAssignmentName = $(New-Guid).Guid
+    $spRoleAssignment = @{
+        type               = "FoundationaLLM.Authorization/roleAssignments"
+        name               = $spRoleAssignmentName
+        object_id          = "/providers/FoundationaLLM.Authorization/roleAssignments/$($spRoleAssignmentName)"
+        description        = "Contributor role on the FoundationaLLM instance for the test service principal."
+        role_definition_id = "/providers/FoundationaLLM.Authorization/roleDefinitions/a9f0020f-6e3a-49bf-8d1d-35fd53058edf"
+        principal_id       = "${env:FLLM_E2E_SP_OBJECT_ID}"
+        principal_type     = "User"
+        scope              = "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}"
+        created_on         = "${env:DEPLOY_TIME}"
+        updated_on         = "${env:DEPLOY_TIME}"
+        created_by         = "SYSTEM"
+        updated_by         = "SYSTEM"
+    }
+    $roleAssignments.role_assignments += $spRoleAssignment
+    Set-Content -Path "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" "$($roleAssignments | ConvertTo-Json -Compress)"
+}
+
+Invoke-AndRequireSuccess "Setting Azure Subscription" {
+    az account set -s $env:AZURE_SUBSCRIPTION_ID
+}
+
 Invoke-AndRequireSuccess "Loading AppConfig Values" {
     az appconfig kv import `
         --profile appconfig/kvset `
@@ -136,56 +164,45 @@ Invoke-AndRequireSuccess "Loading AppConfig Values" {
 }
 
 if ($IsWindows) {
-    $os = "windows"
-} elseif ($IsMac) {
-    $os = "mac"
+    $separator = ";"
+}
+elseif ($IsMacOS) {
+    $separator = ":"
+}
+elseif ($IsLinux) {
+    $separator = ":"
 }
 
-$AZCOPY_VERSION = "10.24.0"
-
-Push-Location ./tools/azcopy_${os}_amd64_${AZCOPY_VERSION}
-
-Invoke-AndRequireSuccess "Uploading Agents" {
-    ./azcopy.exe cp `
-        ../../../common/data/agents/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/agents/ `
-        --recursive=True
+if ($env:PIPELINE_DEPLOY) {
+    Write-Host "Using agent provided AzCopy"
+}
+else {
+    $env:PATH = $env:PATH, "$(Split-Path -Path $pwd.Path -Parent)/common/tools/azcopy" -join $separator
 }
 
-Invoke-AndRequireSuccess "Uploading Data Sources" {
-    ./azcopy.exe cp `
-        ../../../common/data/data-sources/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/data-sources/ `
-        --recursive=True
-}
+$target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
 
-Invoke-AndRequireSuccess "Uploading Foundationallm Source" {
-    ./azcopy.exe cp `
-        ../../../common/data/foundationallm-source/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/foundationallm-source/ `
-        --recursive=True
-}
+azcopy cp '../common/data/resource-provider/*' $target --exclude-pattern .git* --recursive=True
 
-Invoke-AndRequireSuccess "Uploading Prompts" {
-    ./azcopy.exe cp `
-        ../../../common/data/prompts/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/prompts/ `
-        --recursive=True
-}
+$target = "https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/"
 
-Invoke-AndRequireSuccess "Uploading Resource Providers" {
-    ./azcopy.exe cp `
-        ../../../common/data/resource-provider/* `
-        https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/ `
-        --exclude-pattern .git* `
-        --recursive=True
-}
+azcopy cp ./data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json $target --recursive=True
 
-Invoke-AndRequireSuccess "Uploading Default Role Assignments to Authorization Store" {
-    ./azcopy.exe cp `
-        ../.././data/role-assignments/$($env:FOUNDATIONALLM_INSTANCE_ID).json `
-        https://$env:AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME.blob.core.windows.net/role-assignments/ `
-        --recursive=True
-}
+Invoke-AndRequireSuccess "Restarting Container Apps" {
 
-Pop-Location
+    $resourceGroup = "rg-$env:AZURE_ENV_NAME"
+
+    $apps = @(
+        az containerapp list `
+            --resource-group $resourceGroup `
+            --subscription $env:AZURE_SUBSCRIPTION_ID `
+            --query "[].{name:name,revision:properties.latestRevisionName}" -o json | ConvertFrom-Json)
+
+    foreach ($app in $apps) {
+        az containerapp revision restart `
+            --revision $app.revision `
+            --name $app.name `
+            --resource-group $resourceGroup `
+            --subscription $env:AZURE_SUBSCRIPTION_ID
+    }
+}
