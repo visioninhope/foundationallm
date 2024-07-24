@@ -131,7 +131,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (modelParameterOverrides != null)
             {
                 // Only considering the supported list of keys
-                foreach (var key in modelParameterOverrides.Keys.Where(k => ModelParameterKeys.All.Contains(k)))
+                foreach (var key in modelParameterOverrides.Keys.Where(k => ModelParametersKeys.All.Contains(k)))
                 {
                     aiModel.ModelParameters[key] = modelParameterOverrides[key];
                 }
@@ -150,7 +150,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     a.Description
                 })
                 .ToDictionary(x => x.Name, x => x.Description);
-            explodedObjects["AllAgents"] = allAgentsDescriptions;
+            explodedObjects[CompletionRequestObjectsKeys.AllAgents] = allAgentsDescriptions;
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {

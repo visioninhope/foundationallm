@@ -116,8 +116,8 @@ namespace Management.Client.Tests.Clients.Resources
                         RetryStrategyName = "ExponentialBackoff",
                         AuthenticationParameters =
                         {
-                            { AuthenticationParameterKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
-                            {AuthenticationParameterKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
+                            { AuthenticationParametersKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
+                            {AuthenticationParametersKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
                         }
                     },
                     Actions = [],
@@ -160,8 +160,8 @@ namespace Management.Client.Tests.Clients.Resources
                     RetryStrategyName = "ExponentialBackoff",
                     AuthenticationParameters =
                     {
-                        { AuthenticationParameterKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
-                        {AuthenticationParameterKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
+                        { AuthenticationParametersKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
+                        {AuthenticationParametersKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
                     }
                 },
                 Actions = [],

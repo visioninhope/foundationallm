@@ -3,7 +3,7 @@
     /// <summary>
     /// Authetication key names for the AuthenticationParameters properties on ApiEndpointConfigurations
     /// </summary>
-    public static class AuthenticationParameterKeys
+    public static class AuthenticationParametersKeys
     {
         /// <summary>
         /// API key key name

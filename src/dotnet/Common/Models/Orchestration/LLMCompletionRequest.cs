@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
@@ -61,7 +62,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </list>
         /// </para>
         /// </summary>
-        [JsonPropertyName("settings")]
+        [JsonPropertyName("objects")]
         public Dictionary<string, object> Objects { get; set; } = [];
 
         /// <summary>
@@ -251,7 +252,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 EnsureIsValid();
 
                 _otherAgentsDescriptions =
-                    Objects.TryGetValue("AllAgents", out var allAgentDescriptions)
+                    Objects.TryGetValue(CompletionRequestObjectsKeys.AllAgents, out var allAgentDescriptions)
                         ? allAgentDescriptions is JsonElement allAgentDescriptionsJsonElement
                             ? allAgentDescriptionsJsonElement.Deserialize<Dictionary<string, string>>()!
                             : (allAgentDescriptions as Dictionary<string, string>)!

@@ -103,8 +103,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
             {
-                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyKeyName))
-                    throw new OrchestrationException($"The {AuthenticationParameterKeys.APIKeyConfigurationName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyKeyName))
+                    throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the AI model enpoint's authentication parameters dictionary.");
 
                 apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
             }

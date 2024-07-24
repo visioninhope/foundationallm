@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         /// <summary>
         /// Dictionary with override values for the agent parameters.
         /// <para>
-        /// For the list of supported keys, see <see cref="AgentParameterKeys"/>.
+        /// For the list of supported keys, see <see cref="AgentParametersKeys"/>.
         /// </para>
         /// </summary>
         [JsonPropertyName("agent_parameters")]

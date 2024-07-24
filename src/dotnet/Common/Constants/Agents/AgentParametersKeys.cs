@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains constants of the keys for all overridable Agent settings.
     /// </summary>
-    public static class AgentParameterKeys
+    public static class AgentParametersKeys
     {
         /// <summary>
         /// The key name for the index filter expression agent parameter.

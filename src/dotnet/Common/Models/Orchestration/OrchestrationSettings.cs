@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <summary>
         /// Dictionary with override values for the model parameters.
         /// <para>
-        /// For the list of supported keys, see <see cref="ModelParameterKeys"/>.
+        /// For the list of supported keys, see <see cref="ModelParametersKeys"/>.
         /// </para>
         /// </summary>
         [JsonPropertyName("model_parameters")]

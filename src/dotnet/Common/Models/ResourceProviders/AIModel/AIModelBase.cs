@@ -39,7 +39,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
         /// <summary>
         /// Dictionary with default values for the model parameters.
         /// <para>
-        /// For the list of supported keys, see <see cref="ModelParameterKeys"/>.
+        /// For the list of supported keys, see <see cref="ModelParametersKeys"/>.
         /// </para>
         /// </summary>
         [JsonPropertyName("model_parameters")]

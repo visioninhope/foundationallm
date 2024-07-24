@@ -69,7 +69,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 _externalOrchestrationServiceSettings = apiEndpoint
                     .Where(ae => ae.Category == APIEndpointCategory.ExternalOrchestration
-                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
                         && apiKeyConfigObj is string apiKeyConfig
                         && !string.IsNullOrWhiteSpace(apiKeyConfig)
                         && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_APIEndpoints))
@@ -77,7 +77,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                         ae => ae.Name,
                         ae => new APISettingsBase
                         {
-                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParameterKeys.APIKeyConfigurationName].ToString()!],
+                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParametersKeys.APIKeyConfigurationName].ToString()!],
                             APIUrl = ae.Url
                         });
 

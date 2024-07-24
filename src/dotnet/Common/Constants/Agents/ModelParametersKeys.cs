@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains constants of the keys for all overridable model settings.
     /// </summary>
-    public static class ModelParameterKeys
+    public static class ModelParametersKeys
     {
         /// <summary>
         /// Controls randomness. Lowering the temperature means that the model will produce more repetitive and

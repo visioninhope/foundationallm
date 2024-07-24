@@ -44,7 +44,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// <summary>
         /// Dictionary with values used for authentication.
         /// <para>
-        /// For the list of supported keys, see <see cref="AuthenticationParameterKeys"/>.
+        /// For the list of supported keys, see <see cref="AuthenticationParametersKeys"/>.
         /// </para>
         /// </summary>
         [JsonPropertyName("authentication_parameters")]
