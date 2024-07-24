@@ -63,8 +63,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// <param name="operationId">The ID of the operation to retrieve.</param>
         /// <returns>Returns a completion response</returns>
         [HttpGet("async-completions/{operationId}/result")]
-        public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
-            await _orchestrationService.GetCompletionOperation(instanceId, operationId);
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
+            await _orchestrationService.GetCompletionOperationResult(instanceId, operationId);
 
     }
 }

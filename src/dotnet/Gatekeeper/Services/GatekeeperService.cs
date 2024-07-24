@@ -100,7 +100,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
             // TODO: Need to call State API to get the operation.
             throw new NotImplementedException();
         

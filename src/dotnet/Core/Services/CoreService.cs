@@ -168,7 +168,7 @@ public partial class CoreService(
         throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+    public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
         throw new NotImplementedException();
 
     /// <inheritdoc/>
