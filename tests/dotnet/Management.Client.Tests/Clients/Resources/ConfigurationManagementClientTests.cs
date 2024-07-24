@@ -3,6 +3,7 @@ using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using NSubstitute;
@@ -231,6 +232,77 @@ namespace Management.Client.Tests.Clients.Resources
                 ResourceProviderNames.FoundationaLLM_Configuration,
                 $"{ConfigurationResourceTypeNames.AppConfigurations}/{appConfiguration.Name}",
                 appConfiguration
+            );
+        }
+
+        [Fact]
+        public async Task UpsertAPIEndpointConfiguration_ShouldReturnUpsertResult()
+        {
+            // Arrange
+            var apiEndpointConfiguration = new APIEndpointConfiguration { 
+                Name = "test-configuration", 
+                Category = APIEndpointCategory.General,
+                AuthenticationType = AuthenticationTypes.APIKey,
+                RetryStrategyName = "ExponentialBackoff",
+                TimeoutSeconds = 60,
+                Url = ""
+            };
+            var expectedUpsertResult = new ResourceProviderUpsertResult
+            {
+                ObjectId = "test-object-id"
+            };
+
+            _mockRestClient.Resources
+                .UpsertResourceAsync(
+                    ResourceProviderNames.FoundationaLLM_Configuration,
+                    $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{apiEndpointConfiguration.Name}",
+                    apiEndpointConfiguration
+                )
+                .Returns(Task.FromResult(expectedUpsertResult));
+
+            // Act
+            var result = await _configurationClient.UpsertAPIEndpointConfiguration(apiEndpointConfiguration);
+
+            // Assert
+            Assert.Equal(expectedUpsertResult, result);
+            await _mockRestClient.Resources.Received(1).UpsertResourceAsync(
+                ResourceProviderNames.FoundationaLLM_Configuration,
+                $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{apiEndpointConfiguration.Name}",
+                apiEndpointConfiguration
+            );
+        }
+
+        [Fact]
+        public async Task UpsertAIModel_ShouldReturnUpsertResult()
+        {
+            // Arrange
+            var aiModel = new AIModelBase
+            {
+                Name = "test-configuration",
+                EndpointObjectId = ""
+            };
+            var expectedUpsertResult = new ResourceProviderUpsertResult
+            {
+                ObjectId = "test-object-id"
+            };
+
+            _mockRestClient.Resources
+                .UpsertResourceAsync(
+                    ResourceProviderNames.FoundationaLLM_AIModel,
+                    $"{AIModelResourceTypeNames.AIModels}/{aiModel.Name}",
+                    aiModel
+                )
+                .Returns(Task.FromResult(expectedUpsertResult));
+
+            // Act
+            var result = await _configurationClient.UpsertAIModel(aiModel);
+
+            // Assert
+            Assert.Equal(expectedUpsertResult, result);
+            await _mockRestClient.Resources.Received(1).UpsertResourceAsync(
+                ResourceProviderNames.FoundationaLLM_AIModel,
+                $"{AIModelResourceTypeNames.AIModels}/{aiModel.Name}",
+                aiModel
             );
         }
     }
