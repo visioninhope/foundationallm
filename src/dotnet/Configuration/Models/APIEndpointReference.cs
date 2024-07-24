@@ -18,7 +18,7 @@ namespace FoundationaLLM.Configuration.Models
         public Type ResourceType =>
             Type switch
             {
-                ConfigurationTypes.APIEndpoint => typeof(APIEndpoint),
+                ConfigurationTypes.APIEndpointConfiguration => typeof(APIEndpointConfiguration),
                 _ => throw new ResourceProviderException($"The resource type {Type} is not supported.")
             };
     }

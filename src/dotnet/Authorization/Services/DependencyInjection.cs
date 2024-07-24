@@ -3,6 +3,7 @@ using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Authorization.Services;
 using FoundationaLLM.Authorization.Validation;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authorization;
@@ -31,7 +32,7 @@ namespace FoundationaLLM
                 return new DataLakeStorageService(
                     Options.Create<BlobStorageServiceSettings>(new BlobStorageServiceSettings
                     {
-                        AuthenticationType = BlobStorageAuthenticationTypes.AzureIdentity,
+                        AuthenticationType = AuthenticationTypes.AzureIdentity,
                         AccountName = builder.Configuration[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Storage_AccountName]
                     }),
                     sp.GetRequiredService<ILogger<DataLakeStorageService>>())

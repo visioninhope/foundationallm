@@ -18,6 +18,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// Constructor for default agent.
     /// </remarks>
     /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
+    /// <param name="explodedObjects">A dictionary of objects retrieved from various object ids related to the agent. For more details see <see cref="LLMCompletionRequest.Objects"/> .</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="orchestrationService"></param>
     /// <param name="logger">The logger used for logging.</param>
@@ -25,15 +26,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <param name="dataSourceAccessDenied">Inidicates that access was denied to all underlying data sources.</param>
     public class KnowledgeManagementOrchestration(
         KnowledgeManagementAgent agent,
+        Dictionary<string, object> explodedObjects,
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
         ILogger<OrchestrationBase> logger,
         Dictionary<string, IResourceProviderService> resourceProviderServices,
         bool dataSourceAccessDenied) : OrchestrationBase(orchestrationService)
     {
+        private readonly KnowledgeManagementAgent _agent = agent;
+        private readonly Dictionary<string, object> _explodedObjects = explodedObjects;
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
-        private readonly KnowledgeManagementAgent _agent = agent;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices;
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
@@ -61,10 +64,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 new LLMCompletionRequest
                 {
                     UserPrompt = completionRequest.UserPrompt!,
-                    Agent = _agent,
                     MessageHistory = completionRequest.MessageHistory,
                     Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
-                    Settings = completionRequest.Settings
+                    Agent = _agent,
+                    Objects = _explodedObjects
                 });
 
             if (result.Citations != null)

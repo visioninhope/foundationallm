@@ -205,14 +205,14 @@ public partial class CoreService(
         var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
-        if (agentBase?.Gatekeeper?.UseSystemSetting == false)
+        if (agentBase?.GatekeeperSettings?.UseSystemSetting == false)
         {
             // Agent does not want to use system settings, however it does not have any Gatekeeper options either
             // Consequently, a request to bypass Gatekeeper will be returned.
-            if (agentBase!.Gatekeeper!.Options == null || agentBase.Gatekeeper.Options.Length == 0)
+            if (agentBase!.GatekeeperSettings!.Options == null || agentBase.GatekeeperSettings.Options.Length == 0)
                 return AgentGatekeeperOverrideOption.MustBypass;
 
-            completionRequest.GatekeeperOptions = agentBase.Gatekeeper.Options;
+            completionRequest.GatekeeperOptions = agentBase.GatekeeperSettings.Options;
             return AgentGatekeeperOverrideOption.MustCall;
         }
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains constants of the keys for all overridable Agent settings.
     /// </summary>
-    public static class AgentParameterKeys
+    public static class AgentParametersKeys
     {
         /// <summary>
         /// The key name for the index filter expression agent parameter.
@@ -11,10 +11,18 @@
         /// by the index.
         /// </summary>
         public const string IndexFilterExpression = "index_filter_expression";
+
         /// <summary>
         /// Controls the number of search results to return from an index for prompt augmentation.
         /// </summary>
         public const string IndexTopN = "index_top_n";
 
+        /// <summary>
+        /// All agent parameter keys.
+        /// </summary>
+        public readonly static string[] All = [
+            IndexFilterExpression,
+            IndexTopN
+        ];
     }
 }
