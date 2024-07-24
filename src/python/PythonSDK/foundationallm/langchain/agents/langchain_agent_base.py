@@ -1,4 +1,3 @@
-import re
 from abc import abstractmethod
 from typing import List, Optional
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
@@ -8,7 +7,6 @@ from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
 from foundationallm.config.configuration import Configuration
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.models.orchestration import OperationTypes
-from foundationallm.models.agents import AgentBase
 from foundationallm.models.authentication import AuthenticationTypes
 from foundationallm.models.language_models import LanguageModelProvider
 from foundationallm.models.orchestration import (
@@ -20,10 +18,6 @@ from foundationallm.models.orchestration import (
 )
 from foundationallm.models.resource_providers.attachments import Attachment
 from foundationallm.models.resource_providers.prompts import MultipartPrompt
-from foundationallm.models.resource_providers.vectorization import (
-    AzureAISearchIndexingProfile,
-    AzureOpenAIEmbeddingProfile
-)
 
 class LangChainAgentBase():
     """
