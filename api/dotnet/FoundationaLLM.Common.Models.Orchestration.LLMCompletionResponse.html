@@ -102,7 +102,7 @@ Class LLMCompletionResponse  <a class="header-action link-secondary" title="View
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class LLMCompletionResponse</code></pre>
+    <pre><code class="lang-csharp hljs">public class LLMCompletionResponse : CompletionResponseBase</code></pre>
   </div>
 
 
@@ -112,6 +112,7 @@ Class LLMCompletionResponse  <a class="header-action link-secondary" title="View
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html">CompletionResponseBase</a></div>
       <div><span class="xref">LLMCompletionResponse</span></div>
     </dd>
   </dl>
@@ -121,6 +122,36 @@ Class LLMCompletionResponse  <a class="header-action link-secondary" title="View
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Completion">CompletionResponseBase.Completion</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Citations">CompletionResponseBase.Citations</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_UserPrompt">CompletionResponseBase.UserPrompt</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_FullPrompt">CompletionResponseBase.FullPrompt</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTemplate">CompletionResponseBase.PromptTemplate</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_AgentName">CompletionResponseBase.AgentName</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTokens">CompletionResponseBase.PromptTokens</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_CompletionTokens">CompletionResponseBase.CompletionTokens</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_TotalTokens">CompletionResponseBase.TotalTokens</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_TotalCost">CompletionResponseBase.TotalCost</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -151,340 +182,6 @@ Class LLMCompletionResponse  <a class="header-action link-secondary" title="View
       <a class="xref" href="FoundationaLLM.Core.Utils.ObjectExtensions.html#FoundationaLLM_Core_Utils_ObjectExtensions_GetPropertyValues_System_Object_System_Collections_Generic_List_System_String__">ObjectExtensions.GetPropertyValues(object, List&lt;string&gt;)</a>
   </div>
   </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_AgentName_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.AgentName*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_AgentName" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.AgentName">
-  AgentName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L43"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The name of the FoundationaLLM agent.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;agent_name&quot;)]
-public string? AgentName { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Citations_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Citations" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Citations">
-  Citations
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L19"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The citations used in building the completion response.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;citations&quot;)]
-public Citation[]? Citations { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Citation.html">Citation</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Completion_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Completion*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_Completion" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.Completion">
-  Completion
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L13"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The completion response from the orchestration engine.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;completion&quot;)]
-public string? Completion { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_CompletionTokens_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.CompletionTokens*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_CompletionTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.CompletionTokens">
-  CompletionTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L55"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The number of tokens in the completion.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;completion_tokens&quot;)]
-public int CompletionTokens { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_FullPrompt_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.FullPrompt*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_FullPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.FullPrompt">
-  FullPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L31"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The full prompt composed by the LLM.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;full_prompt&quot;)]
-public string? FullPrompt { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_PromptTemplate_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.PromptTemplate*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_PromptTemplate" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.PromptTemplate">
-  PromptTemplate
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L37"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The prompt template used by the LLM.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;prompt_template&quot;)]
-public string? PromptTemplate { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_PromptTokens_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.PromptTokens*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_PromptTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.PromptTokens">
-  PromptTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L49"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The number of tokens in the prompt.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;prompt_tokens&quot;)]
-public int PromptTokens { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_TotalCost_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.TotalCost*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_TotalCost" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.TotalCost">
-  TotalCost
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L67"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Total cost of the completion execution.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;total_cost&quot;)]
-public float TotalCost { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_TotalTokens_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.TotalTokens*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_TotalTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.TotalTokens">
-  TotalTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L61"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Total tokens used.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;total_tokens&quot;)]
-public int TotalTokens { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_UserPrompt_" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.UserPrompt*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionResponse_UserPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.UserPrompt">
-  UserPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionResponse.cs/#L25"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The prompt received from the user.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;user_prompt&quot;)]
-public string? UserPrompt { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
 
 
 

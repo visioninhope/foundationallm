@@ -165,6 +165,12 @@
 </tr>
 </tbody>
 </table>
+<h4 id="changes-in-app-configuration-settings">Changes in app configuration settings</h4>
+<p>The <code>FoundationaLLM:APIs</code> and <code>FoundationaLLM:ExternalAPIs</code> configuration namespaces have been replaced with the <code>FoundationaLLM:APIEndpoints</code> configuration namespace.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>All existing API registrations need to be updated to reflect these changes. The only setting that will exist under <code>FoundationaLLM:APIEndpoints</code> is <code>APIKey</code> (for those API enpoints which use API key authentication), all the other settings are now part of the <code>APIEndpoint</code> artifact managed by the <code>FoundationaLLM.Configuration</code> resource provider.</p>
+</div>
 <h3 id="pre-080">Pre-0.8.0</h3>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>

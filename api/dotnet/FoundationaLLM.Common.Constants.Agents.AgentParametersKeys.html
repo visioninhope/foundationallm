@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class EndpointConfigurationKeys | FoundationaLLM </title>
+      <title>Class AgentParametersKeys | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class EndpointConfigurationKeys | FoundationaLLM ">
+      <meta name="title" content="Class AgentParametersKeys | FoundationaLLM ">
       
-      <meta name="description" content="Contains constants of the keys for endpoint configuration settings.">
+      <meta name="description" content="Contains constants of the keys for all overridable Agent settings.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Constants_Agents_AgentParametersKeys.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Constants.Agents.AgentParametersKeys%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys">
+        <article data-uid="FoundationaLLM.Common.Constants.Agents.AgentParametersKeys">
 
 
 
-  <h1 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys" class="text-break">
-Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L6"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Constants_Agents_AgentParametersKeys" data-uid="FoundationaLLM.Common.Constants.Agents.AgentParametersKeys" class="text-break">
+Class AgentParametersKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/AgentParametersKeys.cs/#L6"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Contains constants of the keys for endpoint configuration settings.</p>
+  <div class="markdown summary"><p>Contains constants of the keys for all overridable Agent settings.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class EndpointConfigurationKeys</code></pre>
+    <pre><code class="lang-csharp hljs">public static class AgentParametersKeys</code></pre>
   </div>
 
 
@@ -112,7 +112,7 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">EndpointConfigurationKeys</span></div>
+      <div><span class="xref">AgentParametersKeys</span></div>
     </dd>
   </dl>
 
@@ -154,17 +154,50 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_APIKey" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.APIKey">
-  APIKey
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Agents_AgentParametersKeys_All" data-uid="FoundationaLLM.Common.Constants.Agents.AgentParametersKeys.All">
+  All
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/AgentParametersKeys.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The API Key configuration setting.</p>
+  <div class="markdown level1 summary"><p>All agent parameter keys.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string APIKey = &quot;api_key&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly string[] All</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Agents_AgentParametersKeys_IndexFilterExpression" data-uid="FoundationaLLM.Common.Constants.Agents.AgentParametersKeys.IndexFilterExpression">
+  IndexFilterExpression
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/AgentParametersKeys.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The key name for the index filter expression agent parameter.
+This value should be a string representing the search filter expression to limit documents to be searched
+by the index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string IndexFilterExpression = &quot;index_filter_expression&quot;</code></pre>
   </div>
 
 
@@ -185,145 +218,17 @@ Class EndpointConfigurationKeys  <a class="header-action link-secondary" title="
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_APIVersion" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.APIVersion">
-  APIVersion
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Agents_AgentParametersKeys_IndexTopN" data-uid="FoundationaLLM.Common.Constants.Agents.AgentParametersKeys.IndexTopN">
+  IndexTopN
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/AgentParametersKeys.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The API Version configuration setting.</p>
+  <div class="markdown level1 summary"><p>Controls the number of search results to return from an index for prompt augmentation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string APIVersion = &quot;api_version&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_AuthenticationType" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.AuthenticationType">
-  AuthenticationType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L34"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The type of authentication to use for connecting to the endpoint.
-This value with be either key or token.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string AuthenticationType = &quot;authentication_type&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_Endpoint" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.Endpoint">
-  Endpoint
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L18"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The API Endpoint configuration setting.
-This value should be a URI representing the endpoint of the API.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Endpoint = &quot;endpoint&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_OperationType" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.OperationType">
-  OperationType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L40"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The type of operation the endpoint is performing.
-This value should be completion or chat.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string OperationType = &quot;operation_type&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Agents_EndpointConfigurationKeys_Provider" data-uid="FoundationaLLM.Common.Constants.Agents.EndpointConfigurationKeys.Provider">
-  Provider
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L12"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The LLM provider.
-Can be microsoft or openai.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Provider = &quot;provider&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string IndexTopN = &quot;index_top_n&quot;</code></pre>
   </div>
 
 
@@ -347,7 +252,7 @@ Can be microsoft or openai.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/EndpointConfigurationKeys.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Agents/AgentParametersKeys.cs/#L6" class="edit-link">Edit this page</a>
         </div>
 
 

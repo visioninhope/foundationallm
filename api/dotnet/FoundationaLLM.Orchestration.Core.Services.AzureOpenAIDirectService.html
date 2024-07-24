@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService" class="text-break">
-Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -171,7 +171,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})">
   AzureOpenAIDirectService(ICallContext, ILogger&lt;AzureOpenAIDirectService&gt;, IConfiguration, IHttpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The Azure OpenAI direct orchestration service.</p>
@@ -185,7 +185,8 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
-    <dd></dd>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a> providing details about the call context.</p>
+</dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html">AzureOpenAIDirectService</a>&gt;</dt>
     <dd><p>The logger used for logging.</p>
 </dd>
@@ -219,7 +220,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
@@ -255,7 +256,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(string, LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -296,7 +297,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(System.String)">
   GetStatus(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
@@ -334,7 +335,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L27" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L30" class="edit-link">Edit this page</a>
         </div>
 
 

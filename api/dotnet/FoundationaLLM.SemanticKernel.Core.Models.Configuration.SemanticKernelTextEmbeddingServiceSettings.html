@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings" class="text-break">
-Class SemanticKernelTextEmbeddingServiceSettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L9"><i class="bi bi-code-slash"></i></a>
+Class SemanticKernelTextEmbeddingServiceSettings  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class SemanticKernelTextEmbeddingServiceSettings  <a class="header-action link-s
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_APIKey" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.APIKey">
   APIKey
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The API key used to connect to the Azure Open AI endpoint. Valid only if AuthenticationType is APIKey.</p>
@@ -202,7 +202,7 @@ Class SemanticKernelTextEmbeddingServiceSettings  <a class="header-action link-s
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_AuthenticationType" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.AuthenticationType">
   AuthenticationType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_AuthenticationType">AuthenticationType</a> indicating which authentication mechanism to use.</p>
@@ -211,7 +211,7 @@ Class SemanticKernelTextEmbeddingServiceSettings  <a class="header-action link-s
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonConverter(typeof(JsonStringEnumConverter))]
-public required AzureOpenAIAuthenticationTypes AuthenticationType { get; set; }</code></pre>
+public required AuthenticationTypes AuthenticationType { get; set; }</code></pre>
   </div>
 
 
@@ -220,7 +220,7 @@ public required AzureOpenAIAuthenticationTypes AuthenticationType { get; set; }<
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Settings.AzureOpenAIAuthenticationTypes.html">AzureOpenAIAuthenticationTypes</a></dt>
+    <dt><a class="xref" href="FoundationaLLM.Common.Constants.Authentication.AuthenticationTypes.html">AuthenticationTypes</a></dt>
     <dd></dd>
   </dl>
 
@@ -235,7 +235,7 @@ public required AzureOpenAIAuthenticationTypes AuthenticationType { get; set; }<
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_DeploymentName" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.DeploymentName">
   DeploymentName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the Azure Open AI deployment.</p>
@@ -267,7 +267,7 @@ public required AzureOpenAIAuthenticationTypes AuthenticationType { get; set; }<
 
   <h3 id="FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelTextEmbeddingServiceSettings_Endpoint" data-uid="FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.Endpoint">
   Endpoint
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The endpoint of the Azure Open AI deployment.</p>
@@ -299,7 +299,7 @@ public required AzureOpenAIAuthenticationTypes AuthenticationType { get; set; }<
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernel/Models/Configuration/SemanticKernelTextEmbeddingServiceSettings.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

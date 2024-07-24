@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase" class="text-break">
-Class AgentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class AgentBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -205,11 +205,44 @@ public class AgentBase : ResourceBase</code></pre>
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AIModelObjectId_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AIModelObjectId*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AIModelObjectId" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AIModelObjectId">
+  AIModelObjectId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The object identifier of the <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a> object providing the AI model for the agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;ai_model_object_id&quot;)]
+public string? AIModelObjectId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AgentType_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_AgentType" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType">
   AgentType
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The object type of the agent.</p>
@@ -238,11 +271,11 @@ public Type AgentType { get; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistory_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistorySettings_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistorySettings*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistory" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistory">
-  ConversationHistory
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistorySettings" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistorySettings">
+  ConversationHistorySettings
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's conversation history configuration.</p>
@@ -250,8 +283,8 @@ public Type AgentType { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;conversation_history&quot;)]
-public ConversationHistory? ConversationHistory { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;conversation_history_settings&quot;)]
+public ConversationHistorySettings? ConversationHistorySettings { get; set; }</code></pre>
   </div>
 
 
@@ -260,7 +293,7 @@ public ConversationHistory? ConversationHistory { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistory.html">ConversationHistory</a></dt>
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistorySettings.html">ConversationHistorySettings</a></dt>
     <dd></dd>
   </dl>
 
@@ -271,11 +304,11 @@ public ConversationHistory? ConversationHistory { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Gatekeeper_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper*"></a>
+  <a id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_GatekeeperSettings_" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.GatekeeperSettings*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Gatekeeper" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Gatekeeper">
-  Gatekeeper
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_GatekeeperSettings" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.GatekeeperSettings">
+  GatekeeperSettings
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The agent's Gatekeeper configuration.</p>
@@ -283,8 +316,8 @@ public ConversationHistory? ConversationHistory { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;gatekeeper&quot;)]
-public Gatekeeper? Gatekeeper { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;gatekeeper_settings&quot;)]
+public GatekeeperSettings? GatekeeperSettings { get; set; }</code></pre>
   </div>
 
 
@@ -293,7 +326,7 @@ public Gatekeeper? Gatekeeper { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.Gatekeeper.html">Gatekeeper</a></dt>
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.GatekeeperSettings.html">GatekeeperSettings</a></dt>
     <dd></dd>
   </dl>
 
@@ -308,7 +341,7 @@ public Gatekeeper? Gatekeeper { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_LongRunning" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.LongRunning">
   LongRunning
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the agent is long running and should use the polling pattern.</p>
@@ -341,7 +374,7 @@ public bool LongRunning { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_OrchestrationSettings" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.OrchestrationSettings">
   OrchestrationSettings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Settings for the orchestration service.</p>
@@ -350,7 +383,7 @@ public bool LongRunning { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;orchestration_settings&quot;)]
-public OrchestrationSettings? OrchestrationSettings { get; set; }</code></pre>
+public AgentOrchestrationSettings? OrchestrationSettings { get; set; }</code></pre>
   </div>
 
 
@@ -359,7 +392,7 @@ public OrchestrationSettings? OrchestrationSettings { get; set; }</code></pre>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.html">OrchestrationSettings</a></dt>
+    <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentOrchestrationSettings.html">AgentOrchestrationSettings</a></dt>
     <dd></dd>
   </dl>
 
@@ -374,10 +407,10 @@ public OrchestrationSettings? OrchestrationSettings { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_PromptObjectId" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.PromptObjectId">
   PromptObjectId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The agent's prompt.</p>
+  <div class="markdown level1 summary"><p>The object identifier of the <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Prompt.PromptBase.html">PromptBase</a> object providing the prompt for the agent.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -407,7 +440,7 @@ public string? PromptObjectId { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_SessionsEnabled" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.SessionsEnabled">
   SessionsEnabled
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether sessions are enabled for the agent.</p>
@@ -440,7 +473,7 @@ public bool SessionsEnabled { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the resource.</p>
@@ -473,7 +506,7 @@ public override string? Type { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/Agent/AgentBase.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 
