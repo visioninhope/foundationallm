@@ -833,9 +833,9 @@
         /// </summary>
         public const string FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker = "FoundationaLLM:Events:AzureEventGridEventService:Profiles:VectorizationWorker";
         /// <summary>
-        /// The key for the FoundationaLLM:APIEndpointConfigurations:AzureContentSafety01:APIKey app configuration setting.
+        /// The key for the FoundationaLLM:APIEndpoints:AzureContentSafety01:APIKey app configuration setting.
         /// </summary>
-        public const string FoundationaLLM_APIEndpointConfigurations_AzureContentSafety01_APIKey = "FoundationaLLM:APIEndpointConfigurations:AzureContentSafety01:APIKey";
+        public const string FoundationaLLM_APIEndpoints_AzureContentSafety01_APIKey = "FoundationaLLM:APIEndpoints:AzureContentSafety01:APIKey";
     }
 
     /// <summary>
