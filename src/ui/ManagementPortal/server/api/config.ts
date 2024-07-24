@@ -15,6 +15,7 @@ const allowedKeys = [
 	'FoundationaLLM:Management:Entra:Scopes',
 	'FoundationaLLM:Management:Entra:CallbackPath',
 
+	'FoundationaLLM:Branding:FavIconUrl',
 	'FoundationaLLM:Branding:LogoUrl',
 	'FoundationaLLM:Branding:LogoText',
 	'FoundationaLLM:Branding:BackgroundColor',
