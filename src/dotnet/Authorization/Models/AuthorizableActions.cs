@@ -355,6 +355,27 @@ namespace FoundationaLLM.Authorization.Models
                         "Delete attachments.",
                         "Attachment")
                 },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
+                        "Read AIModels.",
+                        "AIModel")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
+                        "Create or update AIModels.",
+                        "AIModel")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
+                        "Delete AIModel.",
+                        "AIModel")
+                },
             });
 
         /// <summary>

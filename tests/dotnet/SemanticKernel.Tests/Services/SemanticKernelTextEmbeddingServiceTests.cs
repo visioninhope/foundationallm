@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
@@ -16,7 +17,7 @@ namespace SemanticKernel.Tests.Services
             _semanticKernelTextEmbeddingService = new SemanticKernelTextEmbeddingService(
                 Options.Create(
                     new SemanticKernelTextEmbeddingServiceSettings { 
-                        AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
+                        AuthenticationType = AuthenticationTypes.AzureIdentity,
                         DeploymentName = "embeddings",
                         Endpoint = Environment.GetEnvironmentVariable("SemanticKernelTextEmbeddingServiceTestsOpenAiEndpoint") ?? ""
                     }

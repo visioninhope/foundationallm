@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Client.Management.Clients.Resources;
 using FoundationaLLM.Client.Management.Interfaces;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
@@ -101,20 +102,23 @@ namespace Management.Client.Tests.Clients.Resources
         public async Task GetAPIEndpointsAsync_ShouldReturnServices()
         {
             // Arrange
-            var expectedServices = new List<ResourceProviderGetResult<APIEndpoint>>
+            var expectedServices = new List<ResourceProviderGetResult<APIEndpointConfiguration>>
             {
-                new ResourceProviderGetResult<APIEndpoint>
+                new ResourceProviderGetResult<APIEndpointConfiguration>
                 {
-                    Resource = new APIEndpoint
+                    Resource = new APIEndpointConfiguration
                     {
                         Name = "test-service",
                         Url = "FoundationaLLM:TestAPIUrlConfiguration",
-                        APIKeyConfigurationName = "FoundationaLLM:TestAPIKeyConfiguration",
                         Category = APIEndpointCategory.General,
-                        AuthenticationType = "APIKey",
-                        APIKeyHeaderName = "FoundationaLLM:TestAPIKeyHeaderName",
+                        AuthenticationType = AuthenticationTypes.APIKey,
                         TimeoutSeconds = 60,
-                        RetryStrategyName = "ExponentialBackoff"
+                        RetryStrategyName = "ExponentialBackoff",
+                        AuthenticationParameters =
+                        {
+                            { AuthenticationParametersKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
+                            {AuthenticationParametersKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
+                        }
                     },
                     Actions = [],
                     Roles = []
@@ -122,9 +126,9 @@ namespace Management.Client.Tests.Clients.Resources
             };
 
             _mockRestClient.Resources
-                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                     ResourceProviderNames.FoundationaLLM_Configuration,
-                    ConfigurationResourceTypeNames.APIEndpoints
+                    ConfigurationResourceTypeNames.APIEndpointConfigurations
                 )
                 .Returns(Task.FromResult(expectedServices));
 
@@ -133,9 +137,9 @@ namespace Management.Client.Tests.Clients.Resources
 
             // Assert
             Assert.Equal(expectedServices, result);
-            await _mockRestClient.Resources.Received(1).GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+            await _mockRestClient.Resources.Received(1).GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                 ResourceProviderNames.FoundationaLLM_Configuration,
-                ConfigurationResourceTypeNames.APIEndpoints
+                ConfigurationResourceTypeNames.APIEndpointConfigurations
             );
         }
 
@@ -144,28 +148,31 @@ namespace Management.Client.Tests.Clients.Resources
         {
             // Arrange
             var serviceName = "test-service";
-            var expectedService = new ResourceProviderGetResult<APIEndpoint>
+            var expectedService = new ResourceProviderGetResult<APIEndpointConfiguration>
             {
-                Resource = new APIEndpoint
+                Resource = new APIEndpointConfiguration
                 {
                     Name = serviceName,
                     Url = "FoundationaLLM:TestAPIUrlConfiguration",
-                    APIKeyConfigurationName = "FoundationaLLM:TestAPIKeyConfiguration",
                     Category = APIEndpointCategory.General,
-                    AuthenticationType = "APIKey",
-                    APIKeyHeaderName = "FoundationaLLM:TestAPIKeyHeaderName",
+                    AuthenticationType = AuthenticationTypes.APIKey,
                     TimeoutSeconds = 60,
-                    RetryStrategyName = "ExponentialBackoff"
+                    RetryStrategyName = "ExponentialBackoff",
+                    AuthenticationParameters =
+                    {
+                        { AuthenticationParametersKeys.APIKeyConfigurationName, "FoundationaLLM:TestAPIKeyConfiguration" },
+                        {AuthenticationParametersKeys.APIKeyHeaderName, "FoundationaLLM:TestAPIKeyHeaderName" }
+                    }
                 },
                 Actions = [],
                 Roles = []
             };
-            var expectedServices = new List<ResourceProviderGetResult<APIEndpoint>> { expectedService };
+            var expectedServices = new List<ResourceProviderGetResult<APIEndpointConfiguration>> { expectedService };
 
             _mockRestClient.Resources
-                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                     ResourceProviderNames.FoundationaLLM_Configuration,
-                    $"{ConfigurationResourceTypeNames.APIEndpoints}/{serviceName}"
+                    $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{serviceName}"
                 )
                 .Returns(Task.FromResult(expectedServices));
 
@@ -174,9 +181,9 @@ namespace Management.Client.Tests.Clients.Resources
 
             // Assert
             Assert.Equal(expectedService, result);
-            await _mockRestClient.Resources.Received(1).GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+            await _mockRestClient.Resources.Received(1).GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                 ResourceProviderNames.FoundationaLLM_Configuration,
-                $"{ConfigurationResourceTypeNames.APIEndpoints}/{serviceName}"
+                $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{serviceName}"
             );
         }
 
@@ -186,15 +193,15 @@ namespace Management.Client.Tests.Clients.Resources
             // Arrange
             var serviceName = "test-service";
             _mockRestClient.Resources
-                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpoint>>>(
+                .GetResourcesAsync<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(
                     ResourceProviderNames.FoundationaLLM_Configuration,
-                    $"{ConfigurationResourceTypeNames.APIEndpoints}/{serviceName}"
+                    $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{serviceName}"
                 )
-                .Returns(Task.FromResult<List<ResourceProviderGetResult<APIEndpoint>>>(null));
+                .Returns(Task.FromResult<List<ResourceProviderGetResult<APIEndpointConfiguration>>>(null));
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<Exception>(() => _configurationClient.GetExternalOrchestrationServiceAsync(serviceName));
-            Assert.Equal($"APIEndpoint '{serviceName}' not found.", exception.Message);
+            Assert.Equal($"APIEndpointConfiguration '{serviceName}' not found.", exception.Message);
         }
 
         [Fact]

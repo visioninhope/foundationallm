@@ -1,6 +1,7 @@
 ﻿using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
@@ -30,7 +31,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
                     new AzureAISearchIndexingServiceSettings
                     {
                         Endpoint = endpoint,
-                        AuthenticationType = AzureAISearchAuthenticationTypes.AzureIdentity
+                        AuthenticationType = AuthenticationTypes.AzureIdentity
                     }
                 ),
                 LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<AzureAISearchIndexingService>()
