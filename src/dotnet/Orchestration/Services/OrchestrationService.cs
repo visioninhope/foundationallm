@@ -33,7 +33,7 @@ public class OrchestrationService : IOrchestrationService
     /// <summary>
     /// Constructor for the Orchestration Service.
     /// </summary>
-    /// <param name="resourceProviderServices">A list of of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+    /// <param name="resourceProviderServices">A list of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     /// <param name="llmOrchestrationServiceManager">The <see cref="ILLMOrchestrationServiceManager"/> managing the internal and external LLM orchestration services.</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
@@ -109,7 +109,7 @@ public class OrchestrationService : IOrchestrationService
     public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+    public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
         // TODO: Need to call State API to get the operation.
         throw new NotImplementedException();
 

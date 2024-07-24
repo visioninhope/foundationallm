@@ -3,18 +3,18 @@
 namespace FoundationaLLM.Common.Models.Orchestration
 {
     /// <summary>
-    /// Represents the current state of a long running operation.
+    /// Represents the current state of a long-running operation.
     /// </summary>
     public class LongRunningOperation
     {
         /// <summary>
-        /// The identifier of the long running operation.
+        /// The identifier of the long-running operation.
         /// </summary>
         [JsonPropertyName("operation_id")]
         public required string OperationId { get; set; }
 
         /// <summary>
-        /// The status of the long running operation.
+        /// The status of the long-running operation.
         /// </summary>
         [JsonPropertyName("status")]
         public required OperationStatus Status { get; set; }

@@ -42,8 +42,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         [HttpPost("async-completions")]
         public async Task<ActionResult<LongRunningOperation>> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
         {
-            var state = await _orchestrationService.StartCompletionOperation(instanceId, completionRequest);
-            return Accepted(state);
+            var longRunningOperation = await _orchestrationService.StartCompletionOperation(instanceId, completionRequest);
+            return Accepted(longRunningOperation);
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace FoundationaLLM.Orchestration.API.Controllers
         /// <param name="operationId">The ID of the operation to retrieve.</param>
         /// <returns>Returns a completion response</returns>
         [HttpGet("async-completions/{operationId}/result")]
-        public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
-            await _orchestrationService.GetCompletionOperation(instanceId, operationId);
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
+            await _orchestrationService.GetCompletionOperationResult(instanceId, operationId);
 
     }
 }
