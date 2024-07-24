@@ -1,6 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
 namespace FoundationaLLM.Client.Management.Interfaces
@@ -60,14 +58,5 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <returns>Returns a <see cref="ResourceProviderUpsertResult"/>, which contains the
         /// Object ID of the resource.</returns>
         Task<ResourceProviderUpsertResult> UpsertAPIEndpointConfiguration(APIEndpointConfiguration apiEndpointConfiguration);
-
-        /// <summary>
-        /// Upserts an ai model resource. If an ai model does not exist, it will be created.
-        /// If an ai model configuration does exist, it will be updated.
-        /// </summary>
-        /// <param name="aiModel">The api endpoint configuration resource to create or update.</param>
-        /// <returns>Returns a <see cref="ResourceProviderUpsertResult"/>, which contains the
-        /// Object ID of the resource.</returns>
-        Task<ResourceProviderUpsertResult> UpsertAIModel(AIModelBase aiModel);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
 namespace FoundationaLLM.Client.Management.Clients.Resources
@@ -61,14 +60,6 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
                 ResourceProviderNames.FoundationaLLM_Configuration,
                 $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{apiEndpointConfiguration.Name}",
                 apiEndpointConfiguration
-            );
-
-        /// <inheritdoc/>
-        public async Task<ResourceProviderUpsertResult> UpsertAIModel(AIModelBase aiModel) =>
-            await managementRestClient.Resources.UpsertResourceAsync(
-                ResourceProviderNames.FoundationaLLM_AIModel,
-                $"{AIModelResourceTypeNames.AIModels}/{aiModel.Name}",
-                aiModel
             );
     }
 }
