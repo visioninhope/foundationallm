@@ -152,14 +152,42 @@ az account set --subscription &lt;Azure Subscription ID&gt;
 <p>Skip this step if you created certificates using LetsEncrypt in step 6.</p>
 </div>
 <p>Create certificates for the appropriate domains and package them in PFX format.  Place the PFX files in <code>foundationallm/deploy/standard/config/certbot/certs</code> following the naming convention below.  The values for <code>Host Name</code> and <code>Domain Name</code> should match the values you provided in your deployment manifest:</p>
-<pre><code>| Service Name      | Host Name         | Domain Name | File Name                         |
-| ----------------- | ----------------- | ----------- | --------------------------------- |
-| core-api          | api               | example.com | api.example.com.pfx               |
-| management-api    | management-api    | example.com | management-api.example.com.pfx    |
-| vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
-| chat-ui           | chat              | example.com | chat.example.com.pfx              |
-| management-ui     | management        | example.com | management.example.com.pfx        |
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Service Name</th>
+<th>Host Name</th>
+<th>Domain Name</th>
+<th>File Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>core-api</td>
+<td>api</td>
+<td>example.com</td>
+<td>api.example.com.pfx</td>
+</tr>
+<tr>
+<td>management-api</td>
+<td>management-api</td>
+<td>example.com</td>
+<td>management-api.example.com.pfx</td>
+</tr>
+<tr>
+<td>chat-ui</td>
+<td>chat</td>
+<td>example.com</td>
+<td>chat.example.com.pfx</td>
+</tr>
+<tr>
+<td>management-ui</td>
+<td>management</td>
+<td>example.com</td>
+<td>management.example.com.pfx</td>
+</tr>
+</tbody>
+</table>
 <h2 id="provision-infrastructure">Provision Infrastructure</h2>
 <ol start="8">
 <li>Provision infrastructure with <code>psake</code>:</li>
