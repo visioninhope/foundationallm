@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 
-class ExecutionLogEntry(BaseModel):
+class LongRunningOperationLogEntry(BaseModel):
     """
-    Represents an entry in the execution log.
+    Represents an entry in the operation execution log.
     """
     timestamp: str = Field(description='The timestamp of the log entry.')
     status: str = Field(description='The status of the operation at the time of the log entry.')
