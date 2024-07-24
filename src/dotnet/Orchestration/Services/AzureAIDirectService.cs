@@ -40,9 +40,10 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus() =>
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId) =>
             await Task.FromResult(new ServiceStatusInfo
             {
+                InstanceId = instanceId,
                 Name = Name,
                 Status = "ready",
             });
@@ -51,7 +52,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         public string Name => LLMOrchestrationServiceNames.AzureAIDirect;
 
         /// <inheritdoc/>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             request.Validate();
 

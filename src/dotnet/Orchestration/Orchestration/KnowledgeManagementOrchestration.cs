@@ -41,7 +41,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
         /// <inheritdoc/>
-        public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public override async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
@@ -60,6 +60,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 };
 
             var result = await _orchestrationService.GetCompletion(
+                instanceId,
                 new LLMCompletionRequest
                 {
                     UserPrompt = completionRequest.UserPrompt!,
