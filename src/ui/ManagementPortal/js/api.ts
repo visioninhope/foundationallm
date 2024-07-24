@@ -582,7 +582,7 @@ export default {
 
 	async getExternalOrchestrationServices(resolveApiKey: boolean = false): Promise<ResourceProviderGetResult<ExternalOrchestrationService>[]> {
 		const data = await this.fetch(
-			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/externalOrchestrationServices?api-version=${this.apiVersion}`,
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/apiEndpoints?api-version=${this.apiVersion}`,
 		) as ResourceProviderGetResult<ExternalOrchestrationService>[];
 		
 		// Retrieve all the app config values for the external orchestration services..

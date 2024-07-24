@@ -37,9 +37,10 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         /// <summary>
         /// Gets a completion from the Gatekeeper service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             if (completionRequest.GatekeeperOptions != null && completionRequest.GatekeeperOptions.Length > 0)
             {
@@ -82,7 +83,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                     return new CompletionResponse() { Completion = contentSafetyResult.Reason };
             }
 
-            var completionResponse = await _orchestrationAPIService.GetCompletion(completionRequest);
+            var completionResponse = await _orchestrationAPIService.GetCompletion(instanceId, completionRequest);
 
             if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
                 completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
@@ -90,51 +91,18 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             return completionResponse;
         }
 
-        /// <summary>
-        /// Gets a summary from the Gatekeeper service.
-        /// </summary>
-        /// <param name="summaryRequest">The summarize request containing the user prompt.</param>
-        /// <returns>The summary response.</returns>
-        public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-        {
-            if (_gatekeeperServiceSettings.EnableLakeraGuard)
-            {
-                var promptinjectionResult = await _lakeraGuardService.DetectPromptInjection(summaryRequest.UserPrompt!);
+        /// <inheritdoc/>
+        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+            // TODO: Need to call State API to start the operation.
+            throw new NotImplementedException();
 
-                if (!string.IsNullOrWhiteSpace(promptinjectionResult))
-                    return new SummaryResponse() { Summary = promptinjectionResult };
-            }
+        /// <inheritdoc/>
+        public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
 
-            if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
-            {
-                var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(summaryRequest.UserPrompt!);
-
-                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new SummaryResponse() { Summary = promptInjectionResult };
-            }
-
-            if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
-            {
-                var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(summaryRequest.UserPrompt!);
-
-                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new SummaryResponse() { Summary = promptInjectionResult };
-            }
-
-            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
-            {
-                var contentSafetyResult = await _contentSafetyService.AnalyzeText(summaryRequest.UserPrompt!);
-
-                if (!contentSafetyResult.Safe)
-                    return new SummaryResponse() { Summary = contentSafetyResult.Reason };
-            }
-
-            var summaryResponse = await _orchestrationAPIService.GetSummary(summaryRequest);
-
-            if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
-                summaryResponse.Summary = await _gatekeeperIntegrationAPIService.AnonymizeText(summaryResponse.Summary!);
-
-            return summaryResponse;
-        }
+        /// <inheritdoc/>
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
+            // TODO: Need to call State API to get the operation.
+            throw new NotImplementedException();
+        
     }
 }

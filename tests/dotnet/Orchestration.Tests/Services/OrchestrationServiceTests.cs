@@ -11,6 +11,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class OrchestrationServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly IEnumerable<ILLMOrchestrationService> _orchestrationServices =
         [
             Substitute.For<ILLMOrchestrationService>(),
@@ -49,7 +50,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             };
 
             // Act
-            var result = await _orchestrationService.GetCompletion(completionRequest);
+            var result = await _orchestrationService.GetCompletion(_instanceId, completionRequest);
 
             // Assert
             Assert.NotNull(result);
@@ -60,7 +61,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         public async Task GetCompletion_ExceptionThrown_ReturnsErrorResponse()
         {
             // Act 
-            var result = await _orchestrationService.GetCompletion(new CompletionRequest() { UserPrompt = "Error" });
+            var result = await _orchestrationService.GetCompletion(_instanceId, new CompletionRequest() { UserPrompt = "Error" });
 
             // Assert
             Assert.NotNull(result);

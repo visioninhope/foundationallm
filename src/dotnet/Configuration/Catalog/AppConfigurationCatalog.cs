@@ -569,11 +569,73 @@ namespace FoundationaLLM.Configuration.Catalog
                 minimumVersion: "0.7.0",
                 defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
                 description:
-                "The connection string to the Application Insights instance used by the vectorization API.",
+                "The connection string to the Application Insights instance used by the Gateway API.",
                 keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
                 contentType: "text/plain",
                 sampleObject: null
             ),
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIUrl,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description: "The URL of the Gateway Adapter API.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey,
+                minimumVersion: "0.8.0",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-gatewayadapterapi-apikey`",
+                description: "The API key of the Gateway Adapter API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_GatewayAdapterAPI_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_GatewayAdapterAPI_AppInsightsConnectionString,
+                minimumVersion: "0.8.0",
+                defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
+                description:
+                "The connection string to the Application Insights instance used by the Gateway API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIUrl,
+                minimumVersion: "0.8.0",
+                defaultValue: "",
+                description: "The URL of the State API.",
+                keyVaultSecretName: "",
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys.FoundationaLLM_APIs_StateAPI_APIKey,
+                minimumVersion: "0.8.0",
+                defaultValue: "Key Vault secret name: `foundationallm-apis-stateapi-apikey`",
+                description: "The API key of the State API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_APIs_StateAPI_APIKey,
+                contentType: "text/plain",
+                sampleObject: null
+            ),
+
+            new(
+                key: AppConfigurationKeys
+                    .FoundationaLLM_APIs_StateAPI_AppInsightsConnectionString,
+                minimumVersion: "0.8.0",
+                defaultValue: "Key Vault secret name: `foundationallm-app-insights-connection-string`",
+                description:
+                "The connection string to the Application Insights instance used by the State API.",
+                keyVaultSecretName: KeyVaultSecretNames.FoundationaLLM_App_Insights_Connection_String,
+                contentType: "text/plain",
+                sampleObject: null
+            )
         ];
 
         #endregion

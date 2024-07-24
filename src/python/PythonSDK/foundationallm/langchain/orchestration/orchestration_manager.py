@@ -1,5 +1,6 @@
 from foundationallm.config import Configuration, Context
 from foundationallm.langchain.agents import AgentFactory, LangChainAgentBase
+from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.models.orchestration import (
     CompletionRequestBase,
     CompletionResponse
@@ -58,3 +59,21 @@ class OrchestrationManager:
             Object containing the completion response and token usage details.
         """
         return self.agent.invoke(request)
+
+    async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:
+        """
+        Executes a completion request against the LanguageModel using 
+        the LangChain agent assembled by the OrchestrationManager.
+        
+        Parameters
+        ----------
+        prompt : str
+            The prompt for which a completion is being generated.
+            
+        Returns
+        -------
+        CompletionResponse
+            Object containing the completion response and token usage details.
+        """
+        completion_response = await self.agent.ainvoke(request)
+        return completion_response

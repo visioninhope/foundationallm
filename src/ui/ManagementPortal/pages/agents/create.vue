@@ -894,6 +894,7 @@ export default {
 			this.$toast.add({
 				severity: 'error',
 				detail: error?.response?._data || error,
+				life: 5000,
 			});
 		}
 
@@ -1024,6 +1025,7 @@ export default {
 					// this.$toast.add({
 					// 	severity: 'warn',
 					// 	detail: `Agent name "${this.agentName}" is already taken for the selected ${response.type} agent type. Please choose another name.`,
+					// life: 5000,
 					// });
 				}
 			} catch (error) {
@@ -1235,6 +1237,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: successMessage,
+				life: 5000,
 			});
 
 			this.loading = false;
