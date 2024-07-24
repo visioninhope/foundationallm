@@ -65,6 +65,12 @@
 			"Filename": "/FoundationaLLM.Configuration/StateAPI.json",
 			"Type": "api-endpoint",
 			"Deleted": false
+		},
+		{
+			"Name": "VectorizationWorker",
+			"Filename": "/FoundationaLLM.Configuration/VectorizationWorker.json",
+			"Type": "api-endpoint",
+			"Deleted": false
 		}
 	]
 }
