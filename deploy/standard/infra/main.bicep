@@ -3,7 +3,6 @@ targetScope = 'subscription'
 param administratorObjectId string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
-param authAppRegistrationScopes string
 param authAppRegistrationTenantId string
 param createDate string = utcNow('u')
 param createVpnGateway bool = false
@@ -14,17 +13,16 @@ param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
 param existingOpenAiInstanceSub string = ''
 param instanceId string
-param k8sNamespace string
 param location string
 param networkName string = ''
 param project string
+param registry string
 param timestamp string = utcNow()
-
-@secure()
-param authClientSecret string
 
 // Locals
 var abbrs = loadJsonContent('./abbreviations.json')
+// var authAppRegistrationScopes = 'api://FoundationaLLM-Authorization-Auth/.default'
+var k8sNamespace = 'fllm'
 var useExternalDns = !empty(externalDnsResourceGroupName)
 var useExternalNetworking = !empty(externalNetworkingResourceGroupName)
 
@@ -85,7 +83,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = [
 
 // Nested Deployments
 module app 'app-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking, ops]
   name: 'app-${timestamp}'
   scope: resourceGroup(resourceGroups.app)
   params: {
@@ -113,7 +111,7 @@ module app 'app-rg.bicep' = {
 }
 
 module auth 'auth-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking, app, ops]
   name: 'auth-${timestamp}'
   scope: resourceGroup(resourceGroups.auth)
   params: {
@@ -122,9 +120,7 @@ module auth 'auth-rg.bicep' = {
     appResourceGroupName: resourceGroups.app
     authAppRegistrationClientId: authAppRegistrationClientId
     authAppRegistrationInstance: authAppRegistrationInstance
-    authAppRegistrationScopes: authAppRegistrationScopes
     authAppRegistrationTenantId: authAppRegistrationTenantId
-    authClientSecret: authClientSecret
     dnsResourceGroupName: resourceGroups.dns
     environmentName: environmentName
     instanceId: instanceId
@@ -138,7 +134,7 @@ module auth 'auth-rg.bicep' = {
 }
 
 module dns 'dns-rg.bicep' = if (!useExternalDns) {
-  dependsOn: [rg]
+  dependsOn: [rg, networking]
   name: 'dns-${timestamp}'
   scope: resourceGroup(resourceGroups.dns)
   params: {
@@ -164,7 +160,7 @@ module networking 'networking-rg.bicep' = {
 }
 
 module openai 'openai-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking]
   name: 'openai-${timestamp}'
   scope: resourceGroup(resourceGroups.oai)
   params: {
@@ -182,7 +178,7 @@ module openai 'openai-rg.bicep' = {
 }
 
 module ops 'ops-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking]
   name: 'ops-${timestamp}'
   scope: resourceGroup(resourceGroups.ops)
   params: {
@@ -196,7 +192,7 @@ module ops 'ops-rg.bicep' = {
 }
 
 module storage 'storage-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking]
   name: 'storage-${timestamp}'
   scope: resourceGroup(resourceGroups.storage)
   params: {
@@ -211,7 +207,7 @@ module storage 'storage-rg.bicep' = {
 }
 
 module vec 'vec-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, networking]
   name: 'vec-${timestamp}'
   scope: resourceGroup(resourceGroups.vec)
   params: {
@@ -225,8 +221,19 @@ module vec 'vec-rg.bicep' = {
   }
 }
 
-output managedResourceGroupNames object = reduce(
-  filter(items(resourceGroups), (item) => !contains(objectKeys(externalResourceGroups), item.key)),
-  {},
-  (curr, next) => union(curr, { '${next.key}': next.value })
-)
+output FOUNDATIONALLM_PROJECT string = project
+output FOUNDATIONALLM_K8S_NS string = k8sNamespace
+output FOUNDATIONALLM_REGISTRY string = registry
+
+output FLLM_APP_RG     string = resourceGroups.app
+output FLLM_AUTH_RG    string = resourceGroups.auth
+output FLLM_DATA_RG    string = resourceGroups.data
+output FLLM_DNS_RG     string = resourceGroups.dns
+output FLLM_JBX_RG     string = resourceGroups.jbx
+output FLLM_NET_RG     string = resourceGroups.net
+output FLLM_OAI_RG     string = resourceGroups.oai
+output FLLM_OPS_RG     string = resourceGroups.ops
+output FLLM_STORAGE_RG string = resourceGroups.storage
+output FLLM_VEC_RG     string = resourceGroups.vec
+
+output FLLM_OPS_KV string = ops.outputs.keyVaultName

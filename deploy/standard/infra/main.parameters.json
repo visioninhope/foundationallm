@@ -2,26 +2,17 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "baseHttpDomain": {
-        "value": "${FOUNDATIONALLM_HTTP_DOMAIN}"
-      },
       "authAppRegistrationClientId": {
         "value": "${ENTRA_AUTH_API_CLIENT_ID}"
       },
       "authAppRegistrationInstance": {
         "value": "${ENTRA_AUTH_API_INSTANCE='https://login.microsoftonline.com'}"
       },
-      "authClientSecret": {
-        "value": "${ENTRA_AUTH_API_CLIENT_SECRET}"
-      },
       "administratorObjectId": {
         "value": "${ADMIN_GROUP_OBJECT_ID}"
       },
       "createVpnGateway": {
         "value": "${CREATE_VPN_GATEWAY=true}"
-      },
-      "authAppRegistrationScopes": {
-        "value": "${ENTRA_AUTH_API_SCOPES='api://FoundationaLLM-Authorization-Auth/.default'}"
       },
       "authAppRegistrationTenantId": {
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
@@ -30,13 +21,13 @@
         "value": "${AZURE_ENV_NAME}"
       },
       "existingOpenAiInstanceSub": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_SUB=''}"
+        "value": "${FOUNDATIONALLM_EXT_OPENAI_SUB}"
       },
       "existingOpenAiInstanceRg": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_RG=''}"
+        "value": "${FOUNDATIONALLM_EXT_OPENAI_RG}"
       },
       "existingOpenAiInstanceName": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_NAME=''}"
+        "value": "${FOUNDATIONALLM_EXT_OPENAI_NAME}"
       },
       "location": {
         "value": "${AZURE_LOCATION}"
@@ -48,12 +39,10 @@
         "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
       },
       "project": {
-        "value": "${AZURE_ENV_NAME}"
+        "value": "${FOUNDATIONALLM_PROJECT}"
       },
-      "serviceDefinition": {
-        "value": {
-          "settings": []
-        }
+      "registry": {
+        "value": "${FLLM_REGISTRY=cropseastus2svinternal.azurecr.io}"
       },
       "authService": {
         "value": {
@@ -243,12 +232,6 @@
             "replicaCount": "${SERVICE_VECTORIZATIONJOB_REPLICAS=1}"
           }
         ]
-      },
-      "principalId": {
-        "value": "${AZURE_PRINCIPAL_ID}"
-      },
-      "principalType": {
-        "value": "${AZURE_PRINCIPAL_TYPE=User}"
       }
     }
 }
