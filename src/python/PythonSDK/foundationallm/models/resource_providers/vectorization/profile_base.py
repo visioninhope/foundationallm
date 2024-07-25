@@ -5,16 +5,12 @@ Classes:
     - ProfileBase: Base class to hold vectorization profile information
 Description: Base class to hold vectorization profile information
 """
-from typing import Optional
-from pydantic import BaseModel
-from .settings_base import SettingsBase
-from .configuration_references_base import ConfigurationReferencesBase
+from typing import List, Optional
+from foundationallm.models.resource_providers import ResourceBase
 
-class ProfileBase(BaseModel):
+class ProfileBase(ResourceBase):
     """
     Base class to hold vectorization profile information.
     """
-    name: str
-    object_id: Optional[str] = None
-    settings: SettingsBase
-    configuration_references: ConfigurationReferencesBase
+    settings: Optional[List[dict]] = []
+    configuration_references: Optional[List[dict]] = []
