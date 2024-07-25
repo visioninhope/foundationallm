@@ -108,27 +108,24 @@
 					/>
 
 					<div class="mb-2">Search query</div>
-					<!-- <InputText
-						v-model="principalSearch"
-						placeholder="Search"
-						type="text"
-					/> -->
-					<Dropdown
-						v-if="principalSearchType === 'User'"
+					<AutoComplete
 						v-model="dialogPrincipal"
-						:options="users"
+						:suggestions="principalOptionsFiltered"
+						force-selection
+						dropdown
+						data-key="id"
 						option-label="display_name"
-						placeholder="--Select--"
 						class="w-100"
-					/>
-					<Dropdown
-						v-if="principalSearchType === 'Group'"
-						v-model="dialogPrincipal"
-						:options="groups"
-						option-label="display_name"
-						placeholder="--Select--"
-						class="w-100"
-					/>
+						@complete="handlePrincipalSearch"
+					>
+						<template #option="{ option }">
+							<div class="flex items-center">
+									<div>{{ option.display_name }}</div>
+									<div style="font-size: 0.8rem">{{ option.email }}</div>
+							</div>
+						</template>
+					</AutoComplete>
+
 					<template #footer>
 						<Button label="Cancel" text @click="selectPrincipalDialogOpen = false" />
 						<Button label="Select" severity="primary" @click="handlePrincipalSelected" />
@@ -219,7 +216,14 @@ export default {
 			dialogPrincipal: null,
 			users: [],
 			groups: [],
+			principalOptionsFiltered: [],
 		};
+	},
+
+	watch: {
+		principalSearchType() {
+			this.dialogPrincipal = null;
+		},
 	},
 
 	async created() {
@@ -272,6 +276,17 @@ export default {
 			return allPrincipals;
 		},
 
+		handlePrincipalSearch(event) {
+			let optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
+
+			this.principalOptionsFiltered = optionsToSearch.filter((principal) => {
+				const queryLowercase = event.query.toLowerCase();
+				const nameMatch = principal.display_name?.toLowerCase().includes(queryLowercase);
+				const emailMatch = principal.email?.toLowerCase().includes(queryLowercase);
+				return nameMatch || emailMatch;
+			});
+		},
+
 		handleCancel() {
 			if (!confirm('Are you sure you want to cancel?')) {
 				return;
@@ -281,6 +296,14 @@ export default {
 		},
 
 		handlePrincipalSelected() {
+			if (!this.dialogPrincipal) {
+				return this.$toast.add({
+					severity: 'error',
+					detail: 'Please select a principal to assign.',
+					life: 5000,
+				});
+			}
+
 			this.principal = this.dialogPrincipal;
 			this.roleAssignment.principal_id = this.dialogPrincipal.id;
 			this.roleAssignment.principal_type = this.dialogPrincipal.object_type;
@@ -303,6 +326,7 @@ export default {
 				this.$toast.add({
 					severity: 'error',
 					detail: errors.join('\n'),
+					life: 5000,
 				});
 
 				return;
@@ -323,6 +347,7 @@ export default {
 				return this.$toast.add({
 					severity: 'error',
 					detail: error?.response?._data || error,
+					life: 5000,
 				});
 			}
 
