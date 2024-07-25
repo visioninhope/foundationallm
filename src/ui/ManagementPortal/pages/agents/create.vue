@@ -517,7 +517,7 @@
 						/>
 					</div>
 
-					<!-- Data protections -->
+					<!-- Data protection -->
 					<div class="mt-2">
 						<span class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
