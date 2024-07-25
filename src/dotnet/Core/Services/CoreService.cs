@@ -1,3 +1,4 @@
+using Azure.Core;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -96,7 +97,10 @@ public partial class CoreService(
     {
         try
         {
-            ArgumentNullException.ThrowIfNull(completionRequest.SessionId);            
+            ArgumentNullException.ThrowIfNull(completionRequest.SessionId);
+
+            completionRequest = PrepareCompletionRequest(completionRequest);
+
             // Retrieve conversation, including latest prompt.
             var messages = await _cosmosDbService.GetSessionMessagesAsync(completionRequest.SessionId, _callContext.CurrentUserIdentity?.UPN ??
                 throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat completions."));
@@ -144,6 +148,8 @@ public partial class CoreService(
     {
         try
         {
+            directCompletionRequest = PrepareCompletionRequest(directCompletionRequest);
+
             var agentOption = await ProcessGatekeeperOptions(directCompletionRequest);
 
             // Generate the completion to return to the user.
@@ -159,8 +165,11 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+    public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
+    {
+        completionRequest = PrepareCompletionRequest(completionRequest);
         throw new NotImplementedException();
+    }        
 
     /// <inheritdoc/>
     public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
@@ -270,6 +279,17 @@ public partial class CoreService(
         ArgumentNullException.ThrowIfNullOrEmpty(completionPromptId);
 
         return await _cosmosDbService.GetCompletionPrompt(sessionId, completionPromptId);
+    }
+
+    /// <summary>
+    /// Pre-processing of incoming completion request.
+    /// </summary>
+    /// <param name="request">The completion request.</param>
+    /// <returns>The updated completion request with pre-processing applied.</returns>
+    private CompletionRequest PrepareCompletionRequest(CompletionRequest request)
+    {
+        request.OperationId = Guid.NewGuid().ToString();
+        return request;
     }
 
     [GeneratedRegex(@"[^\w\s]")]

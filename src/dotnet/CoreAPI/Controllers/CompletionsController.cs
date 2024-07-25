@@ -62,11 +62,9 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="completionRequest">The user prompt for which to generate a completion.</param>
         [HttpPost("completions", Name = "GetCompletion")]
         public async Task<IActionResult> GetCompletion(string instanceId, [FromBody] CompletionRequest completionRequest)
-        {
-            completionRequest.OperationId = Guid.NewGuid().ToString();
-            return !string.IsNullOrWhiteSpace(completionRequest.SessionId) ? Ok(await _coreService.GetChatCompletionAsync(instanceId, completionRequest)) :
+        => !string.IsNullOrWhiteSpace(completionRequest.SessionId) ? Ok(await _coreService.GetChatCompletionAsync(instanceId, completionRequest)) :
                 Ok(await _coreService.GetCompletionAsync(instanceId, completionRequest));
-        }
+        
 
             
 
@@ -79,7 +77,6 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpPost("async-completions")]
         public async Task<ActionResult<LongRunningOperation>> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
         {
-            completionRequest.OperationId = Guid.NewGuid().ToString();
             var state = await _coreService.StartCompletionOperation(instanceId, completionRequest);
             return Accepted(state);
         }
