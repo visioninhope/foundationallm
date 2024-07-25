@@ -1,0 +1,14 @@
+{
+    "type": "completion",
+    "name": "embedding-model",
+    "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.AIModel/aiModels/embedding-model",
+    "display_name": null,
+    "description": null,
+    "cost_center": null,
+    "endpoint_object_id": "",
+    "version": "0.0",
+    "deployment_name": "completions",
+    "model_parameters": {
+        "temperature": 0
+    }
+}
