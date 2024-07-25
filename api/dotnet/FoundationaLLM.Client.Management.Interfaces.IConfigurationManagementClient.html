@@ -132,7 +132,7 @@ Interface IConfigurationManagementClient  <a class="header-action link-secondary
 
   <h3 id="FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_DeleteAppConfigurationAsync_System_String_" data-uid="FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.DeleteAppConfigurationAsync(System.String)">
   DeleteAppConfigurationAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IConfigurationManagementClient.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IConfigurationManagementClient.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes an Azure App Configuration key and associated Azure Key Vault secret.</p>
@@ -298,6 +298,47 @@ service to retrieve.</p>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderGetResult-1.html">ResourceProviderGetResult</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration.html">APIEndpointConfiguration</a>&gt;&gt;&gt;</dt>
     <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_UpsertAPIEndpointConfiguration_" data-uid="FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration*"></a>
+
+  <h3 id="FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_UpsertAPIEndpointConfiguration_FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpointConfiguration_" data-uid="FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration)">
+  UpsertAPIEndpointConfiguration(APIEndpointConfiguration)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IConfigurationManagementClient.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Upserts an api endpoint configuration resource. If an api endpoint configuration does not exist, it will be created.
+If an api endpoint configuration does exist, it will be updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ResourceProviderUpsertResult&gt; UpsertAPIEndpointConfiguration(APIEndpointConfiguration apiEndpointConfiguration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>apiEndpointConfiguration</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration.html">APIEndpointConfiguration</a></dt>
+    <dd><p>The api endpoint configuration resource to create or update.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderUpsertResult.html">ResourceProviderUpsertResult</a>&gt;</dt>
+    <dd><p>Returns a <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderUpsertResult.html">ResourceProviderUpsertResult</a>, which contains the
+Object ID of the resource.</p>
+</dd>
   </dl>
 
 

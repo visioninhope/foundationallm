@@ -2969,6 +2969,25 @@ references:
   commentId: N:FoundationaLLM.Client.Management.Interfaces
   fullName: FoundationaLLM.Client.Management.Interfaces
   nameWithType: FoundationaLLM.Client.Management.Interfaces
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient
+  name: IAIModelManagementClient
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html
+  commentId: T:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient
+  nameWithType: IAIModelManagementClient
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel(FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase)
+  name: UpsertAIModel(AIModelBase)
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_UpsertAIModel_FoundationaLLM_Common_Models_ResourceProviders_AIModel_AIModelBase_
+  commentId: M:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel(FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase)
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel(FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase)
+  nameWithType: IAIModelManagementClient.UpsertAIModel(AIModelBase)
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel*
+  name: UpsertAIModel
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_UpsertAIModel_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel
+  nameWithType: IAIModelManagementClient.UpsertAIModel
 - uid: FoundationaLLM.Client.Management.Interfaces.IAgentManagementClient
   name: IAgentManagementClient
   href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAgentManagementClient.html
@@ -3206,6 +3225,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.GetExternalOrchestrationServicesAsync
   nameWithType: IConfigurationManagementClient.GetExternalOrchestrationServicesAsync
+- uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration)
+  name: UpsertAPIEndpointConfiguration(APIEndpointConfiguration)
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_UpsertAPIEndpointConfiguration_FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpointConfiguration_
+  commentId: M:FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration)
+  fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration)
+  nameWithType: IConfigurationManagementClient.UpsertAPIEndpointConfiguration(APIEndpointConfiguration)
+- uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration*
+  name: UpsertAPIEndpointConfiguration
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_UpsertAPIEndpointConfiguration_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAPIEndpointConfiguration
+  nameWithType: IConfigurationManagementClient.UpsertAPIEndpointConfiguration
 - uid: FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.UpsertAppConfigurationAsync(FoundationaLLM.Common.Models.ResourceProviders.Configuration.AppConfigurationKeyBase)
   name: UpsertAppConfigurationAsync(AppConfigurationKeyBase)
   href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IConfigurationManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IConfigurationManagementClient_UpsertAppConfigurationAsync_FoundationaLLM_Common_Models_ResourceProviders_Configuration_AppConfigurationKeyBase_
@@ -3408,6 +3440,19 @@ references:
   commentId: T:FoundationaLLM.Client.Management.Interfaces.IManagementClient
   fullName: FoundationaLLM.Client.Management.Interfaces.IManagementClient
   nameWithType: IManagementClient
+- uid: FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels
+  name: AIModels
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IManagementClient_AIModels
+  commentId: P:FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels
+  fullName: FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels
+  nameWithType: IManagementClient.AIModels
+- uid: FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels*
+  name: AIModels
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IManagementClient_AIModels_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IManagementClient.AIModels
+  nameWithType: IManagementClient.AIModels
 - uid: FoundationaLLM.Client.Management.Interfaces.IManagementClient.Agents
   name: Agents
   href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IManagementClient_Agents
@@ -4170,6 +4215,19 @@ references:
   fullName.vb: FoundationaLLM.Client.Management.ManagementClient.New
   nameWithType: ManagementClient.ManagementClient
   nameWithType.vb: ManagementClient.New
+- uid: FoundationaLLM.Client.Management.ManagementClient.AIModels
+  name: AIModels
+  href: api/dotnet/FoundationaLLM.Client.Management.ManagementClient.html#FoundationaLLM_Client_Management_ManagementClient_AIModels
+  commentId: P:FoundationaLLM.Client.Management.ManagementClient.AIModels
+  fullName: FoundationaLLM.Client.Management.ManagementClient.AIModels
+  nameWithType: ManagementClient.AIModels
+- uid: FoundationaLLM.Client.Management.ManagementClient.AIModels*
+  name: AIModels
+  href: api/dotnet/FoundationaLLM.Client.Management.ManagementClient.html#FoundationaLLM_Client_Management_ManagementClient_AIModels_
+  commentId: Overload:FoundationaLLM.Client.Management.ManagementClient.AIModels
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.ManagementClient.AIModels
+  nameWithType: ManagementClient.AIModels
 - uid: FoundationaLLM.Client.Management.ManagementClient.Agents
   name: Agents
   href: api/dotnet/FoundationaLLM.Client.Management.ManagementClient.html#FoundationaLLM_Client_Management_ManagementClient_Agents
