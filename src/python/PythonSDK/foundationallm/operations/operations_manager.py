@@ -62,7 +62,7 @@ class OperationsManager():
                 headers=headers
             )
 
-            if r.status_code != 202:
+            if r.status_code != 200:
                 raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
 
             return operation
@@ -119,7 +119,7 @@ class OperationsManager():
             if r.status_code == 404:
                 return None
 
-            if r.status_code != 202:
+            if r.status_code != 200:
                 raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
 
             return operation
@@ -199,7 +199,7 @@ class OperationsManager():
                 "Content-Type":"application/json"
             }
 
-            r = requests.put(
+            r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/result',
                 json=json.dumps(completion_response.__dict__, default=str),
                 headers=headers
@@ -208,7 +208,7 @@ class OperationsManager():
             if r.status_code == 404:
                 return None
 
-            if r.status_code != 202:
+            if r.status_code != 200:
                 raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
 
         except Exception as e:
