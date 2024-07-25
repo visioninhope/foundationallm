@@ -1,18 +1,12 @@
-﻿using AngleSharp.Dom.Events;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
-using FoundationaLLM.Common.Constants.Authentication;
-using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
@@ -22,22 +16,18 @@ namespace FoundationaLLM.Orchestration.Core.Services
     /// <summary>
     /// The Azure OpenAI direct orchestration service.
     /// </summary>
-    /// <param name="callContext">The <see cref="ICallContext"/> providing details about the call context.</param>
     /// <param name="logger">The logger used for logging.</param>
-    /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
     /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
     /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
     /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     public class AzureOpenAIDirectService(
         ILogger<AzureOpenAIDirectService> logger,
-        IConfiguration configuration,
         ICallContext callContext,
         IHttpClientFactoryService httpClientFactoryService,
         IEnumerable<IResourceProviderService> resourceProviderServices) : IAzureOpenAIDirectService
     {
         private readonly ILogger<AzureOpenAIDirectService> _logger = logger;
-        private readonly IConfiguration _configuration = configuration;
         private readonly ICallContext _callContext = callContext;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
         private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
@@ -97,79 +87,50 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 inputStrings.Add(userPrompt);
             }
 
-            var apiKey = string.Empty;
-            var apiKeyHeaderName = string.Empty;
+            var client = await _httpClientFactoryService.CreateClient(endpointConfiguration, _callContext.CurrentUserIdentity);
 
-            if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
+            var modelParameters = request.AIModel.ModelParameters;
+
+            var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>();
+            var chatOperation = string.Empty;
+
+            switch (endpointConfiguration.OperationType)
             {
-                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
-                    AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyKeyName))
-                    throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the AI model enpoint's authentication parameters dictionary.");
-
-                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
+                case OperationTypes.Completions:
+                    azureOpenAIDirectRequest.Prompt = request.UserPrompt;
+                    break;
+                case OperationTypes.Chat:
+                    chatOperation = "/chat";
+                    azureOpenAIDirectRequest.Messages = [.. inputStrings];
+                    break;
             }
 
-            // The expected value for the header name is "api-key".
-            if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyHeaderName, out var apiKeyHeaderNameObject))
-                throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyHeaderName} key is missing from the AI model enpoint's authentication parameters dictionary.");
-            apiKeyHeaderName = apiKeyHeaderNameObject.ToString();
+            var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
+            var content = new StringContent(body, Encoding.UTF8, "application/json");
 
-            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url)
-                && !string.IsNullOrWhiteSpace(apiKey)
-                && !string.IsNullOrWhiteSpace(request.AIModel.DeploymentName)
-                && !string.IsNullOrWhiteSpace(apiKeyHeaderName))
+            var responseMessage = await client.PostAsync($"/openai/deployments/{request.AIModel.DeploymentName}{chatOperation}/completions?api-version={endpointConfiguration.APIVersion}", content);
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var client = await _httpClientFactoryService.CreateClient(HttpClients.AzureOpenAIDirect, _callContext.CurrentUserIdentity);
-                if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey && !string.IsNullOrWhiteSpace(apiKey))
+                var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
+
+                return new LLMCompletionResponse
                 {
-                    client.DefaultRequestHeaders.Add(apiKeyHeaderName, apiKey);
-                }
-
-                client.BaseAddress = new Uri(endpointConfiguration.Url);
-
-                var modelParameters = request.AIModel.ModelParameters;
-
-                var azureOpenAIDirectRequest = modelParameters.ToObject<AzureOpenAICompletionRequest>();
-                var chatOperation = string.Empty;
-
-                switch (endpointConfiguration.OperationType)
-                {
-                    case OperationTypes.Completions:
-                        azureOpenAIDirectRequest.Prompt = request.UserPrompt;
-                        break;
-                    case OperationTypes.Chat:
-                        chatOperation = "/chat";
-                        azureOpenAIDirectRequest.Messages = [.. inputStrings];
-                        break;
-                }
-
-                var body = JsonSerializer.Serialize(azureOpenAIDirectRequest, _jsonSerializerOptions);
-                var content = new StringContent(body, Encoding.UTF8, "application/json");
-
-                var responseMessage = await client.PostAsync($"/openai/deployments/{request.AIModel.DeploymentName}{chatOperation}/completions?api-version={endpointConfiguration.APIVersion}", content);
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    var completionResponse = JsonSerializer.Deserialize<AzureOpenAICompletionResponse>(responseContent);
-
-                    return new LLMCompletionResponse
-                    {
-                        Completion = !string.IsNullOrEmpty(endpointConfiguration.OperationType) && endpointConfiguration.OperationType == OperationTypes.Chat
-                            ? completionResponse!.Choices?[0].Message?.Content
-                            : completionResponse!.Choices?[0].Text,
-                        UserPrompt = request.UserPrompt,
-                        FullPrompt = body,
-                        PromptTemplate = systemPrompt?.Content,
-                        AgentName = request.Agent.Name,
-                        PromptTokens = completionResponse!.Usage!.PromptTokens,
-                        CompletionTokens = completionResponse!.Usage!.CompletionTokens
-                    };
-                }
-
-                _logger.LogWarning("The AzureOpenAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
-                    responseMessage.StatusCode, responseContent);
+                    Completion = !string.IsNullOrEmpty(endpointConfiguration.OperationType) && endpointConfiguration.OperationType == OperationTypes.Chat
+                        ? completionResponse!.Choices?[0].Message?.Content
+                        : completionResponse!.Choices?[0].Text,
+                    UserPrompt = request.UserPrompt,
+                    FullPrompt = body,
+                    PromptTemplate = systemPrompt?.Content,
+                    AgentName = request.Agent.Name,
+                    PromptTokens = completionResponse!.Usage!.PromptTokens,
+                    CompletionTokens = completionResponse!.Usage!.CompletionTokens
+                };
             }
+
+            _logger.LogWarning("The AzureOpenAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
+                responseMessage.StatusCode, responseContent);
 
             return new LLMCompletionResponse
             {
