@@ -120,8 +120,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
             // Create a new orchestration request for the user prompt and chat session.
             var completionRequest = new CompletionRequest
-            {
-                OperationId = Guid.NewGuid().ToString(),
+            {                
                 AgentName = agentName,
                 UserPrompt = userPrompt,
                 Settings = null

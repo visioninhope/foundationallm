@@ -120,7 +120,6 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             // Act
             var orchestrationRequest = new CompletionRequest
             {
-                OperationId = Guid.NewGuid().ToString(),
                 SessionId = expectedSessionId,
                 UserPrompt = expectedUserPrompt
             };
