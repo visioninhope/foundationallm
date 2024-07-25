@@ -170,7 +170,7 @@ Class CompletionResponseBase  <a class="header-action link-secondary" title="Vie
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_AgentName" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.AgentName">
   AgentName
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the FoundationaLLM agent.</p>
@@ -203,7 +203,7 @@ public string? AgentName { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Citations" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Citations">
   Citations
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The citations used in building the completion response.</p>
@@ -236,7 +236,7 @@ public Citation[]? Citations { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Completion" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Completion">
   Completion
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The completion response from the language model.</p>
@@ -269,7 +269,7 @@ public string Completion { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_CompletionTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.CompletionTokens">
   CompletionTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of tokens in the completion.</p>
@@ -302,7 +302,7 @@ public int CompletionTokens { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_FullPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.FullPrompt">
   FullPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The full prompt composed by the LLM.</p>
@@ -331,11 +331,43 @@ public string? FullPrompt { get; set; }</code></pre>
 
 
 
+  <a id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_OperationId_" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_OperationId" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId">
+  OperationId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Operation ID identifying the completion request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required string OperationId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTemplate_" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.PromptTemplate*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTemplate" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.PromptTemplate">
   PromptTemplate
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The prompt template used by the LLM.</p>
@@ -368,7 +400,7 @@ public string? PromptTemplate { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.PromptTokens">
   PromptTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The number of tokens in the prompt.</p>
@@ -401,7 +433,7 @@ public int PromptTokens { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_TotalCost" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.TotalCost">
   TotalCost
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The total cost of executing the completion operation.</p>
@@ -434,7 +466,7 @@ public float TotalCost { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_TotalTokens" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.TotalTokens">
   TotalTokens
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The total number of tokens.</p>
@@ -467,7 +499,7 @@ public int TotalTokens { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_UserPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.UserPrompt">
   UserPrompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/CompletionResponseBase.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The user prompt the language model responded to.</p>

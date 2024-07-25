@@ -9941,19 +9941,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion
   nameWithType: IDownstreamAPIService.GetCompletion
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: IDownstreamAPIService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetSummary_
-  commentId: Overload:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetSummary
-  nameWithType: IDownstreamAPIService.GetSummary
 - uid: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings
   name: IDownstreamAPISettings
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html
@@ -15399,6 +15386,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.MessageHistory
   nameWithType: CompletionRequestBase.MessageHistory
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequestBase_OperationId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId
+  nameWithType: CompletionRequestBase.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequestBase_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.OperationId
+  nameWithType: CompletionRequestBase.OperationId
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.SessionId
   name: SessionId
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionRequestBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionRequestBase_SessionId
@@ -15440,15 +15440,15 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.New()
   nameWithType: CompletionResponse.CompletionResponse()
   nameWithType.vb: CompletionResponse.New()
-- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.#ctor(System.String,System.String,System.Int32,System.Int32,System.Single[])
-  name: CompletionResponse(string, string, int, int, float[]?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse__ctor_System_String_System_String_System_Int32_System_Int32_System_Single___
-  commentId: M:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.#ctor(System.String,System.String,System.Int32,System.Int32,System.Single[])
-  name.vb: New(String, String, Integer, Integer, Single())
-  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.CompletionResponse(string, string, int, int, float[]?)
-  fullName.vb: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.New(String, String, Integer, Integer, Single())
-  nameWithType: CompletionResponse.CompletionResponse(string, string, int, int, float[]?)
-  nameWithType.vb: CompletionResponse.New(String, String, Integer, Integer, Single())
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.#ctor(System.String,System.String,System.String,System.Int32,System.Int32,System.Single[])
+  name: CompletionResponse(string, string, string, int, int, float[]?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse__ctor_System_String_System_String_System_String_System_Int32_System_Int32_System_Single___
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.#ctor(System.String,System.String,System.String,System.Int32,System.Int32,System.Single[])
+  name.vb: New(String, String, String, Integer, Integer, Single())
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.CompletionResponse(string, string, string, int, int, float[]?)
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.New(String, String, String, Integer, Integer, Single())
+  nameWithType: CompletionResponse.CompletionResponse(string, string, string, int, int, float[]?)
+  nameWithType.vb: CompletionResponse.New(String, String, String, Integer, Integer, Single())
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.#ctor*
   name: CompletionResponse
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse__ctor_
@@ -15543,6 +15543,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.FullPrompt
   nameWithType: CompletionResponseBase.FullPrompt
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_OperationId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId
+  nameWithType: CompletionResponseBase.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.OperationId
+  nameWithType: CompletionResponseBase.OperationId
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.PromptTemplate
   name: PromptTemplate
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_PromptTemplate
@@ -17122,12 +17135,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.OrchestrationSettings.ModelParameters
   nameWithType: OrchestrationSettings.ModelParameters
-- uid: FoundationaLLM.Common.Models.Orchestration.SummaryRequest
-  name: SummaryRequest
-  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.SummaryRequest.html
-  commentId: T:FoundationaLLM.Common.Models.Orchestration.SummaryRequest
-  fullName: FoundationaLLM.Common.Models.Orchestration.SummaryRequest
-  nameWithType: SummaryRequest
 - uid: FoundationaLLM.Common.Models.Orchestration.SummaryResponse
   name: SummaryResponse
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.SummaryResponse.html
@@ -20998,19 +21005,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion
   nameWithType: DownstreamAPIService.GetCompletion
-- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  name: GetSummary(SummaryRequest)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetSummary_FoundationaLLM_Common_Models_Orchestration_SummaryRequest_
-  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary(FoundationaLLM.Common.Models.Orchestration.SummaryRequest)
-  nameWithType: DownstreamAPIService.GetSummary(SummaryRequest)
-- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary*
-  name: GetSummary
-  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetSummary_
-  commentId: Overload:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetSummary
-  nameWithType: DownstreamAPIService.GetSummary
 - uid: FoundationaLLM.Common.Services.Azure
   name: FoundationaLLM.Common.Services.Azure
   href: api/dotnet/FoundationaLLM.Common.Services.Azure.html
