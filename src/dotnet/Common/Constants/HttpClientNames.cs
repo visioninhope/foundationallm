@@ -1,9 +1,11 @@
-﻿namespace FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Interfaces;
+
+namespace FoundationaLLM.Common.Constants;
 
 /// <summary>
 /// Name constants used to configure and retrieve API endpoint configurations.
 /// </summary>
-public static class HttpClients
+public static class HttpClientNames
 {
     /// <summary>
     /// Named client with matching configuration for the Core API.
@@ -94,4 +96,40 @@ public static class HttpClients
     /// Name client with matching configuration for the Lakera Guard.
     /// </summary>
     public const string LakeraGuard = "LakeraGuard";
+
+    /// <summary>
+    /// All HTTP client names.
+    /// </summary>
+    public readonly static string[] All = [
+        CoreAPI,
+        GatekeeperAPI,
+        GatekeeperIntegrationAPI,
+        OrchestrationAPI,
+        LangChainAPI,
+        SemanticKernelAPI,
+        AgentHubAPI,
+        PromptHubAPI,
+        DataSourceHubAPI,
+        VectorizationAPI,
+        VectorizationWorker,
+        AuthorizationAPI,
+        ManagementAPI,
+        GatewayAPI,
+        GatewayAdapterAPI,
+        AzureContentSafety,
+        EnkryptGuardrails,
+        LakeraGuard
+    ];
+
+    /// <summary>
+    /// All HTTP client names used in <see cref="IDownstreamAPIService"/> implementations.
+    /// </summary>
+    public readonly static string[] AllDownstream = [
+        GatekeeperAPI,
+        GatekeeperIntegrationAPI,
+        OrchestrationAPI,
+        AgentHubAPI,
+        PromptHubAPI,
+        DataSourceHubAPI
+    ];
 }

@@ -40,7 +40,7 @@ namespace FoundationaLLM.Common.Services
         {
             var now = DateTime.UtcNow;
 
-            var path = $"UI/{now.ToString("yyyy-MM-dd_ffffff_UTC")}";
+            var path = $"UI/{now:yyyy-MM-dd_ffffff_UTC}";
 
             var dataSetBytes = JsonSerializer.SerializeToUtf8Bytes(data, _jsonSerializerOptions);
             Stream stream = new MemoryStream(dataSetBytes);

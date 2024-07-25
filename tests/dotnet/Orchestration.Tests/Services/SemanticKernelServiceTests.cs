@@ -42,7 +42,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             {
                 BaseAddress = new Uri("http://nsubstitute.io")
             };
-            httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI, callContext.CurrentUserIdentity).Returns(httpClient);
+            httpClientFactoryService.CreateClient(Common.Constants.HttpClientNames.SemanticKernelAPI, callContext.CurrentUserIdentity).Returns(httpClient);
 
             // Act
             var result = await semanticKernelService.GetCompletion(_instanceId, request);

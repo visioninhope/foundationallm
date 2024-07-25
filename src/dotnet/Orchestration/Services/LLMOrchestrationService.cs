@@ -18,7 +18,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
     public class LLMOrchestrationService : ILLMOrchestrationService
     {
         private readonly string _serviceName;
-        private readonly APISettingsBase _settings;
         private readonly ILogger<LLMOrchestrationService> _logger;
         private readonly IHttpClientFactoryService _httpClientFactoryService;
         private readonly ICallContext _callContext;
@@ -29,13 +28,11 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// </summary>
         public LLMOrchestrationService(
             string serviceName,
-            IOptions<APISettingsBase> options,
             ILogger<LLMOrchestrationService> logger,
             IHttpClientFactoryService httpClientFactoryService,
             ICallContext callContext) 
         {
             _serviceName = serviceName;
-            _settings = options.Value;
             _logger = logger;
             _httpClientFactoryService = httpClientFactoryService;
             _callContext = callContext;

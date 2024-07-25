@@ -48,7 +48,6 @@ namespace FoundationaLLM.Core.Examples.Setup
 
             RegisterInstance(services, configRoot);
             RegisterClientLibraries(services, configRoot);
-			RegisterHttpClients(services, configRoot);
 			RegisterCosmosDb(services, configRoot);
             RegisterAzureAIService(services, configRoot);
             RegisterLogging(services);
@@ -82,90 +81,6 @@ namespace FoundationaLLM.Core.Examples.Setup
                 configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!,
                 DefaultAuthentication.AzureCredential!,
                 instanceId);
-        }
-
-        private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
-		{
-			services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
-            {
-                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
-                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
-                options.Timeout = TimeSpan.FromMinutes(40);
-            });
-            
-            services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
-            {
-                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
-                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
-                options.Timeout = TimeSpan.FromMinutes(5);
-            });
-
-            services.Configure<HttpClientOptions>(HttpClients.VectorizationAPI, options =>
-            {
-                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!;
-                options.Timeout = TimeSpan.FromMinutes(10);
-            });
-
-            var vectorizationAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
-                APIKey = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!,
-                Timeout = TimeSpan.FromMinutes(10)
-            };
-            var downstreamAPISettings = new DownstreamAPISettings
-            {
-                DownstreamAPIs = []
-            };
-
-            downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
-
-            services.AddHttpClient(HttpClients.CoreAPI)
-                .ConfigureHttpClient((serviceProvider, client) =>
-                {
-                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.CoreAPI);
-                    client.BaseAddress = new Uri(options.BaseUri!);
-                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
-                })
-                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
-                {
-                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                });
-
-            services.AddHttpClient(HttpClients.ManagementAPI)
-                .ConfigureHttpClient((serviceProvider, client) =>
-                {
-                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
-                    client.BaseAddress = new Uri(options.BaseUri!);                   
-                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
-                })
-                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
-                {
-                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                });
-
-            services.AddHttpClient(HttpClients.VectorizationAPI)
-                 .ConfigureHttpClient((serviceProvider, client) =>
-                 {
-                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
-                     client.DefaultRequestHeaders.Add("X-API-KEY", vectorizationAPISettings.APIKey);
-                     client.BaseAddress = new Uri(options.BaseUri!);                     
-                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
-                 })
-                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
-                 {
-                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                 });
-
-            services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
-
-            services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(
-                    HttpClients.VectorizationAPI,
-                    serviceProvider.GetService<ICallContext>()!,
-                    serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
-
-            services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
         }
 
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)

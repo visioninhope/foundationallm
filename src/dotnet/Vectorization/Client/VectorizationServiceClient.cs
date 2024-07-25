@@ -39,7 +39,7 @@ namespace FoundationaLLM.Vectorization.Client
         /// <inheritdoc/>
         public async Task<VectorizationResult> ProcessRequest(VectorizationRequest vectorizationRequest, UnifiedUserIdentity? userIdentity)
         {
-            var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.VectorizationAPI, userIdentity);
+            var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.VectorizationAPI, userIdentity);
 
             var serializedRequest = JsonSerializer.Serialize(vectorizationRequest);
 
