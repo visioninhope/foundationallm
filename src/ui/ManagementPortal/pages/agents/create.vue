@@ -865,7 +865,7 @@ export default {
 			this.dataSources = agentDataSourcesResult.map(result => result.resource);
 			
 			this.loadingStatusText = 'Retrieving external orchestration services...';
-            const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
+			const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
 			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
 
 			// Update the orchestratorOptions with the externalOrchestratorOptions.
