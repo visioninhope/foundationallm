@@ -117,6 +117,16 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The API key of the Gateway API.
         /// </summary>
         public const string FoundationaLLM_APIs_GatewayAPI_APIKey = "foundationallm-apis-gatewayapi-apikey";
+        /// <summary>
+        /// The foundationallm-apis-gatewayadapterapi-apikey Key Vault secret name.
+        /// The API key of the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_GatewayAdapterAPI_APIKey = "foundationallm-apis-gatewayadapterapi-apikey";
+        /// <summary>
+        /// The foundationallm-apis-stateapi-apikey Key Vault secret name.
+        /// The API key of the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_APIs_StateAPI_APIKey = "foundationallm-apis-stateapi-apikey";
 
         #region Authorization API
 

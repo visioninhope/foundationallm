@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -63,17 +64,21 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
                 await configurationResourceProvider.WaitForInitialization();
 
-                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpoint>(
+                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpointConfiguration>(
                     DefaultAuthentication.ServiceIdentity!);
 
                 _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos =>  eos.APIKeyConfigurationName.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                    .Where(ae => ae.Category == APIEndpointCategory.ExternalOrchestration
+                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                        && apiKeyConfigObj is string apiKeyConfig
+                        && !string.IsNullOrWhiteSpace(apiKeyConfig)
+                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_APIEndpoints))
                     .ToDictionary(
-                        eos => eos.Name,
-                        eos => new APISettingsBase
+                        ae => ae.Name,
+                        ae => new APISettingsBase
                         {
-                            APIKey = _configuration[eos.APIKey],
-                            APIUrl = _configuration[eos.Url]
+                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParametersKeys.APIKeyConfigurationName].ToString()!],
+                            APIUrl = ae.Url
                         });
 
                 _initialized = true;
@@ -89,22 +94,22 @@ namespace FoundationaLLM.Orchestration.Core.Services
         #endregion
 
         /// <inheritdoc/>
-        public async Task<List<ServiceStatusInfo>> GetAggregateStatus(IServiceProvider serviceProvider)
+        public async Task<List<ServiceStatusInfo>> GetAggregateStatus(string instanceId, IServiceProvider serviceProvider)
         {
             var result = new List<ServiceStatusInfo>();
 
             var serviceStatuses = GetOrchestrationServices(serviceProvider)
                 .ToAsyncEnumerable()
-                .SelectAwait(async x => await x.GetStatus());
+                .SelectAwait(async x => await x.GetStatus(instanceId));
 
-            await foreach(var serviceStatus in serviceStatuses)
+            await foreach (var serviceStatus in serviceStatuses)
                 result.Add(serviceStatus);
 
             return result;
         }
 
         /// <inheritdoc/>
-        public ILLMOrchestrationService GetService(string serviceName, IServiceProvider serviceProvider, ICallContext callContext)
+        public ILLMOrchestrationService GetService(string instanceId, string serviceName, IServiceProvider serviceProvider, ICallContext callContext)
         {
             var internalOrchestrationService = serviceProvider.GetServices<ILLMOrchestrationService>()
                 .SingleOrDefault(srv => srv.Name == serviceName);

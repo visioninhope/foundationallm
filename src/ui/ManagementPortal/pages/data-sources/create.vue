@@ -281,7 +281,6 @@
 					v-model="dataSource.cost_center"
 					placeholder="Enter cost center name"
 					type="text"
-					class="w-50"
 				/>
 			</div>
 
@@ -545,6 +544,7 @@ export default {
 				this.$toast.add({
 					severity: 'error',
 					detail: errors.join('\n'),
+					life: 5000,
 				});
 
 				return;
@@ -567,6 +567,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: successMessage,
+				life: 5000,
 			});
 
 			this.loading = false;

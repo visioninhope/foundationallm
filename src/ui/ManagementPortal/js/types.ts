@@ -5,6 +5,7 @@ interface ResourceBase {
 	display_name: string;
 	description: string;
 	cost_center: string;
+	expiration_date: string;
 };
 
 export type ResourceProviderGetResult<T> = {

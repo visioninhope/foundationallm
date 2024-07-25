@@ -58,6 +58,8 @@ namespace FoundationaLLM.Client.Management
         /// <inheritdoc/>
         public IAgentManagementClient Agents { get; private set; } = null!;
         /// <inheritdoc/>
+        public IAIModelManagementClient AIModels { get; private set; } = null!;
+        /// <inheritdoc/>
         public IAttachmentManagementClient Attachments { get; private set; } = null!;
         /// <inheritdoc/>
         public IConfigurationManagementClient Configuration { get; private set; } = null!;
@@ -86,6 +88,7 @@ namespace FoundationaLLM.Client.Management
         private void InitializeClients()
         {
             Agents = new AgentManagementClient(_managementRestClient);
+            AIModels = new AIModelManagementClient(_managementRestClient);
             Attachments = new AttachmentManagementClient(_managementRestClient);
             Configuration = new ConfigurationManagementClient(_managementRestClient);
             DataSources = new DataSourceManagementClient(_managementRestClient);

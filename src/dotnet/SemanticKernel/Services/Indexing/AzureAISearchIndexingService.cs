@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
@@ -91,7 +92,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services.Indexing
         {
             switch (_settings.AuthenticationType)
             {
-                case AzureAISearchAuthenticationTypes.AzureIdentity:
+                case AuthenticationTypes.AzureIdentity:
                     ValidateEndpoint(_settings.Endpoint);
                     return CreateMemoryStoreFromIdentity(_settings.Endpoint);
                 default:

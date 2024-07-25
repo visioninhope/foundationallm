@@ -15,9 +15,10 @@ namespace FoundationaLLM.Common.Interfaces
         /// <summary>
         /// Gets a completion from the downstream API.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
         /// <param name="completionRequest">The completion request containing the user prompt and message history.</param>
         /// <returns>The completion response.</returns>
-        Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest);
+        Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest);
 
         /// <summary>
         /// Gets a summary from the downstream API.
