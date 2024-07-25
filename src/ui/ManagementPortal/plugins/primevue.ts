@@ -1,4 +1,5 @@
 import PrimeVue from 'primevue/config';
+import AutoComplete from 'primevue/autocomplete';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
@@ -22,6 +23,7 @@ import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.use(PrimeVue, { ripple: true });
+	nuxtApp.vueApp.component('AutoComplete', AutoComplete);
 	nuxtApp.vueApp.component('Button', Button);
 	nuxtApp.vueApp.component('InputText', InputText);
 	nuxtApp.vueApp.component('Textarea', Textarea);
