@@ -13,7 +13,7 @@ namespace FoundationaLLM.Core.API.Controllers
     /// </summary>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class AttachmentsController : ControllerBase
     {
         private readonly IResourceProviderService _attachmentResourceProvider;
@@ -21,7 +21,7 @@ namespace FoundationaLLM.Core.API.Controllers
         private readonly ILogger<AttachmentsController> _logger;
 
         /// <summary>
-        /// Attachments controller constructor.
+        /// The controller for managing attachments.
         /// </summary>
         /// <param name="resourceProviderServices"></param>
         /// <param name="logger"></param>
@@ -42,16 +42,17 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Retrieves the uploaded attachments.
         /// </summary>
         [HttpGet(Name = "Get")]
-        public IActionResult Index() =>
+        public IActionResult Index(string instanceId) =>
             Ok();
 
         /// <summary>
         /// Uploads an attachment.
         /// </summary>
+        /// <param name="instanceId">The instance ID.</param>
         /// <param name="file">The file sent with the HTTP request.</param>
         /// <returns></returns>
         [HttpPost("Upload")]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload(string instanceId, IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("File not selected.");

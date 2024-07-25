@@ -1,17 +1,18 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Direct;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -41,9 +42,10 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus() =>
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId) =>
             await Task.FromResult(new ServiceStatusInfo
             {
+                InstanceId = instanceId,
                 Name = Name,
                 Status = "ready",
             });
@@ -52,55 +54,38 @@ namespace FoundationaLLM.Orchestration.Core.Services
         public string Name => LLMOrchestrationServiceNames.AzureAIDirect;
 
         /// <inheritdoc/>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
-            var agent = request.Agent
-                ?? throw new Exception("Agent cannot be null.");
-
-            var endpointConfiguration = (agent.OrchestrationSettings?.EndpointConfiguration)
-                ?? throw new Exception("Endpoint Configuration must be provided.");
-
-            var endpointSettings = GetEndpointSettings(endpointConfiguration);
+            request.Validate();
 
             SystemCompletionMessage? systemPrompt = null;
             CompletionMessage? assistantPrompt = null;
-            if (!string.IsNullOrWhiteSpace(agent.PromptObjectId))
+
+            // We are adding an empty assistant prompt and setting the system prompt to the user role to support
+            // some models (like Mistral) that require user/assistant prompts and not system prompts.
+            var inputStrings = new List<CompletionMessage>()
             {
-                if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Prompt, out var promptResourceProvider))
-                    throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Prompt} was not loaded.");                                
-                 
-                var prompt = await promptResourceProvider.GetResource<PromptBase>(agent.PromptObjectId, _callContext.CurrentUserIdentity!) as MultipartPrompt;
-                                
-                // We are adding an empty assistant prompt and setting the system prompt to the user role to support
-                // some models (like Mistral) that require user/assistant prompts and not system prompts.
-                systemPrompt = new SystemCompletionMessage
+                new SystemCompletionMessage
                 {
                     Role = InputMessageRoles.User,
-                    Content = prompt?.Prefix ?? string.Empty
-                };
-                assistantPrompt = new CompletionMessage
+                    Content = request.Prompt.Prefix ?? string.Empty
+                },
+                new CompletionMessage
                 {
                     Role = InputMessageRoles.Assistant,
                     Content = string.Empty
-                };
-            }
+                }
+            };
 
-            var inputStrings = new List<CompletionMessage>();
-            // Add system prompt, if exists.
-            if (systemPrompt != null)
-            {
-                inputStrings.Add(systemPrompt);
-                inputStrings.Add(assistantPrompt!);
-            }
             // Add conversation history.
-            if (agent.ConversationHistory?.Enabled == true && request.MessageHistory != null)
+            if (request.Agent.ConversationHistorySettings?.Enabled == true && request.MessageHistory != null)
             {
                 // The message history needs to be in a continuous order of user and assistant messages.
                 // If the MaxHistory value is odd, add one to the number of messages to take to ensure proper pairing.
-                if (agent.ConversationHistory.MaxHistory % 2 != 0)
-                    agent.ConversationHistory.MaxHistory++;
+                if (request.Agent.ConversationHistorySettings.MaxHistory % 2 != 0)
+                    request.Agent.ConversationHistorySettings.MaxHistory++;
 
-                var messageHistoryItems = request.MessageHistory?.TakeLast(agent.ConversationHistory.MaxHistory);
+                var messageHistoryItems = request.MessageHistory?.TakeLast(request.Agent.ConversationHistorySettings.MaxHistory);
                 
                 foreach(var item in messageHistoryItems!)
                 {
@@ -115,68 +100,86 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var userPrompt = new UserCompletionMessage { Content = request.UserPrompt };
             inputStrings.Add(userPrompt);
 
-            if (!string.IsNullOrWhiteSpace(endpointSettings.Endpoint) && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+            var endpointConfiguration = request.AIModelEndpointConfiguration;
+            var apiKey = string.Empty;
+            var apiKeyHeaderName = string.Empty;
+            var apiKeyPrefix = string.Empty;
+
+            if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
+            {
+                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyKeyName))
+                    throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+
+                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
+            }
+
+            // The expected value for the header name is "Authorization".
+            if (!endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyHeaderName, out var apiKeyHeaderNameObject))
+                throw new OrchestrationException($"The {AuthenticationParametersKeys.APIKeyHeaderName} key is missing from the AI model enpoint's authentication parameters dictionary.");
+            apiKeyHeaderName = apiKeyHeaderNameObject.ToString();
+
+            // The optional expected value for the API key prefix is "Bearer".
+            if (endpointConfiguration.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyPrefix, out var  apiKeyPrefixObject))
+                apiKeyPrefix = apiKeyPrefixObject.ToString();
+
+            if (!string.IsNullOrWhiteSpace(endpointConfiguration.Url)
+                && !string.IsNullOrWhiteSpace(apiKey)
+                && !string.IsNullOrWhiteSpace(apiKeyHeaderName))
             {
                 var client = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIDirect, _callContext.CurrentUserIdentity);
-                if (endpointSettings.AuthenticationType == "key" && !string.IsNullOrWhiteSpace(endpointSettings.APIKey))
+
+                if (apiKeyHeaderName == HeaderNames.Authorization)
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                        "Bearer", endpointSettings.APIKey
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                        apiKeyPrefix ?? string.Empty, apiKey
                     );
                 }
-                
-                client.BaseAddress = new Uri(endpointSettings.Endpoint);
-                
-                var modelParameters = agent.OrchestrationSettings?.ModelParameters;
-                var modelOverrides = request.Settings?.ModelParameters;
-                
-                AzureAICompletionRequest azureAiCompletionRequest;
-
-                if (modelParameters != null)
+                else
                 {
-                    azureAiCompletionRequest = new()
-                    {
-                        InputData = new()
-                        {
-                            InputString = [.. inputStrings],
-                            Parameters = modelParameters.ToObject<AzureAICompletionParameters>(modelOverrides)
-                        }
-                    };
-
-                    if (modelOverrides != null && modelOverrides.ContainsKey(ModelParameterKeys.DeploymentName))
-                    {
-                        modelParameters[ModelParameterKeys.DeploymentName] = modelOverrides[ModelParameterKeys.DeploymentName];
-                    }
-
-                    var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
-                    var content = new StringContent(body, Encoding.UTF8, "application/json");
-                    if (modelParameters.TryGetValue(ModelParameterKeys.DeploymentName, out var deployment))
-                    {
-                        content.Headers.Add("azureml-model-deployment", deployment.ToString());
-                    }
-
-                    var responseMessage = await client.PostAsync("", content);
-                    var responseContent = await responseMessage.Content.ReadAsStringAsync();
-
-                    if (responseMessage.IsSuccessStatusCode)
-                    {
-                        var completionResponse = JsonSerializer.Deserialize<AzureAICompletionResponse>(responseContent);
-
-                        return new LLMCompletionResponse
-                        {
-                            Completion = completionResponse!.Output,
-                            UserPrompt = request.UserPrompt,
-                            FullPrompt = body,
-                            PromptTemplate = systemPrompt?.Content,
-                            AgentName = agent.Name,
-                            PromptTokens = 0,
-                            CompletionTokens = 0
-                        };
-                    }
-
-                    _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
-                        responseMessage.StatusCode, responseContent);
+                    client.DefaultRequestHeaders.Add(
+                        apiKeyHeaderName,
+                        string.IsNullOrWhiteSpace(apiKeyPrefix)
+                            ? apiKey
+                            : $"{apiKeyPrefix} {apiKey}");
                 }
+                
+                client.BaseAddress = new Uri(endpointConfiguration.Url!);
+
+                var modelParameters = request.AIModel.ModelParameters;
+
+                AzureAICompletionRequest azureAiCompletionRequest = new()
+                {
+                    InputData = new()
+                    {
+                        InputString = [.. inputStrings],
+                        Parameters = modelParameters.ToObject<AzureAICompletionParameters>()
+                    }
+                };
+
+                var body = JsonSerializer.Serialize(azureAiCompletionRequest, _jsonSerializerOptions);
+                var content = new StringContent(body, Encoding.UTF8, "application/json");
+
+                var responseMessage = await client.PostAsync("", content);
+                var responseContent = await responseMessage.Content.ReadAsStringAsync();
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var completionResponse = JsonSerializer.Deserialize<AzureAICompletionResponse>(responseContent);
+
+                    return new LLMCompletionResponse
+                    {
+                        Completion = completionResponse!.Output,
+                        UserPrompt = request.UserPrompt,
+                        FullPrompt = body,
+                        PromptTemplate = systemPrompt?.Content,
+                        AgentName = request.Agent.Name,
+                        PromptTokens = 0,
+                        CompletionTokens = 0
+                    };
+                }
+
+                _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
+                    responseMessage.StatusCode, responseContent);
             }
 
             return new LLMCompletionResponse
@@ -184,42 +187,9 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = systemPrompt?.Content,
-                AgentName = agent.Name,
+                AgentName = request.Agent.Name,
                 PromptTokens = 0,
                 CompletionTokens = 0
-            };
-        }
-
-        /// <summary>
-        /// Extracts endpoint configuration values from a dictionary and writes them into a
-        /// <see cref="EndpointSettings"/> object.
-        /// </summary>
-        /// <param name="endpointConfiguration">Dictionary containing orchestration endpoint configuration values.</param>
-        /// <returns>Returns a <see cref="EndpointSettings"/> object containing the endpoint configuration.</returns>
-        /// <exception cref="Exception"></exception>
-        private EndpointSettings GetEndpointSettings(Dictionary<string, object> endpointConfiguration)
-        {
-            if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.Endpoint, out var endpointKeyName))
-                throw new Exception("An endpoint value must be passed in via an Azure App Config key name.");
-
-            var endpoint = _configuration.GetValue<string>(endpointKeyName?.ToString()!);
-
-            var authenticationType = endpointConfiguration.GetValueOrDefault(EndpointConfigurationKeys.AuthenticationType, "key").ToString();
-            var apiKey = string.Empty;
-
-            if (authenticationType == "key")
-            {
-                if (!endpointConfiguration.TryGetValue(EndpointConfigurationKeys.APIKey, out var apiKeyKeyName))
-                    throw new Exception("An API key must be passed in via an Azure App Config key name.");
-
-                apiKey = _configuration.GetValue<string>(apiKeyKeyName?.ToString()!)!;
-            }
-            
-            return new EndpointSettings
-            {
-                Endpoint = endpoint!,
-                APIKey = apiKey!,
-                AuthenticationType = authenticationType!
             };
         }
     }

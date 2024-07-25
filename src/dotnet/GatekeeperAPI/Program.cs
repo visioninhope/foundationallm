@@ -49,6 +49,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 {
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Refinement);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureContentSafety);

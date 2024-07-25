@@ -33,7 +33,7 @@ namespace FoundationaLLM.Common.Services.API
         public string APIName => _downstreamHttpClientName;
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             var fallback = new CompletionResponse
             {
@@ -52,7 +52,7 @@ namespace FoundationaLLM.Common.Services.API
                 (int)client.Timeout.TotalSeconds);
 
             var serializedRequest = JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions);
-            var responseMessage = await client.PostAsync("orchestration/completion",
+            var responseMessage = await client.PostAsync($"instances/{instanceId}/completions",
                 new StringContent(
                     serializedRequest,
                         Encoding.UTF8, "application/json"));

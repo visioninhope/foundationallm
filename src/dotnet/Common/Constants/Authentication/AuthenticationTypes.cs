@@ -1,18 +1,33 @@
 ﻿namespace FoundationaLLM.Common.Constants.Authentication
 {
     /// <summary>
-    /// Authentication types.
+    /// Authentication types for API Endpoints
     /// </summary>
-    public static class AuthenticationTypes
+    public enum AuthenticationTypes
     {
         /// <summary>
-        /// Azure identity.
+        /// Unknown authentication type.
         /// </summary>
-        public static string AzureIdentity = "AzureIdentity";
+        Unknown = -1,
 
         /// <summary>
-        /// API key.
+        /// Azure managed identity authentication type.
         /// </summary>
-        public static string APIKey = "APIKey";
+        AzureIdentity,
+
+        /// <summary>
+        /// API key authentication type.
+        /// </summary>
+        APIKey,
+
+        /// <summary>
+        /// Connection string authentication type.
+        /// </summary>
+        ConnectionString,
+
+        /// <summary>
+        /// Account key authentication type.
+        /// </summary>
+        AccountKey
     }
 }

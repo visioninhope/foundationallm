@@ -44,11 +44,11 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus()
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
         {
             var client = await _httpClientFactoryService.CreateClient(_serviceName, _callContext.CurrentUserIdentity);
             var responseMessage = await client.SendAsync(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
+                new HttpRequestMessage(HttpMethod.Get, $"/instances/{instanceId}/status"));
 
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
@@ -60,15 +60,16 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
             var client = await _httpClientFactoryService.CreateClient(_serviceName, _callContext.CurrentUserIdentity);
             var pollingClient = new PollingHttpClient<LLMCompletionRequest, LLMCompletionResponse>(
                 client,
                 request,
-                "orchestration/completion",
+                $"instances/{instanceId}/completions",
                 TimeSpan.FromSeconds(10),
                 client.Timeout.Subtract(TimeSpan.FromSeconds(1)),
                 _logger);

@@ -127,6 +127,13 @@ foreach ($configuration in $configurations.GetEnumerator()) {
     Format-EnvironmentVariables -template $template -render $render
 }
 
+foreach ($apiConfigFilePath in $(Get-ChildItem -Path "./data/resource-provider/FoundationaLLM.Configuration")) {
+    $template = Resolve-Path "./data/resource-provider/FoundationaLLM.Configuration/$($apiConfigFilePath.Name)"
+    $formattedTemplateName = $apiConfigFilePath.Name -replace "template."
+    $render = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../common/data/resource-provider/FoundationaLLM.Configuration/$formattedTemplateName")
+    Format-EnvironmentVariables -template $template -render $render
+}
+
 if ($env:PIPELINE_DEPLOY) {
     $roleAssignments = (Get-Content "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json" | ConvertFrom-Json)
     $spRoleAssignmentName = $(New-Guid).Guid

@@ -13,6 +13,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
 {
     public class SemanticKernelServiceTests
     {
+        private readonly string _instanceId = "00000000-0000-0000-0000-000000000000";
         private readonly IOptions<SemanticKernelServiceSettings> options = Substitute.For<IOptions<SemanticKernelServiceSettings>>();
         private readonly ILogger<SemanticKernelService> logger = Substitute.For<ILogger<SemanticKernelService>>();
         private readonly ICallContext callContext = Substitute.For<ICallContext>();
@@ -30,7 +31,8 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             // Arrange
             var request = new LLMCompletionRequest
             {
-                Agent = new KnowledgeManagementAgent() { Name = "Test_name", ObjectId = "Test_id", Type = "Test_type"}
+                Agent = new KnowledgeManagementAgent() { Name = "Test_name", ObjectId = "Test_id", Type = "Test_type" },
+                UserPrompt = ""
             };
             var responseContent = System.Text.Json.JsonSerializer.Serialize(new LLMCompletionResponse { Completion = "Completion response" });
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(responseContent) };
@@ -43,7 +45,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             httpClientFactoryService.CreateClient(Common.Constants.HttpClients.SemanticKernelAPI, callContext.CurrentUserIdentity).Returns(httpClient);
 
             // Act
-            var result = await semanticKernelService.GetCompletion(request);
+            var result = await semanticKernelService.GetCompletion(_instanceId, request);
 
             // Assert
             Assert.NotNull(result);
