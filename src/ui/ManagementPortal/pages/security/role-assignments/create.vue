@@ -53,6 +53,7 @@
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
 
+				<!-- Type -->
 				<div class="mb-2">Principal Type:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
@@ -64,6 +65,7 @@
 					/>
 				</div>
 
+				<!-- Name -->
 				<div class="mb-2 mt-2">Principal Name:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
@@ -74,7 +76,20 @@
 						class="w-50"
 					/>
 				</div>
-				
+
+				<!-- Email -->
+				<div class="mb-2 mt-2">Principal Email:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.email"
+						readonly
+						:placeholder="!principal.email ? 'None specified' : 'Browse for selection'"
+						type="text"
+						class="w-50"
+					/>
+				</div>
+
+				<!-- ID -->
 				<div class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
