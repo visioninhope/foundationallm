@@ -106,6 +106,7 @@
     <Compile Include="foundationallm\models\resource_providers\attachments\attachment.py" />
     <Compile Include="foundationallm\models\resource_providers\attachments\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\prompts\multipart_prompt.py" />
+    <Compile Include="foundationallm\models\resource_providers\prompts\prompt_types.py" />
     <Compile Include="foundationallm\models\resource_providers\prompts\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\resource_base.py" />
     <Compile Include="foundationallm\models\resource_providers\resource_name.py" />
