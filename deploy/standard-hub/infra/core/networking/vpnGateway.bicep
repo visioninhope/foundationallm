@@ -91,3 +91,5 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
     publicIPAllocationMethod: 'Static'
   }
 }
+
+output vpnGatewayName string = vpnGateway.name

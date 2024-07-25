@@ -2,7 +2,6 @@ targetScope = 'subscription'
 
 param cidrVnet string = '192.168.100.0/24'
 param createDate string = utcNow('u')
-param createVpnGateway bool = true
 param environmentName string
 param location string
 param project string
@@ -93,7 +92,7 @@ module dnsResolver './core/networking/dnsResolver.bicep' = {
   scope: rg
 }
 
-module vpn './core/networking/vpnGateway.bicep' = if (createVpnGateway) {
+module vpn './core/networking/vpnGateway.bicep' = {
   dependsOn: [vnet]
   name: 'vpnGw-${timestamp}'
   params: {
@@ -109,3 +108,6 @@ module vpn './core/networking/vpnGateway.bicep' = if (createVpnGateway) {
 
 output DNS_RESOLVER_ENDPOINT_IP string = dnsResolver.outputs.dnsResolverEndpointIp
 output FLLM_PROJECT string = project
+output RESOURCE_GROUP_NAME string = rg.name
+output VPN_GATEWAY_NAME string = vpn.outputs.vpnGatewayName
+

@@ -4,41 +4,38 @@ Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
-# Variables - Replace these with your actual values
+# Load utility functions
+Push-Location $($MyInvocation.InvocationName | Split-Path)
+try {
+    . ./utility/Load-Utility-Functions.ps1
+}
+finally {
+    Pop-Location
+}
 
 $dnsServerIp = "${env:DNS_RESOLVER_ENDPOINT_IP}"
-$outputFolderPath = "../standard-hub/config/vpn"
-$outputFilePath = "$outputFolderPath/VpnClientConfiguration.zip"
-$resourceGroupName = "rg-${env:AZURE_ENV_NAME}-${env:AZURE_LOCATION}-net-${env:FLLM_PROJECT}"
-$vpnGatewayName = "vpng-${env:AZURE_ENV_NAME}-${env:AZURE_LOCATION}-net-${env:FLLM_PROJECT}"
-$xmlFilePath = "$outputFolderPath/AzureVPN/azurevpnconfig.xml" # Assuming the XML file is inside the extracted folder
+$outputFolderPath = "../standard-hub/config/vpn" | Get-AbsolutePath
+$outputFilePath = Join-Path $outputFolderPath "VpnClientConfiguration.zip"
+$resourceGroupName = "${env:RESOURCE_GROUP_NAME}"
+$vpnGatewayName = "${env:VPN_GATEWAY_NAME}"
+$xmlFilePath = Join-Path $outputFolderPath "AzureVPN" "azurevpnconfig.xml" # Assuming the XML file is inside the extracted folder
 
 # Add the dns-resolver extension to the cli
 az extension add --name dns-resolver --allow-preview true --yes --only-show-errors
 	
 # Get the VPN client configuration package URL
 $vpnClientPackageUrl = az network vnet-gateway vpn-client generate `
+    --name $vpnGatewayName `
     --resource-group $resourceGroupName `
-    --name $vpnGatewayName
+    --output tsv
 
-# Remove quotes from the URL
-$vpnClientPackageUrl = $vpnClientPackageUrl -replace '"', ''
-
-# Download the package
+# Download the package and extract
 Invoke-WebRequest -Uri $vpnClientPackageUrl -OutFile $outputFilePath
-
-# Expand the ZIP file
 Expand-Archive -Path $outputFilePath -DestinationPath $outputFolderPath -Force
 
-# Assuming the XML file is directly inside the expanded folder
+# Assuming the XML file is directly inside the expanded folder & Read the XML file
 $expandedFolder = (Get-ChildItem -Directory -Path $outputFolderPath)[0].FullName
 $xmlFilePath = Join-Path -Path $expandedFolder -ChildPath "azurevpnconfig.xml"
-
-# Assuming the XML file is directly inside the expanded folder
-$expandedFolder = (Get-ChildItem -Directory -Path $outputFolderPath)[0].FullName
-$xmlFilePath = Join-Path -Path $expandedFolder -ChildPath "azurevpnconfig.xml"
-
-# Read the XML file
 $xmlContent = Get-Content -Path $xmlFilePath
 $azureVpnClientConfig = [xml]$xmlContent
 
@@ -73,10 +70,6 @@ $clientConfigNode.AppendChild($dnsServersNode) | Out-Null
 $azureVpnClientConfig.Save($xmlFilePath)
 
 Write-Host -ForegroundColor Yellow `
-"Please Install the Azure VPN client via https://aka.ms/azvpnclientdownload, 
-then import the VPN client configuration package downloaded to 
-foundationallm/deploy/standard-hub/config/vpn/AzureVPN/azurevpnconfig.xml
-Make sure to connect to the VPN prior to running the next step of the 
-FLLM Install for Standard."
-
-
+"Please Install the Azure VPN client via https://aka.ms/azvpnclientdownload, and 
+then import the VPN client configuration package downloaded to $xmlFilePath. Make sure to connect 
+to the VPN prior to running the next step of the FLLM Install for Standard."
