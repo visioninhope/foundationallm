@@ -1,5 +1,3 @@
-from .settings_base import SettingsBase
-from .configuration_references_base import ConfigurationReferencesBase
 from .profile_base import ProfileBase
 
 from .indexing_profiles.indexing_profile_base import IndexingProfileBase

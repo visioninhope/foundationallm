@@ -3,10 +3,10 @@ Class: AzureOpenAIConfigurationReferences
 Description:
     Configuration references for an Azure OpenAI text embedding service.
 """
+from pydantic import BaseModel
 from typing import Optional
-from foundationallm.models.resource_providers.vectorization import ConfigurationReferencesBase
 
-class AzureOpenAIConfigurationReferences(ConfigurationReferencesBase):
+class AzureOpenAIConfigurationReferences(BaseModel):
     """
     Configuration references for an Azure OpenAI text embedding service.
     """
