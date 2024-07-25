@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The identifier of the long-running operation log entry.
         /// </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// The document type.
@@ -35,7 +35,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The time stamp of the log entry.
         /// </summary>
         [JsonPropertyName("time_stamp")]
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// The message describing the current state of the operation.
@@ -50,12 +50,16 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public int TTL { get; set; } = TimeSpan.FromDays(7).Seconds;
 
         /// <summary>
+        /// Deleted flag used for soft delete.
+        /// </summary>
+        [JsonPropertyName("deleted")]
+        public bool Deleted { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LongRunningOperationLogEntry"/> class.
         /// </summary>
         public LongRunningOperationLogEntry()
         {
-            Id = Guid.NewGuid().ToString();
-            TimeStamp = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -64,13 +68,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <param name="operationId">The identifier of the long-running operation.</param>
         /// <param name="status">The status of the long-running operation.</param>
         /// <param name="statusMessage">The message describing the current state of the operation.</param>
-        public LongRunningOperationLogEntry(string operationId, OperationStatus status, string statusMessage)
+        public LongRunningOperationLogEntry(string operationId, OperationStatus status, string? statusMessage)
         {
-            Id = Guid.NewGuid().ToString();
             OperationId = operationId;
             Status = status;
             StatusMessage = statusMessage;
-            TimeStamp = DateTime.UtcNow;
         }
     }
 }

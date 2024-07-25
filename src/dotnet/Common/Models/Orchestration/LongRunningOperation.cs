@@ -42,5 +42,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("last_updated")]
         public DateTime? LastUpdated { get; set; }
+
+        /// <summary>
+        /// Deleted flag used for soft delete.
+        /// </summary>
+        [JsonPropertyName("deleted")]
+        public bool Deleted { get; set; }
     }
 }
