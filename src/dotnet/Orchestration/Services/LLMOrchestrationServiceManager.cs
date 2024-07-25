@@ -68,17 +68,17 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     DefaultAuthentication.ServiceIdentity!);
 
                 _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(eos => eos.AuthenticationParameters.TryGetValue(AuthenticationParameterKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                    .Where(ae => ae.Category == APIEndpointCategory.ExternalOrchestration
+                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
                         && apiKeyConfigObj is string apiKeyConfig
                         && !string.IsNullOrWhiteSpace(apiKeyConfig)
-                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_ExternalAPIs))
+                        && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_APIEndpoints))
                     .ToDictionary(
-                        eos => eos.Name,
-                        eos => new APISettingsBase
+                        ae => ae.Name,
+                        ae => new APISettingsBase
                         {
-                            //TODO - how to  structure getting this here
-                            APIKey = _configuration[eos.APIKey],
-                            APIUrl = _configuration[eos.Url]
+                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParametersKeys.APIKeyConfigurationName].ToString()!],
+                            APIUrl = ae.Url
                         });
 
                 _initialized = true;
@@ -94,13 +94,13 @@ namespace FoundationaLLM.Orchestration.Core.Services
         #endregion
 
         /// <inheritdoc/>
-        public async Task<List<ServiceStatusInfo>> GetAggregateStatus(IServiceProvider serviceProvider)
+        public async Task<List<ServiceStatusInfo>> GetAggregateStatus(string instanceId, IServiceProvider serviceProvider)
         {
             var result = new List<ServiceStatusInfo>();
 
             var serviceStatuses = GetOrchestrationServices(serviceProvider)
                 .ToAsyncEnumerable()
-                .SelectAwait(async x => await x.GetStatus());
+                .SelectAwait(async x => await x.GetStatus(instanceId));
 
             await foreach (var serviceStatus in serviceStatuses)
                 result.Add(serviceStatus);
@@ -109,7 +109,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         }
 
         /// <inheritdoc/>
-        public ILLMOrchestrationService GetService(string serviceName, IServiceProvider serviceProvider, ICallContext callContext)
+        public ILLMOrchestrationService GetService(string instanceId, string serviceName, IServiceProvider serviceProvider, ICallContext callContext)
         {
             var internalOrchestrationService = serviceProvider.GetServices<ILLMOrchestrationService>()
                 .SingleOrDefault(srv => srv.Name == serviceName);

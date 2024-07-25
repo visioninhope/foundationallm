@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
 {
     /// <summary>
-    /// Base model type for AIModel resources
+    /// Provides a set of standard properties for all AIModel objects.
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(EmbeddingAIModel), AIModelTypes.Embedding)]
@@ -20,18 +20,18 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
         /// <summary>
         /// The object id of the <see cref="APIEndpointConfiguration"/> object providing the configuration for the API endpoint used to interact with the model.
         /// </summary>
-        [JsonPropertyName("endpoint")]
+        [JsonPropertyName("endpoint_object_id")]
 
         public required string EndpointObjectId { get; set; }
 
         /// <summary>
-        /// The version for the AI model
+        /// The version of the AI model.
         /// </summary>
         [JsonPropertyName("version")]
         public string? Version { get; set; }
 
         /// <summary>
-        /// Deployment name for the AI model
+        /// The name of the deployment corresponding to the AI model.
         /// </summary>
         [JsonPropertyName("deployment_name")]
         public string? DeploymentName { get; set; }
@@ -39,7 +39,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AIModel
         /// <summary>
         /// Dictionary with default values for the model parameters.
         /// <para>
-        /// For the list of supported keys, see <see cref="ModelParameterKeys"/>.
+        /// For the list of supported keys, see <see cref="ModelParametersKeys"/>.
         /// </para>
         /// </summary>
         [JsonPropertyName("model_parameters")]

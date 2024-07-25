@@ -39,10 +39,10 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         {
             // Arrange
             var conversationHistory = new ConversationHistorySettings { Enabled = true, MaxHistory = 100 };
-            _agentBase.ConversationHistory = conversationHistory;
+            _agentBase.ConversationHistorySettings = conversationHistory;
 
             // Assert
-            Assert.Equal(conversationHistory, _agentBase.ConversationHistory);
+            Assert.Equal(conversationHistory, _agentBase.ConversationHistorySettings);
         }
 
         [Fact]
@@ -50,10 +50,10 @@ namespace FoundationaLLM.Common.Tests.Models.Agents
         {
             // Arrange
             var gatekeeper = new GatekeeperSettings { UseSystemSetting = false, Options = new string[] { "Option1", "Option2" } };
-            _agentBase.Gatekeeper = gatekeeper;
+            _agentBase.GatekeeperSettings = gatekeeper;
 
             // Assert
-            Assert.Equal(gatekeeper, _agentBase.Gatekeeper);
+            Assert.Equal(gatekeeper, _agentBase.GatekeeperSettings);
         }
 
     }

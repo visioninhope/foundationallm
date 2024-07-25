@@ -25,13 +25,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         /// <summary>
         /// The agent's conversation history configuration.
         /// </summary>
-        [JsonPropertyName("conversation_history")]
-        public ConversationHistorySettings? ConversationHistory { get; set; }
+        [JsonPropertyName("conversation_history_settings")]
+        public ConversationHistorySettings? ConversationHistorySettings { get; set; }
         /// <summary>
         /// The agent's Gatekeeper configuration.
         /// </summary>
-        [JsonPropertyName("gatekeeper")]
-        public GatekeeperSettings? Gatekeeper { get; set; }
+        [JsonPropertyName("gatekeeper_settings")]
+        public GatekeeperSettings? GatekeeperSettings { get; set; }
 
         /// <summary>
         /// Settings for the orchestration service.
@@ -45,10 +45,10 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         [JsonPropertyName("prompt_object_id")]
         public string? PromptObjectId { get; set; }
 		
-		/// <summary>
+        /// <summary>
         /// The object identifier of the <see cref="AIModelBase"/> object providing the AI model for the agent.
         /// </summary>
-        [JsonPropertyName("aimodel_object_id")]
+        [JsonPropertyName("ai_model_object_id")]
         public string? AIModelObjectId { get; set; }
 
         /// <summary>

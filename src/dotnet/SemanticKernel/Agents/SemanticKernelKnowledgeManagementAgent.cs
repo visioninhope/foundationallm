@@ -58,91 +58,34 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
         protected override async Task ExpandAndValidateAgent()
         {
-            var agent = _request.Agent as KnowledgeManagementAgent;
-
-            if (_request.Objects == null)
-                throw new SemanticKernelException("The Objects dictionary is missing in the LLM orchestration request.", StatusCodes.Status400BadRequest);
-
-            #region Other agent descriptions
-
-            if (_request.Objects.TryGetValue(
-                "AllAgents", out var allAgentDescriptions))
-            {
-                _agentDescriptions = allAgentDescriptions is JsonElement allAgentDescriptionsJsonElement
-                    ? allAgentDescriptionsJsonElement.Deserialize<Dictionary<string, string>>()
-                    : allAgentDescriptions as Dictionary<string, string>;
-            }
-
-            #endregion
-
-            #region Prompt
-
-            if (string.IsNullOrWhiteSpace(agent!.PromptObjectId))
-                throw new SemanticKernelException("Invalid prompt object id.", StatusCodes.Status400BadRequest);
-
-            if (!_request.Objects.TryGetValue(
-                    agent.PromptObjectId, out var promptObject))
-                throw new SemanticKernelException("The prompt object is missing from the request's objects.", StatusCodes.Status400BadRequest);
-
-            var prompt = promptObject is JsonElement promptJsonElement
-                ? promptJsonElement.Deserialize<MultipartPrompt>()
-                : promptObject as MultipartPrompt;
-
-            if (prompt == null
-                || string.IsNullOrWhiteSpace(prompt.Prefix))
-                throw new SemanticKernelException("The prompt object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
-
-            _prompt = prompt.Prefix;
-
-            #endregion
+            _agentDescriptions = _request.OtherAgentsDescriptions;
+            _prompt = _request.Prompt.Prefix!;
 
             #region Vectorization (text embedding and indexing) - optional
 
-            if (!string.IsNullOrWhiteSpace(agent.Vectorization.TextEmbeddingProfileObjectId))
+            var textEmbeddingProfile = _request.TextEmbeddingProfile;
+            var indexingProfiles = _request.IndexingProfiles;
+
+            if (textEmbeddingProfile != null)
             {
-                if (!_request.Objects.TryGetValue(
-                        agent.Vectorization.TextEmbeddingProfileObjectId, out var textEmbeddingProfileObject))
-                    throw new SemanticKernelException("The text embedding profile object is missing from the request's objects.", StatusCodes.Status400BadRequest);
-
-                var textEmbeddingProfile = textEmbeddingProfileObject is JsonElement textEmbeddingProfileJsonElement
-                    ? textEmbeddingProfileJsonElement.Deserialize<TextEmbeddingProfile>()
-                    : textEmbeddingProfileObject as TextEmbeddingProfile;
-
-                if (textEmbeddingProfile == null
-                    || textEmbeddingProfile.ConfigurationReferences == null
-                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("DeploymentName", out var deploymentNameConfigurationItem)
-                    || string.IsNullOrWhiteSpace(deploymentNameConfigurationItem)
-                    || !textEmbeddingProfile.ConfigurationReferences.TryGetValue("EndpointUrl", out var textEmbeddingEndpointConfigurationItem)
-                    || string.IsNullOrWhiteSpace(textEmbeddingEndpointConfigurationItem))
-                    throw new SemanticKernelException("The text embedding profile object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
-
                 _textEmbeddingDeploymentName = textEmbeddingProfile.Settings != null
                     && textEmbeddingProfile.Settings.TryGetValue("deployment_name", out string? deploymentNameOverride)
                     && !string.IsNullOrWhiteSpace(deploymentNameOverride)
                     ? deploymentNameOverride
-                    : await GetConfigurationValue(deploymentNameConfigurationItem);
-                _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingEndpointConfigurationItem);
+                    : await GetConfigurationValue(textEmbeddingProfile.ConfigurationReferences!["DeploymentName"]);
+                _textEmbeddingEndpoint = await GetConfigurationValue(textEmbeddingProfile.ConfigurationReferences!["EndpointUrl"]);
             }
 
-            if ((agent.Vectorization.IndexingProfileObjectIds ?? []).Count > 0)
+            if ((indexingProfiles ?? []).Count > 0)
             {
-                if (string.IsNullOrEmpty(agent.Vectorization.IndexingProfileObjectIds![0]))
-                    throw new SemanticKernelException("The indexing profile object is missing from the agent parameters.", StatusCodes.Status400BadRequest);
-
-                if (!_request.Objects.TryGetValue(
-                        agent.Vectorization.IndexingProfileObjectIds[0], out var indexingProfileObject))
-                    throw new SemanticKernelException("The indexing profile object is missing from the request's objects.", StatusCodes.Status400BadRequest);
-
-                var indexingProfile = indexingProfileObject is JsonElement indexingProfileJsonElement
-                    ? indexingProfileJsonElement.Deserialize<IndexingProfile>()
-                    : indexingProfileObject as IndexingProfile;
+                var indexingProfile = indexingProfiles![0];
 
                 if (indexingProfile == null
                     || !await ValidateAndMapIndexingProfileConfiguration(indexingProfile)
                     || indexingProfile.Settings == null
                     || !indexingProfile.Settings.TryGetValue("IndexName", out var indexName)
                     || string.IsNullOrWhiteSpace(indexName))
-                    throw new SemanticKernelException("The indexing profile object provided in the request's is invalid.", StatusCodes.Status400BadRequest);
+                    throw new SemanticKernelException("The indexing profile object provided in the request's objects is invalid.", StatusCodes.Status400BadRequest);
 
                 _indexerName = indexingProfile.Indexer.ToString();
                 _indexName = indexName;
@@ -274,7 +217,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
             builder.AddAzureOpenAIChatCompletion(
                 _deploymentName,
-                _endpoint,
+                _endpointUrl,
                 credential,
                 null,
                 null,

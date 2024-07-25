@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from app.dependencies import API_NAME, get_config
 from app.routers import (
     manage,
-    orchestration,
+    completions,
     status
 )
 from foundationallm.telemetry import Telemetry
@@ -38,7 +38,7 @@ app = FastAPI(
 )
 
 app.include_router(manage.router)
-app.include_router(orchestration.router)
+app.include_router(completions.router)
 app.include_router(status.router)
 
 @app.get('/')

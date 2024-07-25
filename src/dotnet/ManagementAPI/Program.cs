@@ -13,7 +13,6 @@ using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
-using FoundationaLLM.Vectorization.Client;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using FoundationaLLM.Vectorization.Services.RequestProcessors;

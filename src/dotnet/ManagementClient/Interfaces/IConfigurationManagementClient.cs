@@ -49,7 +49,7 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// setting or a Key Vault reference, respectively.</param>
         /// <returns></returns>
         Task<ResourceProviderUpsertResult> UpsertAppConfigurationAsync(AppConfigurationKeyBase appConfiguration);
-        
+
         /// <summary>
         /// Upserts an api endpoint configuration resource. If an api endpoint configuration does not exist, it will be created.
         /// If an api endpoint configuration does exist, it will be updated.
@@ -58,5 +58,14 @@ namespace FoundationaLLM.Client.Management.Interfaces
         /// <returns>Returns a <see cref="ResourceProviderUpsertResult"/>, which contains the
         /// Object ID of the resource.</returns>
         Task<ResourceProviderUpsertResult> UpsertAPIEndpointConfiguration(APIEndpointConfiguration apiEndpointConfiguration);
+
+
+        /// <summary>
+        /// Deletes an Azure App Configuration key and associated Azure Key Vault secret.
+        /// </summary>
+        /// <param name="key">The name of the Azure App Configuration key to delete.</param>
+        /// <returns></returns>
+        Task DeleteAppConfigurationAsync(string key);
+
     }
 }
