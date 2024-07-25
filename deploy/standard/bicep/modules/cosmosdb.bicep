@@ -58,6 +58,14 @@ var containers = [
     }
   }
   {
+    name: 'State'
+    partitionKey: {
+      paths: [
+        '/operationId'
+      ]
+    }
+  }
+  {
     name: 'leases'
     partitionKey: {
       paths: [
