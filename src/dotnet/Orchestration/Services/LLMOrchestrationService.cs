@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Clients;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Infrastructure;
@@ -8,7 +7,6 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,24 +20,24 @@ namespace FoundationaLLM.Orchestration.Core.Services
         private readonly string _serviceName;
         private readonly APISettingsBase _settings;
         private readonly ILogger<LLMOrchestrationService> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactoryService _httpClientFactoryService;
         private readonly ICallContext _callContext;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         /// <summary>
-        /// LangChain Orchestration Service
+        /// LLM Orchestration Service
         /// </summary>
         public LLMOrchestrationService(
             string serviceName,
             IOptions<APISettingsBase> options,
             ILogger<LLMOrchestrationService> logger,
-            IHttpClientFactory httpClientFactory,
+            IHttpClientFactoryService httpClientFactoryService,
             ICallContext callContext) 
         {
             _serviceName = serviceName;
             _settings = options.Value;
             _logger = logger;
-            _httpClientFactory = httpClientFactory;
+            _httpClientFactoryService = httpClientFactoryService;
             _callContext = callContext;
             _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             _jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
@@ -48,7 +46,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <inheritdoc/>
         public async Task<ServiceStatusInfo> GetStatus(string instanceId)
         {
-            var client = CreateClient();
+            var client = await _httpClientFactoryService.CreateClient(_serviceName, _callContext.CurrentUserIdentity);
             var responseMessage = await client.SendAsync(
                 new HttpRequestMessage(HttpMethod.Get, $"/instances/{instanceId}/status"));
 
@@ -67,7 +65,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <returns>Returns a completion response from the orchestration engine.</returns>
         public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
-            var client = CreateClient();
+            var client = await _httpClientFactoryService.CreateClient(_serviceName, _callContext.CurrentUserIdentity);
             var pollingClient = new PollingHttpClient<LLMCompletionRequest, LLMCompletionResponse>(
                 client,
                 request,
@@ -104,25 +102,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 PromptTokens = 0,
                 CompletionTokens = 0
             };
-        }
-
-        private HttpClient CreateClient()
-        {
-            var httpClient = _httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(_settings.APIUrl!);
-            httpClient.Timeout = TimeSpan.FromMinutes(30);
-
-            // Add the API key header.
-            httpClient.DefaultRequestHeaders.Add(HttpHeaders.APIKey, _settings.APIKey);
-
-            // Optionally add the user identity header.
-            if (_callContext.CurrentUserIdentity != null)
-            {
-                var serializedIdentity = JsonSerializer.Serialize(_callContext.CurrentUserIdentity);
-                httpClient.DefaultRequestHeaders.Add(HttpHeaders.UserIdentity, serializedIdentity);
-            }
-
-            return httpClient;
         }
     }
 }
