@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor" data-uid="FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor" class="text-break">
-Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary
 
   <h3 id="FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor__ctor_FoundationaLLM_Vectorization_Services_VectorizationServices_VectorizationServiceFactory_" data-uid="FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.#ctor(FoundationaLLM.Vectorization.Services.VectorizationServices.VectorizationServiceFactory)">
   LocalVectorizationRequestProcessor(VectorizationServiceFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes the vectorization request internally.</p>
@@ -204,9 +204,9 @@ Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary
 
   <a id="FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_" data-uid="FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
-  ProcessRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes an incoming vectorization request.</p>
@@ -214,13 +214,16 @@ Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationResult&gt; ProcessRequest(VectorizationRequest vectorizationRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationResult&gt; ProcessRequest(VectorizationRequest vectorizationRequest, UnifiedUserIdentity? userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a> object containing the details of the vectorization request.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -244,7 +247,7 @@ Class LocalVectorizationRequestProcessor  <a class="header-action link-secondary
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/RequestProcessors/LocalVectorizationRequestProcessor.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

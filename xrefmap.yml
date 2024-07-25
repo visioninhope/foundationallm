@@ -1855,15 +1855,15 @@ references:
   commentId: T:FoundationaLLM.Authorization.Services.AuthorizationService
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService
   nameWithType: AuthorizationService
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})
-  name: AuthorizationService(IHttpClientFactory, IOptions<AuthorizationServiceSettings>, ILogger<AuthorizationService>)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Authorization_Models_Configuration_AuthorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Authorization_Services_AuthorizationService__
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})
-  name.vb: New(IHttpClientFactory, IOptions(Of AuthorizationServiceSettings), ILogger(Of AuthorizationService))
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.AuthorizationService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Authorization.Services.AuthorizationService>)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Authorization.Services.AuthorizationService))
-  nameWithType: AuthorizationService.AuthorizationService(IHttpClientFactory, IOptions<AuthorizationServiceSettings>, ILogger<AuthorizationService>)
-  nameWithType.vb: AuthorizationService.New(IHttpClientFactory, IOptions(Of AuthorizationServiceSettings), ILogger(Of AuthorizationService))
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})
+  name: AuthorizationService(IHttpClientFactoryService, IOptions<AuthorizationServiceSettings>, ILogger<AuthorizationService>)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Authorization_Models_Configuration_AuthorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Authorization_Services_AuthorizationService__
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})
+  name.vb: New(IHttpClientFactoryService, IOptions(Of AuthorizationServiceSettings), ILogger(Of AuthorizationService))
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.AuthorizationService(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Authorization.Services.AuthorizationService>)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.New(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Authorization.Services.AuthorizationService))
+  nameWithType: AuthorizationService.AuthorizationService(IHttpClientFactoryService, IOptions<AuthorizationServiceSettings>, ILogger<AuthorizationService>)
+  nameWithType.vb: AuthorizationService.New(IHttpClientFactoryService, IOptions(Of AuthorizationServiceSettings), ILogger(Of AuthorizationService))
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.#ctor*
   name: AuthorizationService
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService__ctor_
@@ -1874,15 +1874,15 @@ references:
   fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.New
   nameWithType: AuthorizationService.AuthorizationService
   nameWithType.vb: AuthorizationService.New
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  nameWithType: AuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  nameWithType.vb: AuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments*
   name: GetRoleAssignments
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_
@@ -1890,15 +1890,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments
   nameWithType: AuthorizationService.GetRoleAssignments
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: AuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  nameWithType.vb: AuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_System_String_System_Collections_Generic_List_System_String__FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(string, string, System.Collections.Generic.List<string>, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(String, String, System.Collections.Generic.List(Of String), FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationService.ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationService.ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_
@@ -1906,15 +1906,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest
   nameWithType: AuthorizationService.ProcessAuthorizationRequest
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  nameWithType: AuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  nameWithType.vb: AuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest*
   name: ProcessRoleAssignmentRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_
@@ -1922,15 +1922,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest
   nameWithType: AuthorizationService.ProcessRoleAssignmentRequest
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  nameWithType: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  nameWithType.vb: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest*
   name: ProcessRoleAssignmentsWithActionsRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_
@@ -1938,15 +1938,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: AuthorizationService.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name: RevokeRoleAssignment(string, string)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_System_String_System_String_
-  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name.vb: RevokeRoleAssignment(String, String)
-  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(string, string)
-  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(String, String)
-  nameWithType: AuthorizationService.RevokeRoleAssignment(string, string)
-  nameWithType.vb: AuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: RevokeRoleAssignment(String, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(string, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(String, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AuthorizationService.RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  nameWithType.vb: AuthorizationService.RevokeRoleAssignment(String, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment*
   name: RevokeRoleAssignment
   href: api/dotnet/FoundationaLLM.Authorization.Services.AuthorizationService.html#FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_
@@ -1960,15 +1960,15 @@ references:
   commentId: T:FoundationaLLM.Authorization.Services.NullAuthorizationService
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService
   nameWithType: NullAuthorizationService
-- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
-  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
-  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  nameWithType: NullAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  nameWithType.vb: NullAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: NullAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  nameWithType.vb: NullAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments*
   name: GetRoleAssignments
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_GetRoleAssignments_
@@ -1976,15 +1976,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.GetRoleAssignments
   nameWithType: NullAuthorizationService.GetRoleAssignments
-- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: NullAuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  nameWithType.vb: NullAuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_System_String_System_String_System_Collections_Generic_List_System_String__FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(string, string, System.Collections.Generic.List<string>, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest(String, String, System.Collections.Generic.List(Of String), FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: NullAuthorizationService.ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  nameWithType.vb: NullAuthorizationService.ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessAuthorizationRequest_
@@ -1992,15 +1992,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessAuthorizationRequest
   nameWithType: NullAuthorizationService.ProcessAuthorizationRequest
-- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
-  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  nameWithType: NullAuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  nameWithType.vb: NullAuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: NullAuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  nameWithType.vb: NullAuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest*
   name: ProcessRoleAssignmentRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentRequest_
@@ -2008,15 +2008,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentRequest
   nameWithType: NullAuthorizationService.ProcessRoleAssignmentRequest
-- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_
-  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
-  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  nameWithType: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  nameWithType.vb: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  nameWithType.vb: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest*
   name: ProcessRoleAssignmentsWithActionsRequest
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_
@@ -2024,15 +2024,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: NullAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name: RevokeRoleAssignment(string, string)
-  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_RevokeRoleAssignment_System_String_System_String_
-  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name.vb: RevokeRoleAssignment(String, String)
-  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(string, string)
-  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(String, String)
-  nameWithType: NullAuthorizationService.RevokeRoleAssignment(string, string)
-  nameWithType.vb: NullAuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_RevokeRoleAssignment_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: RevokeRoleAssignment(String, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(string, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment(String, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: NullAuthorizationService.RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  nameWithType.vb: NullAuthorizationService.RevokeRoleAssignment(String, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Authorization.Services.NullAuthorizationService.RevokeRoleAssignment*
   name: RevokeRoleAssignment
   href: api/dotnet/FoundationaLLM.Authorization.Services.NullAuthorizationService.html#FoundationaLLM_Authorization_Services_NullAuthorizationService_RevokeRoleAssignment_
@@ -7683,6 +7683,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
   fullName: FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
   nameWithType: HttpClients.AzureAIDirect
+- uid: FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
+  name: AzureAIStudioAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureAIStudioAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
+  nameWithType: HttpClients.AzureAIStudioAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
+  name: AzureContentSafety
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureContentSafety
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
+  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
+  nameWithType: HttpClients.AzureContentSafety
 - uid: FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
   name: AzureOpenAIDirect
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureOpenAIDirect
@@ -7701,6 +7713,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.DataSourceHubAPI
   fullName: FoundationaLLM.Common.Constants.HttpClients.DataSourceHubAPI
   nameWithType: HttpClients.DataSourceHubAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
+  name: EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_EnkryptGuardrails
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
+  fullName: FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
+  nameWithType: HttpClients.EnkryptGuardrails
 - uid: FoundationaLLM.Common.Constants.HttpClients.GatekeeperAPI
   name: GatekeeperAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_GatekeeperAPI
@@ -7713,6 +7731,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClients.GatekeeperIntegrationAPI
   fullName: FoundationaLLM.Common.Constants.HttpClients.GatekeeperIntegrationAPI
   nameWithType: HttpClients.GatekeeperIntegrationAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
+  name: GatewayAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_GatewayAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
+  nameWithType: HttpClients.GatewayAPI
+- uid: FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
+  name: LakeraGuard
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_LakeraGuard
+  commentId: F:FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
+  fullName: FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
+  nameWithType: HttpClients.LakeraGuard
 - uid: FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
   name: LangChainAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_LangChainAPI
@@ -9490,15 +9520,15 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IAuthorizationService
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService
   nameWithType: IAuthorizationService
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name: GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)
-  nameWithType: IAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  nameWithType.vb: IAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IAuthorizationService.GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  nameWithType.vb: IAuthorizationService.GetRoleAssignments(String, RoleAssignmentQueryParameters, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments*
   name: GetRoleAssignments
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_GetRoleAssignments_
@@ -9506,15 +9536,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.GetRoleAssignments
   nameWithType: IAuthorizationService.GetRoleAssignments
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name: ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  name.vb: ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(string, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(String, FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)
-  nameWithType: IAuthorizationService.ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
-  nameWithType.vb: IAuthorizationService.ProcessAuthorizationRequest(String, ActionAuthorizationRequest)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_System_String_System_String_System_Collections_Generic_List_System_String__FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(string, string, System.Collections.Generic.List<string>, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest(String, String, System.Collections.Generic.List(Of String), FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IAuthorizationService.ProcessAuthorizationRequest(string, string, List<string>, UnifiedUserIdentity)
+  nameWithType.vb: IAuthorizationService.ProcessAuthorizationRequest(String, String, List(Of String), UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest*
   name: ProcessAuthorizationRequest
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessAuthorizationRequest_
@@ -9522,15 +9552,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessAuthorizationRequest
   nameWithType: IAuthorizationService.ProcessAuthorizationRequest
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)
-  nameWithType: IAuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  nameWithType.vb: IAuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IAuthorizationService.ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  nameWithType.vb: IAuthorizationService.ProcessRoleAssignmentRequest(String, RoleAssignmentRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest*
   name: ProcessRoleAssignmentRequest
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentRequest_
@@ -9538,15 +9568,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentRequest
   nameWithType: IAuthorizationService.ProcessRoleAssignmentRequest
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)
-  nameWithType: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  nameWithType.vb: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  nameWithType.vb: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest(String, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest*
   name: ProcessRoleAssignmentsWithActionsRequest
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_ProcessRoleAssignmentsWithActionsRequest_
@@ -9554,15 +9584,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
   nameWithType: IAuthorizationService.ProcessRoleAssignmentsWithActionsRequest
-- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name: RevokeRoleAssignment(string, string)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_RevokeRoleAssignment_System_String_System_String_
-  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String)
-  name.vb: RevokeRoleAssignment(String, String)
-  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(string, string)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(String, String)
-  nameWithType: IAuthorizationService.RevokeRoleAssignment(string, string)
-  nameWithType.vb: IAuthorizationService.RevokeRoleAssignment(String, String)
+- uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_RevokeRoleAssignment_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: RevokeRoleAssignment(String, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(string, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment(String, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IAuthorizationService.RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  nameWithType.vb: IAuthorizationService.RevokeRoleAssignment(String, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IAuthorizationService.RevokeRoleAssignment*
   name: RevokeRoleAssignment
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IAuthorizationService.html#FoundationaLLM_Common_Interfaces_IAuthorizationService_RevokeRoleAssignment_
@@ -10026,15 +10056,24 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService
   fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService
   nameWithType: IHttpClientFactoryService
-- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String)
-  name: CreateClient(string)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_System_String_
-  commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String)
-  name.vb: CreateClient(String)
-  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(string)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(String)
-  nameWithType: IHttpClientFactoryService.CreateClient(string)
-  nameWithType.vb: IHttpClientFactoryService.CreateClient(String)
+- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpointConfiguration_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IHttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
+  nameWithType.vb: IHttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: CreateClient(string, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: CreateClient(String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IHttpClientFactoryService.CreateClient(string, UnifiedUserIdentity?)
+  nameWithType.vb: IHttpClientFactoryService.CreateClient(String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient*
   name: CreateClient
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_
@@ -20857,15 +20896,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.API.APIServiceBase
   fullName: FoundationaLLM.Common.Services.API.APIServiceBase
   nameWithType: APIServiceBase
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
-  name: APIServiceBase(string, IHttpClientFactoryService, ILogger)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase__ctor_System_String_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_
-  commentId: M:FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
-  name.vb: New(String, IHttpClientFactoryService, ILogger)
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.APIServiceBase(string, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
-  fullName.vb: FoundationaLLM.Common.Services.API.APIServiceBase.New(String, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
-  nameWithType: APIServiceBase.APIServiceBase(string, IHttpClientFactoryService, ILogger)
-  nameWithType.vb: APIServiceBase.New(String, IHttpClientFactoryService, ILogger)
+- uid: FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
+  name: APIServiceBase(string, ICallContext, IHttpClientFactoryService, ILogger)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase__ctor_System_String_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
+  name.vb: New(String, ICallContext, IHttpClientFactoryService, ILogger)
+  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.APIServiceBase(string, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: FoundationaLLM.Common.Services.API.APIServiceBase.New(String, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
+  nameWithType: APIServiceBase.APIServiceBase(string, ICallContext, IHttpClientFactoryService, ILogger)
+  nameWithType.vb: APIServiceBase.New(String, ICallContext, IHttpClientFactoryService, ILogger)
 - uid: FoundationaLLM.Common.Services.API.APIServiceBase.#ctor*
   name: APIServiceBase
   href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase__ctor_
@@ -20911,15 +20950,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.API.DownstreamAPIService
   fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService
   nameWithType: DownstreamAPIService
-- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
-  name: DownstreamAPIService(string, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_System_String_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_DownstreamAPIService__
-  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
-  name.vb: New(String, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
-  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.DownstreamAPIService(string, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.API.DownstreamAPIService>)
-  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.New(String, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.API.DownstreamAPIService))
-  nameWithType: DownstreamAPIService.DownstreamAPIService(string, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
-  nameWithType.vb: DownstreamAPIService.New(String, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
+  name: DownstreamAPIService(string, ICallContext, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_System_String_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_API_DownstreamAPIService__
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.API.DownstreamAPIService})
+  name.vb: New(String, ICallContext, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.DownstreamAPIService(string, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.API.DownstreamAPIService>)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.New(String, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.API.DownstreamAPIService))
+  nameWithType: DownstreamAPIService.DownstreamAPIService(string, ICallContext, IHttpClientFactoryService, ILogger<DownstreamAPIService>)
+  nameWithType.vb: DownstreamAPIService.New(String, ICallContext, IHttpClientFactoryService, ILogger(Of DownstreamAPIService))
 - uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.#ctor*
   name: DownstreamAPIService
   href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService__ctor_
@@ -21076,15 +21115,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.AzureAIService
   fullName: FoundationaLLM.Common.Services.AzureAIService
   nameWithType: AzureAIService
-- uid: FoundationaLLM.Common.Services.AzureAIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.AzureAIService},FoundationaLLM.Common.Interfaces.IStorageService,System.Net.Http.IHttpClientFactory)
-  name: AzureAIService(IOptions<AzureAISettings>, ILogger<AzureAIService>, IStorageService, IHttpClientFactory)
-  href: api/dotnet/FoundationaLLM.Common.Services.AzureAIService.html#FoundationaLLM_Common_Services_AzureAIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_AzureAIService__FoundationaLLM_Common_Interfaces_IStorageService_System_Net_Http_IHttpClientFactory_
-  commentId: M:FoundationaLLM.Common.Services.AzureAIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.AzureAIService},FoundationaLLM.Common.Interfaces.IStorageService,System.Net.Http.IHttpClientFactory)
-  name.vb: New(IOptions(Of AzureAISettings), ILogger(Of AzureAIService), IStorageService, IHttpClientFactory)
-  fullName: FoundationaLLM.Common.Services.AzureAIService.AzureAIService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.AzureAIService>, FoundationaLLM.Common.Interfaces.IStorageService, System.Net.Http.IHttpClientFactory)
-  fullName.vb: FoundationaLLM.Common.Services.AzureAIService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.AzureAIService), FoundationaLLM.Common.Interfaces.IStorageService, System.Net.Http.IHttpClientFactory)
-  nameWithType: AzureAIService.AzureAIService(IOptions<AzureAISettings>, ILogger<AzureAIService>, IStorageService, IHttpClientFactory)
-  nameWithType.vb: AzureAIService.New(IOptions(Of AzureAISettings), ILogger(Of AzureAIService), IStorageService, IHttpClientFactory)
+- uid: FoundationaLLM.Common.Services.AzureAIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.AzureAIService},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: AzureAIService(IOptions<AzureAISettings>, ILogger<AzureAIService>, IStorageService, ICallContext, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.Common.Services.AzureAIService.html#FoundationaLLM_Common_Services_AzureAIService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_AzureAIService__FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.Common.Services.AzureAIService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.AzureAIService},FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(IOptions(Of AzureAISettings), ILogger(Of AzureAIService), IStorageService, ICallContext, IHttpClientFactoryService)
+  fullName: FoundationaLLM.Common.Services.AzureAIService.AzureAIService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.AzureAIService>, FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.Common.Services.AzureAIService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.AzureAIService), FoundationaLLM.Common.Interfaces.IStorageService, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: AzureAIService.AzureAIService(IOptions<AzureAISettings>, ILogger<AzureAIService>, IStorageService, ICallContext, IHttpClientFactoryService)
+  nameWithType.vb: AzureAIService.New(IOptions(Of AzureAISettings), ILogger(Of AzureAIService), IStorageService, ICallContext, IHttpClientFactoryService)
 - uid: FoundationaLLM.Common.Services.AzureAIService.#ctor*
   name: AzureAIService
   href: api/dotnet/FoundationaLLM.Common.Services.AzureAIService.html#FoundationaLLM_Common_Services_AzureAIService__ctor_
@@ -21669,15 +21708,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.HttpClientFactoryService
   fullName: FoundationaLLM.Common.Services.HttpClientFactoryService
   nameWithType: HttpClientFactoryService
-- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IDownstreamAPISettings)
-  name: HttpClientFactoryService(IHttpClientFactory, ICallContext, IDownstreamAPISettings)
-  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_System_Net_Http_IHttpClientFactory_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IDownstreamAPISettings_
-  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IDownstreamAPISettings)
-  name.vb: New(IHttpClientFactory, ICallContext, IDownstreamAPISettings)
-  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.HttpClientFactoryService(System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IDownstreamAPISettings)
-  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.New(System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IDownstreamAPISettings)
-  nameWithType: HttpClientFactoryService.HttpClientFactoryService(IHttpClientFactory, ICallContext, IDownstreamAPISettings)
-  nameWithType.vb: HttpClientFactoryService.New(IHttpClientFactory, ICallContext, IDownstreamAPISettings)
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
+  name: HttpClientFactoryService(IEnumerable<IResourceProviderService>, IConfiguration, IHttpClientFactory)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_System_Net_Http_IHttpClientFactory_
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
+  name.vb: New(IEnumerable(Of IResourceProviderService), IConfiguration, IHttpClientFactory)
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.HttpClientFactoryService(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
+  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
+  nameWithType: HttpClientFactoryService.HttpClientFactoryService(IEnumerable<IResourceProviderService>, IConfiguration, IHttpClientFactory)
+  nameWithType.vb: HttpClientFactoryService.New(IEnumerable(Of IResourceProviderService), IConfiguration, IHttpClientFactory)
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor*
   name: HttpClientFactoryService
   href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_
@@ -21688,15 +21727,24 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.New
   nameWithType: HttpClientFactoryService.HttpClientFactoryService
   nameWithType.vb: HttpClientFactoryService.New
-- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String)
-  name: CreateClient(string)
-  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_System_String_
-  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String)
-  name.vb: CreateClient(String)
-  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(string)
-  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(String)
-  nameWithType: HttpClientFactoryService.CreateClient(string)
-  nameWithType.vb: HttpClientFactoryService.CreateClient(String)
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpointConfiguration_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: HttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
+  nameWithType.vb: HttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: CreateClient(string, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: CreateClient(String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: HttpClientFactoryService.CreateClient(string, UnifiedUserIdentity?)
+  nameWithType.vb: HttpClientFactoryService.CreateClient(String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient*
   name: CreateClient
   href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_
@@ -26003,15 +26051,15 @@ references:
   commentId: T:FoundationaLLM.Core.Services.GatekeeperAPIService
   fullName: FoundationaLLM.Core.Services.GatekeeperAPIService
   nameWithType: GatekeeperAPIService
-- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: GatekeeperAPIService(IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.Core.Services.GatekeeperAPIService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(IHttpClientFactoryService)
-  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GatekeeperAPIService(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.Core.Services.GatekeeperAPIService.New(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: GatekeeperAPIService.GatekeeperAPIService(IHttpClientFactoryService)
-  nameWithType.vb: GatekeeperAPIService.New(IHttpClientFactoryService)
+- uid: FoundationaLLM.Core.Services.GatekeeperAPIService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: GatekeeperAPIService(ICallContext, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.Core.Services.GatekeeperAPIService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(ICallContext, IHttpClientFactoryService)
+  fullName: FoundationaLLM.Core.Services.GatekeeperAPIService.GatekeeperAPIService(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.Core.Services.GatekeeperAPIService.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: GatekeeperAPIService.GatekeeperAPIService(ICallContext, IHttpClientFactoryService)
+  nameWithType.vb: GatekeeperAPIService.New(ICallContext, IHttpClientFactoryService)
 - uid: FoundationaLLM.Core.Services.GatekeeperAPIService.#ctor*
   name: GatekeeperAPIService
   href: api/dotnet/FoundationaLLM.Core.Services.GatekeeperAPIService.html#FoundationaLLM_Core_Services_GatekeeperAPIService__ctor_
@@ -26858,6 +26906,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddGroupMembership
   nameWithType: DependencyInjection.AddGroupMembership
+- uid: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddHttpClientFactoryService(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddHttpClientFactoryService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddHttpClientFactoryService(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService*
+  name: AddHttpClientFactoryService
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddHttpClientFactoryService_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddHttpClientFactoryService
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService
+  nameWithType: DependencyInjection.AddHttpClientFactoryService
 - uid: FoundationaLLM.DependencyInjection.AddInstanceProperties(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
   name: AddInstanceProperties(IServiceCollection, IConfigurationManager)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddInstanceProperties_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
@@ -28092,15 +28153,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService
   nameWithType: AzureContentSafetyService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
-  name: AzureContentSafetyService(IHttpClientFactory, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
-  name.vb: New(IHttpClientFactory, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AzureContentSafetyService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService))
-  nameWithType: AzureContentSafetyService.AzureContentSafetyService(IHttpClientFactory, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
-  nameWithType.vb: AzureContentSafetyService.New(IHttpClientFactory, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
+  name: AzureContentSafetyService(ICallContext, IHttpClientFactoryService, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_AzureContentSafetySettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService})
+  name.vb: New(ICallContext, IHttpClientFactoryService, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.AzureContentSafetyService(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.AzureContentSafetySettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService))
+  nameWithType: AzureContentSafetyService.AzureContentSafetyService(ICallContext, IHttpClientFactoryService, IOptions<AzureContentSafetySettings>, ILogger<AzureContentSafetyService>)
+  nameWithType.vb: AzureContentSafetyService.New(ICallContext, IHttpClientFactoryService, IOptions(Of AzureContentSafetySettings), ILogger(Of AzureContentSafetyService))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.#ctor*
   name: AzureContentSafetyService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.AzureContentSafetyService.html#FoundationaLLM_Gatekeeper_Core_Services_AzureContentSafetyService__ctor_
@@ -28149,15 +28210,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService
   nameWithType: EnkryptGuardrailsService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
-  name: EnkryptGuardrailsService(IHttpClientFactory, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
-  name.vb: New(IHttpClientFactory, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.EnkryptGuardrailsService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService))
-  nameWithType: EnkryptGuardrailsService.EnkryptGuardrailsService(IHttpClientFactory, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
-  nameWithType.vb: EnkryptGuardrailsService.New(IHttpClientFactory, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
+  name: EnkryptGuardrailsService(ICallContext, IHttpClientFactoryService, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService})
+  name.vb: New(ICallContext, IHttpClientFactoryService, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.EnkryptGuardrailsService(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService))
+  nameWithType: EnkryptGuardrailsService.EnkryptGuardrailsService(ICallContext, IHttpClientFactoryService, IOptions<EnkryptGuardrailsServiceSettings>, ILogger<EnkryptGuardrailsService>)
+  nameWithType.vb: EnkryptGuardrailsService.New(ICallContext, IHttpClientFactoryService, IOptions(Of EnkryptGuardrailsServiceSettings), ILogger(Of EnkryptGuardrailsService))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.#ctor*
   name: EnkryptGuardrailsService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.EnkryptGuardrailsService.html#FoundationaLLM_Gatekeeper_Core_Services_EnkryptGuardrailsService__ctor_
@@ -28190,15 +28251,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService
   nameWithType: GatekeeperIntegrationAPIService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: GatekeeperIntegrationAPIService(IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperIntegrationAPIService__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(IHttpClientFactoryService)
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.GatekeeperIntegrationAPIService(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.New(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: GatekeeperIntegrationAPIService.GatekeeperIntegrationAPIService(IHttpClientFactoryService)
-  nameWithType.vb: GatekeeperIntegrationAPIService.New(IHttpClientFactoryService)
+- uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: GatekeeperIntegrationAPIService(ICallContext, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperIntegrationAPIService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(ICallContext, IHttpClientFactoryService)
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.GatekeeperIntegrationAPIService(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: GatekeeperIntegrationAPIService.GatekeeperIntegrationAPIService(ICallContext, IHttpClientFactoryService)
+  nameWithType.vb: GatekeeperIntegrationAPIService.New(ICallContext, IHttpClientFactoryService)
 - uid: FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.#ctor*
   name: GatekeeperIntegrationAPIService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.GatekeeperIntegrationAPIService.html#FoundationaLLM_Gatekeeper_Core_Services_GatekeeperIntegrationAPIService__ctor_
@@ -28336,15 +28397,15 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
   fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService
   nameWithType: LakeraGuardService
-- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
-  name: LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__
-  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
-  name.vb: New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
-  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService>)
-  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService))
-  nameWithType: LakeraGuardService.LakeraGuardService(IHttpClientFactory, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
-  nameWithType.vb: LakeraGuardService.New(IHttpClientFactory, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
+- uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
+  name: LakeraGuardService(ICallContext, IHttpClientFactoryService, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__
+  commentId: M:FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService})
+  name.vb: New(ICallContext, IHttpClientFactoryService, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
+  fullName: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.LakeraGuardService(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService>)
+  fullName.vb: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService))
+  nameWithType: LakeraGuardService.LakeraGuardService(ICallContext, IHttpClientFactoryService, IOptions<LakeraGuardServiceSettings>, ILogger<LakeraGuardService>)
+  nameWithType.vb: LakeraGuardService.New(ICallContext, IHttpClientFactoryService, IOptions(Of LakeraGuardServiceSettings), ILogger(Of LakeraGuardService))
 - uid: FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.#ctor*
   name: LakeraGuardService
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Services.LakeraGuardService.html#FoundationaLLM_Gatekeeper_Core_Services_LakeraGuardService__ctor_
@@ -28516,15 +28577,15 @@ references:
   commentId: T:FoundationaLLM.Gateway.Client.GatewayServiceClient
   fullName: FoundationaLLM.Gateway.Client.GatewayServiceClient
   nameWithType: GatewayServiceClient
-- uid: FoundationaLLM.Gateway.Client.GatewayServiceClient.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Client.GatewayServiceClient})
-  name: GatewayServiceClient(IHttpClientFactory, IOptions<GatewayServiceSettings>, ILogger<GatewayServiceClient>)
-  href: api/dotnet/FoundationaLLM.Gateway.Client.GatewayServiceClient.html#FoundationaLLM_Gateway_Client_GatewayServiceClient__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gateway_Models_Configuration_GatewayServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Client_GatewayServiceClient__
-  commentId: M:FoundationaLLM.Gateway.Client.GatewayServiceClient.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Client.GatewayServiceClient})
-  name.vb: New(IHttpClientFactory, IOptions(Of GatewayServiceSettings), ILogger(Of GatewayServiceClient))
-  fullName: FoundationaLLM.Gateway.Client.GatewayServiceClient.GatewayServiceClient(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gateway.Client.GatewayServiceClient>)
-  fullName.vb: FoundationaLLM.Gateway.Client.GatewayServiceClient.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gateway.Client.GatewayServiceClient))
-  nameWithType: GatewayServiceClient.GatewayServiceClient(IHttpClientFactory, IOptions<GatewayServiceSettings>, ILogger<GatewayServiceClient>)
-  nameWithType.vb: GatewayServiceClient.New(IHttpClientFactory, IOptions(Of GatewayServiceSettings), ILogger(Of GatewayServiceClient))
+- uid: FoundationaLLM.Gateway.Client.GatewayServiceClient.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Client.GatewayServiceClient})
+  name: GatewayServiceClient(ICallContext, IHttpClientFactoryService, IOptions<GatewayServiceSettings>, ILogger<GatewayServiceClient>)
+  href: api/dotnet/FoundationaLLM.Gateway.Client.GatewayServiceClient.html#FoundationaLLM_Gateway_Client_GatewayServiceClient__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Gateway_Models_Configuration_GatewayServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Client_GatewayServiceClient__
+  commentId: M:FoundationaLLM.Gateway.Client.GatewayServiceClient.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Client.GatewayServiceClient})
+  name.vb: New(ICallContext, IHttpClientFactoryService, IOptions(Of GatewayServiceSettings), ILogger(Of GatewayServiceClient))
+  fullName: FoundationaLLM.Gateway.Client.GatewayServiceClient.GatewayServiceClient(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gateway.Client.GatewayServiceClient>)
+  fullName.vb: FoundationaLLM.Gateway.Client.GatewayServiceClient.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gateway.Client.GatewayServiceClient))
+  nameWithType: GatewayServiceClient.GatewayServiceClient(ICallContext, IHttpClientFactoryService, IOptions<GatewayServiceSettings>, ILogger<GatewayServiceClient>)
+  nameWithType.vb: GatewayServiceClient.New(ICallContext, IHttpClientFactoryService, IOptions(Of GatewayServiceSettings), ILogger(Of GatewayServiceClient))
 - uid: FoundationaLLM.Gateway.Client.GatewayServiceClient.#ctor*
   name: GatewayServiceClient
   href: api/dotnet/FoundationaLLM.Gateway.Client.GatewayServiceClient.html#FoundationaLLM_Gateway_Client_GatewayServiceClient__ctor_
@@ -30182,15 +30243,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService
   nameWithType: AzureAIDirectService
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name: AzureAIDirectService(ICallContext, ILogger<AzureAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name.vb: New(ICallContext, ILogger(Of AzureAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.AzureAIDirectService(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService>, Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.New(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService), Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
-  nameWithType: AzureAIDirectService.AzureAIDirectService(ICallContext, ILogger<AzureAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
-  nameWithType.vb: AzureAIDirectService.New(ICallContext, ILogger(Of AzureAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name: AzureAIDirectService(ICallContext, ILogger<AzureAIDirectService>, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name.vb: New(ICallContext, ILogger(Of AzureAIDirectService), IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.AzureAIDirectService(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.New(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
+  nameWithType: AzureAIDirectService.AzureAIDirectService(ICallContext, ILogger<AzureAIDirectService>, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  nameWithType.vb: AzureAIDirectService.New(ICallContext, ILogger(Of AzureAIDirectService), IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.#ctor*
   name: AzureAIDirectService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureAIDirectService__ctor_
@@ -30252,15 +30313,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService
   fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService
   nameWithType: AzureOpenAIDirectService
-- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name: AzureOpenAIDirectService(ICallContext, ILogger<AzureOpenAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__ctor_FoundationaLLM_Common_Interfaces_ICallContext_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__Microsoft_Extensions_Configuration_IConfiguration_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},Microsoft.Extensions.Configuration.IConfiguration,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name.vb: New(ICallContext, ILogger(Of AzureOpenAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
-  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.AzureOpenAIDirectService(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService>, Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.New(FoundationaLLM.Common.Interfaces.ICallContext, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService), Microsoft.Extensions.Configuration.IConfiguration, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
-  nameWithType: AzureOpenAIDirectService.AzureOpenAIDirectService(ICallContext, ILogger<AzureOpenAIDirectService>, IConfiguration, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
-  nameWithType.vb: AzureOpenAIDirectService.New(ICallContext, ILogger(Of AzureOpenAIDirectService), IConfiguration, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+- uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name: AzureOpenAIDirectService(ILogger<AzureOpenAIDirectService>, ICallContext, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
+  name.vb: New(ILogger(Of AzureOpenAIDirectService), ICallContext, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
+  fullName: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.AzureOpenAIDirectService(Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService>, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.New(Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService), FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
+  nameWithType: AzureOpenAIDirectService.AzureOpenAIDirectService(ILogger<AzureOpenAIDirectService>, ICallContext, IHttpClientFactoryService, IEnumerable<IResourceProviderService>)
+  nameWithType.vb: AzureOpenAIDirectService.New(ILogger(Of AzureOpenAIDirectService), ICallContext, IHttpClientFactoryService, IEnumerable(Of IResourceProviderService))
 - uid: FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor*
   name: AzureOpenAIDirectService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.html#FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__ctor_
@@ -30322,15 +30383,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
   fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
   nameWithType: LLMOrchestrationService
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext)
-  name: LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactory, ICallContext)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_APISettingsBase__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__System_Net_Http_IHttpClientFactory_FoundationaLLM_Common_Interfaces_ICallContext_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},System.Net.Http.IHttpClientFactory,FoundationaLLM.Common.Interfaces.ICallContext)
-  name.vb: New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactory, ICallContext)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService(string, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.API.APISettingsBase>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService>, System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New(String, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.API.APISettingsBase), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService), System.Net.Http.IHttpClientFactory, FoundationaLLM.Common.Interfaces.ICallContext)
-  nameWithType: LLMOrchestrationService.LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactory, ICallContext)
-  nameWithType.vb: LLMOrchestrationService.New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactory, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_APISettingsBase__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService(string, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.API.APISettingsBase>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New(String, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.API.APISettingsBase), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: LLMOrchestrationService.LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
+  nameWithType.vb: LLMOrchestrationService.New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor*
   name: LLMOrchestrationService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_
@@ -30449,15 +30510,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.LangChainService
   fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService
   nameWithType: LangChainService
-- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LangChainService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: LangChainService(IOptions<LangChainServiceSettings>, ILogger<LangChainService>, IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_LangChainServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LangChainService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LangChainService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(IOptions(Of LangChainServiceSettings), ILogger(Of LangChainService), IHttpClientFactoryService)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.LangChainService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LangChainService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LangChainService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LangChainService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: LangChainService.LangChainService(IOptions<LangChainServiceSettings>, ILogger<LangChainService>, IHttpClientFactoryService)
-  nameWithType.vb: LangChainService.New(IOptions(Of LangChainServiceSettings), ILogger(Of LangChainService), IHttpClientFactoryService)
+- uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LangChainService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: LangChainService(IOptions<LangChainServiceSettings>, ILogger<LangChainService>, ICallContext, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_LangChainServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LangChainService__FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LangChainService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(IOptions(Of LangChainServiceSettings), ILogger(Of LangChainService), ICallContext, IHttpClientFactoryService)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LangChainService.LangChainService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LangChainService>, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LangChainService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LangChainService), FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: LangChainService.LangChainService(IOptions<LangChainServiceSettings>, ILogger<LangChainService>, ICallContext, IHttpClientFactoryService)
+  nameWithType.vb: LangChainService.New(IOptions(Of LangChainServiceSettings), ILogger(Of LangChainService), ICallContext, IHttpClientFactoryService)
 - uid: FoundationaLLM.Orchestration.Core.Services.LangChainService.#ctor*
   name: LangChainService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LangChainService.html#FoundationaLLM_Orchestration_Core_Services_LangChainService__ctor_
@@ -30624,15 +30685,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService
   fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService
   nameWithType: SemanticKernelService
-- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: SemanticKernelService(IOptions<SemanticKernelServiceSettings>, ILogger<SemanticKernelService>, IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_SemanticKernelServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(IOptions(Of SemanticKernelServiceSettings), ILogger(Of SemanticKernelService), IHttpClientFactoryService)
-  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.SemanticKernelService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.SemanticKernelService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: SemanticKernelService.SemanticKernelService(IOptions<SemanticKernelServiceSettings>, ILogger<SemanticKernelService>, IHttpClientFactoryService)
-  nameWithType.vb: SemanticKernelService.New(IOptions(Of SemanticKernelServiceSettings), ILogger(Of SemanticKernelService), IHttpClientFactoryService)
+- uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name: SemanticKernelService(IOptions<SemanticKernelServiceSettings>, ILogger<SemanticKernelService>, ICallContext, IHttpClientFactoryService)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Orchestration_Core_Models_ConfigurationOptions_SemanticKernelServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.SemanticKernelService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  name.vb: New(IOptions(Of SemanticKernelServiceSettings), ILogger(Of SemanticKernelService), ICallContext, IHttpClientFactoryService)
+  fullName: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.SemanticKernelService>, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.SemanticKernelServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.SemanticKernelService), FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
+  nameWithType: SemanticKernelService.SemanticKernelService(IOptions<SemanticKernelServiceSettings>, ILogger<SemanticKernelService>, ICallContext, IHttpClientFactoryService)
+  nameWithType.vb: SemanticKernelService.New(IOptions(Of SemanticKernelServiceSettings), ILogger(Of SemanticKernelService), ICallContext, IHttpClientFactoryService)
 - uid: FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.#ctor*
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.SemanticKernelService.html#FoundationaLLM_Orchestration_Core_Services_SemanticKernelService__ctor_
@@ -32129,15 +32190,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController
   fullName: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController
   nameWithType: VectorizationRequestController
-- uid: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
-  name: VectorizationRequestController(IVectorizationRequestProcessor)
-  href: api/dotnet/FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.html#FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_FoundationaLLM_Vectorization_Interfaces_IVectorizationRequestProcessor_
-  commentId: M:FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor(FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
-  name.vb: New(IVectorizationRequestProcessor)
-  fullName: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.VectorizationRequestController(FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
-  fullName.vb: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.New(FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
-  nameWithType: VectorizationRequestController.VectorizationRequestController(IVectorizationRequestProcessor)
-  nameWithType.vb: VectorizationRequestController.New(IVectorizationRequestProcessor)
+- uid: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
+  name: VectorizationRequestController(ICallContext, IVectorizationRequestProcessor)
+  href: api/dotnet/FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.html#FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Vectorization_Interfaces_IVectorizationRequestProcessor_
+  commentId: M:FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor(FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
+  name.vb: New(ICallContext, IVectorizationRequestProcessor)
+  fullName: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.VectorizationRequestController(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
+  fullName.vb: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.New(FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor)
+  nameWithType: VectorizationRequestController.VectorizationRequestController(ICallContext, IVectorizationRequestProcessor)
+  nameWithType.vb: VectorizationRequestController.New(ICallContext, IVectorizationRequestProcessor)
 - uid: FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.#ctor*
   name: VectorizationRequestController
   href: api/dotnet/FoundationaLLM.Vectorization.API.Controllers.VectorizationRequestController.html#FoundationaLLM_Vectorization_API_Controllers_VectorizationRequestController__ctor_
@@ -32173,15 +32234,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Client.VectorizationServiceClient
   fullName: FoundationaLLM.Vectorization.Client.VectorizationServiceClient
   nameWithType: VectorizationServiceClient
-- uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})
-  name: VectorizationServiceClient(IHttpClientFactory, IOptions<VectorizationServiceSettings>, ILogger<VectorizationServiceClient>)
-  href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Client_VectorizationServiceClient__
-  commentId: M:FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})
-  name.vb: New(IHttpClientFactory, IOptions(Of VectorizationServiceSettings), ILogger(Of VectorizationServiceClient))
-  fullName: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.VectorizationServiceClient(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.Client.VectorizationServiceClient>)
-  fullName.vb: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.Client.VectorizationServiceClient))
-  nameWithType: VectorizationServiceClient.VectorizationServiceClient(IHttpClientFactory, IOptions<VectorizationServiceSettings>, ILogger<VectorizationServiceClient>)
-  nameWithType.vb: VectorizationServiceClient.New(IHttpClientFactory, IOptions(Of VectorizationServiceSettings), ILogger(Of VectorizationServiceClient))
+- uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})
+  name: VectorizationServiceClient(IHttpClientFactoryService, IOptions<VectorizationServiceSettings>, ILogger<VectorizationServiceClient>)
+  href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Client_VectorizationServiceClient__
+  commentId: M:FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})
+  name.vb: New(IHttpClientFactoryService, IOptions(Of VectorizationServiceSettings), ILogger(Of VectorizationServiceClient))
+  fullName: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.VectorizationServiceClient(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Vectorization.Client.VectorizationServiceClient>)
+  fullName.vb: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.New(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Vectorization.Client.VectorizationServiceClient))
+  nameWithType: VectorizationServiceClient.VectorizationServiceClient(IHttpClientFactoryService, IOptions<VectorizationServiceSettings>, ILogger<VectorizationServiceClient>)
+  nameWithType.vb: VectorizationServiceClient.New(IHttpClientFactoryService, IOptions(Of VectorizationServiceSettings), ILogger(Of VectorizationServiceClient))
 - uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor*
   name: VectorizationServiceClient
   href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_
@@ -32192,12 +32253,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.New
   nameWithType: VectorizationServiceClient.VectorizationServiceClient
   nameWithType.vb: VectorizationServiceClient.New
-- uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: VectorizationServiceClient.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: VectorizationServiceClient.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: VectorizationServiceClient.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Client.VectorizationServiceClient.html#FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_
@@ -32908,12 +32972,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor
   fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor
   nameWithType: IVectorizationRequestProcessor
-- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: IVectorizationRequestProcessor.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: IVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationRequestProcessor_ProcessRequest_
@@ -32927,12 +32994,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IVectorizationService
   fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationService
   nameWithType: IVectorizationService
-- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: IVectorizationService.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: IVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationService.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationService.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationService_ProcessRequest_
@@ -32946,12 +33016,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient
   fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient
   nameWithType: IVectorizationServiceClient
-- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: IVectorizationServiceClient.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: IVectorizationServiceClient.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: IVectorizationServiceClient.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceClient.html#FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceClient_ProcessRequest_
@@ -35017,12 +35090,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.New
   nameWithType: LocalVectorizationRequestProcessor.LocalVectorizationRequestProcessor
   nameWithType.vb: LocalVectorizationRequestProcessor.New
-- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: LocalVectorizationRequestProcessor.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: LocalVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: LocalVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.LocalVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_LocalVectorizationRequestProcessor_ProcessRequest_
@@ -35036,15 +35112,15 @@ references:
   commentId: T:FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor
   fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor
   nameWithType: RemoteVectorizationRequestProcessor
-- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
-  name: RemoteVectorizationRequestProcessor(IHttpClientFactory, IOptions<VectorizationServiceSettings>, ILoggerFactory)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_
-  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
-  name.vb: New(IHttpClientFactory, IOptions(Of VectorizationServiceSettings), ILoggerFactory)
-  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.RemoteVectorizationRequestProcessor(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings>, Microsoft.Extensions.Logging.ILoggerFactory)
-  fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.New(System.Net.Http.IHttpClientFactory, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings), Microsoft.Extensions.Logging.ILoggerFactory)
-  nameWithType: RemoteVectorizationRequestProcessor.RemoteVectorizationRequestProcessor(IHttpClientFactory, IOptions<VectorizationServiceSettings>, ILoggerFactory)
-  nameWithType.vb: RemoteVectorizationRequestProcessor.New(IHttpClientFactory, IOptions(Of VectorizationServiceSettings), ILoggerFactory)
+- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name: RemoteVectorizationRequestProcessor(IHttpClientFactoryService, IOptions<VectorizationServiceSettings>, ILoggerFactory)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILoggerFactory_
+  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILoggerFactory)
+  name.vb: New(IHttpClientFactoryService, IOptions(Of VectorizationServiceSettings), ILoggerFactory)
+  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.RemoteVectorizationRequestProcessor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings>, Microsoft.Extensions.Logging.ILoggerFactory)
+  fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.New(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings), Microsoft.Extensions.Logging.ILoggerFactory)
+  nameWithType: RemoteVectorizationRequestProcessor.RemoteVectorizationRequestProcessor(IHttpClientFactoryService, IOptions<VectorizationServiceSettings>, ILoggerFactory)
+  nameWithType.vb: RemoteVectorizationRequestProcessor.New(IHttpClientFactoryService, IOptions(Of VectorizationServiceSettings), ILoggerFactory)
 - uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.#ctor*
   name: RemoteVectorizationRequestProcessor
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor__ctor_
@@ -35055,12 +35131,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.New
   nameWithType: RemoteVectorizationRequestProcessor.RemoteVectorizationRequestProcessor
   nameWithType.vb: RemoteVectorizationRequestProcessor.New
-- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: RemoteVectorizationRequestProcessor.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: RemoteVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: RemoteVectorizationRequestProcessor.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Services.RequestProcessors.RemoteVectorizationRequestProcessor.html#FoundationaLLM_Vectorization_Services_RequestProcessors_RemoteVectorizationRequestProcessor_ProcessRequest_
@@ -35661,12 +35740,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.New
   nameWithType: AsynchronousVectorizationService.AsynchronousVectorizationService
   nameWithType.vb: AsynchronousVectorizationService.New
-- uid: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_AsynchronousVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: AsynchronousVectorizationService.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_AsynchronousVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: AsynchronousVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: AsynchronousVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.AsynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_AsynchronousVectorizationService_ProcessRequest_
@@ -35699,12 +35781,15 @@ references:
   fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.New
   nameWithType: SynchronousVectorizationService.SynchronousVectorizationService
   nameWithType.vb: SynchronousVectorizationService.New
-- uid: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  name: ProcessRequest(VectorizationRequest)
-  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_SynchronousVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_
-  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  fullName: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)
-  nameWithType: SynchronousVectorizationService.ProcessRequest(VectorizationRequest)
+- uid: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_SynchronousVectorizationService_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName.vb: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: SynchronousVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  nameWithType.vb: SynchronousVectorizationService.ProcessRequest(VectorizationRequest, UnifiedUserIdentity)
 - uid: FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.ProcessRequest*
   name: ProcessRequest
   href: api/dotnet/FoundationaLLM.Vectorization.Services.VectorizationServices.SynchronousVectorizationService.html#FoundationaLLM_Vectorization_Services_VectorizationServices_SynchronousVectorizationService_ProcessRequest_

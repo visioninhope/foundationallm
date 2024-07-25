@@ -132,7 +132,7 @@ Interface ICoreClient  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_" data-uid="FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)">
   AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Attaches a file to the completion request and sends a question to the agent using the
@@ -239,7 +239,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICoreClient_DeleteSessionAsync_System_String_" data-uid="FoundationaLLM.Client.Core.Interfaces.ICoreClient.DeleteSessionAsync(System.String)">
   DeleteSessionAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L110"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes a chat session.</p>
@@ -277,7 +277,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetAgentsAsync" data-uid="FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetAgentsAsync">
   GetAgentsAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L103"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves agents available to the user for orchestration and session-based requests.</p>
@@ -310,7 +310,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetChatSessionMessagesAsync_System_String_" data-uid="FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetChatSessionMessagesAsync(System.String)">
   GetChatSessionMessagesAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/Interfaces/ICoreClient.cs/#L97"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the chat messages related to an existing session.</p>
@@ -451,7 +451,9 @@ UserPrompt.</p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
-    <dd></dd>
+    <dd><p>The orchestration request that contains the
+SessionID, AgentName, and UserPrompt at a minimum.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>

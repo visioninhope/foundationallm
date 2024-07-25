@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService" class="text-break">
-Interface IHttpClientFactoryService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Interface IHttpClientFactoryService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -132,24 +132,59 @@ necessary headers are added to the request.</p>
 
   <a id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient*"></a>
 
-  <h3 id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String)">
-  CreateClient(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_FoundationaLLM_Common_Models_ResourceProviders_Configuration_APIEndpointConfiguration_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance from the provided client name.
-The client name must be registered in the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a>
-configuration.
-The headers added to the request are:</p>
-<ul>
-<li>X-API-KEY: The API key for the target API.</li>
-<li>X-USER-IDENTITY: The user identity information for the current user.</li>
-</ul>
+  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance from the provided endpoint configuration.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">HttpClient CreateClient(string clientName)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;HttpClient&gt; CreateClient(APIEndpointConfiguration endpointConfiguration, UnifiedUserIdentity? userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>endpointConfiguration</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration.html">APIEndpointConfiguration</a></dt>
+    <dd><p>The endpoint configuration.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  CreateClient(string, UnifiedUserIdentity?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance from the provided client name.
+The client name must be registered in the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a> configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;HttpClient&gt; CreateClient(string clientName, UnifiedUserIdentity? userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -157,11 +192,14 @@ The headers added to the request are:</p>
     <dt><code>clientName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The named <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> client configuration.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -179,7 +217,7 @@ The headers added to the request are:</p>
 
   <h3 id="FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateUnregisteredClient_System_Nullable_System_TimeSpan__" data-uid="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})">
   CreateUnregisteredClient(TimeSpan?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new unregistered <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.httpclient">HttpClient</a> instance with a timeout.</p>
@@ -219,7 +257,7 @@ For an infinite waiting period, use <a class="xref" href="https://learn.microsof
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IHttpClientFactoryService.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

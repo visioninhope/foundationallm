@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient" class="text-break">
-Class VectorizationServiceClient  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class VectorizationServiceClient  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -168,9 +168,9 @@ Class VectorizationServiceClient  <a class="header-action link-secondary" title=
 
   <a id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Client_VectorizationServiceClient__" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})">
-  VectorizationServiceClient(IHttpClientFactory, IOptions&lt;VectorizationServiceSettings&gt;, ILogger&lt;VectorizationServiceClient&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Vectorization_Models_Configuration_VectorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Vectorization_Client_VectorizationServiceClient__" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Vectorization.Client.VectorizationServiceClient})">
+  VectorizationServiceClient(IHttpClientFactoryService, IOptions&lt;VectorizationServiceSettings&gt;, ILogger&lt;VectorizationServiceClient&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new instance of the Vectorization API client.</p>
@@ -178,13 +178,13 @@ Class VectorizationServiceClient  <a class="header-action link-secondary" title=
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VectorizationServiceClient(IHttpClientFactory httpClientFactory, IOptions&lt;VectorizationServiceSettings&gt; options, ILogger&lt;VectorizationServiceClient&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public VectorizationServiceClient(IHttpClientFactoryService httpClientFactoryService, IOptions&lt;VectorizationServiceSettings&gt; options, ILogger&lt;VectorizationServiceClient&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>httpClientFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a></dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a> used to create the HTTP client.</p>
+    <dt><code>httpClientFactoryService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html">IHttpClientFactoryService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html">IHttpClientFactoryService</a> used to create the HTTP client.</p>
 </dd>
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html">VectorizationServiceSettings</a>&gt;</dt>
     <dd><p>The options object containing the <a class="xref" href="FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html">VectorizationServiceSettings</a> object with the setting.</p>
@@ -211,9 +211,9 @@ Class VectorizationServiceClient  <a class="header-action link-secondary" title=
 
   <a id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest)">
-  ProcessRequest(VectorizationRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Client_VectorizationServiceClient_ProcessRequest_FoundationaLLM_Common_Models_ResourceProviders_Vectorization_VectorizationRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Client.VectorizationServiceClient.ProcessRequest(FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ProcessRequest(VectorizationRequest, UnifiedUserIdentity?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes an incoming vectorization request.</p>
@@ -221,13 +221,16 @@ Class VectorizationServiceClient  <a class="header-action link-secondary" title=
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationResult&gt; ProcessRequest(VectorizationRequest vectorizationRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;VectorizationResult&gt; ProcessRequest(VectorizationRequest vectorizationRequest, UnifiedUserIdentity? userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>vectorizationRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.VectorizationRequest.html">VectorizationRequest</a> object containing the details of the vectorization request.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -252,7 +255,7 @@ Class VectorizationServiceClient  <a class="header-action link-secondary" title=
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L15" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Client/VectorizationServiceClient.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 

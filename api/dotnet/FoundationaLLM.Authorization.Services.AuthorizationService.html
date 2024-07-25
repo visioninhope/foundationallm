@@ -171,8 +171,8 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService__ctor_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService__ctor_System_Net_Http_IHttpClientFactory_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Authorization_Models_Configuration_AuthorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Authorization_Services_AuthorizationService__" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(System.Net.Http.IHttpClientFactory,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})">
-  AuthorizationService(IHttpClientFactory, IOptions&lt;AuthorizationServiceSettings&gt;, ILogger&lt;AuthorizationService&gt;)
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService__ctor_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Authorization_Models_Configuration_AuthorizationServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Authorization_Services_AuthorizationService__" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.#ctor(FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Authorization.Services.AuthorizationService})">
+  AuthorizationService(IHttpClientFactoryService, IOptions&lt;AuthorizationServiceSettings&gt;, ILogger&lt;AuthorizationService&gt;)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -180,12 +180,12 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AuthorizationService(IHttpClientFactory httpClientFactory, IOptions&lt;AuthorizationServiceSettings&gt; options, ILogger&lt;AuthorizationService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public AuthorizationService(IHttpClientFactoryService httpClientFactoryService, IOptions&lt;AuthorizationServiceSettings&gt; options, ILogger&lt;AuthorizationService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>httpClientFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a></dt>
+    <dt><code>httpClientFactoryService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html">IHttpClientFactoryService</a></dt>
     <dd></dd>
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Authorization.Models.Configuration.AuthorizationServiceSettings.html">AuthorizationServiceSettings</a>&gt;</dt>
     <dd></dd>
@@ -210,9 +210,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters)">
-  GetRoleAssignments(string, RoleAssignmentQueryParameters)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_GetRoleAssignments_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentQueryParameters_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.GetRoleAssignments(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetRoleAssignments(string, RoleAssignmentQueryParameters, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L139"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a list of role assignments for the specified instance and resource.</p>
@@ -220,7 +220,7 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;object&gt;&gt; GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;object&gt;&gt; GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -230,6 +230,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 </dd>
     <dt><code>queryParameters</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html">RoleAssignmentQueryParameters</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentQueryParameters.html">RoleAssignmentQueryParameters</a> providing the inputs for filtering the role assignments.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -252,8 +255,8 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_FoundationaLLM_Common_Models_Authorization_ActionAuthorizationRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest)">
-  ProcessAuthorizationRequest(string, ActionAuthorizationRequest)
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessAuthorizationRequest_System_String_System_String_System_Collections_Generic_List_System_String__FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessAuthorizationRequest(System.String,System.String,System.Collections.Generic.List{System.String},FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ProcessAuthorizationRequest(string, string, List&lt;string&gt;, UnifiedUserIdentity)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -262,7 +265,7 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ActionAuthorizationResult&gt; ProcessAuthorizationRequest(string instanceId, ActionAuthorizationRequest authorizationRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ActionAuthorizationResult&gt; ProcessAuthorizationRequest(string instanceId, string action, List&lt;string&gt; resourcePaths, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -270,8 +273,14 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance id.</p>
 </dd>
-    <dt><code>authorizationRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html">ActionAuthorizationRequest</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authorization.ActionAuthorizationRequest.html">ActionAuthorizationRequest</a> to process.</p>
+    <dt><code>action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The action identifier.</p>
+</dd>
+    <dt><code>resourcePaths</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>The resource paths.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -294,9 +303,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest)">
-  ProcessRoleAssignmentRequest(string, RoleAssignmentRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ProcessRoleAssignmentRequest(string, RoleAssignmentRequest, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Processes a role assignment request.</p>
@@ -304,7 +313,7 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;RoleAssignmentResult&gt; ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;RoleAssignmentResult&gt; ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -314,6 +323,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 </dd>
     <dt><code>roleAssignmentRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentRequest.html">RoleAssignmentRequest</a></dt>
     <dd><p>The role assignment request.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -335,9 +347,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest)">
-  ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_ProcessRoleAssignmentsWithActionsRequest_System_String_FoundationaLLM_Common_Models_Authorization_RoleAssignmentsWithActionsRequest_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.ProcessRoleAssignmentsWithActionsRequest(System.String,FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ProcessRoleAssignmentsWithActionsRequest(string, RoleAssignmentsWithActionsRequest, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L107"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a list of role names and a list of allowed actions for the specified scope.</p>
@@ -345,7 +357,7 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Dictionary&lt;string, RoleAssignmentsWithActionsResult&gt;&gt; ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Dictionary&lt;string, RoleAssignmentsWithActionsResult&gt;&gt; ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -355,6 +367,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 </dd>
     <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Authorization.RoleAssignmentsWithActionsRequest.html">RoleAssignmentsWithActionsRequest</a></dt>
     <dd><p>The get roles with actions request.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
@@ -377,9 +392,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 
   <a id="FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment*"></a>
 
-  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_System_String_System_String_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String)">
-  RevokeRoleAssignment(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Authorization_Services_AuthorizationService_RevokeRoleAssignment_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.Services.AuthorizationService.RevokeRoleAssignment(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  RevokeRoleAssignment(string, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/Services/AuthorizationService.cs/#L168"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Revokes a role assignment for a specified instance.</p>
@@ -387,7 +402,7 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;RoleAssignmentResult&gt; RevokeRoleAssignment(string instanceId, string roleAssignment)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;RoleAssignmentResult&gt; RevokeRoleAssignment(string instanceId, string roleAssignment, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -397,6 +412,9 @@ Class AuthorizationService  <a class="header-action link-secondary" title="View 
 </dd>
     <dt><code>roleAssignment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The role assignment object identifier.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The user identity.</p>
 </dd>
   </dl>
 
