@@ -4,7 +4,7 @@ Classes:
 Description:
     Settings specific to the Azure AI Search Indexes
 """
-from typing import Any, Self, List, Optional
+from typing import Any, Self, Optional
 from foundationallm.models.resource_providers.vectorization import EmbeddingProfileBase
 from .azure_openai_configuration_references import AzureOpenAIConfigurationReferences
 from foundationallm.models.utils import ObjectUtils
@@ -14,7 +14,7 @@ class AzureOpenAIEmbeddingProfile(EmbeddingProfileBase):
     """
     An Azure AI Search indexing profile.
     """
-    settings: Optional[List[dict]] = None
+    settings: Optional[dict] = None
     configuration_references: AzureOpenAIConfigurationReferences
 
     @staticmethod
