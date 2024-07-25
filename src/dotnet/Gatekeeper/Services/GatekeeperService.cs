@@ -56,7 +56,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
@@ -64,7 +64,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
@@ -72,7 +72,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId=completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)
-                    return new CompletionResponse() { Completion = contentSafetyResult.Reason };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = contentSafetyResult.Reason };
             }
 
             var completionResponse = await _orchestrationAPIService.GetCompletion(instanceId, completionRequest);

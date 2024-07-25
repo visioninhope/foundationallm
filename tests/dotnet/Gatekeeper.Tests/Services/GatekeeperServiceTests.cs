@@ -47,10 +47,11 @@ namespace Gatekeeper.Tests.Services
             // Arrange
             var completionRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 UserPrompt = "Safe content."
             };
 
-            var expectedResult = new CompletionResponse { Completion = "Completion from Orchestration API Service." };
+            var expectedResult = new CompletionResponse { OperationId=completionRequest.OperationId, Completion = "Completion from Orchestration API Service." };
 
             var safeContentResult = new AnalyzeTextFilterResult { Safe = true, Reason = string.Empty };
             _contentSafetyService.AnalyzeText(completionRequest.UserPrompt).Returns(safeContentResult);

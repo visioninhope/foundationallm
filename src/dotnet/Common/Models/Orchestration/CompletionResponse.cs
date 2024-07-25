@@ -17,14 +17,16 @@ public class CompletionResponse : CompletionResponseBase
     /// <summary>
     /// Initialize a completion response
     /// </summary>
+    /// <param name="operationId">The operation id of the completion request.</param>
     /// <param name="completion">The completion response from the language model.</param>
     /// <param name="userPrompt">The user prompt the language model responded to.</param>
     /// <param name="userPromptTokens">The number of tokens in the prompt.</param>
     /// <param name="responseTokens">The number of tokens in the completion.</param>
     /// <param name="userPromptEmbedding">User prompt embedding.</param>
-    public CompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,
+    public CompletionResponse(string operationId, string completion, string userPrompt, int userPromptTokens, int responseTokens,
         float[]? userPromptEmbedding)
     {
+        OperationId = operationId;
         Completion = completion;
         UserPrompt = userPrompt;
         PromptTokens = userPromptTokens;

@@ -10,6 +10,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             // Arrange
             var response = new LLMCompletionResponse
             {
+                OperationId = Guid.NewGuid().ToString(),
                 Completion = "Completed response",
                 UserPrompt = "User prompt",
                 FullPrompt = "Full prompt",

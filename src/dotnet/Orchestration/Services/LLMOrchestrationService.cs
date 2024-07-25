@@ -80,6 +80,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
             {
                 return new LLMCompletionResponse
                 {
+                    OperationId = request.OperationId,
                     Completion = completionResponse.Completion,
                     Citations = completionResponse.Citations,
                     UserPrompt = completionResponse.UserPrompt,
@@ -95,6 +96,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             return new LLMCompletionResponse
             {
+                OperationId = request.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = string.Empty,
