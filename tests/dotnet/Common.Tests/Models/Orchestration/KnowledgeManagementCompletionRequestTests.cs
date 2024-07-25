@@ -11,6 +11,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             // Arrange
             var request = new LLMCompletionRequest() 
                 { 
+                    OperationId = Guid.NewGuid().ToString(),
                     UserPrompt="", 
                     Agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement }
                 };

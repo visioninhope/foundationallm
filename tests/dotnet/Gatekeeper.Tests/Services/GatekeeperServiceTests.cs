@@ -47,6 +47,7 @@ namespace Gatekeeper.Tests.Services
             // Arrange
             var completionRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 UserPrompt = "Safe content."
             };
 

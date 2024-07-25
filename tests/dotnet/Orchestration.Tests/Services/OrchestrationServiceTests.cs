@@ -62,7 +62,7 @@ namespace FoundationaLLM.Orchestration.Tests.Services
         public async Task GetCompletion_ExceptionThrown_ReturnsErrorResponse()
         {
             // Act 
-            var result = await _orchestrationService.GetCompletion(_instanceId, new CompletionRequest() { UserPrompt = "Error" });
+            var result = await _orchestrationService.GetCompletion(_instanceId, new CompletionRequest() { OperationId=Guid.NewGuid().ToString(),  UserPrompt = "Error" });
 
             // Assert
             Assert.NotNull(result);

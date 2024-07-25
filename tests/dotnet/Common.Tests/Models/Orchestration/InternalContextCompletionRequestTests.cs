@@ -10,7 +10,8 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
         {
             // Arrange
             var request = new LLMCompletionRequest() 
-                { 
+                {
+                    OperationId = Guid.NewGuid().ToString(),
                     Agent = new InternalContextAgent() { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.InternalContext }, 
                     UserPrompt = ""
                 };

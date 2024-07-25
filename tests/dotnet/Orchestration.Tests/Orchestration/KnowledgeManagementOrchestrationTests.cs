@@ -34,7 +34,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         public async Task GetCompletion_ReturnsCompletionResponse()
         {
             // Arrange
-            var completionRequest = new CompletionRequest() { UserPrompt = "Test_userprompt"};
+            var completionRequest = new CompletionRequest() { OperationId = Guid.NewGuid().ToString(),UserPrompt = "Test_userprompt"};
             var orchestrationResult = new LLMCompletionResponse {OperationId = completionRequest.OperationId, Completion = "Completion" };
             _orchestrationService.GetCompletion(_instanceId, Arg.Any<LLMCompletionRequest>())
                 .Returns(Task.FromResult(orchestrationResult));
