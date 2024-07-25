@@ -55,6 +55,14 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
             );
 
         /// <inheritdoc/>
+        public async Task<ResourceProviderUpsertResult> UpsertAPIEndpointConfiguration(APIEndpointConfiguration apiEndpointConfiguration) =>
+            await managementRestClient.Resources.UpsertResourceAsync(
+                ResourceProviderNames.FoundationaLLM_Configuration,
+                $"{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{apiEndpointConfiguration.Name}",
+                apiEndpointConfiguration
+            );
+            
+        /// <inheritdoc/>
         public async Task DeleteAppConfigurationAsync(string key) =>
             await managementRestClient.Resources.DeleteResourceAsync(
                 ResourceProviderNames.FoundationaLLM_Configuration,
