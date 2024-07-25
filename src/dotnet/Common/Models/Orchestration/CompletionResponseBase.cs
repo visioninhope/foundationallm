@@ -2,8 +2,23 @@
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
+    /// <summary>
+    /// Base model for a response from a language model.
+    /// </summary>
     public class CompletionResponseBase
     {
+        /// <summary>
+        /// The identifier of the long-running operation log entry.
+        /// </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
+        /// <summary>
+        /// The document type.
+        /// </summary>
+        [JsonPropertyName("type")]
+        public string Type => nameof(CompletionResponseBase);
+
         /// <summary>
         /// The Operation ID identifying the completion request.
         /// </summary>
@@ -68,5 +83,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("total_cost")]
         public float TotalCost { get; set; } = 0.0f;
+
+        /// <summary>
+        /// Deleted flag used for soft delete.
+        /// </summary>
+        [JsonPropertyName("deleted")]
+        public bool Deleted { get; set; }
     }
 }
