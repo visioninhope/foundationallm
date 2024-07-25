@@ -110,7 +110,6 @@
     <Compile Include="foundationallm\models\resource_providers\prompts\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\resource_base.py" />
     <Compile Include="foundationallm\models\resource_providers\resource_name.py" />
-    <Compile Include="foundationallm\models\resource_providers\vectorization\configuration_references_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_configuration_references.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\azure_openai\azure_openai_embedding_profile.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\embedding_profiles\embedding_profile_base.py" />
@@ -119,7 +118,6 @@
     <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\azure_ai_search\azure_ai_search_settings.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\indexing_profiles\indexing_profile_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\profile_base.py" />
-    <Compile Include="foundationallm\models\resource_providers\vectorization\settings_base.py" />
     <Compile Include="foundationallm\models\resource_providers\vectorization\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\__init__.py" />
     <Compile Include="foundationallm\models\utils\object_utils.py" />
