@@ -117,6 +117,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 return new LLMCompletionResponse
                 {
+                    OperationId = request.OperationId,
                     Completion = !string.IsNullOrEmpty(endpointConfiguration.OperationType) && endpointConfiguration.OperationType == OperationTypes.Chat
                         ? completionResponse!.Choices?[0].Message?.Content
                         : completionResponse!.Choices?[0].Text,

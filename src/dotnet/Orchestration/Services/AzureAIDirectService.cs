@@ -119,21 +119,15 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 return new LLMCompletionResponse
                 {
-                    var completionResponse = JsonSerializer.Deserialize<AzureAICompletionResponse>(responseContent);
-
-                    return new LLMCompletionResponse
-                    {
-                        OperationId = request.OperationId,
-                        Completion = completionResponse!.Output,
-                        UserPrompt = request.UserPrompt,
-                        FullPrompt = body,
-                        PromptTemplate = systemPrompt?.Content,
-                        AgentName = request.Agent.Name,
-                        PromptTokens = 0,
-                        CompletionTokens = 0
-                    };
-                }
-
+                    OperationId = request.OperationId,
+                    Completion = completionResponse!.Output,
+                    UserPrompt = request.UserPrompt,
+                    FullPrompt = body,
+                    PromptTemplate = systemPrompt?.Content,
+                    AgentName = request.Agent.Name,
+                    PromptTokens = 0,
+                    CompletionTokens = 0
+                };
             }
 
             _logger.LogWarning("The AzureAIDirect orchestration service returned status code {StatusCode}: {ResponseContent}",
