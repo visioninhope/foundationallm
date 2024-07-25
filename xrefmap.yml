@@ -7659,126 +7659,132 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
   fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
   nameWithType: GatekeeperOptionNames.MicrosoftPresidio
-- uid: FoundationaLLM.Common.Constants.HttpClients
-  name: HttpClients
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html
-  commentId: T:FoundationaLLM.Common.Constants.HttpClients
-  fullName: FoundationaLLM.Common.Constants.HttpClients
-  nameWithType: HttpClients
-- uid: FoundationaLLM.Common.Constants.HttpClients.AgentHubAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames
+  name: HttpClientNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html
+  commentId: T:FoundationaLLM.Common.Constants.HttpClientNames
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames
+  nameWithType: HttpClientNames
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.AgentHubAPI
   name: AgentHubAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AgentHubAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AgentHubAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AgentHubAPI
-  nameWithType: HttpClients.AgentHubAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.AuthorizationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_AgentHubAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AgentHubAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.AgentHubAPI
+  nameWithType: HttpClientNames.AgentHubAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.All
+  name: All
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_All
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.All
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.All
+  nameWithType: HttpClientNames.All
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.AllDownstream
+  name: AllDownstream
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_AllDownstream
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AllDownstream
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.AllDownstream
+  nameWithType: HttpClientNames.AllDownstream
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.AuthorizationAPI
   name: AuthorizationAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AuthorizationAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AuthorizationAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AuthorizationAPI
-  nameWithType: HttpClients.AuthorizationAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
-  name: AzureAIDirect
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureAIDirect
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureAIDirect
-  nameWithType: HttpClients.AzureAIDirect
-- uid: FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
-  name: AzureAIStudioAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureAIStudioAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureAIStudioAPI
-  nameWithType: HttpClients.AzureAIStudioAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_AuthorizationAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AuthorizationAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.AuthorizationAPI
+  nameWithType: HttpClientNames.AuthorizationAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.AzureContentSafety
   name: AzureContentSafety
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureContentSafety
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureContentSafety
-  nameWithType: HttpClients.AzureContentSafety
-- uid: FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
-  name: AzureOpenAIDirect
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_AzureOpenAIDirect
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
-  fullName: FoundationaLLM.Common.Constants.HttpClients.AzureOpenAIDirect
-  nameWithType: HttpClients.AzureOpenAIDirect
-- uid: FoundationaLLM.Common.Constants.HttpClients.CoreAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_AzureContentSafety
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AzureContentSafety
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.AzureContentSafety
+  nameWithType: HttpClientNames.AzureContentSafety
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.CoreAPI
   name: CoreAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_CoreAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.CoreAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.CoreAPI
-  nameWithType: HttpClients.CoreAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.DataSourceHubAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_CoreAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.CoreAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.CoreAPI
+  nameWithType: HttpClientNames.CoreAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.DataSourceHubAPI
   name: DataSourceHubAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_DataSourceHubAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.DataSourceHubAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.DataSourceHubAPI
-  nameWithType: HttpClients.DataSourceHubAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_DataSourceHubAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.DataSourceHubAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.DataSourceHubAPI
+  nameWithType: HttpClientNames.DataSourceHubAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.EnkryptGuardrails
   name: EnkryptGuardrails
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_EnkryptGuardrails
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
-  fullName: FoundationaLLM.Common.Constants.HttpClients.EnkryptGuardrails
-  nameWithType: HttpClients.EnkryptGuardrails
-- uid: FoundationaLLM.Common.Constants.HttpClients.GatekeeperAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_EnkryptGuardrails
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.EnkryptGuardrails
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.EnkryptGuardrails
+  nameWithType: HttpClientNames.EnkryptGuardrails
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperAPI
   name: GatekeeperAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_GatekeeperAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.GatekeeperAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.GatekeeperAPI
-  nameWithType: HttpClients.GatekeeperAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.GatekeeperIntegrationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_GatekeeperAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperAPI
+  nameWithType: HttpClientNames.GatekeeperAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperIntegrationAPI
   name: GatekeeperIntegrationAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_GatekeeperIntegrationAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.GatekeeperIntegrationAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.GatekeeperIntegrationAPI
-  nameWithType: HttpClients.GatekeeperIntegrationAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_GatekeeperIntegrationAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperIntegrationAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.GatekeeperIntegrationAPI
+  nameWithType: HttpClientNames.GatekeeperIntegrationAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.GatewayAPI
   name: GatewayAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_GatewayAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.GatewayAPI
-  nameWithType: HttpClients.GatewayAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_GatewayAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.GatewayAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.GatewayAPI
+  nameWithType: HttpClientNames.GatewayAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.GatewayAdapterAPI
+  name: GatewayAdapterAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_GatewayAdapterAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.GatewayAdapterAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.GatewayAdapterAPI
+  nameWithType: HttpClientNames.GatewayAdapterAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.LakeraGuard
   name: LakeraGuard
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_LakeraGuard
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
-  fullName: FoundationaLLM.Common.Constants.HttpClients.LakeraGuard
-  nameWithType: HttpClients.LakeraGuard
-- uid: FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_LakeraGuard
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.LakeraGuard
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.LakeraGuard
+  nameWithType: HttpClientNames.LakeraGuard
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.LangChainAPI
   name: LangChainAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_LangChainAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.LangChainAPI
-  nameWithType: HttpClients.LangChainAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_LangChainAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.LangChainAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.LangChainAPI
+  nameWithType: HttpClientNames.LangChainAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.ManagementAPI
   name: ManagementAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_ManagementAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.ManagementAPI
-  nameWithType: HttpClients.ManagementAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.OrchestrationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_ManagementAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.ManagementAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.ManagementAPI
+  nameWithType: HttpClientNames.ManagementAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.OrchestrationAPI
   name: OrchestrationAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_OrchestrationAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.OrchestrationAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.OrchestrationAPI
-  nameWithType: HttpClients.OrchestrationAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.PromptHubAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_OrchestrationAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.OrchestrationAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.OrchestrationAPI
+  nameWithType: HttpClientNames.OrchestrationAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.PromptHubAPI
   name: PromptHubAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_PromptHubAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.PromptHubAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.PromptHubAPI
-  nameWithType: HttpClients.PromptHubAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.SemanticKernelAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_PromptHubAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.PromptHubAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.PromptHubAPI
+  nameWithType: HttpClientNames.PromptHubAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.SemanticKernelAPI
   name: SemanticKernelAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_SemanticKernelAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.SemanticKernelAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.SemanticKernelAPI
-  nameWithType: HttpClients.SemanticKernelAPI
-- uid: FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_SemanticKernelAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.SemanticKernelAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.SemanticKernelAPI
+  nameWithType: HttpClientNames.SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.VectorizationAPI
   name: VectorizationAPI
-  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html#FoundationaLLM_Common_Constants_HttpClients_VectorizationAPI
-  commentId: F:FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
-  fullName: FoundationaLLM.Common.Constants.HttpClients.VectorizationAPI
-  nameWithType: HttpClients.VectorizationAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_VectorizationAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.VectorizationAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.VectorizationAPI
+  nameWithType: HttpClientNames.VectorizationAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.VectorizationWorker
+  name: VectorizationWorker
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_VectorizationWorker
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.VectorizationWorker
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.VectorizationWorker
+  nameWithType: HttpClientNames.VectorizationWorker
 - uid: FoundationaLLM.Common.Constants.HttpHeaders
   name: HttpHeaders
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpHeaders.html
@@ -9941,25 +9947,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion
   nameWithType: IDownstreamAPIService.GetCompletion
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings
-  name: IDownstreamAPISettings
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html
-  commentId: T:FoundationaLLM.Common.Interfaces.IDownstreamAPISettings
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings
-  nameWithType: IDownstreamAPISettings
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html#FoundationaLLM_Common_Interfaces_IDownstreamAPISettings_DownstreamAPIs
-  commentId: P:FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs
-  nameWithType: IDownstreamAPISettings.DownstreamAPIs
-- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs*
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html#FoundationaLLM_Common_Interfaces_IDownstreamAPISettings_DownstreamAPIs_
-  commentId: Overload:FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.DownstreamAPIs
-  nameWithType: IDownstreamAPISettings.DownstreamAPIs
 - uid: FoundationaLLM.Common.Interfaces.IEventService
   name: IEventService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IEventService.html
@@ -13228,89 +13215,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.Timeout
   nameWithType: APIClientSettings.Timeout
-- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
-  name: APISettingsBase
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html
-  commentId: T:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
-  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase
-  nameWithType: APISettingsBase
-- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIKey
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
-  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
-  nameWithType: APISettingsBase.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIKey_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIKey
-  nameWithType: APISettingsBase.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIUrl
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
-  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
-  nameWithType: APISettingsBase.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl*
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html#FoundationaLLM_Common_Models_Configuration_API_APISettingsBase_APIUrl_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.APIUrl
-  nameWithType: APISettingsBase.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
-  name: DownstreamAPIClientConfiguration
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html
-  commentId: T:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration
-  nameWithType: DownstreamAPIClientConfiguration
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
-  nameWithType: DownstreamAPIClientConfiguration.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIKey_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIKey
-  nameWithType: DownstreamAPIClientConfiguration.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
-  nameWithType: DownstreamAPIClientConfiguration.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl*
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPIClientConfiguration_APIUrl_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.APIUrl
-  nameWithType: DownstreamAPIClientConfiguration.APIUrl
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
-  name: DownstreamAPISettings
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html
-  commentId: T:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings
-  nameWithType: DownstreamAPISettings
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPISettings_DownstreamAPIs
-  commentId: P:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
-  nameWithType: DownstreamAPISettings.DownstreamAPIs
-- uid: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs*
-  name: DownstreamAPIs
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html#FoundationaLLM_Common_Models_Configuration_API_DownstreamAPISettings_DownstreamAPIs_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.DownstreamAPIs
-  nameWithType: DownstreamAPISettings.DownstreamAPIs
 - uid: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   name: FoundationaLLM.Common.Models.Configuration.AppConfiguration
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AppConfiguration.html
@@ -13547,19 +13451,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings
   fullName: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings
   nameWithType: AzureAISettings
-- uid: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl
-  name: BaseUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.html#FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings_BaseUrl
-  commentId: P:FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl
-  fullName: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl
-  nameWithType: AzureAISettings.BaseUrl
-- uid: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl*
-  name: BaseUrl
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.html#FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings_BaseUrl_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl
+- uid: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName
+  name: APIEndpointConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.html#FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings_APIEndpointConfigurationName
+  commentId: P:FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName
+  fullName: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName
+  nameWithType: AzureAISettings.APIEndpointConfigurationName
+- uid: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName*
+  name: APIEndpointConfigurationName
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.html#FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings_APIEndpointConfigurationName_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BaseUrl
-  nameWithType: AzureAISettings.BaseUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.APIEndpointConfigurationName
+  nameWithType: AzureAISettings.APIEndpointConfigurationName
 - uid: FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.BlobStorageServiceSettings
   name: BlobStorageServiceSettings
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.AzureAI.AzureAISettings.html#FoundationaLLM_Common_Models_Configuration_AzureAI_AzureAISettings_BlobStorageServiceSettings
@@ -20897,60 +20801,6 @@ references:
   commentId: N:FoundationaLLM.Common.Services.API
   fullName: FoundationaLLM.Common.Services.API
   nameWithType: FoundationaLLM.Common.Services.API
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase
-  name: APIServiceBase
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html
-  commentId: T:FoundationaLLM.Common.Services.API.APIServiceBase
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase
-  nameWithType: APIServiceBase
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
-  name: APIServiceBase(string, ICallContext, IHttpClientFactoryService, ILogger)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase__ctor_System_String_FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_
-  commentId: M:FoundationaLLM.Common.Services.API.APIServiceBase.#ctor(System.String,FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger)
-  name.vb: New(String, ICallContext, IHttpClientFactoryService, ILogger)
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.APIServiceBase(string, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
-  fullName.vb: FoundationaLLM.Common.Services.API.APIServiceBase.New(String, FoundationaLLM.Common.Interfaces.ICallContext, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger)
-  nameWithType: APIServiceBase.APIServiceBase(string, ICallContext, IHttpClientFactoryService, ILogger)
-  nameWithType.vb: APIServiceBase.New(String, ICallContext, IHttpClientFactoryService, ILogger)
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.#ctor*
-  name: APIServiceBase
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase__ctor_
-  commentId: Overload:FoundationaLLM.Common.Services.API.APIServiceBase.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.APIServiceBase
-  fullName.vb: FoundationaLLM.Common.Services.API.APIServiceBase.New
-  nameWithType: APIServiceBase.APIServiceBase
-  nameWithType.vb: APIServiceBase.New
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache(System.String)
-  name: RefreshCache(string)
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase_RefreshCache_System_String_
-  commentId: M:FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache(System.String)
-  name.vb: RefreshCache(String)
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache(string)
-  fullName.vb: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache(String)
-  nameWithType: APIServiceBase.RefreshCache(string)
-  nameWithType.vb: APIServiceBase.RefreshCache(String)
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache*
-  name: RefreshCache
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase_RefreshCache_
-  commentId: Overload:FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshCache
-  nameWithType: APIServiceBase.RefreshCache
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache
-  name: RefreshConfigurationCache()
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase_RefreshConfigurationCache
-  commentId: M:FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache()
-  nameWithType: APIServiceBase.RefreshConfigurationCache()
-- uid: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache*
-  name: RefreshConfigurationCache
-  href: api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html#FoundationaLLM_Common_Services_API_APIServiceBase_RefreshConfigurationCache_
-  commentId: Overload:FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Services.API.APIServiceBase.RefreshConfigurationCache
-  nameWithType: APIServiceBase.RefreshConfigurationCache
 - uid: FoundationaLLM.Common.Services.API.DownstreamAPIService
   name: DownstreamAPIService
   href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html
@@ -26848,6 +26698,22 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddDataSourceResourceProvider
   nameWithType: DependencyInjection.AddDataSourceResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddDownstreamAPIService(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String)
+  name: AddDownstreamAPIService(IHostApplicationBuilder, string)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddDownstreamAPIService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_System_String_
+  commentId: M:FoundationaLLM.DependencyInjection.AddDownstreamAPIService(Microsoft.Extensions.Hosting.IHostApplicationBuilder,System.String)
+  name.vb: AddDownstreamAPIService(IHostApplicationBuilder, String)
+  fullName: FoundationaLLM.DependencyInjection.AddDownstreamAPIService(Microsoft.Extensions.Hosting.IHostApplicationBuilder, string)
+  fullName.vb: FoundationaLLM.DependencyInjection.AddDownstreamAPIService(Microsoft.Extensions.Hosting.IHostApplicationBuilder, String)
+  nameWithType: DependencyInjection.AddDownstreamAPIService(IHostApplicationBuilder, string)
+  nameWithType.vb: DependencyInjection.AddDownstreamAPIService(IHostApplicationBuilder, String)
+- uid: FoundationaLLM.DependencyInjection.AddDownstreamAPIService*
+  name: AddDownstreamAPIService
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddDownstreamAPIService_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddDownstreamAPIService
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddDownstreamAPIService
+  nameWithType: DependencyInjection.AddDownstreamAPIService
 - uid: FoundationaLLM.DependencyInjection.AddGatewayCore(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddGatewayCore(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddGatewayCore_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -27534,32 +27400,6 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings
   nameWithType: EnkryptGuardrailsServiceSettings
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIKey
-  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
-  nameWithType: EnkryptGuardrailsServiceSettings.APIKey
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIKey_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIKey
-  nameWithType: EnkryptGuardrailsServiceSettings.APIKey
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIUrl
-  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
-  nameWithType: EnkryptGuardrailsServiceSettings.APIUrl
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl*
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_EnkryptGuardrailsServiceSettings_APIUrl_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.EnkryptGuardrailsServiceSettings.APIUrl
-  nameWithType: EnkryptGuardrailsServiceSettings.APIUrl
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings
   name: GatekeeperServiceSettings
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.GatekeeperServiceSettings.html
@@ -27637,32 +27477,6 @@ references:
   commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings
   nameWithType: LakeraGuardServiceSettings
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIKey
-  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
-  nameWithType: LakeraGuardServiceSettings.APIKey
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIKey_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIKey
-  nameWithType: LakeraGuardServiceSettings.APIKey
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIUrl
-  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
-  nameWithType: LakeraGuardServiceSettings.APIUrl
-- uid: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl*
-  name: APIUrl
-  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.html#FoundationaLLM_Gatekeeper_Core_Models_ConfigurationOptions_LakeraGuardServiceSettings_APIUrl_
-  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
-  isSpec: "True"
-  fullName: FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions.LakeraGuardServiceSettings.APIUrl
-  nameWithType: LakeraGuardServiceSettings.APIUrl
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety
   name: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.html
@@ -30072,12 +29886,6 @@ references:
   commentId: N:FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
   fullName: FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
   nameWithType: FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions
-- uid: FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings
-  name: AzureAIDirectServiceSettings
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings.html
-  commentId: T:FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings
-  fullName: FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings
-  nameWithType: AzureAIDirectServiceSettings
 - uid: FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings
   name: LangChainServiceSettings
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings.html
@@ -30377,15 +30185,15 @@ references:
   commentId: T:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
   fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService
   nameWithType: LLMOrchestrationService
-- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
-  name: LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_APISettingsBase__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Interfaces_ICallContext_
-  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
-  name.vb: New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
-  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService(string, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.API.APISettingsBase>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New(String, Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.API.APISettingsBase), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
-  nameWithType: LLMOrchestrationService.LLMOrchestrationService(string, IOptions<APISettingsBase>, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
-  nameWithType.vb: LLMOrchestrationService.New(String, IOptions(Of APISettingsBase), ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
+- uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
+  name: LLMOrchestrationService(string, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Interfaces_ICallContext_
+  commentId: M:FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)
+  name.vb: New(String, ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
+  fullName: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.LLMOrchestrationService(string, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
+  fullName.vb: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.New(String, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Interfaces.ICallContext)
+  nameWithType: LLMOrchestrationService.LLMOrchestrationService(string, ILogger<LLMOrchestrationService>, IHttpClientFactoryService, ICallContext)
+  nameWithType.vb: LLMOrchestrationService.New(String, ILogger(Of LLMOrchestrationService), IHttpClientFactoryService, ICallContext)
 - uid: FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor*
   name: LLMOrchestrationService
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html#FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_

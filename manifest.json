@@ -1302,10 +1302,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.HttpClients.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.HttpClients.html"
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html"
         }
       },
       "version": ""
@@ -2002,16 +2002,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPISettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IEventService.yml",
       "output": {
         ".html": {
@@ -2576,36 +2566,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APIClientSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPIClientConfiguration.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Configuration.API.DownstreamAPISettings.html"
         }
       },
       "version": ""
@@ -4236,16 +4196,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.OpenAPI.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Services.API.APIServiceBase.html"
         }
       },
       "version": ""
@@ -6266,16 +6216,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.AgentConversationStep.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.AzureAIDirectServiceSettings.html"
         }
       },
       "version": ""

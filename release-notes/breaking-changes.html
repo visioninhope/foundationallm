@@ -169,8 +169,14 @@
 <p>The <code>FoundationaLLM:APIs</code> and <code>FoundationaLLM:ExternalAPIs</code> configuration namespaces have been replaced with the <code>FoundationaLLM:APIEndpoints</code> configuration namespace.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>All existing API registrations need to be updated to reflect these changes. The only setting that will exist under <code>FoundationaLLM:APIEndpoints</code> is <code>APIKey</code> (for those API enpoints which use API key authentication), all the other settings are now part of the <code>APIEndpoint</code> artifact managed by the <code>FoundationaLLM.Configuration</code> resource provider.</p>
+<p>All existing API registrations need to be updated to reflect these changes. The only two settings that will exist under <code>FoundationaLLM:APIEndpoints</code> are <code>APIKey</code> (for those API enpoints which use API key authentication) and <code>AppInsightsConnectionString</code>, all the other settings are now part of the <code>APIEndpoint</code> artifact managed by the <code>FoundationaLLM.Configuration</code> resource provider.
+This is an example for <code>CoreAPI</code>:</p>
+<ul>
+<li><code>FoundationaLLM:APIEndpoints:CoreAPI:APIKey</code></li>
+<li><code>FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString</code></li>
+</ul>
 </div>
+<p>The <code>FoundationaLLM:AzureAIStudio</code> configuration namespace expects an <code>APIEndpointConfigurationName</code> property instead of <code>BaseUrl</code>.</p>
 <h3 id="pre-080">Pre-0.8.0</h3>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>

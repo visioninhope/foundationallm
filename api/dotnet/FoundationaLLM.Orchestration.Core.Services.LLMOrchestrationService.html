@@ -168,9 +168,9 @@ Class LLMOrchestrationService  <a class="header-action link-secondary" title="Vi
 
   <a id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_API_APISettingsBase__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Interfaces_ICallContext_" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.API.APISettingsBase},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)">
-  LLMOrchestrationService(string, IOptions&lt;APISettingsBase&gt;, ILogger&lt;LLMOrchestrationService&gt;, IHttpClientFactoryService, ICallContext)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__ctor_System_String_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Interfaces_ICallContext_" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Interfaces.ICallContext)">
+  LLMOrchestrationService(string, ILogger&lt;LLMOrchestrationService&gt;, IHttpClientFactoryService, ICallContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>LLM Orchestration Service</p>
@@ -178,14 +178,12 @@ Class LLMOrchestrationService  <a class="header-action link-secondary" title="Vi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LLMOrchestrationService(string serviceName, IOptions&lt;APISettingsBase&gt; options, ILogger&lt;LLMOrchestrationService&gt; logger, IHttpClientFactoryService httpClientFactoryService, ICallContext callContext)</code></pre>
+    <pre><code class="lang-csharp hljs">public LLMOrchestrationService(string serviceName, ILogger&lt;LLMOrchestrationService&gt; logger, IHttpClientFactoryService httpClientFactoryService, ICallContext callContext)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.API.APISettingsBase.html">APISettingsBase</a>&gt;</dt>
     <dd></dd>
     <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.html">LLMOrchestrationService</a>&gt;</dt>
     <dd></dd>
@@ -214,7 +212,7 @@ Class LLMOrchestrationService  <a class="header-action link-secondary" title="Vi
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
@@ -250,7 +248,7 @@ Class LLMOrchestrationService  <a class="header-action link-secondary" title="Vi
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
   GetCompletion(string, LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Executes a completion request against the orchestration service.</p>
@@ -292,7 +290,7 @@ Class LLMOrchestrationService  <a class="header-action link-secondary" title="Vi
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_LLMOrchestrationService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Services.LLMOrchestrationService.GetStatus(System.String)">
   GetStatus(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/LLMOrchestrationService.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
