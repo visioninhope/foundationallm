@@ -26,7 +26,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
         private readonly ILogger<LLMOrchestrationServiceManager> _logger;
 
         private Dictionary<string, APISettingsBase> _externalOrchestrationServiceSettings = [];
-        private bool _initialized = false;
 
         /// <summary>
         /// Creates a new instance of the LLM Orchestration Service Manager.
@@ -81,8 +80,6 @@ namespace FoundationaLLM.Orchestration.Core.Services
                             APIUrl = ae.Url
                         });
 
-                _initialized = true;
-
                 _logger.LogInformation("The LLM Orchestration Service Manager service was successfully initialized.");
             }
             catch (Exception ex)
@@ -122,7 +119,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     serviceName,
                     Options.Create<APISettingsBase>(externalOrchestrationServiceSettings),
                     serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
-                    serviceProvider.GetRequiredService<IHttpClientFactory>(),
+                    serviceProvider.GetRequiredService<IHttpClientFactoryService>(),
                     callContext);
 
             throw new OrchestrationException($"The LLM orchestration service {serviceName} is not available.");
@@ -139,7 +136,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                             eos.Key,
                             Options.Create<APISettingsBase>(eos.Value),
                             serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
-                            serviceProvider.GetRequiredService<IHttpClientFactory>(),
+                            serviceProvider.GetRequiredService<IHttpClientFactoryService>(),
                             serviceProvider.GetRequiredService<ICallContext>())));
     }
 }

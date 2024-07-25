@@ -197,6 +197,7 @@ namespace FoundationaLLM.Configuration.Services
             if (await _storageService.FileExistsAsync(_storageContainerName, apiEndpointReference.Filename, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, apiEndpointReference.Filename, default);
+
                 return JsonSerializer.Deserialize<APIEndpointConfiguration>(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     _serializerSettings)
