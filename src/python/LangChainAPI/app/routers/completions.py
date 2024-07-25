@@ -143,8 +143,7 @@ async def create_completion_response(
             # Create an orchestration manager to process the completion request.
             orchestration_manager = OrchestrationManager(
                 completion_request = completion_request,
-                configuration = configuration,
-                context = Context(user_identity=x_user_identity)
+                configuration = configuration
             )
             # Await the completion response from the orchestration manager.
             completion = await orchestration_manager.ainvoke(completion_request)

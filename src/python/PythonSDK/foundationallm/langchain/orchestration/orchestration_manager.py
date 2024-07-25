@@ -9,8 +9,8 @@ class OrchestrationManager:
     """Client that acts as the entry point for interacting with the FoundationaLLM Python SDK."""
 
     def __init__(self,
-                 completion_request: CompletionRequestBase,
-                 configuration: Configuration):
+        completion_request: CompletionRequestBase,
+        configuration: Configuration):
         """
         Initializes an instance of the OrchestrationManager.
         
@@ -18,7 +18,7 @@ class OrchestrationManager:
         ----------
         completion_request : CompletionRequest
             The CompletionRequest is the metadata object containing the details needed for
-            the OrchestrationManager to assemble an agent with a language model and data source.
+            the OrchestrationManager to assemble an agent.
         context : Context
             The user context under which to execution completion requests.
         """
