@@ -281,7 +281,6 @@
 					v-model="dataSource.cost_center"
 					placeholder="Enter cost center name"
 					type="text"
-					class="w-50"
 				/>
 			</div>
 

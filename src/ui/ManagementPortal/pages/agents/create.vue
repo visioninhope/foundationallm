@@ -553,7 +553,6 @@
 					v-model="cost_center"
 					placeholder="Enter cost center name"
 					type="text"
-					class="w-50"
 				/>
 			</div>
 
@@ -566,7 +565,6 @@
 					show-button-bar
 					placeholder="Enter expiration date"
 					type="text"
-					class="w-50"
 				/>
 			</div>
 
