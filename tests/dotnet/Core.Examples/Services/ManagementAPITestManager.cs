@@ -11,7 +11,6 @@ using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Catalogs;
 using FoundationaLLM.Core.Examples.Exceptions;
 using FoundationaLLM.Core.Examples.Interfaces;
-using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
@@ -115,6 +114,36 @@ namespace FoundationaLLM.Core.Examples.Services
             throw new FoundationaLLMException($"Failed to create text partitioning profile: {textPartitioningProfileName}.");
         }
 
+        public async Task<string> CreateAPIEndpointConfiguration(string apiEndpointName, string apiEndpointUrl)
+        {
+            var apiEndpointProfile = APIEndpointConfigurationCatalog.GetAllAPIEndpointConfigurations().FirstOrDefault(a => a.Name == apiEndpointName);
+
+            if (apiEndpointProfile == null)
+            {
+                throw new InvalidOperationException($"The api endpoint profile {apiEndpointName} was not found.");
+            }
+
+            apiEndpointProfile.Url = apiEndpointUrl;
+            var response = await managementClient.Configuration.UpsertAPIEndpointConfiguration(apiEndpointProfile);
+
+            return GetObjectId(response); 
+        }
+
+        public async Task<string> CreateAIModel(string aiModelName, string endpointObjectId)
+        {
+            var aiModelProfile = AIModelCatalog.GetAllAIModels().FirstOrDefault(a => a.Name == aiModelName);
+
+            if (aiModelProfile == null)
+            {
+                throw new InvalidOperationException($"The AI model profile {aiModelName} was not found.");
+            }
+
+            aiModelProfile.EndpointObjectId = endpointObjectId;
+            var response = await managementClient.AIModels.UpsertAIModel(aiModelProfile);
+
+            return GetObjectId(response);
+        }
+
         public async Task<VectorizationRequest> GetVectorizationRequest(VectorizationRequest vectorizationRequest)
         {
             return await managementRestClient.Resources.GetResourcesAsync<VectorizationRequest>(
@@ -211,7 +240,8 @@ namespace FoundationaLLM.Core.Examples.Services
 
         /// <inheritdoc/>
         public async Task<AgentBase> CreateAgent(string agentName, string? indexingProfileName, 
-                string? textEmbeddingProfileName, string? textPartitioningProfileName)
+                string? textEmbeddingProfileName, string? textPartitioningProfileName,
+                string? apiEndpointName, string? apiEndpointUrl, string? aiModelName)
         {
             // All test agents should have a corresponding prompt in the catalog.
             // Retrieve the agent and prompt from the test catalog.
@@ -259,6 +289,15 @@ namespace FoundationaLLM.Core.Examples.Services
             var response = await managementClient.Agents.UpsertAgentAsync(agent);
 
             agent.ObjectId = GetObjectId(response);
+
+            // Create APIEndpointConfiguration and AIModel object
+            if(!string.IsNullOrWhiteSpace(apiEndpointName) 
+                && !string.IsNullOrWhiteSpace(apiEndpointUrl)
+                && !string.IsNullOrWhiteSpace(aiModelName))
+            {
+                var endpointObjectId = await CreateAPIEndpointConfiguration(apiEndpointName, apiEndpointUrl);
+                agent.AIModelObjectId = await CreateAIModel(aiModelName, endpointObjectId);
+            }
 
             return agent;
         }
