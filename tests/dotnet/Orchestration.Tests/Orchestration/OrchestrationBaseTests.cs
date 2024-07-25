@@ -22,7 +22,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
         public async Task GetCompletion_ShouldReturnNullCompletionResponse()
         {
             // Arrange
-            var completionRequest = new CompletionRequest(){OperationId = Guid.NewGuid().ToString(), UserPrompt = ""};
+            var completionRequest = new CompletionRequest(){UserPrompt = ""};
 
             // Act
             var result = await _orchestrationBase.GetCompletion(_instanceId, completionRequest);

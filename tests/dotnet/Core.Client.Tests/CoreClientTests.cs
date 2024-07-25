@@ -81,8 +81,7 @@ namespace FoundationaLLM.Client.Core.Tests
         {
             // Arrange
             var completionRequest = new CompletionRequest
-            {
-                OperationId = Guid.NewGuid().ToString(),
+            {                
                 UserPrompt = string.Empty
             };
 

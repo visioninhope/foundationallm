@@ -96,8 +96,7 @@ public partial class CoreService(
     {
         try
         {
-            ArgumentNullException.ThrowIfNull(completionRequest.SessionId);
-
+            ArgumentNullException.ThrowIfNull(completionRequest.SessionId);            
             // Retrieve conversation, including latest prompt.
             var messages = await _cosmosDbService.GetSessionMessagesAsync(completionRequest.SessionId, _callContext.CurrentUserIdentity?.UPN ??
                 throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat completions."));

@@ -11,7 +11,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <summary>
         /// The Operation ID identifying the completion request.
         /// </summary>
-        public required string OperationId { get; set; }
+        public string OperationId { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// The session ID.
