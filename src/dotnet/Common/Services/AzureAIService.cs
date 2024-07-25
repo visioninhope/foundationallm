@@ -64,9 +64,9 @@ namespace FoundationaLLM.Common.Services
 
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIStudioAPI, _callContext.CurrentUserIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(_settings.APIEndpointConfigurationName, _callContext.CurrentUserIdentity);
                 var response = await httpClient.PostAsync(
-                    $"{_settings.BaseUrl}/api/{_settings.Region}/data/v1.0/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/dataversion/{dataSetName}/versions",
+                    $"/api/{_settings.Region}/data/v1.0/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/dataversion/{dataSetName}/versions",
                     JsonContent.Create(req));
 
                 if (response.IsSuccessStatusCode)
@@ -118,9 +118,9 @@ namespace FoundationaLLM.Common.Services
                     MaxDepth = 10
                 };
 
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIStudioAPI, _callContext.CurrentUserIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(_settings.APIEndpointConfigurationName, _callContext.CurrentUserIdentity);
                 var response = await httpClient.PostAsync(
-                    $"{_settings.BaseUrl}/api/{_settings.Region}/flow/api/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/BulkRuns/submit",
+                    $"/api/{_settings.Region}/flow/api/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/BulkRuns/submit",
                     JsonContent.Create(job));
 
                 if (response.IsSuccessStatusCode)
@@ -147,9 +147,9 @@ namespace FoundationaLLM.Common.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIStudioAPI, _callContext.CurrentUserIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(_settings.APIEndpointConfigurationName, _callContext.CurrentUserIdentity);
                 var response = await httpClient.GetAsync(
-                    $"{_settings.BaseUrl}/api/{_settings.Region}/history/v1.0/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/runs/{jobId}"
+                    $"/api/{_settings.Region}/history/v1.0/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/runs/{jobId}"
                     );
 
                 if (response.IsSuccessStatusCode)
@@ -176,9 +176,9 @@ namespace FoundationaLLM.Common.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIStudioAPI, _callContext.CurrentUserIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(_settings.APIEndpointConfigurationName, _callContext.CurrentUserIdentity);
                 var response = await httpClient.GetAsync(
-                    $"{_settings.BaseUrl}/api/{_settings.Region}/flow/api/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/BulkRuns/{jobId}/childRuns?startIndex={startIndex}&endIndex={endIndex}"
+                    $"/api/{_settings.Region}/flow/api/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/BulkRuns/{jobId}/childRuns?startIndex={startIndex}&endIndex={endIndex}"
                     );
 
                 if (response.IsSuccessStatusCode)
@@ -205,7 +205,7 @@ namespace FoundationaLLM.Common.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AzureAIStudioAPI, _callContext.CurrentUserIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(_settings.APIEndpointConfigurationName, _callContext.CurrentUserIdentity);
                 var response = await httpClient.GetAsync(
                     $"/api/{_settings.Region}/flow/api/subscriptions/{_settings.SubscriptionId}/resourceGroups/{_settings.ResourceGroup}/providers/Microsoft.MachineLearningServices/workspaces/{_settings.ProjectName}/BulkRuns/{jobId}/results"
                     );

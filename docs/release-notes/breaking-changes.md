@@ -58,7 +58,12 @@ Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-M
 The `FoundationaLLM:APIs` and `FoundationaLLM:ExternalAPIs` configuration namespaces have been replaced with the `FoundationaLLM:APIEndpoints` configuration namespace.
 
 > [!IMPORTANT]
-> All existing API registrations need to be updated to reflect these changes. The only setting that will exist under `FoundationaLLM:APIEndpoints` is `APIKey` (for those API enpoints which use API key authentication), all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+> All existing API registrations need to be updated to reflect these changes. The only two settings that will exist under `FoundationaLLM:APIEndpoints` are `APIKey` (for those API enpoints which use API key authentication) and `AppInsightsConnectionString`, all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+> This is an example for `CoreAPI`:
+> - `FoundationaLLM:APIEndpoints:CoreAPI:APIKey`
+> - `FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString`
+
+The `FoundationaLLM:AzureAIStudio` configuration namespace expects an `APIEndpointConfigurationName` property instead of `BaseUrl`.
 
 ### Pre-0.8.0
 
