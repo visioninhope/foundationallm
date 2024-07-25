@@ -33,6 +33,7 @@ namespace FoundationaLLM.Common.Services.API
         {
             var fallback = new CompletionResponse
             {
+                OperationId = completionRequest.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
@@ -69,30 +70,5 @@ namespace FoundationaLLM.Common.Services.API
             return fallback;
         }
 
-        /// <inheritdoc/>
-        public async Task<SummaryResponse> GetSummary(SummaryRequest summaryRequest)
-        {
-            var fallback = new SummaryResponse
-            {
-                Summary = "[No Summary]"
-            };
-
-            var client = _httpClientFactoryService.CreateClient(_downstreamHttpClientName);
-
-            var responseMessage = await client.PostAsync("orchestration/summary",
-            new StringContent(
-                    JsonSerializer.Serialize(summaryRequest, _jsonSerializerOptions),
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var summarizeResponse = JsonSerializer.Deserialize<SummaryResponse>(responseContent);
-
-                return summarizeResponse ?? fallback;
-            }
-
-            return fallback;
-        }
     }
 }
