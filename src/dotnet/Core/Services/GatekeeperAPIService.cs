@@ -39,7 +39,7 @@ namespace FoundationaLLM.Core.Services
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
 
-            var client = await _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI, _callContext.CurrentUserIdentity);
+            var client = await _httpClientFactoryService.CreateClient(Common.Constants.HttpClientNames.GatekeeperAPI, _callContext.CurrentUserIdentity);
                        
             var responseMessage = await client.PostAsync($"instances/{instanceId}/completions",
             new StringContent(

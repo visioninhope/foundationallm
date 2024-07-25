@@ -62,8 +62,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     Role = InputMessageRoles.User,
                     Content = request.Prompt.Prefix ?? string.Empty
                 },
-                new CompletionMessage
-                {
+                new() {
                     Role = InputMessageRoles.Assistant,
                     Content = string.Empty
                 }

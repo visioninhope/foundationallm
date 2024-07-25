@@ -25,7 +25,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<LLMOrchestrationServiceManager> _logger;
 
-        private Dictionary<string, APISettingsBase> _externalOrchestrationServiceSettings = [];
+        private List<string> _externalOrchestrationServiceNames = [];
 
         /// <summary>
         /// Creates a new instance of the LLM Orchestration Service Manager.
@@ -63,22 +63,17 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 var configurationResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Configuration];
                 await configurationResourceProvider.WaitForInitialization();
 
-                var apiEndpoint = await configurationResourceProvider.GetResources<APIEndpointConfiguration>(
+                var apiEndpointConfigurations = await configurationResourceProvider.GetResources<APIEndpointConfiguration>(
                     DefaultAuthentication.ServiceIdentity!);
 
-                _externalOrchestrationServiceSettings = apiEndpoint
-                    .Where(ae => ae.Category == APIEndpointCategory.ExternalOrchestration
-                        && ae.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
+                _externalOrchestrationServiceNames = apiEndpointConfigurations
+                    .Where(aec => aec.Category == APIEndpointCategory.ExternalOrchestration
+                        && aec.AuthenticationParameters.TryGetValue(AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigObj)
                         && apiKeyConfigObj is string apiKeyConfig
                         && !string.IsNullOrWhiteSpace(apiKeyConfig)
                         && apiKeyConfig.StartsWith(AppConfigurationKeySections.FoundationaLLM_APIEndpoints))
-                    .ToDictionary(
-                        ae => ae.Name,
-                        ae => new APISettingsBase
-                        {
-                            APIKey = _configuration[ae.AuthenticationParameters[AuthenticationParametersKeys.APIKeyConfigurationName].ToString()!],
-                            APIUrl = ae.Url
-                        });
+                    .Select(aec => aec.Name)
+                    .ToList();
 
                 _logger.LogInformation("The LLM Orchestration Service Manager service was successfully initialized.");
             }
@@ -114,10 +109,9 @@ namespace FoundationaLLM.Orchestration.Core.Services
             if (internalOrchestrationService != null)
                 return internalOrchestrationService;
 
-            if (_externalOrchestrationServiceSettings.TryGetValue(serviceName, out var externalOrchestrationServiceSettings))
+            if (_externalOrchestrationServiceNames.Contains(serviceName))
                 return new LLMOrchestrationService(
                     serviceName,
-                    Options.Create<APISettingsBase>(externalOrchestrationServiceSettings),
                     serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
                     serviceProvider.GetRequiredService<IHttpClientFactoryService>(),
                     callContext);
@@ -131,10 +125,9 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     llmSrv.GetType() == typeof(LangChainService)
                     || llmSrv.GetType() == typeof(SemanticKernelService))
                 .Concat(
-                    _externalOrchestrationServiceSettings.Select(eos =>
+                    _externalOrchestrationServiceNames.Select(eosn =>
                         new LLMOrchestrationService(
-                            eos.Key,
-                            Options.Create<APISettingsBase>(eos.Value),
+                            eosn,
                             serviceProvider.GetRequiredService<ILogger<LLMOrchestrationService>>(),
                             serviceProvider.GetRequiredService<IHttpClientFactoryService>(),
                             serviceProvider.GetRequiredService<ICallContext>())));

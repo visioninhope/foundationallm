@@ -48,7 +48,7 @@ namespace FoundationaLLM.Authorization.Services
                     SecurityGroupIds = userIdentity.GroupIds
                 };
 
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AuthorizationAPI, userIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/authorize",
                     JsonContent.Create(authorizationRequest));
@@ -77,7 +77,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AuthorizationAPI, userIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments",
                     JsonContent.Create(roleAssignmentRequest));
@@ -113,7 +113,7 @@ namespace FoundationaLLM.Authorization.Services
 
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AuthorizationAPI, userIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments/querywithactions",
                     JsonContent.Create(request));
@@ -143,7 +143,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AuthorizationAPI, userIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments/query",
                     JsonContent.Create(queryParameters));
@@ -172,7 +172,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClients.AuthorizationAPI, userIdentity);
+                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
                 var response = await httpClient.DeleteAsync(
                     $"/instances/{instanceId}/roleassignments/{roleAssignment}");
 

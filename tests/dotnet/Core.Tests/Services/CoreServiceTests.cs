@@ -35,10 +35,10 @@ namespace FoundationaLLM.Core.Tests.Services
         public CoreServiceTests()
         {
             var gatekeeperAPIDownstream = Substitute.For<IDownstreamAPIService>();
-            gatekeeperAPIDownstream.APIName.Returns(HttpClients.GatekeeperAPI);
+            gatekeeperAPIDownstream.APIName.Returns(HttpClientNames.GatekeeperAPI);
 
             var orchestrationAPIDownstream = Substitute.For<IDownstreamAPIService>();
-            orchestrationAPIDownstream.APIName.Returns(HttpClients.OrchestrationAPI);
+            orchestrationAPIDownstream.APIName.Returns(HttpClientNames.OrchestrationAPI);
 
             _downstreamAPIServices = new List<IDownstreamAPIService>
             {
