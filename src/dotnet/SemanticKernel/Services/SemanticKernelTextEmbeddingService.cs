@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
@@ -81,7 +82,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             ValidateEndpoint(_settings.Endpoint);
 
             var builder = Kernel.CreateBuilder();
-            if (_settings.AuthenticationType == AzureOpenAIAuthenticationTypes.AzureIdentity)
+            if (_settings.AuthenticationType == AuthenticationTypes.AzureIdentity)
             {
                 builder.AddAzureOpenAITextEmbeddingGeneration(
                     _settings.DeploymentName,

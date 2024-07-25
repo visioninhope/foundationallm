@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Services.Events;
+﻿using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Services.Events;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Configuration.Events
@@ -9,10 +10,10 @@ namespace FoundationaLLM.Common.Models.Configuration.Events
     public class AzureEventGridEventServiceSettings
     {
         /// <summary>
-        /// A <see cref="AzureEventGridAuthenticationTypes"/> value indicating the type of authentication used.
+        /// A <see cref="AuthenticationTypes"/> value indicating the type of authentication used.
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public required AzureEventGridAuthenticationTypes AuthenticationType { get; set; }
+        public required AuthenticationTypes AuthenticationType { get; set; }
 
         /// <summary>
         /// The Azure Event Grid namespace endpoint.

@@ -53,6 +53,13 @@ Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-A
 User Portal | `FoundationaLLM-Core-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
 Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
 
+#### Changes in app configuration settings
+
+The `FoundationaLLM:APIs` and `FoundationaLLM:ExternalAPIs` configuration namespaces have been replaced with the `FoundationaLLM:APIEndpoints` configuration namespace.
+
+> [!IMPORTANT]
+> All existing API registrations need to be updated to reflect these changes. The only setting that will exist under `FoundationaLLM:APIEndpoints` is `APIKey` (for those API enpoints which use API key authentication), all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+
 ### Pre-0.8.0
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.

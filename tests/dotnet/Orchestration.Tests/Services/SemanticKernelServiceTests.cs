@@ -30,7 +30,8 @@ namespace FoundationaLLM.Orchestration.Tests.Services
             // Arrange
             var request = new LLMCompletionRequest
             {
-                Agent = new KnowledgeManagementAgent() { Name = "Test_name", ObjectId = "Test_id", Type = "Test_type"}
+                Agent = new KnowledgeManagementAgent() { Name = "Test_name", ObjectId = "Test_id", Type = "Test_type" },
+                UserPrompt = ""
             };
             var responseContent = System.Text.Json.JsonSerializer.Serialize(new LLMCompletionResponse { Completion = "Completion response" });
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(responseContent) };

@@ -860,9 +860,9 @@
         /// </summary>
         public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
         /// <summary>
-        /// The key filter for the FoundationaLLM:ExternalAPIs:* app configuration settings.
+        /// The key filter for the FoundationaLLM:APIEndpoints:* app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs:*";
+        public const string FoundationaLLM_APIEndpoints = "FoundationaLLM:APIEndpoints:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
         /// </summary>
@@ -935,6 +935,10 @@
         /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Prompt = "FoundationaLLM:Prompt:*";
+        /// <summary>
+        /// The key filter for the FoundationaLLM:Prompt:* app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModel = "FoundationaLLM:AIModel:*";
         /// <summary>
         /// The key filter for the FoundationaLLM:Events:* app configuration settings.
         /// </summary>
@@ -1054,9 +1058,9 @@
         /// </summary>
         public const string FoundationaLLM_APIs_StateAPI = "FoundationaLLM:APIs:StateAPI";
         /// <summary>
-        /// The key section for the FoundationaLLM:ExternalAPIs app configuration settings.
+        /// The key section for the FoundationaLLM:APIEndpoints app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_ExternalAPIs = "FoundationaLLM:ExternalAPIs";
+        public const string FoundationaLLM_APIEndpoints = "FoundationaLLM:APIEndpoints";
         /// <summary>
         /// The key section for the FoundationaLLM:Orchestration app configuration settings.
         /// </summary>
@@ -1134,6 +1138,9 @@
         /// </summary>
         public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = "FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings";
         /// <summary>
+        /// The key section for the FoundationaLLM:AIModels app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModels = "FoundationaLLM:AIModels";
         /// The key section for the FoundationaLLM:State app configuration settings.
         /// </summary>
         public const string FoundationaLLM_State = "FoundationaLLM:State";
@@ -1169,6 +1176,11 @@
         /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
         /// </summary>
         public const string FoundationaLLM_Attachment_ResourceProviderService_Storage = "FoundationaLLM:Attachment:ResourceProviderService:Storage";
+
+        /// <summary>
+        /// The key section for the FoundationaLLM:Attachment:ResourceProviderService:Storage app configuration settings.
+        /// </summary>
+        public const string FoundationaLLM_AIModel_ResourceProviderService_Storage = "FoundationaLLM:AIModel:ResourceProviderService:Storage";
         #endregion
 
         #region Event Grid events
