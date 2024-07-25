@@ -629,7 +629,7 @@ export default {
 			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
 				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
 			} else if (assignment.resource.scope === `/instances/${this.instanceId}/${scope}`) {
-				assignment.resource.scope_name = 'This instance';
+				assignment.resource.scope_name = 'This resource';
 			}
 		});
 
