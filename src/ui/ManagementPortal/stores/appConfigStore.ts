@@ -49,14 +49,14 @@ export const useAppConfigStore = defineStore('appConfig', {
 	actions: {
 		async getConfigVariables() {
 			const getConfigValueSafe = async (key: string, defaultValue: any = null) => {
-                try {
-                    return await api.getConfigValue(key);
-                } catch (error) {
-                    console.error(`Failed to get config value for key ${key}:`, error);
-                    return defaultValue;
-                }
-            };
-			
+				try {
+					return await api.getConfigValue(key);
+				} catch (error) {
+					console.error(`Failed to get config value for key ${key}:`, error);
+					return defaultValue;
+				}
+			};
+
 			const [
 				apiUrl,
 				authorizationApiUrl,
