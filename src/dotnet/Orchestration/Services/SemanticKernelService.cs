@@ -71,6 +71,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 return new LLMCompletionResponse
                 {
+                    OperationId = request.OperationId,
                     Completion = completionResponse!.Completion,
                     UserPrompt = completionResponse.UserPrompt,
                     FullPrompt = completionResponse.FullPrompt,
@@ -86,6 +87,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             return new LLMCompletionResponse
             {
+                OperationId = request.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = string.Empty,

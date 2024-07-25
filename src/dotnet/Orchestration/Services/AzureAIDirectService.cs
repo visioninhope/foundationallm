@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
@@ -119,6 +119,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 return new LLMCompletionResponse
                 {
+                    OperationId = request.OperationId,
                     Completion = completionResponse!.Output,
                     UserPrompt = request.UserPrompt,
                     FullPrompt = body,
@@ -134,6 +135,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             return new LLMCompletionResponse
             {
+                OperationId = request.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = systemPrompt?.Content,

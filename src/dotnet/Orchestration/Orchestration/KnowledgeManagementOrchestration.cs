@@ -46,6 +46,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
                 {
+                    OperationId = completionRequest.OperationId,
                     Completion = "I have no knowledge that can be used to answer this question.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -54,6 +55,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_agent.ExpirationDate.HasValue && _agent.ExpirationDate.Value < DateTime.UtcNow)
                 return new CompletionResponse
                 {
+                    OperationId = completionRequest.OperationId,
                     Completion = $"The requested agent, {_agent.Name}, has expired and is unable to respond.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -63,6 +65,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 instanceId,
                 new LLMCompletionRequest
                 {
+                    OperationId = completionRequest.OperationId,
                     UserPrompt = completionRequest.UserPrompt!,
                     MessageHistory = completionRequest.MessageHistory,
                     Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
@@ -80,6 +83,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             return new CompletionResponse
             {
+                OperationId = completionRequest.OperationId,
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
