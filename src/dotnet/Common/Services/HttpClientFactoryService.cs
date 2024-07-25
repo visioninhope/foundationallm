@@ -5,6 +5,8 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Net.Http.Headers;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -15,18 +17,22 @@ namespace FoundationaLLM.Common.Services
     {
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
         private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes(10);
 
         /// <summary>
         /// Creates a new instance of the <see cref="HttpClientFactoryService"/> class.
         /// </summary>
         /// <param name="resourceProviderServices">A list of of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+        /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="httpClientFactory">A fully configured <see cref="IHttpClientFactory"/>.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public HttpClientFactoryService(
             IEnumerable<IResourceProviderService> resourceProviderServices,
+            IConfiguration configuration,
             IHttpClientFactory httpClientFactory)
         {
+            _configuration = configuration;
             _resourceProviderServices = resourceProviderServices.ToDictionary(rps => rps.Name);
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         }
@@ -37,25 +43,30 @@ namespace FoundationaLLM.Common.Services
             if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Configuration, out var configurationResourceProvider))
                 throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
 
-            var apiEndpoint = await configurationResourceProvider.GetResource<APIEndpoint>(
-                $"/{ConfigurationResourceTypeNames.APIEndpoints}/{clientName}",
+            var endpointConfiguration = await configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+                $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{clientName}",
                 userIdentity);
 
-            if (apiEndpoint == null)
+            if (endpointConfiguration == null)
                 throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {clientName} endpoint settings.");
 
-            var httpClient = _httpClientFactory.CreateClient(clientName);
+            return await CreateClient(endpointConfiguration, userIdentity);
+        }
+
+        public async Task<HttpClient> CreateClient(APIEndpointConfiguration endpointConfiguration, UnifiedUserIdentity? userIdentity)
+        {
+            var httpClient = _httpClientFactory.CreateClient(endpointConfiguration.Name);
 
             // Set the default timeout.
-            httpClient.Timeout = TimeSpan.FromSeconds(apiEndpoint.TimeoutSeconds);
+            httpClient.Timeout = TimeSpan.FromSeconds(endpointConfiguration.TimeoutSeconds);
 
             // Set the default URL.
-            httpClient.BaseAddress = new Uri(apiEndpoint.Url);
+            httpClient.BaseAddress = new Uri(endpointConfiguration.Url);
 
             // Override the default URL if an exception is provided.
             if (userIdentity != null)
             {
-                var urlException = apiEndpoint.UrlExceptions.Where(x => x.UserPrincipalName == userIdentity.UPN).SingleOrDefault();
+                var urlException = endpointConfiguration.UrlExceptions.Where(x => x.UserPrincipalName == userIdentity.UPN).SingleOrDefault();
                 if (urlException != null)
                     httpClient.BaseAddress = new Uri(urlException.Url);
 
@@ -64,26 +75,70 @@ namespace FoundationaLLM.Common.Services
                 httpClient.DefaultRequestHeaders.Add(Constants.HttpHeaders.UserIdentity, serializedIdentity);
             }
 
-            // Add the API key header.
-            if (apiEndpoint.AuthenticationType == AuthenticationTypes.APIKey)
+            switch (endpointConfiguration.AuthenticationType)
             {
-                if (string.IsNullOrWhiteSpace(apiEndpoint.APIKey))
-                    throw new Exception("Invalid API endpoint configuration: API key required for the specified authentication type.");
+                case AuthenticationTypes.APIKey:
+                    var apiKey = string.Empty;
+                    var apiKeyHeaderName = string.Empty;
+                    var apiKeyPrefix = string.Empty;
 
-                httpClient.DefaultRequestHeaders.Add(apiEndpoint.APIKeyHeaderName ?? Constants.HttpHeaders.APIKey, apiEndpoint.APIKey);
-            }
+                    if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigurationNameObj))
+                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the enpoint's authentication parameters dictionary.");
 
-            // Add the authorization header.
-            if (apiEndpoint.AuthenticationType == AuthenticationTypes.AzureIdentity
-                && !string.IsNullOrWhiteSpace(apiEndpoint.Scope))
-            {
-                var credentials = DefaultAuthentication.AzureCredential;
-                var tokenResult = await credentials!.GetTokenAsync(
-                    new([apiEndpoint.Scope]),
-                    default);
+                    apiKey = _configuration.GetValue<string>(apiKeyConfigurationNameObj?.ToString()!)!;
 
-                httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", tokenResult.Token);
+                    if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.APIKeyHeaderName, out var apiKeyHeaderNameObj))
+                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyHeaderName} key is missing from the enpoint's authentication parameters dictionary.");
+
+                    apiKeyHeaderName = apiKeyHeaderNameObj.ToString();
+
+                    if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.APIKeyPrefix, out var apiKeyPrefixObj))
+                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyPrefix} key is missing from the enpoint's authentication parameters dictionary.");
+
+                    apiKeyPrefix = apiKeyPrefixObj.ToString();
+
+                    if (apiKeyHeaderName == HeaderNames.Authorization)
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                            apiKeyPrefix ?? string.Empty, apiKey
+                        );
+                    }
+                    else
+                    {
+                        httpClient.DefaultRequestHeaders.Add(
+                            apiKeyHeaderName,
+                            string.IsNullOrWhiteSpace(apiKeyPrefix)
+                                ? apiKey
+                                : $"{apiKeyPrefix} {apiKey}");
+                    }
+
+                    break;
+
+                case AuthenticationTypes.AzureIdentity:
+                    if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.Scope, out var scopeObj))
+                        throw new Exception($"The {AuthenticationParametersKeys.Scope} key is missing from the enpoint's authentication parameters dictionary.");
+
+                    var scope = scopeObj as string;
+
+                    if (string.IsNullOrEmpty(scope))
+                        throw new Exception($"The {AuthenticationParametersKeys.Scope} key is missing from the enpoint's authentication parameters dictionary.");
+
+                    var credentials = DefaultAuthentication.AzureCredential;
+                    var tokenResult = await credentials!.GetTokenAsync(
+                        new([scope]),
+                        default);
+
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", tokenResult.Token);
+
+                    break;
+
+                default:
+                    throw new Exception($"The authentication type {endpointConfiguration.AuthenticationType} is not supported.");
             }
 
             return httpClient;

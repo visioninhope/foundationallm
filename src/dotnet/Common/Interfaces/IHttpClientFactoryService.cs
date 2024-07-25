@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
 namespace FoundationaLLM.Common.Interfaces
 {
@@ -11,16 +12,20 @@ namespace FoundationaLLM.Common.Interfaces
     {
         /// <summary>
         /// Creates a <see cref="HttpClient"/> instance from the provided client name.
-        /// The client name must be registered in the <see cref="IHttpClientFactory"/>
-        /// configuration.
-        /// The headers added to the request are:
-        /// - X-API-KEY: The API key for the target API.
-        /// - X-USER-IDENTITY: The user identity information for the current user.
+        /// The client name must be registered in the <see cref="IHttpClientFactory"/> configuration.
         /// </summary>
         /// <param name="clientName">The named <see cref="HttpClient"/> client configuration.</param>
-        /// <param name="userIdentity">Optional user identity.</param>
+        /// <param name="userIdentity">The user identity.</param>
         /// <returns></returns>
         Task<HttpClient> CreateClient(string clientName, UnifiedUserIdentity? userIdentity);
+
+        /// <summary>
+        /// Creates a <see cref="HttpClient"/> instance from the provided endpoint configuration.
+        /// </summary>
+        /// <param name="endpointConfiguration">The endpoint configuration.</param>
+        /// <param name="userIdentity">The user identity.</param>
+        /// <returns></returns>
+        Task<HttpClient> CreateClient(APIEndpointConfiguration endpointConfiguration, UnifiedUserIdentity? userIdentity);
 
         /// <summary>
         /// Creates a new unregistered <see cref="HttpClient"/> instance with a timeout.
