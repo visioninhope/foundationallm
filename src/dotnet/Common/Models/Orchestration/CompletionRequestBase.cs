@@ -11,6 +11,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <summary>
         /// The Operation ID identifying the completion request.
         /// </summary>
+        [JsonPropertyName("operation_id")]
         public string? OperationId { get; set; }
 
         /// <summary>
