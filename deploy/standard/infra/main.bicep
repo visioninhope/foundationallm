@@ -25,7 +25,6 @@ param managementApiHostname string
 
 // Locals
 var abbrs = loadJsonContent('./abbreviations.json')
-// var authAppRegistrationScopes = 'api://FoundationaLLM-Authorization-Auth/.default'
 var k8sNamespace = 'fllm'
 var useExternalDns = !empty(externalDnsResourceGroupName)
 var useExternalNetworking = !empty(externalNetworkingResourceGroupName)
