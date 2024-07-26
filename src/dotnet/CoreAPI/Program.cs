@@ -97,7 +97,8 @@ namespace FoundationaLLM.Core.API
 
             // Register the downstream services and HTTP clients.
             builder.AddHttpClientFactoryService();
-            RegisterDownstreamServices(builder);
+            builder.AddDownstreamAPIService(HttpClientNames.GatekeeperAPI);
+            builder.AddDownstreamAPIService(HttpClientNames.OrchestrationAPI);
 
             builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
             {
@@ -249,79 +250,6 @@ namespace FoundationaLLM.Core.API
             app.MapControllers();
 
             app.Run();
-        }
-
-        /// <summary>
-        /// Bind the downstream API settings to the configuration and register the HTTP clients.
-        /// The AddResilienceHandler extension method is used to add the standard Polly resilience
-        /// strategies to the HTTP clients.
-        /// </summary>
-        /// <param name="builder"></param>
-        private static void RegisterDownstreamServices(WebApplicationBuilder builder)
-        {
-            var downstreamAPISettings = new DownstreamAPISettings
-            {
-                DownstreamAPIs = []
-            };
-
-            var gatekeeperAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_APIKey]!,
-                Timeout = TimeSpan.FromMinutes(40)
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.GatekeeperAPI] = gatekeeperAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.GatekeeperAPI,
-                        client => {
-                            client.BaseAddress = new Uri(gatekeeperAPISettings.APIUrl);
-                            client.Timeout = gatekeeperAPISettings.Timeout.Value;
-                        })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        static strategyBuilder =>
-                        {
-                            CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                        });
-
-            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!,
-                Timeout = TimeSpan.FromMinutes(35)
-            };
-
-            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.OrchestrationAPI,
-                        client => {
-                            client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl);
-                            client.Timeout = orchestrationAPISettings.Timeout.Value;
-                        })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        static strategyBuilder =>
-                        {
-                            CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-                        });
-
-            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
-
-            builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(
-                    HttpClients.GatekeeperAPI,
-                    serviceProvider.GetService<ICallContext>()!,
-                    serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
-
-            builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
-                => new DownstreamAPIService(
-                    HttpClients.OrchestrationAPI,
-                    serviceProvider.GetService<ICallContext>()!,
-                    serviceProvider.GetService<IHttpClientFactoryService>()!,
-                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!));
         }
     }
 }

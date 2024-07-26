@@ -48,7 +48,7 @@ namespace FoundationaLLM.Gateway.Client
                 OperationId = null
             };
 
-            var client = await _httpClientFactoryService.CreateClient(HttpClients.GatewayAPI, _callContext.CurrentUserIdentity);
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.GatewayAPI, _callContext.CurrentUserIdentity);
             var response = await client.GetAsync($"embeddings?operationId={operationId}");
 
             if (response.IsSuccessStatusCode)
@@ -70,7 +70,7 @@ namespace FoundationaLLM.Gateway.Client
                 OperationId = null
             };
 
-            var client = await _httpClientFactoryService.CreateClient(HttpClients.GatewayAPI, _callContext.CurrentUserIdentity);
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.GatewayAPI, _callContext.CurrentUserIdentity);
             var serializedRequest = JsonSerializer.Serialize(embeddingRequest);
             var response = await client.PostAsync("embeddings",
                 new StringContent(

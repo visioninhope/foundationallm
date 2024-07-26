@@ -1,43 +1,52 @@
-﻿namespace FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Interfaces;
+
+namespace FoundationaLLM.Common.Constants;
 
 /// <summary>
-/// Name constants used to configure and retrieve an <see cref="T:System.Net.Http.HttpClient" />,
-/// using <see cref="T:System.Net.Http.IHttpClientFactory" />.
+/// Name constants used to configure and retrieve API endpoint configurations.
 /// </summary>
-public static class HttpClients
+public static class HttpClientNames
 {
     /// <summary>
     /// Named client with matching configuration for the Core API.
     /// </summary>
     public const string CoreAPI = "CoreAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Gatekeeper API.
     /// </summary>
     public const string GatekeeperAPI = "GatekeeperAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Gatekeeper Integration API.
     /// </summary>
     public const string GatekeeperIntegrationAPI = "GatekeeperIntegrationAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Orchestration API.
     /// </summary>
     public const string OrchestrationAPI = "OrchestrationAPI";
+
     /// <summary>
     /// Named client with matching configuration for the LangChain API.
     /// </summary>
     public const string LangChainAPI = "LangChainAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Semantic Kernel API.
     /// </summary>
     public const string SemanticKernelAPI = "SemanticKernelAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Agent Hub API.
     /// </summary>
     public const string AgentHubAPI = "AgentHubAPI";
+
     /// <summary>
     /// Named client with matching configuration for the Prompt Hub API.
     /// </summary>
     public const string PromptHubAPI = "PromptHubAPI";
+
     /// <summary>
     /// Named client with matching configuration for the DataSource Hub API.
     /// </summary>
@@ -49,14 +58,9 @@ public static class HttpClients
     public const string VectorizationAPI = "VectorizationAPI";
 
     /// <summary>
-    /// Named client with matching configuration for a direct connection to Azure AI.
+    /// Named client with matching configuration for the Vectorization Worker.
     /// </summary>
-    public const string AzureAIDirect = "AzureAIDirect";
-
-    /// <summary>
-    /// Named client with matching configuration for a direct connection to Azure Open AI.
-    /// </summary>
-    public const string AzureOpenAIDirect = "AzureOpenAIDirect";
+    public const string VectorizationWorker = "VectorizationWorker";
 
     /// <summary>
     /// Named client with matching configuration for the Authorization API.
@@ -69,9 +73,14 @@ public static class HttpClients
     public const string ManagementAPI = "ManagementAPI";
 
     /// <summary>
-    /// Name client with matching configuration for the Azure AI Studio API.
+    /// Name client with matching configuration for the Gateway API.
     /// </summary>
-    public const string AzureAIStudioAPI = "AzureAIStudioAPI";
+    public const string GatewayAPI = "GatewayAPI";
+
+    /// <summary>
+    /// Name client with matching configuration for the Gateway Adapter API.
+    /// </summary>
+    public const string GatewayAdapterAPI = "GatewayAdapterAPI";
 
     /// <summary>
     /// Name client with matching configuration for the Azure Content Safety.
@@ -89,7 +98,38 @@ public static class HttpClients
     public const string LakeraGuard = "LakeraGuard";
 
     /// <summary>
-    /// Name client with matching configuration for the Gateway API.
+    /// All HTTP client names.
     /// </summary>
-    public const string GatewayAPI = "GatewayAPI";
+    public readonly static string[] All = [
+        CoreAPI,
+        GatekeeperAPI,
+        GatekeeperIntegrationAPI,
+        OrchestrationAPI,
+        LangChainAPI,
+        SemanticKernelAPI,
+        AgentHubAPI,
+        PromptHubAPI,
+        DataSourceHubAPI,
+        VectorizationAPI,
+        VectorizationWorker,
+        AuthorizationAPI,
+        ManagementAPI,
+        GatewayAPI,
+        GatewayAdapterAPI,
+        AzureContentSafety,
+        EnkryptGuardrails,
+        LakeraGuard
+    ];
+
+    /// <summary>
+    /// All HTTP client names used in <see cref="IDownstreamAPIService"/> implementations.
+    /// </summary>
+    public readonly static string[] AllDownstream = [
+        GatekeeperAPI,
+        GatekeeperIntegrationAPI,
+        OrchestrationAPI,
+        AgentHubAPI,
+        PromptHubAPI,
+        DataSourceHubAPI
+    ];
 }

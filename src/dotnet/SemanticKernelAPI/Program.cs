@@ -86,12 +86,8 @@ namespace FoundationaLLM.SemanticKernel.API
             #endregion
 
             builder.AddHttpClientFactoryService();
-            var downstreamAPISettings = new DownstreamAPISettings
-            {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>()
-            };
-            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
             builder.Services.AddScoped<ICallContext, CallContext>();
+
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services

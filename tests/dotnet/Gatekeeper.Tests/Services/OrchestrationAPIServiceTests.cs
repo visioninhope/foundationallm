@@ -20,7 +20,7 @@ namespace Gatekeeper.Tests.Services
         public OrchestrationAPIServiceTests()
         {
             _testedService = new DownstreamAPIService(
-                HttpClients.AgentHubAPI,
+                HttpClientNames.AgentHubAPI,
                 _callContext,
                 _httpClientFactoryService,
                 null);
