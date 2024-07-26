@@ -64,14 +64,23 @@ namespace FoundationaLLM.State.API.Controllers
         /// <param name="operation">The long-running operation entry to create.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateLongRunningOperation(string instanceId, [FromBody] LongRunningOperation operation)
+        public async Task<IActionResult> CreateLongRunningOperation(string instanceId, [FromBody] LongRunningOperation? operation)
         {
-            if (string.IsNullOrWhiteSpace(operation.OperationId))
+            LongRunningOperation? createdLongRunningOperation;
+            if (operation != null)
             {
-                operation.OperationId = Guid.NewGuid().ToString();
+                if (string.IsNullOrWhiteSpace(operation.OperationId))
+                {
+                    operation.OperationId = Guid.NewGuid().ToString();
+                }
+                createdLongRunningOperation = await stateService.UpsertLongRunningOperation(operation);
             }
-            var newOperation = await stateService.UpsertLongRunningOperation(operation);
-            return new OkObjectResult(newOperation);
+            else
+            {
+                createdLongRunningOperation = await stateService.CreateLongRunningOperation();
+            }
+            
+            return new OkObjectResult(createdLongRunningOperation);
         }
 
         /// <summary>
