@@ -24,7 +24,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The identifier of the long-running operation.
         /// </summary>
         [JsonPropertyName("operation_id")]
-        public string? OperationId { get; set; } = Guid.NewGuid().ToString();
+        public string? OperationId { get; set; }
 
         /// <summary>
         /// The status of the long-running operation.
