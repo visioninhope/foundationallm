@@ -27,6 +27,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Configuration
         /// The type of authentication required for accessing the API.
         /// </summary>
         [JsonPropertyName("authentication_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public required AuthenticationTypes AuthenticationType { get; set; }
 
         /// <summary>
