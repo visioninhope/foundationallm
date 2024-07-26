@@ -21496,15 +21496,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.HttpClientFactoryService
   fullName: FoundationaLLM.Common.Services.HttpClientFactoryService
   nameWithType: HttpClientFactoryService
-- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
-  name: HttpClientFactoryService(IEnumerable<IResourceProviderService>, IConfiguration, IHttpClientFactory)
-  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_System_Net_Http_IHttpClientFactory_
-  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
-  name.vb: New(IEnumerable(Of IResourceProviderService), IConfiguration, IHttpClientFactory)
-  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.HttpClientFactoryService(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
-  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.New(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
-  nameWithType: HttpClientFactoryService.HttpClientFactoryService(IEnumerable<IResourceProviderService>, IConfiguration, IHttpClientFactory)
-  nameWithType.vb: HttpClientFactoryService.New(IEnumerable(Of IResourceProviderService), IConfiguration, IHttpClientFactory)
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
+  name: HttpClientFactoryService(IServiceProvider, IConfiguration, IHttpClientFactory)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_System_IServiceProvider_Microsoft_Extensions_Configuration_IConfiguration_System_Net_Http_IHttpClientFactory_
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor(System.IServiceProvider,Microsoft.Extensions.Configuration.IConfiguration,System.Net.Http.IHttpClientFactory)
+  name.vb: New(IServiceProvider, IConfiguration, IHttpClientFactory)
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.HttpClientFactoryService(System.IServiceProvider, Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
+  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.New(System.IServiceProvider, Microsoft.Extensions.Configuration.IConfiguration, System.Net.Http.IHttpClientFactory)
+  nameWithType: HttpClientFactoryService.HttpClientFactoryService(IServiceProvider, IConfiguration, IHttpClientFactory)
+  nameWithType.vb: HttpClientFactoryService.New(IServiceProvider, IConfiguration, IHttpClientFactory)
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.#ctor*
   name: HttpClientFactoryService
   href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService__ctor_
