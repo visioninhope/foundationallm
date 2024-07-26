@@ -56,7 +56,7 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AIModel);
-
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
             });
             if (builder.Environment.IsDevelopment())
