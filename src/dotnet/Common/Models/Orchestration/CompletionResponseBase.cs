@@ -5,8 +5,14 @@ namespace FoundationaLLM.Common.Models.Orchestration
     /// <summary>
     /// Base model for a response from a language model.
     /// </summary>
-    public class CompletionResponseBase : LongRunningOperationResultBase
+    public class CompletionResponseBase
     {
+        /// <summary>
+        /// The Operation ID identifying the completion request.
+        /// </summary>
+        [JsonPropertyName("operation_id")]
+        public string OperationId { get; set; }
+
         /// <summary>
         /// The completion response from the language model.
         /// </summary>
