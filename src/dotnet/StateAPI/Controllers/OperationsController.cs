@@ -1,7 +1,10 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.State.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
+using System.Text.Json;
 
 namespace FoundationaLLM.State.API.Controllers
 {
@@ -9,8 +12,8 @@ namespace FoundationaLLM.State.API.Controllers
     /// Provides methods for managing long-running operations.
     /// </summary>
     /// <param name="stateService">Provides methods for managing state for long-running operations.</param>
-    [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
+    [APIKeyAuthentication]
     [Route("instances/{instanceId}/[controller]")]
     public class OperationsController(IStateService stateService) : ControllerBase
     {
@@ -64,12 +67,8 @@ namespace FoundationaLLM.State.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLongRunningOperation(string instanceId, [FromBody] LongRunningOperation operation)
         {
-            var success = await stateService.UpsertLongRunningOperationAsync(operation);
-            if (success)
-            {
-                return CreatedAtAction(nameof(GetLongRunningOperation), new { id = operation.Id }, operation);
-            }
-            return BadRequest();
+            var newOperation = await stateService.UpsertLongRunningOperationAsync(operation);
+            return new OkObjectResult(newOperation);
         }
 
         /// <summary>
@@ -86,12 +85,8 @@ namespace FoundationaLLM.State.API.Controllers
             {
                 return BadRequest("The operation ID in the request path does not match the operation ID of the object in the request body.");
             }
-            var success = await stateService.UpsertLongRunningOperationAsync(operation);
-            if (success)
-            {
-                return NoContent();
-            }
-            return NotFound();
+            var newOperation = await stateService.UpsertLongRunningOperationAsync(operation);
+            return new OkObjectResult(newOperation);
         }
 
         /// <summary>
@@ -119,18 +114,30 @@ namespace FoundationaLLM.State.API.Controllers
         /// <param name="operationResult">The operation result to insert.</param>
         /// <returns></returns>
         [HttpPost("{operationId}/result")]
-        public async Task<IActionResult> CreateLongRunningOperationResult(string instanceId, string operationId, [FromBody] dynamic operationResult)
+        public async Task<IActionResult> CreateLongRunningOperationResult(string instanceId, string operationId, [FromBody] JsonElement operationResult)
         {
-            if (operationId != operationResult.Id)
+            dynamic? dynamicOperationResult = JsonSerializer.Deserialize<ExpandoObject>(operationResult.GetRawText());
+            if (dynamicOperationResult == null)
             {
-                return BadRequest("The operation ID in the request path does not match the operation ID of the object in the request body.");
+                return BadRequest("The operation result is not in the correct format.");
             }
-            var success = await stateService.UpsertLongRunningOperationResultAsync(operationResult);
-            if (success)
+
+            // Ensure operation_id is extracted correctly as a string.
+            if (dynamicOperationResult.operation_id is JsonElement {ValueKind: JsonValueKind.String} jsonElement)
             {
-                return CreatedAtAction(nameof(GetLongRunningOperation), new { id = operationResult.Id }, operationResult);
+                var operationIdFromBody = jsonElement.GetString();
+                if (operationIdFromBody != operationId)
+                {
+                    return BadRequest("The operation ID in the request path does not match the operation ID of the object in the request body.");
+                }
             }
-            return BadRequest();
+            else
+            {
+                return BadRequest("The operation result does not contain a valid operation_id.");
+            }
+
+            var result = await stateService.UpsertLongRunningOperationResultAsync(dynamicOperationResult);
+            return new OkObjectResult(result);
         }
     }
 }
