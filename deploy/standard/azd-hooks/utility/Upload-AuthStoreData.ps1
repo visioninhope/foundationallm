@@ -51,10 +51,13 @@ $storageAccountAdls = Invoke-AndRequireSuccess "Get ADLS Auth Storage Account" {
         --output tsv
 }
 
-if (-not (Test-Path "../data/role-assignments/$($instanceId)`.json")) {
-    throw "Default role assignments json not found at ../data/role-assignments/$($instanceId)`.json"
+$sourceJson = "../data/role-assignments/$($instanceId)`.json" | Resolve-Path
+
+if (-not (Test-Path $sourceJson)) {
+    throw "Default role assignments json not found at $sourceJson"
 }
 
 $target = "https://$storageAccountAdls.blob.core.windows.net/role-assignments/"
+$azcopy = "../../common/tools/azcopy/azcopy" | Resolve-Path
 
-& ../../common/tools/azcopy/azcopy cp "../data/role-assignments/$($instanceId)`.json" "$target"
+& $azcopy cp $sourceJson $target
