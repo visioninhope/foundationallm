@@ -2,9 +2,7 @@
   "api": {
     "requestedAccessTokenVersion": 2
   },
-  "identifierUris": [
-    "api://FoundationaLLM-Core-Portal"
-  ],
+  "identifierUris": [],
   "publicClient": {
     "redirectUris": [
       "https://oauth.pstmn.io/v1/callback"
@@ -12,22 +10,13 @@
   },
   "requiredResourceAccess": [
     {
-      "resourceAppId": "1e811dbe-6476-40e1-9aaa-36f159eba424",
-      "resourceAccess": [
-        {
-          "id": "6da07102-bb6a-421d-a71e-dfdb6031d3d8",
-          "type": "Scope"
-        }
-      ]
-    },
-    {
-      "resourceAppId": "00000003-0000-0000-c000-000000000000",
       "resourceAccess": [
         {
           "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
           "type": "Scope"
         }
-      ]
+      ],
+      "resourceAppId": "00000003-0000-0000-c000-000000000000"
     }
   ],
   "servicePrincipalLockConfiguration": {

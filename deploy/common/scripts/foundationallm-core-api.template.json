@@ -12,25 +12,10 @@
         "value": "Data.Read"
       }
     ],
-    "preAuthorizedApplications": [
-      {
-        "delegatedPermissionIds": [
-          "6da07102-bb6a-421d-a71e-dfdb6031d3d8"
-        ],
-        "appId": "1e811dbe-6476-40e1-9aaa-36f159eba424"
-      },
-      {
-        "delegatedPermissionIds": [
-          "6da07102-bb6a-421d-a71e-dfdb6031d3d8"
-        ],
-        "appId": "04b07795-8ddb-461a-bbee-02f9e1bf7b46"
-      }
-    ],
+    "preAuthorizedApplications": [],
     "requestedAccessTokenVersion": 2
   },
-  "identifierUris": [
-    "api://FoundationaLLM-Core"
-  ],
+  "identifierUris": [],
   "publicClient": {
     "redirectUris": [
       "https://oauth.pstmn.io/v1/callback"
