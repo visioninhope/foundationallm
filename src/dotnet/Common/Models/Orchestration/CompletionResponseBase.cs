@@ -14,12 +14,6 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
-        /// The document type.
-        /// </summary>
-        [JsonPropertyName("type")]
-        public string Type => nameof(CompletionResponseBase);
-
-        /// <summary>
         /// The Operation ID identifying the completion request.
         /// </summary>
         public required string OperationId { get; set; }

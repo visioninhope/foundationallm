@@ -15,12 +15,6 @@ public class CompletionResponse : CompletionResponseBase
     public float[]? UserPromptEmbedding { get; set; }
 
     /// <summary>
-    /// The document type.
-    /// </summary>
-    [JsonPropertyName("type")]
-    public new string Type => nameof(CompletionResponse);
-
-    /// <summary>
     /// Initialize a completion response
     /// </summary>
     /// <param name="operationId">The operation id of the completion request.</param>
