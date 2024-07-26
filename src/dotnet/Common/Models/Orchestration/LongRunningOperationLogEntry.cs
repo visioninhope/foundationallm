@@ -49,13 +49,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The time-to-live (TTL) for the log entry.
         /// </summary>
         [JsonPropertyName("ttl")]
-        public int TTL { get; set; } = Convert.ToInt32(TimeSpan.FromDays(7).TotalSeconds);
-
-        /// <summary>
-        /// Deleted flag used for soft delete.
-        /// </summary>
-        [JsonPropertyName("deleted")]
-        public bool Deleted { get; set; }
+        public int TTL { get; set; } = Convert.ToInt32(TimeSpan.FromSeconds(604800));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LongRunningOperationLogEntry"/> class.

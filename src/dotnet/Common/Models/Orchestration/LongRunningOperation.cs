@@ -46,9 +46,9 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public DateTime? LastUpdated { get; set; } = DateTime.UtcNow;
 
         /// <summary>
-        /// Deleted flag used for soft delete.
+        /// The time-to-live (TTL) for the log entry.
         /// </summary>
-        [JsonPropertyName("deleted")]
-        public bool Deleted { get; set; }
+        [JsonPropertyName("ttl")]
+        public int TTL { get; set; } = Convert.ToInt32(TimeSpan.FromSeconds(604800));
     }
 }
