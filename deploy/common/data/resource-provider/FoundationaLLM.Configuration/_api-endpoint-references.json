@@ -71,6 +71,12 @@
 			"Filename": "/FoundationaLLM.Configuration/VectorizationWorker.json",
 			"Type": "api-endpoint",
 			"Deleted": false
+		},
+		{
+			"Name": "AzureOpenAI",
+			"Filename": "/FoundationaLLM.Configuration/AzureOpenAI.json",
+			"Type": "api-endpoint",
+			"Deleted": false
 		}
 	]
 }

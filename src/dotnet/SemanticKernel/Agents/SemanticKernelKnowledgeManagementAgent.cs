@@ -189,6 +189,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
 
                 return new LLMCompletionResponse
                 {
+                    OperationId = _request.OperationId,
                     Completion = completion,
                     UserPrompt = _request.UserPrompt!,
                     FullPrompt = promptFilter.RenderedPrompt,

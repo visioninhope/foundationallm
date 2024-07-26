@@ -5,6 +5,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
     public class CompletionResponseBase
     {
         /// <summary>
+        /// The Operation ID identifying the completion request.
+        /// </summary>
+        public required string OperationId { get; set; }
+
+        /// <summary>
         /// The completion response from the language model.
         /// </summary>
         [JsonPropertyName("completion")]

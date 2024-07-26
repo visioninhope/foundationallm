@@ -9,6 +9,11 @@ namespace FoundationaLLM.Common.Models.Orchestration
     public class CompletionRequestBase
     {
         /// <summary>
+        /// The Operation ID identifying the completion request.
+        /// </summary>
+        public string? OperationId { get; set; }
+
+        /// <summary>
         /// The session ID.
         /// </summary>
         [JsonPropertyName("session_id")]

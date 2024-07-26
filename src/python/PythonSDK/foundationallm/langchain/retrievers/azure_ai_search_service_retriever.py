@@ -3,7 +3,7 @@ Class: AzureAISearchServiceRetriever
 Description: LangChain retriever for Azure AI Search.
 """
 import json
-from typing import List, Optional, Union, Tuple, Any
+from typing import List, Optional, Any
 from langchain_openai import OpenAIEmbeddings
 from langchain_core.callbacks import (
     AsyncCallbackManagerForRetrieverRun,
@@ -13,15 +13,11 @@ from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
-from azure.core.credentials import AzureKeyCredential
 from azure.identity import DefaultAzureCredential
 from foundationallm.models.orchestration import Citation
 from foundationallm.models.vectors import VectorDocument
 from .citation_retrieval_base import CitationRetrievalBase
-from foundationallm.models.resource_providers.vectorization import (
-    AzureAISearchIndexingProfile,
-    AzureOpenAIEmbeddingProfile
-)
+from foundationallm.models.resource_providers.vectorization import AzureAISearchIndexingProfile
 
 class AzureAISearchServiceRetriever(BaseRetriever, CitationRetrievalBase):
     """
