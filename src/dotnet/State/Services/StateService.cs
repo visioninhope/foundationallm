@@ -47,13 +47,13 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> CreateLongRunningOperation()
+        public async Task<LongRunningOperation> CreateLongRunningOperation(string operationId)
         {
             logger.LogInformation("Creating long running operation.");
             var operation = new LongRunningOperation
             {
                 Status = OperationStatus.Pending,
-                OperationId = Guid.NewGuid().ToString()
+                OperationId = operationId
             };
             return await cosmosDbService.UpsertLongRunningOperation(operation);
         }
