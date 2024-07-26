@@ -40,13 +40,13 @@ namespace FoundationaLLM.State.Interfaces
         /// </summary>
         /// <param name="operation">The long-running operation to insert or update.</param>
         /// <returns></returns>
-        Task<bool> UpsertLongRunningOperationAsync(LongRunningOperation operation);
+        Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation);
 
         /// <summary>
         /// Inserts or updates the result of a long-running operation.
         /// </summary>
         /// <param name="operationResult">The operation result to insert or update.</param>
         /// <returns></returns>
-        Task<bool> UpsertLongRunningOperationResultAsync(dynamic operationResult);
+        Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult);
     }
 }
