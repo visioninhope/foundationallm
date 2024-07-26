@@ -200,27 +200,31 @@ module cosmosDb './shared/cosmosdb.bicep' = {
         name: 'UserSessions'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'UserProfiles'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'Sessions'
         partitionKeyPath: '/sessionId'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'State'
         partitionKeyPath: '/operation_id'
         maxThroughput: 1000
-        defaultTtl: -1
+        defaultTtl: 604800
       }
       {
         name: 'leases'
         partitionKeyPath: '/id'
         maxThroughput: 1000
+        defaultTtl: null
       }
     ]
     databaseName: 'database'
