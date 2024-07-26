@@ -70,7 +70,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<List<LongRunningOperation>> GetLongRunningOperationsAsync(CancellationToken cancellationToken = default)
+        public async Task<List<LongRunningOperation>> GetLongRunningOperations(CancellationToken cancellationToken = default)
         {
             var query = new QueryDefinition(
                     $"SELECT DISTINCT * FROM c WHERE c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
@@ -89,7 +89,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> GetLongRunningOperationAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<LongRunningOperation> GetLongRunningOperation(string id, CancellationToken cancellationToken = default)
         {
             var record = await _state.ReadItemAsync<LongRunningOperation>(
                 id: id,
@@ -100,7 +100,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntriesAsync(string operationId, CancellationToken cancellationToken = default)
+        public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntries(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
                 new QueryDefinition($"SELECT * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction}")
@@ -120,7 +120,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<object?> GetLongRunningOperationResultAsync(string operationId, CancellationToken cancellationToken = default)
+        public async Task<object?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
                 new QueryDefinition($"SELECT TOP 1 * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
@@ -140,7 +140,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default)
+        public async Task<LongRunningOperation> UpsertLongRunningOperation(LongRunningOperation operation, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(operation.OperationId);
             var batch = _state.CreateTransactionalBatch(partitionKey);
@@ -165,7 +165,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default)
+        public async Task<object?> UpsertLongRunningOperationResult(dynamic operationResult, CancellationToken cancellationToken = default)
         {
             string operationId;
             if (operationResult.operation_id is JsonElement {ValueKind: JsonValueKind.String} operationIdElement)

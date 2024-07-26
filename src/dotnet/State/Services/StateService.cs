@@ -21,35 +21,35 @@ namespace FoundationaLLM.State.Services
         public async Task<List<LongRunningOperation>> GetLongRunningOperationsAsync()
         {
             logger.LogInformation("Getting long running operations.");
-            return await cosmosDbService.GetLongRunningOperationsAsync();
+            return await cosmosDbService.GetLongRunningOperations();
         }
 
         /// <inheritdoc/>
         public async Task<LongRunningOperation> GetLongRunningOperationAsync(string id)
         {
             logger.LogInformation("Getting long running operation with ID: {id}", id);
-            return await cosmosDbService.GetLongRunningOperationAsync(id);
+            return await cosmosDbService.GetLongRunningOperation(id);
         }
 
         /// <inheritdoc/>
         public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntriesAsync(string operationId)
         {
             logger.LogInformation("Getting long running operation log entries for operation ID: {operationId}", operationId);
-            return await cosmosDbService.GetLongRunningOperationLogEntriesAsync(operationId);
+            return await cosmosDbService.GetLongRunningOperationLogEntries(operationId);
         }
 
         /// <inheritdoc/>
         public async Task<object?> GetLongRunningOperationResultAsync(string operationId)
         {
             logger.LogInformation("Getting long running operation result for operation ID: {operationId}", operationId);
-            return await cosmosDbService.GetLongRunningOperationResultAsync(operationId);
+            return await cosmosDbService.GetLongRunningOperationResult(operationId);
         }
 
         /// <inheritdoc/>
         public async Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation)
         {
             logger.LogInformation("Upserting long running operation.");
-            return await cosmosDbService.UpsertLongRunningOperationAsync(operation);
+            return await cosmosDbService.UpsertLongRunningOperation(operation);
         }
 
         /// <inheritdoc/>
@@ -69,7 +69,7 @@ namespace FoundationaLLM.State.Services
                 operationResultDict["id"] = Guid.NewGuid().ToString();
             }
 
-            return await cosmosDbService.UpsertLongRunningOperationResultAsync(operationResult);
+            return await cosmosDbService.UpsertLongRunningOperationResult(operationResult);
         }
     }
 }

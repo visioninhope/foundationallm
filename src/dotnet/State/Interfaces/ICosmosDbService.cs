@@ -12,7 +12,7 @@ namespace FoundationaLLM.State.Interfaces
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<List<LongRunningOperation>> GetLongRunningOperationsAsync(CancellationToken cancellationToken = default);
+        Task<List<LongRunningOperation>> GetLongRunningOperations(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves a long-running operation by its identifier.
@@ -20,7 +20,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="id">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<LongRunningOperation> GetLongRunningOperationAsync(string id, CancellationToken cancellationToken = default);
+        Task<LongRunningOperation> GetLongRunningOperation(string id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves all log entries for a long-running operation.
@@ -28,7 +28,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationId">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntriesAsync(string operationId, CancellationToken cancellationToken = default);
+        Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntries(string operationId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves the result of a long-running operation.
@@ -37,7 +37,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationId">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<object?> GetLongRunningOperationResultAsync(string operationId, CancellationToken cancellationToken = default);
+        Task<object?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates a long-running operation and creates a log entry.
@@ -45,7 +45,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operation">The long-running operation to insert or update.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default);
+        Task<LongRunningOperation> UpsertLongRunningOperation(LongRunningOperation operation, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates the result of a long-running operation.
@@ -53,6 +53,6 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationResult">The operation result to insert or update.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default);
+        Task<object?> UpsertLongRunningOperationResult(dynamic operationResult, CancellationToken cancellationToken = default);
     }
 }
