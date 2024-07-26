@@ -50,6 +50,7 @@ resource cosmosContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/con
           kind: 'Hash'
           version: 2
         }
+        defaultTtl: container.defaultTtl ?? null
       }
       options: {
         autoscaleSettings: {

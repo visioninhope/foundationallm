@@ -213,8 +213,9 @@ module cosmosDb './shared/cosmosdb.bicep' = {
       }
       {
         name: 'State'
-        partitionKeyPath: '/operationId'
+        partitionKeyPath: '/operation_id'
         maxThroughput: 1000
+        defaultTtl: -1
       }
       {
         name: 'leases'

@@ -61,9 +61,10 @@ var containers = [
     name: 'State'
     partitionKey: {
       paths: [
-        '/operationId'
+        '/operation_id'
       ]
     }
+    defaultTtl: -1
   }
   {
     name: 'leases'
@@ -228,6 +229,8 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
         paths: c.partitionKey.paths
         version: 2
       }
+
+      defaultTtl: c.defaultTtl ?? null
 
       uniqueKeyPolicy: {
         uniqueKeys: []
