@@ -36,6 +36,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:AgentHubAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-agenthubapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:AgentHubAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-agenthubapi-apikey\"}",
       "label": null,
@@ -71,6 +78,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:AzureContentSafety:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatekeeper-azurecontentsafety-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:CoreAPI:APIUrl",
       "value": "${env:SERVICE_CORE_API_ENDPOINT_URL}",
       "label": null,
@@ -92,6 +106,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:DataSourceHubAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-datasourcehubapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:DataSourceHubAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-datasourcehubapi-apikey\"}",
       "label": null,
@@ -108,6 +129,13 @@
     {
       "key": "FoundationaLLM:APIs:DataSourceHubAPI:AppInsightsConnectionString",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIEndpoints:GatekeeperAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatekeeperapi-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -176,6 +204,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatekeeperintegrationapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatekeeperintegrationapi-apikey\"}",
       "label": null,
@@ -192,6 +227,13 @@
     {
       "key": "FoundationaLLM:APIs:GatekeeperIntegrationAPI:AppInsightsConnectionString",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIEndpoints:GatewayAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatewayapi-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -218,6 +260,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatewayadapterapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:GatewayAdapterAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-gatewayadapterapi-apikey\"}",
       "label": null,
@@ -234,6 +283,13 @@
     {
       "key": "FoundationaLLM:APIs:GatewayAdapterAPI:AppInsightsConnectionString",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIEndpoints:LangChainAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-langchainapi-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -274,6 +330,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:OrchestrationAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-orchestrationapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:OrchestrationAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-orchestrationapi-apikey\"}",
       "label": null,
@@ -302,6 +365,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:PromptHubAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-prompthubapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:PromptHubAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-prompthubapi-apikey\"}",
       "label": null,
@@ -323,6 +393,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:SemanticKernelAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-semantickernelapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:SemanticKernelAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-semantickernelapi-apikey\"}",
       "label": null,
@@ -339,6 +416,13 @@
     {
       "key": "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIEndpoints:StateAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-stateapi-apikey\"}",
       "label": null,
       "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
@@ -372,6 +456,13 @@
       "tags": {}
     },
     {
+      "key": "FoundationaLLM:APIEndpoints:VectorizationAPI:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-vectorizationapi-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+      "tags": {}
+    },
+    {
       "key": "FoundationaLLM:APIs:VectorizationAPI:APIKey",
       "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-vectorizationapi-apikey\"}",
       "label": null,
@@ -397,6 +488,13 @@
       "value": "false",
       "label": null,
       "content_type": "",
+      "tags": {}
+    },
+    {
+      "key": "FoundationaLLM:APIEndpoints:VectorizationWorker:APIKey",
+      "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apis-vectorizationworker-apikey\"}",
+      "label": null,
+      "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
       "tags": {}
     },
     {
