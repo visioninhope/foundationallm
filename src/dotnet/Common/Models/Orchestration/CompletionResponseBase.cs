@@ -5,19 +5,8 @@ namespace FoundationaLLM.Common.Models.Orchestration
     /// <summary>
     /// Base model for a response from a language model.
     /// </summary>
-    public class CompletionResponseBase
+    public class CompletionResponseBase : LongRunningOperationResultBase
     {
-        /// <summary>
-        /// The identifier of the long-running operation log entry.
-        /// </summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
-
-        /// <summary>
-        /// The Operation ID identifying the completion request.
-        /// </summary>
-        public required string OperationId { get; set; }
-
         /// <summary>
         /// The completion response from the language model.
         /// </summary>
