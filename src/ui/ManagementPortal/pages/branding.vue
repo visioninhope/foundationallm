@@ -5,6 +5,19 @@
             <p>Customize the look and feel of your UI.</p>
         </div>
         <div class="steps">
+            <div class="step span-2" v-for="key in orderedKeys" :key="key">
+                <div class="step-header mb-2">{{ key }}</div>
+                <div class="mb-2">{{ getBrandingDescription(key) }}</div>
+                <InputText :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" />
+            </div>
+            <div class="step span-2" v-for="key in orderedKeysColors" :key="key">
+                <div class="step-header mb-2">{{ key }}</div>
+                <div class="mb-2">{{ getBrandingDescription(key) }}</div>
+                <InputText :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" />
+                <!-- <ColorPicker :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" /> -->
+                <ColorPicker :modelValue="getBrandingValue(key)" @change="updateBrandingValue(key, $event.value)" />
+            </div>
+            <div style="border-top: 3px solid #bbb;"></div>
             <div class="step span-2" v-for="brand in branding" :key="brand.resource.key">
                 <div class="step-header mb-2">{{ brand.resource.name }}</div>
                 <div class="mb-2">{{ brand.resource.description }}</div>
@@ -94,6 +107,28 @@ export default {
                     "value": "#fff",
                 }
             ],
+            orderedKeys: [
+                "FoundationaLLM:Branding:CompanyName",
+                "FoundationaLLM:Branding:FavIconUrl",
+                "FoundationaLLM:Branding:FooterText",
+                "FoundationaLLM:Branding:KioskMode",
+                "FoundationaLLM:Branding:LogoText",
+                "FoundationaLLM:Branding:LogoUrl",
+                "FoundationaLLM:Branding:PageTitle",
+            ],
+            orderedKeysColors: [
+                "FoundationaLLM:Branding:AccentColor",
+                "FoundationaLLM:Branding:AccentTextColor",
+                "FoundationaLLM:Branding:BackgroundColor",
+                "FoundationaLLM:Branding:PrimaryButtonBackgroundColor",
+                "FoundationaLLM:Branding:PrimaryButtonTextColor",
+                "FoundationaLLM:Branding:PrimaryColor",
+                "FoundationaLLM:Branding:PrimaryTextColor",
+                "FoundationaLLM:Branding:SecondaryButtonBackgroundColor",
+                "FoundationaLLM:Branding:SecondaryButtonTextColor",
+                "FoundationaLLM:Branding:SecondaryColor",
+                "FoundationaLLM:Branding:SecondaryTextColor",
+            ],
         };
     },
 
@@ -105,6 +140,7 @@ export default {
         async getBranding() {
             try {
                 this.branding = await api.getBranding();
+                console.log(this.branding);
                 this.brandingOriginal = JSON.parse(JSON.stringify(this.branding));
             } catch (error) {
                 this.$toast.add({
@@ -112,6 +148,23 @@ export default {
                     detail: error?.response?._data || error,
                     life: 5000,
                 });
+            }
+        },
+
+        getBrandingValue(key: string) {
+            const brand = this.branding?.find((item: any) => item.resource.key === key);
+            return brand ? brand.resource.value : '';
+        },
+
+        getBrandingDescription(key: string) {
+            const brand = this.branding?.find((item: any) => item.resource.key === key);
+            return brand ? brand.resource.description : '';
+        },
+
+        updateBrandingValue(key: string, newValue: string) {
+            const brand = this.branding?.find((item: any) => item.resource.key === key);
+            if (brand) {
+                brand.resource.value = newValue;
             }
         },
 
