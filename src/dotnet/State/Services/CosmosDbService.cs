@@ -7,6 +7,9 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
+using System.Dynamic;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace FoundationaLLM.State.Services
 {
@@ -137,40 +140,62 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default)
+        public async Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default)
         {
             PartitionKey partitionKey = new(operation.OperationId);
             var batch = _state.CreateTransactionalBatch(partitionKey);
-            batch.UpsertItem(
-                item: operation
+            batch.UpsertItem<LongRunningOperation>(
+                operation
             );
-            batch.CreateItem(
-                item: new LongRunningOperationLogEntry(operation.OperationId, operation.Status, operation.StatusMessage)
+            batch.CreateItem<LongRunningOperationLogEntry>(
+                new LongRunningOperationLogEntry(operation.OperationId, operation.Status, operation.StatusMessage)
             );
 
             var result = await batch.ExecuteAsync(cancellationToken);
 
-            return result.IsSuccessStatusCode;
+            if (result.IsSuccessStatusCode)
+            {
+                var operationResult = result.GetOperationResultAtIndex<LongRunningOperation>(0);
+                return operationResult.Resource;
+            }
+            else
+            {
+                throw new Exception($"Failed to upsert long running operation. Status code: {result.StatusCode}, Error message: {result.ErrorMessage}");
+            }
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default)
+        public async Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrWhiteSpace(operationResult.OperationId))
+            string operationId;
+            if (operationResult.operation_id is JsonElement {ValueKind: JsonValueKind.String} operationIdElement)
+            {
+                operationId = operationIdElement.GetString();
+            }
+            else if (operationResult.operation_id is string operationIdStr)
+            {
+                operationId = operationIdStr;
+            }
+            else
+            {
+                throw new ArgumentException("OperationResult must have a valid operation_id.");
+            }
+
+            if (string.IsNullOrWhiteSpace(operationId))
             {
                 throw new ArgumentException("OperationResult must have an operation_id.");
             }
 
             operationResult.type = LongRunningOperationTypes.LongRunningOperationResult;
 
-            PartitionKey partitionKey = new(operationResult.OperationId);
-            var result = await _state.UpsertItemAsync(
+            PartitionKey partitionKey = new(operationId);
+            ItemResponse<ExpandoObject> result = await _state.UpsertItemAsync(
                 item: operationResult,
                 partitionKey: partitionKey,
                 cancellationToken: cancellationToken
             );
 
-            return result.IsSuccessStatusCode;
+            return result.Resource;
         }
     }
 }
