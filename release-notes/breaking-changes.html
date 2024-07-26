@@ -92,6 +92,8 @@
 <li><code>OrchestrationRequest</code> and <code>CompletionRequest</code> have combined into a single <code>CompletionRequest</code> object.</li>
 <li><code>DirectionCompletionRequest</code> has been removed. Use <code>CompletionRequest</code> instead.</li>
 <li><code>Status</code> controllers <code>\status</code> action in the .NET API projects return value has renamed the <code>Instance</code> property to <code>InstanceName</code>.</li>
+<li>The <code>CompletionController.cs</code> file under <code>dotnet/CoreApi/controllers</code> has introduced the <code>Async-Completions</code> endpoint to handle asynchronous completions.</li>
+<li>With the introduction of <code>Async-Completions</code>, long running operations can now report on completion status based on <code>Pending</code>, <code>InProgress</code>, <code>Completed</code> and <code>Failed</code> states.</li>
 </ol>
 <p>Gatekeeper API changes:</p>
 <ol>
