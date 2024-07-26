@@ -14,17 +14,17 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest,
 	ExternalOrchestrationService,
+	Role,
+	RoleAssignment,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
-// import { mockAzureDataLakeDataSource1 } from './mock';
+import { $fetch } from 'ofetch';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
 }
 
 export default {
-	mockLoadTime: 1000,
-
 	apiVersion: '2024-02-16',
 	apiUrl: null as string | null,
 	setApiUrl(apiUrl: string) {
@@ -67,7 +67,9 @@ export default {
 		});
 	},
 
-	// Data sources
+	/*
+		Data Sources
+	 */
 	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -235,10 +237,10 @@ export default {
 		);
 	},
 
-	// App Configuration
+	/*
+		App Configuration
+	 */
 	async getAppConfig(key: string): Promise<ResourceProviderGetResult<AppConfigUnion>> {
-		// await wait(this.mockLoadTime);
-		// return mockAzureDataLakeDataSource1;
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`,
 		);
@@ -261,7 +263,9 @@ export default {
 		);
 	},
 
-	// Indexes
+	/*
+		Indexes
+	 */
 	async getAgentIndexes(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<AgentIndex>[]> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`,
@@ -335,7 +339,9 @@ export default {
 		}
 	},
 
-	// Text embedding profiles
+	/*
+		Text Embedding Profiles
+	 */
 	async getTextEmbeddingProfiles(): Promise<ResourceProviderGetResult<TextEmbeddingProfile>[]> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`,
@@ -380,7 +386,9 @@ export default {
 		return data;
 	},
 
-	// Agents
+	/*
+		Agents
+	 */
 	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -531,12 +539,9 @@ export default {
 		);
 	},
 
-	async getAgentGatekeepers(): Promise<AgentGatekeeper[]> {
-		await wait(this.mockLoadTime);
-		return [];
-	},
-
-	// Prompts
+	/*
+		Prompts
+	 */
 	async getPrompt(promptId: string): Promise<ResourceProviderGetResult<Prompt> | null> {
 		// Attempt to retrieve the prompt. If it doesn't exist, return an empty object.
 		try {
@@ -604,5 +609,138 @@ export default {
 
 		// Return the updated external orchestration services.
 		return data;
+	},
+
+	/*
+		Role Assignments
+	 */
+	async getRoleAssignments(scope): RoleAssignment[] {
+		const assignments = (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}${scope ? `/${scope}` : ''}`,
+				}),
+			},
+		)) as RoleAssignment[];
+
+		assignments.map(assignment => {
+			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
+				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
+			} else if (assignment.resource.scope === `/instances/${this.instanceId}/${scope}`) {
+				assignment.resource.scope_name = 'This resource';
+			}
+		});
+
+		return assignments;
+	},
+
+	async getRoleAssignment(roleAssignmentId): RoleAssignment[] {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}`,
+				}),
+			},
+		)) as RoleAssignment[];
+	},
+
+	async createRoleAssignment(request: Object): Promise<any> {
+		if (!request.scope) {
+			request.scope = `/instances/${this.instanceId}`;
+		}
+
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${request.name}?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify(request),
+			},
+		);
+	},
+
+	/*
+		Role Definitions
+	 */
+	async getRoleDefinitions(): RoleAssignment[] {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions?api-version=${this.apiVersion}`,
+		)) as Object[];
+	},
+
+	async getRoleDefinition(roleAssignmentId): RoleAssignment {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
+		)) as RoleAssignment[];
+	},
+
+	async deleteRoleAssignment(roleAssignmentId): void {
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
+			{
+				method: 'DELETE',
+			},
+		);
+	},
+
+	/*
+		Users
+	 */
+	async getUsers(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/retrieve?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
+	},
+
+	async getUser(userId) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}?api-version=${this.apiVersion}`);
+	},
+
+	/*
+		Groups
+	 */
+	async getGroups(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/retrieve?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
+	},
+
+	async getGroup(groupId) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}?api-version=${this.apiVersion}`);
+	},
+
+	/*
+		Combined User+Groups
+	 */
+	async getObjects(params = { ids: [] }) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify(params),
+		});
 	},
 };

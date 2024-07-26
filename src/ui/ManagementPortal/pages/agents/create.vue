@@ -1,13 +1,25 @@
 <template>
 	<div>
-		<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
-		<div class="page-subheader">
-			{{
-				editAgent
-					? 'Edit your agent settings below.'
-					: 'Complete the settings below to create and deploy your new agent.'
-			}}
+		<div style="display: flex">
+			<!-- Title -->
+			<div style="flex: 1">
+				<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
+				<div class="page-subheader">
+					{{
+						editAgent
+							? 'Edit your agent settings below.'
+							: 'Complete the settings below to create and deploy your new agent.'
+					}}
+				</div>
+			</div>
+
+			<!-- Edit access control -->
+			<AccessControl
+				v-if="editAgent"
+				:scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`"
+			/>
 		</div>
+
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
 			<!-- Loading overlay -->
@@ -674,6 +686,8 @@ const defaultSystemPrompt: string = '';
 
 const getDefaultFormValues = () => {
 	return {
+		accessControlModalOpen: false,
+
 		agentName: '',
 		agentDescription: '',
 		object_id: '',
@@ -982,7 +996,7 @@ export default {
 			this.selectedIndexSource =
 				this.indexSources.find(
 					(indexSource) =>
-						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids.includes(indexSource.object_id),
+						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids?.includes(indexSource.object_id),
 				) || null;
 			
 			this.selectedTextEmbeddingProfile =
