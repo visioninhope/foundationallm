@@ -46,8 +46,9 @@ namespace FoundationaLLM.State.Interfaces
         /// <summary>
         /// Creates a new long-running operation with default values.
         /// </summary>
+        /// <param name="operationId">The long-running operation identifier.</param>
         /// <returns></returns>
-        Task<LongRunningOperation> CreateLongRunningOperation();
+        Task<LongRunningOperation> CreateLongRunningOperation(string operationId);
 
         /// <summary>
         /// Inserts or updates the result of a long-running operation.

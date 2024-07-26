@@ -60,13 +60,13 @@ namespace FoundationaLLM.State.API.Controllers
         /// <summary>
         /// Inserts a long-running operation and creates a log entry.
         /// </summary>
+        /// <param name="operationId">The ID of the long running operation.</param>
         /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> CreateLongRunningOperation(string instanceId)
+        [HttpPost("{operationId}")]
+        public async Task<IActionResult> CreateLongRunningOperation(string instanceId, string operationId)
         {
-            var  createdLongRunningOperation = await stateService.CreateLongRunningOperation();
-            
+            var createdLongRunningOperation = await stateService.CreateLongRunningOperation(operationId);            
             return new OkObjectResult(createdLongRunningOperation);
         }
 
