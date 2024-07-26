@@ -1,14 +1,16 @@
 <template>
 	<div>
 		<!-- Header -->
-		<h2 class="page-header">{{ editId ? 'Edit Role Assignment' : 'Create Role Assignment' }}</h2>
-		<div class="page-subheader">
-			{{
-				editId
-					? 'Edit your role assignment settings below.'
-					: 'Complete the settings below to configure the role assignment.'
-			}}
-		</div>
+		<template v-if="!headless">
+			<h2 class="page-header">{{ editId ? 'Edit Role Assignment' : 'Create Role Assignment' }}</h2>
+			<div class="page-subheader">
+				{{
+					editId
+						? 'Edit your role assignment settings below.'
+						: 'Complete the settings below to configure the role assignment.'
+				}}
+			</div>
+		</template>
 
 		<!-- Steps -->
 		<div class="steps" :class="{ 'steps--loading': loading }">
@@ -26,7 +28,7 @@
 				<div class="mb-2">Scope</div>
 				<div class="input-wrapper">
 					<InputText
-						v-model="scope"
+						:value="scope"
 						readonly
 						placeholder="Instance"
 						type="text"
@@ -161,7 +163,7 @@
 			</div>
 
 			<!-- Buttons -->
-			<div class="button-container column-2 justify-self-end">
+			<div v-if="!headless" class="button-container column-2 justify-self-end">
 				<!-- Create role assignment -->
 				<Button
 					:label="editId ? 'Save Changes' : 'Create Role Assignment'"
@@ -202,7 +204,20 @@ export default {
 			required: false,
 			default: false,
 		},
+
+		headless: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+
+		scope: {
+			type: String,
+			required: false,
+		},
 	},
+
+	expose: ['createRoleAssignment'],
 
 	data() {
 		return {
@@ -214,7 +229,7 @@ export default {
 			principalSearchType: 'User' as null | string,
 			principalTypeOptions: ['User', 'Group'],
 
-			scope: this.$route.query.scope ?? null,
+			// scope: this.$route.query.scope ?? null,
 			roleAssignment: {
 				name: '',
 				description: '',
@@ -327,6 +342,18 @@ export default {
 		},
 
 		async handleCreateRoleAssignment() {
+			try {
+				await this.createRoleAssignment();
+			} catch(error) {
+				this.$toast.add({
+					severity: 'error',
+					detail: error,
+					life: 5000,
+				});
+			}
+		},
+
+		async createRoleAssignment() {
 			const errors: string[] = [];
 
 			if (!this.roleAssignment.principal_id) {
@@ -338,13 +365,7 @@ export default {
 			}
 
 			if (errors.length > 0) {
-				this.$toast.add({
-					severity: 'error',
-					detail: errors.join('\n'),
-					life: 5000,
-				});
-
-				return;
+				throw errors.join('\n');
 			}
 
 			this.loading = true;
@@ -359,21 +380,18 @@ export default {
 				successMessage = `Role assignment was successfully saved.`;
 			} catch (error) {
 				this.loading = false;
-				return this.$toast.add({
-					severity: 'error',
-					detail: error?.response?._data || error,
-					life: 5000,
-				});
+				throw error?.response?._data || error;
 			}
 
 			this.$toast.add({
 				severity: 'success',
 				detail: successMessage,
+				life: 5000,
 			});
 
 			this.loading = false;
 
-			if (!this.editId) {
+			if (!this.editId && !this.headless) {
 				this.$router.push('/security/role-assignments');
 			}
 		},
