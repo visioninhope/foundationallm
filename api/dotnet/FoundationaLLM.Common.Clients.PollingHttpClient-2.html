@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Clients_PollingHttpClient_2" data-uid="FoundationaLLM.Common.Clients.PollingHttpClient`2" class="text-break">
-Class PollingHttpClient&lt;TRequest, TResponse&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L21"><i class="bi bi-code-slash"></i></a>
+Class PollingHttpClient&lt;TRequest, TResponse&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -173,7 +173,7 @@ Class PollingHttpClient&lt;TRequest, TResponse&gt;  <a class="header-action link
 
   <h3 id="FoundationaLLM_Common_Clients_PollingHttpClient_2__ctor_System_Net_Http_HttpClient__0_System_String_System_TimeSpan_System_TimeSpan_Microsoft_Extensions_Logging_ILogger_" data-uid="FoundationaLLM.Common.Clients.PollingHttpClient`2.#ctor(System.Net.Http.HttpClient,`0,System.String,System.TimeSpan,System.TimeSpan,Microsoft.Extensions.Logging.ILogger)">
   PollingHttpClient(HttpClient, TRequest, string, TimeSpan, TimeSpan, ILogger)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Provides a generic HTTP client that can be used to poll for a response.</p>
@@ -225,16 +225,17 @@ Class PollingHttpClient&lt;TRequest, TResponse&gt;  <a class="header-action link
 
   <h3 id="FoundationaLLM_Common_Clients_PollingHttpClient_2_GetResponseAsync_System_Threading_CancellationToken_" data-uid="FoundationaLLM.Common.Clients.PollingHttpClient`2.GetResponseAsync(System.Threading.CancellationToken)">
   GetResponseAsync(CancellationToken)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the response from the service using a polling mechanism.
-The polling mechanis is based on the following assumptions:</p>
+The polling mechanism is based on the following assumptions:</p>
 - The {operationStarterPath} endpoint will accept a POST with a <code class="typeparamref">TRequest</code> object as payload and will return a 202 Accepted status code when the operation is started.<br>
-- The returned response will contain a RunningOperation object with the operation id.<br>
-- The polling enpoint is available at {operationStarterPath}/{operationId}.<br>
-- The polling endpoint will return a 204 No Content status code when the operation is in progress.<br>
-- The polling endpoint will return a 200 OK status code when the operation is completed and the reponse will contain a TResult object.<br>
+- The returned response will contain a LongRunningOperation object with the operation id.<br>
+- The polling endpoint is available at {operationStarterPath}/{operationId}/status.<br>
+- The polling endpoint will return a 200 status code when the operation is in progress containing a property for status.<br>
+- The polling endpoint will return a 200 status code when the operation is completed with the status property indicating Completed.<br>
+- The result retrieval endpoint is available at {operationStarterPath}/{operationId}/result.<br>
 - The polling endpoint will return a 404 Not Found status code when the operation is not found.<br>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -276,7 +277,7 @@ The polling mechanis is based on the following assumptions:</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Clients/PollingHttpClient`2.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 
