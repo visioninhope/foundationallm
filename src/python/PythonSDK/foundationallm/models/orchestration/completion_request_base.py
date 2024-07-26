@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from foundationallm.models.orchestration import MessageHistoryItem, OrchestrationSettings
+from foundationallm.models.orchestration import MessageHistoryItem
 
 class CompletionRequestBase(BaseModel):
     """
