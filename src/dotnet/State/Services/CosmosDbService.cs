@@ -118,14 +118,14 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<object?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default)
+        public async Task<JsonDocument?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
                 new QueryDefinition($"SELECT TOP 1 * FROM c WHERE c.operation_id = @operationId AND c.type = @type ORDER BY c._ts DESC")
                     .WithParameter("@operationId", operationId)
                     .WithParameter("@type", LongRunningOperationTypes.LongRunningOperationResult);
 
-            var results = _state.GetItemQueryIterator<object>(query);
+            var results = _state.GetItemQueryIterator<JsonDocument>(query);
 
             // There should just be a single result that has the operation_id and type. Get that result and return it.
             if (results.HasMoreResults)

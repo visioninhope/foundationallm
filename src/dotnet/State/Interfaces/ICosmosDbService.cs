@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using System.Text.Json;
+using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.State.Interfaces
 {
@@ -37,7 +38,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationId">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<object?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default);
+        Task<JsonDocument?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates a long-running operation and creates a log entry.

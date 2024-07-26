@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using System.Text.Json;
+using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.State.Interfaces;
 using FoundationaLLM.State.Models.Configuration;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,7 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<object?> GetLongRunningOperationResult(string operationId)
+        public async Task<JsonDocument?> GetLongRunningOperationResult(string operationId)
         {
             logger.LogInformation("Getting long running operation result for operation ID: {operationId}", operationId);
             return await cosmosDbService.GetLongRunningOperationResult(operationId);

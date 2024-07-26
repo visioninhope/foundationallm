@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using System.Text.Json;
+using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.State.Interfaces
 {
@@ -33,7 +34,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <typeparam name="T">Define the type used to deserialize the operation result object.</typeparam>
         /// <param name="operationId">The long-running operation identifier.</param>
         /// <returns></returns>
-        Task<object?> GetLongRunningOperationResult(string operationId);
+        Task<JsonDocument?> GetLongRunningOperationResult(string operationId);
 
         /// <summary>
         /// Inserts or updates a long-running operation and creates a log entry.
