@@ -49,6 +49,6 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The time-to-live (TTL) for the log entry.
         /// </summary>
         [JsonPropertyName("ttl")]
-        public int TTL { get; set; } = Convert.ToInt32(TimeSpan.FromSeconds(604800));
+        public int TTL { get; set; } = 604800;
     }
 }
