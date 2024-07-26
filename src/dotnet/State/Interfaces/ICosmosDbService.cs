@@ -17,7 +17,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <summary>
         /// Retrieves a long-running operation by its identifier.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<LongRunningOperation> GetLongRunningOperationAsync(string id, CancellationToken cancellationToken = default);
@@ -37,7 +37,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationId">The long-running operation identifier.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T?> GetLongRunningOperationResultAsync<T>(string operationId, CancellationToken cancellationToken = default);
+        Task<object?> GetLongRunningOperationResultAsync(string operationId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates a long-running operation and creates a log entry.

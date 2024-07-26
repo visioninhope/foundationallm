@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Orchestration;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.State.Interfaces;
@@ -70,7 +71,7 @@ namespace FoundationaLLM.State.Services
         {
             var query = new QueryDefinition(
                     $"SELECT DISTINCT * FROM c WHERE c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
-                .WithParameter("@type", nameof(LongRunningOperation));
+                .WithParameter("@type", LongRunningOperationTypes.LongRunningOperation);
 
             var response = _state.GetItemQueryIterator<LongRunningOperation>(query);
 
@@ -101,7 +102,7 @@ namespace FoundationaLLM.State.Services
             var query =
                 new QueryDefinition($"SELECT * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction}")
                     .WithParameter("@operationId", operationId)
-                    .WithParameter("@type", nameof(LongRunningOperationLogEntry));
+                    .WithParameter("@type", LongRunningOperationTypes.LongRunningOperationLogEntry);
 
             var results = _state.GetItemQueryIterator<LongRunningOperationLogEntry>(query);
 
@@ -116,14 +117,14 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<T?> GetLongRunningOperationResultAsync<T>(string operationId, CancellationToken cancellationToken = default)
+        public async Task<object?> GetLongRunningOperationResultAsync(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
                 new QueryDefinition($"SELECT TOP 1 * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
                     .WithParameter("@operationId", operationId)
-                    .WithParameter("@type", nameof(T));
+                    .WithParameter("@type", LongRunningOperationTypes.LongRunningOperationResult);
 
-            var results = _state.GetItemQueryIterator<T>(query);
+            var results = _state.GetItemQueryIterator<object>(query);
 
             // There should just be a single result that has the operation_id and type. Get that result and return it.
             if (results.HasMoreResults)
@@ -155,10 +156,12 @@ namespace FoundationaLLM.State.Services
         /// <inheritdoc/>
         public async Task<bool> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default)
         {
-            if (string.IsNullOrEmpty(operationResult.OperationId))
+            if (string.IsNullOrWhiteSpace(operationResult.OperationId))
             {
                 throw new ArgumentException("OperationResult must have an operation_id.");
             }
+
+            operationResult.type = LongRunningOperationTypes.LongRunningOperationResult;
 
             PartitionKey partitionKey = new(operationResult.OperationId);
             var result = await _state.UpsertItemAsync(
