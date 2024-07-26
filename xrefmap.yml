@@ -7442,6 +7442,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.CosmosDbContainers.Sessions
   fullName: FoundationaLLM.Common.Constants.CosmosDbContainers.Sessions
   nameWithType: CosmosDbContainers.Sessions
+- uid: FoundationaLLM.Common.Constants.CosmosDbContainers.State
+  name: State
+  href: api/dotnet/FoundationaLLM.Common.Constants.CosmosDbContainers.html#FoundationaLLM_Common_Constants_CosmosDbContainers_State
+  commentId: F:FoundationaLLM.Common.Constants.CosmosDbContainers.State
+  fullName: FoundationaLLM.Common.Constants.CosmosDbContainers.State
+  nameWithType: CosmosDbContainers.State
 - uid: FoundationaLLM.Common.Constants.CosmosDbContainers.UserProfiles
   name: UserProfiles
   href: api/dotnet/FoundationaLLM.Common.Constants.CosmosDbContainers.html#FoundationaLLM_Common_Constants_CosmosDbContainers_UserProfiles
@@ -7808,6 +7814,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.SemanticKernel
   fullName: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.SemanticKernel
   nameWithType: LLMOrchestrationServiceNames.SemanticKernel
+- uid: FoundationaLLM.Common.Constants.Orchestration
+  name: FoundationaLLM.Common.Constants.Orchestration
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.html
+  commentId: N:FoundationaLLM.Common.Constants.Orchestration
+  fullName: FoundationaLLM.Common.Constants.Orchestration
+  nameWithType: FoundationaLLM.Common.Constants.Orchestration
+- uid: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes
+  name: LongRunningOperationTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes
+  fullName: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes
+  nameWithType: LongRunningOperationTypes
+- uid: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperation
+  name: LongRunningOperation
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.html#FoundationaLLM_Common_Constants_Orchestration_LongRunningOperationTypes_LongRunningOperation
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperation
+  fullName: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperation
+  nameWithType: LongRunningOperationTypes.LongRunningOperation
+- uid: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationLogEntry
+  name: LongRunningOperationLogEntry
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.html#FoundationaLLM_Common_Constants_Orchestration_LongRunningOperationTypes_LongRunningOperationLogEntry
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationLogEntry
+  fullName: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationLogEntry
+  nameWithType: LongRunningOperationTypes.LongRunningOperationLogEntry
+- uid: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationResult
+  name: LongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.html#FoundationaLLM_Common_Constants_Orchestration_LongRunningOperationTypes_LongRunningOperationResult
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationResult
+  fullName: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationResult
+  nameWithType: LongRunningOperationTypes.LongRunningOperationResult
 - uid: FoundationaLLM.Common.Constants.Participants
   name: Participants
   href: api/dotnet/FoundationaLLM.Common.Constants.Participants.html
@@ -15338,6 +15374,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.New
   nameWithType: CompletionResponse.CompletionResponse
   nameWithType.vb: CompletionResponse.New
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument(System.Text.Json.JsonDocument)
+  name: FromJSONDocument(JsonDocument)
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_FromJSONDocument_System_Text_Json_JsonDocument_
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument(System.Text.Json.JsonDocument)
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument(System.Text.Json.JsonDocument)
+  nameWithType: CompletionResponse.FromJSONDocument(JsonDocument)
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument*
+  name: FromJSONDocument
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_FromJSONDocument_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.FromJSONDocument
+  nameWithType: CompletionResponse.FromJSONDocument
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponse.UserPromptEmbedding
   name: UserPromptEmbedding
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponse_UserPromptEmbedding
@@ -15409,6 +15458,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.CompletionTokens
   nameWithType: CompletionResponseBase.CompletionTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Deleted
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
+  nameWithType: CompletionResponseBase.Deleted
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted*
+  name: Deleted
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Deleted_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
+  nameWithType: CompletionResponseBase.Deleted
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.FullPrompt
   name: FullPrompt
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_FullPrompt
@@ -16913,6 +16975,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation
   fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation
   nameWithType: LongRunningOperation
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_Id
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id
+  nameWithType: LongRunningOperation.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Id
+  nameWithType: LongRunningOperation.Id
 - uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.LastUpdated
   name: LastUpdated
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_LastUpdated
@@ -16965,6 +17040,157 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.StatusMessage
   nameWithType: LongRunningOperation.StatusMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL
+  name: TTL
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_TTL
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL
+  nameWithType: LongRunningOperation.TTL
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL*
+  name: TTL
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_TTL_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.TTL
+  nameWithType: LongRunningOperation.TTL
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type
+  nameWithType: LongRunningOperation.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.Type
+  nameWithType: LongRunningOperation.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry
+  name: LongRunningOperationLogEntry
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry
+  nameWithType: LongRunningOperationLogEntry
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor
+  name: LongRunningOperationLogEntry()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.LongRunningOperationLogEntry()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.New()
+  nameWithType: LongRunningOperationLogEntry.LongRunningOperationLogEntry()
+  nameWithType.vb: LongRunningOperationLogEntry.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor(System.String,FoundationaLLM.Common.Models.Orchestration.OperationStatus,System.String)
+  name: LongRunningOperationLogEntry(string, OperationStatus, string?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry__ctor_System_String_FoundationaLLM_Common_Models_Orchestration_OperationStatus_System_String_
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor(System.String,FoundationaLLM.Common.Models.Orchestration.OperationStatus,System.String)
+  name.vb: New(String, OperationStatus, String)
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.LongRunningOperationLogEntry(string, FoundationaLLM.Common.Models.Orchestration.OperationStatus, string?)
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.New(String, FoundationaLLM.Common.Models.Orchestration.OperationStatus, String)
+  nameWithType: LongRunningOperationLogEntry.LongRunningOperationLogEntry(string, OperationStatus, string?)
+  nameWithType.vb: LongRunningOperationLogEntry.New(String, OperationStatus, String)
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor*
+  name: LongRunningOperationLogEntry
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.LongRunningOperationLogEntry
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.New
+  nameWithType: LongRunningOperationLogEntry.LongRunningOperationLogEntry
+  nameWithType.vb: LongRunningOperationLogEntry.New
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Id
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id
+  nameWithType: LongRunningOperationLogEntry.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id*
+  name: Id
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Id_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Id
+  nameWithType: LongRunningOperationLogEntry.Id
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_OperationId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId
+  nameWithType: LongRunningOperationLogEntry.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId*
+  name: OperationId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_OperationId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.OperationId
+  nameWithType: LongRunningOperationLogEntry.OperationId
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status
+  name: Status
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Status
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status
+  nameWithType: LongRunningOperationLogEntry.Status
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status*
+  name: Status
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Status_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Status
+  nameWithType: LongRunningOperationLogEntry.Status
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage
+  name: StatusMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_StatusMessage
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage
+  nameWithType: LongRunningOperationLogEntry.StatusMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage*
+  name: StatusMessage
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_StatusMessage_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.StatusMessage
+  nameWithType: LongRunningOperationLogEntry.StatusMessage
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL
+  name: TTL
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_TTL
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL
+  nameWithType: LongRunningOperationLogEntry.TTL
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL*
+  name: TTL
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_TTL_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TTL
+  nameWithType: LongRunningOperationLogEntry.TTL
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp
+  name: TimeStamp
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_TimeStamp
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp
+  nameWithType: LongRunningOperationLogEntry.TimeStamp
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp*
+  name: TimeStamp
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_TimeStamp_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.TimeStamp
+  nameWithType: LongRunningOperationLogEntry.TimeStamp
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
+  nameWithType: LongRunningOperationLogEntry.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.html#FoundationaLLM_Common_Models_Orchestration_LongRunningOperationLogEntry_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
+  nameWithType: LongRunningOperationLogEntry.Type
 - uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus
   name: OperationStatus
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html
@@ -26846,19 +27072,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddSemanticKernelService
   nameWithType: DependencyInjection.AddSemanticKernelService
-- uid: FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
-  name: AddState(IHostApplicationBuilder)
-  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddState_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
-  commentId: M:FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
-  fullName: FoundationaLLM.DependencyInjection.AddState(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
-  nameWithType: DependencyInjection.AddState(IHostApplicationBuilder)
-- uid: FoundationaLLM.DependencyInjection.AddState*
-  name: AddState
-  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddState_
-  commentId: Overload:FoundationaLLM.DependencyInjection.AddState
-  isSpec: "True"
-  fullName: FoundationaLLM.DependencyInjection.AddState
-  nameWithType: DependencyInjection.AddState
 - uid: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddStateGenericExceptionHandling(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddStateGenericExceptionHandling_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -26872,6 +27085,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddStateGenericExceptionHandling
   nameWithType: DependencyInjection.AddStateGenericExceptionHandling
+- uid: FoundationaLLM.DependencyInjection.AddStateService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  name: AddStateService(IHostApplicationBuilder)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddStateService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
+  commentId: M:FoundationaLLM.DependencyInjection.AddStateService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  fullName: FoundationaLLM.DependencyInjection.AddStateService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
+  nameWithType: DependencyInjection.AddStateService(IHostApplicationBuilder)
+- uid: FoundationaLLM.DependencyInjection.AddStateService*
+  name: AddStateService
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddStateService_
+  commentId: Overload:FoundationaLLM.DependencyInjection.AddStateService
+  isSpec: "True"
+  fullName: FoundationaLLM.DependencyInjection.AddStateService
+  nameWithType: DependencyInjection.AddStateService
 - uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddVectorizationResourceProvider(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -31693,6 +31919,140 @@ references:
   commentId: N:FoundationaLLM.State.API.Controllers
   fullName: FoundationaLLM.State.API.Controllers
   nameWithType: FoundationaLLM.State.API.Controllers
+- uid: FoundationaLLM.State.API.Controllers.OperationsController
+  name: OperationsController
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html
+  commentId: T:FoundationaLLM.State.API.Controllers.OperationsController
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController
+  nameWithType: OperationsController
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.#ctor(FoundationaLLM.State.Interfaces.IStateService)
+  name: OperationsController(IStateService)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController__ctor_FoundationaLLM_State_Interfaces_IStateService_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.#ctor(FoundationaLLM.State.Interfaces.IStateService)
+  name.vb: New(IStateService)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.OperationsController(FoundationaLLM.State.Interfaces.IStateService)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.New(FoundationaLLM.State.Interfaces.IStateService)
+  nameWithType: OperationsController.OperationsController(IStateService)
+  nameWithType.vb: OperationsController.New(IStateService)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.#ctor*
+  name: OperationsController
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController__ctor_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.OperationsController
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.New
+  nameWithType: OperationsController.OperationsController
+  nameWithType.vb: OperationsController.New
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String)
+  name: CreateLongRunningOperation(string)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperation_System_String_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String)
+  name.vb: CreateLongRunningOperation(String)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(string)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(String)
+  nameWithType: OperationsController.CreateLongRunningOperation(string)
+  nameWithType.vb: OperationsController.CreateLongRunningOperation(String)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation*
+  name: CreateLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation
+  nameWithType: OperationsController.CreateLongRunningOperation
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult(System.String,System.String,System.Text.Json.JsonElement)
+  name: CreateLongRunningOperationResult(string, string, JsonElement)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperationResult_System_String_System_String_System_Text_Json_JsonElement_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult(System.String,System.String,System.Text.Json.JsonElement)
+  name.vb: CreateLongRunningOperationResult(String, String, JsonElement)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult(string, string, System.Text.Json.JsonElement)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult(String, String, System.Text.Json.JsonElement)
+  nameWithType: OperationsController.CreateLongRunningOperationResult(string, string, JsonElement)
+  nameWithType.vb: OperationsController.CreateLongRunningOperationResult(String, String, JsonElement)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult*
+  name: CreateLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperationResult
+  nameWithType: OperationsController.CreateLongRunningOperationResult
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation(System.String,System.String)
+  name: GetLongRunningOperation(string, string)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation(System.String,System.String)
+  name.vb: GetLongRunningOperation(String, String)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation(string, string)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation(String, String)
+  nameWithType: OperationsController.GetLongRunningOperation(string, string)
+  nameWithType.vb: OperationsController.GetLongRunningOperation(String, String)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation*
+  name: GetLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperation
+  nameWithType: OperationsController.GetLongRunningOperation
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs(System.String,System.String)
+  name: GetLongRunningOperationLogs(string, string)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperationLogs_System_String_System_String_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs(System.String,System.String)
+  name.vb: GetLongRunningOperationLogs(String, String)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs(string, string)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs(String, String)
+  nameWithType: OperationsController.GetLongRunningOperationLogs(string, string)
+  nameWithType.vb: OperationsController.GetLongRunningOperationLogs(String, String)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs*
+  name: GetLongRunningOperationLogs
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperationLogs_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationLogs
+  nameWithType: OperationsController.GetLongRunningOperationLogs
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult(System.String,System.String)
+  name: GetLongRunningOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult(System.String,System.String)
+  name.vb: GetLongRunningOperationResult(String, String)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult(string, string)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult(String, String)
+  nameWithType: OperationsController.GetLongRunningOperationResult(string, string)
+  nameWithType.vb: OperationsController.GetLongRunningOperationResult(String, String)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult*
+  name: GetLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperationResult
+  nameWithType: OperationsController.GetLongRunningOperationResult
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations
+  name: GetLongRunningOperations()
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperations
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations()
+  nameWithType: OperationsController.GetLongRunningOperations()
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations*
+  name: GetLongRunningOperations
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_GetLongRunningOperations_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.GetLongRunningOperations
+  nameWithType: OperationsController.GetLongRunningOperations
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation(System.String,System.String,FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  name: UpdateLongRunningOperation(string, string, LongRunningOperation)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_UpdateLongRunningOperation_System_String_System_String_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation(System.String,System.String,FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  name.vb: UpdateLongRunningOperation(String, String, LongRunningOperation)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation(string, string, FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation(String, String, FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  nameWithType: OperationsController.UpdateLongRunningOperation(string, string, LongRunningOperation)
+  nameWithType.vb: OperationsController.UpdateLongRunningOperation(String, String, LongRunningOperation)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation*
+  name: UpdateLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_UpdateLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.UpdateLongRunningOperation
+  nameWithType: OperationsController.UpdateLongRunningOperation
 - uid: FoundationaLLM.State.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.State.API.Controllers.StatusController.html
@@ -31818,12 +32178,211 @@ references:
   commentId: N:FoundationaLLM.State.Interfaces
   fullName: FoundationaLLM.State.Interfaces
   nameWithType: FoundationaLLM.State.Interfaces
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService
+  name: ICosmosDbService
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html
+  commentId: T:FoundationaLLM.State.Interfaces.ICosmosDbService
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService
+  nameWithType: ICosmosDbService
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperation(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperation_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperation(String, CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation(String, System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.GetLongRunningOperation(string, CancellationToken)
+  nameWithType.vb: ICosmosDbService.GetLongRunningOperation(String, CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation*
+  name: GetLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperation
+  nameWithType: ICosmosDbService.GetLongRunningOperation
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperationLogEntries(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperationLogEntries_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperationLogEntries(String, CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries(String, System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.GetLongRunningOperationLogEntries(string, CancellationToken)
+  nameWithType.vb: ICosmosDbService.GetLongRunningOperationLogEntries(String, CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries*
+  name: GetLongRunningOperationLogEntries
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperationLogEntries_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationLogEntries
+  nameWithType: ICosmosDbService.GetLongRunningOperationLogEntries
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperationResult(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperationResult_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperationResult(String, CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult(String, System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.GetLongRunningOperationResult(string, CancellationToken)
+  nameWithType.vb: ICosmosDbService.GetLongRunningOperationResult(String, CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult*
+  name: GetLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperationResult
+  nameWithType: ICosmosDbService.GetLongRunningOperationResult
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  name: GetLongRunningOperations(CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperations_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.GetLongRunningOperations(CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations*
+  name: GetLongRunningOperations
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_GetLongRunningOperations_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.GetLongRunningOperations
+  nameWithType: ICosmosDbService.GetLongRunningOperations
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation,System.Threading.CancellationToken)
+  name: UpsertLongRunningOperation(LongRunningOperation, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation, System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.UpsertLongRunningOperation(LongRunningOperation, CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation*
+  name: UpsertLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_UpsertLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperation
+  nameWithType: ICosmosDbService.UpsertLongRunningOperation
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult(System.Object,System.Threading.CancellationToken)
+  name: UpsertLongRunningOperationResult(dynamic, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_UpsertLongRunningOperationResult_System_Object_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult(System.Object,System.Threading.CancellationToken)
+  name.vb: UpsertLongRunningOperationResult(Object, CancellationToken)
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult(dynamic, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult(Object, System.Threading.CancellationToken)
+  nameWithType: ICosmosDbService.UpsertLongRunningOperationResult(dynamic, CancellationToken)
+  nameWithType.vb: ICosmosDbService.UpsertLongRunningOperationResult(Object, CancellationToken)
+- uid: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult*
+  name: UpsertLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Interfaces.ICosmosDbService.html#FoundationaLLM_State_Interfaces_ICosmosDbService_UpsertLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.ICosmosDbService.UpsertLongRunningOperationResult
+  nameWithType: ICosmosDbService.UpsertLongRunningOperationResult
 - uid: FoundationaLLM.State.Interfaces.IStateService
   name: IStateService
   href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html
   commentId: T:FoundationaLLM.State.Interfaces.IStateService
   fullName: FoundationaLLM.State.Interfaces.IStateService
   nameWithType: IStateService
+- uid: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
+  name: CreateLongRunningOperation()
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_CreateLongRunningOperation
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
+  fullName: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation()
+  nameWithType: IStateService.CreateLongRunningOperation()
+- uid: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation*
+  name: CreateLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_CreateLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
+  nameWithType: IStateService.CreateLongRunningOperation
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation(System.String)
+  name: GetLongRunningOperation(string)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperation_System_String_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation(System.String)
+  name.vb: GetLongRunningOperation(String)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation(string)
+  fullName.vb: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation(String)
+  nameWithType: IStateService.GetLongRunningOperation(string)
+  nameWithType.vb: IStateService.GetLongRunningOperation(String)
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation*
+  name: GetLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperation
+  nameWithType: IStateService.GetLongRunningOperation
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries(System.String)
+  name: GetLongRunningOperationLogEntries(string)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperationLogEntries_System_String_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries(System.String)
+  name.vb: GetLongRunningOperationLogEntries(String)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries(string)
+  fullName.vb: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries(String)
+  nameWithType: IStateService.GetLongRunningOperationLogEntries(string)
+  nameWithType.vb: IStateService.GetLongRunningOperationLogEntries(String)
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries*
+  name: GetLongRunningOperationLogEntries
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperationLogEntries_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationLogEntries
+  nameWithType: IStateService.GetLongRunningOperationLogEntries
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult(System.String)
+  name: GetLongRunningOperationResult(string)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperationResult_System_String_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult(System.String)
+  name.vb: GetLongRunningOperationResult(String)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult(string)
+  fullName.vb: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult(String)
+  nameWithType: IStateService.GetLongRunningOperationResult(string)
+  nameWithType.vb: IStateService.GetLongRunningOperationResult(String)
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult*
+  name: GetLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperationResult
+  nameWithType: IStateService.GetLongRunningOperationResult
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations
+  name: GetLongRunningOperations()
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperations
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations()
+  nameWithType: IStateService.GetLongRunningOperations()
+- uid: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations*
+  name: GetLongRunningOperations
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_GetLongRunningOperations_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.GetLongRunningOperations
+  nameWithType: IStateService.GetLongRunningOperations
+- uid: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  name: UpsertLongRunningOperation(LongRunningOperation)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  nameWithType: IStateService.UpsertLongRunningOperation(LongRunningOperation)
+- uid: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation*
+  name: UpsertLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_UpsertLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperation
+  nameWithType: IStateService.UpsertLongRunningOperation
+- uid: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult(System.Object)
+  name: UpsertLongRunningOperationResult(dynamic)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_UpsertLongRunningOperationResult_System_Object_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult(System.Object)
+  name.vb: UpsertLongRunningOperationResult(Object)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult(dynamic)
+  fullName.vb: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult(Object)
+  nameWithType: IStateService.UpsertLongRunningOperationResult(dynamic)
+  nameWithType.vb: IStateService.UpsertLongRunningOperationResult(Object)
+- uid: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult*
+  name: UpsertLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_UpsertLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Interfaces.IStateService.UpsertLongRunningOperationResult
+  nameWithType: IStateService.UpsertLongRunningOperationResult
 - uid: FoundationaLLM.State.Models.Configuration
   name: FoundationaLLM.State.Models.Configuration
   href: api/dotnet/FoundationaLLM.State.Models.Configuration.html
@@ -31836,27 +32395,205 @@ references:
   commentId: T:FoundationaLLM.State.Models.Configuration.StateServiceSettings
   fullName: FoundationaLLM.State.Models.Configuration.StateServiceSettings
   nameWithType: StateServiceSettings
+- uid: FoundationaLLM.State.Serializers
+  name: FoundationaLLM.State.Serializers
+  href: api/dotnet/FoundationaLLM.State.Serializers.html
+  commentId: N:FoundationaLLM.State.Serializers
+  fullName: FoundationaLLM.State.Serializers
+  nameWithType: FoundationaLLM.State.Serializers
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer
+  name: CosmosSystemTextJsonSerializer
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html
+  commentId: T:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer
+  nameWithType: CosmosSystemTextJsonSerializer
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.#ctor(System.Text.Json.JsonSerializerOptions)
+  name: CosmosSystemTextJsonSerializer(JsonSerializerOptions)
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer__ctor_System_Text_Json_JsonSerializerOptions_
+  commentId: M:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.#ctor(System.Text.Json.JsonSerializerOptions)
+  name.vb: New(JsonSerializerOptions)
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer(System.Text.Json.JsonSerializerOptions)
+  fullName.vb: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.New(System.Text.Json.JsonSerializerOptions)
+  nameWithType: CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer(JsonSerializerOptions)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.New(JsonSerializerOptions)
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.#ctor*
+  name: CosmosSystemTextJsonSerializer
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer__ctor_
+  commentId: Overload:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer
+  fullName.vb: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.New
+  nameWithType: CosmosSystemTextJsonSerializer.CosmosSystemTextJsonSerializer
+  nameWithType.vb: CosmosSystemTextJsonSerializer.New
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream*
+  name: FromStream
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer_FromStream_
+  commentId: Overload:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream
+  nameWithType: CosmosSystemTextJsonSerializer.FromStream
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream``1(System.IO.Stream)
+  name: FromStream<T>(Stream)
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer_FromStream__1_System_IO_Stream_
+  commentId: M:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream``1(System.IO.Stream)
+  name.vb: FromStream(Of T)(Stream)
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream<T>(System.IO.Stream)
+  fullName.vb: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.FromStream(Of T)(System.IO.Stream)
+  nameWithType: CosmosSystemTextJsonSerializer.FromStream<T>(Stream)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.FromStream(Of T)(Stream)
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream*
+  name: ToStream
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer_ToStream_
+  commentId: Overload:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream
+  nameWithType: CosmosSystemTextJsonSerializer.ToStream
+- uid: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream``1(``0)
+  name: ToStream<T>(T)
+  href: api/dotnet/FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.html#FoundationaLLM_State_Serializers_CosmosSystemTextJsonSerializer_ToStream__1___0_
+  commentId: M:FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream``1(``0)
+  name.vb: ToStream(Of T)(T)
+  fullName: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream<T>(T)
+  fullName.vb: FoundationaLLM.State.Serializers.CosmosSystemTextJsonSerializer.ToStream(Of T)(T)
+  nameWithType: CosmosSystemTextJsonSerializer.ToStream<T>(T)
+  nameWithType.vb: CosmosSystemTextJsonSerializer.ToStream(Of T)(T)
 - uid: FoundationaLLM.State.Services
   name: FoundationaLLM.State.Services
   href: api/dotnet/FoundationaLLM.State.Services.html
   commentId: N:FoundationaLLM.State.Services
   fullName: FoundationaLLM.State.Services
   nameWithType: FoundationaLLM.State.Services
+- uid: FoundationaLLM.State.Services.CosmosDbService
+  name: CosmosDbService
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html
+  commentId: T:FoundationaLLM.State.Services.CosmosDbService
+  fullName: FoundationaLLM.State.Services.CosmosDbService
+  nameWithType: CosmosDbService
+- uid: FoundationaLLM.State.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.CosmosDbService})
+  name: CosmosDbService(IOptions<CosmosDbSettings>, CosmosClient, ILogger<CosmosDbService>)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_CosmosDB_CosmosDbSettings__Microsoft_Azure_Cosmos_CosmosClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_CosmosDbService__
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.CosmosDbService})
+  name.vb: New(IOptions(Of CosmosDbSettings), CosmosClient, ILogger(Of CosmosDbService))
+  fullName: FoundationaLLM.State.Services.CosmosDbService.CosmosDbService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings>, Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.State.Services.CosmosDbService>)
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings), Microsoft.Azure.Cosmos.CosmosClient, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.State.Services.CosmosDbService))
+  nameWithType: CosmosDbService.CosmosDbService(IOptions<CosmosDbSettings>, CosmosClient, ILogger<CosmosDbService>)
+  nameWithType.vb: CosmosDbService.New(IOptions(Of CosmosDbSettings), CosmosClient, ILogger(Of CosmosDbService))
+- uid: FoundationaLLM.State.Services.CosmosDbService.#ctor*
+  name: CosmosDbService
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService__ctor_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.State.Services.CosmosDbService.CosmosDbService
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.New
+  nameWithType: CosmosDbService.CosmosDbService
+  nameWithType.vb: CosmosDbService.New
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperation(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperation_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperation(String, CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation(String, System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.GetLongRunningOperation(string, CancellationToken)
+  nameWithType.vb: CosmosDbService.GetLongRunningOperation(String, CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation*
+  name: GetLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation
+  nameWithType: CosmosDbService.GetLongRunningOperation
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperationLogEntries(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationLogEntries_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperationLogEntries(String, CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries(String, System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.GetLongRunningOperationLogEntries(string, CancellationToken)
+  nameWithType.vb: CosmosDbService.GetLongRunningOperationLogEntries(String, CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries*
+  name: GetLongRunningOperationLogEntries
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationLogEntries_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries
+  nameWithType: CosmosDbService.GetLongRunningOperationLogEntries
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult(System.String,System.Threading.CancellationToken)
+  name: GetLongRunningOperationResult(string, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationResult_System_String_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult(System.String,System.Threading.CancellationToken)
+  name.vb: GetLongRunningOperationResult(String, CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult(string, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult(String, System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.GetLongRunningOperationResult(string, CancellationToken)
+  nameWithType.vb: CosmosDbService.GetLongRunningOperationResult(String, CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult*
+  name: GetLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult
+  nameWithType: CosmosDbService.GetLongRunningOperationResult
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  name: GetLongRunningOperations(CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperations_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.GetLongRunningOperations(CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations*
+  name: GetLongRunningOperations
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperations_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations
+  nameWithType: CosmosDbService.GetLongRunningOperations
+- uid: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation,System.Threading.CancellationToken)
+  name: UpsertLongRunningOperation(LongRunningOperation, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation,System.Threading.CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation, System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.UpsertLongRunningOperation(LongRunningOperation, CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation*
+  name: UpsertLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation
+  nameWithType: CosmosDbService.UpsertLongRunningOperation
+- uid: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult(System.Object,System.Threading.CancellationToken)
+  name: UpsertLongRunningOperationResult(dynamic, CancellationToken)
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperationResult_System_Object_System_Threading_CancellationToken_
+  commentId: M:FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult(System.Object,System.Threading.CancellationToken)
+  name.vb: UpsertLongRunningOperationResult(Object, CancellationToken)
+  fullName: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult(dynamic, System.Threading.CancellationToken)
+  fullName.vb: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult(Object, System.Threading.CancellationToken)
+  nameWithType: CosmosDbService.UpsertLongRunningOperationResult(dynamic, CancellationToken)
+  nameWithType.vb: CosmosDbService.UpsertLongRunningOperationResult(Object, CancellationToken)
+- uid: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult*
+  name: UpsertLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Services.CosmosDbService.html#FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult
+  nameWithType: CosmosDbService.UpsertLongRunningOperationResult
 - uid: FoundationaLLM.State.Services.StateService
   name: StateService
   href: api/dotnet/FoundationaLLM.State.Services.StateService.html
   commentId: T:FoundationaLLM.State.Services.StateService
   fullName: FoundationaLLM.State.Services.StateService
   nameWithType: StateService
-- uid: FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
-  name: StateService(IOptions<StateServiceSettings>, ILogger<StateService>)
-  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_State_Models_Configuration_StateServiceSettings__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_StateService__
-  commentId: M:FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
-  name.vb: New(IOptions(Of StateServiceSettings), ILogger(Of StateService))
-  fullName: FoundationaLLM.State.Services.StateService.StateService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.State.Models.Configuration.StateServiceSettings>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.State.Services.StateService>)
-  fullName.vb: FoundationaLLM.State.Services.StateService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.State.Models.Configuration.StateServiceSettings), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.State.Services.StateService))
-  nameWithType: StateService.StateService(IOptions<StateServiceSettings>, ILogger<StateService>)
-  nameWithType.vb: StateService.New(IOptions(Of StateServiceSettings), ILogger(Of StateService))
+- uid: FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},FoundationaLLM.State.Interfaces.ICosmosDbService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
+  name: StateService(IOptions<StateServiceSettings>, ICosmosDbService, ILogger<StateService>)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_State_Models_Configuration_StateServiceSettings__FoundationaLLM_State_Interfaces_ICosmosDbService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_StateService__
+  commentId: M:FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},FoundationaLLM.State.Interfaces.ICosmosDbService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})
+  name.vb: New(IOptions(Of StateServiceSettings), ICosmosDbService, ILogger(Of StateService))
+  fullName: FoundationaLLM.State.Services.StateService.StateService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.State.Models.Configuration.StateServiceSettings>, FoundationaLLM.State.Interfaces.ICosmosDbService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.State.Services.StateService>)
+  fullName.vb: FoundationaLLM.State.Services.StateService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.State.Models.Configuration.StateServiceSettings), FoundationaLLM.State.Interfaces.ICosmosDbService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.State.Services.StateService))
+  nameWithType: StateService.StateService(IOptions<StateServiceSettings>, ICosmosDbService, ILogger<StateService>)
+  nameWithType.vb: StateService.New(IOptions(Of StateServiceSettings), ICosmosDbService, ILogger(Of StateService))
 - uid: FoundationaLLM.State.Services.StateService.#ctor*
   name: StateService
   href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService__ctor_
@@ -31867,6 +32604,109 @@ references:
   fullName.vb: FoundationaLLM.State.Services.StateService.New
   nameWithType: StateService.StateService
   nameWithType.vb: StateService.New
+- uid: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
+  name: CreateLongRunningOperation()
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_CreateLongRunningOperation
+  commentId: M:FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
+  fullName: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation()
+  nameWithType: StateService.CreateLongRunningOperation()
+- uid: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation*
+  name: CreateLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_CreateLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
+  nameWithType: StateService.CreateLongRunningOperation
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperation(System.String)
+  name: GetLongRunningOperation(string)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperation_System_String_
+  commentId: M:FoundationaLLM.State.Services.StateService.GetLongRunningOperation(System.String)
+  name.vb: GetLongRunningOperation(String)
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperation(string)
+  fullName.vb: FoundationaLLM.State.Services.StateService.GetLongRunningOperation(String)
+  nameWithType: StateService.GetLongRunningOperation(string)
+  nameWithType.vb: StateService.GetLongRunningOperation(String)
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperation*
+  name: GetLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.GetLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperation
+  nameWithType: StateService.GetLongRunningOperation
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries(System.String)
+  name: GetLongRunningOperationLogEntries(string)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperationLogEntries_System_String_
+  commentId: M:FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries(System.String)
+  name.vb: GetLongRunningOperationLogEntries(String)
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries(string)
+  fullName.vb: FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries(String)
+  nameWithType: StateService.GetLongRunningOperationLogEntries(string)
+  nameWithType.vb: StateService.GetLongRunningOperationLogEntries(String)
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries*
+  name: GetLongRunningOperationLogEntries
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperationLogEntries_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries
+  nameWithType: StateService.GetLongRunningOperationLogEntries
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult(System.String)
+  name: GetLongRunningOperationResult(string)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperationResult_System_String_
+  commentId: M:FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult(System.String)
+  name.vb: GetLongRunningOperationResult(String)
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult(string)
+  fullName.vb: FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult(String)
+  nameWithType: StateService.GetLongRunningOperationResult(string)
+  nameWithType.vb: StateService.GetLongRunningOperationResult(String)
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult*
+  name: GetLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult
+  nameWithType: StateService.GetLongRunningOperationResult
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperations
+  name: GetLongRunningOperations()
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperations
+  commentId: M:FoundationaLLM.State.Services.StateService.GetLongRunningOperations
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperations()
+  nameWithType: StateService.GetLongRunningOperations()
+- uid: FoundationaLLM.State.Services.StateService.GetLongRunningOperations*
+  name: GetLongRunningOperations
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_GetLongRunningOperations_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.GetLongRunningOperations
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.GetLongRunningOperations
+  nameWithType: StateService.GetLongRunningOperations
+- uid: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  name: UpsertLongRunningOperation(LongRunningOperation)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_
+  commentId: M:FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  fullName: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)
+  nameWithType: StateService.UpsertLongRunningOperation(LongRunningOperation)
+- uid: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation*
+  name: UpsertLongRunningOperation
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_UpsertLongRunningOperation_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation
+  nameWithType: StateService.UpsertLongRunningOperation
+- uid: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult(System.Object)
+  name: UpsertLongRunningOperationResult(dynamic)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_UpsertLongRunningOperationResult_System_Object_
+  commentId: M:FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult(System.Object)
+  name.vb: UpsertLongRunningOperationResult(Object)
+  fullName: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult(dynamic)
+  fullName.vb: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult(Object)
+  nameWithType: StateService.UpsertLongRunningOperationResult(dynamic)
+  nameWithType.vb: StateService.UpsertLongRunningOperationResult(Object)
+- uid: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult*
+  name: UpsertLongRunningOperationResult
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_UpsertLongRunningOperationResult_
+  commentId: Overload:FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult
+  nameWithType: StateService.UpsertLongRunningOperationResult
 - uid: FoundationaLLM.ValidatedEnvironment
   name: ValidatedEnvironment
   href: api/dotnet/FoundationaLLM.ValidatedEnvironment.html

@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class StateService | FoundationaLLM </title>
+      <title>Class CosmosDbService | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class StateService | FoundationaLLM ">
+      <meta name="title" content="Class CosmosDbService | FoundationaLLM ">
       
-      <meta name="description" content="Provides methods for managing state for long-running operations.">
+      <meta name="description" content="Service to access Azure Cosmos DB for NoSQL.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_State_Services_StateService.md&amp;value=---%0Auid%3A%20FoundationaLLM.State.Services.StateService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_State_Services_CosmosDbService.md&amp;value=---%0Auid%3A%20FoundationaLLM.State.Services.CosmosDbService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.State.Services.StateService">
+        <article data-uid="FoundationaLLM.State.Services.CosmosDbService">
 
 
 
-  <h1 id="FoundationaLLM_State_Services_StateService" data-uid="FoundationaLLM.State.Services.StateService" class="text-break">
-Class StateService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_State_Services_CosmosDbService" data-uid="FoundationaLLM.State.Services.CosmosDbService" class="text-break">
+Class CosmosDbService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,12 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <dl><dt>Assembly</dt><dd>FoundationaLLM.State.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides methods for managing state for long-running operations.</p>
+  <div class="markdown summary"><p>Service to access Azure Cosmos DB for NoSQL.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StateService : IStateService</code></pre>
+    <pre><code class="lang-csharp hljs">public class CosmosDbService : ICosmosDbService</code></pre>
   </div>
 
 
@@ -112,14 +112,14 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">StateService</span></div>
+      <div><span class="xref">CosmosDbService</span></div>
     </dd>
   </dl>
 
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
-      <div><a class="xref" href="FoundationaLLM.State.Interfaces.IStateService.html">IStateService</a></div>
+      <div><a class="xref" href="FoundationaLLM.State.Interfaces.ICosmosDbService.html">ICosmosDbService</a></div>
     </dd>
   </dl>
 
@@ -166,31 +166,33 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 </h2>
 
 
-  <a id="FoundationaLLM_State_Services_StateService__ctor_" data-uid="FoundationaLLM.State.Services.StateService.#ctor*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService__ctor_" data-uid="FoundationaLLM.State.Services.CosmosDbService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_State_Models_Configuration_StateServiceSettings__FoundationaLLM_State_Interfaces_ICosmosDbService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_StateService__" data-uid="FoundationaLLM.State.Services.StateService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.State.Models.Configuration.StateServiceSettings},FoundationaLLM.State.Interfaces.ICosmosDbService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.StateService})">
-  StateService(IOptions&lt;StateServiceSettings&gt;, ICosmosDbService, ILogger&lt;StateService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_CosmosDB_CosmosDbSettings__Microsoft_Azure_Cosmos_CosmosClient_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_State_Services_CosmosDbService__" data-uid="FoundationaLLM.State.Services.CosmosDbService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings},Microsoft.Azure.Cosmos.CosmosClient,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.State.Services.CosmosDbService})">
+  CosmosDbService(IOptions&lt;CosmosDbSettings&gt;, CosmosClient, ILogger&lt;CosmosDbService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Provides methods for managing state for long-running operations.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="FoundationaLLM.State.Services.CosmosDbService.html">CosmosDbService</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StateService(IOptions&lt;StateServiceSettings&gt; options, ICosmosDbService cosmosDbService, ILogger&lt;StateService&gt; logger)</code></pre>
+    <pre><code class="lang-csharp hljs">public CosmosDbService(IOptions&lt;CosmosDbSettings&gt; settings, CosmosClient client, ILogger&lt;CosmosDbService&gt; logger)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.State.Models.Configuration.StateServiceSettings.html">StateServiceSettings</a>&gt;</dt>
-    <dd><p>Provides the options with the <a class="xref" href="FoundationaLLM.State.Models.Configuration.StateServiceSettings.html">StateServiceSettings</a> settings for configuration.</p>
+    <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings.html">CosmosDbSettings</a>&gt;</dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Configuration.CosmosDB.CosmosDbSettings.html">CosmosDbSettings</a> settings retrieved
+by the injected <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions&lt;TOptions&gt;</a>.</p>
 </dd>
-    <dt><code>cosmosDbService</code> <a class="xref" href="FoundationaLLM.State.Interfaces.ICosmosDbService.html">ICosmosDbService</a></dt>
-    <dd><p>Provides methods to interact with Cosmos DB.</p>
+    <dt><code>client</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.azure.cosmos.cosmosclient">CosmosClient</a></dt>
+    <dd><p>The Cosmos DB client.</p>
 </dd>
-    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.State.Services.StateService.html">StateService</a>&gt;</dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a> used for logging.</p>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.State.Services.CosmosDbService.html">CosmosDbService</a>&gt;</dt>
+    <dd><p>The logging interface used to log under the
+<a class="xref" href="FoundationaLLM.State.Services.CosmosDbService.html">CosmosDbService</a> type name.</p>
 </dd>
   </dl>
 
@@ -202,6 +204,13 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>Thrown if any of the required settings
+are null or empty.</p>
+</dd>
+  </dl>
 
 
 
@@ -209,43 +218,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 </h2>
 
 
-  <a id="FoundationaLLM_State_Services_StateService_CreateLongRunningOperation_" data-uid="FoundationaLLM.State.Services.StateService.CreateLongRunningOperation*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperation_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_CreateLongRunningOperation" data-uid="FoundationaLLM.State.Services.StateService.CreateLongRunningOperation">
-  CreateLongRunningOperation()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L50"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Creates a new long-running operation with default values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LongRunningOperation&gt; CreateLongRunningOperation()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_State_Services_StateService_GetLongRunningOperation_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperation*"></a>
-
-  <h3 id="FoundationaLLM_State_Services_StateService_GetLongRunningOperation_System_String_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperation(System.String)">
-  GetLongRunningOperation(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperation_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperation(System.String,System.Threading.CancellationToken)">
+  GetLongRunningOperation(string, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a long-running operation by its identifier.</p>
@@ -253,7 +230,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LongRunningOperation&gt; GetLongRunningOperation(string id)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LongRunningOperation&gt; GetLongRunningOperation(string id, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -261,6 +238,8 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The long-running operation identifier.</p>
 </dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -279,11 +258,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
-  <a id="FoundationaLLM_State_Services_StateService_GetLongRunningOperationLogEntries_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationLogEntries_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_GetLongRunningOperationLogEntries_System_String_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperationLogEntries(System.String)">
-  GetLongRunningOperationLogEntries(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationLogEntries_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationLogEntries(System.String,System.Threading.CancellationToken)">
+  GetLongRunningOperationLogEntries(string, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L101"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves all log entries for a long-running operation.</p>
@@ -291,7 +270,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;LongRunningOperationLogEntry&gt;&gt; GetLongRunningOperationLogEntries(string operationId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;LongRunningOperationLogEntry&gt;&gt; GetLongRunningOperationLogEntries(string operationId, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -299,6 +278,8 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt><code>operationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The long-running operation identifier.</p>
 </dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -317,11 +298,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
-  <a id="FoundationaLLM_State_Services_StateService_GetLongRunningOperationResult_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationResult_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_GetLongRunningOperationResult_System_String_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperationResult(System.String)">
-  GetLongRunningOperationResult(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperationResult_System_String_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperationResult(System.String,System.Threading.CancellationToken)">
+  GetLongRunningOperationResult(string, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L121"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the result of a long-running operation.</p>
@@ -329,7 +310,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;JsonDocument?&gt; GetLongRunningOperationResult(string operationId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;JsonDocument?&gt; GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -337,6 +318,8 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt><code>operationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The long-running operation identifier.</p>
 </dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -355,11 +338,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
-  <a id="FoundationaLLM_State_Services_StateService_GetLongRunningOperations_" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperations*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperations_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_GetLongRunningOperations" data-uid="FoundationaLLM.State.Services.StateService.GetLongRunningOperations">
-  GetLongRunningOperations()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_GetLongRunningOperations_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.GetLongRunningOperations(System.Threading.CancellationToken)">
+  GetLongRunningOperations(CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves all long-running operations.</p>
@@ -367,9 +350,14 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;LongRunningOperation&gt;&gt; GetLongRunningOperations()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;LongRunningOperation&gt;&gt; GetLongRunningOperations(CancellationToken cancellationToken = default)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -387,11 +375,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
-  <a id="FoundationaLLM_State_Services_StateService_UpsertLongRunningOperation_" data-uid="FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperation_" data-uid="FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_" data-uid="FoundationaLLM.State.Services.StateService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation)">
-  UpsertLongRunningOperation(LongRunningOperation)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperation_FoundationaLLM_Common_Models_Orchestration_LongRunningOperation_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperation(FoundationaLLM.Common.Models.Orchestration.LongRunningOperation,System.Threading.CancellationToken)">
+  UpsertLongRunningOperation(LongRunningOperation, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L141"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Inserts or updates a long-running operation and creates a log entry.</p>
@@ -399,7 +387,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;LongRunningOperation&gt; UpsertLongRunningOperation(LongRunningOperation operation)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;LongRunningOperation&gt; UpsertLongRunningOperation(LongRunningOperation operation, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -407,6 +395,8 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt><code>operation</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a></dt>
     <dd><p>The long-running operation to insert or update.</p>
 </dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -425,11 +415,11 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 
 
 
-  <a id="FoundationaLLM_State_Services_StateService_UpsertLongRunningOperationResult_" data-uid="FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult*"></a>
+  <a id="FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperationResult_" data-uid="FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult*"></a>
 
-  <h3 id="FoundationaLLM_State_Services_StateService_UpsertLongRunningOperationResult_System_Object_" data-uid="FoundationaLLM.State.Services.StateService.UpsertLongRunningOperationResult(System.Object)">
-  UpsertLongRunningOperationResult(dynamic)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_State_Services_CosmosDbService_UpsertLongRunningOperationResult_System_Object_System_Threading_CancellationToken_" data-uid="FoundationaLLM.State.Services.CosmosDbService.UpsertLongRunningOperationResult(System.Object,System.Threading.CancellationToken)">
+  UpsertLongRunningOperationResult(dynamic, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L166"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Inserts or updates the result of a long-running operation.</p>
@@ -437,7 +427,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;object?&gt; UpsertLongRunningOperationResult(dynamic operationResult)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;object?&gt; UpsertLongRunningOperationResult(dynamic operationResult, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -445,6 +435,8 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
     <dt><code>operationResult</code> <span class="xref">dynamic</span></dt>
     <dd><p>The operation result to insert or update.</p>
 </dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -467,7 +459,7 @@ Class StateService  <a class="header-action link-secondary" title="View source" 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/StateService.cs/#L16" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/State/Services/CosmosDbService.cs/#L19" class="edit-link">Edit this page</a>
         </div>
 
 
