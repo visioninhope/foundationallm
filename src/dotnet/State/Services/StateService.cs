@@ -52,7 +52,8 @@ namespace FoundationaLLM.State.Services
             logger.LogInformation("Creating long running operation.");
             var operation = new LongRunningOperation
             {
-                Status = OperationStatus.Pending
+                Status = OperationStatus.Pending,
+                OperationId = Guid.NewGuid().ToString()
             };
             return await cosmosDbService.UpsertLongRunningOperation(operation);
         }
