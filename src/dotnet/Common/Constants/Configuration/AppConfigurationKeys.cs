@@ -20,15 +20,7 @@
         /// </summary>
         public const string FoundationaLLM_Configuration_ResourceProviderService_Storage_AuthenticationType =
             "FoundationaLLM:Configuration:ResourceProviderService:Storage:AuthenticationType";
-        /// <summary>
-        /// The key for the FoundationaLLM:AgentHub:AgentMetadata:StorageContainer app configuration setting.
-        /// </summary>
-        public const string FoundationaLLM_AgentHub_AgentMetadata_StorageContainer = "FoundationaLLM:AgentHub:AgentMetadata:StorageContainer";
-        /// <summary>
-        /// The key for the FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString app configuration setting.
-        /// This is a Key Vault reference.
-        /// </summary>
-        public const string FoundationaLLM_AgentHub_StorageManager_BlobStorage_ConnectionString = "FoundationaLLM:AgentHub:StorageManager:BlobStorage:ConnectionString";
+        
         /// <summary>
         /// The key for the FoundationaLLM:Agent:ResourceProviderService:Storage:AuthenticationType app configuration setting.
         /// The authentication type used to connect to the underlying storage. Can be one of `AzureIdentity`, `AccountKey`, or `ConnectionString`.
