@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Azure;
@@ -69,7 +70,7 @@ namespace FoundationaLLM
         /// <summary>
         /// Add authentication configuration to the dependency injection container.
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="builder">The host application builder.</param>
         /// <param name="entraInstanceConfigurationKey">The configuration key for the Entra ID instance.</param>
         /// <param name="entraTenantIdConfigurationKey">The configuration key for the Entra ID tenant id.</param>
         /// <param name="entraClientIdConfigurationkey">The configuration key for the Entra ID client id.</param>
@@ -123,7 +124,7 @@ namespace FoundationaLLM
         /// <summary>
         /// Register the <see cref="AzureKeyVaultService"/> with the dependency injection container.
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="builder">The host application builder.</param>
         /// <param name="keyVaultUriConfigurationKeyName">The name of the configuration key that provides the URI of the Azure Key Vault service.</param>
         public static void AddAzureKeyVaultService(this IHostApplicationBuilder builder,
             string keyVaultUriConfigurationKeyName)
@@ -140,5 +141,29 @@ namespace FoundationaLLM
             builder.Logging.AddFilter("Azure.Security.KeyVault.Secrets", LogLevel.Warning);
             builder.Services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
         }
+
+        /// <summary>
+        /// Register the <see cref="HttpClientFactoryService"/> with the dependency injection container.
+        /// </summary>
+        /// <param name="builder">The host application builder.</param>
+        public static void AddHttpClientFactoryService(this IHostApplicationBuilder builder)
+        {
+            builder.Services.AddHttpClient();
+            builder.Services.AddSingleton<IHttpClientFactoryService, HttpClientFactoryService>();
+        }
+
+        /// <summary>
+        /// Register the <see cref="IDownstreamAPIService"/> implementation for a named API service with the dependency injection container.
+        /// </summary>
+        /// <param name="builder">The host application builder.</param>
+        /// <param name="apiServiceName">The name of the API service whose implementation is being registered.</param>
+        public static void AddDownstreamAPIService(this IHostApplicationBuilder builder, string apiServiceName) =>
+            builder.Services.AddScoped<IDownstreamAPIService, DownstreamAPIService>(
+                (serviceProvider) => new DownstreamAPIService(
+                    apiServiceName,
+                    serviceProvider.GetService<ICallContext>()!,
+                    serviceProvider.GetService<IHttpClientFactoryService>()!,
+                    serviceProvider.GetService<ILogger<DownstreamAPIService>>()!
+                ));
     }
 }

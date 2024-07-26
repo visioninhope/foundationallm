@@ -8,7 +8,6 @@ using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
@@ -31,7 +30,7 @@ namespace FoundationaLLM.Management.API
         /// <summary>
         /// Management API service configuration.
         /// </summary>
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -93,8 +92,7 @@ namespace FoundationaLLM.Management.API
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
-            builder.Services.AddHttpClient();
-            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
+            builder.AddHttpClientFactoryService();
 
             // Add event services.
             builder.Services.AddAzureEventGridEvents(
@@ -112,7 +110,7 @@ namespace FoundationaLLM.Management.API
             //----------------------------
             builder.AddAuthorizationResourceProvider();
             builder.AddConfigurationResourceProvider();
-            builder.AddVectorizationResourceProvider();            
+            builder.AddVectorizationResourceProvider();
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
             builder.AddDataSourceResourceProvider();
@@ -135,9 +133,6 @@ namespace FoundationaLLM.Management.API
             builder.AddOpenTelemetry(
                 AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString,
                 ServiceNames.ManagementAPI);
-
-            // Register the downstream services and HTTP clients.
-            RegisterDownstreamServices(builder);
 
             builder.Services.AddControllers();
             builder.Services.AddProblemDetails();
@@ -181,7 +176,7 @@ namespace FoundationaLLM.Management.API
                             },
                             new[] {"user_impersonation"}
                         }
-                    });                    
+                    });
 
                     options.AddSecurityDefinition("azure_auth", new OpenApiSecurityScheme
                     {
@@ -247,133 +242,6 @@ namespace FoundationaLLM.Management.API
             app.MapControllers();
 
             app.Run();
-        }
-
-        /// <summary>
-        /// Bind the downstream API settings to the configuration and register the HTTP clients.
-        /// The AddResilienceHandler extension method is used to add the standard Polly resilience
-        /// strategies to the HTTP clients.
-        /// </summary>
-        /// <param name="builder"></param>
-        private static void RegisterDownstreamServices(WebApplicationBuilder builder)
-        {
-            var downstreamAPISettings = new DownstreamAPISettings
-            {
-                DownstreamAPIs = []
-            };
-            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-
-            // OrchestrationAPI:
-            var orchestrationAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.OrchestrationAPI] = orchestrationAPISettings;
-
-            builder.Services
-                .AddHttpClient(HttpClients.OrchestrationAPI,
-                    client => { client.BaseAddress = new Uri(orchestrationAPISettings.APIUrl); })
-                .AddResilienceHandler(
-                    "DownstreamPipeline",
-                    strategyBuilder =>
-                    {
-                        strategyBuilder.AddRetry(retryOptions);
-                    });
-
-            // AgentHubAPI:
-            var agentHubAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_AgentHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.AgentHubAPI] = agentHubAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.AgentHubAPI,
-                        client => { client.BaseAddress = new Uri(agentHubAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            // DataSourceHubAPI:
-            var dataSourceHubAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_DataSourceHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.DataSourceHubAPI] = dataSourceHubAPISettings;
-
-            builder.Services
-                .AddHttpClient(HttpClients.DataSourceHubAPI,
-                    client => { client.BaseAddress = new Uri(dataSourceHubAPISettings.APIUrl); })
-                .AddResilienceHandler(
-                    "DownstreamPipeline",
-                    strategyBuilder =>
-                    {
-                        strategyBuilder.AddRetry(retryOptions);
-                    });
-
-            // PromptHubAPI:
-            var promptHubAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_PromptHubAPI_APIKey]!
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.PromptHubAPI] = promptHubAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.PromptHubAPI,
-                        client => { client.BaseAddress = new Uri(promptHubAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            // LangChainAPI:
-            var langChainAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!,
-                Timeout = Timeout.InfiniteTimeSpan
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.LangChainAPI,
-                        client => { client.BaseAddress = new Uri(langChainAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            // SemanticKernelAPI:
-            var semanticKernelAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!,
-                Timeout = Timeout.InfiniteTimeSpan
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.SemanticKernelAPI,
-                        client => { client.BaseAddress = new Uri(semanticKernelAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
         }
     }
 }

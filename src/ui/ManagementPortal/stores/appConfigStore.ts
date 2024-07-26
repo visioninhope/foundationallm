@@ -49,14 +49,14 @@ export const useAppConfigStore = defineStore('appConfig', {
 	actions: {
 		async getConfigVariables() {
 			const getConfigValueSafe = async (key: string, defaultValue: any = null) => {
-                try {
-                    return await api.getConfigValue(key);
-                } catch (error) {
-                    console.error(`Failed to get config value for key ${key}:`, error);
-                    return defaultValue;
-                }
-            };
-			
+				try {
+					return await api.getConfigValue(key);
+				} catch (error) {
+					console.error(`Failed to get config value for key ${key}:`, error);
+					return defaultValue;
+				}
+			};
+
 			const [
 				apiUrl,
 				authorizationApiUrl,
@@ -69,7 +69,6 @@ export const useAppConfigStore = defineStore('appConfig', {
 				semanticKernelApiUrl,
 				vectorizationApiUrl,
 				vectorizationWorkerApiUrl,
-				instanceId,
 				favIconUrl,
 				logoUrl,
 				logoText,
@@ -85,6 +84,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				secondaryButtonBg,
 				secondaryButtonText,
 				footerText,
+				instanceId,
 				authClientId,
 				authInstance,
 				authTenantId,
@@ -118,7 +118,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonBackgroundColor', '#70829a'),
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonTextColor', '#fff'),
 				getConfigValueSafe('FoundationaLLM:Branding:FooterText'),
-				api.getConfigValueSafe('FoundationaLLM:Instance:Id','00000000-0000-0000-0000-000000000000'),
+				getConfigValueSafe('FoundationaLLM:Instance:Id','00000000-0000-0000-0000-000000000000'),
 				
 				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
 				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
