@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Constants.Orchestration;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
@@ -17,7 +18,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The document type.
         /// </summary>
         [JsonPropertyName("type")]
-        public string Type => nameof(LongRunningOperationLogEntry);
+        public string Type => LongRunningOperationTypes.LongRunningOperationLogEntry;
 
         /// <summary>
         /// The identifier of the long-running operation.
