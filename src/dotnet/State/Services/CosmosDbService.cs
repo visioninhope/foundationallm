@@ -22,8 +22,6 @@ namespace FoundationaLLM.State.Services
         private readonly CosmosDbSettings _settings;
         private readonly ILogger _logger;
 
-        private const string SoftDeleteQueryRestriction = " (not IS_DEFINED(c.deleted) OR c.deleted = false)";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CosmosDbService"/> class.
         /// </summary>
@@ -73,7 +71,7 @@ namespace FoundationaLLM.State.Services
         public async Task<List<LongRunningOperation>> GetLongRunningOperations(CancellationToken cancellationToken = default)
         {
             var query = new QueryDefinition(
-                    $"SELECT DISTINCT * FROM c WHERE c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
+                    $"SELECT DISTINCT * FROM c WHERE c.type = @type ORDER BY c._ts DESC")
                 .WithParameter("@type", LongRunningOperationTypes.LongRunningOperation);
 
             var response = _state.GetItemQueryIterator<LongRunningOperation>(query);
@@ -103,7 +101,7 @@ namespace FoundationaLLM.State.Services
         public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntries(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
-                new QueryDefinition($"SELECT * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction}")
+                new QueryDefinition($"SELECT * FROM c WHERE c.operation_id = @operationId AND c.type = @type")
                     .WithParameter("@operationId", operationId)
                     .WithParameter("@type", LongRunningOperationTypes.LongRunningOperationLogEntry);
 
@@ -123,7 +121,7 @@ namespace FoundationaLLM.State.Services
         public async Task<object?> GetLongRunningOperationResult(string operationId, CancellationToken cancellationToken = default)
         {
             var query =
-                new QueryDefinition($"SELECT TOP 1 * FROM c WHERE c.operation_id = @operationId AND c.type = @type AND {SoftDeleteQueryRestriction} ORDER BY c._ts DESC")
+                new QueryDefinition($"SELECT TOP 1 * FROM c WHERE c.operation_id = @operationId AND c.type = @type ORDER BY c._ts DESC")
                     .WithParameter("@operationId", operationId)
                     .WithParameter("@type", LongRunningOperationTypes.LongRunningOperationResult);
 
