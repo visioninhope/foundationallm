@@ -118,6 +118,14 @@ $configurations = @{
         template = './data/role-assignments/DefaultRoleAssignments.template.json'
         render   = "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json"
     }
+    "completion-model" = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/completion-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/completion-model.json'
+    }
+    "embedding-model"  = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/embedding-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/embedding-model.json'
+    }
 }
 
 foreach ($configuration in $configurations.GetEnumerator()) {

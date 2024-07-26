@@ -10,3 +10,4 @@ VectorizationAPI.json
 VectorizationWorker.json
 StateAPI.json
 GatewayAdapterAPI.json
+AzureOpenAI.json
