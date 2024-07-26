@@ -180,7 +180,7 @@ Class LLMCompletionRequest  <a class="header-action link-secondary" title="View 
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_AIModel" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.AIModel">
   AIModel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L194"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a> object from the Objects dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -216,7 +216,7 @@ public AIModelBase AIModel { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_AIModelEndpointConfiguration" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.AIModelEndpointConfiguration">
   AIModelEndpointConfiguration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L219"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Configuration.APIEndpointConfiguration.html">APIEndpointConfiguration</a> object from the Objects dictionary corresponding to the <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a> object from the same dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -260,7 +260,8 @@ public APIEndpointConfiguration AIModelEndpointConfiguration { get; }</code></pr
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required AgentBase Agent { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;agent&quot;)]
+public required AgentBase Agent { get; set; }</code></pre>
   </div>
 
 
@@ -284,7 +285,7 @@ public APIEndpointConfiguration AIModelEndpointConfiguration { get; }</code></pr
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_IndexingProfiles" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.IndexingProfiles">
   IndexingProfiles
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L326"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L327"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The list of <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Vectorization.IndexingProfile.html">IndexingProfile</a> objects from the Objects dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -320,7 +321,7 @@ public List&lt;IndexingProfile&gt;? IndexingProfiles { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Objects" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Objects">
   Objects
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Dictionary of objects (indexed by names) resulting from exploding object identifiers in the Orchestration API.</p>
@@ -370,7 +371,7 @@ public Dictionary&lt;string, object&gt; Objects { get; set; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_OtherAgentsDescriptions" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.OtherAgentsDescriptions">
   OtherAgentsDescriptions
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L244"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L245"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The dictionary of other agent descriptions from the Objects dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -406,7 +407,7 @@ public Dictionary&lt;string, string&gt; OtherAgentsDescriptions { get; }</code><
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Prompt" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Prompt">
   Prompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L271"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L272"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.Prompt.MultipartPrompt.html">MultipartPrompt</a> object from the Objects dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -442,7 +443,7 @@ public MultipartPrompt Prompt { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_TextEmbeddingProfile" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.TextEmbeddingProfile">
   TextEmbeddingProfile
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L297"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L298"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html#FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_TextEmbeddingProfile">TextEmbeddingProfile</a> object from the Objects dictionary. Ensure the Validate method is called before accessing this property.</p>
@@ -482,7 +483,7 @@ public TextEmbeddingProfile? TextEmbeddingProfile { get; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_Validate" data-uid="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.Validate">
   Validate()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/LLMCompletionRequest.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Validates the content of this LLMCompletionRequest.</p>

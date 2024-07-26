@@ -471,31 +471,6 @@ references:
   fullName.vb: FoundationaLLM.Agent.Validation.Metadata.AgentBaseValidator.New
   nameWithType: AgentBaseValidator.AgentBaseValidator
   nameWithType.vb: AgentBaseValidator.New
-- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
-  name: InternalContextAgentValidator
-  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html
-  commentId: T:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
-  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator
-  nameWithType: InternalContextAgentValidator
-- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
-  name: InternalContextAgentValidator()
-  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_InternalContextAgentValidator__ctor
-  commentId: M:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.InternalContextAgentValidator()
-  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.New()
-  nameWithType: InternalContextAgentValidator.InternalContextAgentValidator()
-  nameWithType.vb: InternalContextAgentValidator.New()
-- uid: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor*
-  name: InternalContextAgentValidator
-  href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.html#FoundationaLLM_Agent_Validation_Metadata_InternalContextAgentValidator__ctor_
-  commentId: Overload:FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.InternalContextAgentValidator
-  fullName.vb: FoundationaLLM.Agent.Validation.Metadata.InternalContextAgentValidator.New
-  nameWithType: InternalContextAgentValidator.InternalContextAgentValidator
-  nameWithType.vb: InternalContextAgentValidator.New
 - uid: FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator
   name: KnowledgeManagementAgentValidator
   href: api/dotnet/FoundationaLLM.Agent.Validation.Metadata.KnowledgeManagementAgentValidator.html
@@ -17370,12 +17345,6 @@ references:
   commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
   nameWithType: AgentTypes.Basic
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
-  name: InternalContext
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_InternalContext
-  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.InternalContext
-  nameWithType: AgentTypes.InternalContext
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.KnowledgeManagement
   name: KnowledgeManagement
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_KnowledgeManagement
@@ -17556,31 +17525,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.GatekeeperSettings.UseSystemSetting
   nameWithType: GatekeeperSettings.UseSystemSetting
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
-  name: InternalContextAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html
-  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent
-  nameWithType: InternalContextAgent
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
-  name: InternalContextAgent()
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_InternalContextAgent__ctor
-  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
-  name.vb: New()
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.InternalContextAgent()
-  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.New()
-  nameWithType: InternalContextAgent.InternalContextAgent()
-  nameWithType.vb: InternalContextAgent.New()
-- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor*
-  name: InternalContextAgent
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_InternalContextAgent__ctor_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.InternalContextAgent
-  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.InternalContextAgent.New
-  nameWithType: InternalContextAgent.InternalContextAgent
-  nameWithType.vb: InternalContextAgent.New
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent
   name: KnowledgeManagementAgent
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.KnowledgeManagementAgent.html
