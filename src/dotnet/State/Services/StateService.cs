@@ -46,16 +46,29 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpsertLongRunningOperationAsync(LongRunningOperation operation)
+        public async Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation)
         {
             logger.LogInformation("Upserting long running operation.");
             return await cosmosDbService.UpsertLongRunningOperationAsync(operation);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpsertLongRunningOperationResultAsync(dynamic operationResult)
+        public async Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult)
         {
             logger.LogInformation("Upserting long running operation result.");
+
+            var operationResultDict = operationResult as IDictionary<string, object>;
+
+            if (operationResultDict == null)
+            {
+                throw new ArgumentException("The operation result must be an ExpandoObject.");
+            }
+
+            if (!operationResultDict.ContainsKey("id") || string.IsNullOrEmpty(operationResultDict["id"]?.ToString()))
+            {
+                operationResultDict["id"] = Guid.NewGuid().ToString();
+            }
+
             return await cosmosDbService.UpsertLongRunningOperationResultAsync(operationResult);
         }
     }
