@@ -16,12 +16,12 @@ $directories = @{
     "certs"  = "../certs"
 }
 
-foreach ($certificate in $certificates) {
-    $pfxPath = Join-Path $directories["certs"] "$certificate.pfx"
+foreach ($certificateFolder in $certificates) {
+    $pfxPath = Join-Path $directories["certs"] $certificateFolder
     $pfx = Get-ChildItem -Path $pfxPath
-    $keyName = $certificate
+    $keyName = $certificateFolder
 
-    Invoke-AndRequireSuccess "Load PFX Certificate $($certificate) into Azure Key Vault" {
+    Invoke-AndRequireSuccess "Load PFX Certificate $($certificateFolder) into Azure Key Vault" {
         az keyvault certificate import `
             --file $pfx.FullName `
             --name $keyName `

@@ -5,7 +5,7 @@ param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
 param createDate string = utcNow('u')
-param createVpnGateway bool = false
+param createVpnGateway bool = true
 param environmentName string
 param externalDnsResourceGroupName string = ''
 param externalNetworkingResourceGroupName string = ''
@@ -18,6 +18,10 @@ param networkName string = ''
 param project string
 param registry string
 param timestamp string = utcNow()
+param userPortalHostname string
+param managementPortalHostname string
+param coreApiHostname string
+param managementApiHostname string
 
 // Locals
 var abbrs = loadJsonContent('./abbreviations.json')
@@ -83,7 +87,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = [
 
 // Nested Deployments
 module app 'app-rg.bicep' = {
-  dependsOn: [rg, networking, ops]
+  dependsOn: [rg, networking, ops, storage]
   name: 'app-${timestamp}'
   scope: resourceGroup(resourceGroups.app)
   params: {
@@ -221,6 +225,7 @@ module vec 'vec-rg.bicep' = {
   }
 }
 
+output ADMIN_GROUP_OBJECT_ID string = administratorObjectId
 output FOUNDATIONALLM_PROJECT string = project
 output FOUNDATIONALLM_K8S_NS string = k8sNamespace
 output FOUNDATIONALLM_REGISTRY string = registry
@@ -237,3 +242,10 @@ output FLLM_STORAGE_RG string = resourceGroups.storage
 output FLLM_VEC_RG     string = resourceGroups.vec
 
 output FLLM_OPS_KV string = ops.outputs.keyVaultName
+output FLLM_OPEN_AI_ENDPOINT string = openai.outputs.azureOpenAiEndpoint
+output FLLM_OPEN_AI_ID string = openai.outputs.azureOpenAiId
+
+output FLLM_USER_PORTAL_HOSTNAME string = userPortalHostname
+output FLLM_MGMT_PORTAL_HOSTNAME string = managementPortalHostname
+output FLLM_CORE_API_HOSTNAME string = coreApiHostname
+output FLLM_MGMT_API_HOSTNAME string = managementApiHostname

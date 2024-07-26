@@ -1,7 +1,5 @@
 #!/usr/bin/env pwsh
 
 function Get-Resource-Suffix {
-    param([Parameter(Mandatory = $true)][string]$workload)
-
-    return "$($env:AZURE_ENV_NAME)-$($env:AZURE_LOCATION)-$($workload)-${$env:FOUNDATIONALLM_PROJECT}"
+    return "$($env:FOUNDATIONALLM_PROJECT)-$($env:AZURE_ENV_NAME)-$($env:AZURE_LOCATION)"
 }

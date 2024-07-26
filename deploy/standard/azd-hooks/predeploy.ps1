@@ -27,6 +27,28 @@ finally {
     Pop-Location
 }
 
+# Navigate to the script directory so that we can use relative paths.
+Push-Location $($MyInvocation.InvocationName | Split-Path)
+try {
+    # Map TLS certifiates to secret names
+    $certificates = @(
+        "chatui",
+        "coreapi",
+        "managementui",
+        "managementapi"
+    )
+
+    Invoke-AndRequireSuccess "Load Certificates" {
+        ./utility/Load-Certificates.ps1 `
+            -keyVaultResourceGroup $env:FLLM_OPS_RG `
+            -keyVaultName $env:FLLM_OPS_KV `
+            -certificates $certificates
+    }
+}
+finally {
+    Pop-Location
+}
+
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
     if ($env:EXTENSIONS_INSTALLED) {
@@ -82,57 +104,57 @@ try {
     $frontEndHosts = @()
     if ($env:FLLM_USER_PORTAL_HOSTNAME) {
         $frontEndHosts += $env:FLLM_USER_PORTAL_HOSTNAME 
-        $ingress.frontendIngress["chatui"] = @{
+        $($ingress.frontendIngress).chatui = @{
             host = $env:FLLM_USER_PORTAL_HOSTNAME
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "chat-ui"
-            sslCert = "chatui"
+            sslCert = "user-portal"
         }
     }
 
     if ($env:FLLM_MGMT_PORTAL_HOSTNAME) { 
         $frontEndHosts += $env:FLLM_MGMT_PORTAL_HOSTNAME 
-        $ingress.frontendIngress["managementui"] = @{
+        $($ingress.frontendIngress).managementui = @{
             host = $env:FLLM_MGMT_PORTAL_HOSTNAME
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "management-ui"
-            sslCert = "managementui"
+            sslCert = "management-portal"
         }
     }
 
     $backendHosts = @()
     if ($env:FLLM_CORE_API_HOSTNAME) { 
         $backendHosts += $env:FLLM_CORE_API_HOSTNAME 
-        $ingress.apiIngress["coreapi"] = @{
+        $($ingress.apiIngress).coreapi = @{
             host = $env:FLLM_CORE_API_HOSTNAME
             path = "/core/"
             pathType = "ImplementationSpecific"
             serviceName = "core-api"
-            sslCert = "coreapi"
+            sslCert = "core-api"
         }
     }
 
     if ($env:FLLM_MGMT_API_HOSTNAME) { 
         $backendHosts += $env:FLLM_MGMT_API_HOSTNAME 
-        $ingress.apiIngress["managementapi"] = @{
+        $($ingress.apiIngress).managementapi = @{
             host = $env:FLLM_MGMT_API_HOSTNAME
             path = "/management/"
             pathType = "ImplementationSpecific"
             serviceName = "management-api"
-            sslCert = "managementapi"
+            sslCert = "management-api"
         }
     }
 
     Invoke-AndRequireSuccess "Generate Configuration" {
-        ./deploy/Generate-Config.ps1 `
-            -adminGroupObjectId $env:ADMIN_OBJECT_ID `
+        ./utility/Generate-Config.ps1 `
+            -adminGroupObjectId $env:ADMIN_GROUP_OBJECT_ID `
             -entraClientIds $entraClientIds `
             -entraScopes $entraScopes `
             -instanceId $env:FOUNDATIONALLM_INSTANCE_ID `
             -resourceGroups $resourceGroup `
-            -resourceSuffix $(Get-Resource-Suffix -workload "ops") `
+            -resourceSuffix $(Get-Resource-Suffix) `
             -serviceNamespaceName $env:FOUNDATIONALLM_K8S_NS `
             -subscriptionId $env:AZURE_SUBSCRIPTION_ID `
             -ingress $ingress
@@ -157,13 +179,13 @@ try {
             --output none
     }
 
-    ./deploy/Upload-AuthStoreData.ps1 `
+    ./utility/Upload-AuthStoreData.ps1 `
         -resourceGroup $resourceGroup["auth"] `
-        -instanceId $manifest.instanceId
+        -instanceId $env:FOUNDATIONALLM_INSTANCE_ID
 
-    ./deploy/Upload-SystemPrompts.ps1 `
+    ./utility/Upload-SystemPrompts.ps1 `
         -resourceGroup $resourceGroup["storage"] `
-        -location $manifest.location
+        -location $env:AZURE_LOCATION
 
     $backendAks = Invoke-AndRequireSuccess "Get Backend AKS" {
         az aks list `
@@ -175,13 +197,13 @@ try {
     $secretProviderClassManifestBackend = Resolve-Path "../config/kubernetes/spc.foundationallm-certificates.backend.yml"
     $ingressNginxValuesBackend = Resolve-Path "../config/helm/ingress-nginx.values.backend.yml"
     Invoke-AndRequireSuccess "Deploy Backend" {
-        ./deploy/Deploy-Backend-Aks.ps1 `
+        ./utility/Deploy-Backend-Aks.ps1 `
             -aksName $backendAks `
             -ingressNginxValues $ingressNginxValuesBackend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestBackend `
             -serviceNamespace $env:FOUNDATIONALLM_K8S_NS `
-            -registry $manifest.registry `
+            -registry $env:FOUNDATIONALLM_REGISTRY `
             -version $env:FLLM_VERSION
     }
 
@@ -195,14 +217,14 @@ try {
     $secretProviderClassManifestFrontend = Resolve-Path "../config/kubernetes/spc.foundationallm-certificates.frontend.yml"
     $ingressNginxValuesFrontend = Resolve-Path "../config/helm/ingress-nginx.values.frontend.yml"
     Invoke-AndRequireSuccess "Deploy Frontend" {
-        ./deploy/Deploy-Frontend-Aks.ps1 `
+        ./utility/Deploy-Frontend-Aks.ps1 `
             -aksName $frontendAks `
             -ingressNginxValues $ingressNginxValuesFrontend `
             -resourceGroup $resourceGroup.app `
             -secretProviderClassManifest $secretProviderClassManifestFrontend `
-            -serviceNamespace $manifest.k8sNamespace `
-            -registry $manifest.registry `
-            -version $manifest.version
+            -serviceNamespace $env:FOUNDATIONALLM_K8S_NS `
+            -registry $env:FOUNDATIONALLM_REGISTRY `
+            -version $env:FLLM_VERSION
     }
 
     $clusters = @(
@@ -216,7 +238,7 @@ try {
         }
     )
     Invoke-AndRequireSuccess "Generate AKS Ingress Host Entires" {
-        ./deploy/Generate-Ingress-Hosts.ps1 `
+        ./utility/Generate-Ingress-Hosts.ps1 `
             -resourceGroup $resourceGroup.app `
             -clusters $clusters
     }

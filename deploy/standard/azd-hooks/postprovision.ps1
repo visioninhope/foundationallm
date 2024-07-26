@@ -16,68 +16,36 @@ finally {
 # Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
-    # Map TLS certifiates to secret names
-    $certificates = @(
-        "user-portal",
-        "core-api",
-        "management-portal",
-        "management-api"
-    )
+    # Convert the manifest resource groups to a hashtable for easier access
+    # Convert the manifest resource groups to a hashtable for easier access
+    $resourceGroup = @{
+        app     = $env:FLLM_APP_RG
+        auth    = $env:FLLM_AUTH_RG
+        data    = $env:FLLM_DATA_RG
+        dns     = $env:FLLM_DNS_RG
+        jbx     = $env:FLLM_JBX_RG
+        net     = $env:FLLM_NET_RG
+        oai     = $env:FLLM_OAI_RG
+        ops     = $env:FLLM_OPS_RG
+        storage = $env:FLLM_STORAGE_RG
+        vec     = $env:FLLM_VEC_RG
+    }
 
-    Invoke-AndRequireSuccess "Load Certificates" {
-        ./utility/Load-Certificates.ps1 `
-            -keyVaultResourceGroup $env:FLLM_OPS_RG `
-            -keyVaultName $env:FLLM_OPS_KV `
-            -certificates $certificates
+    Invoke-AndRequireSuccess "Generate Host File" {
+        ./utility/Generate-Hosts.ps1 `
+            -resourceGroup $resourceGroup `
+            -subscription $env:AZURE_SUBSCRIPTION_ID
     }
 }
 finally {
     Pop-Location
+    Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 }
-
-# function Invoke-AndRequireSuccess {
-#     param (
-#         [Parameter(Mandatory = $true, Position = 0)]
-#         [string]$Message,
-
-#         [Parameter(Mandatory = $true, Position = 1)]
-#         [ScriptBlock]$ScriptBlock
-#     )
-
-#     Write-Host "${message}..." -ForegroundColor Blue
-#     $result = & $ScriptBlock
-
-#     if ($LASTEXITCODE -ne 0) {
-#         throw "Failed ${message} (code: ${LASTEXITCODE})"
-#     }
-
-#     return $result
-# }
 
 # function envsubst {
 #     param([Parameter(ValueFromPipeline)][string]$InputObject)
 
 #     $ExecutionContext.InvokeCommand.ExpandString($InputObject)
-# }
-
-# function Format-Json {
-#     param([Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$json)
-#     return $json | ConvertFrom-Json -Depth 50 | ConvertTo-Json -Compress -Depth 50 | ForEach-Object { $_ -replace '"', '\"' }
-# }
-
-# function Format-EnvironmentVariables {
-#     param(
-#         [Parameter(Mandatory = $true)][string]$template,
-#         [Parameter(Mandatory = $true)][string]$render
-#     )
-
-#     $content = Get-Content $template
-#     $result = @()
-#     foreach ($line in $content) {
-#         $result += $line | envsubst
-#     }
-
-#     $result | Out-File $render -Force
 # }
 
 # $env:DEPLOY_TIME = $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ'))

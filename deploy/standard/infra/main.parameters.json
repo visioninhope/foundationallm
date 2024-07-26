@@ -44,6 +44,18 @@
       "registry": {
         "value": "${FLLM_REGISTRY=cropseastus2svinternal.azurecr.io}"
       },
+      "userPortalHostname": {
+        "value": "${FLLM_USER_PORTAL_HOSTNAME=www.internal.foundationallm.ai}"
+      },
+      "managementPortalHostname": {
+        "value": "${FLLM_MGMT_PORTAL_HOSTNAME=management.internal.foundationallm.ai}"
+      },
+      "coreApiHostname": {
+        "value": "${FLLM_CORE_API_HOSTNAME=api.internal.foundationallm.ai}"
+      },
+      "managementApiHostname": {
+        "value": "${FLLM_MGMT_API_HOSTNAME=management-api.internal.foundationallm.ai}"
+      },
       "authService": {
         "value": {
           "name": "auth-api",
