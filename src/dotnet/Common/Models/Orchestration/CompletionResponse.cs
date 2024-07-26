@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration;
 
@@ -17,14 +19,16 @@ public class CompletionResponse : CompletionResponseBase
     /// <summary>
     /// Initialize a completion response
     /// </summary>
+    /// <param name="operationId">The operation id of the completion request.</param>
     /// <param name="completion">The completion response from the language model.</param>
     /// <param name="userPrompt">The user prompt the language model responded to.</param>
     /// <param name="userPromptTokens">The number of tokens in the prompt.</param>
     /// <param name="responseTokens">The number of tokens in the completion.</param>
     /// <param name="userPromptEmbedding">User prompt embedding.</param>
-    public CompletionResponse(string completion, string userPrompt, int userPromptTokens, int responseTokens,
+    public CompletionResponse(string operationId, string completion, string userPrompt, int userPromptTokens, int responseTokens,
         float[]? userPromptEmbedding)
     {
+        OperationId = operationId;
         Completion = completion;
         UserPrompt = userPrompt;
         PromptTokens = userPromptTokens;
@@ -40,4 +44,12 @@ public class CompletionResponse : CompletionResponseBase
         Completion = string.Empty;
         UserPrompt = string.Empty;
     }
+
+    /// <summary>
+    /// Returns a CompletionResponse object from a JSON document.
+    /// </summary>
+    /// <param name="json">The JSON document to deserialize.</param>
+    /// <returns></returns>
+    public static CompletionResponse? FromJSONDocument(JsonDocument json) =>
+        JsonSerializer.Deserialize<CompletionResponse>(json.RootElement.GetRawText());
 }

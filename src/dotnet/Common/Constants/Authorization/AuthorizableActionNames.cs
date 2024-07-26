@@ -83,17 +83,17 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// <summary>
         /// Read API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Read = "FoundationaLLM.Configuration/apiEndpoints/read";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Read = "FoundationaLLM.Configuration/apiEndpointConfigurations/read";
 
         /// <summary>
         /// Create or update API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Write = "FoundationaLLM.Configuration/apiEndpoints/write";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Write = "FoundationaLLM.Configuration/apiEndpointConfigurations/write";
 
         /// <summary>
         /// Delete API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Delete = "FoundationaLLM.Configuration/apiEndpoints/delete";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Delete = "FoundationaLLM.Configuration/apiEndpointConfigurations/delete";
 
         #endregion
 

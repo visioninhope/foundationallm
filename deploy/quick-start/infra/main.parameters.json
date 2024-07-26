@@ -82,12 +82,14 @@
           "gatekeeper-api": "${SERVICE_GATEKEEPERAPI_RESOURCE_EXISTS=false}",
           "gatekeeper-integration-api": "${SERVICE_GATEKEEPERINTEGRATIONAPI_RESOURCE_EXISTS=false}",
           "gateway-api": "${SERVICE_GATEWAYAPI_RESOURCE_EXISTS=false}",
+          "gateway-adapter-api": "${SERVICE_GATEWAYADAPTERAPI_RESOURCE_EXISTS=false}",
           "langchain-api": "${SERVICE_LANGCHAINAPI_RESOURCE_EXISTS=false}",
           "management-api": "${SERVICE_MANAGEMENTAPI_RESOURCE_EXISTS=false}",
           "management-ui": "${SERVICE_MANAGEMENTUI_RESOURCE_EXISTS=false}",
           "orchestration-api": "${SERVICE_ORCHESTRATIONAPI_RESOURCE_EXISTS=false}",
           "prompt-hub-api": "${SERVICE_PROMPTHUBAPI_RESOURCE_EXISTS=false}",
           "semantic-kernel-api": "${SERVICE_SEMANTICKERNELAPI_RESOURCE_EXISTS=false}",
+          "state-api": "${SERVICE_STATEAPI_RESOURCE_EXISTS=false}",
           "vectorization-api": "${SERVICE_VECTORIZATIONAPI_RESOURCE_EXISTS=false}",
           "vectorization-job": "${SERVICE_VECTORIZATIONJOB_RESOURCE_EXISTS=false}"
         }
@@ -186,6 +188,17 @@
             "replicaCount": "${SERVICE_GATEKEEPERINTEGRATIONAPI_REPLICAS}"
           },
           {
+            "name": "gateway-adapter-api",
+            "useEndpoint": false,
+            "hasIngress": true,
+            "image": "${SERVICE_GATEWAYADAPTERAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-adapter-api:${FLLM_VERSION}}",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
+            "apiKeySecretName": "foundationallm-apis-gatewayadapterapi-apikey",
+            "cpu": "${SERVICE_GATEWAYADAPTERAPI_CPU=1.0}",
+            "memory": "${SERVICE_GATEWAYADAPTERAPI_MEMORY=2.0Gi}",
+            "replicaCount": "${SERVICE_GATEWAYADAPTERAPI_REPLICAS}"
+          },
+          {
             "name": "gateway-api",
             "useEndpoint": false,
             "hasIngress": true,
@@ -261,6 +274,17 @@
             "cpu": "${SERVICE_SEMANTICKERNELAPI_CPU=1.0}",
             "memory": "${SERVICE_SEMANTICKERNELAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_SEMANTICKERNELAPI_REPLICAS}"
+          },
+          {
+            "name": "state-api",
+            "useEndpoint": false,
+            "hasIngress": true,
+            "image": "${SERVICE_STATEAPI_IMAGE=cropseastus2svinternal.azurecr.io/state-api:${FLLM_VERSION}}",
+            "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
+            "apiKeySecretName": "foundationallm-apis-stateapi-apikey",
+            "cpu": "${SERVICE_STATEAPI_CPU=1.0}",
+            "memory": "${SERVICE_STATEAPI_MEMORY=2.0Gi}",
+            "replicaCount": "${SERVICE_STATEAPI_REPLICAS}"
           },
           {
             "name": "vectorization-api",

@@ -24,6 +24,7 @@ namespace Management.Client.Tests
         {
             // Assert
             Assert.NotNull(_managementClient.Agents);
+            Assert.NotNull(_managementClient.AIModels);
             Assert.NotNull(_managementClient.Attachments);
             Assert.NotNull(_managementClient.Configuration);
             Assert.NotNull(_managementClient.DataSources);

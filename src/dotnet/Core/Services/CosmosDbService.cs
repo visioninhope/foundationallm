@@ -1,18 +1,14 @@
-﻿using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Models.Configuration.Users;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
-using FoundationaLLM.Common.Models.Configuration.Users;
 using Polly;
 using Polly.Retry;
-using Azure.Identity;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
-using FoundationaLLM.Common.Authentication;
+using System.Diagnostics;
 
 namespace FoundationaLLM.Core.Services
 {

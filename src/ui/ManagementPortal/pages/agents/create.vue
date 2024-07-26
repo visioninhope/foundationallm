@@ -502,6 +502,7 @@
 				<template #edit>
 					<div class="step-container__header">Gatekeeper</div>
 
+					<!-- Gatekeeper toggle -->
 					<div class="d-flex align-center mt-2">
 						<span class="step-option__header">Enabled:</span>
 						<span>
@@ -515,6 +516,7 @@
 						</span>
 					</div>
 
+					<!-- Content safety -->
 					<div class="mt-2">
 						<span class="step-option__header">Content Safety:</span>
 						<MultiSelect
@@ -527,6 +529,7 @@
 						/>
 					</div>
 
+					<!-- Data protection -->
 					<div class="mt-2">
 						<span class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
@@ -555,13 +558,25 @@
 				/>
 			</div>
 
+			<!-- Cost center -->
 			<div class="step-header span-2">Would you like to assign this agent to a cost center?</div>
 			<div class="span-2">
 				<InputText
 					v-model="cost_center"
 					placeholder="Enter cost center name"
 					type="text"
-					class="w-50"
+				/>
+			</div>
+
+			<!-- Expiration -->
+			<div class="step-header span-2">Would you like to set an expiration on this agent?</div>
+			<div class="span-2">
+				<Calendar
+					v-model="expirationDate"
+					show-icon
+					show-button-bar
+					placeholder="Enter expiration date"
+					type="text"
 				/>
 			</div>
 
@@ -685,6 +700,7 @@ const getDefaultFormValues = () => {
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 		cost_center: '',
+		expirationDate: null as string|null,
 
 		editDataSource: false as boolean,
 		selectedDataSource: null as null | AgentDataSource,
@@ -879,7 +895,7 @@ export default {
 			this.dataSources = agentDataSourcesResult.map(result => result.resource);
 			
 			this.loadingStatusText = 'Retrieving external orchestration services...';
-            const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
+			const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
 			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
 
 			// Update the orchestratorOptions with the externalOrchestratorOptions.
@@ -940,6 +956,7 @@ export default {
 			this.object_id = agent.object_id || this.object_id;
 			this.inline_context = agent.inline_context || this.inline_context;
 			this.cost_center = agent.cost_center || this.cost_center;
+			this.expirationDate = agent.expiration_date ? new Date(agent.expiration_date) : this.expirationDate;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
@@ -1186,6 +1203,7 @@ export default {
 					object_id: this.object_id,
 					inline_context: this.inline_context,
 					cost_center: this.cost_center,
+					expiration_date: this.expirationDate?.toISOString(),
 
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,

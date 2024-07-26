@@ -17,6 +17,8 @@ Core API changes:
 5. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
 6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
 7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
+8. The `CompletionController.cs` file under `dotnet/CoreApi/controllers` has introduced the `Async-Completions` endpoint to handle asynchronous completions.
+9. With the introduction of `Async-Completions`, long running operations can now report on completion status based on `Pending`, `InProgress`, `Completed` and `Failed` states.
 
 Gatekeeper API changes:
 1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
@@ -58,7 +60,12 @@ Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-M
 The `FoundationaLLM:APIs` and `FoundationaLLM:ExternalAPIs` configuration namespaces have been replaced with the `FoundationaLLM:APIEndpoints` configuration namespace.
 
 > [!IMPORTANT]
-> All existing API registrations need to be updated to reflect these changes. The only setting that will exist under `FoundationaLLM:APIEndpoints` is `APIKey` (for those API enpoints which use API key authentication), all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+> All existing API registrations need to be updated to reflect these changes. The only two settings that will exist under `FoundationaLLM:APIEndpoints` are `APIKey` (for those API enpoints which use API key authentication) and `AppInsightsConnectionString`, all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+> This is an example for `CoreAPI`:
+> - `FoundationaLLM:APIEndpoints:CoreAPI:APIKey`
+> - `FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString`
+
+The `FoundationaLLM:AzureAIStudio` configuration namespace expects an `APIEndpointConfigurationName` property instead of `BaseUrl`.
 
 ### Pre-0.8.0
 

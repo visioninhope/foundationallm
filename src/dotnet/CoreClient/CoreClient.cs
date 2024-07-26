@@ -63,6 +63,7 @@ namespace FoundationaLLM.Client.Core
 
             var orchestrationRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 AgentName = agentName,
                 SessionId = sessionId,
                 UserPrompt = userPrompt
@@ -89,6 +90,7 @@ namespace FoundationaLLM.Client.Core
         {
             var completionRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 AgentName = agentName,
                 UserPrompt = userPrompt
             };
@@ -129,6 +131,7 @@ namespace FoundationaLLM.Client.Core
 
                 var orchestrationRequest = new CompletionRequest
                 {
+                    OperationId = Guid.NewGuid().ToString(),
                     AgentName = agentName,
                     SessionId = sessionId,
                     UserPrompt = question,
@@ -142,6 +145,7 @@ namespace FoundationaLLM.Client.Core
             // Use the orchestrated completion request to ask a question about the file.
             var completionRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 AgentName = agentName,
                 UserPrompt = question,
                 Attachments = [objectId]

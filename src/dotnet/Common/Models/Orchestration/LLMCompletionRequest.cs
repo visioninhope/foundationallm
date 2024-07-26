@@ -31,6 +31,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// <summary>
         /// The agent that will process the completion request.
         /// </summary>
+        [JsonPropertyName("agent")]
         public required AgentBase Agent { get; set; }
 
         /// <summary>

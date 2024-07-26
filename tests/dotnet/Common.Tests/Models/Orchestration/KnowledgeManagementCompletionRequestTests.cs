@@ -10,7 +10,11 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
         {
             // Arrange
             var request = new LLMCompletionRequest() 
-                { UserPrompt="", Agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement } };
+                { 
+                    OperationId = Guid.NewGuid().ToString(),
+                    UserPrompt="", 
+                    Agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement }
+                };
 
             var agent = new KnowledgeManagementAgent() { Name = "Test_agent", ObjectId = "Test_objectid", Type = AgentTypes.KnowledgeManagement };
 

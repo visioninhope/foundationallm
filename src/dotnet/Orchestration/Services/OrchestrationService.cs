@@ -91,6 +91,7 @@ public class OrchestrationService : IOrchestrationService
                 completionRequest.UserPrompt);
             return new CompletionResponse
             {
+                OperationId = completionRequest.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
@@ -135,6 +136,7 @@ public class OrchestrationService : IOrchestrationService
 
             var stepCompletionRequest = new CompletionRequest
             {
+                OperationId = completionRequest.OperationId,
                 AgentName = conversationStep.AgentName,
                 SessionId = completionRequest.SessionId,
                 Settings = completionRequest.Settings,
