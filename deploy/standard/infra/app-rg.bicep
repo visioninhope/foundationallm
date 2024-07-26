@@ -82,16 +82,18 @@ var tags = {
 }
 
 var backendServices = {
-  'gateway-api': { displayName: 'GatewayAPI' }
   'agent-hub-api': { displayName: 'AgentHubAPI' }
   'core-job': { displayName: 'CoreWorker' }
   'data-source-hub-api': { displayName: 'DataSourceHubAPI' }
   'gatekeeper-api': { displayName: 'GatekeeperAPI' }
   'gatekeeper-integration-api': { displayName: 'GatekeeperIntegrationAPI' }
+  'gateway-adapter-api': { displayName: 'GatewayAdapterAPI' }
+  'gateway-api': { displayName: 'GatewayAPI' }
   'langchain-api': { displayName: 'LangChainAPI' }
   'prompt-hub-api': { displayName: 'PromptHubAPI' }
   'orchestration-api': { displayName: 'OrchestrationAPI' }
   'semantic-kernel-api': { displayName: 'SemanticKernelAPI' }
+  'state-api': { displayName: 'StateAPI' }
   'vectorization-job': { displayName: 'VectorizationWorker' }
 }
 var backendServiceNames = [for service in items(backendServices): service.key]
