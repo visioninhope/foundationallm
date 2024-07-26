@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.State.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 using System.Text.Json;
@@ -107,6 +106,7 @@ namespace FoundationaLLM.State.API.Controllers
             {
                 return NotFound();
             }
+
             return Ok(operation);
         }
 
