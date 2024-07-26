@@ -115,7 +115,7 @@ module app 'app-rg.bicep' = {
 }
 
 module auth 'auth-rg.bicep' = {
-  dependsOn: [rg, networking, app, ops]
+  dependsOn: [rg]
   name: 'auth-${timestamp}'
   scope: resourceGroup(resourceGroups.auth)
   params: {
