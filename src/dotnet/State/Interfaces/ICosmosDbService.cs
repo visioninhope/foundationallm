@@ -45,7 +45,7 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operation">The long-running operation to insert or update.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default);
+        Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Inserts or updates the result of a long-running operation.
@@ -53,6 +53,6 @@ namespace FoundationaLLM.State.Interfaces
         /// <param name="operationResult">The operation result to insert or update.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default);
+        Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult, CancellationToken cancellationToken = default);
     }
 }
