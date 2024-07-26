@@ -17,6 +17,7 @@ Core API changes:
 5. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
 6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
 7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
+8. The `CompletionController.cs` file under `dotnet/CoreApi/controllers` has introduced the `Async-Completions` endpoint to handle asynchronous completions.
 
 Gatekeeper API changes:
 1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
