@@ -17,7 +17,6 @@ finally {
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
     # Convert the manifest resource groups to a hashtable for easier access
-    # Convert the manifest resource groups to a hashtable for easier access
     $resourceGroup = @{
         app     = $env:FLLM_APP_RG
         auth    = $env:FLLM_AUTH_RG
