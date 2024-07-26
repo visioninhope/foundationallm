@@ -24,7 +24,7 @@ namespace FoundationaLLM.State.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLongRunningOperations()
         {
-            var operations = await stateService.GetLongRunningOperationsAsync();
+            var operations = await stateService.GetLongRunningOperations();
             return Ok(operations);
         }
 
@@ -37,7 +37,7 @@ namespace FoundationaLLM.State.API.Controllers
         [HttpGet("{operationId}")]
         public async Task<IActionResult> GetLongRunningOperation(string instanceId, string operationId)
         {
-            var operation = await stateService.GetLongRunningOperationAsync(operationId);
+            var operation = await stateService.GetLongRunningOperation(operationId);
             if (operation == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace FoundationaLLM.State.API.Controllers
         [HttpGet("{operationId}/logs")]
         public async Task<IActionResult> GetLongRunningOperationLogs(string instanceId, string operationId)
         {
-            var logEntries = await stateService.GetLongRunningOperationLogEntriesAsync(operationId);
+            var logEntries = await stateService.GetLongRunningOperationLogEntries(operationId);
             return Ok(logEntries);
         }
 
@@ -71,7 +71,7 @@ namespace FoundationaLLM.State.API.Controllers
             {
                 operation.OperationId = Guid.NewGuid().ToString();
             }
-            var newOperation = await stateService.UpsertLongRunningOperationAsync(operation);
+            var newOperation = await stateService.UpsertLongRunningOperation(operation);
             return new OkObjectResult(newOperation);
         }
 
@@ -89,7 +89,7 @@ namespace FoundationaLLM.State.API.Controllers
             {
                 return BadRequest("The operation ID in the request path does not match the operation ID of the object in the request body.");
             }
-            var newOperation = await stateService.UpsertLongRunningOperationAsync(operation);
+            var newOperation = await stateService.UpsertLongRunningOperation(operation);
             return new OkObjectResult(newOperation);
         }
 
@@ -102,7 +102,7 @@ namespace FoundationaLLM.State.API.Controllers
         [HttpGet("{operationId}/result")]
         public async Task<IActionResult> GetLongRunningOperationResult(string instanceId, string operationId)
         {
-            var operation = await stateService.GetLongRunningOperationResultAsync(operationId);
+            var operation = await stateService.GetLongRunningOperationResult(operationId);
             if (operation == null)
             {
                 return NotFound();
@@ -140,7 +140,7 @@ namespace FoundationaLLM.State.API.Controllers
                 return BadRequest("The operation result does not contain a valid operation_id.");
             }
 
-            var result = await stateService.UpsertLongRunningOperationResultAsync(dynamicOperationResult);
+            var result = await stateService.UpsertLongRunningOperationResult(dynamicOperationResult);
             return new OkObjectResult(result);
         }
     }

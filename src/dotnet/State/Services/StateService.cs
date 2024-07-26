@@ -18,42 +18,42 @@ namespace FoundationaLLM.State.Services
         ILogger<StateService> logger) : IStateService
     {
         /// <inheritdoc/>
-        public async Task<List<LongRunningOperation>> GetLongRunningOperationsAsync()
+        public async Task<List<LongRunningOperation>> GetLongRunningOperations()
         {
             logger.LogInformation("Getting long running operations.");
             return await cosmosDbService.GetLongRunningOperations();
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> GetLongRunningOperationAsync(string id)
+        public async Task<LongRunningOperation> GetLongRunningOperation(string id)
         {
             logger.LogInformation("Getting long running operation with ID: {id}", id);
             return await cosmosDbService.GetLongRunningOperation(id);
         }
 
         /// <inheritdoc/>
-        public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntriesAsync(string operationId)
+        public async Task<List<LongRunningOperationLogEntry>> GetLongRunningOperationLogEntries(string operationId)
         {
             logger.LogInformation("Getting long running operation log entries for operation ID: {operationId}", operationId);
             return await cosmosDbService.GetLongRunningOperationLogEntries(operationId);
         }
 
         /// <inheritdoc/>
-        public async Task<object?> GetLongRunningOperationResultAsync(string operationId)
+        public async Task<object?> GetLongRunningOperationResult(string operationId)
         {
             logger.LogInformation("Getting long running operation result for operation ID: {operationId}", operationId);
             return await cosmosDbService.GetLongRunningOperationResult(operationId);
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> UpsertLongRunningOperationAsync(LongRunningOperation operation)
+        public async Task<LongRunningOperation> UpsertLongRunningOperation(LongRunningOperation operation)
         {
             logger.LogInformation("Upserting long running operation.");
             return await cosmosDbService.UpsertLongRunningOperation(operation);
         }
 
         /// <inheritdoc/>
-        public async Task<object?> UpsertLongRunningOperationResultAsync(dynamic operationResult)
+        public async Task<object?> UpsertLongRunningOperationResult(dynamic operationResult)
         {
             logger.LogInformation("Upserting long running operation result.");
 
