@@ -43,6 +43,12 @@ namespace FoundationaLLM.State.Interfaces
         Task<LongRunningOperation> UpsertLongRunningOperation(LongRunningOperation operation);
 
         /// <summary>
+        /// Creates a new long-running operation with default values.
+        /// </summary>
+        /// <returns></returns>
+        Task<LongRunningOperation> CreateLongRunningOperation();
+
+        /// <summary>
         /// Inserts or updates the result of a long-running operation.
         /// </summary>
         /// <param name="operationResult">The operation result to insert or update.</param>

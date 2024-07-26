@@ -46,6 +46,17 @@ namespace FoundationaLLM.State.Services
         }
 
         /// <inheritdoc/>
+        public async Task<LongRunningOperation> CreateLongRunningOperation()
+        {
+            logger.LogInformation("Creating long running operation.");
+            var operation = new LongRunningOperation
+            {
+                Status = OperationStatus.Pending
+            };
+            return await cosmosDbService.UpsertLongRunningOperation(operation);
+        }
+
+        /// <inheritdoc/>
         public async Task<LongRunningOperation> UpsertLongRunningOperation(LongRunningOperation operation)
         {
             logger.LogInformation("Upserting long running operation.");
