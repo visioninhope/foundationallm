@@ -1,13 +1,13 @@
 {
     "ResourceReferences": [
         {
-            "Name": "completion-model",
+            "Name": "DefaultCompletionAIModel",
             "Filename": "/FoundationaLLM.AIModel/completion-model.json",
             "Type": "completion",
             "Deleted": false
         },
         {
-            "Name": "embedding-model",
+            "Name": "DefaultEmbeddingAIModel",
             "Filename": "/FoundationaLLM.AIModel/embedding-model.json",
             "Type": "embedding",
             "Deleted": false
