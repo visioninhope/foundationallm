@@ -9,13 +9,13 @@ namespace FoundationaLLM.Common.Tests.Services
 {
     public class HttpClientFactoryServiceTests
     {
-        private readonly IEnumerable<IResourceProviderService> _resourceProviderServices;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
 
         public HttpClientFactoryServiceTests()
         {
-            _resourceProviderServices = Substitute.For<IEnumerable<IResourceProviderService>>();
+            _serviceProvider = Substitute.For<IServiceProvider>();
             _httpClientFactory = Substitute.For<IHttpClientFactory>();
             _configuration = Substitute.For<IConfiguration>();
         }
@@ -36,7 +36,7 @@ namespace FoundationaLLM.Common.Tests.Services
             var httpClient = new HttpClient();
             _httpClientFactory.CreateClient(clientName).Returns(httpClient);
 
-            var service = new HttpClientFactoryService(_resourceProviderServices, _configuration, _httpClientFactory);
+            var service = new HttpClientFactoryService(_serviceProvider, _configuration, _httpClientFactory);
 
             // Act
             var result = await service.CreateClient(clientName, userContext);
