@@ -1,11 +1,13 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -15,35 +17,36 @@ namespace FoundationaLLM.Common.Services
     /// <inheritdoc/>
     public class HttpClientFactoryService : IHttpClientFactoryService
     {
-        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
         private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes(10);
 
+        private IResourceProviderService _configurationResourceProvider;
+
         /// <summary>
         /// Creates a new instance of the <see cref="HttpClientFactoryService"/> class.
         /// </summary>
-        /// <param name="resourceProviderServices">A list of of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> for the main DI container.</param>
         /// <param name="configuration">The <see cref="IConfiguration"/> used to retrieve app settings from configuration.</param>
         /// <param name="httpClientFactory">A fully configured <see cref="IHttpClientFactory"/>.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public HttpClientFactoryService(
-            IEnumerable<IResourceProviderService> resourceProviderServices,
+            IServiceProvider serviceProvider,
             IConfiguration configuration,
             IHttpClientFactory httpClientFactory)
         {
+            _serviceProvider = serviceProvider;
             _configuration = configuration;
-            _resourceProviderServices = resourceProviderServices.ToDictionary(rps => rps.Name);
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         }
 
         /// <inheritdoc/>
         public async Task<HttpClient> CreateClient(string clientName, UnifiedUserIdentity? userIdentity)
         {
-            if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Configuration, out var configurationResourceProvider))
-                throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
+            EnsureConfigurationResourceProvider();
 
-            var endpointConfiguration = await configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+            var endpointConfiguration = await _configurationResourceProvider.GetResource<APIEndpointConfiguration>(
                 $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{clientName}",
                 userIdentity);
 
@@ -53,6 +56,7 @@ namespace FoundationaLLM.Common.Services
             return await CreateClient(endpointConfiguration, userIdentity);
         }
 
+        /// <inheritdoc/>
         public async Task<HttpClient> CreateClient(APIEndpointConfiguration endpointConfiguration, UnifiedUserIdentity? userIdentity)
         {
             var httpClient = _httpClientFactory.CreateClient(endpointConfiguration.Name);
@@ -150,6 +154,17 @@ namespace FoundationaLLM.Common.Services
             var httpClient = _httpClientFactory.CreateClient();
             httpClient.Timeout = timeout ?? _defaultTimeout;
             return httpClient;
+        }
+
+        private void EnsureConfigurationResourceProvider()
+        {
+            if (_configurationResourceProvider != null)
+                return;
+
+            var resourceProviderServices = _serviceProvider.GetServices<IResourceProviderService>();
+            _configurationResourceProvider = resourceProviderServices
+                .SingleOrDefault(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration)
+                ?? throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
         }
     }
 }

@@ -150,6 +150,7 @@ namespace FoundationaLLM
         {
             builder.Services.AddHttpClient();
             builder.Services.AddSingleton<IHttpClientFactoryService, HttpClientFactoryService>();
+            builder.Services.ActivateSingleton<IHttpClientFactoryService>();
         }
 
         /// <summary>
