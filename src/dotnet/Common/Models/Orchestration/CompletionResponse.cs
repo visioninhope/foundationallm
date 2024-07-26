@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration;
 
@@ -42,4 +44,12 @@ public class CompletionResponse : CompletionResponseBase
         Completion = string.Empty;
         UserPrompt = string.Empty;
     }
+
+    /// <summary>
+    /// Returns a CompletionResponse object from a JSON document.
+    /// </summary>
+    /// <param name="json">The JSON document to deserialize.</param>
+    /// <returns></returns>
+    public static CompletionResponse? FromJSONDocument(JsonDocument json) =>
+        JsonSerializer.Deserialize<CompletionResponse>(json.RootElement.GetRawText());
 }
