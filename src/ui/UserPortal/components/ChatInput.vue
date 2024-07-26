@@ -64,6 +64,20 @@
 							</div>
 						</div>
 					</template>
+
+					<template #content="{ files, removeFileCallback }">
+						<div class="flex flex-wrap gap-4">
+							<div v-for="(file, index) of files" :key="file.name + file.type + file.size" style="border-color: rgb(226, 232, 240); border-radius: 6px; border-style: solid; border-width: 1px; display: flex; flex-direction: row; justify-content: space-between; padding: 0.5rem; width: 100%; align-items: center;">
+								<div style="flex: 1; display: flex; flex-direction: row; align-items: center; gap: 10px">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem;"></i>
+									<span style="font-weight: 600;">{{ file.name }}</span>
+									<div>{{ formatSize(file.size) }}</div>
+								</div>
+								<Button icon="pi pi-times" @click="removeFileCallback(index)" text severity="danger" style=""/>
+							</div>
+						</div>
+					</template>
+
 					<template #empty>
 						<div>
 							<i class="pi pi-cloud-upload file-upload-icon" />
@@ -241,6 +255,7 @@ export default {
 		browseFiles() {
 			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
 		},
+
 		uploadFile(uploadCallback) {
 			if (this.$appStore.attachments.length) {
 				this.$confirm.require({
@@ -267,7 +282,22 @@ export default {
 				uploadCallback();
 				this.showFileUploadDialog = false;
 			}
-		}
+		},
+
+		formatSize(bytes) {
+            const k = 1024;
+            const dm = 3;
+            const sizes = this.$primevue.config.locale.fileSizeTypes;
+
+            if (bytes === 0) {
+                return `0 ${sizes[0]}`;
+            }
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+            return `${formattedSize} ${sizes[i]}`;
+        }
 	},
 };
 </script>
