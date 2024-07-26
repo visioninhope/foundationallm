@@ -30,6 +30,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The status of the long-running operation.
         /// </summary>
         [JsonPropertyName("status")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public OperationStatus Status { get; set; }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The time-to-live (TTL) for the log entry.
         /// </summary>
         [JsonPropertyName("ttl")]
-        public int TTL { get; set; } = TimeSpan.FromDays(7).Seconds;
+        public int TTL { get; set; } = Convert.ToInt32(TimeSpan.FromDays(7).TotalSeconds);
 
         /// <summary>
         /// Deleted flag used for soft delete.

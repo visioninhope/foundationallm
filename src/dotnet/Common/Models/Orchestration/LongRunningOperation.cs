@@ -12,7 +12,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The identifier of the long-running operation.
         /// </summary>
         [JsonPropertyName("id")]
-        public string Id => OperationId;
+        public string? Id => OperationId;
 
         /// <summary>
         /// The document type.
@@ -24,12 +24,13 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The identifier of the long-running operation.
         /// </summary>
         [JsonPropertyName("operation_id")]
-        public required string OperationId { get; set; }
+        public string? OperationId { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// The status of the long-running operation.
         /// </summary>
         [JsonPropertyName("status")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public required OperationStatus Status { get; set; }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The time stamp of the last update to the operation.
         /// </summary>
         [JsonPropertyName("last_updated")]
-        public DateTime? LastUpdated { get; set; }
+        public DateTime? LastUpdated { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Deleted flag used for soft delete.
