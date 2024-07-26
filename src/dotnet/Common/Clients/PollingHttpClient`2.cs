@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Settings;
+﻿using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text;
@@ -40,12 +41,13 @@ namespace FoundationaLLM.Common.Clients
 
         /// <summary>
         /// <para>Retrieves the response from the service using a polling mechanism.
-        /// The polling mechanis is based on the following assumptions:</para>
+        /// The polling mechanism is based on the following assumptions:</para>
         /// - The {operationStarterPath} endpoint will accept a POST with a <typeparamref name="TRequest"/> object as payload and will return a 202 Accepted status code when the operation is started.<br/>
-        /// - The returned response will contain a RunningOperation object with the operation id.<br/>
-        /// - The polling enpoint is available at {operationStarterPath}/{operationId}.<br/>
-        /// - The polling endpoint will return a 204 No Content status code when the operation is in progress.<br/>
-        /// - The polling endpoint will return a 200 OK status code when the operation is completed and the reponse will contain a TResult object.<br/>
+        /// - The returned response will contain a LongRunningOperation object with the operation id.<br/>
+        /// - The polling endpoint is available at {operationStarterPath}/{operationId}/status.<br/>
+        /// - The polling endpoint will return a 200 status code when the operation is in progress containing a property for status.<br/>
+        /// - The polling endpoint will return a 200 status code when the operation is completed with the status property indicating Completed.<br/>
+        /// - The result retrieval endpoint is available at {operationStarterPath}/{operationId}/result.<br/>
         /// - The polling endpoint will return a 404 Not Found status code when the operation is not found.<br/>
         /// </summary>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> indicating the need to cancel the process.</param>
@@ -70,10 +72,11 @@ namespace FoundationaLLM.Common.Clients
                 }
 
                 var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var runningOperation = JsonSerializer.Deserialize<RunningOperation>(responseContent, _jsonSerializerOptions)!;
+                var runningOperation = JsonSerializer.Deserialize<LongRunningOperation>(responseContent, _jsonSerializerOptions)!;
 
                 _logger.LogInformation("The operation was started successfully. The operation id is {OperationId}.", runningOperation.OperationId);
-                var operationResultPath = $"{_operationStarterPath}/{runningOperation.OperationId}";
+                var operationStatusPath = $"{_operationStarterPath}/{runningOperation.OperationId}/status";
+                var operationResultPath = $"{_operationStarterPath}/{runningOperation.OperationId}/result";
 
                 var pollingStartTime = DateTime.UtcNow;
                 var pollingCounter = 0;
@@ -91,12 +94,31 @@ namespace FoundationaLLM.Common.Clients
                         (int)totalPollingTime.TotalSeconds);
 
                     responseMessage = await _httpClient.GetAsync(
-                        operationResultPath,
+                        operationStatusPath,
                         cancellationToken);
 
-                    switch (responseMessage.StatusCode)
+                    if(responseMessage.StatusCode == HttpStatusCode.NotFound)
                     {
-                        case HttpStatusCode.NoContent:
+                        _logger.LogError("The operation was not found. The operation id was {OperationId}.", runningOperation.OperationId);
+                        return default;
+                    }
+                    if(responseMessage.StatusCode != HttpStatusCode.OK)
+                    {
+                        _logger.LogError("An error occurred while polling for the response. The response status code was {StatusCode}.", responseMessage.StatusCode);
+                        return default;
+                    }
+
+                    //status code is 200/OK
+                    responseContent = await responseMessage.Content.ReadAsStringAsync();
+                    var currentStatus = JsonSerializer.Deserialize<LongRunningOperation>(responseContent, _jsonSerializerOptions)!;
+
+                    switch(currentStatus.Status)
+                    {
+                        case OperationStatus.Completed:
+                            var resultResponse = await _httpClient.GetAsync(operationStatusPath, cancellationToken);
+                            var resultContent = await resultResponse.Content.ReadAsStringAsync();
+                            return JsonSerializer.Deserialize<TResponse>(resultContent, _jsonSerializerOptions);
+                        case OperationStatus.InProgress:
                             if (totalPollingTime > _maxWaitTime)
                             {
                                 _logger.LogWarning("Total polling time ({TotalTime} seconds) exceeded to maximum allowed ({MaxTime} seconds).",
@@ -105,12 +127,6 @@ namespace FoundationaLLM.Common.Clients
                                 return default;
                             }
                             continue;
-                        case HttpStatusCode.OK:
-                            responseContent = await responseMessage.Content.ReadAsStringAsync();
-                            return JsonSerializer.Deserialize<TResponse>(responseContent, _jsonSerializerOptions);
-                        case HttpStatusCode.NotFound:
-                            _logger.LogError("The operation was not found. The operation id was {OperationId}.", runningOperation.OperationId);
-                            return default;
                         default:
                             _logger.LogError("An error occurred while polling for the response. The response status code was {StatusCode}.", responseMessage.StatusCode);
                             return default;
