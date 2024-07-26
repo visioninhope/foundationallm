@@ -74,7 +74,6 @@
     <Compile Include="foundationallm\langchain\data_sources\sql\__init__.py" />
     <Compile Include="foundationallm\langchain\data_sources\__init__.py" />
     <Compile Include="foundationallm\langchain\language_models\language_model_base.py" />
-    <Compile Include="foundationallm\langchain\language_models\language_model_factory.py" />
     <Compile Include="foundationallm\langchain\language_models\openai\__init__.py" />
     <Compile Include="foundationallm\models\language_models\language_model_provider.py" />
     <Compile Include="foundationallm\langchain\language_models\__init__.py" />
@@ -94,9 +93,7 @@
     <Compile Include="foundationallm\models\orchestration\citation.py" />
     <Compile Include="foundationallm\models\orchestration\completion_request_base.py" />
     <Compile Include="foundationallm\models\orchestration\completion_response.py" />
-    <Compile Include="foundationallm\models\orchestration\endpoint_settings.py" />
     <Compile Include="foundationallm\models\orchestration\message_history_item.py" />
-    <Compile Include="foundationallm\models\orchestration\orchestration_settings.py" />
     <Compile Include="foundationallm\models\orchestration\__init__.py" />
     <Compile Include="foundationallm\models\resource_providers\ai_models\ai_model_base.py" />
     <Compile Include="foundationallm\models\resource_providers\ai_models\ai_model_types.py" />
