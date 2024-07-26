@@ -1,5 +1,5 @@
 // Inputs
-param cidrVnet string = '10.220.128.0/21'
+param cidrVnet string = '10.220.128.0/18'
 param createVpnGateway bool = false
 param environmentName string
 param location string
@@ -8,14 +8,19 @@ param project string
 param timestamp string = utcNow()
 
 // Locals
-var cidrFllmAuth = cidrSubnet(cidrVnet, 26, 17) // 10.220.132.64/26
-var cidrFllmBackend = cidrSubnet(cidrVnet, 24, 1) // 10.220.129.0/24
-var cidrFllmFrontend = cidrSubnet(cidrVnet, 24, 2) // 10.220.130.0/24
-var cidrFllmOpenAi = cidrSubnet(cidrVnet, 26, 12) // 10.220.131.0/26
-var cidrFllmOps = cidrSubnet(cidrVnet, 26, 15) // 10.220.131.192/26
-var cidrFllmVec = cidrSubnet(cidrVnet, 26, 16) // 10.220.132.0/26
-var cidrNetSvc = cidrSubnet(cidrVnet, 24, 6) // 10.220.134.0/24
-var cidrVpnGateway = cidrSubnet(cidrVnet, 24, 5) // 10.220.133.0/24
+var cidrFllmBackend = cidrSubnet(cidrVnet, 20, 0) // 10.220.128.0/20
+var cidrFllmFrontend = cidrSubnet(cidrVnet, 20, 1) // 10.220.144.0/20
+// var reserved20 = cidrSubnet(cidrVnet, 20, 2) // 10.220.160.0/20
+var cidrNetSvc = cidrSubnet(cidrVnet, 24, 48) // 10.220.176.0/24
+// var reserved24_0 = cidrSubnet(cidrVnet, 24, 49) // 10.220.177.0/24
+// var reserved24_1 = cidrSubnet(cidrVnet, 24, 50) // 10.220.178.0/24
+// var reserved24_2 = cidrSubnet(cidrVnet, 24, 51) // 10.220.179.0/24
+var cidrFllmAuth = cidrSubnet(cidrVnet, 26, 208) // 10.220.180.0/26
+var cidrFllmOpenAi = cidrSubnet(cidrVnet, 26, 209) // 10.220.180.64/26
+var cidrFllmOps = cidrSubnet(cidrVnet, 26, 210) // 10.220.180.128/26
+var cidrFllmVec = cidrSubnet(cidrVnet, 26, 211) // 10.220.180.192/26
+var cidrVpnGateway = cidrSubnet(cidrVnet, 26, 212) // 10.220.181.0/26
+// var reserved26 = cidrSubnet(cidrVnet, 26, 213) // 10.220.181.64/26
 // TODO: Use Namer FUnction from main.bicep
 var name = networkName == '' ? 'vnet-${environmentName}-${location}-net' : networkName
 var resourceSuffix = '${environmentName}-${location}-${workload}-${project}'
