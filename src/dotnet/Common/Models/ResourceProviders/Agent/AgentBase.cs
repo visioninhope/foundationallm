@@ -10,7 +10,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(KnowledgeManagementAgent), "knowledge-management")]
-    [JsonDerivedType(typeof(InternalContextAgent), "internal-context")]
     public class AgentBase : ResourceBase
     {
         /// <inheritdoc/>
@@ -65,7 +64,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
             Type switch
             {
                 AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
-                AgentTypes.InternalContext => typeof(KnowledgeManagementAgent), // Temporary until InternalContextAgent is completeyl removed.
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }
