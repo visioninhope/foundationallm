@@ -48,6 +48,7 @@ var containers = [
         '/upn'
       ]
     }
+    defaultTtl: null
   }
   {
     name: 'Sessions'
@@ -56,6 +57,16 @@ var containers = [
         '/sessionId'
       ]
     }
+    defaultTtl: null
+  }
+  {
+    name: 'State'
+    partitionKey: {
+      paths: [
+        '/operation_id'
+      ]
+    }
+    defaultTtl: 604800
   }
   {
     name: 'leases'
@@ -64,6 +75,7 @@ var containers = [
         '/id'
       ]
     }
+    defaultTtl: null
   }
 ]
 
@@ -221,6 +233,8 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
         version: 2
       }
 
+      defaultTtl: c.?defaultTtl
+
       uniqueKeyPolicy: {
         uniqueKeys: []
       }
@@ -232,6 +246,106 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
     }
   }
 }]
+
+resource cosmosContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = [
+  for c in containers: if (c.defaultTtl == null) {
+    name: c.name
+    parent: database
+
+    properties: {
+      options: {
+        autoscaleSettings: {
+          maxThroughput: 1000
+        }
+      }
+      resource: {
+        id: c.name
+        indexingPolicy: {
+          indexingMode: 'consistent'
+          automatic: true
+
+          excludedPaths: [
+            {
+              path: '/"_etag"/?'
+            }
+          ]
+
+          includedPaths: [
+            {
+              path: '/*'
+            }
+          ]
+        }
+
+        partitionKey: {
+          kind: 'Hash'
+          paths: c.partitionKey.paths
+          version: 2
+        }
+
+        uniqueKeyPolicy: {
+          uniqueKeys: []
+        }
+
+        conflictResolutionPolicy: {
+          conflictResolutionPath: '/_ts'
+          mode: 'LastWriterWins'
+        }
+      }
+    }
+  }
+]
+
+resource cosmosContainerWithTtl 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = [
+  for c in containers: if (c.defaultTtl != null) {
+    name: c.name
+    parent: database
+
+    properties: {
+      options: {
+        autoscaleSettings: {
+          maxThroughput: 1000
+        }
+      }
+      resource: {
+        id: c.name
+        indexingPolicy: {
+          indexingMode: 'consistent'
+          automatic: true
+
+          excludedPaths: [
+            {
+              path: '/"_etag"/?'
+            }
+          ]
+
+          includedPaths: [
+            {
+              path: '/*'
+            }
+          ]
+        }
+
+        partitionKey: {
+          kind: 'Hash'
+          paths: c.partitionKey.paths
+          version: 2
+        }
+
+        defaultTtl: c.?defaultTtl
+
+        uniqueKeyPolicy: {
+          uniqueKeys: []
+        }
+
+        conflictResolutionPolicy: {
+          conflictResolutionPath: '/_ts'
+          mode: 'LastWriterWins'
+        }
+      }
+    }
+  }
+]
 
 /** Nested Modules **/
 @description('Metric alerts for the resource')
