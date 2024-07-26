@@ -88,7 +88,7 @@ namespace FoundationaLLM.Common.Services
 
                     if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
                         AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigurationNameObj))
-                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the enpoint's authentication parameters dictionary.");
+                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the endpoint's authentication parameters dictionary.");
 
                     apiKey = _configuration.GetValue<string>(apiKeyConfigurationNameObj?.ToString()!)!;
 
@@ -98,11 +98,12 @@ namespace FoundationaLLM.Common.Services
 
                     apiKeyHeaderName = apiKeyHeaderNameObj.ToString();
 
-                    if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
-                        AuthenticationParametersKeys.APIKeyPrefix, out var apiKeyPrefixObj))
-                        throw new Exception($"The {AuthenticationParametersKeys.APIKeyPrefix} key is missing from the enpoint's authentication parameters dictionary.");
+                    // APIKeyPrefix is optional, set to empty string if not found.
+                    endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.APIKeyPrefix, out var apiKeyPrefixObj);
 
-                    apiKeyPrefix = apiKeyPrefixObj.ToString();
+                    apiKeyPrefix = apiKeyPrefixObj?.ToString() ?? string.Empty;
+
 
                     if (apiKeyHeaderName == HeaderNames.Authorization)
                     {
