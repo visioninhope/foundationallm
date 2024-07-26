@@ -60,7 +60,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
 
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_AIModel;
-        private const string AIMODEL_REFERENCES_FILE_NAME = "_aiModel-references.json";
+        private const string AIMODEL_REFERENCES_FILE_NAME = "_ai-model-references.json";
         private const string AIMODEL_REFERENCES_FILE_PATH =
             $"/{ResourceProviderNames.FoundationaLLM_AIModel}/{AIMODEL_REFERENCES_FILE_NAME}";
 

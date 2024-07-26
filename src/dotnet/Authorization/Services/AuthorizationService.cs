@@ -1,10 +1,13 @@
 ﻿using FoundationaLLM.Authorization.Models.Configuration;
+using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -16,16 +19,16 @@ namespace FoundationaLLM.Authorization.Services
     public class AuthorizationService : IAuthorizationService
     {
         private readonly AuthorizationServiceSettings _settings;
-        private readonly IHttpClientFactoryService _httpClientFactoryService;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<AuthorizationService> _logger;
 
         public AuthorizationService(
-            IHttpClientFactoryService httpClientFactoryService,
+            IHttpClientFactory httpClientFactory,
             IOptions<AuthorizationServiceSettings> options,
             ILogger<AuthorizationService> logger)
         {
             _settings = options.Value;
-            _httpClientFactoryService = httpClientFactoryService;
+            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
@@ -48,7 +51,7 @@ namespace FoundationaLLM.Authorization.Services
                     SecurityGroupIds = userIdentity.GroupIds
                 };
 
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
+                var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/authorize",
                     JsonContent.Create(authorizationRequest));
@@ -77,7 +80,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
+                var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments",
                     JsonContent.Create(roleAssignmentRequest));
@@ -113,7 +116,7 @@ namespace FoundationaLLM.Authorization.Services
 
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
+                var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments/querywithactions",
                     JsonContent.Create(request));
@@ -143,7 +146,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
+                var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/roleassignments/query",
                     JsonContent.Create(queryParameters));
@@ -172,7 +175,7 @@ namespace FoundationaLLM.Authorization.Services
         {
             try
             {
-                var httpClient = await _httpClientFactoryService.CreateClient(HttpClientNames.AuthorizationAPI, userIdentity);
+                var httpClient = await CreateHttpClient();
                 var response = await httpClient.DeleteAsync(
                     $"/instances/{instanceId}/roleassignments/{roleAssignment}");
 
@@ -195,6 +198,26 @@ namespace FoundationaLLM.Authorization.Services
                 _logger.LogError(ex, "There was an error calling the Authorization API");
                 return new RoleAssignmentResult() { Success = false };
             }
+        }
+
+        /// <summary>
+        /// Exception to the unified HTTP client factory when consuming the Authorization API.
+        /// </summary>
+        /// <returns></returns>
+        private async Task<HttpClient> CreateHttpClient()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(_settings.APIUrl);
+
+            var credentials = DefaultAuthentication.AzureCredential;
+            var tokenResult = await credentials.GetTokenAsync(
+                new([_settings.APIScope]),
+                default);
+
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", tokenResult.Token);
+
+            return httpClient;
         }
     }
 }
