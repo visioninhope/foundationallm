@@ -31944,15 +31944,15 @@ references:
   fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.New
   nameWithType: OperationsController.OperationsController
   nameWithType.vb: OperationsController.New
-- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String)
-  name: CreateLongRunningOperation(string)
-  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperation_System_String_
-  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String)
-  name.vb: CreateLongRunningOperation(String)
-  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(string)
-  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(String)
-  nameWithType: OperationsController.CreateLongRunningOperation(string)
-  nameWithType.vb: OperationsController.CreateLongRunningOperation(String)
+- uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String,System.String)
+  name: CreateLongRunningOperation(string, string)
+  href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperation_System_String_System_String_
+  commentId: M:FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(System.String,System.String)
+  name.vb: CreateLongRunningOperation(String, String)
+  fullName: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(string, string)
+  fullName.vb: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation(String, String)
+  nameWithType: OperationsController.CreateLongRunningOperation(string, string)
+  nameWithType.vb: OperationsController.CreateLongRunningOperation(String, String)
 - uid: FoundationaLLM.State.API.Controllers.OperationsController.CreateLongRunningOperation*
   name: CreateLongRunningOperation
   href: api/dotnet/FoundationaLLM.State.API.Controllers.OperationsController.html#FoundationaLLM_State_API_Controllers_OperationsController_CreateLongRunningOperation_
@@ -32280,12 +32280,15 @@ references:
   commentId: T:FoundationaLLM.State.Interfaces.IStateService
   fullName: FoundationaLLM.State.Interfaces.IStateService
   nameWithType: IStateService
-- uid: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
-  name: CreateLongRunningOperation()
-  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_CreateLongRunningOperation
-  commentId: M:FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation
-  fullName: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation()
-  nameWithType: IStateService.CreateLongRunningOperation()
+- uid: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation(System.String)
+  name: CreateLongRunningOperation(string)
+  href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_CreateLongRunningOperation_System_String_
+  commentId: M:FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation(System.String)
+  name.vb: CreateLongRunningOperation(String)
+  fullName: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation(string)
+  fullName.vb: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation(String)
+  nameWithType: IStateService.CreateLongRunningOperation(string)
+  nameWithType.vb: IStateService.CreateLongRunningOperation(String)
 - uid: FoundationaLLM.State.Interfaces.IStateService.CreateLongRunningOperation*
   name: CreateLongRunningOperation
   href: api/dotnet/FoundationaLLM.State.Interfaces.IStateService.html#FoundationaLLM_State_Interfaces_IStateService_CreateLongRunningOperation_
@@ -32604,12 +32607,15 @@ references:
   fullName.vb: FoundationaLLM.State.Services.StateService.New
   nameWithType: StateService.StateService
   nameWithType.vb: StateService.New
-- uid: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
-  name: CreateLongRunningOperation()
-  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_CreateLongRunningOperation
-  commentId: M:FoundationaLLM.State.Services.StateService.CreateLongRunningOperation
-  fullName: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation()
-  nameWithType: StateService.CreateLongRunningOperation()
+- uid: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation(System.String)
+  name: CreateLongRunningOperation(string)
+  href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_CreateLongRunningOperation_System_String_
+  commentId: M:FoundationaLLM.State.Services.StateService.CreateLongRunningOperation(System.String)
+  name.vb: CreateLongRunningOperation(String)
+  fullName: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation(string)
+  fullName.vb: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation(String)
+  nameWithType: StateService.CreateLongRunningOperation(string)
+  nameWithType.vb: StateService.CreateLongRunningOperation(String)
 - uid: FoundationaLLM.State.Services.StateService.CreateLongRunningOperation*
   name: CreateLongRunningOperation
   href: api/dotnet/FoundationaLLM.State.Services.StateService.html#FoundationaLLM_State_Services_StateService_CreateLongRunningOperation_
