@@ -209,14 +209,14 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       {
         count: 1
         enableAutoScaling: true
-        maxCount: 3
+        maxCount: 10
         minCount: 1
         mode: 'System'
         name: 'system'
         osDiskSizeGB: 1024
         tags: tags
         type: 'VirtualMachineScaleSets'
-        vmSize: 'Standard_DS2_v2'
+        vmSize: 'Standard_D4s_v3'
         vnetSubnetID: subnetId
 
         nodeTaints: [
@@ -230,14 +230,14 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       {
         count: 1
         enableAutoScaling: true
-        maxCount: 3
+        maxCount: 10
         minCount: 1
         mode: 'User'
         name: 'user'
         osDiskSizeGB: 1024
         tags: tags
         type: 'VirtualMachineScaleSets'
-        vmSize: 'Standard_DS2_v2'
+        vmSize: 'Standard_D4s_v3'
         vnetSubnetID: subnetId
 
         upgradeSettings: {

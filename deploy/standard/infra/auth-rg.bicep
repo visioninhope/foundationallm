@@ -12,9 +12,6 @@ param opsResourceGroupName string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
 param authAppRegistrationClientId string
-@secure()
-param authClientSecret string
-param authAppRegistrationScopes string
 param instanceId string
 
 @description('DNS Resource Group Name')
@@ -65,14 +62,6 @@ var authSecrets = [
   {
     name: 'foundationallm-authorizationapi-entra-clientid'
     value: authAppRegistrationClientId
-  }
-  {
-    name: 'foundationallm-authorizationapi-entra-clientsecret'
-    value: authClientSecret
-  }
-  {
-    name: 'foundationallm-authorizationapi-entra-scopes'
-    value: authAppRegistrationScopes
   }
   {
     name: 'foundationallm-authorizationapi-instanceids'
