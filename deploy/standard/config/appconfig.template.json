@@ -120,13 +120,6 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield",
-        "value": "false",
-        "label": null,
-        "content_type": "",
-        "tags": {}
-      },
-      {
         "key": "FoundationaLLM:APIs:GatekeeperAPI:APIUrl",
         "value": "http://gatekeeper-api/gatekeeper",
         "label": null,
@@ -134,15 +127,8 @@
         "tags": {}
       },
       {
-        "key": "FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString",
-        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
-        "label": null,
-        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-        "tags": {}
-      },
-      {
-        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety",
-        "value": "true",
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield",
+        "value": "false",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -157,6 +143,20 @@
       {
         "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails",
         "value": "false",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+       {
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:AppInsightsConnectionString",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafety",
+        "value": "true",
         "label": null,
         "content_type": "",
         "tags": {}
@@ -213,6 +213,27 @@
       {
         "key": "FoundationaLLM:APIs:GatewayAPI:AppInsightsConnectionString",
         "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAdapterAPI:APIKey",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-gatewayadapterapi-apikey\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl",
+        "value": "http://gateway-api/gatewayadapter",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:GatewayAdapterAPI:AppInsightsConnectionString",
+        "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
@@ -318,6 +339,27 @@
       {
         "key": "FoundationaLLM:APIs:SemanticKernelAPI:AppInsightsConnectionString",
         "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:StateAPI:APIKey",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apis-stateapi-apikey\"}",
+        "label": null,
+        "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:StateAPI:APIUrl",
+        "value": "http://state-api/state",
+        "label": null,
+        "content_type": "",
+        "tags": {}
+      },
+      {
+        "key": "FoundationaLLM:APIs:StateAPI:AppInsightsConnectionString",
+        "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
