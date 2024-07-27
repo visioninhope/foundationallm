@@ -17,7 +17,7 @@ namespace FoundationaLLM
     public static partial class DependencyInjection
     {
         /// <summary>
-        /// Register the FoundatiionaLLM.Authorization resource provider with the dependency injection container.
+        /// Register the FoundationaLLM.Authorization resource provider with the dependency injection container.
         /// </summary>
         /// <param name="builder">Application builder.</param>
         public static void AddAuthorizationResourceProvider(this IHostApplicationBuilder builder)

@@ -37,7 +37,7 @@ namespace FoundationaLLM
                     }),
                     sp.GetRequiredService<ILogger<DataLakeStorageService>>())
                 {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization
+                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization
                 };
             });
 
@@ -50,7 +50,7 @@ namespace FoundationaLLM
                         InstanceIds = [.. builder.Configuration[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_InstanceIds]!.Split(',')]
                     }),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<ILogger<AuthorizationCore>>()));
 

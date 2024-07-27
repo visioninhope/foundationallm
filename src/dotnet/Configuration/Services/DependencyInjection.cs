@@ -39,30 +39,14 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
             builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
-            builder.Services.AddOptions<BlobStorageServiceSettings>(
-                DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration)
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Configuration_ResourceProviderService_Storage));
-
-            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
-            {
-                var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration);
-                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-                return new BlobStorageService(
-                    Options.Create<BlobStorageServiceSettings>(settings),
-                    logger)
-                {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration
-                };
-            });
+            builder.AddConfigurationResourceProviderStorage();
 
             builder.Services.AddSingleton<IResourceProviderService, ConfigurationResourceProviderService>(sp =>
                 new ConfigurationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Configuration),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Configuration),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<IAzureAppConfigurationService>(),

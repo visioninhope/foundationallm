@@ -27,23 +27,7 @@ namespace FoundationaLLM
         /// <param name="builder">The application builder.</param>
         public static void AddDataSourceResourceProvider(this IHostApplicationBuilder builder)
         {
-            builder.Services.AddOptions<BlobStorageServiceSettings>(
-                DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_DataSource_ResourceProviderService_Storage));
-
-            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
-            {
-                var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource);
-                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-                return new BlobStorageService(
-                    Options.Create<BlobStorageServiceSettings>(settings),
-                    logger)
-                {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource
-                };
-            });
+            builder.AddDataSourceResourceProviderStorage();
 
             // Register validators.
             builder.Services.AddSingleton<IValidator<DataSourceBase>, DataSourceBaseValidator>();
@@ -57,7 +41,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_DataSource),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp,
