@@ -18,7 +18,7 @@ $directories = @{
 
 foreach ($certificateFolder in $certificates) {
     $pfxPath = Join-Path $directories["certs"] $certificateFolder
-    $pfx = Get-ChildItem -Path $pfxPath
+    $pfx = Get-ChildItem -Path $pfxPath -Filter *.pfx | Select-Object -First 1
     $keyName = $certificateFolder
 
     Invoke-AndRequireSuccess "Load PFX Certificate $($certificateFolder) into Azure Key Vault" {

@@ -109,7 +109,7 @@ try {
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "chat-ui"
-            sslCert = "user-portal"
+            sslCert = "chatui"
         }
     }
 
@@ -120,7 +120,7 @@ try {
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "management-ui"
-            sslCert = "management-portal"
+            sslCert = "managementui"
         }
     }
 
@@ -132,7 +132,7 @@ try {
             path = "/core/"
             pathType = "ImplementationSpecific"
             serviceName = "core-api"
-            sslCert = "core-api"
+            sslCert = "coreapi"
         }
     }
 
@@ -143,7 +143,7 @@ try {
             path = "/management/"
             pathType = "ImplementationSpecific"
             serviceName = "management-api"
-            sslCert = "management-api"
+            sslCert = "managementapi"
         }
     }
 
