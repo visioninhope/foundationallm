@@ -2,9 +2,7 @@
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services;
-using FoundationaLLM.Configuration.Interfaces;
 using FoundationaLLM.Configuration.Services;
-using FoundationaLLM.Configuration.Validation;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,8 +31,6 @@ namespace FoundationaLLM
             });
 
             builder.Services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
-            builder.Services.AddSingleton<IConfigurationHealthChecks, ConfigurationHealthChecks>();
-            builder.Services.AddHostedService<ConfigurationHealthCheckService>();
 
             builder.AddConfigurationResourceProviderStorage();
 

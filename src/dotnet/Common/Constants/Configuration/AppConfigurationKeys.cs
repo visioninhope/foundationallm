@@ -185,7 +185,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         
         /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:AuthorizationAPI:APIUrl setting.
-        /// <para>Value description:<br/>The URL of the Authorization API.</para>
+        /// <para>Value description:<br/>The URL of the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_APIUrl =
             "FoundationaLLM:APIEndpoints:AuthorizationAPI:APIUrl";
@@ -200,6 +200,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #endregion
 
         #region FoundationaLLM:APIEndpoints:CoreAPI
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:APIUrl setting.
+        /// <para>Value description:<br/>The URL of the Core API. Since it's an entry point API, the Core API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_APIUrl =
+            "FoundationaLLM:APIEndpoints:CoreAPI:APIUrl";
         
         /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString setting.
@@ -447,6 +454,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #endregion
 
         #region FoundationaLLM:APIEndpoints:ManagementAPI
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:APIUrl setting.
+        /// <para>Value description:<br/>The URL of the Management API. Since it's an entry point API, the Management API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_APIUrl =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:APIUrl";
         
         /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString setting.
