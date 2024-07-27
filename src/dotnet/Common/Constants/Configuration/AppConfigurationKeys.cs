@@ -28,11 +28,8 @@
         /// <summary>
         /// The key filter for the FoundationaLLM:APIs:* app configuration settings.
         /// </summary>
-        public const string FoundationaLLM_APIs = "FoundationaLLM:APIs:*";
-        /// <summary>
-        /// The key filter for the FoundationaLLM:APIEndpoints:* app configuration settings.
-        /// </summary>
         public const string FoundationaLLM_APIEndpoints = "FoundationaLLM:APIEndpoints:*";
+
         /// <summary>
         /// The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.
         /// </summary>

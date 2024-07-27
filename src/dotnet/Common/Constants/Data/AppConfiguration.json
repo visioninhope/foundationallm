@@ -23,139 +23,139 @@
       }
     ]
   },
-  {
-    "namespace": "AIModel:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.AIModel resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.AIModel resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "Agent:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Agent resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Agent resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "Attachment:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Attachment resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Attachment resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "Configuration:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Configuration resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Configuration resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "DataSource:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.DataSource resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.DataSource resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "Prompt:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Prompt resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Prompt resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
-  {
-    "namespace": "Vectorization:ResourceProviderService:Storage",
-    "keys": [
-      {
-        "name": "AuthenticationType",
-        "description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Vectorization resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
-        "secret": "",
-        "value": "AzureIdentity",
-        "content_type": ""
-      },
-      {
-        "name": "AccountName",
-        "description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Vectorization resource provider.",
-        "secret": "",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
-        "content_type": ""
-      }
-    ]
-  },
+	{
+		"namespace": "ResourceProviders:AIModel:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.AIModel resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.AIModel resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:Agent:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Agent resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Agent resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:Attachment:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Attachment resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Attachment resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:Configuration:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Configuration resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Configuration resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:DataSource:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.DataSource resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.DataSource resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:Prompt:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Prompt resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Prompt resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
+	{
+		"namespace": "ResourceProviders:Vectorization:Storage",
+		"keys": [
+			{
+				"name": "AuthenticationType",
+				"description": "The type of authentication used to connect to the Azure Blob Storage account used by the FoundationaLLM.Vectorization resource provider. Can be one of: AzureIdentity, AccountKey, or ConnectionString.",
+				"secret": "",
+				"value": "AzureIdentity",
+				"content_type": ""
+			},
+			{
+				"name": "AccountName",
+				"description": "The name of the Azure Blob Storage account used by the FoundationaLLM.Vectorization resource provider.",
+				"secret": "",
+				"value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+				"content_type": ""
+			}
+		]
+	},
   {
     "namespace": "APIEndpoints:AuthorizationAPI",
     "keys": [

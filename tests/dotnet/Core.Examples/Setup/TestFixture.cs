@@ -23,7 +23,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 				.AddJsonFile("testsettings.e2e.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
-				.AddAzureAppConfiguration(options =>
+				.AddAzureAppConfiguration((Action<Microsoft.Extensions.Configuration.AzureAppConfiguration.AzureAppConfigurationOptions>)(options =>
 				{
 					var connectionString = Environment.Variable(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString);
 					if (string.IsNullOrEmpty(connectionString))
@@ -37,7 +37,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                         })
                         // Select the configuration sections to load:
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
+                        .Select((string)AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
@@ -46,7 +46,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
                         .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
-				})
+				}))
 				.Build();
 
 			TestServicesInitializer.InitializeServices(serviceCollection, configRoot);
