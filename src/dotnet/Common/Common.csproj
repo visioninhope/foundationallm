@@ -47,6 +47,10 @@
       <LastGenOutput>AuthorizationKeyVaultSecretNames.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
+    <None Update="Constants\Authorization\AuthorizationDependencyInjectionKeys.tt">
+      <LastGenOutput>AuthorizationDependencyInjectionKeys.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Constants\Authorization\RoleDefinitionNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RoleDefinitionNames.cs</LastGenOutput>
@@ -112,6 +116,11 @@
     </Compile>
     <Compile Update="Constants\Authorization\AuthorizationKeyVaultSecretNames.cs">
       <DependentUpon>AuthorizationKeyVaultSecretNames.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Constants\Authorization\AuthorizationDependencyInjectionKeys.cs">
+      <DependentUpon>AuthorizationDependencyInjectionKeys.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>

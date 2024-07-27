@@ -62,7 +62,7 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationWorker_AppInsightsConnectionString,
     ServiceNames.VectorizationWorker);
 
 // CORS policies
@@ -80,7 +80,7 @@ builder.Services.AddAzureEventGridEvents(
     AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_Worker));
 
 builder.Services.AddOptions<BlobStorageServiceSettings>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)

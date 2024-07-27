@@ -5,19 +5,14 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
-using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Security;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Gatekeeper.Core.Services;
-using Microsoft.Extensions.Http.Resilience;
 using Microsoft.Extensions.Options;
-using Polly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FoundationaLLM.Gatekeeper.API
@@ -63,7 +58,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_GatekeeperAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatekeeperAPI_AppInsightsConnectionString,
                 ServiceNames.GatekeeperAPI);
 
             builder.Services.AddControllers();

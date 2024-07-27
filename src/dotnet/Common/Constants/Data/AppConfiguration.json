@@ -247,7 +247,9 @@
 	{
 		"namespace": "APIEndpoints:AuthorizationAPI",
 		"dependency_injection_key": null,
-		"configuration_section": null,
+		"configuration_section": {
+			"description": "Configuration section used to identify the connection settings for the Authorization API. Due to its special nature, the Authorization API is the only API that does not have a corresponding APIEndpointConfiguration resource."
+		},
 		"configuration_keys": [
 			{
 				"name": "APIUrl",

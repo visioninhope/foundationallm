@@ -5,7 +5,6 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
@@ -54,7 +53,7 @@ namespace FoundationaLLM.SemanticKernel.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_AppInsightsConnectionString,
                 ServiceNames.SemanticKernelAPI);
 
             // CORS policies
@@ -158,8 +157,6 @@ namespace FoundationaLLM.SemanticKernel.API
                         var name = description.GroupName.ToUpperInvariant();
                         options.SwaggerEndpoint(url, name);
                     }
-
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
                 });
 
             app.UseHttpsRedirection();

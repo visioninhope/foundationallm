@@ -4,14 +4,11 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
-using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.API;
 using FoundationaLLM.Common.Services.Azure;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
@@ -123,17 +120,17 @@ namespace FoundationaLLM.Core.API
             var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
             var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
             builder.AddAuthenticationConfiguration(
-                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Instance,
-                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_TenantId,
-                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId,
-                AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_Scopes,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_Instance,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_TenantId,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_ClientId,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_Scopes,
                 requireScopes: !isE2ETestEnvironment,
                 allowACLAuthorization: isE2ETestEnvironment
             );
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString,
                 ServiceNames.CoreAPI);
 
             builder.Services.AddControllers();
@@ -243,7 +240,7 @@ namespace FoundationaLLM.Core.API
                         options.SwaggerEndpoint(url, name);
                     }
 
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreAPI_Entra_ClientId]! } });
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_ClientId]! } });
                 });
 
             app.UseHttpsRedirection();

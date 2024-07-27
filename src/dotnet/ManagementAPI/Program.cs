@@ -121,17 +121,17 @@ namespace FoundationaLLM.Management.API
             var e2ETestEnvironmentValue = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Environment) ?? string.Empty;
             var isE2ETestEnvironment = e2ETestEnvironmentValue.Equals(EnvironmentTypes.E2ETest, StringComparison.CurrentCultureIgnoreCase);
             builder.AddAuthenticationConfiguration(
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Instance,
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_TenantId,
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_ClientId,
-                AppConfigurationKeys.FoundationaLLM_ManagementAPI_Entra_Scopes,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_Instance,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_TenantId,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_ClientId,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_Scopes,
                 requireScopes: !isE2ETestEnvironment,
                 allowACLAuthorization: isE2ETestEnvironment
             );
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_AppInsightsConnectionString,
                 ServiceNames.ManagementAPI);
 
             builder.Services.AddControllers();
@@ -235,7 +235,7 @@ namespace FoundationaLLM.Management.API
                         options.SwaggerEndpoint(url, name);
                     }
 
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
+                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_ClientId]! } });
                 });
 
             app.UseHttpsRedirection();

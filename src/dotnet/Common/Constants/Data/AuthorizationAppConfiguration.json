@@ -1,5 +1,13 @@
 [
 	{
+		"namespace": "ResourceProviders:Authorization",
+		"dependency_injection_key": {
+			"description": "Dependency injection key used by the FoundationaLLM.Authorization resource provider."
+		},
+		"configuration_section": null,
+		"configuration_keys": []
+	},
+	{
 		"namespace": "ResourceProviders:Authorization:Storage",
 		"dependency_injection_key": null,
 		"configuration_section": null,

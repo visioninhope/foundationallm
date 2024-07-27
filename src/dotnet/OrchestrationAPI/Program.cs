@@ -70,7 +70,7 @@ namespace FoundationaLLM.Orchestration.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_OrchestrationAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_OrchestrationAPI_AppInsightsConnectionString,
                 ServiceNames.OrchestrationAPI);
 
             builder.Services.AddInstanceProperties(builder.Configuration);

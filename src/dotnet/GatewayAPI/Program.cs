@@ -32,7 +32,7 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIs_GatewayAPI_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatewayAPI_AppInsightsConnectionString,
     ServiceNames.GatewayAPI);
 
 // CORS policies

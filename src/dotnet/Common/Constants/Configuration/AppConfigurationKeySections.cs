@@ -46,5 +46,11 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_ResourceProviders_Vectorization_Storage =
             "FoundationaLLM:ResourceProviders:Vectorization:Storage";
+        
+        /// <summary>
+        /// Configuration section used to identify the connection settings for the Authorization API. Due to its special nature, the Authorization API is the only API that does not have a corresponding APIEndpointConfiguration resource.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI =
+            "FoundationaLLM:APIEndpoints:AuthorizationAPI";
     }
 }

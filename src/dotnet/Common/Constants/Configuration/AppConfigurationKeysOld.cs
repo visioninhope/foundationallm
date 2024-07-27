@@ -200,10 +200,7 @@
         /// The key section for the FoundationaLLM:APIs:VectorizationWorker app configuration settings.
         /// </summary>
         public const string FoundationaLLM_APIs_VectorizationWorker = "FoundationaLLM:APIs:VectorizationWorker";
-        /// <summary>
-        /// The key section for the FoundationaLLM:APIs:AuthorizationAPI app configuration settings.
-        /// </summary>
-        public const string FoundationaLLM_APIs_AuthorizationAPI = "FoundationaLLM:APIs:AuthorizationAPI";
+
         /// <summary>
         /// The key section for the FoundationaLLM:APIs:GatewayAPI app configuration settings.
         /// </summary>

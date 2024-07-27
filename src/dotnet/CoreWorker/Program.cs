@@ -1,14 +1,13 @@
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using FoundationaLLM.Core.Worker;
-using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Options;
-using FoundationaLLM.Common.Constants;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -53,7 +52,7 @@ builder.Services.AddSingleton<ICosmosDbChangeFeedService, CosmosDbChangeFeedServ
 builder.Services.AddHostedService<ChangeFeedWorker>();
 builder.Services.AddApplicationInsightsTelemetryWorkerService(options =>
 {
-    options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_CoreWorker_AppInsightsConnectionString];
+    options.ConnectionString = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreWorker_AppInsightsConnectionString];
 });
 
 var host = builder.Build();
