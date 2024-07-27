@@ -48,8 +48,17 @@
       <LastGenOutput>RoleDefinitionNames.cs</LastGenOutput>
     </None>
     <None Update="Constants\Configuration\AppConfigurationKeysNew.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AppConfigurationKeysNew.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Templates\appconfig.template.json">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>appconfig.template.tt</DependentUpon>
+    </None>
+    <None Update="Templates\appconfig.template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>appconfig.template.json</LastGenOutput>
     </None>
   </ItemGroup>
   
