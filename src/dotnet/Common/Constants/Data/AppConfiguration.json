@@ -181,7 +181,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -299,7 +299,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core Worker service.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -319,7 +319,7 @@
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper API.",
         "secret": "",
-        "value": "app-insights-connection-string",
+        "value": "appinsights-connection-string",
         "content_type": ""
       }
     ]
@@ -370,7 +370,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper Integration API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -389,7 +389,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Orchestration API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -408,7 +408,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the LangChain API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -427,7 +427,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Semantic Kernel API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -439,7 +439,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Management API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -505,7 +505,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -524,7 +524,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization worker service.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -543,7 +543,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -574,7 +574,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway Adapter API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
@@ -593,7 +593,7 @@
       {
         "name": "AppInsightsConnectionString",
         "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the State API.",
-        "secret": "app-insights-connection-string",
+        "secret": "appinsights-connection-string",
         "value": "",
         "content_type": ""
       }
