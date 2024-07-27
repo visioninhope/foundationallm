@@ -1,7 +1,7 @@
 {
   "type": "api-endpoint",
   "name": "GatekeeperIntegrationAPI",
-  "object_id": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}/providers/FoundationaLLM.Configuration/apiEndpointConfigurations/GatekeeperIntegrationAPI",
+  "object_id": "/instances/{{instanceId}}/providers/FoundationaLLM.Configuration/apiEndpointConfigurations/GatekeeperIntegrationAPI",
   "display_name": null,
   "description": null,
   "cost_center": null,
@@ -11,7 +11,7 @@
     "api_key_configuration_name": "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:APIKey",
     "api_key_header_name": "X-API-KEY"
   },
-  "url": "${env:SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL}",
+  "url": "http://gatekeeper-integration-api/gatekeeperintegration",
   "url_exceptions": [],
   "timeout_seconds": 60,
   "retry_strategy_name": "ExponentialBackoff",

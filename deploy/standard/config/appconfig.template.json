@@ -233,7 +233,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:GatewayAdapterAPI:AppInsightsConnectionString",
-        "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
@@ -359,7 +359,7 @@
       },
       {
         "key": "FoundationaLLM:APIs:StateAPI:AppInsightsConnectionString",
-        "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-app-insights-connection-string\"}",
+        "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-app-insights-connection-string\"}",
         "label": null,
         "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
         "tags": {}
@@ -422,7 +422,7 @@
       },
       {
         "key": "FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName",
-        "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
+        "value": "{{storageAccountAdlsName}}",
         "label": null,
         "content_type": "",
         "tags": {}

@@ -17,6 +17,7 @@ param location string
 param networkName string = ''
 param project string
 param registry string
+param services array
 param timestamp string = utcNow()
 param userPortalHostname string
 param managementPortalHostname string
@@ -106,6 +107,7 @@ module app 'app-rg.bicep' = {
     openAiResourceGroupName: resourceGroups.oai
     opsResourceGroupName: resourceGroups.ops
     project: project
+    services: services
     storageResourceGroupName: resourceGroups.storage
     vectorizationApiClientSecret: 'PLACEHOLDER'
     vectorizationResourceGroupName: resourceGroups.vec
@@ -229,6 +231,7 @@ output ADMIN_GROUP_OBJECT_ID string = administratorObjectId
 output AZURE_CONTENT_SAFETY_ENDPOINT string = openai.outputs.azureContentSafetyEndpoint
 output AZURE_OPENAI_ENDPOINT string = openai.outputs.azureOpenAiEndpoint
 output AZURE_OPENAI_ID string = openai.outputs.azureOpenAiId
+output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.storageAccountName
 
 output FOUNDATIONALLM_PROJECT string = project
 output FOUNDATIONALLM_K8S_NS string = k8sNamespace

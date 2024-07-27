@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "authAppRegistrationClientId": {
-        "value": "${ENTRA_AUTH_API_CLIENT_ID}"
+        "value": "${FLLM_AUTHORIZATION_CLIENT_ID}"
       },
       "authAppRegistrationInstance": {
-        "value": "${ENTRA_AUTH_API_INSTANCE='https://login.microsoftonline.com'}"
+        "value": "${ENTRA_AUTH_API_INSTANCE=https://login.microsoftonline.com}"
       },
       "administratorObjectId": {
         "value": "${ADMIN_GROUP_OBJECT_ID}"
@@ -33,7 +33,7 @@
         "value": "${AZURE_LOCATION}"
       },
       "k8sNamespace": {
-        "value": "${FOUNDATIONALLM_K8S_NS='fllm'}"
+        "value": "${FOUNDATIONALLM_K8S_NS=fllm}"
       },
       "instanceId": {
         "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
