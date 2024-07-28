@@ -81,7 +81,7 @@ namespace FoundationaLLM.Orchestration.API
             // Add event services.
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_OrchestrationAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_OrchestrationAPI);
 
             //builder.Services.AddServiceProfiler();
             builder.Services.AddControllers();
@@ -91,19 +91,16 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_OrchestrationAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_OrchestrationAPI));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 
             builder.Services.AddOptions<SemanticKernelServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_SemanticKernelAPI));
 
             builder.Services.AddOptions<LangChainServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_LangChainAPI));
-
-            builder.Services.AddOptions<OrchestrationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Orchestration));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_LangChainAPI));
 
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();

@@ -64,7 +64,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 		private static void RegisterSearchIndex(IServiceCollection services, IConfiguration configuration)
 		{
             services.AddOptions<AzureAISearchIndexingServiceSettings>()
-                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration));
 
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
                 DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
@@ -86,7 +86,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddOptions<CosmosDbSettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
+				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB));
 
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
@@ -111,9 +111,9 @@ namespace FoundationaLLM.Core.Examples.Setup
                 if (completionQualityMeasurementConfiguration is { AgentPrompts: not null })
                 {
                     services.AddOptions<AzureAISettings>()
-                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration));
                     services.AddOptions<BlobStorageServiceSettings>()
-                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage));
 
                     services.AddScoped<IAzureAIService, AzureAIService>();
                     services.AddSingleton<IStorageService, BlobStorageService>();

@@ -74,7 +74,7 @@ namespace FoundationaLLM.SemanticKernel.API
             // Add event services
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_VectorizationAPI);
 
             // Add Azure ARM services
             builder.Services.AddAzureResourceManager();
@@ -105,7 +105,7 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_SemanticKernelAPI));
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();

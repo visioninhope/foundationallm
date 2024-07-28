@@ -2,7 +2,9 @@
   {
     "namespace": "Instance",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings related to the FoundationaLLM instance."
+    },
     "configuration_keys": [
       {
         "name": "Id",
@@ -261,10 +263,18 @@
     ]
   },
   {
+    "namespace": "APIEndpoints",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for all API endpoints."
+    },
+    "configuration_keys": []
+  },
+  {
     "namespace": "APIEndpoints:AuthorizationAPI",
     "dependency_injection_key": null,
     "configuration_section": {
-      "description": "Configuration section used to identify the connection settings for the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource."
+      "description": "Configuration section used to identify the authentication settings for the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource."
     },
     "configuration_keys": [
 			{
@@ -307,6 +317,23 @@
 				"first_version": "0.8.0"
 			}
 		]
+  },
+  {
+    "namespace": "APIEndpoints:CoreAPI:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the main Core API settings."
+    },
+    "configuration_keys": [
+      {
+        "name": "BypassGatekeeper",
+        "description": "The flag that indicates whether the Core API should bypass or not the Gatekeeper API.",
+        "secret": "",
+        "value": "true",
+        "content_type": "",
+        "first_version": "0.8.0"
+      }
+    ]
   },
   {
     "namespace": "APIEndpoints:CoreAPI:Configuration:Entra",
@@ -352,36 +379,15 @@
         "value": "${env:ENTRA_CORE_API_CLIENT_ID}",
         "content_type": "",
         "first_version": "0.8.0"
-      },
-      {
-        "name": "ClientSecret",
-        "description": "The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Core API to authenticate.",
-        "secret": "apiendpoints-coreapi-configuration-entra-clientsecret",
-        "value": "",
-        "content_type": "",
-        "first_version": "0.8.0"
-      }
-    ]
-  },
-  {
-    "namespace": "APIEndpoints:CoreAPI:Configuration:Gatekeeper",
-    "dependency_injection_key": null,
-    "configuration_section": null,
-    "configuration_keys": [
-      {
-        "name": "BypassGatekeeper",
-        "description": "The flag that indicates whether the Core API should bypass or not the Gatekeeper API.",
-        "secret": "",
-        "value": "true",
-        "content_type": "",
-        "first_version": "0.8.0"
       }
     ]
   },
   {
     "namespace": "APIEndpoints:CoreAPI:Configuration:CosmosDB",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the Cosmos DB settings for the Core API."
+    },
     "configuration_keys": [
       {
         "name": "Endpoint",
@@ -428,7 +434,9 @@
   {
     "namespace": "APIEndpoints:CoreWorker",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Core Worker service."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -451,7 +459,9 @@
   {
     "namespace": "APIEndpoints:GatekeeperAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Gatekeeper API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -474,7 +484,9 @@
   {
     "namespace": "APIEndpoints:GatekeeperAPI:Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Gatekeeper API."
+    },
     "configuration_keys": [
       {
         "name": "EnableLakeraGuard",
@@ -487,6 +499,14 @@
       {
         "name": "EnableEnkryptGuardrails",
         "description": "Indicates whether Enkrypt Guardrails is available for use by the Gatekeeper API.",
+        "secret": "",
+        "value": "false",
+        "content_type": "",
+        "first_version": "0.8.0"
+      },
+      {
+        "name": "EnableAzureContentSafety",
+        "description": "Indicates whether Azure Content Safety is available for use by the Gatekeeper API.",
         "secret": "",
         "value": "false",
         "content_type": "",
@@ -513,7 +533,9 @@
   {
     "namespace": "APIEndpoints:GatekeeperIntegrationAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Gatekeeper Integration API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -536,7 +558,9 @@
   {
     "namespace": "APIEndpoints:OrchestrationAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Orchestration API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -559,7 +583,9 @@
   {
     "namespace": "APIEndpoints:LangChainAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the LangChain API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -582,7 +608,9 @@
   {
     "namespace": "APIEndpoints:SemanticKernelAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Semantic Kernel API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -669,21 +697,15 @@
         "value": "${env:ENTRA_MANAGEMENT_API_CLIENT_ID}",
         "content_type": "",
         "first_version": "0.8.0"
-      },
-      {
-        "name": "ClientSecret",
-        "description": "The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management API to authenticate.",
-        "secret": "apiendpoints-managementapi-configuration-entra-clientsecret",
-        "value": "",
-        "content_type": "",
-        "first_version": "0.8.0"
       }
     ]
   },
   {
     "namespace": "APIEndpoints:VectorizationAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Vectorization API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -706,7 +728,9 @@
   {
     "namespace": "APIEndpoints:VectorizationWorker",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Vectorization Worker service."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -729,7 +753,9 @@
   {
     "namespace": "APIEndpoints:GatewayAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Gateway API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -752,7 +778,9 @@
   {
     "namespace": "APIEndpoints:GatewayAPI:Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Gateway API."
+    },
     "configuration_keys": [
       {
         "name": "AzureOpenAIAccounts",
@@ -767,7 +795,9 @@
   {
     "namespace": "APIEndpoints:GatewayAdapterAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the Gateway Adapter API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -790,7 +820,9 @@
   {
     "namespace": "APIEndpoints:StateAPI",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the authentication settings for the State API."
+    },
     "configuration_keys": [
       {
         "name": "APIKey",
@@ -813,7 +845,9 @@
   {
     "namespace": "APIEndpoints:StateAPI:Configuration:CosmosDB",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the Cosmos DB settings for the State API."
+    },
     "configuration_keys": [
       {
         "name": "Endpoint",
@@ -857,9 +891,27 @@
     ]
   },
   {
-    "namespace": "APIEndpoints:AzureAISearch",
+    "namespace": "APIEndpoints:AzureAISearchVectorStore:Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure AI Search vector store service."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "APIEndpoints:AzureCosmosDBNoSQLVectorStore:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure Cosmos DB NoSQL vector store service."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "APIEndpoints:AzurePostgreSQLVectorStore:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure PostgreSQL vector store service."
+    },
     "configuration_keys": []
   },
   {
@@ -880,7 +932,9 @@
   {
     "namespace": "APIEndpoints:AzureEventGrid:Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure Event Grid service."
+    },
     "configuration_keys": [
       {
         "name": "NamespaceId",
@@ -889,48 +943,24 @@
         "value": "${env:AZURE_EVENT_GRID_ID}",
         "content_type": "",
         "first_version": "0.8.0"
-      },
-      {
-        "name": "Profiles:CoreAPI",
-        "description": "The settings used by the Core API to process Azure Event Grid events.",
-        "secret": "",
-        "value": "${env:FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
-        "content_type": "application/json",
-        "first_version": "0.8.0"
-      },
-      {
-        "name": "Profiles:OrchestrationAPI",
-        "description": "The settings used by the Orchestration API to process Azure Event Grid events.",
-        "secret": "",
-        "value": "${env:FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE}",
-        "content_type": "application/json",
-        "first_version": "0.8.0"
-      },
-      {
-        "name": "Profiles:ManagementAPI",
-        "description": "The settings used by the Management API to process Azure Event Grid events.",
-        "secret": "",
-        "value": "${env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
-        "content_type": "application/json",
-        "first_version": "0.8.0"
-      },
-      {
-        "name": "Profiles:Vectorization",
-        "description": "The settings used by the Vectorization API to process Azure Event Grid events.",
-        "secret": "",
-        "value": "${env:FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
-        "content_type": "application/json",
-        "first_version": "0.8.0"
-      },
-      {
-        "name": "Profiles:VectorizationWorker",
-        "description": "The settings used by the Vectorization Worker to process Azure Event Grid events.",
-        "secret": "",
-        "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
-        "content_type": "application/json",
-        "first_version": "0.8.0"
       }
     ]
+  },
+  {
+    "namespace": "APIEndpoints:AzureAIStudio:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure AI Studio service."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "APIEndpoints:AzureAIStudio:Configuration:Storage",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for storage account used by the Azure AI Studio service."
+    },
+    "configuration_keys": []
   },
   {
     "namespace": "APIEndpoints:AzureContentSafety",
@@ -950,7 +980,9 @@
   {
     "namespace": "APIEndpoints:AzureContentSafety:Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Azure Content Safety service."
+    },
     "configuration_keys": [
       {
         "name": "HateSeverity",
@@ -987,9 +1019,27 @@
     ]
   },
   {
+    "namespace": "APIEndpoints:LakeraGuard:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Lakera Guard service."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "APIEndpoints:EnkryptGuardrails:Configuration",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the Encrypt Guardrails service."
+    },
+    "configuration_keys": []
+  },
+  {
     "namespace": "Branding",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the branding settings for the User Portal."
+    },
     "configuration_keys": [
       {
         "name": "AccentColor",
@@ -1181,14 +1231,6 @@
         "value": "${env:ENTRA_CHAT_UI_CLIENT_ID}",
         "content_type": "",
         "first_version": "0.8.0"
-      },
-      {
-        "name": "ClientSecret",
-        "description": "The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the User Portal to authenticate.",
-        "secret": "userportal-authentication-entra-clientsecret",
-        "value": "",
-        "content_type": "",
-        "first_version": "0.8.0"
       }
     ]
   },
@@ -1236,14 +1278,6 @@
         "value": "${env:ENTRA_MANAGEMENT_UI_CLIENT_ID}",
         "content_type": "",
         "first_version": "0.8.0"
-      },
-      {
-        "name": "ClientSecret",
-        "description": "The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management Portal to authenticate.",
-        "secret": "managementportal-authentication-entra-clientsecret",
-        "value": "",
-        "content_type": "",
-        "first_version": "0.8.0"
       }
     ]
   },
@@ -1263,9 +1297,19 @@
     ]
   },
   {
+    "namespace": "Vectorization:Steps",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for vectorization steps."
+    },
+    "configuration_keys": []
+  },
+  {
     "namespace": "Vectorization:Queues",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for vectorization queues."
+    },
     "configuration_keys": [
       {
         "name": "Extract:AccountName",
@@ -1304,7 +1348,9 @@
   {
     "namespace": "Vectorization:StateService:Storage",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the storage account used by the vectorization state service."
+    },
     "configuration_keys": [
       {
         "name": "AuthenticationType",
@@ -1323,5 +1369,100 @@
         "first_version": "0.8.0"
       }
     ]
+  },
+  {
+    "namespace": "DataSources",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for data sources resources managed by the FoundationaLLM.DataSource resource provider."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "Events:Profiles",
+    "dependency_injection_key": null,
+    "configuration_section": null,
+    "configuration_keys": [
+      {
+        "name": "CoreAPI",
+        "description": "The settings used by the Core API to process Azure Event Grid events.",
+        "secret": "",
+        "value": "${env:FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
+        "content_type": "application/json",
+        "first_version": "0.8.0"
+      },
+      {
+        "name": "OrchestrationAPI",
+        "description": "The settings used by the Orchestration API to process Azure Event Grid events.",
+        "secret": "",
+        "value": "${env:FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE}",
+        "content_type": "application/json",
+        "first_version": "0.8.0"
+      },
+      {
+        "name": "ManagementAPI",
+        "description": "The settings used by the Management API to process Azure Event Grid events.",
+        "secret": "",
+        "value": "${env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
+        "content_type": "application/json",
+        "first_version": "0.8.0"
+      },
+      {
+        "name": "VectorizationAPI",
+        "description": "The settings used by the Vectorization API to process Azure Event Grid events.",
+        "secret": "",
+        "value": "${env:FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
+        "content_type": "application/json",
+        "first_version": "0.8.0"
+      },
+      {
+        "name": "VectorizationWorker",
+        "description": "The settings used by the Vectorization Worker to process Azure Event Grid events.",
+        "secret": "",
+        "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
+        "content_type": "application/json",
+        "first_version": "0.8.0"
+      }
+    ]
+  },
+  {
+    "namespace": "Events:Profiles:CoreAPI",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the events infrastructure used by the Core API."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "Events:Profiles:OrchestrationAPI",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the events infrastructure used by the Orchestration API."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "Events:Profiles:ManagementAPI",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the events infrastructure used by the Management API."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "Events:Profiles:VectorizationAPI",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the events infrastructure used by the Vectorization API."
+    },
+    "configuration_keys": []
+  },
+  {
+    "namespace": "Events:Profiles:VectorizationWorker",
+    "dependency_injection_key": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the settings for the events infrastructure used by the Vectorization Worker service."
+    },
+    "configuration_keys": []
   }
 ]

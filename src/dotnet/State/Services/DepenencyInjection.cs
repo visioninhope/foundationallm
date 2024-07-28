@@ -19,7 +19,7 @@ namespace FoundationaLLM
         public static void AddState(this IHostApplicationBuilder builder)
         {
             builder.Services.AddOptions<StateServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_State));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB));
 
             builder.Services.AddScoped<IStateService, StateService>();
         }

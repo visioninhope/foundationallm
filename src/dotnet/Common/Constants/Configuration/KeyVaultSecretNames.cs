@@ -9,13 +9,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
-
-        /// <summary>
-        /// The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Core API to authenticate.
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_ClientSecret =
-            "foundationallm-apiendpoints-coreapi-configuration-entra-clientsecret";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Core Worker service.
@@ -27,7 +21,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core Worker service.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreWorker_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Gatekeeper API.
@@ -45,7 +39,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper Integration API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Orchestration API.
@@ -57,7 +51,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Orchestration API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the LangChain API.
@@ -69,7 +63,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the LangChain API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_LangChainAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Semantic Kernel API.
@@ -81,19 +75,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Semantic Kernel API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Management API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_ManagementAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
-
-        /// <summary>
-        /// The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management API to authenticate.
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_ClientSecret =
-            "foundationallm-apiendpoints-managementapi-configuration-entra-clientsecret";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Vectorization API.
@@ -105,7 +93,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_VectorizationAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Vectorization Worker service.
@@ -117,7 +105,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization worker service.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_VectorizationWorker_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Gateway API.
@@ -129,7 +117,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_GatewayAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Gateway Adapter API.
@@ -141,7 +129,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway Adapter API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the State API.
@@ -153,7 +141,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the State API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_StateAPI_AppInsightsConnectionString =
-            "foundationallm-appinsights-connection-string";
+            "foundationallm-appinsights-connectionstring";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Azure OpenAI service.
@@ -172,17 +160,5 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AzureContentSafety_APIKey =
             "foundationallm-apiendpoints-azurecontentsafety-apikey";
-
-        /// <summary>
-        /// The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the User Portal to authenticate.
-        /// </summary>
-        public const string FoundationaLLM_UserPortal_Authentication_Entra_ClientSecret =
-            "foundationallm-userportal-authentication-entra-clientsecret";
-
-        /// <summary>
-        /// The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management Portal to authenticate.
-        /// </summary>
-        public const string FoundationaLLM_ManagementPortal_Authentication_Entra_ClientSecret =
-            "foundationallm-managementportal-authentication-entra-clientsecret";
     }
 }

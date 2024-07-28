@@ -77,26 +77,23 @@ builder.Services.AddAzureResourceManager();
 // Add event services
 builder.Services.AddAzureEventGridEvents(
     builder.Configuration,
-    AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
+    AppConfigurationKeySections.FoundationaLLM_Events_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_Worker));
 
 builder.Services.AddOptions<BlobStorageServiceSettings>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService));
-
-builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService_Storage));
 
 builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration));
 
 builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration));
 
 builder.Services.AddOptions<PostgresIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration));
 
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
@@ -178,7 +175,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationWorker));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationWorker));
 
 builder.Services
     .AddApiVersioning(options =>

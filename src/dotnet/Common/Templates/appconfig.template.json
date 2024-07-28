@@ -127,10 +127,24 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:APIEndpoints:CoreAPI:APIUrl",
+            "value": "${env:SERVICE_CORE_API_ENDPOINT_URL}",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString",
             "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-appinsights-connectionstring}\"}",
             "label": null,
             "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:BypassGatekeeper",
+            "value": "true",
+            "label": null,
+            "content_type": "",
             "tags": {}
         },
         {
@@ -164,20 +178,6 @@
         {
             "key": "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:ClientId",
             "value": "${env:ENTRA_CORE_API_CLIENT_ID}",
-            "label": null,
-            "content_type": "",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:ClientSecret",
-            "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apiendpoints-coreapi-configuration-entra-clientsecret}\"}",
-            "label": null,
-            "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Gatekeeper:BypassGatekeeper",
-            "value": "true",
             "label": null,
             "content_type": "",
             "tags": {}
@@ -260,6 +260,13 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableAzureContentSafety",
+            "value": "false",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShields",
             "value": "false",
             "label": null,
@@ -330,6 +337,13 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:APIEndpoints:ManagementAPI:APIUrl",
+            "value": "${env:SERVICE_MANAGEMENT_API_ENDPOINT_URL}",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString",
             "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-appinsights-connectionstring}\"}",
             "label": null,
@@ -369,13 +383,6 @@
             "value": "${env:ENTRA_MANAGEMENT_API_CLIENT_ID}",
             "label": null,
             "content_type": "",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:ClientSecret",
-            "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apiendpoints-managementapi-configuration-entra-clientsecret}\"}",
-            "label": null,
-            "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
             "tags": {}
         },
         {
@@ -495,41 +502,6 @@
             "value": "${env:AZURE_EVENT_GRID_ID}",
             "label": null,
             "content_type": "",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:CoreAPI",
-            "value": "${env:FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
-            "label": null,
-            "content_type": "application/json",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:OrchestrationAPI",
-            "value": "${env:FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE}",
-            "label": null,
-            "content_type": "application/json",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:ManagementAPI",
-            "value": "${env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
-            "label": null,
-            "content_type": "application/json",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:Vectorization",
-            "value": "${env:FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
-            "label": null,
-            "content_type": "application/json",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:VectorizationWorker",
-            "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
-            "label": null,
-            "content_type": "application/json",
             "tags": {}
         },
         {
@@ -729,13 +701,6 @@
             "tags": {}
         },
         {
-            "key": "FoundationaLLM:UserPortal:Authentication:Entra:ClientSecret",
-            "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-userportal-authentication-entra-clientsecret}\"}",
-            "label": null,
-            "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
-            "tags": {}
-        },
-        {
             "key": "FoundationaLLM:ManagementPortal:Authentication:Entra:Instance",
             "value": "https://login.microsoftonline.com/",
             "label": null,
@@ -768,13 +733,6 @@
             "value": "${env:ENTRA_MANAGEMENT_UI_CLIENT_ID}",
             "label": null,
             "content_type": "",
-            "tags": {}
-        },
-        {
-            "key": "FoundationaLLM:ManagementPortal:Authentication:Entra:ClientSecret",
-            "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-managementportal-authentication-entra-clientsecret}\"}",
-            "label": null,
-            "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
             "tags": {}
         },
         {
@@ -824,6 +782,41 @@
             "value": "${env:AZURE_STORAGE_ACCOUNT_NAME}",
             "label": null,
             "content_type": "",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:CoreAPI",
+            "value": "${env:FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:OrchestrationAPI",
+            "value": "${env:FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:ManagementAPI",
+            "value": "${env:FOUNDATIONALLM_MANAGEMENT_API_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:VectorizationAPI",
+            "value": "${env:FOUNDATIONALLM_VECTORIZATION_API_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:VectorizationWorker",
+            "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
             "tags": {}
         },
     ]

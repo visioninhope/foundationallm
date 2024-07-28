@@ -67,7 +67,7 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_GatekeeperAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI));
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 
@@ -79,15 +79,15 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
             builder.Services.AddOptions<LakeraGuardServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_LakeraGuard));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_LakeraGuard_Configuration));
             builder.Services.AddScoped<ILakeraGuardService, LakeraGuardService>();
 
             builder.Services.AddOptions<EnkryptGuardrailsServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_EnkryptGuardrails));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_EnkryptGuardrails_Configuration));
             builder.Services.AddScoped<IEnkryptGuardrailsService, EnkryptGuardrailsService>();
 
             builder.Services.AddOptions<AzureContentSafetySettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_Gatekeeper_AzureContentSafety));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration));
             builder.Services.AddScoped<IContentSafetyService, AzureContentSafetyService>();
             builder.Services.AddScoped<IGatekeeperIntegrationAPIService, GatekeeperIntegrationAPIService>();
 
@@ -96,7 +96,7 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
             builder.Services.AddOptions<GatekeeperServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_GatekeeperAPI_Configuration));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration));
             builder.Services.AddScoped<IGatekeeperService, GatekeeperService>();
 
             builder.Services

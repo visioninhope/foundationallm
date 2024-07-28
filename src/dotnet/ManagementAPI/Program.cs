@@ -71,9 +71,9 @@ namespace FoundationaLLM.Management.API
             builder.AddCorsPolicies();
 
             builder.Services.AddOptions<VectorizationServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationAPI));
             builder.Services.AddOptions<CosmosDbSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB));
             builder.Services.AddOptions<ClientBrandingConfiguration>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Branding));
             builder.Services.AddOptions<AppConfigurationSettings>()
@@ -88,16 +88,11 @@ namespace FoundationaLLM.Management.API
             // Add event services
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_ManagementAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_ManagementAPI);
 
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             builder.Services.AddScoped<ICallContext, CallContext>();
             builder.AddHttpClientFactoryService();
-
-            // Add event services.
-            builder.Services.AddAzureEventGridEvents(
-                builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService);
 
             // Resource validation.
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();

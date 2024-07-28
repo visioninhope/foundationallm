@@ -181,6 +181,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
+        #region FoundationaLLM:APIEndpoints
+
+        #endregion
+
         #region FoundationaLLM:APIEndpoints:AuthorizationAPI
         
         /// <summary>
@@ -214,6 +218,17 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString =
             "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString";
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:CoreAPI:Configuration
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Configuration:BypassGatekeeper setting.
+        /// <para>Value description:<br/>The flag that indicates whether the Core API should bypass or not the Gatekeeper API.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:BypassGatekeeper";
 
         #endregion
 
@@ -253,24 +268,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_ClientId =
             "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:ClientId";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:ClientSecret setting.
-        /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Core API to authenticate.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra_ClientSecret =
-            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:ClientSecret";
-
-        #endregion
-
-        #region FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Gatekeeper
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Gatekeeper:BypassGatekeeper setting.
-        /// <para>Value description:<br/>The flag that indicates whether the Core API should bypass or not the Gatekeeper API.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Gatekeeper_BypassGatekeeper =
-            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Gatekeeper:BypassGatekeeper";
 
         #endregion
 
@@ -364,6 +361,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration_EnableEnkryptGuardrails =
             "FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableEnkryptGuardrails";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableAzureContentSafety setting.
+        /// <para>Value description:<br/>Indicates whether Azure Content Safety is available for use by the Gatekeeper API.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration_EnableAzureContentSafety =
+            "FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableAzureContentSafety";
         
         /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShields setting.
@@ -507,13 +511,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_ClientId =
             "FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:ClientId";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:ClientSecret setting.
-        /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management API to authenticate.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra_ClientSecret =
-            "FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:ClientSecret";
 
         #endregion
 
@@ -654,7 +651,15 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:AzureAISearch
+        #region FoundationaLLM:APIEndpoints:AzureAISearchVectorStore:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:AzureCosmosDBNoSQLVectorStore:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:AzurePostgreSQLVectorStore:Configuration
 
         #endregion
 
@@ -677,41 +682,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_NamespaceId =
             "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:NamespaceId";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:CoreAPI setting.
-        /// <para>Value description:<br/>The settings used by the Core API to process Azure Event Grid events.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_Profiles_CoreAPI =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:CoreAPI";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:OrchestrationAPI setting.
-        /// <para>Value description:<br/>The settings used by the Orchestration API to process Azure Event Grid events.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_Profiles_OrchestrationAPI =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:OrchestrationAPI";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:ManagementAPI setting.
-        /// <para>Value description:<br/>The settings used by the Management API to process Azure Event Grid events.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_Profiles_ManagementAPI =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:ManagementAPI";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:Vectorization setting.
-        /// <para>Value description:<br/>The settings used by the Vectorization API to process Azure Event Grid events.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_Profiles_Vectorization =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:Vectorization";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:VectorizationWorker setting.
-        /// <para>Value description:<br/>The settings used by the Vectorization Worker to process Azure Event Grid events.</para>
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration_Profiles_VectorizationWorker =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:Profiles:VectorizationWorker";
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:AzureAIStudio:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:AzureAIStudio:Configuration:Storage
 
         #endregion
 
@@ -755,6 +733,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration_ViolenceSeverity =
             "FoundationaLLM:APIEndpoints:AzureContentSafety:Configuration:ViolenceSeverity";
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:LakeraGuard:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:EnkryptGuardrails:Configuration
 
         #endregion
 
@@ -924,13 +910,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_UserPortal_Authentication_Entra_ClientId =
             "FoundationaLLM:UserPortal:Authentication:Entra:ClientId";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:UserPortal:Authentication:Entra:ClientSecret setting.
-        /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the User Portal to authenticate.</para>
-        /// </summary>
-        public const string FoundationaLLM_UserPortal_Authentication_Entra_ClientSecret =
-            "FoundationaLLM:UserPortal:Authentication:Entra:ClientSecret";
 
         #endregion
 
@@ -970,13 +949,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_ManagementPortal_Authentication_Entra_ClientId =
             "FoundationaLLM:ManagementPortal:Authentication:Entra:ClientId";
-        
-        /// <summary>
-        /// The app configuration key for the FoundationaLLM:ManagementPortal:Authentication:Entra:ClientSecret setting.
-        /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the client secret associated with the Entra ID app registration used by the Management Portal to authenticate.</para>
-        /// </summary>
-        public const string FoundationaLLM_ManagementPortal_Authentication_Entra_ClientSecret =
-            "FoundationaLLM:ManagementPortal:Authentication:Entra:ClientSecret";
 
         #endregion
 
@@ -988,6 +960,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Vectorization_Worker =
             "FoundationaLLM:Vectorization:Worker";
+
+        #endregion
+
+        #region FoundationaLLM:Vectorization:Steps
 
         #endregion
 
@@ -1038,6 +1014,69 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Vectorization_StateService_Storage_AccountName =
             "FoundationaLLM:Vectorization:StateService:Storage:AccountName";
+
+        #endregion
+
+        #region FoundationaLLM:DataSources
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:CoreAPI setting.
+        /// <para>Value description:<br/>The settings used by the Core API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_CoreAPI =
+            "FoundationaLLM:Events:Profiles:CoreAPI";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:OrchestrationAPI setting.
+        /// <para>Value description:<br/>The settings used by the Orchestration API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_OrchestrationAPI =
+            "FoundationaLLM:Events:Profiles:OrchestrationAPI";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:ManagementAPI setting.
+        /// <para>Value description:<br/>The settings used by the Management API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_ManagementAPI =
+            "FoundationaLLM:Events:Profiles:ManagementAPI";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:VectorizationAPI setting.
+        /// <para>Value description:<br/>The settings used by the Vectorization API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_VectorizationAPI =
+            "FoundationaLLM:Events:Profiles:VectorizationAPI";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:VectorizationWorker setting.
+        /// <para>Value description:<br/>The settings used by the Vectorization Worker to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_VectorizationWorker =
+            "FoundationaLLM:Events:Profiles:VectorizationWorker";
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:CoreAPI
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:OrchestrationAPI
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:ManagementAPI
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:VectorizationAPI
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:VectorizationWorker
 
         #endregion
     }
