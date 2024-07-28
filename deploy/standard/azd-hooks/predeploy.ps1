@@ -88,11 +88,11 @@ try {
     }
 
     $entraScopes = @{
-        authorization = "api://FoundationaLLM-Authorization-Auth/.default"
-        chat          = "api://FoundationaLLM-Auth/Data.Read"
+        authorization = "api://FoundationaLLM-Authorization/.default"
+        chat          = "api://FoundationaLLM-Core/Data.Read"
         core          = "Data.Read"
         managementapi = "Data.Manage"
-        managementui  = "api://FoundationaLLM-Management-Auth/Data.Manage"
+        managementui  = "api://FoundationaLLM-Management/Data.Manage"
     }
 
     # Get frontend and backend hostnames
