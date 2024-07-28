@@ -1,12 +1,6 @@
 {
 	"ResourceReferences": [
 		{
-			"Name": "AuthorizationAPI",
-			"Filename": "/FoundationaLLM.Configuration/AuthorizationAPI.json",
-			"Type": "api-endpoint",
-			"Deleted": false
-		},
-		{
 			"Name": "AzureContentSafety",
 			"Filename": "/FoundationaLLM.Configuration/AzureContentSafety.json",
 			"Type": "api-endpoint",

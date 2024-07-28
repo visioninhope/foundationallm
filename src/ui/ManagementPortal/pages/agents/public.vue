@@ -131,6 +131,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 			agentToDelete: null as Agent | null,
+			accessControlModalOpen: false,
 		};
 	},
 
