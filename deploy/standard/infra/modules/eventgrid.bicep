@@ -86,24 +86,16 @@ resource egTopics 'Microsoft.EventGrid/namespaces/topics@2023-12-15-preview' = [
   }
 ]
 
-
-var secretNames = [
-  'foundationallm-events-azureeventgrid-apikey'
-  'event-grid-key'
-]
-
-module eventGridKey 'kvSecret.bicep' = [
-  for (secretName,i) in secretNames: {
-    name: 'egKey-${i}'
-    scope: resourceGroup(opsResourceGroupName)
-    params: {
-      kvName: kvName
-      secretName: secretName
-      secretValue: main.listKeys().key1
-      tags: tags
-    }
+module eventGridKey 'kvSecret.bicep' = {
+  name: 'egKey-${timestamp}'
+  scope: resourceGroup(opsResourceGroupName)
+  params: {
+    kvName: kvName
+    secretName: 'foundationallm-apiendpoints-azureeventgrid-apikey'
+    secretValue: main.listKeys().key1
+    tags: tags
   }
-]
+}
 
 @description('Diagnostic settings for the resource')
 resource diagnostics 'Microsoft.Insights/diagnosticSettings@2017-05-01-preview' = {
@@ -140,8 +132,8 @@ module metricAlerts 'utility/metricAlerts.bicep' = {
 
 output endpoint string = 'https://${main.properties.topicsConfiguration.hostname}'
 output id string = main.id
-output keySecretName string = eventGridKey[0].name
-output keySecretRef string = eventGridKey[0].outputs.secretUri
+output keySecretName string = eventGridKey.name
+output keySecretRef string = eventGridKey.outputs.secretUri
 output name string = main.name
 output topicNames array = topics
 output topicIds array = [for (topicName,i) in topics: egTopics[i].id]

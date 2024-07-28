@@ -135,7 +135,7 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -219,21 +219,21 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:CoreWorker:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-coreworker-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-coreworker-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:CoreWorker:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatekeeperAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -282,56 +282,56 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperintergrationapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperintergrationapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:OrchestrationAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-orchestrationapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-orchestrationapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:OrchestrationAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:LangChainAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-langchainapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-langchainapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:LangChainAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:SemanticKernelAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-semantickernelapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-semantickernelapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:SemanticKernelAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -345,7 +345,7 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -387,42 +387,42 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:VectorizationAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-vectorizationapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-vectorizationapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:VectorizationAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:VectorizationWorker:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-vectorizationworker-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-vectorizationworker-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:VectorizationWorker:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatewayAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatewayapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatewayapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatewayAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -436,28 +436,28 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatewayadapterapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatewayadapterapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:StateAPI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apinedpoints-stateapi-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apinedpoints-stateapi-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:StateAPI:AppInsightsConnectionString",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -485,14 +485,14 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:AzureOpenAI:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azureopenai-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azureopenai-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
           "key": "FoundationaLLM:APIEndpoints:AzureEventGrid:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azureeventgrid-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azureeventgrid-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -506,7 +506,7 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:AzureContentSafety:APIKey",
-          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azurecontentsafety-apikey}\"}",
+          "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-azurecontentsafety-apikey\"}",
           "label": null,
           "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
@@ -818,6 +818,6 @@
           "label": null,
           "content_type": "application/json",
           "tags": {}
-      },
+      }
   ]
 }

@@ -73,7 +73,7 @@
             "hasIngress": true,
             "image": "${SERVICE_AGENTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/agent-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apis-agenthubapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-agenthubapi-apikey",
             "cpu": "${SERVICE_AGENTHUB_CPU=1.0}",
             "memory": "${SERVICE_AGENTHUB_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_AGENTHUB_REPLICAS=1}"
@@ -84,7 +84,7 @@
             "hasIngress": true,
             "image": "${SERVICE_CHATUI_IMAGE=cropseastus2svinternal.azurecr.io/chat-ui:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT",
-            "apiKeySecretName": "foundationallm-apis-chatui-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-chatui-apikey",
             "cpu": "${SERVICE_CHATUI_CPU=1.0}",
             "memory": "${SERVICE_CHATUI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_CHATUI_REPLICAS=1}"
@@ -95,7 +95,7 @@
             "hasIngress": true,
             "image": "${SERVICE_COREAPI_IMAGE=cropseastus2svinternal.azurecr.io/core-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-coreapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-coreapi-apikey",
             "cpu": "${SERVICE_COREAPI_CPU=1.0}",
             "memory": "${SERVICE_COREAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_COREAPI_REPLICAS=1}"
@@ -106,7 +106,7 @@
             "hasIngress": false,
             "image": "${SERVICE_COREJOB_IMAGE=cropseastus2svinternal.azurecr.io/core-job:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-corejob-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-coreworker-apikey",
             "cpu": "${SERVICE_COREJOB_CPU=1.0}",
             "memory": "${SERVICE_COREJOB_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_COREJOB_REPLICAS=1}"
@@ -117,7 +117,7 @@
             "hasIngress": true,
             "image": "${SERVICE_DATASOURCEHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/data-source-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apis-datasourcehubapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-datasourcehubapi-apikey",
             "cpu": "${SERVICE_DATASOURCEHUBAPI_CPU=1.0}",
             "memory": "${SERVICE_DATASOURCEHUBAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_DATASOURCEHUBAPI_REPLICAS=1}"
@@ -128,7 +128,7 @@
             "hasIngress": true,
             "image": "${SERVICE_GATEKEEPERAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-gatekeeperapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-gatekeeperapi-apikey",
             "cpu": "${SERVICE_GATEKEEPERAPI_CPU=1.0}",
             "memory": "${SERVICE_GATEKEEPERAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_GATEKEEPERAPI_REPLICAS=1}"
@@ -139,7 +139,7 @@
             "hasIngress": true,
             "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apis-gatekeeperintegrationapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-gatekeeperintegrationapi-apikey",
             "cpu": "${SERVICE_GATEKEEPERINTEGRATIONAPI_CPU=1.0}",
             "memory": "${SERVICE_GATEKEEPERINTEGRATIONAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_GATEKEEPERINTEGRATIONAPI_REPLICAS=1}"
@@ -150,7 +150,7 @@
             "hasIngress": true,
             "image": "${SERVICE_GATEWAYADAPTERAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-adapter-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-gatewayadapterapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-gatewayadapterapi-apikey",
             "cpu": "${SERVICE_GATEWAYADAPTERAPI_CPU=1.0}",
             "memory": "${SERVICE_GATEWAYADAPTERAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_GATEWAYADAPTERAPI_REPLICAS=1}"
@@ -161,7 +161,7 @@
             "hasIngress": true,
             "image": "${SERVICE_GATEWAYAPI_IMAGE=cropseastus2svinternal.azurecr.io/gateway-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-gatewayapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-gatewayapi-apikey",
             "cpu": "${SERVICE_GATEWAYAPI_CPU=1.0}",
             "memory": "${SERVICE_GATEWAYAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_GATEWAYAPI_REPLICAS=1}"
@@ -172,7 +172,7 @@
             "hasIngress": true,
             "image": "${SERVICE_LANGCHAINAPI_IMAGE=cropseastus2svinternal.azurecr.io/langchain-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apis-langchainapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-langchainapi-apikey",
             "cpu": "${SERVICE_LANGCHAINAPI_CPU=1.0}",
             "memory": "${SERVICE_LANGCHAINAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_LANGCHAINAPI_REPLICAS=1}"
@@ -183,7 +183,7 @@
             "hasIngress": true,
             "image": "${SERVICE_MANAGEMENTAPI_IMAGE=cropseastus2svinternal.azurecr.io/management-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-managementapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-managementapi-apikey",
             "cpu": "${SERVICE_MANAGEMENTAPI_CPU=1.0}",
             "memory": "${SERVICE_MANAGEMENTAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_MANAGEMENTAPI_REPLICAS=1}"
@@ -194,7 +194,7 @@
             "hasIngress": true,
             "image": "${SERVICE_MANAGEMENTUI_IMAGE=cropseastus2svinternal.azurecr.io/management-ui:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "NUXT_APP_CONFIG_ENDPOINT",
-            "apiKeySecretName": "foundationallm-apis-managementui-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-managementui-apikey",
             "cpu": "${SERVICE_MANAGEMENTUI_CPU=1.0}",
             "memory": "${SERVICE_MANAGEMENTUI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_MANAGEMENTUI_REPLICAS=1}"
@@ -205,7 +205,7 @@
             "hasIngress": true,
             "image": "${SERVICE_ORCHESTRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/orchestration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-orchestrationapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-orchestrationapi-apikey",
             "cpu": "${SERVICE_ORCHESTRATIONAPI_CPU=1.0}",
             "memory": "${SERVICE_ORCHESTRATIONAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_ORCHESTRATIONAPI_REPLICAS=1}"
@@ -216,7 +216,7 @@
             "hasIngress": true,
             "image": "${SERVICE_PROMPTHUBAPI_IMAGE=cropseastus2svinternal.azurecr.io/prompt-hub-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apis-prompthubapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-prompthubapi-apikey",
             "cpu": "${SERVICE_PROMPTHUBAPI_CPU=1.0}",
             "memory": "${SERVICE_PROMPTHUBAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_PROMPTHUBAPI_REPLICAS=1}"
@@ -227,7 +227,7 @@
             "hasIngress": true,
             "image": "${SERVICE_SEMANTICKERNELAPI_IMAGE=cropseastus2svinternal.azurecr.io/semantic-kernel-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-semantickernelapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-semantickernelapi-apikey",
             "cpu": "${SERVICE_SEMANTICKERNELAPI_CPU=1.0}",
             "memory": "${SERVICE_SEMANTICKERNELAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_SEMANTICKERNELAPI_REPLICAS=1}"
@@ -238,7 +238,7 @@
             "hasIngress": true,
             "image": "${SERVICE_STATEAPI_IMAGE=cropseastus2svinternal.azurecr.io/state-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-stateapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-stateapi-apikey",
             "cpu": "${SERVICE_STATEAPI_CPU=1.0}",
             "memory": "${SERVICE_STATEAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_STATEAPI_REPLICAS=1}"
@@ -249,7 +249,7 @@
             "hasIngress": true,
             "image": "${SERVICE_VECTORIZATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/vectorization-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-vectorizationapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-vectorizationapi-apikey",
             "cpu": "${SERVICE_VECTORIZATIONAPI_CPU=1.0}",
             "memory": "${SERVICE_VECTORIZATIONAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_VECTORIZATIONAPI_REPLICAS=1}"
@@ -260,7 +260,7 @@
             "hasIngress": false,
             "image": "${SERVICE_VECTORIZATIONJOB_IMAGE=cropseastus2svinternal.azurecr.io/vectorization-job:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apis-vectorizationworker-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-vectorizationworker-apikey",
             "cpu": "${SERVICE_VECTORIZATIONJOB_CPU=1.0}",
             "memory": "${SERVICE_VECTORIZATIONJOB_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_VECTORIZATIONJOB_REPLICAS=1}"
