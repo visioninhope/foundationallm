@@ -5,9 +5,11 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
@@ -64,6 +66,8 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 builder.AddOpenTelemetry(
     AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_AppInsightsConnectionString,
     ServiceNames.VectorizationAPI);
+
+builder.Services.AddInstanceProperties(builder.Configuration);
 
 // CORS policies
 builder.AddCorsPolicies();
@@ -170,9 +174,17 @@ builder.Services.AddControllers();
 
 // Add API Key Authorization
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICallContext, CallContext>();
+builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
     .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationAPI));
+
+// Add authorization services.
+builder.AddGroupMembership();
+
+// Add services to the container.
+builder.Services.AddAuthorization();
 
 builder.Services
     .AddApiVersioning(options =>
@@ -242,6 +254,9 @@ builder.Services.AddSwaggerGen(
     .AddSwaggerGenNewtonsoftSupport();
 
 var app = builder.Build();
+
+// Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
+app.UseMiddleware<CallContextMiddleware>();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
