@@ -186,7 +186,10 @@ export default {
 
 		updateAgentSelection() {
 			const agent = this.$appStore.getSessionAgent(this.currentSession);
-			this.agentSelection = this.agentOptions.find((option) => option.value.resource.object_id === agent.resource.object_id) || null;
+			this.agentSelection =
+				this.agentOptions.find(
+					(option) => option.value.resource.object_id === agent.resource.object_id,
+				) || null;
 		},
 	},
 };
@@ -306,6 +309,6 @@ export default {
 }
 
 .p-dropdown-items-wrapper {
-  max-height: 300px !important;
+	max-height: 300px !important;
 }
 </style>

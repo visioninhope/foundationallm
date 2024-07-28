@@ -27,7 +27,9 @@
 							},
 						}"
 					/>
-					<span class="time-stamp" v-tooltip="formatTimeStamp(message.timeStamp)">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
+					<span class="time-stamp" v-tooltip="formatTimeStamp(message.timeStamp)">{{
+						$filters.timeAgo(new Date(message.timeStamp))
+					}}</span>
 				</span>
 			</div>
 
@@ -105,13 +107,14 @@
 						<p class="prompt-text">{{ prompt.prompt }}</p>
 						<template #footer>
 							<Button
-							:style="{
-								backgroundColor: primaryButtonBg,
-								borderColor: primaryButtonBg,
-								color: primaryButtonText
-							}"
-							label="Close"
-							@click="viewPrompt = false" />
+								:style="{
+									backgroundColor: primaryButtonBg,
+									borderColor: primaryButtonBg,
+									color: primaryButtonText,
+								}"
+								label="Close"
+								@click="viewPrompt = false"
+							/>
 						</template>
 					</Dialog>
 				</span>
@@ -166,7 +169,9 @@ function addCodeHeaderComponents(htmlString) {
 	});
 
 	const html = doc.body.innerHTML;
-	const withVueCurlyBracesSanitized = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
+	const withVueCurlyBracesSanitized = html
+		.replace(/{{/g, '&#123;&#123;')
+		.replace(/}}/g, '&#125;&#125;');
 
 	return withVueCurlyBracesSanitized;
 }
@@ -210,7 +215,7 @@ export default {
 				components: {
 					CodeBlockHeader,
 				},
-			 };
+			};
 		},
 	},
 
@@ -251,7 +256,7 @@ export default {
 				hour: 'numeric',
 				minute: 'numeric',
 				second: 'numeric',
-				timeZoneName: 'short'
+				timeZoneName: 'short',
 			};
 			return date.toLocaleString(undefined, options);
 		},

@@ -1,5 +1,11 @@
-import type { Message, Session, CompletionPrompt, Agent,
-	CompletionRequest, ResourceProviderGetResult } from '@/js/types';
+import type {
+	Message,
+	Session,
+	CompletionPrompt,
+	Agent,
+	CompletionRequest,
+	ResourceProviderGetResult,
+} from '@/js/types';
 
 export default {
 	apiUrl: null as string | null,
@@ -62,13 +68,13 @@ export default {
 		try {
 			const response = await $fetch(`${this.apiUrl}${url}`, options);
 			if (response.status >= 400) {
-                throw response;
-            }
-            return response;
+				throw response;
+			}
+			return response;
 		} catch (error) {
 			// If the error is an HTTP error, extract the message directly.
 			const errorMessage = formatError(error);
-            throw new Error(errorMessage);
+			throw new Error(errorMessage);
 		}
 	},
 
@@ -85,8 +91,8 @@ export default {
 			body: JSON.stringify(requestBody),
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${await this.getBearerToken()}`
-			}
+				Authorization: `Bearer ${await this.getBearerToken()}`,
+			},
 		};
 
 		try {
@@ -109,12 +115,15 @@ export default {
 	 */
 	async checkProcessStatus(operationId: string) {
 		try {
-			const response = await $fetch(`/instances/${this.instanceId}/async-completions/${operationId}/status`, {
-				method: 'GET',
-				headers: {
-					'Authorization': `Bearer ${await this.getBearerToken()}`
-				}
-			});
+			const response = await $fetch(
+				`/instances/${this.instanceId}/async-completions/${operationId}/status`,
+				{
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${await this.getBearerToken()}`,
+					},
+				},
+			);
 
 			return response;
 		} catch (error) {
@@ -133,7 +142,7 @@ export default {
 			if (status.isCompleted) {
 				return status.result;
 			}
-			await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+			await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
 		}
 	},
 
@@ -150,7 +159,9 @@ export default {
 	 * @returns {Promise<Session>} A promise that resolves to the created session.
 	 */
 	async addSession() {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions`, { method: 'POST' })) as Session;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions`, {
+			method: 'POST',
+		})) as Session;
 	},
 
 	/**
@@ -188,7 +199,9 @@ export default {
 	 * @returns A promise that resolves to the deleted session.
 	 */
 	async deleteSession(sessionId: string) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}`, { method: 'DELETE' })) as Session;
+		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}`, {
+			method: 'DELETE',
+		})) as Session;
 	},
 
 	/**
@@ -197,7 +210,9 @@ export default {
 	 * @returns An array of messages.
 	 */
 	async getMessages(sessionId: string) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/messages`)) as Array<Message>;
+		return (await this.fetch(
+			`/instances/${this.instanceId}/sessions/${sessionId}/messages`,
+		)) as Array<Message>;
 	},
 
 	/**
@@ -224,10 +239,13 @@ export default {
 		} = {};
 		if (rating !== null) params.rating = rating;
 
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${message.sessionId}/message/${message.id}/rate`, {
-			method: 'POST',
-			params,
-		})) as Message;
+		return (await this.fetch(
+			`/instances/${this.instanceId}/sessions/${message.sessionId}/message/${message.id}/rate`,
+			{
+				method: 'POST',
+				params,
+			},
+		)) as Message;
 	},
 
 	/**
@@ -243,12 +261,14 @@ export default {
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
-			attachments: attachments
+			attachments: attachments,
 		};
 
 		if (agent.long_running) {
-			const operationId = await this.startLongRunningProcess(`/instances/${this.instanceId}/async-completions`,
-				orchestrationRequest);
+			const operationId = await this.startLongRunningProcess(
+				`/instances/${this.instanceId}/async-completions`,
+				orchestrationRequest,
+			);
 			return this.pollForCompletion(operationId);
 		} else {
 			return (await this.fetch(`/instances/${this.instanceId}/completions`, {
@@ -263,7 +283,9 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		const agents = (await this.fetch(`/instances/${this.instanceId}/completions/agents`)) as ResourceProviderGetResult<Agent>[];
+		const agents = (await this.fetch(
+			`/instances/${this.instanceId}/completions/agents`,
+		)) as ResourceProviderGetResult<Agent>[];
 		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
 		return agents;
 	},
@@ -284,19 +306,19 @@ export default {
 };
 
 function formatError(error: any): string {
-    if (error.errors || error.data?.errors) {
+	if (error.errors || error.data?.errors) {
 		const errors = error.errors || error.data.errors;
-        // Flatten the error messages and join them into a single string
-        return Object.values(errors).flat().join(' ');
-    }
+		// Flatten the error messages and join them into a single string
+		return Object.values(errors).flat().join(' ');
+	}
 	if (error.data) {
 		return error.data.message || error.data || 'An unknown error occurred';
 	}
-    if (error.message) {
-        return error.message;
-    }
-    if (typeof error === 'string') {
-        return error;
-    }
-    return 'An unknown error occurred';
+	if (error.message) {
+		return error.message;
+	}
+	if (typeof error === 'string') {
+		return error;
+	}
+	return 'An unknown error occurred';
 }

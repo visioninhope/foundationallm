@@ -15,7 +15,7 @@ export const useAppStore = defineStore('app', {
 		selectedAgents: new Map(),
 		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
 		attachments: [] as Attachment[],
-        longRunningOperations: new Map<string, string>(), // sessionId -> operationId
+		longRunningOperations: new Map<string, string>(), // sessionId -> operationId
 	}),
 
 	getters: {},
@@ -122,15 +122,17 @@ export const useAppStore = defineStore('app', {
 
 		updateSessionAgentFromMessages(session: Session) {
 			const lastAssistantMessage = this.currentMessages
-			  .filter((message) => message.sender.toLowerCase() === 'assistant')
-			  .pop();
+				.filter((message) => message.sender.toLowerCase() === 'assistant')
+				.pop();
 			if (lastAssistantMessage) {
-			  const agent = this.agents.find(agent => agent.resource.name === lastAssistantMessage.senderDisplayName);
-			  if (agent) {
-				this.setSessionAgent(session, agent);
-			  }
+				const agent = this.agents.find(
+					(agent) => agent.resource.name === lastAssistantMessage.senderDisplayName,
+				);
+				if (agent) {
+					this.setSessionAgent(session, agent);
+				}
 			}
-		  },
+		},
 
 		getSessionAgent(session: Session) {
 			if (!session) return null;
@@ -154,7 +156,7 @@ export const useAppStore = defineStore('app', {
 
 		/**
 		 * Sends a message to the Core API.
-		 * 
+		 *
 		 * @param text - The text of the message to send.
 		 * @returns A Promise that resolves when the message is sent.
 		 */
@@ -200,7 +202,7 @@ export const useAppStore = defineStore('app', {
 					user_prompt: text,
 					agent_name: agent.name,
 					settings: null,
-					attachments: this.attachments.map(attachment => String(attachment.id))
+					attachments: this.attachments.map((attachment) => String(attachment.id)),
 				});
 
 				this.longRunningOperations.set(this.currentSession!.id, operationId);
@@ -210,7 +212,7 @@ export const useAppStore = defineStore('app', {
 					this.currentSession!.id,
 					text,
 					agent,
-					this.attachments.map(attachment => String(attachment.id)),
+					this.attachments.map((attachment) => String(attachment.id)),
 				);
 				await this.getMessages();
 			}
@@ -221,15 +223,15 @@ export const useAppStore = defineStore('app', {
 				const { text: newSessionName } = await api.generateSessionName(
 					this.currentSession!.id,
 					sessionFullText,
-				);				
+				);
 				// the generate session name already renames the session in the backend
 				this.currentSession!.name = newSessionName;
 			}
-        },
+		},
 
 		/**
 		 * Polls for the completion of a long-running operation.
-		 * 
+		 *
 		 * @param sessionId - The session ID associated with the operation.
 		 * @param operationId - The ID of the operation to check for completion.
 		 */
@@ -242,7 +244,7 @@ export const useAppStore = defineStore('app', {
 					await this.getMessages();
 					break;
 				}
-				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+				await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
 			}
 		},
 
@@ -293,7 +295,7 @@ export const useAppStore = defineStore('app', {
 				const fileName = file.get('file')?.name;
 				// this.attachments.push(id);
 				// For now, we want to just replace the attachments with the new one.
-				this.attachments = [{ id, fileName}];
+				this.attachments = [{ id, fileName }];
 				return id;
 			} catch (error) {
 				throw error;

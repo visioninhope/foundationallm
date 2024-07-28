@@ -13,7 +13,7 @@ export type ResourceProviderGetResult<T> = {
 	 * List of roles on the resource.
 	 */
 	roles: string[];
-}
+};
 
 export interface Citation {
 	id: string;

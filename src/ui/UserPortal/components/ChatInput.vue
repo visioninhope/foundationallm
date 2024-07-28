@@ -1,21 +1,33 @@
 <template>
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
-			<i class="pi pi-info-circle tooltip-component" v-tooltip.top="'Use Shift+Enter to add a new line'"></i>
+			<i
+				class="pi pi-info-circle tooltip-component"
+				v-tooltip.top="'Use Shift+Enter to add a new line'"
+			></i>
 			<Button
 				icon="pi pi-paperclip"
 				label=""
 				class="file-upload-button secondary-button"
-				style="height: 100%;"
+				style="height: 100%"
 				@click="toggleFileAttachmentOverlay"
 				:badge="$appStore.attachments.length.toString() || null"
-				v-tooltip.top="'Attach files' + ($appStore.attachments.length ? ' (' + $appStore.attachments.length.toString() + ' file)' : ' (0 files)')"
+				v-tooltip.top="
+					'Attach files' +
+					($appStore.attachments.length
+						? ' (' + $appStore.attachments.length.toString() + ' file)'
+						: ' (0 files)')
+				"
 				:aria-label="'Upload file (' + $appStore.attachments.length.toString() + ' files attached)'"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
-					<h2 style="margin-bottom: 0px;">Attached Files</h2>
-					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
+					<h2 style="margin-bottom: 0px">Attached Files</h2>
+					<div
+						class="attached-files"
+						v-for="file in $appStore.attachments"
+						v-if="$appStore.attachments.length"
+					>
 						<div class="file-name">{{ file.fileName }}</div>
 						<div class="file-remove">
 							<Button
@@ -29,9 +41,7 @@
 							/>
 						</div>
 					</div>
-					<div v-else>
-						No files attached
-					</div>
+					<div v-else>No files attached</div>
 				</div>
 				<div class="p-d-flex p-jc-end">
 					<Button
@@ -41,13 +51,18 @@
 						:style="{
 							backgroundColor: secondaryButtonBg,
 							borderColor: secondaryButtonBg,
-							color: secondaryButtonText
+							color: secondaryButtonText,
 						}"
 						@click="showFileUploadDialog = true"
 					/>
 				</div>
 			</OverlayPanel>
-			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal aria-label="File Upload Dialog">
+			<Dialog
+				v-model:visible="showFileUploadDialog"
+				header="Upload File"
+				modal
+				aria-label="File Upload Dialog"
+			>
 				<FileUpload
 					:auto="false"
 					:custom-upload="true"
@@ -58,22 +73,68 @@
 					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
 						<div>
 							<div class="upload-files-header">
-								<Button @click="chooseCallback()" icon="pi pi-images" label="Choose" :disabled="files.length !== 0" style="margin-right: .5rem"></Button>
-								<Button @click="uploadFile(uploadCallback)" icon="pi pi-cloud-upload" label="Upload" :disabled="!files || files.length === 0" style="margin-right: .5rem"></Button>
-								<Button @click="clearCallback()" icon="pi pi-times" label="Cancel" :disabled="!files || files.length === 0"></Button>
+								<Button
+									@click="chooseCallback()"
+									icon="pi pi-images"
+									label="Choose"
+									:disabled="files.length !== 0"
+									style="margin-right: 0.5rem"
+								></Button>
+								<Button
+									@click="uploadFile(uploadCallback)"
+									icon="pi pi-cloud-upload"
+									label="Upload"
+									:disabled="!files || files.length === 0"
+									style="margin-right: 0.5rem"
+								></Button>
+								<Button
+									@click="clearCallback()"
+									icon="pi pi-times"
+									label="Cancel"
+									:disabled="!files || files.length === 0"
+								></Button>
 							</div>
 						</div>
 					</template>
 
 					<template #content="{ files, removeFileCallback }">
 						<div class="flex flex-wrap gap-4">
-							<div v-for="(file, index) of files" :key="file.name + file.type + file.size" style="border-color: rgb(226, 232, 240); border-radius: 6px; border-style: solid; border-width: 1px; display: flex; flex-direction: row; justify-content: space-between; padding: 0.5rem; width: 100%; align-items: center;">
-								<div style="flex: 1; display: flex; flex-direction: row; align-items: center; gap: 10px">
-									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem;"></i>
-									<span style="font-weight: 600;">{{ file.name }}</span>
+							<div
+								v-for="(file, index) of files"
+								:key="file.name + file.type + file.size"
+								style="
+									border-color: rgb(226, 232, 240);
+									border-radius: 6px;
+									border-style: solid;
+									border-width: 1px;
+									display: flex;
+									flex-direction: row;
+									justify-content: space-between;
+									padding: 0.5rem;
+									width: 100%;
+									align-items: center;
+								"
+							>
+								<div
+									style="
+										flex: 1;
+										display: flex;
+										flex-direction: row;
+										align-items: center;
+										gap: 10px;
+									"
+								>
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+									<span style="font-weight: 600">{{ file.name }}</span>
 									<div>{{ formatSize(file.size) }}</div>
 								</div>
-								<Button icon="pi pi-times" @click="removeFileCallback(index)" text severity="danger" style=""/>
+								<Button
+									icon="pi pi-times"
+									@click="removeFileCallback(index)"
+									text
+									severity="danger"
+									style=""
+								/>
 							</div>
 						</div>
 					</template>
@@ -82,12 +143,12 @@
 						<div>
 							<i class="pi pi-cloud-upload file-upload-icon" />
 							<div style="width: 500px">
-								<p style="text-align: center;">
+								<p style="text-align: center">
 									Drag and drop files here
 									<br />
 									or
 									<br />
-									<a @click="browseFiles" style="color: blue; cursor: pointer;">Browse for files</a>
+									<a @click="browseFiles" style="color: blue; cursor: pointer">Browse for files</a>
 								</p>
 							</div>
 						</div>
@@ -170,9 +231,9 @@ export default {
 			agentListOpen: false,
 			showFileUploadDialog: false,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
-      		primaryButtonText: this.$appConfigStore.primaryButtonText,
+			primaryButtonText: this.$appConfigStore.primaryButtonText,
 			secondaryButtonBg: this.$appConfigStore.secondaryButtonBg,
-      		secondaryButtonText: this.$appConfigStore.secondaryButtonText,
+			secondaryButtonText: this.$appConfigStore.secondaryButtonText,
 		};
 	},
 
@@ -232,15 +293,23 @@ export default {
 		async handleUpload(event: any) {
 			try {
 				const formData = new FormData();
-				formData.append("file", event.files[0]);
+				formData.append('file', event.files[0]);
 
 				const objectId = await this.$appStore.uploadAttachment(formData);
 
 				console.log(`File uploaded: ObjectId: ${objectId}`);
-				this.$toast.add({ severity: 'success', summary: 'Success', detail: 'File uploaded successfully.' });
+				this.$toast.add({
+					severity: 'success',
+					summary: 'Success',
+					detail: 'File uploaded successfully.',
+				});
 				this.showFileUploadDialog = false;
 			} catch (error) {
-				this.$toast.add({ severity: 'error', summary: 'Error', detail: `File upload failed. ${error.message}` });
+				this.$toast.add({
+					severity: 'error',
+					summary: 'Error',
+					detail: `File upload failed. ${error.message}`,
+				});
 			}
 		},
 
@@ -265,10 +334,10 @@ export default {
 					rejectProps: {
 						label: 'Cancel',
 						severity: 'secondary',
-						outlined: true
+						outlined: true,
 					},
 					acceptProps: {
-						label: 'Upload'
+						label: 'Upload',
 					},
 					accept: () => {
 						uploadCallback();
@@ -276,7 +345,7 @@ export default {
 					},
 					reject: () => {
 						this.showFileUploadDialog = false;
-					}
+					},
 				});
 			} else {
 				uploadCallback();
@@ -285,19 +354,19 @@ export default {
 		},
 
 		formatSize(bytes) {
-            const k = 1024;
-            const dm = 3;
-            const sizes = this.$primevue.config.locale.fileSizeTypes;
+			const k = 1024;
+			const dm = 3;
+			const sizes = this.$primevue.config.locale.fileSizeTypes;
 
-            if (bytes === 0) {
-                return `0 ${sizes[0]}`;
-            }
+			if (bytes === 0) {
+				return `0 ${sizes[0]}`;
+			}
 
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+			const i = Math.floor(Math.log(bytes) / Math.log(k));
+			const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
-            return `${formattedSize} ${sizes[i]}`;
-        }
+			return `${formattedSize} ${sizes[i]}`;
+		},
 	},
 };
 </script>
@@ -327,7 +396,7 @@ export default {
 }
 
 .chat-input .input-wrapper {
-    display: flex;
+	display: flex;
 	align-items: stretch;
 	width: 100%;
 }
@@ -403,10 +472,10 @@ export default {
 
 .attached-files {
 	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: nowrap;
 }
 
 .file-remove {
@@ -447,6 +516,6 @@ export default {
 	width: 100%;
 	text-align: center;
 	font-size: 5rem;
-    color: #000;
+	color: #000;
 }
 </style>

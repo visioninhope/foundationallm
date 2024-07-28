@@ -4,12 +4,7 @@
 		<span>{{ language }}</span>
 
 		<!-- Copy button -->
-		<Button
-			text
-			size="small"
-			label="Copy"
-			class="copy-button"
-			@click="copyToClipboard"></Button>
+		<Button text size="small" label="Copy" class="copy-button" @click="copyToClipboard"></Button>
 	</div>
 
 	<!-- Highlighted code templating -->
@@ -22,7 +17,7 @@ export default {
 		language: {
 			type: String,
 			required: false,
-			default: 'plaintext'
+			default: 'plaintext',
 		},
 
 		codecontent: {
@@ -45,9 +40,9 @@ export default {
 				detail: 'Copied to clipboard!',
 				life: 5000,
 			});
-		}
-	}
-}
+		},
+	},
+};
 </script>
 
 <style scoped>

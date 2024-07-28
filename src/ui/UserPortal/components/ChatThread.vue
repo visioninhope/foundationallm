@@ -101,7 +101,7 @@ export default {
 					user_prompt: text,
 					agent_name: agent.name,
 					settings: null,
-					attachments: this.$appStore.attachments.map(attachment => String(attachment.id))
+					attachments: this.$appStore.attachments.map((attachment) => String(attachment.id)),
 				});
 
 				this.longRunningOperations.set(this.currentSession.id, true);
@@ -121,11 +121,17 @@ export default {
 					await this.$appStore.getMessages();
 					break;
 				}
-				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+				await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
 			}
 		},
 
-		async handleOperationCompleted({ sessionId, operationId }: { sessionId: string, operationId: string }) {
+		async handleOperationCompleted({
+			sessionId,
+			operationId,
+		}: {
+			sessionId: string;
+			operationId: string;
+		}) {
 			if (this.currentSession.id === sessionId) {
 				await this.$appStore.getMessages();
 			}
@@ -214,6 +220,6 @@ export default {
 footer {
 	text-align: right;
 	font-size: 0.85rem;
-    padding-right: 24px;
+	padding-right: 24px;
 }
 </style>

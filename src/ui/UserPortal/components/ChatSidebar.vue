@@ -22,7 +22,13 @@
 			<!-- <button @click="handleAddSession">
 				<span class="text">+</span>
 			</button> -->
-			<Button icon="pi pi-plus" text severity="secondary" @click="handleAddSession" aria-label="Add new chat" />
+			<Button
+				icon="pi pi-plus"
+				text
+				severity="secondary"
+				@click="handleAddSession"
+				aria-label="Add new chat"
+			/>
 		</div>
 
 		<!-- Chats -->
