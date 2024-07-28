@@ -82,10 +82,6 @@ output serviceMiName string = managedIdentity.name
 #disable-next-line outputs-should-not-contain-secrets
 output serviceApiKeySecretUri string = useOidc ? '' : apiKeySecret.outputs.secretUri
 
-@description('Service OIDC Client Secret KeyVault Uri')
-#disable-next-line outputs-should-not-contain-secrets
-output serviceApiClientSecretUri string = useOidc ? apiClientSecret.outputs.secretUri : ''
-
 /** Resources **/
 @description('Resource for configuring user managed identity for a microservice')
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
@@ -149,18 +145,6 @@ module apiKeySecret 'kvSecret.bicep' = if (!useOidc) {
     kvName: kvName
     secretName: secretName
     secretValue: apiKey
-    tags: tags
-  }
-}
-
-@description('Client secret for microservice (only created if using Entra)')
-module apiClientSecret 'kvSecret.bicep' = if (useOidc) {
-  name: 'apiClientSecret-${serviceName}-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    kvName: kvName
-    secretName: 'foundationallm-apis-${serviceName}-entra-clientsecret'
-    secretValue: clientSecret
     tags: tags
   }
 }

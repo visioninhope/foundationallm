@@ -240,9 +240,9 @@
       },
       {
           "key": "FoundationaLLM:APIEndpoints:GatekeeperAPI:AppInsightsConnectionString",
-          "value": "appinsights-connectionstring",
+          "value": "{\"uri\":\"https://kv-mg08-fllmstd-west-ops.vault.azure.net/secrets/foundationallm-appinsights-connectionstring\"}",
           "label": null,
-          "content_type": "",
+          "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
           "tags": {}
       },
       {
