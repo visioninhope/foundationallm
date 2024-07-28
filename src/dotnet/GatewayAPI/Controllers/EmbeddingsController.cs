@@ -11,7 +11,7 @@ namespace FoundationaLLM.Gateway.API.Controllers
     /// <param name="gatewayCore">The <see cref="IGatewayCore"/> that provides LLM gateway services.</param>
     [ApiController]
     [APIKeyAuthentication]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class EmbeddingsController(
         IGatewayCore gatewayCore)
     {
