@@ -1,5 +1,4 @@
 ﻿using Azure;
-using Azure.Identity;
 using Azure.Messaging.EventGrid.Namespaces;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;

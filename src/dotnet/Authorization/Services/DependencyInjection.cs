@@ -33,11 +33,11 @@ namespace FoundationaLLM
                     Options.Create<BlobStorageServiceSettings>(new BlobStorageServiceSettings
                     {
                         AuthenticationType = AuthenticationTypes.AzureIdentity,
-                        AccountName = builder.Configuration[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Storage_AccountName]
+                        AccountName = builder.Configuration[AuthorizationKeyVaultSecretNames.FoundationaLLM_ResourceProviders_Authorization_Storage_AccountName]
                     }),
                     sp.GetRequiredService<ILogger<DataLakeStorageService>>())
                 {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization
+                    InstanceName = AuthorizationDependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization
                 };
             });
 
@@ -47,10 +47,10 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IAuthorizationCore, AuthorizationCore>(sp => new AuthorizationCore(
                     Options.Create<AuthorizationCoreSettings>(new AuthorizationCoreSettings
                     {
-                        InstanceIds = [.. builder.Configuration[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_InstanceIds]!.Split(',')]
+                        InstanceIds = [.. builder.Configuration[AuthorizationKeyVaultSecretNames.FoundationaLLM_APIEndpoints_AuthorizationAPI_Configuration_InstanceIds]!.Split(',')]
                     }),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization),
+                        .Single(s => s.InstanceName == AuthorizationDependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp.GetRequiredService<ILogger<AuthorizationCore>>()));
 
@@ -64,7 +64,7 @@ namespace FoundationaLLM
         public static void AddAuthorizationService(this IHostApplicationBuilder builder)
         {
             builder.Services.AddOptions<AuthorizationServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_AuthorizationAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AuthorizationAPI));
             builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
         }
     }
