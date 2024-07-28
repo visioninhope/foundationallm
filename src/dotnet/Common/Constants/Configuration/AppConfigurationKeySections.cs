@@ -12,6 +12,12 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:Instance";
         
         /// <summary>
+        /// Configuration section used to identify the Azure Key Vault settings related to the FoundationaLLM instance.
+        /// </summary>
+        public const string FoundationaLLM_Configuration =
+            "FoundationaLLM:Configuration";
+        
+        /// <summary>
         /// Configuration section used to identify the storage settings for the FoundationaLLM.AIModel resource provider.
         /// </summary>
         public const string FoundationaLLM_ResourceProviders_AIModel_Storage =
@@ -72,6 +78,12 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:APIEndpoints:CoreAPI:Configuration";
         
         /// <summary>
+        /// Configuration section used to identify the Entra ID authentication settings for Core API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra";
+        
+        /// <summary>
         /// Configuration section used to identify the Cosmos DB settings for the Core API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB =
@@ -118,6 +130,12 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI =
             "FoundationaLLM:APIEndpoints:SemanticKernelAPI";
+        
+        /// <summary>
+        /// Configuration section used to identify the Entra ID authentication settings for Management API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra";
         
         /// <summary>
         /// Configuration section used to identify the authentication settings for the Vectorization API.

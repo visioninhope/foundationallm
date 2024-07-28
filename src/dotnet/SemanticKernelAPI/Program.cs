@@ -43,10 +43,9 @@ namespace FoundationaLLM.SemanticKernel.API
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
-                options.Select((string)AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI);
             }));
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

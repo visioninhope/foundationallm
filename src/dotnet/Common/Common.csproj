@@ -55,6 +55,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RoleDefinitionNames.cs</LastGenOutput>
     </None>
+    <None Update="Constants\Configuration\AppConfigurationKeyFilters.tt">
+      <LastGenOutput>AppConfigurationKeyFilters.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Constants\Configuration\AppConfigurationKeySections.tt">
       <LastGenOutput>AppConfigurationKeySections.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -128,6 +132,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RoleDefinitionNames.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Constants\Configuration\AppConfigurationKeyFilters.cs">
+      <DependentUpon>AppConfigurationKeyFilters.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="Constants\Configuration\AppConfigurationKeySections.cs">
       <DependentUpon>AppConfigurationKeySections.tt</DependentUpon>

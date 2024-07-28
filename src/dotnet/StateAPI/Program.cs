@@ -24,8 +24,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_State);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

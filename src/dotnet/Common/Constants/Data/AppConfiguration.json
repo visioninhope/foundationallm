@@ -19,7 +19,9 @@
   {
     "namespace": "Configuration",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the Azure Key Vault settings related to the FoundationaLLM instance."
+    },
     "configuration_keys": [
       {
         "name": "KeyVaultURI",
@@ -338,7 +340,9 @@
   {
     "namespace": "APIEndpoints:CoreAPI:Configuration:Entra",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the Entra ID authentication settings for Core API."
+    },
     "configuration_keys": [
       {
         "name": "Instance",
@@ -656,7 +660,9 @@
   {
     "namespace": "APIEndpoints:ManagementAPI:Configuration:Entra",
     "dependency_injection_key": null,
-    "configuration_section": null,
+    "configuration_section": {
+      "description": "Configuration section used to identify the Entra ID authentication settings for Management API."
+    },
     "configuration_keys": [
       {
         "name": "Instance",
@@ -892,7 +898,9 @@
   },
   {
     "namespace": "APIEndpoints:AzureAISearchVectorStore:Configuration",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the implementation of IIndexingService based on Azure AI Search."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for the Azure AI Search vector store service."
     },
@@ -900,7 +908,9 @@
   },
   {
     "namespace": "APIEndpoints:AzureCosmosDBNoSQLVectorStore:Configuration",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the implementation of IIndexingService based on Azure Cosmos DB NoSQL."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for the Azure Cosmos DB NoSQL vector store service."
     },
@@ -908,7 +918,9 @@
   },
   {
     "namespace": "APIEndpoints:AzurePostgreSQLVectorStore:Configuration",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the implementation of IIndexingService based on Azure PostgreSQL."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for the Azure PostgreSQL vector store service."
     },
@@ -1298,7 +1310,9 @@
   },
   {
     "namespace": "Vectorization:Steps",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the IConfiguration section for vectorization steps."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for vectorization steps."
     },
@@ -1306,7 +1320,9 @@
   },
   {
     "namespace": "Vectorization:Queues",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the IConfiguration section for vectorization queues."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for vectorization queues."
     },
@@ -1347,7 +1363,9 @@
   },
   {
     "namespace": "Vectorization:StateService:Storage",
-    "dependency_injection_key": null,
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject storage settings for the Vectorization state service."
+    },
     "configuration_section": {
       "description": "Configuration section used to identify the settings for the storage account used by the vectorization state service."
     },
@@ -1369,6 +1387,14 @@
         "first_version": "0.8.0"
       }
     ]
+  },
+  {
+    "namespace": "Vectorization:TextEmbedding:Gateway",
+    "dependency_injection_key": {
+      "description": "Dependency injection key used to inject the ITextEmbeddingService implementation that uses the FoundationaLLM Gateway for embedding."
+    },
+    "configuration_section": null,
+    "configuration_keys": []
   },
   {
     "namespace": "DataSources",

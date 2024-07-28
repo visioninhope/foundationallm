@@ -26,8 +26,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_CoreWorker);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

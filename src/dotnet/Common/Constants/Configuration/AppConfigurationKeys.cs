@@ -1017,6 +1017,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
+        #region FoundationaLLM:Vectorization:TextEmbedding:Gateway
+
+        #endregion
+
         #region FoundationaLLM:DataSources
 
         #endregion

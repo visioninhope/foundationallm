@@ -71,7 +71,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         private IIndexingService CreateAzureAISearchIndexingService()
         {
             var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService)
+                DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration)
                 ?? throw new VectorizationException($"Could not retrieve the Azure AI Search indexing service instance.");
 
             return indexingService!;
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         private IIndexingService CreateAzureCosmosDBNoSQLIndexingService()
         {
             var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService)
+                DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration)
                 ?? throw new VectorizationException($"Could not retrieve the Azure Cosmos DB NoSQL indexing service instance.");
 
             return indexingService!;
@@ -89,7 +89,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         private IIndexingService CreatePostgresIndexingService()
         {
             var indexingService = _serviceProvider.GetKeyedService<IIndexingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService)
+                DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration)
                 ?? throw new VectorizationException($"Could not retrieve the PostgreSQL indexing service instance.");
 
             return indexingService!;

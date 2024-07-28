@@ -67,7 +67,7 @@ namespace FoundationaLLM.Core.Examples.Setup
                 .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration));
 
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+                DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration);
 
         }
 

@@ -49,19 +49,19 @@ namespace FoundationaLLM.Orchestration.API
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
-                options.Select((string)AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
-                options.Select((string)AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Orchestration);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Prompt);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AIModel);
+
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
+
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Agent_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_AIModel_Storage);
+
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_OrchestrationAPI);
             }));
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);

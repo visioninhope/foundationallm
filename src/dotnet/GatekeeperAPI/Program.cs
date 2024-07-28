@@ -45,9 +45,9 @@ namespace FoundationaLLM.Gatekeeper.API
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
-                options.Select((string)AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Refinement);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureContentSafety);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
+
             }));
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
