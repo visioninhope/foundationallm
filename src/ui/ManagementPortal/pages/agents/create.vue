@@ -1,13 +1,25 @@
 <template>
 	<div>
-		<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
-		<div class="page-subheader">
-			{{
-				editAgent
-					? 'Edit your agent settings below.'
-					: 'Complete the settings below to create and deploy your new agent.'
-			}}
+		<div style="display: flex">
+			<!-- Title -->
+			<div style="flex: 1">
+				<h2 class="page-header">{{ editAgent ? 'Edit Agent' : 'Create New Agent' }}</h2>
+				<div class="page-subheader">
+					{{
+						editAgent
+							? 'Edit your agent settings below.'
+							: 'Complete the settings below to create and deploy your new agent.'
+					}}
+				</div>
+			</div>
+
+			<!-- Edit access control -->
+			<AccessControl
+				v-if="editAgent"
+				:scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`"
+			/>
 		</div>
+
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
 			<!-- Loading overlay -->
@@ -502,6 +514,7 @@
 				<template #edit>
 					<div id="aria-gatekeeper" class="step-container__header">Gatekeeper</div>
 
+					<!-- Gatekeeper toggle -->
 					<div class="d-flex align-center mt-2">
 						<span id="aria-gatekeeper-enabled" class="step-option__header">Enabled:</span>
 						<span>
@@ -516,6 +529,7 @@
 						</span>
 					</div>
 
+					<!-- Content safety -->
 					<div class="mt-2">
 						<span id="aria-content-safety" class="step-option__header">Content Safety:</span>
 						<MultiSelect
@@ -529,6 +543,7 @@
 						/>
 					</div>
 
+					<!-- Data protection -->
 					<div class="mt-2">
 						<span id="aria-data-prot" class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
@@ -559,6 +574,7 @@
 				/>
 			</div>
 
+			<!-- Cost center -->
 			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this agent to a cost center?</div>
 			<div class="span-2">
 				<InputText
@@ -569,6 +585,18 @@
 					aria-labelledby="aria-cost-center"
 				/>
 			</div>
+
+            <!-- Expiration -->
+            <div class="step-header span-2">Would you like to set an expiration on this agent?</div>
+            <div class="span-2">
+                <Calendar
+                    v-model="expirationDate"
+                    show-icon
+                    show-button-bar
+                    placeholder="Enter expiration date"
+                    type="text"
+                />
+            </div>
 
 			<!-- <div class="step-header span-2">What are the orchestrator connection details?</div>
 			<div
@@ -677,6 +705,8 @@ const defaultSystemPrompt: string = '';
 
 const getDefaultFormValues = () => {
 	return {
+		accessControlModalOpen: false,
+
 		agentName: '',
 		agentDescription: '',
 		object_id: '',
@@ -689,6 +719,7 @@ const getDefaultFormValues = () => {
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 		cost_center: '',
+		expirationDate: null as string|null,
 
 		editDataSource: false as boolean,
 		selectedDataSource: null as null | AgentDataSource,
@@ -883,7 +914,7 @@ export default {
 			this.dataSources = agentDataSourcesResult.map(result => result.resource);
 			
 			this.loadingStatusText = 'Retrieving external orchestration services...';
-            const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
+			const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
 			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
 
 			// Update the orchestratorOptions with the externalOrchestratorOptions.
@@ -944,6 +975,7 @@ export default {
 			this.object_id = agent.object_id || this.object_id;
 			this.inline_context = agent.inline_context || this.inline_context;
 			this.cost_center = agent.cost_center || this.cost_center;
+			this.expirationDate = agent.expiration_date ? new Date(agent.expiration_date) : this.expirationDate;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
@@ -983,7 +1015,7 @@ export default {
 			this.selectedIndexSource =
 				this.indexSources.find(
 					(indexSource) =>
-						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids.includes(indexSource.object_id),
+						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids?.includes(indexSource.object_id),
 				) || null;
 			
 			this.selectedTextEmbeddingProfile =
@@ -1190,6 +1222,7 @@ export default {
 					object_id: this.object_id,
 					inline_context: this.inline_context,
 					cost_center: this.cost_center,
+					expiration_date: this.expirationDate?.toISOString(),
 
 					vectorization: {
 						dedicated_pipeline: this.dedicated_pipeline,

@@ -1,13 +1,23 @@
 <template>
 	<div>
-		<!-- Header -->
-		<h2 class="page-header">{{ editId ? 'Edit Data Source' : 'Create Data Source' }}</h2>
-		<div class="page-subheader">
-			{{
-				editId
-					? 'Edit your data source settings below.'
-					: 'Complete the settings below to configure the data source.'
-			}}
+		<div style="display: flex">
+			<!-- Title -->
+			<div style="flex: 1">
+				<h2 class="page-header">{{ editId ? 'Edit Data Source' : 'Create Data Source' }}</h2>
+				<div class="page-subheader">
+					{{
+						editId
+							? 'Edit your data source settings below.'
+							: 'Complete the settings below to configure the data source.'
+					}}
+				</div>
+			</div>
+
+			<!-- Edit access control -->
+			<AccessControl
+				v-if="editId"
+				:scope="`providers/FoundationaLLM.DataSource/dataSources/${this.dataSource.name}`"
+			/>
 		</div>
 
 		<!-- Steps -->
@@ -381,6 +391,8 @@ export default {
 
 	data() {
 		return {
+			accessControlModalOpen: false,
+
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 

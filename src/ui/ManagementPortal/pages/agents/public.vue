@@ -47,6 +47,24 @@
 					}"
 				></Column>
 
+				<!-- Expiration -->
+				<Column
+					field="resource.expiration_date"
+					header="Expiration Date"
+					sortable
+					style="min-width: 200px"
+					:pt="{
+						headerCell: {
+							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
+						},
+						sortIcon: { style: { color: 'var(--primary-text)' } },
+					}"
+				>
+					<template #body="{ data }">
+						<span>{{ $filters.formatDate(data.resource.expiration_date) }}</span>
+					</template>
+				</Column>
+
 				<!-- Edit -->
 				<Column
 					header="Edit"
@@ -113,6 +131,7 @@ export default {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 			agentToDelete: null as Agent | null,
+			accessControlModalOpen: false,
 		};
 	},
 

@@ -8,7 +8,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// Base class for an orchestration involving a FoundationaLLM agent.
     /// </summary>
     /// <remarks>
-    /// Constructor for the AgentBase class.
+    /// Constructor for the OrchestrationBase class.
     /// </remarks>
     /// <param name="orchestrationService"></param>
     public class OrchestrationBase(ILLMOrchestrationService orchestrationService)

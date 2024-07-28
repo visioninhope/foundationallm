@@ -18,6 +18,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// Constructor for default agent.
     /// </remarks>
     /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
+    /// <param name="explodedObjects">A dictionary of objects retrieved from various object ids related to the agent. For more details see <see cref="LLMCompletionRequest.Objects"/> .</param>
     /// <param name="callContext">The call context of the request being handled.</param>
     /// <param name="orchestrationService"></param>
     /// <param name="logger">The logger used for logging.</param>
@@ -25,15 +26,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <param name="dataSourceAccessDenied">Inidicates that access was denied to all underlying data sources.</param>
     public class KnowledgeManagementOrchestration(
         KnowledgeManagementAgent agent,
+        Dictionary<string, object> explodedObjects,
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
         ILogger<OrchestrationBase> logger,
         Dictionary<string, IResourceProviderService> resourceProviderServices,
         bool dataSourceAccessDenied) : OrchestrationBase(orchestrationService)
     {
+        private readonly KnowledgeManagementAgent _agent = agent;
+        private readonly Dictionary<string, object> _explodedObjects = explodedObjects;
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
-        private readonly KnowledgeManagementAgent _agent = agent;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices;
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
 
@@ -43,6 +46,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
                 {
+                    OperationId = completionRequest.OperationId,
                     Completion = "I have no knowledge that can be used to answer this question.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -51,6 +55,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_agent.ExpirationDate.HasValue && _agent.ExpirationDate.Value < DateTime.UtcNow)
                 return new CompletionResponse
                 {
+                    OperationId = completionRequest.OperationId,
                     Completion = $"The requested agent, {_agent.Name}, has expired and is unable to respond.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -60,11 +65,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 instanceId,
                 new LLMCompletionRequest
                 {
+                    OperationId = completionRequest.OperationId,
                     UserPrompt = completionRequest.UserPrompt!,
-                    Agent = _agent,
                     MessageHistory = completionRequest.MessageHistory,
                     Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
-                    Settings = completionRequest.Settings
+                    Agent = _agent,
+                    Objects = _explodedObjects
                 });
 
             if (result.Citations != null)
@@ -77,6 +83,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             return new CompletionResponse
             {
+                OperationId = completionRequest.OperationId,
                 Completion = result.Completion!,
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,

@@ -1,14 +1,16 @@
 <template>
 	<div>
 		<!-- Header -->
-		<h2 class="page-header">{{ editId ? 'Edit Role Assignment' : 'Create Role Assignment' }}</h2>
-		<div class="page-subheader">
-			{{
-				editId
-					? 'Edit your role assignment settings below.'
-					: 'Complete the settings below to configure the role assignment.'
-			}}
-		</div>
+		<template v-if="!headless">
+			<h2 class="page-header">{{ editId ? 'Edit Role Assignment' : 'Create Role Assignment' }}</h2>
+			<div class="page-subheader">
+				{{
+					editId
+						? 'Edit your role assignment settings below.'
+						: 'Complete the settings below to configure the role assignment.'
+				}}
+			</div>
+		</template>
 
 		<!-- Steps -->
 		<div class="steps" :class="{ 'steps--loading': loading }">
@@ -20,17 +22,32 @@
 				</div>
 			</template>
 
+			<!-- Scope -->
+			<div class="step-header span-2">What is the assignment scope?</div>
+			<div class="span-2">
+				<div class="mb-2">Scope</div>
+				<div class="input-wrapper">
+					<InputText
+						:value="scope"
+						readonly
+						placeholder="Instance"
+						type="text"
+						class="w-100"
+					/>
+				</div>
+			</div>
+
 			<!-- Description -->
 			<div class="step-header span-2">What is the description of the role assignment?</div>
 			<div class="span-2">
-				<div id="aria-description" class="mb-2">Description:</div>
+				<div id="aria-description" class="mb-2">Data description:</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="roleAssignment.description"
+						placeholder="Enter a description for this role assignment"
 						type="text"
 						class="w-100"
-						placeholder="Enter a description for this role assignment"
-						aria-labelledby="aria-description"
+                        aria-labelledby="aria-description"
 					/>
 				</div>
 			</div>
@@ -38,55 +55,104 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
-				<div id="aria-principal-type" class="mb-2">Principal type:</div>
-				<Dropdown
-					v-model="roleAssignment.principal_type"
-					:options="principalTypeOptions"
-					option-label="label"
-					option-value="value"
-					placeholder="--Select--"
-					aria-labelledby="aria-principal-type"
-				/>
 
-				<div id="aria-principal-id" class="mb-2 mt-2">Principal ID:</div>
+				<!-- Type -->
+				<div class="mb-2">Principal Type:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.object_type"
+						readonly
+						placeholder="Browse for selection"
+						type="text"
+						class="w-50"
+					/>
+				</div>
+
+				<!-- Name -->
+				<div class="mb-2 mt-2">Principal Name:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.display_name"
+						readonly
+						placeholder="Browse for selection"
+						type="text"
+						class="w-50"
+					/>
+				</div>
+
+				<!-- Email -->
+				<div class="mb-2 mt-2">Principal Email:</div>
+				<div style="display: flex; gap: 16px;">
+					<InputText
+						v-model="principal.email"
+						readonly
+						:placeholder="!principal.email ? 'None specified' : 'Browse for selection'"
+						type="text"
+						class="w-50"
+					/>
+				</div>
+
+				<!-- ID -->
+				<div class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="roleAssignment.principal_id"
+						readonly
+						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
-						placeholder="Enter principal id (GUID)"
-						aria-labelledby="aria-principal-id"
 					/>
 					<Button
 						label="Browse"
 						severity="primary"
-						@click="openBrowsePrincipalsModal = true"
+						@click="selectPrincipalDialogOpen = true"
 					/>
 				</div>
 
 				<!-- Browse principals dialog -->
 				<Dialog
-					:visible="openBrowsePrincipalsModal"
+					:visible="selectPrincipalDialogOpen"
 					modal
 					header="Browse Principals"
 					:closable="false"
+					:style="{ minWidth: '30rem' }"
 				>
-					<div id="aria-principal-search" class="mb-2">Search by group or type</div>
-					<InputText
-						v-model="principalSearch"
-						type="text"
-						placeholder="Search"
-						aria-labelledby="aria-principal-search"
+					<div class="mb-2">Search type</div>
+					<Dropdown
+						v-model="principalSearchType"
+						:options="principalTypeOptions"
+						placeholder="--Select--"
+						class="mb-2 w-100"
 					/>
+
+					<div class="mb-2">Search query</div>
+					<AutoComplete
+						v-model="dialogPrincipal"
+						:suggestions="principalOptionsFiltered"
+						force-selection
+						dropdown
+						data-key="id"
+						option-label="display_name"
+						class="w-100"
+						@complete="handlePrincipalSearch"
+					>
+						<template #option="{ option }">
+							<div class="flex items-center">
+									<div>{{ option.display_name }}</div>
+									<div style="font-size: 0.8rem">{{ option.email }}</div>
+							</div>
+						</template>
+					</AutoComplete>
+
 					<template #footer>
-						<Button label="Cancel" text @click="openBrowsePrincipalsModal = false" />
+						<Button label="Cancel" text @click="selectPrincipalDialogOpen = false" />
 						<Button label="Select" severity="primary" @click="handlePrincipalSelected" />
 					</template>
 				</Dialog>
 			</div>
 
 			<!-- Role -->
-			<div id="aria-role" class="step-header span-2">What role to assign?</div>
+			<div class="step-header span-2">What role to assign?</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="roleAssignment.role_definition_id"
@@ -94,24 +160,11 @@
 					option-label="display_name"
 					option-value="object_id"
 					placeholder="--Select--"
-					aria-labelledby="aria-role"
-				/>
-			</div>
-
-			<!-- Cost center -->
-			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this role assignment to a cost center?</div>
-			<div class="span-2">
-				<InputText
-					v-model="roleAssignment.cost_center"
-					type="text"
-					class="w-50"
-					placeholder="Enter cost center name"
-					aria-labelledby="aria-cost-center"
 				/>
 			</div>
 
 			<!-- Buttons -->
-			<div class="button-container column-2 justify-self-end">
+			<div v-if="!headless" class="button-container column-2 justify-self-end">
 				<!-- Create role assignment -->
 				<Button
 					:label="editId ? 'Save Changes' : 'Create Role Assignment'"
@@ -136,6 +189,8 @@
 import type { PropType } from 'vue';
 import { debounce } from 'lodash';
 import api from '@/js/api';
+import { v4 as uuidv4 } from 'uuid';
+
 import type {
 	Role,
 	RoleAssignment,
@@ -150,50 +205,119 @@ export default {
 			required: false,
 			default: false,
 		},
+
+		headless: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+
+		scope: {
+			type: String,
+			required: false,
+		},
 	},
+
+	expose: ['createRoleAssignment'],
 
 	data() {
 		return {
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 
-			principalTypeOptions: [
-				{
-					label: 'User',
-					value: 'User',
-				},
-				{
-					label: 'Group',
-					value: 'Group',
-				},
-			],
-			openBrowsePrincipalsModal: false,
+			selectPrincipalDialogOpen: false,
 			roleOptions: [] as Role[],
+			principalSearchType: 'User' as null | string,
+			principalTypeOptions: ['User', 'Group'],
 
+			// scope: this.$route.query.scope ?? null,
 			roleAssignment: {
+				name: '',
 				description: '',
 				principal_id: null,
 				role_definition_id: null,
-				cost_center: null,
+				type: 'FoundationaLLM.Authorization/roleAssignments',
+				// cost_center: null,
 			} as null | RoleAssignment,
+
+			principal: {
+				object_type: null,
+				display_name: '',
+			},
+			dialogPrincipal: null,
+			users: [],
+			groups: [],
+			principalOptionsFiltered: [],
 		};
+	},
+
+	watch: {
+		principalSearchType() {
+			this.dialogPrincipal = null;
+		},
 	},
 
 	async created() {
 		this.loading = true;
 
 		this.loadingStatusText = `Retrieving roles...`;
-		this.roleOptions = await api.getRoles();
+		this.roleOptions = await api.getRoleDefinitions();
 
 		if (this.editId) {
 			this.loadingStatusText = `Retrieving role assignment "${this.editId}"...`;
 			this.roleAssignment = await api.getRoleAssignment(this.editId);
 		}
 
+		this.loadingStatusText = `Retrieving users...`;
+		const users = await this.getAllPrinciples(api.getUsers.bind(api));
+		this.users = users;
+		// const user = users[0];
+
+		this.loadingStatusText = `Retrieving groups...`;
+		const groups = await this.getAllPrinciples(api.getGroups.bind(api));
+		this.groups = groups;
+		// const group = groups[0];
+
+		// const objects = await api.getObjects({
+		// 	ids: [user.id, group.id],
+		// });
+
 		this.loading = false;
 	},
 
 	methods: {
+		async getAllPrinciples(apiMethod) {
+			let allPrincipals = [];
+			let currentPage = 1;
+			let hasMorePages = true;
+			while (hasMorePages) {
+				const usersCurrentPage = await apiMethod({
+					page_number: currentPage,
+				});
+
+				allPrincipals = [...allPrincipals, ...usersCurrentPage.items];
+
+				if (usersCurrentPage.has_next_page) {
+					currentPage += 1;
+				} else {
+					hasMorePages = false;
+				}
+			}
+
+			return allPrincipals;
+		},
+
+		handlePrincipalSearch(event) {
+			let optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
+
+			this.principalOptionsFiltered = optionsToSearch.filter((principal) => {
+				const queryLowercase = event.query.toLowerCase();
+				const nameMatch = principal.display_name?.toLowerCase().includes(queryLowercase);
+				const emailMatch = principal.email?.toLowerCase().includes(queryLowercase);
+				return nameMatch || emailMatch;
+			});
+		},
+
 		handleCancel() {
 			if (!confirm('Are you sure you want to cancel?')) {
 				return;
@@ -203,14 +327,35 @@ export default {
 		},
 
 		handlePrincipalSelected() {
+			if (!this.dialogPrincipal) {
+				return this.$toast.add({
+					severity: 'error',
+					detail: 'Please select a principal to assign.',
+					life: 5000,
+				});
+			}
 
+			this.principal = this.dialogPrincipal;
+			this.roleAssignment.principal_id = this.dialogPrincipal.id;
+			this.roleAssignment.principal_type = this.dialogPrincipal.object_type;
+			this.dialogPrincipal = null;
+			this.selectPrincipalDialogOpen = false;
 		},
 
 		async handleCreateRoleAssignment() {
-			const errors: string[] = [];
-			if (!this.roleAssignment.principal_type) {
-				errors.push('Please specify a principal type.');
+			try {
+				await this.createRoleAssignment();
+			} catch(error) {
+				this.$toast.add({
+					severity: 'error',
+					detail: error,
+					life: 5000,
+				});
 			}
+		},
+
+		async createRoleAssignment() {
+			const errors: string[] = [];
 
 			if (!this.roleAssignment.principal_id) {
 				errors.push('Please specify a principal.');
@@ -219,38 +364,35 @@ export default {
 			if (!this.roleAssignment.role_definition_id) {
 				errors.push('Please specify a role.');
 			}
-		
-			if (errors.length > 0) {
-				this.$toast.add({
-					severity: 'error',
-					detail: errors.join('\n'),
-				});
 
-				return;
+			if (errors.length > 0) {
+				throw errors.join('\n');
 			}
 
 			this.loading = true;
 			let successMessage = null as null | string;
 			try {
 				this.loadingStatusText = 'Saving role assignment...';
-				await api.updateRoleAssignment(this.roleAssignment);
+				await api.createRoleAssignment({
+					...this.roleAssignment,
+					name: uuidv4(),
+					...(this.scope ? { scope: `/instances/${api.instanceId}/${this.scope}` } : {}),
+				});
 				successMessage = `Role assignment was successfully saved.`;
 			} catch (error) {
 				this.loading = false;
-				return this.$toast.add({
-					severity: 'error',
-					detail: error?.response?._data || error,
-				});
+				throw error?.response?._data || error;
 			}
 
 			this.$toast.add({
 				severity: 'success',
 				detail: successMessage,
+				life: 5000,
 			});
 
 			this.loading = false;
 
-			if (!this.editId) {
+			if (!this.editId && !this.headless) {
 				this.$router.push('/security/role-assignments');
 			}
 		},

@@ -63,6 +63,7 @@ export interface Agent {
 	name: string;
 	object_id: string;
 	description: string;
+	long_running: boolean;
 	orchestration_settings?: OrchestrationSettings;
 }
 

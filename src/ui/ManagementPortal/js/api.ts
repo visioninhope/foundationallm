@@ -18,7 +18,7 @@ import type {
 	RoleAssignment,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
-import { mockRoles, mockRoleAssignmentsResponse } from './mock';
+import { $fetch } from 'ofetch';
 
 async function wait(milliseconds: number = 1000): Promise<void> {
 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
@@ -67,7 +67,9 @@ export default {
 		});
 	},
 
-	// Data sources
+	/*
+		Data Sources
+	 */
 	async checkDataSourceName(name: string, type: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -235,7 +237,9 @@ export default {
 		);
 	},
 
-	// App Configuration
+	/*
+		App Configuration
+	 */
 	async getAppConfig(key: string): Promise<ResourceProviderGetResult<AppConfigUnion>> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Configuration/appConfigurations/${key}?api-version=${this.apiVersion}`,
@@ -259,7 +263,9 @@ export default {
 		);
 	},
 
-	// Indexes
+	/*
+		Indexes
+	 */
 	async getAgentIndexes(addDefaultOption: boolean = false): Promise<ResourceProviderGetResult<AgentIndex>[]> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/indexingProfiles?api-version=${this.apiVersion}`,
@@ -333,7 +339,9 @@ export default {
 		}
 	},
 
-	// Text embedding profiles
+	/*
+		Text Embedding Profiles
+	 */
 	async getTextEmbeddingProfiles(): Promise<ResourceProviderGetResult<TextEmbeddingProfile>[]> {
 		const data = await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Vectorization/textEmbeddingProfiles?api-version=${this.apiVersion}`,
@@ -378,7 +386,9 @@ export default {
 		return data;
 	},
 
-	// Agents
+	/*
+		Agents
+	 */
 	async checkAgentName(name: string, agentType: string): Promise<CheckNameResponse> {
 		const payload = {
 			name,
@@ -529,7 +539,9 @@ export default {
 		);
 	},
 
-	// Prompts
+	/*
+		Prompts
+	 */
 	async getPrompt(promptId: string): Promise<ResourceProviderGetResult<Prompt> | null> {
 		// Attempt to retrieve the prompt. If it doesn't exist, return an empty object.
 		try {
@@ -599,28 +611,137 @@ export default {
 		return data;
 	},
 
-	async getRoles(): Roles[] {
-		await wait(1000);
-		return mockRoles;
+	/*
+		Role Assignments
+	 */
+	async getRoleAssignments(scope): RoleAssignment[] {
+		const assignments = (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/filter?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}${scope ? `/${scope}` : ''}`,
+				}),
+			},
+		)) as RoleAssignment[];
+
+		assignments.map(assignment => {
+			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
+				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
+			} else if (assignment.resource.scope === `/instances/${this.instanceId}/${scope}`) {
+				assignment.resource.scope_name = 'This resource';
+			}
+		});
+
+		return assignments;
 	},
 
-	async getRoleAssignments(): RoleAssignment[] {
-		await wait(1000);
-		return mockRoleAssignmentsResponse;
+	async getRoleAssignment(roleAssignmentId): RoleAssignment[] {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${roleAssignmentId}?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify({
+					scope: `/instances/${this.instanceId}`,
+				}),
+			},
+		)) as RoleAssignment[];
 	},
 
-	async getRoleAssignment(roleAssignmentId): RoleAssignment {
-		await wait(1000);
-		return mockRoleAssignmentsResponse.role_assignments.find((roleAssignment) => roleAssignment.name === roleAssignmentId);
+	async createRoleAssignment(request: Object): Promise<any> {
+		if (!request.scope) {
+			request.scope = `/instances/${this.instanceId}`;
+		}
+
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleAssignments/${request.name}?api-version=${this.apiVersion}`,
+			{
+				method: 'POST',
+				body: JSON.stringify(request),
+			},
+		);
 	},
 
-	async updateRoleAssignment(roleAssignment: RoleAssignment) {
-		await wait(1000);
-		return roleAssignment;
+	/*
+		Role Definitions
+	 */
+	async getRoleDefinitions(): RoleAssignment[] {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions?api-version=${this.apiVersion}`,
+		)) as Object[];
+	},
+
+	async getRoleDefinition(roleAssignmentId): RoleAssignment {
+		return (await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
+		)) as RoleAssignment[];
 	},
 
 	async deleteRoleAssignment(roleAssignmentId): void {
-		await wait(1000);
-		return roleAssignmentId;
+		return await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.Authorization/roleDefinitions/${roleAssignmentId}?api-version=${this.apiVersion}`,
+			{
+				method: 'DELETE',
+			},
+		);
+	},
+
+	/*
+		Users
+	 */
+	async getUsers(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/retrieve?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
+	},
+
+	async getUser(userId) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/users/${userId}?api-version=${this.apiVersion}`);
+	},
+
+	/*
+		Groups
+	 */
+	async getGroups(params) {
+		const defaults = {
+			name: '',
+			ids: [],
+			page_number: 1,
+			page_size: null,
+		};
+
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/retrieve?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				...defaults,
+				...params,
+			}),
+		});
+	},
+
+	async getGroup(groupId) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/groups/${groupId}?api-version=${this.apiVersion}`);
+	},
+
+	/*
+		Combined User+Groups
+	 */
+	async getObjects(params = { ids: [] }) {
+		return await this.fetch(`/instances/${this.instanceId}/identity/objects/retrievebyids?api-version=${this.apiVersion}`, {
+			method: 'POST',
+			body: JSON.stringify(params),
+		});
 	},
 };
+

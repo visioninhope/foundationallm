@@ -56,7 +56,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
@@ -64,7 +64,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
@@ -72,7 +72,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId=completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
@@ -80,7 +80,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
 
                 if (!contentSafetyResult.Safe)
-                    return new CompletionResponse() { Completion = contentSafetyResult.Reason };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = contentSafetyResult.Reason };
             }
 
             var completionResponse = await _orchestrationAPIService.GetCompletion(instanceId, completionRequest);
@@ -92,15 +92,15 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<OperationState> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
+        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
             // TODO: Need to call State API to start the operation.
             throw new NotImplementedException();
 
         /// <inheritdoc/>
-        public Task<OperationState> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+        public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletionOperation(string instanceId, string operationId) =>
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
             // TODO: Need to call State API to get the operation.
             throw new NotImplementedException();
         

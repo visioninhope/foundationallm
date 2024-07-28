@@ -8,7 +8,11 @@
 
 			<div style="display: flex; align-items: center">
 				<NuxtLink to="/security/role-assignments/create">
+<<<<<<< ours
 					<Button aria-label="Create role assignment">
+=======
+					<Button>
+>>>>>>> theirs
 						<i class="pi pi-plus" style="color: var(--text-primary); margin-right: 8px"></i>
 						Create Role Assignment
 					</Button>
@@ -16,6 +20,7 @@
 			</div>
 		</div>
 
+<<<<<<< ours
 		<div :class="{ 'grid--loading': loading }">
 			<!-- Loading overlay -->
 			<template v-if="loading">
@@ -132,6 +137,9 @@
 				<Button label="Delete" severity="danger" @click="handleDeleteRoleAssignment" />
 			</template>
 		</Dialog>
+=======
+		<RoleAssignmentsTable />
+>>>>>>> theirs
 	</div>
 </template>
 
@@ -144,6 +152,7 @@ export default {
 
 	data() {
 		return {
+<<<<<<< ours
 			roleAssignments: [] as RoleAssignment[],
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
@@ -184,11 +193,20 @@ export default {
 
 			await this.getRoleAssignments();
 		},
+=======
+			
+		};
+	},
+
+	methods: {
+		
+>>>>>>> theirs
 	},
 };
 </script>
 
 <style lang="scss">
+<<<<<<< ours
 .table__button {
 	color: var(--primary-button-bg);
 }
@@ -227,4 +245,7 @@ export default {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+=======
+
+>>>>>>> theirs
 </style>

@@ -1,10 +1,13 @@
 ﻿using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -32,12 +35,22 @@ namespace FoundationaLLM.Authorization.Services
         /// <inheritdoc/>
         public async Task<ActionAuthorizationResult> ProcessAuthorizationRequest(
             string instanceId,
-            ActionAuthorizationRequest authorizationRequest)
+            string action,
+            List<string> resourcePaths,
+            UnifiedUserIdentity userIdentity)
         {
-            var defaultResults = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+            var defaultResults = resourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
 
             try
             {
+                var authorizationRequest = new ActionAuthorizationRequest
+                {
+                    Action = action,
+                    ResourcePaths = resourcePaths,
+                    PrincipalId = userIdentity.UserId,
+                    SecurityGroupIds = userIdentity.GroupIds
+                };
+
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/authorize",
@@ -60,7 +73,10 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest)
+        public async Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(
+            string instanceId,
+            RoleAssignmentRequest roleAssignmentRequest,
+            UnifiedUserIdentity userIdentity)
         {
             try
             {
@@ -91,7 +107,10 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, RoleAssignmentsWithActionsResult>> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
+        public async Task<Dictionary<string, RoleAssignmentsWithActionsResult>> ProcessRoleAssignmentsWithActionsRequest(
+            string instanceId,
+            RoleAssignmentsWithActionsRequest request,
+            UnifiedUserIdentity userIdentity)
         {
             var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithActionsResult() { Actions = [], Roles = [] });
 
@@ -120,7 +139,10 @@ namespace FoundationaLLM.Authorization.Services
 
 
         /// <inheritdoc/>
-        public async Task<List<object>> GetRoleAssignments(string instanceId, RoleAssignmentQueryParameters queryParameters)
+        public async Task<List<object>> GetRoleAssignments(
+            string instanceId,
+            RoleAssignmentQueryParameters queryParameters,
+            UnifiedUserIdentity userIdentity)
         {
             try
             {
@@ -146,7 +168,10 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<RoleAssignmentResult> RevokeRoleAssignment(string instanceId, string roleAssignment)
+        public async Task<RoleAssignmentResult> RevokeRoleAssignment(
+            string instanceId,
+            string roleAssignment,
+            UnifiedUserIdentity userIdentity)
         {
             try
             {
@@ -175,6 +200,10 @@ namespace FoundationaLLM.Authorization.Services
             }
         }
 
+        /// <summary>
+        /// Exception to the unified HTTP client factory when consuming the Authorization API.
+        /// </summary>
+        /// <returns></returns>
         private async Task<HttpClient> CreateHttpClient()
         {
             var httpClient = _httpClientFactory.CreateClient();
@@ -182,7 +211,7 @@ namespace FoundationaLLM.Authorization.Services
 
             var credentials = DefaultAuthentication.AzureCredential;
             var tokenResult = await credentials.GetTokenAsync(
-                new ([_settings.APIScope]),
+                new([_settings.APIScope]),
                 default);
 
             httpClient.DefaultRequestHeaders.Authorization =
