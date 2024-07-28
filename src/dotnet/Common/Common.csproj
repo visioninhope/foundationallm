@@ -79,6 +79,11 @@
       <LastGenOutput>AppConfigurationKeys.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
+    <None Update="Templates\appconfig.template.json">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>appconfig.template.tt</DependentUpon>
+    </None>
     <None Update="Templates\authorization-azure-key-vault-secret-names.json">
       <DependentUpon>authorization-azure-key-vault-secret-names.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -96,11 +101,6 @@
     <None Update="Templates\azure-key-vault-secret-names.tt">
       <LastGenOutput>azure-key-vault-secret-names.json</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Templates\appconfig.template.json">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>appconfig.template.tt</DependentUpon>
     </None>
     <None Update="Templates\appconfig.template.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
