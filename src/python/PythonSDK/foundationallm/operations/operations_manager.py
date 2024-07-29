@@ -41,13 +41,6 @@ class OperationsManager():
         LongRunningOperation
             Object representing the operation.
         """
-        operation = LongRunningOperation(
-            operation_id=operation_id,
-            status=OperationStatus.PENDING,
-            status_message='Operation was submitted and is pending execution.',
-            last_updated=datetime.now()
-        )
-                
         try:
             headers = {
                 "x-api-key": self.state_api_key,
@@ -58,14 +51,14 @@ class OperationsManager():
             # Call the State API to create a new operation.
             r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
-                json=json.dumps(operation.__dict__, default=str),
-                headers=headers
+                headers=headers,
+                verify=False
             )
 
             if r.status_code != 200:
-                raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
+                raise Exception(f'An error occurred while creating the operation {operation_id}: ({r.status_code}) {r.text}')
 
-            return operation
+            return r.json()
         except Exception as e:
             raise e
 
