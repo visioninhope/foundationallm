@@ -44,7 +44,8 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             _settings = options.Value;
             _logger = logger;
 
-            _client = new ContentSafetyClient(new Uri(_settings.APIUrl), DefaultAuthentication.AzureCredential);
+            //TODO: Use IHttpClientFactoryService
+            //_client = new ContentSafetyClient(new Uri(_settings.APIUrl), DefaultAuthentication.AzureCredential);
         }
 
         /// <inheritdoc/>

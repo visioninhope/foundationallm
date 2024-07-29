@@ -46,7 +46,7 @@ namespace FoundationaLLM.Core.Examples
             dataSourceObjectId = $"/instances/{_instanceSettings.Id}/providers/FoundationaLLM.DataSource/dataSources/{dataSourceName}";
             id = Guid.NewGuid().ToString();
             _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization);
         }
         
         [Fact]
