@@ -262,19 +262,21 @@ export default {
 					message: 'Uploading a new file will replace the file already attached.',
 					header: 'Confirm File Replacement',
 					icon: 'pi pi-exclamation-triangle',
+					rejectLabel: 'Upload',
+					acceptLabel: 'Cancel',
 					rejectProps: {
+						label: 'Upload',
+					},
+					acceptProps: {
 						label: 'Cancel',
 						severity: 'secondary',
 						outlined: true
 					},
-					acceptProps: {
-						label: 'Upload'
-					},
 					accept: () => {
-						uploadCallback();
 						this.showFileUploadDialog = false;
 					},
 					reject: () => {
+						uploadCallback();
 						this.showFileUploadDialog = false;
 					}
 				});
