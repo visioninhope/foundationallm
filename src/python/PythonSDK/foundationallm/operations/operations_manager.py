@@ -17,8 +17,8 @@ class OperationsManager():
     def __init__(self, config: Configuration):
         self.config = config
         # Retrieve the State API configuration settings.
-        self.state_api_url = config.get_value('FoundationaLLM:APIs:StateAPI:APIUrl').rstrip('/')
-        self.state_api_key = config.get_value('FoundationaLLM:APIs:StateAPI:APIKey')
+        self.state_api_url = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIUrl').rstrip('/')
+        self.state_api_key = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIKey')
         
     async def create_operation(
         self,
