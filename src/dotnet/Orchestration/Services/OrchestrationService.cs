@@ -102,17 +102,16 @@ public class OrchestrationService : IOrchestrationService
     }
 
     /// <inheritdoc/>
-    public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
-        // TODO: Need to call State API to start the operation.
-        throw new NotImplementedException();
+    public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
+        => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+    public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId)
+        => throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
-        // TODO: Need to call State API to get the operation.
-        throw new NotImplementedException();
+    public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId)
+        => throw new NotImplementedException();
 
     private async Task<CompletionResponse> GetCompletionForAgentConversation(
         string instanceId,

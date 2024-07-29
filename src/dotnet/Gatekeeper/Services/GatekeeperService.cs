@@ -92,17 +92,16 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
-            // TODO: Need to call State API to start the operation.
-            throw new NotImplementedException();
+        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
+            => await _orchestrationAPIService.StartCompletionOperation(instanceId, completionRequest);
 
         /// <inheritdoc/>
-        public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+        public async Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId)
+            => await _orchestrationAPIService.GetCompletionOperationStatus(instanceId, operationId);
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
-            // TODO: Need to call State API to get the operation.
-            throw new NotImplementedException();
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId)
+            => await _orchestrationAPIService.GetCompletionOperationResult(instanceId, operationId);
         
     }
 }

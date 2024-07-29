@@ -168,12 +168,14 @@ public partial class CoreService(
     public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
     {
         completionRequest = PrepareCompletionRequest(completionRequest);
-        throw new NotImplementedException();
+        var agentOption = await ProcessGatekeeperOptions(completionRequest);
+        var result = await GetDownstreamAPIService(agentOption).StartCompletionOperation(instanceId, completionRequest);
+        return result;
     }        
 
     /// <inheritdoc/>
-    public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
-        throw new NotImplementedException();
+    public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId)
+    => throw new NotImplementedException();
 
     /// <inheritdoc/>
     public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
