@@ -259,6 +259,8 @@ resource customerOpenAi 'Microsoft.CognitiveServices/accounts@2023-05-01' existi
     scope: customerOpenAiResourceGroup
   }
 
+output azureContentSafetyEndpoint string = contentSafety.outputs.endpoint
+
 output azureOpenAiEndpoint string = azureOpenAiEndpoint
 output azureOpenAiId string = azureOpenAiId
 output azureOpenAiResourceGroup string = openAiInstance.resourceGroup

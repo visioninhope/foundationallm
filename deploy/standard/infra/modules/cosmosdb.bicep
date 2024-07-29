@@ -197,56 +197,6 @@ resource diagnostics 'Microsoft.Insights/diagnosticSettings@2017-05-01-preview' 
   }
 }
 
-@description('The containers in the database.')
-resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-09-15' = [for c in containers: {
-  name: c.name
-  parent: database
-
-  properties: {
-    options: {
-      autoscaleSettings: {
-        maxThroughput: 1000
-      }
-    }
-    resource: {
-      id: c.name
-      indexingPolicy: {
-        indexingMode: 'consistent'
-        automatic: true
-
-        excludedPaths: [
-          {
-            path: '/"_etag"/?'
-          }
-        ]
-
-        includedPaths: [
-          {
-            path: '/*'
-          }
-        ]
-      }
-
-      partitionKey: {
-        kind: 'Hash'
-        paths: c.partitionKey.paths
-        version: 2
-      }
-
-      defaultTtl: c.?defaultTtl
-
-      uniqueKeyPolicy: {
-        uniqueKeys: []
-      }
-
-      conflictResolutionPolicy: {
-        conflictResolutionPath: '/_ts'
-        mode: 'LastWriterWins'
-      }
-    }
-  }
-}]
-
 resource cosmosContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = [
   for c in containers: if (c.defaultTtl == null) {
     name: c.name

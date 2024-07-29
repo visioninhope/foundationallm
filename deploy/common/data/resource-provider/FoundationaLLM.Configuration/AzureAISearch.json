@@ -1,0 +1,16 @@
+{
+    "type": "api-endpoint",
+    "name": "AzureAISearch",
+    "object_id": "/instances/f34f0a89-83b1-43b3-a5f9-e8bbdfa9f251/providers/FoundationaLLM.Configuration/apiEndpoints/AzureAISearch",
+    "display_name": null,
+    "description": null,
+    "cost_center": null,
+    "category": "General",
+    "authentication_type": "AzureIdentity",
+    "authentication_parameters": {},
+    "url": "https://search-mg08-fllmstd-westus-storage.search.windows.net",
+    "url_exceptions": [],
+    "timeout_seconds": 60,
+    "retry_strategy_name": "ExponentialBackoff"
+}
+
