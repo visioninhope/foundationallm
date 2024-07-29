@@ -161,6 +161,10 @@ export const useAppStore = defineStore('app', {
 		async sendMessage(text: string) {
 			if (!text) return;
 
+			let sessionId = this.currentSession!.id;
+			let relevantAttachments = this.attachments.filter(attachment => attachment.sessionId === sessionId);
+
+
 			const authStore = useAuthStore();
 			const tempUserMessage: Message = {
 				completionPromptId: null,
@@ -200,7 +204,7 @@ export const useAppStore = defineStore('app', {
 					user_prompt: text,
 					agent_name: agent.name,
 					settings: null,
-					attachments: this.attachments.map(attachment => String(attachment.id))
+					attachments: relevantAttachments.map(attachment => String(attachment.id))
 				});
 
 				this.longRunningOperations.set(this.currentSession!.id, operationId);
@@ -210,7 +214,7 @@ export const useAppStore = defineStore('app', {
 					this.currentSession!.id,
 					text,
 					agent,
-					this.attachments.map(attachment => String(attachment.id)),
+					relevantAttachments.map(attachment => String(attachment.id)),
 				);
 				await this.getMessages();
 			}
