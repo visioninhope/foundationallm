@@ -475,14 +475,14 @@
         "content_type": "",
         "first_version": "0.8.0"
       },
-      {
-        "name": "AppInsightsConnectionString",
-        "description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper API.",
-        "secret": "",
-        "value": "appinsights-connectionstring",
-        "content_type": "",
-        "first_version": "0.8.0"
-      }
+			{
+				"name": "AppInsightsConnectionString",
+				"description": "The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper API.",
+				"secret": "appinsights-connectionstring",
+				"value": "",
+				"content_type": "",
+				"first_version": "0.8.0"
+			}
     ]
   },
   {
@@ -544,7 +544,7 @@
       {
         "name": "APIKey",
         "description": "The name of the Azure Key Vault secret holding the API key for the Gatekeeper Integration API.",
-        "secret": "apiendpoints-gatekeeperintergrationapi-apikey",
+        "secret": "apiendpoints-gatekeeperintegrationapi-apikey",
         "value": "",
         "content_type": "",
         "first_version": "0.8.0"
@@ -833,7 +833,7 @@
       {
         "name": "APIKey",
         "description": "The name of the Azure Key Vault secret holding the API key for the State API.",
-        "secret": "apinedpoints-stateapi-apikey",
+        "secret": "apiendpoints-stateapi-apikey",
         "value": "",
         "content_type": "",
         "first_version": "0.8.0"

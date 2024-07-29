@@ -1,6 +1,7 @@
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
 <#@ assembly name="System.Text.Json" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ assembly name="System.Memory" #>
@@ -18,25 +19,34 @@
 
     Func<JsonNode, string> getValue = n => string.IsNullOrWhiteSpace(n["secret"].GetValue<string>())
         ? n["value"].GetValue<string>()
-        : $"{{\\\"uri\\\":\\\"${{env:AZURE_KEY_VAULT_ENDPOINT}}secrets/foundationallm-{n["secret"].GetValue<string>()}}}\\\"}}";
+        : $"{{\\\"uri\\\":\\\"${{env:AZURE_KEY_VAULT_ENDPOINT}}secrets/foundationallm-{n["secret"].GetValue<string>()}\\\"}}";
+
+    var items =
+        jsonObjects.AsArray()
+        .Select(ns =>
+            ns["configuration_keys"].AsArray()
+            .Select(k => new {
+                Key = $"FoundationaLLM:{(ns["namespace"])}:{(k["name"])}",
+                Value = getValue(k),
+                ContentType = getContentType(k)
+            }))
+        .SelectMany(x => x)
+        .ToList();
 #>
 {
     "items": [
 <#
-    foreach (var jsonObject in jsonObjects.AsArray())
+    for (int i = 0; i < items.Count; i++)
     {
-        foreach (var key in jsonObject["configuration_keys"].AsArray())
-        {
 #>
         {
-            "key": "FoundationaLLM:<#=jsonObject["namespace"]#>:<#=key["name"]#>",
-            "value": "<#=getValue(key)#>",
+            "key": "<#=items[i].Key#>",
+            "value": "<#=items[i].Value#>",
             "label": null,
-            "content_type": "<#=getContentType(key)#>",
+            "content_type": "<#=items[i].ContentType#>",
             "tags": {}
-        },
+        }<#=i == items.Count - 1 ? string.Empty : ","#>
 <#
-        }
     }
 #>
     ]
