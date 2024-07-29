@@ -14,7 +14,7 @@
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
-					<h2 style="margin-bottom: 0px;">Attached Files</h2>
+					<h2 style="margin-bottom: 0px;">Attached File</h2>
 					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
 						<div class="file-name">{{ file.fileName }}</div>
 						<div class="file-remove">
@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<div v-else>
-						No files attached
+						No file attached
 					</div>
 				</div>
 				<div class="p-d-flex p-jc-end">
