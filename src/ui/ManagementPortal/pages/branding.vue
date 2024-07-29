@@ -14,7 +14,6 @@
                 <div class="step-header mb-2">{{ key }}</div>
                 <div class="mb-2">{{ getBrandingDescription(key) }}</div>
                 <InputText :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" />
-                <!-- <ColorPicker :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" /> -->
                 <ColorPicker :modelValue="getBrandingValue(key)" @change="updateBrandingValue(key, $event.value)" />
             </div>
             <div style="border-top: 3px solid #bbb;"></div>
@@ -162,6 +161,13 @@ export default {
         },
 
         updateBrandingValue(key: string, newValue: string) {
+            // if newValue equals regular expression of hex color code \b[0-9a-fA-F]{6}\b
+            console.log("newValue", newValue);
+            if (newValue.match(/\b[0-9a-fA-F]{6}\b/)) {
+                console.log("hex color code");
+                // newValue = "#" + newValue all caps;
+                newValue = "#" + newValue.toUpperCase();
+            }
             const brand = this.branding?.find((item: any) => item.resource.key === key);
             if (brand) {
                 brand.resource.value = newValue;
