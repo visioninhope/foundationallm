@@ -35,7 +35,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
     public class AttachmentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Attachment)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Attachment)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,

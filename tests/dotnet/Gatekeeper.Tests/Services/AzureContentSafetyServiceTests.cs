@@ -14,11 +14,6 @@ namespace Gatekeeper.Tests.Services
     public class AzureContentSafetyServiceTests
     {
         private readonly AzureContentSafetyService _testedService;
-        private readonly IOptions<AzureContentSafetySettings> _settings = Options.Create(new AzureContentSafetySettings
-        {
-            APIUrl = "https://example.com",
-            APIKey = "test-api-key"
-        });
 
         private readonly ILogger<AzureContentSafetyService> _logger = Substitute.For<ILogger<AzureContentSafetyService>>();
         private ContentSafetyClient _client;
@@ -29,9 +24,10 @@ namespace Gatekeeper.Tests.Services
 
         public AzureContentSafetyServiceTests()
         {
-            _testedService = new AzureContentSafetyService(_callContext, _httpClientFactoryService, _settings, _logger);
-            _client = Substitute.ForPartsOf<ContentSafetyClient>(new Uri(_settings.Value.APIUrl), new AzureKeyCredential(_settings.Value.APIKey));
-            _service = new AzureContentSafetyService(_callContext, _httpClientFactoryService, _settings, _logger);
+            // TODO: move to APIEndpointConfiguration
+            //_testedService = new AzureContentSafetyService(_callContext, _httpClientFactoryService, _settings, _logger);
+            //_client = Substitute.ForPartsOf<ContentSafetyClient>(new Uri(_settings.Value.APIUrl), new AzureKeyCredential(_settings.Value.APIKey));
+            //_service = new AzureContentSafetyService(_callContext, _httpClientFactoryService, _settings, _logger);
         }
 
         [Fact]
