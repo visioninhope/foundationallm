@@ -1,4 +1,5 @@
 import json
+import os
 import requests
 from typing import List
 from foundationallm.config import Configuration
@@ -18,6 +19,7 @@ class OperationsManager():
         # Retrieve the State API configuration settings.
         self.state_api_url = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIUrl').rstrip('/')
         self.state_api_key = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIKey')
+        self.env = os.environ.get('env', 'prod')
         
     async def create_operation(
         self,
@@ -51,7 +53,7 @@ class OperationsManager():
             r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code != 200:
@@ -105,7 +107,7 @@ class OperationsManager():
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
                 json=operation.model_dump(exclude_unset=True),
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code == 404:
@@ -152,7 +154,7 @@ class OperationsManager():
             r = requests.get(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code == 404:
@@ -196,7 +198,7 @@ class OperationsManager():
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/result',
                 json=completion_response.model_dump(),
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code == 404:
@@ -240,7 +242,7 @@ class OperationsManager():
             r = requests.get(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/result',
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code == 404:
@@ -285,7 +287,7 @@ class OperationsManager():
             r = requests.get(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/logs',
                 headers=headers,
-                verify=False
+                verify=False if self.env == 'dev' else True
             )
 
             if r.status_code == 404:
