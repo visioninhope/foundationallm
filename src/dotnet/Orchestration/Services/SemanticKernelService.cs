@@ -39,7 +39,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         {
             var client = await _httpClientFactoryService.CreateClient(HttpClientNames.SemanticKernelAPI, _callContext.CurrentUserIdentity);
             var responseMessage = await client.SendAsync(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
+                new HttpRequestMessage(HttpMethod.Get, $"instances/{instanceId}/status"));
 
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
@@ -59,7 +59,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
             var client = await _httpClientFactoryService.CreateClient(HttpClientNames.SemanticKernelAPI, _callContext.CurrentUserIdentity);
 
             var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
-            var responseMessage = await client.PostAsync("orchestration/completion",
+            var responseMessage = await client.PostAsync($"instances/{instanceId}/orchestration/completion",
                 new StringContent(
                     body,
                     Encoding.UTF8, "application/json"));
