@@ -1,6 +1,5 @@
 import json
 import requests
-from datetime import datetime
 from typing import List
 from foundationallm.config import Configuration
 from foundationallm.models.operations import (
@@ -40,7 +39,7 @@ class OperationsManager():
         -------
         LongRunningOperation
             Object representing the operation.
-        """
+        """               
         try:
             headers = {
                 "x-api-key": self.state_api_key,
@@ -91,10 +90,9 @@ class OperationsManager():
         operation = LongRunningOperation(
             operation_id=operation_id,
             status=status,
-            status_message=status_message,
-            last_updated=datetime.now()
+            status_message=status_message
         )
-                
+        
         try:
             # Call the State API to create a new operation.
             headers = {
@@ -105,21 +103,22 @@ class OperationsManager():
 
             r = requests.put(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
-                json=json.dumps(operation.__dict__, default=str),
-                headers=headers
+                json=operation.model_dump(exclude_unset=True),
+                headers=headers,
+                verify=False
             )
 
             if r.status_code == 404:
                 return None
 
             if r.status_code != 200:
-                raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
+                raise Exception(f'An error occurred while updating the status of operation {operation_id}: ({r.status_code}) {r.text}')
 
-            return operation
+            return r.json()
         except Exception as e:
             raise e
 
-    async def get_operation_status(
+    async def get_operation(
         self,
         operation_id: str,
         instance_id: str) -> LongRunningOperation:
@@ -148,20 +147,21 @@ class OperationsManager():
                 "Content-Type":"application/json"
             }
 
+            print(f'status endpoint: {self.state_api_url}/instances/{instance_id}/operations/{operation_id}')
+
             r = requests.get(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',
-                headers=headers
+                headers=headers,
+                verify=False
             )
 
             if r.status_code == 404:
                 return None
 
             if r.status_code != 200:
-                raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
+                raise Exception(f'An error occurred while retrieving the status of the operation {operation_id}: ({r.status_code}) {r.text}')
 
-            operation_json = json.loads(r.json())
-            operation = LongRunningOperation(**operation_json)
-            return operation
+            return r.json()
         except Exception as e:
             raise e
 
@@ -194,15 +194,16 @@ class OperationsManager():
 
             r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/result',
-                json=json.dumps(completion_response.__dict__, default=str),
-                headers=headers
+                json=completion_response.model_dump(),
+                headers=headers,
+                verify=False
             )
 
             if r.status_code == 404:
                 return None
 
             if r.status_code != 200:
-                raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
+                raise Exception(f'An error occurred while submitting the result of operation {operation_id}: ({r.status_code}) {r.text}')
 
         except Exception as e:
             raise e
@@ -238,7 +239,8 @@ class OperationsManager():
 
             r = requests.get(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/result',
-                headers=headers
+                headers=headers,
+                verify=False
             )
 
             if r.status_code == 404:
@@ -247,9 +249,7 @@ class OperationsManager():
             if r.status_code != 200:
                 raise Exception(f'An error occurred while retrieving the result of operation {operation_id}: ({r.status_code}) {r.text}')
 
-            completion_json = json.loads(r.json())
-            completion = CompletionResponse(**completion_json)
-            return completion
+            return r.json()
         except Exception as e:
             raise e
 
@@ -283,8 +283,9 @@ class OperationsManager():
             }
 
             r = requests.get(
-                f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/log',
-                headers=headers
+                f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}/logs',
+                headers=headers,
+                verify=False
             )
 
             if r.status_code == 404:
@@ -293,8 +294,6 @@ class OperationsManager():
             if r.status_code != 200:
                 raise Exception(f'An error occurred while retrieving the log of steps for the operation {operation_id}: ({r.status_code}) {r.text}')
 
-            log_json = json.loads(r.json())
-            log = CompletionResponse(**log_json)
-            return log
+            return r.json()
         except Exception as e:
             raise e
