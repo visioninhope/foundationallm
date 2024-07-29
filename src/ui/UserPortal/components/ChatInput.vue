@@ -8,14 +8,14 @@
 				class="file-upload-button secondary-button"
 				style="height: 100%;"
 				@click="toggleFileAttachmentOverlay"
-				:badge="$appStore.attachments.length.toString() || null"
-				v-tooltip.top="'Attach files' + ($appStore.attachments.length ? ' (' + $appStore.attachments.length.toString() + ' file)' : ' (0 files)')"
-				:aria-label="'Upload file (' + $appStore.attachments.length.toString() + ' files attached)'"
+				:badge="fileArrayFiltered.length.toString() || null"
+				v-tooltip.top="'Attach files' + (fileArrayFiltered.length ? ' (' + fileArrayFiltered.length.toString() + ' file)' : ' (0 files)')"
+				:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
 					<h2 style="margin-bottom: 0px;">Attached File</h2>
-					<div class="attached-files" v-for="file in $appStore.attachments" v-if="$appStore.attachments.length">
+					<div class="attached-files" v-for="file in fileArrayFiltered" v-if="fileArrayFiltered.length">
 						<div class="file-name">{{ file.fileName }}</div>
 						<div class="file-remove">
 							<Button
@@ -176,6 +176,12 @@ export default {
 		};
 	},
 
+	computed: {
+		fileArrayFiltered() {
+			return this.$appStore.attachments.filter((attachment) => attachment.sessionId === this.$appStore.currentSession.sessionId);
+		},
+	},
+
 	watch: {
 		text: {
 			handler() {
@@ -234,7 +240,7 @@ export default {
 				const formData = new FormData();
 				formData.append("file", event.files[0]);
 
-				const objectId = await this.$appStore.uploadAttachment(formData);
+				const objectId = await this.$appStore.uploadAttachment(formData, this.$appStore.currentSession.sessionId);
 
 				console.log(`File uploaded: ObjectId: ${objectId}`);
 				this.$toast.add({ severity: 'success', summary: 'Success', detail: 'File uploaded successfully.' });
@@ -257,7 +263,7 @@ export default {
 		},
 
 		uploadFile(uploadCallback) {
-			if (this.$appStore.attachments.length) {
+			if (this.fileArrayFiltered.length) {
 				this.$confirm.require({
 					message: 'Uploading a new file will replace the file already attached.',
 					header: 'Confirm File Replacement',

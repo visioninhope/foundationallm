@@ -287,13 +287,20 @@ export const useAppStore = defineStore('app', {
 			return this.agents;
 		},
 
-		async uploadAttachment(file: FormData) {
+		async uploadAttachment(file: FormData, sessionId: string) {
 			try {
 				const id = await api.uploadAttachment(file);
 				const fileName = file.get('file')?.name;
-				// this.attachments.push(id);
-				// For now, we want to just replace the attachments with the new one.
-				this.attachments = [{ id, fileName}];
+				const newAttachment = { id, fileName, sessionId };
+
+				const existingIndex = this.attachments.findIndex(attachment => attachment.sessionId === sessionId);
+				
+				if (existingIndex !== -1) {
+					this.attachments.splice(existingIndex, 1, newAttachment);
+				} else {
+					this.attachments.push(newAttachment);
+				}
+				
 				return id;
 			} catch (error) {
 				throw error;
