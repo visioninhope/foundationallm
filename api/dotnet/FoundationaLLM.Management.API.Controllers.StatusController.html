@@ -104,7 +104,7 @@ Class StatusController  <a class="header-action link-secondary" title="View sour
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Authorize(Policy = &quot;DefaultPolicy&quot;)]
 [ApiController]
-[Route(&quot;status&quot;)]
+[Route(&quot;instances/{instanceId}/[controller]&quot;)]
 [Consumes(&quot;application/json&quot;, new string[] { })]
 [Produces(&quot;application/json&quot;, new string[] { })]
 public class StatusController : ControllerBase</code></pre>

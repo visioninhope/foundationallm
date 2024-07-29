@@ -1162,6 +1162,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Configuration.AuthorizationDependencyInjectionKeys.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Configuration.AuthorizationDependencyInjectionKeys.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Configuration.AuthorizationKeyVaultSecretNames.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Configuration.AuthorizationKeyVaultSecretNames.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Constants.Configuration.DependencyInjectionKeys.yml",
       "output": {
         ".html": {
@@ -5862,16 +5882,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Gateway.Models.Configuration.GatewayServiceSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gateway.Models.Configuration.yml",
       "output": {
         ".html": {
@@ -6236,16 +6246,6 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.LangChainServiceSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.OrchestrationSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions.OrchestrationSettings.html"
         }
       },
       "version": ""

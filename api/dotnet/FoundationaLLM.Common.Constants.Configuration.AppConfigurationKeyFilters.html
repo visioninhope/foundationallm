@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class AppConfigurationKeyFilters | FoundationaLLM ">
       
-      <meta name="description" content="Contains constants of the keys filters for app configuration setting namespaces.">
+      <meta name="description" content="Defines all configuration section filters used to select subsets of configuration settings.">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters" class="text-break">
-Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L844"><i class="bi bi-code-slash"></i></a>
+Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L6"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,7 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Contains constants of the keys filters for app configuration setting namespaces.</p>
+  <div class="markdown summary"><p>Defines all configuration section filters used to select subsets of configuration settings.</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -154,43 +154,12 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AIModel" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AIModel">
-  FoundationaLLM_AIModel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L941"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Prompt:* app configuration settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AIModel = &quot;FoundationaLLM:AIModel:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints">
   FoundationaLLM_APIEndpoints
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L865"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIEndpoints:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for all API endpoints.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -216,17 +185,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs">
-  FoundationaLLM_APIs
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L861"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AuthorizationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI">
+  FoundationaLLM_APIEndpoints_AuthorizationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs = &quot;FoundationaLLM:APIs:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AuthorizationAPI = &quot;FoundationaLLM:APIEndpoints:AuthorizationAPI:*&quot;</code></pre>
   </div>
 
 
@@ -247,17 +216,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_GatewayAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI">
-  FoundationaLLM_APIs_GatewayAPI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L877"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration">
+  FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L185"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:GatewayAPI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure AI Search vector store service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs_GatewayAPI = &quot;FoundationaLLM:APIs:GatewayAPI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration = &quot;FoundationaLLM:APIEndpoints:AzureAISearchVectorStore:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -278,17 +247,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_GatewayAdapterAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAdapterAPI">
-  FoundationaLLM_APIs_GatewayAdapterAPI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L881"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration">
+  FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L209"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:GatewayAdapterAPI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure AI Studio service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs_GatewayAdapterAPI = &quot;FoundationaLLM:APIs:GatewayAdapterAPI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration = &quot;FoundationaLLM:APIEndpoints:AzureAIStudio:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -309,17 +278,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_StateAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_StateAPI">
-  FoundationaLLM_APIs_StateAPI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L885"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage">
+  FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L215"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:StateAPI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for storage account used by the Azure AI Studio service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs_StateAPI = &quot;FoundationaLLM:APIs:StateAPI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage = &quot;FoundationaLLM:APIEndpoints:AzureAIStudio:Configuration:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -340,17 +309,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_VectorizationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI">
-  FoundationaLLM_APIs_VectorizationAPI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L869"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration">
+  FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L221"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:VectorizationAPI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure Content Safety service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs_VectorizationAPI = &quot;FoundationaLLM:APIs:VectorizationAPI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureContentSafety_Configuration = &quot;FoundationaLLM:APIEndpoints:AzureContentSafety:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -371,17 +340,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIs_VectorizationWorker" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker">
-  FoundationaLLM_APIs_VectorizationWorker
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L873"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration">
+  FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L191"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:APIs:VectorizationWorker:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure Cosmos DB NoSQL vector store service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIs_VectorizationWorker = &quot;FoundationaLLM:APIs:VectorizationWorker:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration = &quot;FoundationaLLM:APIEndpoints:AzureCosmosDBNoSQLVectorStore:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -402,17 +371,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Agent" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Agent">
-  FoundationaLLM_Agent
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L933"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration">
+  FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L203"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Agent:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure Event Grid service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Agent = &quot;FoundationaLLM:Agent:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration = &quot;FoundationaLLM:APIEndpoints:AzureEventGrid:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -433,18 +402,17 @@ Class AppConfigurationKeyFilters  <a class="header-action link-secondary" title=
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Attachment" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Attachment">
-  FoundationaLLM_Attachment
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L960"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration">
+  FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L197"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Attachment:* app configuration settings.
-This supports the Attachment resource provider settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Azure PostgreSQL vector store service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Attachment = &quot;FoundationaLLM:Attachment:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration = &quot;FoundationaLLM:APIEndpoints:AzurePostgreSQLVectorStore:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -465,17 +433,17 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureAI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureAI">
-  FoundationaLLM_AzureAI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L968"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_CoreAPI_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration">
+  FoundationaLLM_APIEndpoints_CoreAPI_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:AzureAI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the main Core API settings.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AzureAI = &quot;FoundationaLLM:AzureAI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration = &quot;FoundationaLLM:APIEndpoints:CoreAPI:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -496,17 +464,17 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureAIStudio" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio">
-  FoundationaLLM_AzureAIStudio
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L980"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB">
+  FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:AzureAIStudio:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the Cosmos DB settings for the Core API.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AzureAIStudio = &quot;FoundationaLLM:AzureAIStudio:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB = &quot;FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:*&quot;</code></pre>
   </div>
 
 
@@ -527,17 +495,17 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings">
-  FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L984"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra">
+  FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the Entra ID authentication settings for Core API.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings = &quot;FoundationaLLM:AzureAIStudio:BlobStorageServiceSettings:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra = &quot;FoundationaLLM:APIEndpoints:CoreAPI:Configuration:Entra:*&quot;</code></pre>
   </div>
 
 
@@ -558,17 +526,17 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureContentSafety" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureContentSafety">
-  FoundationaLLM_AzureContentSafety
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L921"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_CoreWorker" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreWorker">
+  FoundationaLLM_APIEndpoints_CoreWorker
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L95"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:AzureContentSafety:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Core Worker service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AzureContentSafety = &quot;FoundationaLLM:AzureContentSafety:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_CoreWorker = &quot;FoundationaLLM:APIEndpoints:CoreWorker:*&quot;</code></pre>
   </div>
 
 
@@ -589,17 +557,17 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_AzureOpenAI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_AzureOpenAI">
-  FoundationaLLM_AzureOpenAI
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L964"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_EnkryptGuardrails_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_EnkryptGuardrails_Configuration">
+  FoundationaLLM_APIEndpoints_EnkryptGuardrails_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L233"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:AzureOpenAI:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Encrypt Guardrails service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_AzureOpenAI = &quot;FoundationaLLM:AzureOpenAI:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_EnkryptGuardrails_Configuration = &quot;FoundationaLLM:APIEndpoints:EnkryptGuardrails:Configuration:*&quot;</code></pre>
   </div>
 
 
@@ -620,17 +588,451 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_BlobStorageMemorySource" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource">
-  FoundationaLLM_BlobStorageMemorySource
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L925"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatekeeperAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatekeeperAPI">
+  FoundationaLLM_APIEndpoints_GatekeeperAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L101"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:BlobStorageMemorySource:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Gatekeeper API.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_BlobStorageMemorySource = &quot;FoundationaLLM:CoreAPI:BlobStorageMemorySource:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatekeeperAPI = &quot;FoundationaLLM:APIEndpoints:GatekeeperAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration">
+  FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Gatekeeper API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration = &quot;FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI">
+  FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Gatekeeper Integration API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI = &quot;FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatewayAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI">
+  FoundationaLLM_APIEndpoints_GatewayAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L155"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Gateway API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatewayAPI = &quot;FoundationaLLM:APIEndpoints:GatewayAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatewayAPI_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Configuration">
+  FoundationaLLM_APIEndpoints_GatewayAPI_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Gateway API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatewayAPI_Configuration = &quot;FoundationaLLM:APIEndpoints:GatewayAPI:Configuration:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_GatewayAdapterAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAdapterAPI">
+  FoundationaLLM_APIEndpoints_GatewayAdapterAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Gateway Adapter API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI = &quot;FoundationaLLM:APIEndpoints:GatewayAdapterAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_LakeraGuard_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_LakeraGuard_Configuration">
+  FoundationaLLM_APIEndpoints_LakeraGuard_Configuration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the Lakera Guard service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_LakeraGuard_Configuration = &quot;FoundationaLLM:APIEndpoints:LakeraGuard:Configuration:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_LangChainAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_LangChainAPI">
+  FoundationaLLM_APIEndpoints_LangChainAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the LangChain API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_LangChainAPI = &quot;FoundationaLLM:APIEndpoints:LangChainAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra">
+  FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L137"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the Entra ID authentication settings for Management API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra = &quot;FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_OrchestrationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_OrchestrationAPI">
+  FoundationaLLM_APIEndpoints_OrchestrationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Orchestration API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_OrchestrationAPI = &quot;FoundationaLLM:APIEndpoints:OrchestrationAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_SemanticKernelAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_SemanticKernelAPI">
+  FoundationaLLM_APIEndpoints_SemanticKernelAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Semantic Kernel API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI = &quot;FoundationaLLM:APIEndpoints:SemanticKernelAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_StateAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI">
+  FoundationaLLM_APIEndpoints_StateAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the State API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_StateAPI = &quot;FoundationaLLM:APIEndpoints:StateAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB">
+  FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L179"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the Cosmos DB settings for the State API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB = &quot;FoundationaLLM:APIEndpoints:StateAPI:Configuration:CosmosDB:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_VectorizationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI">
+  FoundationaLLM_APIEndpoints_VectorizationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Vectorization API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_VectorizationAPI = &quot;FoundationaLLM:APIEndpoints:VectorizationAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_APIEndpoints_VectorizationWorker" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationWorker">
+  FoundationaLLM_APIEndpoints_VectorizationWorker
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the authentication settings for the Vectorization Worker service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_APIEndpoints_VectorizationWorker = &quot;FoundationaLLM:APIEndpoints:VectorizationWorker:*&quot;</code></pre>
   </div>
 
 
@@ -653,10 +1055,10 @@ This supports the Attachment resource provider settings.</p>
 
   <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Branding" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Branding">
   FoundationaLLM_Branding
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L857"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L239"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Branding:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the branding settings for the User Portal.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -682,43 +1084,12 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Chat_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra">
-  FoundationaLLM_Chat_Entra
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L901"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Chat:Entra:* app configuration settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Chat_Entra = &quot;FoundationaLLM:Chat:Entra:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Configuration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Configuration">
   FoundationaLLM_Configuration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L853"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Configuration:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the Azure Key Vault settings related to the FoundationaLLM instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -744,138 +1115,12 @@ This supports the Attachment resource provider settings.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_CoreAPI_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_CoreAPI_Entra">
-  FoundationaLLM_CoreAPI_Entra
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L893"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:CoreAPI:Entra:* app configuration settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_CoreAPI_Entra = &quot;FoundationaLLM:CoreAPI:Entra:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_CoreWorker" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_CoreWorker">
-  FoundationaLLM_CoreWorker
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L913"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:CoreWorker:* app configuration settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_CoreWorker = &quot;FoundationaLLM:CoreWorker:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_CosmosDB" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_CosmosDB">
-  FoundationaLLM_CosmosDB
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L889"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:CosmosDB:* app configuration settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_CosmosDB = &quot;FoundationaLLM:CosmosDB:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_DataSource" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_DataSource">
-  FoundationaLLM_DataSource
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L950"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:DataSource:* app configuration settings.
-This supports the DataSource resource provider settings.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_DataSource = &quot;FoundationaLLM:DataSource:*&quot;</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_DataSources" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_DataSources">
   FoundationaLLM_DataSources
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L955"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L263"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:DataSources:* app configuration settings.
-This supports data source settings created by the Management API.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for data sources resources managed by the FoundationaLLM.DataSource resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -901,17 +1146,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events">
-  FoundationaLLM_Events
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L945"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_CoreAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_CoreAPI">
+  FoundationaLLM_Events_Profiles_CoreAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L269"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Events:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the events infrastructure used by the Core API.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events = &quot;FoundationaLLM:Events:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events_Profiles_CoreAPI = &quot;FoundationaLLM:Events:Profiles:CoreAPI:*&quot;</code></pre>
   </div>
 
 
@@ -932,17 +1177,110 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Gateway" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Gateway">
-  FoundationaLLM_Gateway
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L972"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_ManagementAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_ManagementAPI">
+  FoundationaLLM_Events_Profiles_ManagementAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L281"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Gateway:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the events infrastructure used by the Management API.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Gateway = &quot;FoundationaLLM:Gateway:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events_Profiles_ManagementAPI = &quot;FoundationaLLM:Events:Profiles:ManagementAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_OrchestrationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_OrchestrationAPI">
+  FoundationaLLM_Events_Profiles_OrchestrationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L275"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the events infrastructure used by the Orchestration API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events_Profiles_OrchestrationAPI = &quot;FoundationaLLM:Events:Profiles:OrchestrationAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_VectorizationAPI" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI">
+  FoundationaLLM_Events_Profiles_VectorizationAPI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L287"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the events infrastructure used by the Vectorization API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events_Profiles_VectorizationAPI = &quot;FoundationaLLM:Events:Profiles:VectorizationAPI:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_VectorizationWorker" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationWorker">
+  FoundationaLLM_Events_Profiles_VectorizationWorker
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L293"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the events infrastructure used by the Vectorization Worker service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Events_Profiles_VectorizationWorker = &quot;FoundationaLLM:Events:Profiles:VectorizationWorker:*&quot;</code></pre>
   </div>
 
 
@@ -965,10 +1303,10 @@ This supports data source settings created by the Management API.</p>
 
   <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Instance" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Instance">
   FoundationaLLM_Instance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L849"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Instance:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings related to the FoundationaLLM instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -994,17 +1332,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ManagementAPI_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ManagementAPI_Entra">
-  FoundationaLLM_ManagementAPI_Entra
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L897"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_AIModel_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_AIModel_Storage">
+  FoundationaLLM_ResourceProviders_AIModel_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:ManagementAPI:Entra:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.AIModel resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ManagementAPI_Entra = &quot;FoundationaLLM:ManagementAPI:Entra:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_AIModel_Storage = &quot;FoundationaLLM:ResourceProviders:AIModel:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1025,17 +1363,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Management_Entra" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Management_Entra">
-  FoundationaLLM_Management_Entra
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L905"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_Agent_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Agent_Storage">
+  FoundationaLLM_ResourceProviders_Agent_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Management:Entra:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.Agent resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Management_Entra = &quot;FoundationaLLM:Management:Entra:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_Agent_Storage = &quot;FoundationaLLM:ResourceProviders:Agent:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1056,17 +1394,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Orchestration" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Orchestration">
-  FoundationaLLM_Orchestration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L909"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_Attachment_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage">
+  FoundationaLLM_ResourceProviders_Attachment_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Orchestration:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.Attachment resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Orchestration = &quot;FoundationaLLM:Orchestration:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_Attachment_Storage = &quot;FoundationaLLM:ResourceProviders:Attachment:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1087,17 +1425,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Prompt" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Prompt">
-  FoundationaLLM_Prompt
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L937"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_Configuration_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage">
+  FoundationaLLM_ResourceProviders_Configuration_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Prompt:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.Configuration resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Prompt = &quot;FoundationaLLM:Prompt:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_Configuration_Storage = &quot;FoundationaLLM:ResourceProviders:Configuration:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1118,17 +1456,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Refinement" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Refinement">
-  FoundationaLLM_Refinement
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L917"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_DataSource_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage">
+  FoundationaLLM_ResourceProviders_DataSource_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Refinement:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.DataSource resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Refinement = &quot;FoundationaLLM:Refinement:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_DataSource_Storage = &quot;FoundationaLLM:ResourceProviders:DataSource:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1149,17 +1487,17 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_State" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_State">
-  FoundationaLLM_State
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L976"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_Prompt_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Prompt_Storage">
+  FoundationaLLM_ResourceProviders_Prompt_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:State:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.Prompt resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_State = &quot;FoundationaLLM:State:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_Prompt_Storage = &quot;FoundationaLLM:ResourceProviders:Prompt:Storage:*&quot;</code></pre>
   </div>
 
 
@@ -1180,17 +1518,110 @@ This supports data source settings created by the Management API.</p>
 
 
 
-  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Vectorization" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Vectorization">
-  FoundationaLLM_Vectorization
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L929"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_ResourceProviders_Vectorization_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage">
+  FoundationaLLM_ResourceProviders_Vectorization_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The key filter for the FoundationaLLM:Vectorization:* app configuration settings.</p>
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the storage settings for the FoundationaLLM.Vectorization resource provider.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Vectorization = &quot;FoundationaLLM:Vectorization:*&quot;</code></pre>
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_ResourceProviders_Vectorization_Storage = &quot;FoundationaLLM:ResourceProviders:Vectorization:Storage:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Vectorization_Queues" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues">
+  FoundationaLLM_Vectorization_Queues
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L251"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for vectorization queues.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Vectorization_Queues = &quot;FoundationaLLM:Vectorization:Queues:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Vectorization_StateService_Storage" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage">
+  FoundationaLLM_Vectorization_StateService_Storage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L257"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for the storage account used by the vectorization state service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Vectorization_StateService_Storage = &quot;FoundationaLLM:Vectorization:StateService:Storage:*&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Vectorization_Steps" data-uid="FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps">
+  FoundationaLLM_Vectorization_Steps
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L245"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter for the configuration section used to identify the settings for vectorization steps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string FoundationaLLM_Vectorization_Steps = &quot;FoundationaLLM:Vectorization:Steps:*&quot;</code></pre>
   </div>
 
 
@@ -1214,7 +1645,7 @@ This supports data source settings created by the Management API.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeys.cs/#L844" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/AppConfigurationKeyFilters.cs/#L6" class="edit-link">Edit this page</a>
         </div>
 
 
