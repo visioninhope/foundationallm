@@ -1,11 +1,13 @@
 targetScope = 'subscription'
 
 param administratorObjectId string
+param allowedExternalCidr string = '192.168.101.0/28'
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
 param createDate string = utcNow('u')
 param environmentName string
+param externalNetworkingResourceGroupName string = ''
 param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
 param existingOpenAiInstanceSub string = ''
@@ -28,6 +30,7 @@ param hubVnetName string
 // Locals
 var abbrs = loadJsonContent('./abbreviations.json')
 var k8sNamespace = 'fllm'
+var useExternalNetworking = !empty(externalNetworkingResourceGroupName)
 
 var existingOpenAiInstance = {
   name: existingOpenAiInstanceName
@@ -44,7 +47,9 @@ var tags = {
 }
 
 // TODO: BYO Resource Groups
-var resourceGroups = defaultResourceGroups
+var resourceGroups = union(defaultResourceGroups, externalResourceGroups)
+var externalResourceGroups = externalNetworkingResourceGroup
+var externalNetworkingResourceGroup = useExternalNetworking ? { net: externalNetworkingResourceGroupName } : {}
 
 var defaultResourceGroups = reduce(
   map(
@@ -130,23 +135,12 @@ module auth 'auth-rg.bicep' = {
   }
 }
 
-module dns 'dns-rg.bicep' = {
-  dependsOn: [networking]
-  name: 'dns-${timestamp}'
-  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
-  params: {
-    environmentName: environmentName
-    location: location
-    project: project
-    vnetId: networking.outputs.vnetId
-  }
-}
-
 module networking 'networking-rg.bicep' = {
   dependsOn: [rg]
   name: 'networking-${timestamp}'
   scope: resourceGroup(resourceGroups.net)
   params: {
+    allowedExternalCidr: allowedExternalCidr
     environmentName: environmentName
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
