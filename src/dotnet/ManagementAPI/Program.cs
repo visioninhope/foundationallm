@@ -49,9 +49,11 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
 
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_ManagementAPI_Configuration_Entra);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_ManagementAPI_AppInsightsConnectionString);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI);
 
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);  
@@ -60,6 +62,7 @@ namespace FoundationaLLM.Management.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage);                
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_AIModel_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
 
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_ManagementAPI);
             }));

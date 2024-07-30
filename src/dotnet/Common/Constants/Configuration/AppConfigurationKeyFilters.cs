@@ -142,7 +142,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI =
             "FoundationaLLM:APIEndpoints:SemanticKernelAPI:*";
-        
+
+        /// <summary>
+        /// Filter for the configuration section used to identify the Azure Application Insights connection string for Management API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString";
+
         /// <summary>
         /// Filter for the configuration section used to identify the Entra ID authentication settings for Management API.
         /// </summary>
