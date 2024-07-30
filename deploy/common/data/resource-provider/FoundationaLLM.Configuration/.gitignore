@@ -11,3 +11,5 @@ VectorizationWorker.json
 StateAPI.json
 GatewayAdapterAPI.json
 AzureOpenAI.json
+AzureAISearch.json
+AzureEventGrid.json
