@@ -5,7 +5,7 @@
     "display_name": null,
     "description": null,
     "cost_center": null,
-    "category": 2,
+    "category": "General",
     "authentication_type": "APIKey",
     "authentication_parameters": {
         "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureOpenAI:APIKey"

@@ -24,7 +24,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationStates
     /// <param name="storageService">The <see cref="IStorageService"/> that provides storage services.</param>
     /// <param name="loggerFactory">The logger factory used to create loggers.</param>
     public class BlobStorageVectorizationStateService(
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_StateService_Storage)] IStorageService storageService,
         ILoggerFactory loggerFactory) : VectorizationStateServiceBase, IVectorizationStateService
     {
         private readonly IStorageService _storageService = storageService;

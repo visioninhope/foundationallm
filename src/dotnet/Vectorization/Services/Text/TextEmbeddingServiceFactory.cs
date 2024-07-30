@@ -103,7 +103,7 @@ namespace FoundationaLLM.Vectorization.Services.Text
         {
             using var scope = _serviceProvider.CreateScope();
             var textEmbeddingService = scope.ServiceProvider.GetKeyedService<ITextEmbeddingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService)
+                DependencyInjectionKeys.FoundationaLLM_Vectorization_TextEmbedding_Gateway)
                 ?? throw new VectorizationException($"Could not retrieve the Gateway text embedding service instance.");
 
             return textEmbeddingService!;

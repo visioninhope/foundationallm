@@ -45,14 +45,18 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationWorker);    
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_GatewayAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationWorker);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationWorker);
+    
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage); //resource provider settings
+
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization); //vectorization settings
 });
 
 if (builder.Environment.IsDevelopment())
@@ -64,7 +68,7 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIs_VectorizationWorker_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationWorker_AppInsightsConnectionString,
     ServiceNames.VectorizationWorker);
 
 builder.Services.AddInstanceProperties(builder.Configuration);
@@ -81,26 +85,23 @@ builder.Services.AddAzureResourceManager();
 // Add event services
 builder.Services.AddAzureEventGridEvents(
     builder.Configuration,
-    AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationWorker);
+    AppConfigurationKeySections.FoundationaLLM_Events_Profiles_VectorizationWorker);
 
 builder.Services.AddOptions<VectorizationWorkerSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_VectorizationWorker));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeys.FoundationaLLM_Vectorization_Worker));
 
 builder.Services.AddOptions<BlobStorageServiceSettings>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService)
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService));
-
-builder.Services.AddOptions<SemanticKernelTextEmbeddingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService));
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_StateService_Storage)
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_StateService_Storage));
 
 builder.Services.AddOptions<AzureAISearchIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration));
 
 builder.Services.AddOptions<AzureCosmosDBNoSQLIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration));
 
 builder.Services.AddOptions<PostgresIndexingServiceSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_PostgresIndexingService));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration));
 
 builder.Services.AddKeyedSingleton(
     typeof(IConfigurationSection),
@@ -124,10 +125,10 @@ builder.Services.AddSingleton<CosmosClient>(serviceProvider =>
 });
 
 builder.Services.AddKeyedSingleton<IStorageService, BlobStorageService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService, (sp, obj) =>
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_StateService_Storage, (sp, obj) =>
     {
         var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-            .Get(DependencyInjectionKeys.FoundationaLLM_Vectorization_BlobStorageVectorizationStateService);
+            .Get(DependencyInjectionKeys.FoundationaLLM_Vectorization_StateService_Storage);
         var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
 
         return new BlobStorageService(
@@ -158,7 +159,7 @@ builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames
 
 // Gateway text embedding
 builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_GatewayTextEmbeddingService);
+    DependencyInjectionKeys.FoundationaLLM_Vectorization_TextEmbedding_Gateway);
 builder.AddGatewayService();
 
 builder.Services.AddScoped<ICallContext, CallContext>();
@@ -166,11 +167,11 @@ builder.AddHttpClientFactoryService();
 
 // Indexing
 builder.Services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+    DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration);
 builder.Services.AddKeyedSingleton<IIndexingService, AzureCosmosDBNoSQLIndexingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService);
+    DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration);
 builder.Services.AddKeyedSingleton<IIndexingService, PostgresIndexingService>(
-    DependencyInjectionKeys.FoundationaLLM_Vectorization_PostgresIndexingService);
+    DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration);
 
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
@@ -184,7 +185,7 @@ builder.Services.AddScoped<ICallContext, CallContext>();
 builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_VectorizationWorker));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationWorker));
 
 // Add authorization services.
 builder.AddGroupMembership();

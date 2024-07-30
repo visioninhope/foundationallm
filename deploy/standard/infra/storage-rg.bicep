@@ -88,3 +88,5 @@ module storage 'modules/storageAccount.bicep' = {
     ]
   }
 }
+
+output storageAccountName string = storage.outputs.name
