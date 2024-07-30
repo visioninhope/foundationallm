@@ -8,7 +8,7 @@ param location string
 param networkName string = ''
 param project string
 param timestamp string = utcNow()
-param allowedExternalCidr string = '192.168.101.0/28'
+param allowedExternalCidr string
 
 // Locals
 @description('Private DNS Zones to link.')

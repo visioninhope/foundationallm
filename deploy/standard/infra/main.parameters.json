@@ -47,11 +47,14 @@
       "hubVnetName": {
         "value": "${FOUNDATIONALL_HUB_VNET_NAME}"
       },
+      "instanceId": {
+        "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
+      },
       "k8sNamespace": {
         "value": "${FOUNDATIONALLM_K8S_NS=fllm}"
       },
-      "instanceId": {
-        "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"
+      "networkName": {
+        "value": "${FOUNDATIONALLM_EXT_VNET_NAME}"
       },
       "project": {
         "value": "${FOUNDATIONALLM_PROJECT}"

@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 param administratorObjectId string
-param allowedExternalCidr string = '192.168.101.0/28'
+param allowedExternalCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
