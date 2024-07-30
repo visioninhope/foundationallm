@@ -53,8 +53,8 @@ param actionGroupId string
 @description('The Managed Identity for the AKS Cluster')
 param admnistratorObjectIds array
 
-@description('DNS resource group name')
-param dnsResourceGroupName string
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
 
 @description('Location for all resources')
 param location string
@@ -353,7 +353,7 @@ resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
 /** Nested Modules **/
 module dnsRoleAssignment 'utility/roleAssignments.bicep' = {
   name: 'dnsra-${resourceSuffix}-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
   params: {
     principalId: uai.properties.principalId
     roleDefinitionIds: {

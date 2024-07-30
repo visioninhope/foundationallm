@@ -2,7 +2,6 @@ param keyvaultName string
 param openAiInstance object
 param tags object = {}
 @description('Timestamp for nested deployments')
-param timestamp string = utcNow()
 
 resource apiKeySecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = {
   name: '${keyvaultName}/foundationallm-apiendpoints-azureopenai-apikey'
