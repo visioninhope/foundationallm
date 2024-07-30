@@ -1,3 +1,10 @@
+// -------------------------------------------------------------------------------
+//
+// WARNING!
+// This file is auto-generated based on the AppConfiguration.json file.
+// Do not make changes to this file, as they will be automatically overwritten.
+//
+// -------------------------------------------------------------------------------
 namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
@@ -439,6 +446,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
+        #region FoundationaLLM:APIEndpoints:LangChainAPI:Configuration
+
+        #endregion
+
         #region FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials
         
         /// <summary>
@@ -454,6 +465,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_AppInsightsConnectionString =
             "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:AppInsightsConnectionString";
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration
 
         #endregion
 
