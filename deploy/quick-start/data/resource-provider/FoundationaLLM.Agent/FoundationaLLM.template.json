@@ -10,7 +10,7 @@
     "max_history": 5
   },
   "gatekeeper": {
-    "use_system_setting": false,
+    "use_system_setting": true,
     "options": []
   },
   "orchestration_settings": {
