@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+      "allowedExternalCidr": {
+        "value": "${FLLM_ALLOWED_CIDR=192.168.101.0/28}"
+      },
       "authAppRegistrationClientId": {
         "value": "${FLLM_AUTHORIZATION_CLIENT_ID}"
       },
@@ -25,6 +28,9 @@
       },
       "existingOpenAiInstanceName": {
         "value": "${FOUNDATIONALLM_EXT_OPENAI_NAME}"
+      },
+      "externalNetworkingResourceGroupName": {
+        "value": "${FOUNDATIONALLM_EXT_NET_RG}"
       },
       "location": {
         "value": "${AZURE_LOCATION}"

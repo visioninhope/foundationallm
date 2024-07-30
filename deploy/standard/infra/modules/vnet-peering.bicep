@@ -1,5 +1,9 @@
 param vnetName string
 param destVnetId string
+param allowVirtualNetworkAccess bool = true
+param allowForwardedTraffic bool = true
+param allowGatewayTransit bool = true
+param useRemoteGateways bool = false
 
 resource main 'Microsoft.Network/virtualNetworks@2024-01-01' existing = {
   name: vnetName
@@ -9,8 +13,10 @@ resource destinationToSourcePeering 'Microsoft.Network/virtualNetworks/virtualNe
   name: 'hub-to-vnet'
   parent: main
   properties: {
-    allowForwardedTraffic: true
-    allowGatewayTransit: true
+    allowVirtualNetworkAccess: allowVirtualNetworkAccess
+    allowForwardedTraffic: allowForwardedTraffic
+    allowGatewayTransit: allowGatewayTransit
+    useRemoteGateways: useRemoteGateways
     remoteVirtualNetwork: {
       id: destVnetId
     }

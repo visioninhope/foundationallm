@@ -8,8 +8,34 @@ param location string
 param networkName string = ''
 param project string
 param timestamp string = utcNow()
+param allowedExternalCidr string = '192.168.101.0/28'
 
 // Locals
+@description('Private DNS Zones to link.')
+var privateDnsZone = {
+  agentsvc: 'privatelink.agentsvc.azure-automation.net'
+  aks: 'privatelink.${location}.azmk8s.io'
+  blob: 'privatelink.blob.${environment().suffixes.storage}'
+  cognitiveservices: 'privatelink.cognitiveservices.azure.com'
+  configuration_stores: 'privatelink.azconfig.io'
+  cosmosdb: 'privatelink.documents.azure.com'
+  cr: 'privatelink.azurecr.io'
+  cr_region: '${location}.privatelink.azurecr.io'
+  dfs: 'privatelink.dfs.${environment().suffixes.storage}'
+  eventgrid: 'privatelink.eventgrid.azure.net'
+  file: 'privatelink.file.${environment().suffixes.storage}'
+  monitor: 'privatelink.monitor.azure.com'
+  ods: 'privatelink.ods.opinsights.azure.com'
+  oms: 'privatelink.oms.opinsights.azure.com'
+  openai: 'privatelink.openai.azure.com'
+  queue: 'privatelink.queue.${environment().suffixes.storage}'
+  search: 'privatelink.search.windows.net'
+  sites: 'privatelink.azurewebsites.net'
+  sql_server: 'privatelink${environment().suffixes.sqlServerHostname}'
+  table: 'privatelink.table.${environment().suffixes.storage}'
+  vault: 'privatelink.vaultcore.azure.net'
+}
+
 var cidrFllmAuth = cidrSubnet(cidrVnet, 26, 17) // 10.220.132.64/26
 var cidrFllmBackend = cidrSubnet(cidrVnet, 24, 1) // 10.220.129.0/24
 var cidrFllmFrontend = cidrSubnet(cidrVnet, 24, 2) // 10.220.130.0/24
@@ -33,7 +59,7 @@ var subnets = [
         priority: 512
         protocol: '*'
         sourcePortRange: '*'
-        sourceAddressPrefixes: ['172.16.0.0/24']
+        sourceAddressPrefixes: [allowedExternalCidr]
       }
     ]
     serviceEndpoints: [
@@ -55,7 +81,7 @@ var subnets = [
         priority: 512
         protocol: '*'
         sourcePortRange: '*'
-        sourceAddressPrefixes: ['172.16.0.0/24']
+        sourceAddressPrefixes: [allowedExternalCidr]
       }
     ]
     serviceEndpoints: [
@@ -78,7 +104,7 @@ var subnets = [
           priority: 256
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
       ]
     }
@@ -104,7 +130,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           access: 'Allow'
@@ -232,7 +258,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           name: 'deny-all-inbound'
@@ -276,7 +302,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           access: 'Allow'
@@ -343,7 +369,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           access: 'Allow'
@@ -390,7 +416,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           access: 'Allow'
@@ -457,7 +483,7 @@ var subnets = [
           priority: 512
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: ['172.16.0.0/24']
+          sourceAddressPrefixes: [allowedExternalCidr]
         }
         {
           access: 'Allow'
@@ -557,6 +583,23 @@ module nsg 'modules/nsg.bicep' = [
   }
 ]
 
+@description('Use the preexisting specified private DNS zones.')
+module dns './modules/dns.bicep' = [for zone in items(privateDnsZone): {
+  name: '${zone.value}-${timestamp}'
+  params: {
+    key: zone.key
+    vnetId: main.id
+    zone: zone.value
+
+    tags: {
+      Environment: environmentName
+      IaC: 'Bicep'
+      Project: project
+      Purpose: 'Networking'
+    }
+  }
+}]
+
 resource hub 'Microsoft.Network/virtualNetworks@2024-01-01' existing = {
   name: hubVnetName
   scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
@@ -569,6 +612,10 @@ module srcToDest './modules/vnet-peering.bicep' = {
   params: {
     vnetName: main.name
     destVnetId: hub.id
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: true
+    allowGatewayTransit: false
+    useRemoteGateways: true
   }
 }
 
@@ -579,5 +626,9 @@ module destToSrc './modules/vnet-peering.bicep' = {
   params: {
     vnetName: hub.name
     destVnetId: main.id
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: true
+    allowGatewayTransit: true
+    useRemoteGateways: false
   }
 }
