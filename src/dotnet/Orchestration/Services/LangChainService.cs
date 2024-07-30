@@ -6,10 +6,8 @@ using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

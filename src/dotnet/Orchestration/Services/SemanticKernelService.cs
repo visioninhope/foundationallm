@@ -13,10 +13,10 @@ using System.Text.Json;
 namespace FoundationaLLM.Orchestration.Core.Services
 {
     /// <summary>
-    /// The FoundationaLLM Semantic Kernal Service
+    /// The FoundationaLLM SemanticKernel Service.
     /// </summary>
     /// <remarks>
-    /// Constructor for the Semantic Kernal Service
+    /// Constructor for the SemanticKernel Service.
     /// </remarks>
     /// <param name="options"></param>
     /// <param name="logger"></param>
