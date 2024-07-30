@@ -64,7 +64,7 @@ namespace FoundationaLLM
         public static void AddAuthorizationService(this IHostApplicationBuilder builder)
         {
             builder.Services.AddOptions<AuthorizationServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AuthorizationAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials));
             builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
         }
     }

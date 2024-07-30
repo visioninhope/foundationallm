@@ -68,15 +68,15 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// <summary>
         /// Filter for the configuration section used to identify the authentication settings for the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI =
-            "FoundationaLLM:APIEndpoints:AuthorizationAPI:*";
-
+        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:*";
+        
         /// <summary>
-        /// Filter for the key used to store the Azure Application Insights connection string.
+        /// Filter for the configuration section used to identify the essential settings for Core API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString";
-
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Essentials:*";
+        
         /// <summary>
         /// Filter for the configuration section used to identify the main Core API settings.
         /// </summary>
@@ -94,24 +94,18 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB =
             "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:*";
-
-        /// <summary>
-        /// Filter for the configuration section used to identify the system Gatekeeper options for Core API.
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper =
-            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:BypassGatekeeper";
-
-        /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Core Worker service.
-        /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreWorker =
-            "FoundationaLLM:APIEndpoints:CoreWorker:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Gatekeeper API.
+        /// Filter for the configuration section used to identify the essential settings for the Core Worker service.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI =
-            "FoundationaLLM:APIEndpoints:GatekeeperAPI:*";
+        public const string FoundationaLLM_APIEndpoints_CoreWorker_Essentials =
+            "FoundationaLLM:APIEndpoints:CoreWorker:Essentials:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the esential settings for the Gatekeeper API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the settings for the Gatekeeper API.
@@ -120,28 +114,46 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:APIEndpoints:GatekeeperAPI:Configuration:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Gatekeeper Integration API.
+        /// Filter for the configuration section used to identify the essential settings for the Gatekeeper Integration API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI =
-            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:*";
+        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Orchestration API.
+        /// Filter for the configuration section used to identify the essential settings for the Orchestration API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI =
-            "FoundationaLLM:APIEndpoints:OrchestrationAPI:*";
+        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the LangChain API.
+        /// Filter for the configuration section used to identify the essential settings for the LangChain API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_LangChainAPI =
-            "FoundationaLLM:APIEndpoints:LangChainAPI:*";
+        public const string FoundationaLLM_APIEndpoints_LangChainAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Semantic Kernel API.
+        /// Filter for the configuration section used to identify the main LangChain API settings.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI =
-            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:*";
+        public const string FoundationaLLM_APIEndpoints_LangChainAPI_Configuration =
+            "FoundationaLLM:APIEndpoints:LangChainAPI:Configuration:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the essential settings for the Semantic Kernel API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the main Semantic Kernel API settings.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration =
+            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the essential settings for the Management API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the Entra ID authentication settings for Management API.
@@ -150,22 +162,22 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:APIEndpoints:ManagementAPI:Configuration:Entra:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Vectorization API.
+        /// Filter for the configuration section used to identify the essential settings for the Vectorization API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationAPI =
-            "FoundationaLLM:APIEndpoints:VectorizationAPI:*";
+        public const string FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Vectorization Worker service.
+        /// Filter for the configuration section used to identify the essential settings for the Vectorization Worker service.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationWorker =
-            "FoundationaLLM:APIEndpoints:VectorizationWorker:*";
+        public const string FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials =
+            "FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Gateway API.
+        /// Filter for the configuration section used to identify the essential settings for the Gateway API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAPI =
-            "FoundationaLLM:APIEndpoints:GatewayAPI:*";
+        public const string FoundationaLLM_APIEndpoints_GatewayAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the settings for the Gateway API.
@@ -174,22 +186,28 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:APIEndpoints:GatewayAPI:Configuration:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the Gateway Adapter API.
+        /// Filter for the configuration section used to identify the essential settings for the Gateway Adapter API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI =
-            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:*";
+        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:*";
         
         /// <summary>
-        /// Filter for the configuration section used to identify the authentication settings for the State API.
+        /// Filter for the configuration section used to identify the essential settings for the State API.
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_StateAPI =
-            "FoundationaLLM:APIEndpoints:StateAPI:*";
+        public const string FoundationaLLM_APIEndpoints_StateAPI_Essentials =
+            "FoundationaLLM:APIEndpoints:StateAPI:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the Cosmos DB settings for the State API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB =
             "FoundationaLLM:APIEndpoints:StateAPI:Configuration:CosmosDB:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the essential settings for the Azure OpenAI service.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_AzureOpenAI_Essentials =
+            "FoundationaLLM:APIEndpoints:AzureOpenAI:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the settings for the Azure AI Search vector store service.
@@ -208,6 +226,12 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration =
             "FoundationaLLM:APIEndpoints:AzurePostgreSQLVectorStore:Configuration:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the essential settings for the Azure Event Grid service.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Essentials =
+            "FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials:*";
         
         /// <summary>
         /// Filter for the configuration section used to identify the settings for the Azure Event Grid service.
