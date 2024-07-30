@@ -17,6 +17,7 @@ param location string
 param networkName string = ''
 param project string
 param registry string
+param services array
 param timestamp string = utcNow()
 param userPortalHostname string
 param managementPortalHostname string
@@ -106,6 +107,7 @@ module app 'app-rg.bicep' = {
     openAiResourceGroupName: resourceGroups.oai
     opsResourceGroupName: resourceGroups.ops
     project: project
+    services: services
     storageResourceGroupName: resourceGroups.storage
     vectorizationApiClientSecret: 'PLACEHOLDER'
     vectorizationResourceGroupName: resourceGroups.vec
@@ -225,6 +227,12 @@ module vec 'vec-rg.bicep' = {
 }
 
 output ADMIN_GROUP_OBJECT_ID string = administratorObjectId
+
+output AZURE_CONTENT_SAFETY_ENDPOINT string = openai.outputs.azureContentSafetyEndpoint
+output AZURE_OPENAI_ENDPOINT string = openai.outputs.azureOpenAiEndpoint
+output AZURE_OPENAI_ID string = openai.outputs.azureOpenAiId
+output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.storageAccountName
+
 output FOUNDATIONALLM_PROJECT string = project
 output FOUNDATIONALLM_K8S_NS string = k8sNamespace
 output FOUNDATIONALLM_REGISTRY string = registry
@@ -241,10 +249,19 @@ output FLLM_STORAGE_RG string = resourceGroups.storage
 output FLLM_VEC_RG     string = resourceGroups.vec
 
 output FLLM_OPS_KV string = ops.outputs.keyVaultName
-output FLLM_OPEN_AI_ENDPOINT string = openai.outputs.azureOpenAiEndpoint
-output FLLM_OPEN_AI_ID string = openai.outputs.azureOpenAiId
 
 output FLLM_USER_PORTAL_HOSTNAME string = userPortalHostname
 output FLLM_MGMT_PORTAL_HOSTNAME string = managementPortalHostname
 output FLLM_CORE_API_HOSTNAME string = coreApiHostname
 output FLLM_MGMT_API_HOSTNAME string = managementApiHostname
+
+output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = 'http://gatekeeper-api/gatekeeper/'
+output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = 'http://gatekeeper-integration-api/gatekeeperintegration'
+output SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL string = 'http://gateway-adapter-api/gatewayadapter'
+output SERVICE_GATEWAY_API_ENDPOINT_URL string = 'http://gateway-api/gateway'
+output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = 'http://langchain-api/langchain'
+output SERVICE_ORCHESTRATION_API_ENDPOINT_URL string = 'http://orchestration-api/orchestration'
+output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = 'http://semantic-kernel-api/semantickernel'
+output SERVICE_STATE_API_ENDPOINT_URL string = 'http://state-api/state'
+output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = 'http://vectorization-api/vectorization'
+output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = 'http://vectorization-job/vectorization'

@@ -84,7 +84,7 @@ module aiConnectionString 'kvSecret.bicep' = {
   name: 'aiConn-${timestamp}'
   params: {
     kvName: kvName
-    secretName: 'foundationallm-app-insights-connection-string'
+    secretName: 'foundationallm-appinsights-connectionstring'
     secretValue: main.properties.ConnectionString
     tags: tags
   }

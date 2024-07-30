@@ -46,10 +46,6 @@ var name = '${serviceType}-${resourceSuffix}'
 @description('The Resource Service Type token')
 var serviceType = 'content-safety'
 
-/** Outputs **/
-@description('Content Safety API Key KeyVault Secret Uri.')
-output apiKeySecretUri string = apiKeySecret.outputs.secretUri
-
 /** Resources **/
 resource main 'Microsoft.CognitiveServices/accounts@2023-10-01-preview' = {
   name: name
@@ -118,8 +114,13 @@ module apiKeySecret 'kvSecret.bicep' = {
   scope: resourceGroup(opsResourceGroupName)
   params: {
     kvName: kvName
-    secretName: 'foundationallm-apis-gatekeeper-azurecontentsafety-apikey'
+    secretName: 'foundationallm-apiendpoints-azurecontentsafety-apikey'
     secretValue: main.listKeys().key1
     tags: tags
   }
 }
+
+/** Outputs **/
+@description('Content Safety API Key KeyVault Secret Uri.')
+output apiKeySecretUri string = apiKeySecret.outputs.secretUri
+output endpoint string = main.properties.endpoint

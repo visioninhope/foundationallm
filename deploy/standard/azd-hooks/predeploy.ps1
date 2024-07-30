@@ -88,11 +88,11 @@ try {
     }
 
     $entraScopes = @{
-        authorization = "api://FoundationaLLM-Authorization-Auth/.default"
-        chat          = "api://FoundationaLLM-Auth/Data.Read"
+        authorization = "api://FoundationaLLM-Authorization/.default"
+        chat          = "api://FoundationaLLM-Core/Data.Read"
         core          = "Data.Read"
         managementapi = "Data.Manage"
-        managementui  = "api://FoundationaLLM-Management-Auth/Data.Manage"
+        managementui  = "api://FoundationaLLM-Management/Data.Manage"
     }
 
     # Get frontend and backend hostnames
@@ -109,7 +109,7 @@ try {
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "chat-ui"
-            sslCert = "user-portal"
+            sslCert = "chatui"
         }
     }
 
@@ -120,7 +120,7 @@ try {
             path = "/"
             pathType = "ImplementationSpecific"
             serviceName = "management-ui"
-            sslCert = "management-portal"
+            sslCert = "managementui"
         }
     }
 
@@ -132,7 +132,7 @@ try {
             path = "/core/"
             pathType = "ImplementationSpecific"
             serviceName = "core-api"
-            sslCert = "core-api"
+            sslCert = "coreapi"
         }
     }
 
@@ -143,7 +143,7 @@ try {
             path = "/management/"
             pathType = "ImplementationSpecific"
             serviceName = "management-api"
-            sslCert = "management-api"
+            sslCert = "managementapi"
         }
     }
 

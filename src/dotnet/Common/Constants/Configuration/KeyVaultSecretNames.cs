@@ -30,10 +30,16 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "foundationallm-apiendpoints-gatekeeperapi-apikey";
 
         /// <summary>
+        /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_AppInsightsConnectionString =
+            "foundationallm-appinsights-connectionstring";
+
+        /// <summary>
         /// The name of the Azure Key Vault secret holding the API key for the Gatekeeper Integration API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_APIKey =
-            "foundationallm-apiendpoints-gatekeeperintergrationapi-apikey";
+            "foundationallm-apiendpoints-gatekeeperintegrationapi-apikey";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper Integration API.
@@ -135,7 +141,7 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// The name of the Azure Key Vault secret holding the API key for the State API.
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_StateAPI_APIKey =
-            "foundationallm-apinedpoints-stateapi-apikey";
+            "foundationallm-apiendpoints-stateapi-apikey";
 
         /// <summary>
         /// The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the State API.
