@@ -9,11 +9,6 @@ hooks:
     continueOnError: false
     interactive: true
     run: azd-hooks/preprovision.ps1
-  postprovision:
-    shell: pwsh
-    continueOnError: false
-    interactive: true
-    run: azd-hooks/postprovision.ps1
   predeploy:
     shell: pwsh
     continueOnError: false
