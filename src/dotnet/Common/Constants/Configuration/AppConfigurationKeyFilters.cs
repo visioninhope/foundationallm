@@ -70,7 +70,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_AuthorizationAPI =
             "FoundationaLLM:APIEndpoints:AuthorizationAPI:*";
-        
+
+        /// <summary>
+        /// Filter for the key used to store the Azure Application Insights connection string.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString";
+
         /// <summary>
         /// Filter for the configuration section used to identify the main Core API settings.
         /// </summary>
@@ -88,7 +94,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB =
             "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:*";
-        
+
+        /// <summary>
+        /// Filter for the configuration section used to identify the system Gatekeeper options for Core API.
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:BypassGatekeeper";
+
         /// <summary>
         /// Filter for the configuration section used to identify the authentication settings for the Core Worker service.
         /// </summary>
