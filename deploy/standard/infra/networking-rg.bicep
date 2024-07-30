@@ -1,7 +1,9 @@
 // Inputs
 param cidrVnet string = '10.220.128.0/21'
-param createVpnGateway bool = false
 param environmentName string
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
+param hubVnetName string
 param location string
 param networkName string = ''
 param project string
@@ -15,11 +17,8 @@ var cidrFllmOpenAi = cidrSubnet(cidrVnet, 26, 12) // 10.220.131.0/26
 var cidrFllmOps = cidrSubnet(cidrVnet, 26, 15) // 10.220.131.192/26
 var cidrFllmVec = cidrSubnet(cidrVnet, 26, 16) // 10.220.132.0/26
 var cidrNetSvc = cidrSubnet(cidrVnet, 24, 6) // 10.220.134.0/24
-var cidrVpnGateway = cidrSubnet(cidrVnet, 24, 5) // 10.220.133.0/24
 // TODO: Use Namer FUnction from main.bicep
 var name = networkName == '' ? 'vnet-${environmentName}-${location}-net' : networkName
-var resourceSuffix = '${environmentName}-${location}-${workload}-${project}'
-var workload = 'net'
 
 var subnets = [
   {
@@ -65,10 +64,6 @@ var subnets = [
         locations: ['*']
       }
     ]
-  }
-  {
-    name: 'GatewaySubnet'
-    addressPrefix: cidrVpnGateway
   }
   {
     name: 'FLLMNetSvc'
@@ -540,11 +535,9 @@ resource main 'Microsoft.Network/virtualNetworks@2023-05-01' = {
           serviceEndpoints: subnet.?serviceEndpoints
           delegations: subnet.?delegations
 
-          networkSecurityGroup: subnet.name == 'GatewaySubnet'
-            ? null
-            : {
-                id: nsg[i].outputs.id
-              }
+          networkSecurityGroup: {
+            id: nsg[i].outputs.id
+          }
         }
       }
     ]
@@ -564,11 +557,27 @@ module nsg 'modules/nsg.bicep' = [
   }
 ]
 
-module vpn 'modules/vpnGateway.bicep' = if (createVpnGateway) {
-  name: 'vpnGw-${timestamp}'
+resource hub 'Microsoft.Network/virtualNetworks@2024-01-01' existing = {
+  name: hubVnetName
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
+}
+
+module srcToDest './modules/vnet-peering.bicep' = {
+  dependsOn: [ hub ]
+  name: 'srcToDest-${timestamp}'
+  scope: resourceGroup()
   params: {
-    location: location
-    resourceSuffix: resourceSuffix
-    subnetId: '${main.id}/subnets/GatewaySubnet'
+    vnetName: main.name
+    destVnetId: hub.id
+  }
+}
+
+module destToSrc './modules/vnet-peering.bicep' = {
+  dependsOn: [ hub ]
+  name: 'destToSrc-${timestamp}'
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
+  params: {
+    vnetName: hub.name
+    destVnetId: main.id
   }
 }

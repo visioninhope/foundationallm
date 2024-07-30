@@ -1,17 +1,9 @@
 /** Inputs **/
 param environmentName string
 param location string
-param networkResourceGroupName string
 param project string
 param timestamp string = utcNow()
-param vnetName string
-
-@description('Workload Token used in naming resources.')
-var workload = 'net'
-// TODO: use the namer function from main.bicep
-var resourceSuffix = '${project}-${environmentName}-${location}-${workload}'
-
-var resolverName = 'dns-${resourceSuffix}'
+param vnetId string
 
 /** Locals **/
 @description('Private DNS Zones to create.')
@@ -41,40 +33,13 @@ var privateDnsZone = {
 
 /** Outputs **/
 
-/** Resources **/
-resource resolver 'Microsoft.Network/dnsResolvers@2022-07-01' = {
-  name: resolverName
-  location: location
-  properties: {
-    virtualNetwork: {
-      id: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks', vnetName)
-    }
-  }
-}
-
-resource inboundEndpoint 'Microsoft.Network/dnsResolvers/inboundEndpoints@2022-07-01' = {
-  parent: resolver
-  name: resolverName
-  location: location
-  properties: {
-    ipConfigurations: [
-      {
-        privateIpAllocationMethod: 'Dynamic'
-        subnet: {
-          id: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks/subnets', vnetName, 'FLLMNetSvc')
-        }
-      }
-    ]
-  }
-}
-
 /** Nested Modules **/
 @description('Create the specified private DNS zones.')
 module dns './modules/dns.bicep' = [for zone in items(privateDnsZone): {
   name: '${zone.value}-${timestamp}'
   params: {
     key: zone.key
-    vnetId: resourceId(networkResourceGroupName, 'Microsoft.Network/virtualNetworks', vnetName)
+    vnetId: vnetId
     zone: zone.value
 
     tags: {

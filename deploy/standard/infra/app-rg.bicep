@@ -5,19 +5,11 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
-@description('Chat UI OIDC Client Secret')
-@secure()
-param chatUiClientSecret string
-
-@description('Core API OIDC Client Secret')
-@secure()
-param coreApiClientSecret string
-
-@description('DNS Resource Group Name')
-param dnsResourceGroupName string
-
 @description('The environment name token used in naming resources.')
 param environmentName string
+
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
 
 @description('AKS namespace')
 param k8sNamespace string
@@ -30,14 +22,6 @@ param logAnalyticsWorkspaceId string
 
 @description('Log Analytics Workspace Resource Id to use for diagnostics')
 param logAnalyticsWorkspaceResourceId string
-
-@description('Management UI OIDC Client Secret')
-@secure()
-param managementUiClientSecret string
-
-@description('Management API OIDC Client Secret')
-@secure()
-param managementApiClientSecret string
 
 @description('Networking Resource Group Name')
 param networkingResourceGroupName string
@@ -56,10 +40,6 @@ param storageResourceGroupName string
 
 @description('Timestamp used in naming nested deployments.')
 param timestamp string = utcNow()
-
-@description('Vectorization API OIDC Client Secret')
-@secure()
-param vectorizationApiClientSecret string
 
 @description('Vectorization Resource Group name')
 param vectorizationResourceGroupName string
@@ -152,7 +132,8 @@ module aksBackend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    dnsResourceGroupName: dnsResourceGroupName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
@@ -171,7 +152,8 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    dnsResourceGroupName: dnsResourceGroupName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
@@ -187,7 +169,7 @@ module aksFrontend 'modules/aks.bicep' = {
 
 module dnsZones 'modules/utility/dnsZoneData.bicep' = {
   name: 'dnsZones-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
   params: {
     location: location
   }
@@ -297,7 +279,6 @@ module srBackend 'modules/service.bicep' = [for service in items(backendServices
 module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
   name: 'srCoreApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: coreApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
@@ -316,7 +297,6 @@ module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService)
 module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
   name: 'srChatUi-${service.key}-${timestamp}'
   params: {
-    clientSecret: chatUiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
@@ -335,7 +315,6 @@ module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): 
 module srManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
   name: 'srManagementApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: managementApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
@@ -354,7 +333,6 @@ module srManagementApi 'modules/service.bicep' = [for service in items(managemen
 module srManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
   name: 'srManagementUi-${service.key}-${timestamp}'
   params: {
-    clientSecret: managementUiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
@@ -373,7 +351,6 @@ module srManagementUi 'modules/service.bicep' = [for service in items(management
 module srVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
   name: 'srVectorizationApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: vectorizationApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
