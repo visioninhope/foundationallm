@@ -8,7 +8,7 @@
     "category": "General",
     "authentication_type": "APIKey",
     "authentication_parameters": {
-        "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureOpenAI:APIKey"
+        "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureOpenAI:Essentials:APIKey"
     },
     "url": "{{openAiEndpointUri}}",
     "url_exceptions": [],

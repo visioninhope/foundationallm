@@ -8,7 +8,7 @@
   "category": "Orchestration",
   "authentication_type": "APIKey",
   "authentication_parameters":{
-    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:LangChainAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:APIKey",
     "api_key_header_name": "X-API-KEY"
   },
   "url": "http://langchain-api/langchain",

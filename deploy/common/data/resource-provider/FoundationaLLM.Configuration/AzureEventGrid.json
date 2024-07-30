@@ -8,7 +8,7 @@
     "category": "General",
     "authentication_type": "APIKey",
     "authentication_parameters": {
-        "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureEventGrid:APIKey"
+        "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials:APIKey"
     },
     "url": "https://eg-mg08-fllmstd-westus-svc.westus3-1.eventgrid.azure.net/",
     "url_exceptions": [],
