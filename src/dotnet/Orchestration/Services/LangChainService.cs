@@ -48,7 +48,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
         {
             var client = await _httpClientFactoryService.CreateClient(HttpClientNames.LangChainAPI, _callContext.CurrentUserIdentity);
             var responseMessage = await client.SendAsync(
-                new HttpRequestMessage(HttpMethod.Get, "status"));
+                new HttpRequestMessage(HttpMethod.Get, $"instances/{instanceId}/status"));
 
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<ServiceStatusInfo>(responseContent)!;
