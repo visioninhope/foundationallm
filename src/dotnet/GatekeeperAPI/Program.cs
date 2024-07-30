@@ -58,7 +58,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatekeeperAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials_AppInsightsConnectionString,
                 ServiceNames.GatekeeperAPI);
 
             builder.Services.AddControllers();
@@ -67,7 +67,7 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials));
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 

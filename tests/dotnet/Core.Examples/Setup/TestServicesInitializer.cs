@@ -75,10 +75,10 @@ namespace FoundationaLLM.Core.Examples.Setup
         {
             var instanceId = configuration.GetValue<string>(AppConfigurationKeys.FoundationaLLM_Instance_Id);
             services.AddCoreClient(
-                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_APIUrl]!,
+                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Essentials_APIUrl]!,
                 DefaultAuthentication.AzureCredential!);
             services.AddManagementClient(
-                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_APIUrl]!,
+                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_APIUrl]!,
                 DefaultAuthentication.AzureCredential!,
                 instanceId);
         }
