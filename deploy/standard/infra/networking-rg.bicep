@@ -586,6 +586,7 @@ module nsg 'modules/nsg.bicep' = [
 @description('Use the preexisting specified private DNS zones.')
 module dns './modules/dns.bicep' = [for zone in items(privateDnsZone): {
   name: '${zone.value}-${timestamp}'
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
   params: {
     key: zone.key
     vnetId: main.id
