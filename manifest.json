@@ -7372,16 +7372,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationServiceSettings.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Vectorization.Models.Configuration.VectorizationStateServiceSettings.yml",
       "output": {
         ".html": {
