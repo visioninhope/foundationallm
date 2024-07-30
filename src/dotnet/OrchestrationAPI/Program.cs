@@ -48,8 +48,10 @@ namespace FoundationaLLM.Orchestration.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
 
+                //TODO: Replace this with a more granular approach that would only bring in the configuration namespaces that are actually needed.
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
 
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Agent_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);

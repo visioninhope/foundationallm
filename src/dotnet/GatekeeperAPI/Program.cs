@@ -46,6 +46,8 @@ namespace FoundationaLLM.Gatekeeper.API
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+
+                //TODO: Replace this with a more granular approach that would only bring in the configuration namespaces that are actually needed.
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
 
             }));
