@@ -15,9 +15,6 @@ function Get-SearchServiceIndexes {
         [Parameter(Mandatory = $true)][string]$pathPrefix
     )
 
-    # Credit: https://daron.blog/2021/backup-and-restore-azure-cognitive-search-indexes-with-powershell/
-    # Updated script to use Entra tokens for authentication
-
     $serviceUri = "https://$searchServiceName.search.windows.net"
     $uri = $serviceUri + "/indexes?api-version=2020-06-30&`$select=name"
     $token = $(az account get-access-token --query accessToken --output tsv --scope "https://search.azure.com/.default")
