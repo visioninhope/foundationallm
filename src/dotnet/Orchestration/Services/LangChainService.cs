@@ -78,7 +78,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
             try
             {
                 var completionResponse = await pollingClient.GetResponseAsync();
-
+                if (completionResponse == null)
+                    throw new Exception("The LangChain orchestration service did not return a valid completion response.");
                 return new LLMCompletionResponse
                 {
                     OperationId = request.OperationId,
