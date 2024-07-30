@@ -48,9 +48,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         
         try:
             storage_manager = BlobStorageManager(
-                account_name=self.config.get_value('FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName'),
+                account_name=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AccountName'),
                 container_name=file.split('/')[0],
-                authentication_type=self.config.get_value('FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType')
+                authentication_type=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AuthenticationType')
             )
         except Exception as e:
             raise e
@@ -79,8 +79,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         audio_embeddings = clap_model.get_audio_embeddings(file_paths, resample=True)
         data = audio_embeddings.numpy().tolist()
 
-        base_url = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:APIUrl').rstrip('/')
-        endpoint = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:Classification:PredictionEndpoint')
+        base_url = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:APIUrl').rstrip('/')
+        endpoint = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:Classification:PredictionEndpoint')
         api_endpoint = f'{base_url}{endpoint}'
 
         # Create the embeddings payload.
