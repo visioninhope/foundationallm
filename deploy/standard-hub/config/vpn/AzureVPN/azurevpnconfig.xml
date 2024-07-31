@@ -1,0 +1,41 @@
+<AzVpnProfile xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/">
+  <any xmlns:d2p1="http://schemas.datacontract.org/2004/07/System.Xml" i:nil="true" />
+  <clientauth>
+    <aad>
+      <audience>41b23e61-6c1e-4545-b367-cd054e0ed4b4</audience>
+      <cachesigninuser>true</cachesigninuser>
+      <enablegrouptoken>false</enablegrouptoken>
+      <issuer>https://sts.windows.net/d280491c-b27a-41bf-9623-21b60cf430b3/</issuer>
+      <tenant>https://login.microsoftonline.com/d280491c-b27a-41bf-9623-21b60cf430b3</tenant>
+    </aad>
+    <cert i:nil="true" />
+    <type>aad</type>
+    <usernamepass i:nil="true" />
+  </clientauth>
+  <name>vnet-fllmhub-eastus2-net-080</name>
+  <protocolconfig>
+    <sslprotocolConfig>
+      <transportprotocol>tcp</transportprotocol>
+    </sslprotocolConfig>
+  </protocolconfig>
+  <serverlist>
+    <ServerEntry>
+      <displayname i:nil="true" />
+      <fqdn>azuregateway-32ae0078-8c73-46db-8927-5daf043740dc-25e6ab397e9d.vpn.azure.com</fqdn>
+    </ServerEntry>
+  </serverlist>
+  <servervalidation>
+    <Cert>
+      <hash>DF3C24F9BFD666761B268073FE06D1CC8D4F82A4</hash>
+      <issuer i:nil="true" />
+    </Cert>
+    <serversecret>cc587c35ab3569aba499684d29f24acce3f82c23a1c7d8e4a2cbf7b6e216f7fee48a53ad1c110d348a5102943c1a5496ad79604244573931bf8fcd8e5dda3938738025e275e44514eb8902de6d5d01967e595d3d6ebd77b06ddb0db2c22f23a2beb8f9594e9a188c0dcd7e5d60d82888c8086c85d2bf9a6a552dc83ce788987bc8105d8b88c097db4b3a71e932efa61198d132f7c0bf0f5f8f7c374b3790ae746e8ce2807ba9f9ff22f1a8773e8914b87d3a0dc4df99681926c9dace5a93bb25e12ff9a734899f5e73cdeaada2ac0725221f255328fea1a50910e9a266b345ab5811c494f28541a6d492d79c8409128dab4993b8f741f451f335156e724af455</serversecret>
+    <type>cert</type>
+  </servervalidation>
+  <version>1</version>
+  <clientconfig>
+    <dnsservers>
+      <dnsserver>192.168.100.36</dnsserver>
+    </dnsservers>
+  </clientconfig>
+</AzVpnProfile>
