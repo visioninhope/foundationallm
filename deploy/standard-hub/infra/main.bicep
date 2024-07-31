@@ -43,12 +43,10 @@ var regionalPrivateDnsZones = reduce(regionalZones,
 
 var privateDnsZones = union({
   agentsvc: 'privatelink.agentsvc.azure-automation.net'
-  // aks: 'privatelink.${location}.azmk8s.io'
   blob: 'privatelink.blob.${environment().suffixes.storage}'
   cognitiveservices: 'privatelink.cognitiveservices.azure.com'
   configuration_stores: 'privatelink.azconfig.io'
   cosmosdb: 'privatelink.documents.azure.com'
-  // cr_region: '${location}.privatelink.azurecr.io'
   cr: 'privatelink.azurecr.io'
   dfs: 'privatelink.dfs.${environment().suffixes.storage}'
   eventgrid: 'privatelink.eventgrid.azure.net'
