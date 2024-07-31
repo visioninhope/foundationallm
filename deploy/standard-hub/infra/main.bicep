@@ -11,14 +11,42 @@ param timestamp string = utcNow()
 var abbrs = loadJsonContent('./abbreviations.json')
 var resourceGroup = namer(abbrs.resourcesResourceGroups, environmentName, location, 'net', project)
 
-var privateDnsZones = {
+param privateDnsLocations array = [
+  'australiaeast'
+  'canadaeast'
+  'eastus'
+  'eastus2'
+  'francecentral'
+  'japaneast'
+  'northcentralus'
+  'norwayeast'
+  'southcentralus'
+  'swedencentral'
+  'switzerlandnorth'
+  'southindia'
+  'uksouth'
+  'westeurope'
+  'westus'
+  'westus3'
+]
+
+var regionalZones = [for zoneLocation in privateDnsLocations: { 
+    'aks_${zoneLocation}': 'privatelink.${zoneLocation}.azmk8s.io'
+    'cr_${zoneLocation}': '${zoneLocation}.privatelink.azurecr.io'
+  }
+]
+
+var regionalPrivateDnsZones = reduce(regionalZones,
+  {},
+  (curr, acc) => union(curr, acc)
+)
+
+var privateDnsZones = union({
   agentsvc: 'privatelink.agentsvc.azure-automation.net'
-  aks: 'privatelink.${location}.azmk8s.io'
   blob: 'privatelink.blob.${environment().suffixes.storage}'
   cognitiveservices: 'privatelink.cognitiveservices.azure.com'
   configuration_stores: 'privatelink.azconfig.io'
   cosmosdb: 'privatelink.documents.azure.com'
-  cr_region: '${location}.privatelink.azurecr.io'
   cr: 'privatelink.azurecr.io'
   dfs: 'privatelink.dfs.${environment().suffixes.storage}'
   eventgrid: 'privatelink.eventgrid.azure.net'
@@ -33,7 +61,7 @@ var privateDnsZones = {
   sql_server: 'privatelink${environment().suffixes.sqlServerHostname}'
   table: 'privatelink.table.${environment().suffixes.storage}'
   vault: 'privatelink.vaultcore.azure.net'
-}
+}, regionalPrivateDnsZones)
 
 var tags = {
   'azd-env-name': environmentName 
