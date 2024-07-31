@@ -78,4 +78,5 @@ export interface CompletionRequest {
 export interface Attachment {
 	id: string;
 	fileName: string;
+	sessionId: string;
 }

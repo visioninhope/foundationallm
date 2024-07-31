@@ -303,7 +303,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_textEmbeddingProfile != null)
                     return _textEmbeddingProfile;
 
-                EnsureIsValid();
+                Validate();
 
                 if (!_hasTextEmbeddingProfile)
                     return null;
@@ -332,7 +332,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_indexingProfiles != null)
                     return _indexingProfiles;
 
-                EnsureIsValid();
+                Validate();
 
                 if (!_hasIndexingProfiles)
                     return null;

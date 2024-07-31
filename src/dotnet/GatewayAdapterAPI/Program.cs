@@ -24,13 +24,13 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAdapterAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatewayAdapterAPI_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials_AppInsightsConnectionString,
     ServiceNames.GatewayAdapterAPI);
 
 // CORS policies
@@ -51,7 +51,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatewayAdapterAPI));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials));
 
 builder.Services
     .AddApiVersioning(options =>

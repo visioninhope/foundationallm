@@ -53,6 +53,7 @@ namespace FoundationaLLM.State.Services
             var operation = new LongRunningOperation
             {
                 Status = OperationStatus.Pending,
+                StatusMessage = "Operation was submitted and is pending execution.",
                 OperationId = operationId
             };
             return await cosmosDbService.UpsertLongRunningOperation(operation);

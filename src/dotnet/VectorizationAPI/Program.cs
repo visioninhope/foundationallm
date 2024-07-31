@@ -49,8 +49,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI);
     
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage); //resource provider settings
@@ -65,7 +64,7 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationAPI_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials_AppInsightsConnectionString,
     ServiceNames.VectorizationAPI);
 
 // CORS policies
@@ -172,7 +171,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationAPI));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials));
 
 builder.Services
     .AddApiVersioning(options =>
