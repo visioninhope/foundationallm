@@ -84,8 +84,6 @@ namespace FoundationaLLM.Common.Clients
 
                 while (true)
                 {
-                    await Task.Delay(currentPollingInterval, cancellationToken);
-
                     var totalPollingTime = DateTime.UtcNow - pollingStartTime;
                     pollingCounter++;
                     _logger.LogInformation(
@@ -127,13 +125,15 @@ namespace FoundationaLLM.Common.Clients
                                     _maxWaitTime.TotalSeconds);                                
                                 return default;
                             }
-                            // Exponential backoff
-                            currentPollingInterval = TimeSpan.FromSeconds(currentPollingInterval.TotalSeconds * 2);
-                            continue;
+                            
+                            break;
                         default:
                             _logger.LogError("An error occurred while polling for the response. The response status code was {StatusCode}.", responseMessage.StatusCode);
                             return default;
                     }
+                    await Task.Delay(currentPollingInterval, cancellationToken);
+                    // Exponential backoff
+                    currentPollingInterval = TimeSpan.FromSeconds(currentPollingInterval.TotalSeconds * 2);
                 }
             }
             catch (Exception ex)
