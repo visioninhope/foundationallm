@@ -199,7 +199,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_aiModel != null)
                     return _aiModel;
 
-                EnsureIsValid();
+                Validate();
 
                 var aiModelObject = Objects[Agent.AIModelObjectId!];
                 _aiModel = aiModelObject is JsonElement aiModelJsonElement
@@ -224,7 +224,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_aiModelEndpointConfiguration != null)
                     return _aiModelEndpointConfiguration;
 
-                EnsureIsValid();
+                Validate();
 
                 var endpointObject = Objects[AIModel.EndpointObjectId!];
 
@@ -250,7 +250,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_otherAgentsDescriptions != null)
                     return _otherAgentsDescriptions;
 
-                EnsureIsValid();
+                Validate();
 
                 _otherAgentsDescriptions =
                     Objects.TryGetValue(CompletionRequestObjectsKeys.AllAgents, out var allAgentDescriptions)
@@ -277,7 +277,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
                 if (_prompt != null)
                     return _prompt;
 
-                EnsureIsValid();
+                Validate();
 
                 var promptObject = Objects[Agent.PromptObjectId!];
 
