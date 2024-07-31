@@ -115,7 +115,7 @@ namespace FoundationaLLM.Common.Clients
                     switch(currentStatus.Status)
                     {
                         case OperationStatus.Completed:
-                            var resultResponse = await _httpClient.GetAsync(operationStatusPath, cancellationToken);
+                            var resultResponse = await _httpClient.GetAsync(operationResultPath, cancellationToken);
                             var resultContent = await resultResponse.Content.ReadAsStringAsync();
                             return JsonSerializer.Deserialize<TResponse>(resultContent, _jsonSerializerOptions);
                         case OperationStatus.InProgress:
