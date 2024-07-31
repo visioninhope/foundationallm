@@ -5,6 +5,7 @@ import type {
 	AppConfigUnion,
 	AgentIndex,
 	AgentGatekeeper,
+	AIModel,
 	FilterRequest,
 	CreateAgentRequest,
 	CheckNameResponse,
@@ -463,59 +464,12 @@ export default {
 		return agentGetResult;
 	},
 
-	// async updateAgent(agentId: string, request: CreateAgentRequest): Promise<any> {
-	// 	return await this.fetch(
-	// 		`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`,
-	// 		{
-	// 			method: 'POST',
-	// 			body: request,
-	// 		},
-	// 	);
-	// },
-
 	async upsertAgent(agentId: string, agentData: CreateAgentRequest): Promise<any> {
-		// Deep copy the agent object to prevent modifiying its references
-		const agent = JSON.parse(JSON.stringify(agentData)) as CreateAgentRequest;
-
-		if (agent.orchestration_settings.orchestrator.toLowerCase() === 'langchain' ||
-			agent.orchestration_settings.orchestrator.toLowerCase() === 'semantickernel') {
-			for (const [propertyName, propertyValue] of Object.entries(
-				agent.orchestration_settings.endpoint_configuration,
-			)) {
-				if (!propertyValue) {
-					continue;
-				}
-
-				if (propertyValue.startsWith('FoundationaLLM:') &&
-					propertyName !== 'api_key') {
-					// Get the static value from the app config.
-					const appConfigResult = await this.getAppConfig(propertyValue);
-					// Set the static value to the endpoint configuration.
-					agent.orchestration_settings.endpoint_configuration[propertyName] = appConfigResult.resource.value;
-				}
-			}
-		}
-
-		for (const [propertyName, propertyValue] of Object.entries(
-			agent.orchestration_settings.model_parameters,
-		)) {
-			if (!propertyValue) {
-				continue;
-			}
-
-			if (propertyValue.startsWith('FoundationaLLM:')) {
-				// Get the static value from the app config.
-				const appConfigResult = await this.getAppConfig(propertyValue);
-				// Set the static value to the endpoint configuration.
-				agent.orchestration_settings.model_parameters[propertyName] = appConfigResult.resource.value;
-			}
-		}
-
 		return await this.fetch(
 			`/instances/${this.instanceId}/providers/FoundationaLLM.Agent/agents/${agentId}?api-version=${this.apiVersion}`,
 			{
 				method: 'POST',
-				body: agent,
+				body: agentData,
 			},
 		);
 	},
@@ -603,6 +557,14 @@ export default {
 		}
 
 		// Return the updated external orchestration services.
+		return data;
+	},
+
+	async getAIModels(): Promise<ResourceProviderGetResult<AIModel>[]> {
+		const data = await this.fetch(
+			`/instances/${this.instanceId}/providers/FoundationaLLM.AIModel/aiModels?api-version=${this.apiVersion}`,
+		) as ResourceProviderGetResult<AIModel>[];
+
 		return data;
 	},
 
