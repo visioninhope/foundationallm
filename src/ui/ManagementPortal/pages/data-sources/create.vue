@@ -261,7 +261,14 @@
 							<div id="aria-table-names-desc" class="mb-2">
 								Press <strong>Enter</strong> or <strong>,</strong> after typing each table name.
 							</div>
-							<Chips v-model="tables" class="w-100" separator="," v-create-chip-on-blur:tables aria-labelledby="aria-table-names aria-table-names-desc" :pt="{ input: { 'aria-labelledby': 'aria-table-names aria-table-names-desc' }}" />
+							<Chips
+								v-model="tables"
+								class="w-100"
+								separator=","
+								v-create-chip-on-blur:tables
+								aria-labelledby="aria-table-names aria-table-names-desc"
+								:pt="{ input: { 'aria-labelledby': 'aria-table-names aria-table-names-desc' }}"
+							/>
 						</template>
 					</div>
 				</div>

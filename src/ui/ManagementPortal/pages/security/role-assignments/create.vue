@@ -25,7 +25,7 @@
 			<!-- Scope -->
 			<div class="step-header span-2">What is the assignment scope?</div>
 			<div class="span-2">
-				<div class="mb-2">Scope</div>
+				<div id="aria-scope" class="mb-2">Scope</div>
 				<div class="input-wrapper">
 					<InputText
 						:value="scope"
@@ -33,6 +33,7 @@
 						placeholder="Instance"
 						type="text"
 						class="w-100"
+					 	aria-labelledby="aria-scope"
 					/>
 				</div>
 			</div>
@@ -47,7 +48,7 @@
 						placeholder="Enter a description for this role assignment"
 						type="text"
 						class="w-100"
-                        aria-labelledby="aria-description"
+					 	aria-labelledby="aria-description"
 					/>
 				</div>
 			</div>
@@ -57,7 +58,7 @@
 			<div class="span-2">
 
 				<!-- Type -->
-				<div class="mb-2">Principal Type:</div>
+				<div id="aria-principal-type" class="mb-2">Principal Type:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="principal.object_type"
@@ -65,11 +66,12 @@
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+					 	aria-labelledby="aria-principal-type"
 					/>
 				</div>
 
 				<!-- Name -->
-				<div class="mb-2 mt-2">Principal Name:</div>
+				<div id="aria-principal-name" class="mb-2 mt-2">Principal Name:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="principal.display_name"
@@ -77,11 +79,12 @@
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+					 	aria-labelledby="aria-principal-name"
 					/>
 				</div>
 
 				<!-- Email -->
-				<div class="mb-2 mt-2">Principal Email:</div>
+				<div id="aria-principal-email" class="mb-2 mt-2">Principal Email:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="principal.email"
@@ -89,11 +92,12 @@
 						:placeholder="!principal.email ? 'None specified' : 'Browse for selection'"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-email"
 					/>
 				</div>
 
 				<!-- ID -->
-				<div class="mb-2 mt-2">Principal ID:</div>
+				<div id="aria-principal-id" class="mb-2 mt-2">Principal ID:</div>
 				<div style="display: flex; gap: 16px;">
 					<InputText
 						v-model="roleAssignment.principal_id"
@@ -101,6 +105,7 @@
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-id"
 					/>
 					<Button
 						label="Browse"
@@ -117,15 +122,16 @@
 					:closable="false"
 					:style="{ minWidth: '30rem' }"
 				>
-					<div class="mb-2">Search type</div>
+					<div id="aria-principal-search-type" class="mb-2">Search type</div>
 					<Dropdown
 						v-model="principalSearchType"
 						:options="principalTypeOptions"
 						placeholder="--Select--"
 						class="mb-2 w-100"
+						aria-labelledby="aria-principal-search-type"
 					/>
 
-					<div class="mb-2">Search query</div>
+					<div id="aria-principal-search-query" class="mb-2">Search query</div>
 					<AutoComplete
 						v-model="dialogPrincipal"
 						:suggestions="principalOptionsFiltered"
@@ -134,6 +140,7 @@
 						data-key="id"
 						option-label="display_name"
 						class="w-100"
+						aria-labelledby="aria-principal-search-query"
 						@complete="handlePrincipalSearch"
 					>
 						<template #option="{ option }">
@@ -152,7 +159,7 @@
 			</div>
 
 			<!-- Role -->
-			<div class="step-header span-2">What role to assign?</div>
+			<div id="aria-role" class="step-header span-2">What role to assign?</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="roleAssignment.role_definition_id"
@@ -160,6 +167,7 @@
 					option-label="display_name"
 					option-value="object_id"
 					placeholder="--Select--"
+					aria-labelledby="aria-role"
 				/>
 			</div>
 
