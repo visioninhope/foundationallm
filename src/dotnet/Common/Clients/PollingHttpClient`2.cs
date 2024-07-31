@@ -80,10 +80,11 @@ namespace FoundationaLLM.Common.Clients
 
                 var pollingStartTime = DateTime.UtcNow;
                 var pollingCounter = 0;
+                var currentPollingInterval = _pollingInterval;
 
                 while (true)
                 {
-                    await Task.Delay(_pollingInterval, cancellationToken);
+                    await Task.Delay(currentPollingInterval, cancellationToken);
 
                     var totalPollingTime = DateTime.UtcNow - pollingStartTime;
                     pollingCounter++;
@@ -123,9 +124,11 @@ namespace FoundationaLLM.Common.Clients
                             {
                                 _logger.LogWarning("Total polling time ({TotalTime} seconds) exceeded to maximum allowed ({MaxTime} seconds).",
                                     totalPollingTime.TotalSeconds,
-                                    _maxWaitTime.TotalSeconds);
+                                    _maxWaitTime.TotalSeconds);                                
                                 return default;
                             }
+                            // Exponential backoff
+                            currentPollingInterval = TimeSpan.FromSeconds(currentPollingInterval.TotalSeconds * 2);
                             continue;
                         default:
                             _logger.LogError("An error occurred while polling for the response. The response status code was {StatusCode}.", responseMessage.StatusCode);

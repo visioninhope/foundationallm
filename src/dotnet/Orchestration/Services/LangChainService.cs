@@ -71,7 +71,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 client,
                 request,
                 $"instances/{instanceId}/async-completions",
-                TimeSpan.FromSeconds(10),
+                TimeSpan.FromSeconds(0.5),
                 client.Timeout.Subtract(TimeSpan.FromSeconds(1)),
                 _logger);
 
