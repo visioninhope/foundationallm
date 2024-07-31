@@ -157,7 +157,7 @@
             "hasIngress": true,
             "image": "${SERVICE_GATEKEEPERINTEGRATIONAPI_IMAGE=cropseastus2svinternal.azurecr.io/gatekeeper-integration-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
-            "apiKeySecretName": "foundationallm-apiendpoints-gatekeeperintergrationapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-gatekeeperintegrationapi-apikey",
             "cpu": "${SERVICE_GATEKEEPERINTEGRATIONAPI_CPU=1.0}",
             "memory": "${SERVICE_GATEKEEPERINTEGRATIONAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_GATEKEEPERINTEGRATIONAPI_REPLICAS=1}"
@@ -256,7 +256,7 @@
             "hasIngress": true,
             "image": "${SERVICE_STATEAPI_IMAGE=cropseastus2svinternal.azurecr.io/state-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FoundationaLLM_AppConfig_ConnectionString",
-            "apiKeySecretName": "foundationallm-apinedpoints-stateapi-apikey",
+            "apiKeySecretName": "foundationallm-apiendpoints-stateapi-apikey",
             "cpu": "${SERVICE_STATEAPI_CPU=1.0}",
             "memory": "${SERVICE_STATEAPI_MEMORY=2.0Gi}",
             "replicaCount": "${SERVICE_STATEAPI_REPLICAS=1}"
