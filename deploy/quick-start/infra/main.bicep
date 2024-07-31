@@ -608,6 +608,7 @@ module acaServices './app/acaService.bicep' = [
 var cosmosRoleTargets = [
   'core-api'
   'core-job'
+  'state-api'
 ]
 
 module cosmosRoles './shared/sqlRoleAssignments.bicep' = [

@@ -14,7 +14,7 @@ from fastapi import (
     Response,
     status
 )
-from foundationallm.config import Configuration, Context
+from foundationallm.config import Configuration
 from foundationallm.models.operations import (
     LongRunningOperation,
     LongRunningOperationLogEntry,
@@ -130,14 +130,11 @@ async def create_completion_response(
             span.set_attribute('user_identity', x_user_identity)
 
             # Change the operation status to 'InProgress' using an async task.
-            loop = asyncio.get_running_loop()
-            loop.create_task(
-                operations_manager.update_operation(
-                    operation_id,
-                    instance_id,
-                    status = OperationStatus.INPROGRESS,
-                    status_message = f'Operation state changed to {OperationStatus.INPROGRESS}.'
-                )
+            await operations_manager.update_operation(
+                operation_id,
+                instance_id,
+                status = OperationStatus.INPROGRESS,
+                status_message = 'Operation state changed to in progress.'
             )
            
             # Create an orchestration manager to process the completion request.
@@ -162,15 +159,25 @@ async def create_completion_response(
                 )
             )            
         except Exception as e:
-            # TODO: Log the error and return an appropriate response to the caller.
             # Send the completion response to the State API and mark the operation as failed.
             print(f'Operation {operation_id} failed with error: {e}')
-            await operations_manager.update_operation(
-                operation_id,
-                instance_id,
-                status = OperationStatus.FAILED,
-                status_message = f'Operation failed with error: {e}'
+            completion = CompletionResponse(
+                operation_id = operation_id,
+                user_prompt=completion_request.user_prompt,
+                completion=f'Operation failed with error: {e}'
             )
+            await asyncio.gather(
+                operations_manager.set_operation_result(
+                    operation_id=operation_id,
+                    instance_id=instance_id,
+                    completion_response=completion),
+                operations_manager.update_operation(
+                    operation_id=operation_id,
+                    instance_id=instance_id,
+                    status = OperationStatus.FAILED,
+                    status_message = f'Operation failed with error: {e}'
+                )
+            )           
 
 @router.get(
     '/async-completions/{operation_id}/status',
@@ -192,8 +199,8 @@ async def get_operation_status(
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
-            
-            operation = operations_manager.get_operation_state(
+
+            operation = await operations_manager.get_operation(
                 operation_id,
                 instance_id
             )
@@ -226,7 +233,7 @@ async def get_operation_result(
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
-            completion_response = operations_manager.get_operation_result(
+            completion_response = await operations_manager.get_operation_result(
                 operation_id,
                 instance_id
             )
@@ -239,7 +246,7 @@ async def get_operation_result(
             handle_exception(e)
 
 @router.get(
-    '/async-completions/{operation_id}/log',
+    '/async-completions/{operation_id}/logs',
     summary = 'Retrieve the log of operational steps for the specified operation ID.',
     responses = {
         200: {'description': 'The operation log was retrieved successfully.'},
@@ -259,7 +266,7 @@ async def get_operation_log(
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             
-            log = operations_manager.get_operation_log(
+            log = await operations_manager.get_operation_log(
                 operation_id,
                 instance_id
             )

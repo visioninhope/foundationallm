@@ -111,7 +111,7 @@ $configurations = @{
         render   = '../common/data/resource-provider/FoundationaLLM.Prompt/FoundationaLLM.json'
     }
     "appconfig"        = @{
-        template = './config/appconfig.template.json'
+        template = '../../src/dotnet/Common/Templates/appconfig.template.json'
         render   = './config/appconfig.json'
     }
     "role-assignments" = @{

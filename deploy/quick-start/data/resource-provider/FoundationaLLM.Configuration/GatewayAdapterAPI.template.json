@@ -8,7 +8,7 @@
   "category": "General",
   "authentication_type": "APIKey",
   "authentication_parameters": {
-    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:APIKey",
     "api_key_header_name": "X-API-KEY"
   },
   "url": "${env:SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL}",

@@ -80,11 +80,10 @@ namespace FoundationaLLM.Common.Clients
 
                 var pollingStartTime = DateTime.UtcNow;
                 var pollingCounter = 0;
+                var currentPollingInterval = _pollingInterval;
 
                 while (true)
                 {
-                    await Task.Delay(_pollingInterval, cancellationToken);
-
                     var totalPollingTime = DateTime.UtcNow - pollingStartTime;
                     pollingCounter++;
                     _logger.LogInformation(
@@ -115,7 +114,7 @@ namespace FoundationaLLM.Common.Clients
                     switch(currentStatus.Status)
                     {
                         case OperationStatus.Completed:
-                            var resultResponse = await _httpClient.GetAsync(operationStatusPath, cancellationToken);
+                            var resultResponse = await _httpClient.GetAsync(operationResultPath, cancellationToken);
                             var resultContent = await resultResponse.Content.ReadAsStringAsync();
                             return JsonSerializer.Deserialize<TResponse>(resultContent, _jsonSerializerOptions);
                         case OperationStatus.InProgress:
@@ -123,14 +122,18 @@ namespace FoundationaLLM.Common.Clients
                             {
                                 _logger.LogWarning("Total polling time ({TotalTime} seconds) exceeded to maximum allowed ({MaxTime} seconds).",
                                     totalPollingTime.TotalSeconds,
-                                    _maxWaitTime.TotalSeconds);
+                                    _maxWaitTime.TotalSeconds);                                
                                 return default;
                             }
-                            continue;
+                            
+                            break;
                         default:
                             _logger.LogError("An error occurred while polling for the response. The response status code was {StatusCode}.", responseMessage.StatusCode);
                             return default;
                     }
+                    await Task.Delay(currentPollingInterval, cancellationToken);
+                    // Exponential backoff
+                    currentPollingInterval = TimeSpan.FromSeconds(currentPollingInterval.TotalSeconds * 2);
                 }
             }
             catch (Exception ex)

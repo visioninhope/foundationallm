@@ -16,7 +16,6 @@ namespace FoundationaLLM.Vectorization.Client
     /// </summary>
     public class VectorizationServiceClient : IVectorizationServiceClient
     {
-        private readonly VectorizationServiceSettings _settings;
         private readonly IHttpClientFactoryService _httpClientFactoryService;
         private readonly ILogger<VectorizationServiceClient> _logger;
 
@@ -24,15 +23,12 @@ namespace FoundationaLLM.Vectorization.Client
         /// Creates a new instance of the Vectorization API client.
         /// </summary>
         /// <param name="httpClientFactoryService">The <see cref="IHttpClientFactoryService"/> used to create the HTTP client.</param>
-        /// <param name="options">The options object containing the <see cref="VectorizationServiceSettings"/> object with the setting.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public VectorizationServiceClient(
             IHttpClientFactoryService httpClientFactoryService,
-            IOptions<VectorizationServiceSettings> options,
             ILogger<VectorizationServiceClient> logger)
         {
             _httpClientFactoryService = httpClientFactoryService;
-            _settings = options.Value;
             _logger = logger;
         }
 
