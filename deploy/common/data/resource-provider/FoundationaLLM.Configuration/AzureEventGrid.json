@@ -1,7 +1,7 @@
 {
     "type": "api-endpoint",
     "name": "AzureEventGrid",
-    "object_id": "/instances/{{instanceId}}/providers/FoundationaLLM.Configuration/apiEndpoints/AzureEventGrid",
+    "object_id": "/instances/f34f0a89-83b1-43b3-a5f9-e8bbdfa9f251/providers/FoundationaLLM.Configuration/apiEndpoints/AzureEventGrid",
     "display_name": null,
     "description": null,
     "cost_center": null,
@@ -10,7 +10,7 @@
     "authentication_parameters": {
         "api_key_configuration_name": "FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials:APIKey"
     },
-    "url": "{{eventGridNamespaceEndpoint}}",
+    "url": "https://eg-mg08-fllmstd-westus-svc.westus3-1.eventgrid.azure.net/",
     "url_exceptions": [],
     "timeout_seconds": 60,
     "retry_strategy_name": "ExponentialBackoff"

@@ -17,8 +17,8 @@ class OperationsManager():
     def __init__(self, config: Configuration):
         self.config = config
         # Retrieve the State API configuration settings.
-        self.state_api_url = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIUrl').rstrip('/')
-        self.state_api_key = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:APIKey')
+        self.state_api_url = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl').rstrip('/')
+        self.state_api_key = config.get_value('FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey')
         env = os.environ.get('FOUNDATIONALLM_ENV', 'prod')
         self.verify_certs = False if env == 'dev' else True
         
@@ -49,7 +49,7 @@ class OperationsManager():
                 "charset":"utf-8",
                 "Content-Type":"application/json"
             }
-
+            
             # Call the State API to create a new operation.
             r = requests.post(
                 f'{self.state_api_url}/instances/{instance_id}/operations/{operation_id}',

@@ -615,6 +615,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #region FoundationaLLM:APIEndpoints:StateAPI:Essentials
         
         /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl setting.
+        /// <para>Value description:<br/>The URL of the State API. This entry supports the dependency of the Orchestration implementations to retrieve the URL. Python APIs do not have a resource provider implementation to retrieve the details.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_StateAPI_Essentials_APIUrl =
+            "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl";
+        
+        /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the State API.</para>
         /// </summary>
