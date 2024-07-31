@@ -573,6 +573,7 @@ export default {
 				return this.$toast.add({
 					severity: 'error',
 					detail: error?.response?._data || error,
+					life: 5000,
 				});
 			}
 
