@@ -47,17 +47,17 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         {
             var client = await _httpClientFactoryService.CreateClient(HttpClientNames.AzureContentSafety, _callContext.CurrentUserIdentity);
 
-            Response<AnalyzeTextResult>? results = null;
+            AnalyzeTextResult? results = null;
             try
             {
                 var response = await client.PostAsync("/contentsafety/text:analyze?api-version=2023-10-01",
-                new StringContent(JsonSerializer.Serialize(new AnalyzeTextOptions(content)),
+                new StringContent(JsonSerializer.Serialize(new { text = content }),
                 Encoding.UTF8, "application/json"));
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    results = JsonSerializer.Deserialize<Response<AnalyzeTextResult>>(responseContent);
+                    results = JsonSerializer.Deserialize<AnalyzeTextResult>(responseContent);
                 }
             }
             catch (RequestFailedException ex)
@@ -72,28 +72,28 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
             var safe = true;
             var reason = "The prompt text did not pass the content safety filter. Reason:";
 
-            var hateSeverity = results.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Hate)?.Severity ?? 0;
+            var hateSeverity = results.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Hate)?.Severity ?? 0;
             if (hateSeverity > _settings.HateSeverity)
             {
                 reason += $" hate";
                 safe = false;
             }
 
-            var violenceSeverity = results.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Violence)?.Severity ?? 0;
+            var violenceSeverity = results.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Violence)?.Severity ?? 0;
             if (violenceSeverity > _settings.ViolenceSeverity)
             {
                 reason += $" violence";
                 safe = false;
             }
 
-            var selfHarmSeverity = results.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.SelfHarm)?.Severity ?? 0;
+            var selfHarmSeverity = results.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.SelfHarm)?.Severity ?? 0;
             if (selfHarmSeverity > _settings.SelfHarmSeverity)
             {
                 reason += $" self-harm";
                 safe = false;
             }
 
-            var sexualSeverity = results.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Sexual)?.Severity ?? 0;
+            var sexualSeverity = results.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Sexual)?.Severity ?? 0;
             if (sexualSeverity > _settings.SexualSeverity)
             {
                 reason += $" sexual";
