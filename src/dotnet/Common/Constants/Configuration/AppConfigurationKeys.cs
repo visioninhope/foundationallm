@@ -1,3 +1,10 @@
+// -------------------------------------------------------------------------------
+//
+// WARNING!
+// This file is auto-generated based on the AppConfiguration.json file.
+// Do not make changes to this file, as they will be automatically overwritten.
+//
+// -------------------------------------------------------------------------------
 namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
@@ -185,39 +192,39 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:AuthorizationAPI
+        #region FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AuthorizationAPI:APIUrl setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIUrl setting.
         /// <para>Value description:<br/>The URL of the Authorization API. Due to its special nature, the Authorization API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_APIUrl =
-            "FoundationaLLM:APIEndpoints:AuthorizationAPI:APIUrl";
+        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials_APIUrl =
+            "FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIUrl";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AuthorizationAPI:APIScope setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIScope setting.
         /// <para>Value description:<br/>The scope required to get an access token for the Authorization API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_APIScope =
-            "FoundationaLLM:APIEndpoints:AuthorizationAPI:APIScope";
+        public const string FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials_APIScope =
+            "FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIScope";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:CoreAPI
+        #region FoundationaLLM:APIEndpoints:CoreAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:APIUrl setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Essentials:APIUrl setting.
         /// <para>Value description:<br/>The URL of the Core API. Since it's an entry point API, the Core API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_APIUrl =
-            "FoundationaLLM:APIEndpoints:CoreAPI:APIUrl";
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Essentials_APIUrl =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Essentials:APIUrl";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
@@ -310,39 +317,39 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:CoreWorker
+        #region FoundationaLLM:APIEndpoints:CoreWorker:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreWorker:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreWorker:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Core Worker service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreWorker_APIKey =
-            "FoundationaLLM:APIEndpoints:CoreWorker:APIKey";
+        public const string FoundationaLLM_APIEndpoints_CoreWorker_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:CoreWorker:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreWorker:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreWorker:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Core Worker service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_CoreWorker_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:CoreWorker:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_CoreWorker_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:CoreWorker:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:GatekeeperAPI
+        #region FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Gatekeeper API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:GatekeeperAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:GatekeeperAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
@@ -385,93 +392,101 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI
+        #region FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Gatekeeper Integration API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gatekeeper Integration API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_GatekeeperIntegrationAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:OrchestrationAPI
+        #region FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:OrchestrationAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Orchestration API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:OrchestrationAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:OrchestrationAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Orchestration API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:OrchestrationAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:LangChainAPI
+        #region FoundationaLLM:APIEndpoints:LangChainAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:LangChainAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the LangChain API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_LangChainAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:LangChainAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_LangChainAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:LangChainAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the LangChain API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_LangChainAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:LangChainAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_LangChainAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:SemanticKernelAPI
+        #region FoundationaLLM:APIEndpoints:LangChainAPI:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:SemanticKernelAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Semantic Kernel API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:SemanticKernelAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Semantic Kernel API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:ManagementAPI
+        #region FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration
+
+        #endregion
+
+        #region FoundationaLLM:APIEndpoints:ManagementAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:APIUrl setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:APIUrl setting.
         /// <para>Value description:<br/>The URL of the Management API. Since it's an entry point API, the Management API does not have a corresponding APIEndpointConfiguration resource and thus the URL must be kept as a configuration setting.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_ManagementAPI_APIUrl =
-            "FoundationaLLM:APIEndpoints:ManagementAPI:APIUrl";
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_APIUrl =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:APIUrl";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Management API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_ManagementAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:ManagementAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
@@ -514,57 +529,57 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:VectorizationAPI
+        #region FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Vectorization API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:VectorizationAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:VectorizationAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:VectorizationWorker
+        #region FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationWorker:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Vectorization Worker service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationWorker_APIKey =
-            "FoundationaLLM:APIEndpoints:VectorizationWorker:APIKey";
+        public const string FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationWorker:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Vectorization worker service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_VectorizationWorker_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:VectorizationWorker:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:GatewayAPI
+        #region FoundationaLLM:APIEndpoints:GatewayAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Gateway API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:GatewayAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_GatewayAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:GatewayAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_GatewayAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
@@ -579,39 +594,46 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:GatewayAdapterAPI
+        #region FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAdapterAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Gateway Adapter API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAdapterAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the Gateway Adapter API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_GatewayAdapterAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:GatewayAdapterAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:StateAPI
+        #region FoundationaLLM:APIEndpoints:StateAPI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl setting.
+        /// <para>Value description:<br/>The URL of the State API. This entry supports the dependency of the Orchestration implementations to retrieve the URL. Python APIs do not have a resource provider implementation to retrieve the details.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_StateAPI_Essentials_APIUrl =
+            "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the State API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_StateAPI_APIKey =
-            "FoundationaLLM:APIEndpoints:StateAPI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_StateAPI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey";
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:AppInsightsConnectionString setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:StateAPI:Essentials:AppInsightsConnectionString setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the connection string for the App Insights service used by the State API.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_StateAPI_AppInsightsConnectionString =
-            "FoundationaLLM:APIEndpoints:StateAPI:AppInsightsConnectionString";
+        public const string FoundationaLLM_APIEndpoints_StateAPI_Essentials_AppInsightsConnectionString =
+            "FoundationaLLM:APIEndpoints:StateAPI:Essentials:AppInsightsConnectionString";
 
         #endregion
 
@@ -640,14 +662,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:AzureOpenAI
+        #region FoundationaLLM:APIEndpoints:AzureOpenAI:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureOpenAI:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureOpenAI:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Azure OpenAI service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureOpenAI_APIKey =
-            "FoundationaLLM:APIEndpoints:AzureOpenAI:APIKey";
+        public const string FoundationaLLM_APIEndpoints_AzureOpenAI_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:AzureOpenAI:Essentials:APIKey";
 
         #endregion
 
@@ -663,14 +685,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:AzureEventGrid
+        #region FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Azure Event Grid service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_APIKey =
-            "FoundationaLLM:APIEndpoints:AzureEventGrid:APIKey";
+        public const string FoundationaLLM_APIEndpoints_AzureEventGrid_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:AzureEventGrid:Essentials:APIKey";
 
         #endregion
 
@@ -693,14 +715,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
 
         #endregion
 
-        #region FoundationaLLM:APIEndpoints:AzureContentSafety
+        #region FoundationaLLM:APIEndpoints:AzureContentSafety:Essentials
         
         /// <summary>
-        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureContentSafety:APIKey setting.
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:AzureContentSafety:Essentials:APIKey setting.
         /// <para>Value description:<br/>The name of the Azure Key Vault secret holding the API key for the Azure Content Safety service.</para>
         /// </summary>
-        public const string FoundationaLLM_APIEndpoints_AzureContentSafety_APIKey =
-            "FoundationaLLM:APIEndpoints:AzureContentSafety:APIKey";
+        public const string FoundationaLLM_APIEndpoints_AzureContentSafety_Essentials_APIKey =
+            "FoundationaLLM:APIEndpoints:AzureContentSafety:Essentials:APIKey";
 
         #endregion
 

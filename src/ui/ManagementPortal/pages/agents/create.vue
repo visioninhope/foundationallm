@@ -1016,14 +1016,15 @@ export default {
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
 
-			this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
-				agent.gatekeeper.options.includes(localOption.code)
-			) || this.selectedGatekeeperContentSafety;
+			if (agent.gatekeeper && agent.gatekeeper.options) {
+				this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
+					agent.gatekeeper?.options?.includes(localOption.code)
+				) || this.selectedGatekeeperContentSafety;
 
-			this.selectedGatekeeperDataProtection =
-				this.gatekeeperDataProtectionOptions.filter((localOption) =>
-					agent.gatekeeper.options.includes(localOption.code)
+				this.selectedGatekeeperDataProtection = this.gatekeeperDataProtectionOptions.filter((localOption) =>
+					agent.gatekeeper?.options?.includes(localOption.code)
 				) || this.selectedGatekeeperDataProtection;
+			}
 		},
 
 		async checkName() {

@@ -412,6 +412,18 @@ module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
   }
 }
 
+module stateApiCosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'state-api-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: srBackend[indexOf(backendServiceNames, 'state-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
 module searchIndexDataReaderRole 'modules/utility/roleAssignments.bicep' = {
   name: 'searchIndexDataRole-${timestamp}'
   scope: resourceGroup(vectorizationResourceGroupName)

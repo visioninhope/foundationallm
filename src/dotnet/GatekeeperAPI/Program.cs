@@ -46,6 +46,8 @@ namespace FoundationaLLM.Gatekeeper.API
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
+
+                //TODO: Replace this with a more granular approach that would only bring in the configuration namespaces that are actually needed.
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
 
             }));
@@ -58,7 +60,7 @@ namespace FoundationaLLM.Gatekeeper.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatekeeperAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials_AppInsightsConnectionString,
                 ServiceNames.GatekeeperAPI);
 
             builder.Services.AddControllers();
@@ -67,7 +69,7 @@ namespace FoundationaLLM.Gatekeeper.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials));
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 

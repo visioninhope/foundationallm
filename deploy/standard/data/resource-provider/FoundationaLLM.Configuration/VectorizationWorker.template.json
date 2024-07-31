@@ -8,7 +8,7 @@
   "category": "General",
   "authentication_type": "APIKey",
   "authentication_parameters": {
-    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:VectorizationWorker:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:APIKey",
     "api_key_header_name": "X-API-KEY"
   },
   "url": "http://vectorization-job/vectorization",

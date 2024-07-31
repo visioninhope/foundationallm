@@ -49,8 +49,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationWorker);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationWorker);
     
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage); //resource provider settings
@@ -68,7 +67,7 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationWorker_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials_AppInsightsConnectionString,
     ServiceNames.VectorizationWorker);
 
 builder.Services.AddInstanceProperties(builder.Configuration);
@@ -185,7 +184,7 @@ builder.Services.AddScoped<ICallContext, CallContext>();
 builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationWorker));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials));
 
 // Add authorization services.
 builder.AddGroupMembership();

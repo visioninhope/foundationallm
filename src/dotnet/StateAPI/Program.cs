@@ -37,7 +37,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_StateAPI_Configuration_CosmosDB);
 });
@@ -45,7 +45,7 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIEndpoints_StateAPI_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_StateAPI_Essentials_AppInsightsConnectionString,
     ServiceNames.StateAPI);
 
 builder.Services.AddInstanceProperties(builder.Configuration);
@@ -67,7 +67,7 @@ builder.Services.AddScoped<ICallContext, CallContext>();
 builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_StateAPI));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_StateAPI_Essentials));
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 
 builder.Services.AddOptions<CosmosDbSettings>()

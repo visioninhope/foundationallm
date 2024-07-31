@@ -49,6 +49,8 @@ namespace FoundationaLLM.SemanticKernel.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI);
+
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
             }));
             if (builder.Environment.IsDevelopment())
@@ -56,7 +58,7 @@ namespace FoundationaLLM.SemanticKernel.API
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_AppInsightsConnectionString,
                 ServiceNames.SemanticKernelAPI);
 
             builder.Services.AddInstanceProperties(builder.Configuration);
@@ -112,7 +114,7 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_SemanticKernelAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 

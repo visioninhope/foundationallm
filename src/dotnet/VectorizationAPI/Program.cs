@@ -51,11 +51,13 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI);
-    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI);
-    
+    options.Select(AppConfigurationKeys.FoundationaLLM_Vectorization_Worker);
+
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage); //resource provider settings
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources); //data source settings
 });
 if (builder.Environment.IsDevelopment())
@@ -67,7 +69,7 @@ builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>()
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationAPI_AppInsightsConnectionString,
+    AppConfigurationKeys.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials_AppInsightsConnectionString,
     ServiceNames.VectorizationAPI);
 
 builder.Services.AddInstanceProperties(builder.Configuration);
@@ -178,7 +180,7 @@ builder.Services.AddScoped<ICallContext, CallContext>();
 builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()
-    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationAPI));
+    .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_VectorizationAPI_Essentials));
 
 // Add authorization services.
 builder.AddGroupMembership();
