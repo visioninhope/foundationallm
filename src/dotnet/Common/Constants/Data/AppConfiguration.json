@@ -851,6 +851,14 @@
 		},
 		"configuration_keys": [
 			{
+				"name": "APIUrl",
+				"description": "The URL of the State API. This entry supports the dependency of the Orchestration implementations to retrieve the URL. Python APIs do not have a resource provider implementation to retrieve the details.",
+				"secret": "",
+				"value": "${env:SERVICE_STATE_API_ENDPOINT_URL}",
+				"content_type": "",
+				"first_version": "0.8.0"
+			},
+			{
 				"name": "APIKey",
 				"description": "The name of the Azure Key Vault secret holding the API key for the State API.",
 				"secret": "apiendpoints-stateapi-apikey",

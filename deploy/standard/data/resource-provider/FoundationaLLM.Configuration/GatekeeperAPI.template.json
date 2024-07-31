@@ -8,7 +8,7 @@
   "category": "Gatekeeper",
   "authentication_type": "APIKey",
   "authentication_parameters":{
-    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:GatekeeperAPI:APIKey",
+    "api_key_configuration_name": "FoundationaLLM:APIEndpoints:GatekeeperAPI:Essentials:APIKey",
     "api_key_header_name": "X-API-KEY"
   },
   "url": "http://gatekeeper-api/gatekeeper",
