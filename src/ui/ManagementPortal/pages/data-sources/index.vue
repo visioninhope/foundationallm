@@ -34,9 +34,9 @@
 				size="small"
 			>
 				<template #empty>
-					No data sources found. Please use the menu on the left to create a new data
-					source.</template
-				>
+					No data sources found.
+				</template>
+
 				<template #loading>Loading data sources. Please wait.</template>
 
 				<!-- Name -->
