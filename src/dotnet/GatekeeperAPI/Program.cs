@@ -51,7 +51,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatekeeperAPI_Configuration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatekeeperAPI_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_CoreAPI);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI);
 
                 //TODO: Replace this with a more granular approach that would only bring in the configuration namespaces that are actually needed.
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
@@ -85,7 +85,7 @@ namespace FoundationaLLM.Gatekeeper.API
             // Add event services
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_CoreAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI);
 
             // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();

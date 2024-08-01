@@ -1083,6 +1083,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Events_Profiles_VectorizationWorker =
             "FoundationaLLM:Events:Profiles:VectorizationWorker";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:GatekeeperAPI setting.
+        /// <para>Value description:<br/>The settings used by the Gatekeeper API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_GatekeeperAPI =
+            "FoundationaLLM:Events:Profiles:GatekeeperAPI";
 
         #endregion
 
@@ -1103,6 +1110,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #endregion
 
         #region FoundationaLLM:Events:Profiles:VectorizationWorker
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:GatekeeperAPI
 
         #endregion
     }

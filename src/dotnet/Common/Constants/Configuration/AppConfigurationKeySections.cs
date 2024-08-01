@@ -335,5 +335,11 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Events_Profiles_VectorizationWorker =
             "FoundationaLLM:Events:Profiles:VectorizationWorker";
+        
+        /// <summary>
+        /// Configuration section used to identify the settings for the events infrastructure used by the Gatekeeper API.
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_GatekeeperAPI =
+            "FoundationaLLM:Events:Profiles:GatekeeperAPI";
     }
 }

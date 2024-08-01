@@ -1,5 +1,4 @@
 ﻿using Azure;
-using Azure.AI.ContentSafety;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
