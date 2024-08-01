@@ -53,7 +53,7 @@
 				</div>
 			</OverlayPanel>
 			<Dialog
-				:visible="showFileUploadDialog"
+				v-model:visible="showFileUploadDialog"
 				header="Upload File"
 				modal
 				aria-label="File Upload Dialog"
