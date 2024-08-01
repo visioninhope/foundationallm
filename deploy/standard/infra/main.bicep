@@ -1,13 +1,12 @@
 targetScope = 'subscription'
 
 param administratorObjectId string
+param allowedExternalCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
 param createDate string = utcNow('u')
-param createVpnGateway bool = true
 param environmentName string
-param externalDnsResourceGroupName string = ''
 param externalNetworkingResourceGroupName string = ''
 param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
@@ -24,10 +23,13 @@ param managementPortalHostname string
 param coreApiHostname string
 param managementApiHostname string
 
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
+param hubVnetName string
+
 // Locals
 var abbrs = loadJsonContent('./abbreviations.json')
 var k8sNamespace = 'fllm'
-var useExternalDns = !empty(externalDnsResourceGroupName)
 var useExternalNetworking = !empty(externalNetworkingResourceGroupName)
 
 var existingOpenAiInstance = {
@@ -46,9 +48,8 @@ var tags = {
 
 // TODO: BYO Resource Groups
 var resourceGroups = union(defaultResourceGroups, externalResourceGroups)
-var externalResourceGroups = union(externalDnsResourceGroup, externalNetworkingResourceGroup)
+var externalResourceGroups = externalNetworkingResourceGroup
 var externalNetworkingResourceGroup = useExternalNetworking ? { net: externalNetworkingResourceGroupName } : {}
-var externalDnsResourceGroup = useExternalDns ? { dns: externalDnsResourceGroupName } : {}
 
 var defaultResourceGroups = reduce(
   map(
@@ -63,7 +64,6 @@ var workloads = [
   'app'
   'auth'
   'data'
-  'dns'
   'jbx'
   'net'
   'oai'
@@ -93,30 +93,26 @@ module app 'app-rg.bicep' = {
   params: {
     actionGroupId: ops.outputs.actionGroupId
     administratorObjectId: administratorObjectId
-    chatUiClientSecret: 'PLACEHOLDER'
-    coreApiClientSecret: 'PLACEHOLDER'
-    dnsResourceGroupName: resourceGroups.dns
     environmentName: environmentName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     k8sNamespace: k8sNamespace
     location: location
     logAnalyticsWorkspaceId: ops.outputs.logAnalyticsWorkspaceId
     logAnalyticsWorkspaceResourceId: ops.outputs.logAnalyticsWorkspaceId
-    managementApiClientSecret: 'PLACEHOLDER'
-    managementUiClientSecret: 'PLACEHOLDER'
     networkingResourceGroupName: resourceGroups.net
     openAiResourceGroupName: resourceGroups.oai
     opsResourceGroupName: resourceGroups.ops
     project: project
     services: services
     storageResourceGroupName: resourceGroups.storage
-    vectorizationApiClientSecret: 'PLACEHOLDER'
     vectorizationResourceGroupName: resourceGroups.vec
     vnetName: networking.outputs.vnetName
   }
 }
 
 module auth 'auth-rg.bicep' = {
-  dependsOn: [rg]
+  dependsOn: [rg, app]
   name: 'auth-${timestamp}'
   scope: resourceGroup(resourceGroups.auth)
   params: {
@@ -126,8 +122,9 @@ module auth 'auth-rg.bicep' = {
     authAppRegistrationClientId: authAppRegistrationClientId
     authAppRegistrationInstance: authAppRegistrationInstance
     authAppRegistrationTenantId: authAppRegistrationTenantId
-    dnsResourceGroupName: resourceGroups.dns
     environmentName: environmentName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     instanceId: instanceId
     k8sNamespace: k8sNamespace
     location: location
@@ -138,26 +135,16 @@ module auth 'auth-rg.bicep' = {
   }
 }
 
-module dns 'dns-rg.bicep' = if (!useExternalDns) {
-  dependsOn: [rg, networking]
-  name: 'dns-${timestamp}'
-  scope: resourceGroup(resourceGroups.dns)
-  params: {
-    environmentName: environmentName
-    location: location
-    networkResourceGroupName: resourceGroups.net
-    project: project
-    vnetName: networking.outputs.vnetName
-  }
-}
-
 module networking 'networking-rg.bicep' = {
   dependsOn: [rg]
   name: 'networking-${timestamp}'
   scope: resourceGroup(resourceGroups.net)
   params: {
-    createVpnGateway: createVpnGateway
+    allowedExternalCidr: allowedExternalCidr
     environmentName: environmentName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
+    hubVnetName: hubVnetName
     location: location
     networkName: networkName
     project: project
@@ -170,7 +157,8 @@ module openai 'openai-rg.bicep' = {
   scope: resourceGroup(resourceGroups.oai)
   params: {
     actionGroupId: ops.outputs.actionGroupId
-    dnsResourceGroupName: resourceGroups.dns
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     environmentName: environmentName
     existingOpenAiInstance: existingOpenAiInstance
     location: location
@@ -188,7 +176,8 @@ module ops 'ops-rg.bicep' = {
   scope: resourceGroup(resourceGroups.ops)
   params: {
     administratorObjectId: administratorObjectId
-    dnsResourceGroupName: resourceGroups.dns
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     environmentName: environmentName
     location: location
     project: project
@@ -202,7 +191,8 @@ module storage 'storage-rg.bicep' = {
   scope: resourceGroup(resourceGroups.storage)
   params: {
     actionGroupId: ops.outputs.actionGroupId
-    dnsResourceGroupName: resourceGroups.dns
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     environmentName: environmentName
     location: location
     logAnalyticsWorkspaceId: ops.outputs.logAnalyticsWorkspaceId
@@ -217,7 +207,8 @@ module vec 'vec-rg.bicep' = {
   scope: resourceGroup(resourceGroups.vec)
   params: {
     actionGroupId: ops.outputs.actionGroupId
-    dnsResourceGroupName: resourceGroups.dns
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     environmentName: environmentName
     location: location
     logAnalyticsWorkspaceId: ops.outputs.logAnalyticsWorkspaceId
@@ -240,7 +231,6 @@ output FOUNDATIONALLM_REGISTRY string = registry
 output FLLM_APP_RG     string = resourceGroups.app
 output FLLM_AUTH_RG    string = resourceGroups.auth
 output FLLM_DATA_RG    string = resourceGroups.data
-output FLLM_DNS_RG     string = resourceGroups.dns
 output FLLM_JBX_RG     string = resourceGroups.jbx
 output FLLM_NET_RG     string = resourceGroups.net
 output FLLM_OAI_RG     string = resourceGroups.oai

@@ -8,13 +8,11 @@ output key string = key
 output name string = main.name
 
 /*
-  Creates a private DNS zone in Azure. It can be used to manage DNS records 
+  Retrieves a private DNS zone in Azure. It can be used to manage DNS records 
   within the zone.
 */
-resource main 'Microsoft.Network/privateDnsZones@2018-09-01' = {
-  location: 'global'
+resource main 'Microsoft.Network/privateDnsZones@2018-09-01' existing = {
   name: zone
-  tags: tags
 }
 
 /*
@@ -23,7 +21,7 @@ resource main 'Microsoft.Network/privateDnsZones@2018-09-01' = {
 */
 resource link 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2018-09-01' = {
   parent: main
-  name: zone
+  name: 'foundationallm'
   location: 'global'
   tags: tags
 
