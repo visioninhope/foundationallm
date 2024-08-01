@@ -170,9 +170,9 @@ export default {
 			agentListOpen: false,
 			showFileUploadDialog: false,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
-      		primaryButtonText: this.$appConfigStore.primaryButtonText,
+			primaryButtonText: this.$appConfigStore.primaryButtonText,
 			secondaryButtonBg: this.$appConfigStore.secondaryButtonBg,
-      		secondaryButtonText: this.$appConfigStore.secondaryButtonText,
+			secondaryButtonText: this.$appConfigStore.secondaryButtonText,
 		};
 	},
 
@@ -243,10 +243,20 @@ export default {
 				const objectId = await this.$appStore.uploadAttachment(formData, this.$appStore.currentSession.sessionId);
 
 				console.log(`File uploaded: ObjectId: ${objectId}`);
-				this.$toast.add({ severity: 'success', summary: 'Success', detail: 'File uploaded successfully.' });
+				this.$toast.add({
+					severity: 'success',
+					summary: 'Success',
+					detail: 'File uploaded successfully.',
+					life: 5000,
+				});
 				this.showFileUploadDialog = false;
 			} catch (error) {
-				this.$toast.add({ severity: 'error', summary: 'Error', detail: `File upload failed. ${error.message}` });
+				this.$toast.add({
+					severity: 'error',
+					summary: 'Error',
+					detail: `File upload failed. ${error.message}`,
+					life: 5000,
+				});
 			}
 		},
 
@@ -293,19 +303,19 @@ export default {
 		},
 
 		formatSize(bytes) {
-            const k = 1024;
-            const dm = 3;
-            const sizes = this.$primevue.config.locale.fileSizeTypes;
+			const k = 1024;
+			const dm = 3;
+			const sizes = this.$primevue.config.locale.fileSizeTypes;
 
-            if (bytes === 0) {
-                return `0 ${sizes[0]}`;
-            }
+			if (bytes === 0) {
+				return `0 ${sizes[0]}`;
+			}
 
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+			const i = Math.floor(Math.log(bytes) / Math.log(k));
+			const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
-            return `${formattedSize} ${sizes[i]}`;
-        }
+			return `${formattedSize} ${sizes[i]}`;
+		},
 	},
 };
 </script>
@@ -335,7 +345,7 @@ export default {
 }
 
 .chat-input .input-wrapper {
-    display: flex;
+	display: flex;
 	align-items: stretch;
 	width: 100%;
 }
@@ -411,10 +421,10 @@ export default {
 
 .attached-files {
 	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: nowrap;
 }
 
 .file-remove {
@@ -455,6 +465,6 @@ export default {
 	width: 100%;
 	text-align: center;
 	font-size: 5rem;
-    color: #000;
+	color: #000;
 }
 </style>
