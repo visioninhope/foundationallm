@@ -20,6 +20,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Instance_Id =
             "FoundationaLLM:Instance:Id";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Instance:SecurityGroupRetrievalStrategy setting.
+        /// <para>Value description:<br/>The security group retrieval strategy of the FoundationaLLM instance.</para>
+        /// </summary>
+        public const string FoundationaLLM_Instance_SecurityGroupRetrievalStrategy =
+            "FoundationaLLM:Instance:SecurityGroupRetrievalStrategy";
 
         #endregion
 

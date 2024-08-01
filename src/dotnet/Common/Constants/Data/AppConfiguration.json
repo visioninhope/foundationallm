@@ -13,6 +13,14 @@
 				"value": "${env:FOUNDATIONALLM_INSTANCE_ID}",
 				"content_type": "",
 				"first_version": "0.8.0"
+			},
+			{
+				"name": "SecurityGroupRetrievalStrategy",
+				"description": "The security group retrieval strategy of the FoundationaLLM instance.",
+				"secret": "",
+				"value": "IdentityManagementService",
+				"content_type": "",
+				"first_version": "0.8.0"
 			}
 		]
 	},
