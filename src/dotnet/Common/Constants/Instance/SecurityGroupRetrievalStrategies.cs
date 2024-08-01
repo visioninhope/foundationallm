@@ -14,5 +14,10 @@
         /// Identity management service.
         /// </summary>
         public const string IdentityManagementService = "IdentityManagementService";
+
+        /// <summary>
+        /// Access token groups claim.
+        /// </summary>
+        public const string AccessToken = "AccessToken";
     }
 }
