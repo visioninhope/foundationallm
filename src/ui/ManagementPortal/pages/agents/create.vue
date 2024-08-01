@@ -574,6 +574,43 @@
 				/>
 			</div>
 
+			<!-- AI model -->
+			<div class="step-header span-2">Which AI model should the orchestrator use?</div>
+			<CreateAgentStepItem v-model="editAIModel">
+				<template v-if="selectedAIModel">
+					<div v-if="selectedAIModel.object_id !== ''">
+						<div class="step-container__header">{{ selectedAIModel.name }}</div>
+						<div>
+							<span class="step-option__header">Deployment name:</span>
+							<span>{{ selectedAIModel.deployment_name }}</span>
+						</div>
+					</div>
+				</template>
+				<template v-else>Please select an AI model.</template>
+
+				<template #edit>
+					<div class="step-container__edit__header">Please select an AI model.</div>
+					<div
+						v-for="aiModel in aiModelOptions"
+						:key="aiModel.name"
+						class="step-container__edit__option"
+						:class="{
+							'step-container__edit__option--selected':
+							aiModel.name === selectedAIModel?.name,
+						}"
+						@click.stop="handleAIModelSelected(aiModel)"
+					>
+						<div v-if="aiModel.object_id !== ''">
+							<div class="step-container__header">{{ aiModel.name }}</div>
+							<div v-if="aiModel.deployment_name">
+								<span class="step-option__header">Deployment name:</span>
+								<span>{{ aiModel.deployment_name }}</span>
+							</div>
+						</div>
+					</div>
+				</template>
+			</CreateAgentStepItem>
+
 			<!-- Cost center -->
 			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this agent to a cost center?</div>
 			<div class="span-2">
@@ -597,53 +634,6 @@
                     type="text"
                 />
             </div>
-
-			<!-- <div class="step-header span-2">What are the orchestrator connection details?</div>
-			<div
-				v-if="
-					['LangChain', 'AzureOpenAIDirect', 'AzureAIDirect'].includes(
-						orchestration_settings.orchestrator,
-					)
-				"
-			>
-				<div class="mb-2 mt-2">API Key:</div>
-				<SecretKeyInput v-model="orchestration_settings.endpoint_configuration.api_key" />
-
-				<div class="mb-2 mt-2">Endpoint:</div>
-				<InputText
-					v-model="orchestration_settings.endpoint_configuration.endpoint"
-					class="w-100"
-					type="text"
-				/>
-
-				<div class="mb-2 mt-2">Version:</div>
-				<InputText
-					v-model="orchestration_settings.endpoint_configuration.api_version"
-					class="w-100"
-					type="text"
-				/>
-
-				<div class="mb-2 mt-2">Operation Type:</div>
-				<InputText
-					v-model="orchestration_settings.endpoint_configuration.operation_type"
-					class="w-100"
-					type="text"
-				/>
-
-				<div class="mb-2 mt-2">Model deployment name</div>
-				<InputText
-					v-model="orchestration_settings.model_parameters.deployment_name"
-					class="w-100"
-					type="text"
-				/>
-
-				<div class="mb-2 mt-2">Model temperature</div>
-				<InputText
-					v-model="orchestration_settings.model_parameters.temperature"
-					class="w-100"
-					type="number"
-				/>
-			</div> -->
 
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
@@ -694,6 +684,7 @@ import type {
 	Agent,
 	AgentIndex,
 	AgentDataSource,
+	AIModel,
 	DataSource,
 	CreateAgentRequest,
 	ExternalOrchestrationService,
@@ -730,6 +721,9 @@ const getDefaultFormValues = () => {
 		editTextEmbeddingProfile: false as boolean,
 		selectedTextEmbeddingProfile: null as null | TextEmbeddingProfile,
 
+		editAIModel: false as boolean,
+		selectedAIModel: null as null | AIModel,
+
 		chunkSize: 500,
 		overlapSize: 50,
 
@@ -752,34 +746,7 @@ const getDefaultFormValues = () => {
 
 		orchestration_settings: {
 			orchestrator: 'LangChain' as string,
-			endpoint_configuration: {
-				auth_type: 'key' as string,
-				provider: 'microsoft' as string,
-				endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint' as string,
-				api_key: 'FoundationaLLM:AzureOpenAI:API:Key' as string,
-				api_version: 'FoundationaLLM:AzureOpenAI:API:Version' as string,
-				//operation_type: 'chat' as string,
-			} as object,
-			model_parameters: {
-				deployment_name: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName' as string,
-				temperature: 0 as number,
-			} as object,
 		},
-
-		api_endpoint: 'FoundationaLLM:AzureOpenAI:API:Endpoint',
-		api_key: 'FoundationaLLM:AzureOpenAI:API:Key',
-		api_version: 'FoundationaLLM:AzureOpenAI:API:Version',
-		version: 'FoundationaLLM:AzureOpenAI:API:Completions:ModelVersion',
-		deployment: 'FoundationaLLM:AzureOpenAI:API:Completions:DeploymentName',
-
-		// resolved_orchestration_settings: {
-		// 	endpoint_configuration: {
-		// 		endpoint: '' as string,
-		// 		api_key: '' as string,
-		// 		api_version: '' as string,
-		// 		operation_type: 'chat' as string,
-		// 	} as object,
-		// },
 	};
 };
 
@@ -814,6 +781,7 @@ export default {
 			indexSources: [] as AgentIndex[],
 			textEmbeddingProfileSources: [] as TextEmbeddingProfile[],
 			externalOrchestratorOptions: [] as ExternalOrchestrationService[],
+			aiModelOptions: [] as AIModel[],
 
 			orchestratorOptions: [
 				{
@@ -917,6 +885,12 @@ export default {
 			const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
 			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
 
+			this.loadingStatusText = 'Retrieving AI models...';
+			const aiModelsResult = await api.getAIModels();
+			this.aiModelOptions = aiModelsResult.map(result => result.resource);
+			// Filter the AIModels so we only display the ones where the type is 'completion'.
+			this.aiModelOptions = this.aiModelOptions.filter((model) => model.type === 'completion');
+
 			// Update the orchestratorOptions with the externalOrchestratorOptions.
 			this.orchestratorOptions = this.orchestratorOptions.concat(
 				this.externalOrchestratorOptions.map((service) => ({
@@ -979,27 +953,6 @@ export default {
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
-			this.orchestration_settings.endpoint_configuration.endpoint =
-				agent.orchestration_settings?.endpoint_configuration?.endpoint ||
-				this.orchestration_settings.endpoint_configuration.endpoint;
-			this.orchestration_settings.endpoint_configuration.api_key =
-				agent.orchestration_settings?.endpoint_configuration?.api_key ||
-				this.orchestration_settings.endpoint_configuration.api_key;
-			this.orchestration_settings.endpoint_configuration.api_version =
-				agent.orchestration_settings?.endpoint_configuration?.api_version ||
-				this.orchestration_settings.endpoint_configuration.api_version;
-			this.orchestration_settings.endpoint_configuration.operation_type =
-				agent.orchestration_settings?.endpoint_configuration?.operation_type ||
-				this.orchestration_settings.endpoint_configuration.operation_type;
-
-			this.orchestration_settings.model_parameters.deployment_name =
-				agent.orchestration_settings?.model_parameters?.deployment_name ||
-				this.orchestration_settings.model_parameters.deployment_name;
-			this.orchestration_settings.model_parameters.temperature =
-				agent.orchestration_settings?.model_parameters?.temperature ||
-				this.orchestration_settings.model_parameters.temperature;
-
-			// this.resolved_orchestration_settings = agent.resolved_orchestration_settings || this.resolved_orchestration_settings;
 
 			if (agent.vectorization) {
 				this.dedicated_pipeline = agent.vectorization.dedicated_pipeline;
@@ -1028,20 +981,25 @@ export default {
 				this.dataSources.find(
 					(dataSource) => dataSource.object_id === agent.vectorization?.data_source_object_id,
 				) || null;
+			
+			this.selectedAIModel =
+				this.aiModelOptions.find(
+					(aiModel) => aiModel.object_id === agent.ai_model_object_id,
+				) || null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
 			this.conversationMaxMessages =
 				agent.conversation_history?.max_history || this.conversationMaxMessages;
 
-			this.gatekeeperEnabled = Boolean(agent.gatekeeper?.use_system_setting);
+			this.gatekeeperEnabled = Boolean(agent.gatekeeper_settings?.use_system_setting);
 
-			if (agent.gatekeeper && agent.gatekeeper.options) {
+			if (agent.gatekeeper_settings && agent.gatekeeper_settings.options) {
 				this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
-					agent.gatekeeper?.options?.includes(localOption.code)
+					agent.gatekeeper_settings?.options?.includes(localOption.code)
 				) || this.selectedGatekeeperContentSafety;
 
 				this.selectedGatekeeperDataProtection = this.gatekeeperDataProtectionOptions.filter((localOption) =>
-					agent.gatekeeper?.options?.includes(localOption.code)
+					agent.gatekeeper_settings?.options?.includes(localOption.code)
 				) || this.selectedGatekeeperDataProtection;
 			}
 		},
@@ -1115,6 +1073,11 @@ export default {
 			this.editTextEmbeddingProfile = false;
 		},
 
+		handleAIModelSelected(aiModel: AIModel) {
+			this.selectedAIModel = aiModel;
+			this.editAIModel = false;
+		},
+
 		async handleCreateAgent() {
 			const errors = [];
 			if (!this.agentName) {
@@ -1133,6 +1096,14 @@ export default {
 
 			if (this.systemPrompt === '') {
 				errors.push('Please provide a system prompt.');
+			}
+
+			if (!this.orchestration_settings.orchestrator) {
+				errors.push('Please select an orchestrator.');
+			}
+
+			if (!this.selectedAIModel) {
+				errors.push('Please select an AI model for the orchestrator.');
 			}
 
 			// if (!this.selectedDataSource) {
@@ -1241,7 +1212,7 @@ export default {
 						max_history: Number(this.conversationMaxMessages),
 					},
 
-					gatekeeper: {
+					gatekeeper_settings: {
 						use_system_setting: this.gatekeeperEnabled,
 						options: [
 							...(this.selectedGatekeeperContentSafety || []).map((option: any) => option.code),
@@ -1253,6 +1224,7 @@ export default {
 
 					prompt_object_id: promptObjectId,
 					orchestration_settings: this.orchestration_settings,
+					ai_model_object_id: this.selectedAIModel.object_id,
 				};
 
 				if (this.editAgent) {

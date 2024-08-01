@@ -30,6 +30,8 @@ export type Agent = ResourceBase & {
 	type: 'knowledge-management' | 'analytics';
 	inline_context: boolean;
 
+	ai_model_object_id: string;
+
 	vectorization: {
 		dedicated_pipeline: boolean;
 		indexing_profile_object_ids: string[];
@@ -44,22 +46,12 @@ export type Agent = ResourceBase & {
 	sessions_enabled: boolean;
 	orchestration_settings: {
 		orchestrator: string;
-		endpoint_configuration: {
-			endpoint: string;
-			api_key: string;
-			api_version: string;
-			operation_type: string;
-		};
-		model_parameters: {
-			temperature: number;
-			deployment_name: string;
-		};
 	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;
 	};
-	gatekeeper: {
+	gatekeeper_settings: {
 		use_system_setting: boolean;
 		options: string[];
 	};
@@ -100,6 +92,19 @@ export type ExternalOrchestrationService = ResourceBase & {
 	url: string;
 	// The resolved value of the API key configuration reference for displaying in the UI and updating the configuration.
 	resolved_api_key: string;
+};
+
+export type AIModel = ResourceBase & {
+	name: string;
+	type: string;
+	// The object id of the APIEndpointConfiguration object providing the configuration for the API endpoint used to interact with the model.
+    endpoint_object_id: string;
+    // The version of the AI model.
+    version?: string | null;
+    // The name of the deployment corresponding to the AI model.
+    deployment_name?: string | null;
+    // Dictionary with default values for the model parameters.
+    model_parameters: { [key: string]: any };
 };
 
 export interface ConfigurationReferenceMetadata {
@@ -296,6 +301,8 @@ export type CreateAgentRequest = ResourceBase & {
 	name: string;
 	inline_context: boolean;
 
+	ai_model_object_id: string;
+
 	language_model: {
 		type: string;
 		provider: string;
@@ -322,22 +329,12 @@ export type CreateAgentRequest = ResourceBase & {
 	sessions_enabled: boolean;
 	orchestration_settings: {
 		orchestrator: string;
-		endpoint_configuration: {
-			endpoint: string;
-			api_key: string;
-			api_version: string;
-			operation_type: string;
-		};
-		model_parameters: {
-			temperature: number;
-			deployment_name: string;
-		};
 	};
 	conversation_history: {
 		enabled: boolean;
 		max_history: number;
 	};
-	gatekeeper: {
+	gatekeeper_settings: {
 		use_system_setting: boolean;
 		options: string[];
 	};
