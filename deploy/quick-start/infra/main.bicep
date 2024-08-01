@@ -76,6 +76,9 @@ var openAiInstance = {
   subscriptionId: subscription().subscriptionId
 }
 
+var deploymentConfigurations = loadJsonContent('../../common/config/openAiDeploymentConfig.json')
+var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, location))
+
 // Tags that should be applied to all resources.
 //
 // Note that 'azd-service-name' tags should be applied separately to service host resources.
@@ -362,30 +365,7 @@ module openAi './shared/openai.bicep' =
       sku: 'S0'
       tags: tags
 
-      deployments: [
-        {
-          name: 'completions'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'gpt-35-turbo'
-            version: '0613'
-          }
-        }
-        {
-          name: 'embeddings'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'text-embedding-ada-002'
-            version: '2'
-          }
-        }
-      ]
+      deployments: deployments
     }
   }
 
