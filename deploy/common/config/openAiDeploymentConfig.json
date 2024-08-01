@@ -42,28 +42,6 @@
         }
       },
       {
-        "name": "completions",
-        "locations": [
-          "austrailiaeast",
-          "canadaeast",
-          "francecentral",
-          "southindia",
-          "swedencentral",
-          "uksouth",
-          "westus"
-        ],
-        "raiPolicyName": "",
-        "model": {
-          "format": "OpenAI",
-          "name": "gpt-35-turbo",
-          "version": "1106"
-        },
-        "sku": {
-          "capacity": 60,
-          "name": "Standard"
-        }
-      },
-      {
         "name": "completions4",
         "locations": [
           "austrailiaeast",
