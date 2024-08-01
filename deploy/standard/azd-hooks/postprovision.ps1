@@ -21,7 +21,6 @@ try {
         app     = $env:FLLM_APP_RG
         auth    = $env:FLLM_AUTH_RG
         data    = $env:FLLM_DATA_RG
-        dns     = $env:FLLM_DNS_RG
         jbx     = $env:FLLM_JBX_RG
         net     = $env:FLLM_NET_RG
         oai     = $env:FLLM_OAI_RG

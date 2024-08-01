@@ -3,10 +3,6 @@
 @secure()
 param apiKey string = newGuid()
 
-@description('Entra authentication client secret')
-@secure()
-param clientSecret string = ''
-
 @description('Location for all resources')
 param location string
 

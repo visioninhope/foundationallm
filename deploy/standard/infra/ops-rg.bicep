@@ -5,11 +5,11 @@ param administratorObjectId string
 @description('Administrator principal type.')
 param administratorPrincipalType string = 'Group'
 
-@description('DNS Resource Group Name')
-param dnsResourceGroupName string
-
 @description('The environment name token used in naming resources.')
 param environmentName string
+
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
 
 @description('Location used for all resources.')
 param location string
@@ -74,7 +74,7 @@ resource uaiAppConfig 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-
 @description('Read DNS Zones')
 module dnsZones 'modules/utility/dnsZoneData.bicep' = {
   name: 'dnsZones-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
   params: {
     location: location
   }
