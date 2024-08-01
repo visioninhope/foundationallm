@@ -20,6 +20,9 @@ export default defineNuxtConfig({
 	components: true,
 	app: {
 		head: {
+			htmlAttrs: {
+				lang: 'en',
+			},
 			title: process.env.BRANDING_PAGE_TITLE ?? 'FoundationaLLM Management Portal',
 			link: [
 				{

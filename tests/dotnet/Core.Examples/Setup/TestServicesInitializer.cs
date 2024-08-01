@@ -43,7 +43,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 			TestConfiguration.Initialize(configRoot, services);
 
             services.AddOptions<BlobStorageServiceSettings>(
-                    DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
+                    DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization)
                 .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
 
             RegisterInstance(services, configRoot);
@@ -64,10 +64,10 @@ namespace FoundationaLLM.Core.Examples.Setup
 		private static void RegisterSearchIndex(IServiceCollection services, IConfiguration configuration)
 		{
             services.AddOptions<AzureAISearchIndexingServiceSettings>()
-                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_AzureAISearchIndexingService));
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration));
 
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
-                DependencyInjectionKeys.FoundationaLLM_Vectorization_AzureAISearchIndexingService);
+                DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration);
 
         }
 
@@ -75,10 +75,10 @@ namespace FoundationaLLM.Core.Examples.Setup
         {
             var instanceId = configuration.GetValue<string>(AppConfigurationKeys.FoundationaLLM_Instance_Id);
             services.AddCoreClient(
-                configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!,
+                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Essentials_APIUrl]!,
                 DefaultAuthentication.AzureCredential!);
             services.AddManagementClient(
-                configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!,
+                configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_APIUrl]!,
                 DefaultAuthentication.AzureCredential!,
                 instanceId);
         }
@@ -86,7 +86,7 @@ namespace FoundationaLLM.Core.Examples.Setup
 		private static void RegisterCosmosDb(IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddOptions<CosmosDbSettings>()
-				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_CosmosDB));
+				.Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB));
 
 			services.AddSingleton<CosmosClient>(serviceProvider =>
 			{
@@ -111,9 +111,9 @@ namespace FoundationaLLM.Core.Examples.Setup
                 if (completionQualityMeasurementConfiguration is { AgentPrompts: not null })
                 {
                     services.AddOptions<AzureAISettings>()
-                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio));
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration));
                     services.AddOptions<BlobStorageServiceSettings>()
-                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings));
+                        .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_AzureAIStudio_Configuration_Storage));
 
                     services.AddScoped<IAzureAIService, AzureAIService>();
                     services.AddSingleton<IStorageService, BlobStorageService>();

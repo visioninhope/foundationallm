@@ -163,7 +163,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: 'Chat link copied!',
-				life: 2000,
+				life: 5000,
 			});
 		},
 
@@ -176,7 +176,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: message,
-				life: 2000,
+				life: 5000,
 			});
 		},
 

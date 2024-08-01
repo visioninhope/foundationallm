@@ -22,8 +22,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationServices
         IRequestSourcesCache requestSourcesCache,
         MemoryVectorizationStateService inMemoryStateService,        
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)]
-        IConfigurationSection stepsConfiguration,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)] IConfigurationSection stepsConfiguration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
     {       

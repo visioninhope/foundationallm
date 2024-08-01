@@ -26,8 +26,7 @@ namespace FoundationaLLM.Vectorization.Services.VectorizationServices
     public class SynchronousVectorizationService(       
         MemoryVectorizationStateService vectorizationStateService,
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)]
-        IConfigurationSection stepsConfiguration,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_Vectorization_Steps)] IConfigurationSection stepsConfiguration,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory) : IVectorizationService
     {        

@@ -25,6 +25,8 @@ param opsResourceSuffix string
 @description('Resource suffix for all resources')
 param resourceSuffix string
 
+param secretName string
+
 @description('Service name')
 param serviceName string
 
@@ -79,10 +81,6 @@ output serviceMiName string = managedIdentity.name
 @description('Service Api Key Secret KeyVault Uri.')
 #disable-next-line outputs-should-not-contain-secrets
 output serviceApiKeySecretUri string = useOidc ? '' : apiKeySecret.outputs.secretUri
-
-@description('Service OIDC Client Secret KeyVault Uri')
-#disable-next-line outputs-should-not-contain-secrets
-output serviceApiClientSecretUri string = useOidc ? apiClientSecret.outputs.secretUri : ''
 
 /** Resources **/
 @description('Resource for configuring user managed identity for a microservice')
@@ -140,25 +138,13 @@ module storageRoleAssignments 'utility/roleAssignments.bicep' = {
 }
 
 @description('API Key for microservice (only created if not using Entra)')
-module apiKeySecret 'kvSecret.bicep' = {
+module apiKeySecret 'kvSecret.bicep' = if (!useOidc) {
   name: 'apiKey-${serviceName}-${timestamp}'
   scope: resourceGroup(opsResourceGroupName)
   params: {
     kvName: kvName
-    secretName: 'foundationallm-apis-${replace(serviceName,'-','')}-apikey'
-    secretValue: useOidc ? '' : apiKey
-    tags: tags
-  }
-}
-
-@description('Client secret for microservice (only created if using Entra)')
-module apiClientSecret 'kvSecret.bicep' = if (useOidc) {
-  name: 'apiClientSecret-${serviceName}-${timestamp}'
-  scope: resourceGroup(opsResourceGroupName)
-  params: {
-    kvName: kvName
-    secretName: 'foundationallm-apis-${serviceName}-entra-clientsecret'
-    secretValue: useOidc ? clientSecret : ''
+    secretName: secretName
+    secretValue: apiKey
     tags: tags
   }
 }

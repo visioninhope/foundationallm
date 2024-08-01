@@ -4,7 +4,10 @@
 		<div class="sidebar__header">
 			<template v-if="$appConfigStore.logoUrl">
 				<NuxtLink to="/">
-					<img :src="$filters.publicDirectory($appConfigStore.logoUrl)"
+					<img
+						:src="$filters.publicDirectory($appConfigStore.logoUrl)"
+						aria-label="Logo as link to home"
+						alt="Logo"
 					/>
 				</NuxtLink>
 			</template>

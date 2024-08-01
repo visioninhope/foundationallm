@@ -22,7 +22,7 @@
 			size="small"
 		>
 			<template #empty>
-				No role assignments found. Please use the menu on the left to create a new role assignment.
+				No role assignments found.
 			</template>
 
 			<template #loading>Loading data sources. Please wait.</template>
