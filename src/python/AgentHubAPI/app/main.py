@@ -13,7 +13,7 @@ from foundationallm.telemetry import Telemetry
 # Open a connection to the app configuration
 config = get_config()
 # Start collecting telemetry
-Telemetry.configure_monitoring(config, f'FoundationaLLM:APIEndpoints:{API_NAME}:Essentials:AppInsightsConnectionString')
+# Telemetry.configure_monitoring(config, f'FoundationaLLM:APIEndpoints:{API_NAME}:Essentials:AppInsightsConnectionString')
 
 app = FastAPI(
     title=f'FoundationaLLM {API_NAME}',
