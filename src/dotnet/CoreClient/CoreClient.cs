@@ -26,8 +26,14 @@ namespace FoundationaLLM.Client.Core
         /// <param name="coreUri">The base URI of the Core API.</param>
         /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
         /// user or service principle from which the client library can generate auth tokens.</param>
-        public CoreClient(string coreUri, TokenCredential credential)
-            : this(coreUri, credential, new APIClientSettings()) { }
+        /// <param name="instanceId">The unique (GUID) ID for the FoundationaLLM deployment.
+        /// Locate this value in the FoundationaLLM Management Portal or in Azure App Config
+        /// (FoundationaLLM:Instance:Id key)</param>
+        public CoreClient(
+            string coreUri,
+            TokenCredential credential,
+            string instanceId)
+            : this(coreUri, credential, instanceId,  new APIClientSettings()) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoreClient"/> class with
@@ -36,9 +42,16 @@ namespace FoundationaLLM.Client.Core
         /// <param name="coreUri">The base URI of the Core API.</param>
         /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
         /// user or service principle from which the client library can generate auth tokens.</param>
+        /// <param name="instanceId">The unique (GUID) ID for the FoundationaLLM deployment.
+        /// Locate this value in the FoundationaLLM Management Portal or in Azure App Config
+        /// (FoundationaLLM:Instance:Id key)</param>
         /// <param name="options">Additional options to configure the HTTP Client.</param>
-        public CoreClient(string coreUri, TokenCredential credential, APIClientSettings options) =>
-            _coreRestClient = new CoreRESTClient(coreUri, credential, options);
+        public CoreClient(
+            string coreUri,
+            TokenCredential credential,
+            string instanceId,
+            APIClientSettings options) =>
+            _coreRestClient = new CoreRESTClient(coreUri, credential, instanceId, options);
 
         /// <inheritdoc/>
         public async Task<string> CreateChatSessionAsync(string? sessionName)
