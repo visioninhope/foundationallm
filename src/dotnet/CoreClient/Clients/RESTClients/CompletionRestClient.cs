@@ -14,8 +14,11 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
     /// </summary>
     internal class CompletionRESTClient(
         IHttpClientFactory httpClientFactory,
-        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), ICompletionRESTClient
+        TokenCredential credential,
+        string instanceId) : CoreRESTClientBase(httpClientFactory, credential), ICompletionRESTClient
     {
+        private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
+
         /// <inheritdoc/>
         public async Task<Completion> GetChatCompletionAsync(CompletionRequest completionRequest)
         {
