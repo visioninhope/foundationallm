@@ -16,7 +16,7 @@
 			<!-- Edit access control -->
 			<AccessControl
 				v-if="editAgent"
-				:scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`"
+				:scope="`providers/FoundationaLLM.Agent/agents/${agentName}`"
 			/>
 		</div>
 
