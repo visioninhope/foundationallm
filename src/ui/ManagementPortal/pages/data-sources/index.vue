@@ -33,9 +33,7 @@
 				table-style="max-width: 100%"
 				size="small"
 			>
-				<template #empty>
-					No data sources found.
-				</template>
+				<template #empty> No data sources found. </template>
 
 				<template #loading>Loading data sources. Please wait.</template>
 
@@ -101,7 +99,11 @@
 					}"
 				>
 					<template #body="{ data }">
-						<Button link @click="dataSourceToDelete = data.resource" :aria-label="`Delete ${data.resource.name}`">
+						<Button
+							link
+							:aria-label="`Delete ${data.resource.name}`"
+							@click="dataSourceToDelete = data.resource"
+						>
 							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400)"></i>
 						</Button>
 					</template>

@@ -45,7 +45,7 @@ export default defineNuxtConfig({
 		transpile: ['primevue'],
 	},
 	hooks: {
-		'vite:extendConfig': (config, { isClient, isServer }) => {
+		'vite:extendConfig': (config, { isClient /*, isServer */ }) => {
 			if (isClient) {
 				config.resolve.alias.vue = 'vue/dist/vue.esm-bundler.js';
 			}

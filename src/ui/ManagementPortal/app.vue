@@ -45,7 +45,7 @@ export default {
 		style: {
 			immediate: true,
 			handler() {
-				for (let cssVar in this.style) {
+				for (const cssVar in this.style) {
 					document.documentElement.style.setProperty(cssVar, this.style[cssVar]);
 				}
 			},

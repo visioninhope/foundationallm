@@ -21,14 +21,9 @@
 </template>
 
 <script lang="ts">
-import api from '@/js/api';
-import type { RoleAssignment } from '@/js/types';
-
 export default {
 	name: 'RoleAssignments',
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

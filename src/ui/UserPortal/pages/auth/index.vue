@@ -2,7 +2,13 @@
 	<div class="login-page">
 		<div class="login-container">
 			<img :src="$appConfigStore.logoUrl" class="login__logo" alt="Logo" />
-			<Button class="primary-button" icon="pi pi-microsoft" label="Sign in" size="large" @click="signIn"></Button>
+			<Button
+				class="primary-button"
+				icon="pi pi-microsoft"
+				label="Sign in"
+				size="large"
+				@click="signIn"
+			></Button>
 			<div v-if="$route.query.message" class="login__message">{{ $route.query.message }}</div>
 		</div>
 	</div>

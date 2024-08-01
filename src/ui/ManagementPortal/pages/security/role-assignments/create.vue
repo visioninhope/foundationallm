@@ -33,7 +33,7 @@
 						placeholder="Instance"
 						type="text"
 						class="w-100"
-					 	aria-labelledby="aria-scope"
+						aria-labelledby="aria-scope"
 					/>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 						placeholder="Enter a description for this role assignment"
 						type="text"
 						class="w-100"
-					 	aria-labelledby="aria-description"
+						aria-labelledby="aria-description"
 					/>
 				</div>
 			</div>
@@ -56,36 +56,35 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
-
 				<!-- Type -->
 				<div id="aria-principal-type" class="mb-2">Principal Type:</div>
-				<div style="display: flex; gap: 16px;">
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.object_type"
 						readonly
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
-					 	aria-labelledby="aria-principal-type"
+						aria-labelledby="aria-principal-type"
 					/>
 				</div>
 
 				<!-- Name -->
 				<div id="aria-principal-name" class="mb-2 mt-2">Principal Name:</div>
-				<div style="display: flex; gap: 16px;">
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.display_name"
 						readonly
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
-					 	aria-labelledby="aria-principal-name"
+						aria-labelledby="aria-principal-name"
 					/>
 				</div>
 
 				<!-- Email -->
 				<div id="aria-principal-email" class="mb-2 mt-2">Principal Email:</div>
-				<div style="display: flex; gap: 16px;">
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.email"
 						readonly
@@ -98,7 +97,7 @@
 
 				<!-- ID -->
 				<div id="aria-principal-id" class="mb-2 mt-2">Principal ID:</div>
-				<div style="display: flex; gap: 16px;">
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="roleAssignment.principal_id"
 						readonly
@@ -107,11 +106,7 @@
 						class="w-50"
 						aria-labelledby="aria-principal-id"
 					/>
-					<Button
-						label="Browse"
-						severity="primary"
-						@click="selectPrincipalDialogOpen = true"
-					/>
+					<Button label="Browse" severity="primary" @click="selectPrincipalDialogOpen = true" />
 				</div>
 
 				<!-- Browse principals dialog -->
@@ -145,8 +140,8 @@
 					>
 						<template #option="{ option }">
 							<div class="flex items-center">
-									<div>{{ option.display_name }}</div>
-									<div style="font-size: 0.8rem">{{ option.email }}</div>
+								<div>{{ option.display_name }}</div>
+								<div style="font-size: 0.8rem">{{ option.email }}</div>
 							</div>
 						</template>
 					</AutoComplete>
@@ -194,15 +189,11 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
-import { debounce } from 'lodash';
-import api from '@/js/api';
 import { v4 as uuidv4 } from 'uuid';
+import type { PropType } from 'vue';
+import api from '@/js/api';
 
-import type {
-	Role,
-	RoleAssignment,
-} from '@/js/types';
+import type { Role, RoleAssignment } from '@/js/types';
 
 export default {
 	name: 'CreateRoleAssignment',
@@ -223,6 +214,7 @@ export default {
 		scope: {
 			type: String,
 			required: false,
+			default: null,
 		},
 	},
 
@@ -316,7 +308,7 @@ export default {
 		},
 
 		handlePrincipalSearch(event) {
-			let optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
+			const optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
 
 			this.principalOptionsFiltered = optionsToSearch.filter((principal) => {
 				const queryLowercase = event.query.toLowerCase();
@@ -353,7 +345,7 @@ export default {
 		async handleCreateRoleAssignment() {
 			try {
 				await this.createRoleAssignment();
-			} catch(error) {
+			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
 					detail: error,
@@ -638,7 +630,7 @@ input {
 		width: 100%;
 		li {
 			input {
-				width: 100%!important;
+				width: 100% !important;
 			}
 		}
 	}

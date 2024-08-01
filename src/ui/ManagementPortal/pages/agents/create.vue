@@ -16,10 +16,9 @@
 			<!-- Edit access control -->
 			<AccessControl
 				v-if="editAgent"
-				:scope="`providers/FoundationaLLM.Agent/agents/${this.agentName}`"
+				:scope="`providers/FoundationaLLM.Agent/agents/${agentName}`"
 			/>
 		</div>
-
 
 		<div class="steps" :class="{ 'steps--loading': loading }">
 			<!-- Loading overlay -->
@@ -63,7 +62,9 @@
 			</div>
 			<div class="span-2">
 				<div class="step-header mb-2">Description:</div>
-				<div id="aria-description" class="mb-2">Provide a description to help others understand the agent's purpose.</div>
+				<div id="aria-description" class="mb-2">
+					Provide a description to help others understand the agent's purpose.
+				</div>
 				<InputText
 					v-model="agentDescription"
 					type="text"
@@ -86,8 +87,15 @@
 				>
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" aria-labelledby="aria-type-knowledge" />
-							<div id="aria-type-knowledge" class="step-container__header">Knowledge Management</div>
+							<RadioButton
+								v-model="agentType"
+								name="agentType"
+								value="knowledge-management"
+								aria-labelledby="aria-type-knowledge"
+							/>
+							<div id="aria-type-knowledge" class="step-container__header">
+								Knowledge Management
+							</div>
 						</div>
 						<div>Best for Q&A, summarization and reasoning over textual data.</div>
 					</div>
@@ -99,7 +107,12 @@
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="analytics" aria-labelledby="aria-type-analytics" />
+							<RadioButton
+								v-model="agentType"
+								name="agentType"
+								value="analytics"
+								aria-labelledby="aria-type-analytics"
+							/>
 							<div id="aria-type-analytics" class="step-container__header">Analytics</div>
 						</div>
 						<div>Best to query, analyze, calculate and report on tabular data.</div>
@@ -110,7 +123,9 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div id="aria-inline-context" class="step-header span-2">Does this agent have an inline context?</div>
+			<div id="aria-inline-context" class="step-header span-2">
+				Does this agent have an inline context?
+			</div>
 			<div class="span-2">
 				<div class="d-flex align-center mt-2">
 					<span>
@@ -127,7 +142,9 @@
 			</div>
 
 			<template v-if="!inline_context">
-				<div id="aria-dedicated-pipeline" class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+				<div id="aria-dedicated-pipeline" class="step-header span-2">
+					Do you want this agent to have a dedicated pipeline?
+				</div>
 				<div class="span-2">
 					<div class="d-flex align-center mt-2">
 						<span>
@@ -282,9 +299,14 @@
 							<div class="step-container__header">{{ selectedTextEmbeddingProfile.name }}</div>
 							<div v-if="selectedTextEmbeddingProfile.resolved_configuration_references?.Endpoint">
 								<span class="step-option__header">URL:</span>
-								<span>{{ selectedTextEmbeddingProfile.resolved_configuration_references.Endpoint }}</span><br />
+								<span>{{
+									selectedTextEmbeddingProfile.resolved_configuration_references.Endpoint
+								}}</span
+								><br />
 								<span class="step-option__header">Deployment:</span>
-								<span>{{ selectedTextEmbeddingProfile.resolved_configuration_references.DeploymentName }}</span>
+								<span>{{
+									selectedTextEmbeddingProfile.resolved_configuration_references.DeploymentName
+								}}</span>
 							</div>
 							<div v-if="selectedTextEmbeddingProfile.settings?.model_name">
 								<span class="step-option__header">Model Name:</span>
@@ -314,9 +336,12 @@
 								<div class="step-container__header">{{ textEmbeddingProfile.name }}</div>
 								<div v-if="textEmbeddingProfile.resolved_configuration_references?.Endpoint">
 									<span class="step-option__header">URL:</span>
-									<span>{{ textEmbeddingProfile.resolved_configuration_references.Endpoint }}</span><br />
+									<span>{{ textEmbeddingProfile.resolved_configuration_references.Endpoint }}</span
+									><br />
 									<span class="step-option__header">Deployment:</span>
-									<span>{{ textEmbeddingProfile.resolved_configuration_references.DeploymentName }}</span>
+									<span>{{
+										textEmbeddingProfile.resolved_configuration_references.DeploymentName
+									}}</span>
 								</div>
 								<div v-if="textEmbeddingProfile.settings?.model_name">
 									<span class="step-option__header">Model Name:</span>
@@ -337,7 +362,7 @@
 					<div class="step-header">When should the data be indexed?</div>
 
 					<!-- Process indexing -->
-				
+
 					<CreateAgentStepItem>
 						<div class="step-container__header">Splitting & Chunking</div>
 
@@ -356,12 +381,22 @@
 
 							<div>
 								<span id="aria-chunk-size" class="step-option__header">Chunk size:</span>
-								<InputText v-model="chunkSize" type="number" class="mt-2" aria-label="aria-chunk-size" />
+								<InputText
+									v-model="chunkSize"
+									type="number"
+									class="mt-2"
+									aria-label="aria-chunk-size"
+								/>
 							</div>
 
 							<div>
 								<span id="aria-overlap-size" class="step-option__header">Overlap size:</span>
-								<InputText v-model="overlapSize" type="number" class="mt-2" aria-label="aria-overlap-size" />
+								<InputText
+									v-model="overlapSize"
+									type="number"
+									class="mt-2"
+									aria-label="aria-overlap-size"
+								/>
 							</div>
 						</template>
 					</CreateAgentStepItem>
@@ -452,7 +487,9 @@
 				</div>
 
 				<template #edit>
-					<div id="aria-conversation-history" class="step-container__header">Conversation History</div>
+					<div id="aria-conversation-history" class="step-container__header">
+						Conversation History
+					</div>
 
 					<div class="d-flex align-center mt-2">
 						<span id="aria-conversation-history-enabled" class="step-option__header">Enabled:</span>
@@ -503,12 +540,20 @@
 
 				<div>
 					<span class="step-option__header">Content Safety:</span>
-					<span>{{ Array.isArray(selectedGatekeeperContentSafety) ? selectedGatekeeperContentSafety.map(item => item.name).join(', ') : '' }}</span>
+					<span>{{
+						Array.isArray(selectedGatekeeperContentSafety)
+							? selectedGatekeeperContentSafety.map((item) => item.name).join(', ')
+							: ''
+					}}</span>
 				</div>
 
 				<div>
 					<span class="step-option__header">Data Protection:</span>
-					<span>{{ Array.isArray(selectedGatekeeperDataProtection) ? selectedGatekeeperDataProtection.map(item => item.name).join(', ') : '' }}</span>
+					<span>{{
+						Array.isArray(selectedGatekeeperDataProtection)
+							? selectedGatekeeperDataProtection.map((item) => item.name).join(', ')
+							: ''
+					}}</span>
 				</div>
 
 				<template #edit>
@@ -561,7 +606,9 @@
 			</CreateAgentStepItem>
 
 			<!-- Orchestrator -->
-			<div id="aria-orchestrator" class="step-header span-2">Which orchestrator should the agent use?</div>
+			<div id="aria-orchestrator" class="step-header span-2">
+				Which orchestrator should the agent use?
+			</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="orchestration_settings.orchestrator"
@@ -595,8 +642,7 @@
 						:key="aiModel.name"
 						class="step-container__edit__option"
 						:class="{
-							'step-container__edit__option--selected':
-							aiModel.name === selectedAIModel?.name,
+							'step-container__edit__option--selected': aiModel.name === selectedAIModel?.name,
 						}"
 						@click.stop="handleAIModelSelected(aiModel)"
 					>
@@ -612,7 +658,9 @@
 			</CreateAgentStepItem>
 
 			<!-- Cost center -->
-			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this agent to a cost center?</div>
+			<div id="aria-cost-center" class="step-header span-2">
+				Would you like to assign this agent to a cost center?
+			</div>
 			<div class="span-2">
 				<InputText
 					v-model="cost_center"
@@ -623,17 +671,17 @@
 				/>
 			</div>
 
-            <!-- Expiration -->
-            <div class="step-header span-2">Would you like to set an expiration on this agent?</div>
-            <div class="span-2">
-                <Calendar
-                    v-model="expirationDate"
-                    show-icon
-                    show-button-bar
-                    placeholder="Enter expiration date"
-                    type="text"
-                />
-            </div>
+			<!-- Expiration -->
+			<div class="step-header span-2">Would you like to set an expiration on this agent?</div>
+			<div class="span-2">
+				<Calendar
+					v-model="expirationDate"
+					show-icon
+					show-button-bar
+					placeholder="Enter expiration date"
+					type="text"
+				/>
+			</div>
 
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
@@ -688,7 +736,7 @@ import type {
 	DataSource,
 	CreateAgentRequest,
 	ExternalOrchestrationService,
-    TextEmbeddingProfile,
+	TextEmbeddingProfile,
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
@@ -710,7 +758,7 @@ const getDefaultFormValues = () => {
 		agentType: 'knowledge-management' as CreateAgentRequest['type'],
 
 		cost_center: '',
-		expirationDate: null as string|null,
+		expirationDate: null as string | null,
 
 		editDataSource: false as boolean,
 		selectedDataSource: null as null | AgentDataSource,
@@ -871,23 +919,27 @@ export default {
 		try {
 			this.loadingStatusText = 'Retrieving indexes...';
 			const indexSourcesResult = await api.getAgentIndexes(true);
-			this.indexSources = indexSourcesResult.map(result => result.resource);
+			this.indexSources = indexSourcesResult.map((result) => result.resource);
 
 			this.loadingStatusText = 'Retrieving text embedding profiles...';
 			const embeddingProfileSourcesResult = await api.getTextEmbeddingProfiles();
-			this.textEmbeddingProfileSources = embeddingProfileSourcesResult.map(result => result.resource);
+			this.textEmbeddingProfileSources = embeddingProfileSourcesResult.map(
+				(result) => result.resource,
+			);
 
 			this.loadingStatusText = 'Retrieving data sources...';
 			const agentDataSourcesResult = await api.getAgentDataSources(true);
-			this.dataSources = agentDataSourcesResult.map(result => result.resource);
-			
+			this.dataSources = agentDataSourcesResult.map((result) => result.resource);
+
 			this.loadingStatusText = 'Retrieving external orchestration services...';
 			const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
-			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(result => result.resource);
+			this.externalOrchestratorOptions = externalOrchestrationServicesResult.map(
+				(result) => result.resource,
+			);
 
 			this.loadingStatusText = 'Retrieving AI models...';
 			const aiModelsResult = await api.getAIModels();
-			this.aiModelOptions = aiModelsResult.map(result => result.resource);
+			this.aiModelOptions = aiModelsResult.map((result) => result.resource);
 			// Filter the AIModels so we only display the ones where the type is 'completion'.
 			this.aiModelOptions = this.aiModelOptions.filter((model) => model.type === 'completion');
 
@@ -898,7 +950,6 @@ export default {
 					value: service.name,
 				})),
 			);
-
 		} catch (error) {
 			this.$toast.add({
 				severity: 'error',
@@ -931,8 +982,7 @@ export default {
 			}
 			this.loadingStatusText = `Mapping agent values to form...`;
 			this.mapAgentToForm(agent);
-		}
-		else {
+		} else {
 			this.editable = true;
 		}
 
@@ -949,7 +999,9 @@ export default {
 			this.object_id = agent.object_id || this.object_id;
 			this.inline_context = agent.inline_context || this.inline_context;
 			this.cost_center = agent.cost_center || this.cost_center;
-			this.expirationDate = agent.expiration_date ? new Date(agent.expiration_date) : this.expirationDate;
+			this.expirationDate = agent.expiration_date
+				? new Date(agent.expiration_date)
+				: this.expirationDate;
 
 			this.orchestration_settings.orchestrator =
 				agent.orchestration_settings?.orchestrator || this.orchestration_settings.orchestrator;
@@ -968,24 +1020,25 @@ export default {
 			this.selectedIndexSource =
 				this.indexSources.find(
 					(indexSource) =>
-						indexSource.object_id && agent.vectorization?.indexing_profile_object_ids?.includes(indexSource.object_id),
+						indexSource.object_id &&
+						agent.vectorization?.indexing_profile_object_ids?.includes(indexSource.object_id),
 				) || null;
-			
+
 			this.selectedTextEmbeddingProfile =
 				this.textEmbeddingProfileSources.find(
 					(textEmbeddingProfile) =>
-						textEmbeddingProfile.object_id === agent.vectorization?.text_embedding_profile_object_id,
+						textEmbeddingProfile.object_id ===
+						agent.vectorization?.text_embedding_profile_object_id,
 				) || null;
 
 			this.selectedDataSource =
 				this.dataSources.find(
 					(dataSource) => dataSource.object_id === agent.vectorization?.data_source_object_id,
 				) || null;
-			
+
 			this.selectedAIModel =
-				this.aiModelOptions.find(
-					(aiModel) => aiModel.object_id === agent.ai_model_object_id,
-				) || null;
+				this.aiModelOptions.find((aiModel) => aiModel.object_id === agent.ai_model_object_id) ||
+				null;
 
 			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
 			this.conversationMaxMessages =
@@ -994,13 +1047,15 @@ export default {
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper_settings?.use_system_setting);
 
 			if (agent.gatekeeper_settings && agent.gatekeeper_settings.options) {
-				this.selectedGatekeeperContentSafety = this.gatekeeperContentSafetyOptions.filter((localOption) =>
-					agent.gatekeeper_settings?.options?.includes(localOption.code)
-				) || this.selectedGatekeeperContentSafety;
+				this.selectedGatekeeperContentSafety =
+					this.gatekeeperContentSafetyOptions.filter((localOption) =>
+						agent.gatekeeper_settings?.options?.includes(localOption.code),
+					) || this.selectedGatekeeperContentSafety;
 
-				this.selectedGatekeeperDataProtection = this.gatekeeperDataProtectionOptions.filter((localOption) =>
-					agent.gatekeeper_settings?.options?.includes(localOption.code)
-				) || this.selectedGatekeeperDataProtection;
+				this.selectedGatekeeperDataProtection =
+					this.gatekeeperDataProtectionOptions.filter((localOption) =>
+						agent.gatekeeper_settings?.options?.includes(localOption.code),
+					) || this.selectedGatekeeperDataProtection;
 			}
 		},
 
@@ -1089,8 +1144,7 @@ export default {
 
 			if (!this.inline_context && !this.selectedTextEmbeddingProfile) {
 				errors.push('Please select a text embedding profile.');
-			}
-			else {
+			} else {
 				this.text_embedding_profile_object_id = this.selectedTextEmbeddingProfile?.object_id ?? '';
 			}
 
