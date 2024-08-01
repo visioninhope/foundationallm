@@ -6578,6 +6578,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_Id
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_Id
   nameWithType: AppConfigurationKeys.FoundationaLLM_Instance_Id
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
+  name: FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Instance_SecurityGroupRetrievalStrategy
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_ManagementPortal_Authentication_Entra_CallbackPath
   name: FoundationaLLM_ManagementPortal_Authentication_Entra_CallbackPath
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_ManagementPortal_Authentication_Entra_CallbackPath
@@ -7496,6 +7502,30 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   fullName: FoundationaLLM.Common.Constants.HttpHeaders.UserIdentity
   nameWithType: HttpHeaders.UserIdentity
+- uid: FoundationaLLM.Common.Constants.Instance
+  name: FoundationaLLM.Common.Constants.Instance
+  href: api/dotnet/FoundationaLLM.Common.Constants.Instance.html
+  commentId: N:FoundationaLLM.Common.Constants.Instance
+  fullName: FoundationaLLM.Common.Constants.Instance
+  nameWithType: FoundationaLLM.Common.Constants.Instance
+- uid: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies
+  name: SecurityGroupRetrievalStrategies
+  href: api/dotnet/FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.html
+  commentId: T:FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies
+  fullName: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies
+  nameWithType: SecurityGroupRetrievalStrategies
+- uid: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.IdentityManagementService
+  name: IdentityManagementService
+  href: api/dotnet/FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.html#FoundationaLLM_Common_Constants_Instance_SecurityGroupRetrievalStrategies_IdentityManagementService
+  commentId: F:FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.IdentityManagementService
+  fullName: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.IdentityManagementService
+  nameWithType: SecurityGroupRetrievalStrategies.IdentityManagementService
+- uid: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.None
+  name: None
+  href: api/dotnet/FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.html#FoundationaLLM_Common_Constants_Instance_SecurityGroupRetrievalStrategies_None
+  commentId: F:FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.None
+  fullName: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.None
+  nameWithType: SecurityGroupRetrievalStrategies.None
 - uid: FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames
   name: LLMOrchestrationServiceNames
   href: api/dotnet/FoundationaLLM.Common.Constants.LLMOrchestrationServiceNames.html
@@ -13998,6 +14028,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.Id
   nameWithType: InstanceSettings.Id
+- uid: FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy
+  name: SecurityGroupRetrievalStrategy
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html#FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings_SecurityGroupRetrievalStrategy
+  commentId: P:FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy
+  fullName: FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy
+  nameWithType: InstanceSettings.SecurityGroupRetrievalStrategy
+- uid: FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy*
+  name: SecurityGroupRetrievalStrategy
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.html#FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings_SecurityGroupRetrievalStrategy_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings.SecurityGroupRetrievalStrategy
+  nameWithType: InstanceSettings.SecurityGroupRetrievalStrategy
 - uid: FoundationaLLM.Common.Models.Configuration.KeyVault
   name: FoundationaLLM.Common.Models.Configuration.KeyVault
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.KeyVault.html
