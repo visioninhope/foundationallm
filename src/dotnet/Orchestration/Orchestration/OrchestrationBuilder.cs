@@ -153,8 +153,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (agentBase is KnowledgeManagementAgent kmAgent)
             {
-                // check for inline-context agents, they are valid KM agents that do not have a vectorization section.
-                if(kmAgent.Vectorization != null)
+                // Check for inline-context agents, they are valid KM agents that do not have a vectorization section.
+                if (kmAgent is {Vectorization: not null, InlineContext: false})
                 {
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.DataSourceObjectId))
                     {
@@ -176,6 +176,11 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                     foreach (var indexingProfileName in kmAgent.Vectorization.IndexingProfileObjectIds ?? [])
                     {
+                        if (string.IsNullOrWhiteSpace(indexingProfileName))
+                        {
+                            continue;
+                        }
+
                         var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
                             indexingProfileName,
                             currentUserIdentity);
