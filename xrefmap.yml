@@ -5612,6 +5612,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_CoreAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_CoreAPI
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_CoreAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  name: FoundationaLLM_Events_Profiles_GatekeeperAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_GatekeeperAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -5942,6 +5948,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_CoreAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_CoreAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Events_Profiles_CoreAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  name: FoundationaLLM_Events_Profiles_GatekeeperAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Events_Profiles_GatekeeperAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -6530,6 +6542,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_CoreAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_CoreAPI
   nameWithType: AppConfigurationKeys.FoundationaLLM_Events_Profiles_CoreAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  name: FoundationaLLM_Events_Profiles_GatekeeperAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Events_Profiles_GatekeeperAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -27282,6 +27300,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextFilterResult.Safe
   nameWithType: AnalyzeTextFilterResult.Safe
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult
+  name: AnalyzeTextResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult
+  nameWithType: AnalyzeTextResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis
+  name: CategoriesAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_AnalyzeTextResult_CategoriesAnalysis
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis
+  nameWithType: AnalyzeTextResult.CategoriesAnalysis
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis*
+  name: CategoriesAnalysis
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_AnalyzeTextResult_CategoriesAnalysis_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.CategoriesAnalysis
+  nameWithType: AnalyzeTextResult.CategoriesAnalysis
 - uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails
   name: PromptShieldDetails
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.html
@@ -27333,6 +27370,68 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.UserPromptAnalysis
   nameWithType: PromptShieldResult.UserPromptAnalysis
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory
+  name: TextCategory
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory
+  nameWithType: TextCategory
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Hate
+  name: Hate
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategory_Hate
+  commentId: F:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Hate
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Hate
+  nameWithType: TextCategory.Hate
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.SelfHarm
+  name: SelfHarm
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategory_SelfHarm
+  commentId: F:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.SelfHarm
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.SelfHarm
+  nameWithType: TextCategory.SelfHarm
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Sexual
+  name: Sexual
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategory_Sexual
+  commentId: F:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Sexual
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Sexual
+  nameWithType: TextCategory.Sexual
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Violence
+  name: Violence
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategory_Violence
+  commentId: F:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Violence
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.Violence
+  nameWithType: TextCategory.Violence
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult
+  name: TextCategoryResult
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html
+  commentId: T:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult
+  nameWithType: TextCategoryResult
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category
+  name: Category
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategoryResult_Category
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category
+  nameWithType: TextCategoryResult.Category
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category*
+  name: Category
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategoryResult_Category_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Category
+  nameWithType: TextCategoryResult.Category
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity
+  name: Severity
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategoryResult_Severity
+  commentId: P:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity
+  nameWithType: TextCategoryResult.Severity
+- uid: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity*
+  name: Severity
+  href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html#FoundationaLLM_Gatekeeper_Core_Models_ContentSafety_TextCategoryResult_Severity_
+  commentId: Overload:FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity
+  isSpec: "True"
+  fullName: FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.Severity
+  nameWithType: TextCategoryResult.Severity
 - uid: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
   name: FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails
   href: api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.EnkryptGuardrails.html

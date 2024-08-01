@@ -5482,6 +5482,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.AnalyzeTextResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldDetails.yml",
       "output": {
         ".html": {
@@ -5496,6 +5506,26 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.PromptShieldResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gatekeeper.Core.Models.ContentSafety.TextCategoryResult.html"
         }
       },
       "version": ""
