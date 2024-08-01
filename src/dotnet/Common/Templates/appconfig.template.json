@@ -449,6 +449,13 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl",
+            "value": "${env:SERVICE_STATE_API_ENDPOINT_URL}",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey",
             "value": "{\"uri\":\"${env:AZURE_KEY_VAULT_ENDPOINT}secrets/foundationallm-apiendpoints-stateapi-apikey\"}",
             "label": null,
