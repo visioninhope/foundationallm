@@ -8,8 +8,8 @@
 			<ApiStatusCard
 				v-for="api in apiUrls"
 				:key="api.name"
-				:apiName="api.displayName"
-				:apiUrl="api.url"
+				:api-name="api.displayName"
+				:api-url="api.url"
 				:description="api.description"
 			/>
 		</div>
@@ -19,8 +19,8 @@
 			<ApiStatusCard
 				v-for="api in externalOrchestrationServices"
 				:key="api.name"
-				:apiName="api.name"
-				:apiUrl="api.url"
+				:api-name="api.name"
+				:api-url="api.url"
 				:description="api.description"
 			/>
 		</div>
@@ -53,7 +53,7 @@ export default {
 	methods: {
 		async fetchApiUrls() {
 			this.loading = true;
-			let instancePart = `/instances/${this.$appConfigStore.instanceId}`;
+			const instancePart = `/instances/${this.$appConfigStore.instanceId}`;
 
 			this.apiUrls = [
 				{

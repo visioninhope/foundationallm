@@ -1,10 +1,11 @@
+import { $fetch } from 'ofetch';
 import type {
 	ResourceProviderGetResult,
 	Agent,
 	DataSource,
 	AppConfigUnion,
 	AgentIndex,
-	AgentGatekeeper,
+	// AgentGatekeeper,
 	AIModel,
 	FilterRequest,
 	CreateAgentRequest,
@@ -15,15 +16,14 @@ import type {
 	CreatePromptRequest,
 	CreateTextPartitioningProfileRequest,
 	ExternalOrchestrationService,
-	Role,
+	// Role,
 	RoleAssignment,
 } from './types';
 import { convertToDataSource, convertToAppConfigKeyVault, convertToAppConfig } from '@/js/types';
-import { $fetch } from 'ofetch';
 
-async function wait(milliseconds: number = 1000): Promise<void> {
-	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
-}
+// async function wait(milliseconds: number = 1000): Promise<void> {
+// 	return await new Promise<void>((resolve) => setTimeout(() => resolve(), milliseconds));
+// }
 
 export default {
 	apiVersion: '2024-02-16',
@@ -630,7 +630,7 @@ export default {
 			},
 		)) as RoleAssignment[];
 
-		assignments.map((assignment) => {
+		assignments.forEach((assignment) => {
 			if (assignment.resource.scope === `/instances/${this.instanceId}`) {
 				assignment.resource.scope_name = scope ? 'Instance (Inherited)' : 'Instance';
 			} else if (assignment.resource.scope === `/instances/${this.instanceId}/${scope}`) {

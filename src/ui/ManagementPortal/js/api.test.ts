@@ -1,8 +1,10 @@
+import { config as loadEnv } from 'dotenv';
 import { describe, test, expect } from 'vitest';
 import api from './api';
-require('dotenv').config();
 
-describe('API Account Tests', async () => {
+loadEnv();
+
+describe('API Account Tests', () => {
 	api.setApiUrl(process.env.VITEST_API_URL);
 	api.setInstanceId(process.env.VITEST_API_INSTANCE_ID);
 	api.bearerToken = process.env.VITEST_API_AUTH_TOKEN;

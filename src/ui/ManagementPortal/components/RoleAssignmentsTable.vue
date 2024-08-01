@@ -10,12 +10,12 @@
 
 		<!-- Table -->
 		<DataTable
-			rowGroupMode="subheader"
-			groupRowsBy="role.display_name"
-			sortField="role.display_name"
-			expandableRowGroups
 			v-model:expandedRowGroups="expandedRowGroups"
 			:value="roleAssignments"
+			expandable-row-groups
+			row-group-mode="subheader"
+			group-rows-by="role.display_name"
+			sort-field="role.display_name"
 			striped-rows
 			scrollable
 			table-style="max-width: 100%"
@@ -174,7 +174,7 @@ export default {
 		scope: {
 			required: false,
 			type: String,
-			default: '',
+			default: null,
 		},
 	},
 
@@ -199,7 +199,7 @@ export default {
 				const roleAssignments = await api.getRoleAssignments(this.scope);
 
 				const principalIds = [];
-				for (let assignmentForPrincipalId of roleAssignments) {
+				for (const assignmentForPrincipalId of roleAssignments) {
 					principalIds.push(assignmentForPrincipalId.resource.principal_id);
 				}
 
@@ -210,7 +210,7 @@ export default {
 				const roleDefinitions = await api.getRoleDefinitions();
 
 				// Expand all role groups in table
-				for (let roleDefinition of roleDefinitions) {
+				for (const roleDefinition of roleDefinitions) {
 					this.expandedRowGroups.push(roleDefinition.display_name);
 				}
 

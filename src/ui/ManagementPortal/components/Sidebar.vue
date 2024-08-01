@@ -58,9 +58,9 @@
 			<span>Security</span>
 		</div>
 
-		<NuxtLink to="/security/role-assignments" class="sidebar__item"
-			>Instance Access Control</NuxtLink
-		>
+		<NuxtLink to="/security/role-assignments" class="sidebar__item">
+			Instance Access Control
+		</NuxtLink>
 
 		<!-- FLLM Deployment -->
 		<div class="sidebar__section-header">

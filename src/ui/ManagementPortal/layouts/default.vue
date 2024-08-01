@@ -21,6 +21,7 @@
 			</Dialog>
 
 			<footer v-if="$appConfigStore.footerText">
+				<!-- eslint-disable-next-line vue/no-v-html -->
 				<div class="footer-item" v-html="$appConfigStore.footerText"></div>
 			</footer>
 		</div>

@@ -66,6 +66,7 @@ export default {
 		scope: {
 			type: String,
 			required: false,
+			default: null,
 		},
 	},
 

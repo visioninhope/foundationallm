@@ -40,12 +40,12 @@
 				<div class="input-wrapper">
 					<InputText
 						v-model="dataSource.name"
+						:disabled="editId"
 						type="text"
 						class="w-100"
-						:disabled="editId"
-						@input="handleNameInput"
 						placeholder="Enter data source name"
 						aria-labelledby="aria-source-name aria-source-name-desc"
+						@input="handleNameInput"
 					/>
 					<span
 						v-if="nameValidationStatus === 'valid'"
@@ -56,8 +56,8 @@
 					</span>
 					<span
 						v-else-if="nameValidationStatus === 'invalid'"
-						class="icon invalid"
 						:title="validationMessage"
+						class="icon invalid"
 					>
 						❌
 					</span>
@@ -170,9 +170,9 @@
 					</div>
 					<Chips
 						v-model="folders"
+						v-create-chip-on-blur:folders
 						class="w-100"
 						separator=","
-						v-create-chip-on-blur:folders
 						aria-labelledby="aria-folders aria-folders-desc"
 						:pt="{ input: { 'aria-labelledby': 'aria-folders aria-folders-desc' } }"
 					/>
@@ -252,9 +252,9 @@
 					</div>
 					<Chips
 						v-model="workspaces"
+						v-create-chip-on-blur:workspaces
 						class="w-100"
 						separator=","
-						v-create-chip-on-blur:workspaces
 						aria-labelledby="aria-workspaces aria-workspaces-desc"
 						:pt="{ input: { 'aria-labelledby': 'aria-workspaces aria-workspaces-desc' } }"
 					/>
@@ -279,9 +279,9 @@
 							</div>
 							<Chips
 								v-model="tables"
+								v-create-chip-on-blur:tables
 								class="w-100"
 								separator=","
-								v-create-chip-on-blur:tables
 								aria-labelledby="aria-table-names aria-table-names-desc"
 								:pt="{ input: { 'aria-labelledby': 'aria-table-names aria-table-names-desc' } }"
 							/>
@@ -345,9 +345,9 @@
 							</div>
 							<Chips
 								v-model="documentLibraries"
+								v-create-chip-on-blur:documentLibraries
 								class="w-100"
 								separator=","
-								v-create-chip-on-blur:documentLibraries
 								aria-labelledby="aria-document-libs aria-document-libs-desc"
 								:pt="{ input: { 'aria-labelledby': 'aria-document-libs aria-document-libs-desc' } }"
 							/>

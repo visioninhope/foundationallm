@@ -15,12 +15,13 @@
 </template>
 
 <script lang="ts">
-import NavigationBox from '@/components/NavigationBox.vue';
+// import NavigationBox from '@/components/NavigationBox.vue';
 
 export default {
 	name: 'ManagementPortal',
+
 	components: {
-		NavigationBox,
+		// NavigationBox,
 	},
 };
 </script>

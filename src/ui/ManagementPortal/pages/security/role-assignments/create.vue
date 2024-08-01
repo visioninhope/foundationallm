@@ -189,10 +189,9 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
-import { debounce } from 'lodash';
-import api from '@/js/api';
 import { v4 as uuidv4 } from 'uuid';
+import type { PropType } from 'vue';
+import api from '@/js/api';
 
 import type { Role, RoleAssignment } from '@/js/types';
 
@@ -215,6 +214,7 @@ export default {
 		scope: {
 			type: String,
 			required: false,
+			default: null,
 		},
 	},
 
@@ -308,7 +308,7 @@ export default {
 		},
 
 		handlePrincipalSearch(event) {
-			let optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
+			const optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
 
 			this.principalOptionsFiltered = optionsToSearch.filter((principal) => {
 				const queryLowercase = event.query.toLowerCase();
