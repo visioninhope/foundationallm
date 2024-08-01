@@ -79,7 +79,7 @@
 				>
 					<template #body="{ data }">
 						<NuxtLink :to="'/agents/edit/' + data.resource.name" class="table__button">
-							<Button link :disabled="!data.actions.includes('FoundationaLLM.Agent/agents/write')">
+							<Button link :disabled="!data.actions.includes('FoundationaLLM.Agent/agents/write')" :aria-label="`Edit ${data.resource.name}`">
 								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
 							</Button>
 						</NuxtLink>
@@ -99,7 +99,7 @@
 					}"
 				>
 					<template #body="{ data }">
-						<Button link @click="agentToDelete = data.resource" :disabled="!data.actions.includes('FoundationaLLM.Agent/agents/delete')">
+						<Button link @click="agentToDelete = data.resource" :disabled="!data.actions.includes('FoundationaLLM.Agent/agents/delete')" :aria-label="`Delete ${data.resource.name}`">
 							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400)"></i>
 						</Button>
 					</template>

@@ -26,16 +26,6 @@ import type { RoleAssignment } from '@/js/types';
 
 export default {
 	name: 'RoleAssignments',
-
-	data() {
-		return {
-			
-		};
-	},
-
-	methods: {
-		
-	},
 };
 </script>
 

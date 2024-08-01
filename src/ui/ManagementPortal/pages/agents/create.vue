@@ -31,17 +31,18 @@
 			</template>
 
 			<div class="span-2">
-				<div class="step-header mb-2">Agent name:</div>
-				<div class="mb-2">
+				<div id="aria-agent-name" class="step-header mb-2">Agent name:</div>
+				<div id="aria-agent-name-desc" class="mb-2">
 					No special characters or spaces, use letters and numbers with dashes and underscores only.
 				</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="agentName"
 						:disabled="editAgent"
-						placeholder="Enter agent name"
 						type="text"
 						class="w-100"
+						placeholder="Enter agent name"
+						aria-labelledby="aria-agent-name aria-agent-name-desc"
 						@input="handleNameInput"
 					/>
 					<span
@@ -62,12 +63,13 @@
 			</div>
 			<div class="span-2">
 				<div class="step-header mb-2">Description:</div>
-				<div class="mb-2">Provide a description to help others understand the agent's purpose.</div>
+				<div id="aria-description" class="mb-2">Provide a description to help others understand the agent's purpose.</div>
 				<InputText
 					v-model="agentDescription"
-					placeholder="Enter agent description"
 					type="text"
 					class="w-100"
+					placeholder="Enter agent description"
+					aria-labelledby="aria-description"
 				/>
 			</div>
 
@@ -84,8 +86,8 @@
 				>
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" />
-							<div class="step-container__header">Knowledge Management</div>
+							<RadioButton v-model="agentType" name="agentType" value="knowledge-management" aria-labelledby="aria-type-knowledge" />
+							<div id="aria-type-knowledge" class="step-container__header">Knowledge Management</div>
 						</div>
 						<div>Best for Q&A, summarization and reasoning over textual data.</div>
 					</div>
@@ -97,8 +99,8 @@
 				<div class="step-container cursor-pointer" @click="handleAgentTypeSelect('analytics')">
 					<div class="step-container__edit__inner">
 						<div class="step__radio">
-							<RadioButton v-model="agentType" name="agentType" value="analytics" />
-							<div class="step-container__header">Analytics</div>
+							<RadioButton v-model="agentType" name="agentType" value="analytics" aria-labelledby="aria-type-analytics" />
+							<div id="aria-type-analytics" class="step-container__header">Analytics</div>
 						</div>
 						<div>Best to query, analyze, calculate and report on tabular data.</div>
 					</div>
@@ -108,7 +110,7 @@
 			<!-- Knowledge source -->
 			<div class="step-section-header span-2">Knowledge Source</div>
 
-			<div class="step-header span-2">Does this agent have an inline context?</div>
+			<div id="aria-inline-context" class="step-header span-2">Does this agent have an inline context?</div>
 			<div class="span-2">
 				<div class="d-flex align-center mt-2">
 					<span>
@@ -118,13 +120,14 @@
 							on-icon="pi pi-check-circle"
 							off-label="No"
 							off-icon="pi pi-times-circle"
+							aria-labelledby="aria-inline-context"
 						/>
 					</span>
 				</div>
 			</div>
 
 			<template v-if="!inline_context">
-				<div class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
+				<div id="aria-dedicated-pipeline" class="step-header span-2">Do you want this agent to have a dedicated pipeline?</div>
 				<div class="span-2">
 					<div class="d-flex align-center mt-2">
 						<span>
@@ -134,6 +137,7 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="aria-dedicated-pipeline"
 							/>
 						</span>
 					</div>
@@ -351,13 +355,13 @@
 							<div class="step-container__header">Splitting & Chunking</div>
 
 							<div>
-								<span class="step-option__header">Chunk size:</span>
-								<InputText v-model="chunkSize" type="number" class="mt-2" />
+								<span id="aria-chunk-size" class="step-option__header">Chunk size:</span>
+								<InputText v-model="chunkSize" type="number" class="mt-2" aria-label="aria-chunk-size" />
 							</div>
 
 							<div>
-								<span class="step-option__header">Overlap size:</span>
-								<InputText v-model="overlapSize" type="number" class="mt-2" />
+								<span id="aria-overlap-size" class="step-option__header">Overlap size:</span>
+								<InputText v-model="overlapSize" type="number" class="mt-2" aria-label="aria-overlap-size" />
 							</div>
 						</template>
 					</CreateAgentStepItem>
@@ -382,12 +386,13 @@
 							<div>Runs every time a new item is added to the data source.</div>
 
 							<div class="mt-2">
-								<span class="step-option__header">Frequency:</span>
+								<span id="aria-frequency" class="step-option__header">Frequency:</span>
 								<Dropdown
 									v-model="triggerFrequency"
 									class="dropdown--agent"
 									:options="triggerFrequencyOptions"
 									placeholder="--Select--"
+									aria-label="aria-frequency"
 								/>
 							</div>
 
@@ -403,6 +408,7 @@
 									label="cron expression"
 									:model-value="triggerFrequencyScheduled"
 									:error-messages="error"
+									aria-label="cron expression"
 									@update:model-value="triggerFrequencyNextScheduled = $event"
 									@blur="triggerFrequencyScheduled = triggerFrequencyNextScheduled"
 								/>
@@ -446,10 +452,10 @@
 				</div>
 
 				<template #edit>
-					<div class="step-container__header">Conversation History</div>
+					<div id="aria-conversation-history" class="step-container__header">Conversation History</div>
 
 					<div class="d-flex align-center mt-2">
-						<span class="step-option__header">Enabled:</span>
+						<span id="aria-conversation-history-enabled" class="step-option__header">Enabled:</span>
 						<span>
 							<ToggleButton
 								v-model="conversationHistory"
@@ -457,13 +463,19 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="aria-conversation-history aria-conversation-history-enabled"
 							/>
 						</span>
 					</div>
 
 					<div>
-						<span class="step-option__header">Max Messages:</span>
-						<InputText v-model="conversationMaxMessages" type="number" class="mt-2" />
+						<span id="aria-max-messages" class="step-option__header">Max Messages:</span>
+						<InputText
+							v-model="conversationMaxMessages"
+							type="number"
+							class="mt-2"
+							aria-label="aria-max-messages"
+						/>
 					</div>
 				</template>
 			</CreateAgentStepItem>
@@ -500,11 +512,11 @@
 				</div>
 
 				<template #edit>
-					<div class="step-container__header">Gatekeeper</div>
+					<div id="aria-gatekeeper" class="step-container__header">Gatekeeper</div>
 
 					<!-- Gatekeeper toggle -->
 					<div class="d-flex align-center mt-2">
-						<span class="step-option__header">Enabled:</span>
+						<span id="aria-gatekeeper-enabled" class="step-option__header">Enabled:</span>
 						<span>
 							<ToggleButton
 								v-model="gatekeeperEnabled"
@@ -512,73 +524,79 @@
 								on-icon="pi pi-check-circle"
 								off-label="No"
 								off-icon="pi pi-times-circle"
+								aria-labelledby="aria-gatekeeper aria-gatekeeper-enabled"
 							/>
 						</span>
 					</div>
 
 					<!-- Content safety -->
 					<div class="mt-2">
-						<span class="step-option__header">Content Safety:</span>
+						<span id="aria-content-safety" class="step-option__header">Content Safety:</span>
 						<MultiSelect
 							v-model="selectedGatekeeperContentSafety"
 							class="dropdown--agent"
 							:options="gatekeeperContentSafetyOptions"
 							option-label="name"
-							placeholder="--Select--"
 							display="chip"
+							placeholder="--Select--"
+							aria-labelledby="aria-content-safety"
 						/>
 					</div>
 
 					<!-- Data protection -->
 					<div class="mt-2">
-						<span class="step-option__header">Data Protection:</span>
+						<span id="aria-data-prot" class="step-option__header">Data Protection:</span>
 						<!-- <span>Microsoft Presidio</span> -->
 						<MultiSelect
 							v-model="selectedGatekeeperDataProtection"
 							class="dropdown--agent"
 							:options="gatekeeperDataProtectionOptions"
 							option-label="name"
-							placeholder="--Select--"
 							display="chip"
+							placeholder="--Select--"
+							aria-labelledby="aria-data-prot"
 						/>
 					</div>
 				</template>
 			</CreateAgentStepItem>
 
 			<!-- Orchestrator -->
-			<div class="step-header span-2">Which orchestrator should the agent use?</div>
+			<div id="aria-orchestrator" class="step-header span-2">Which orchestrator should the agent use?</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="orchestration_settings.orchestrator"
 					:options="orchestratorOptions"
 					option-label="label"
 					option-value="value"
-					placeholder="--Select--"
 					class="dropdown--agent"
+					placeholder="--Select--"
+					aria-labelledby="aria-orchestrator"
 				/>
 			</div>
 
 			<!-- Cost center -->
-			<div class="step-header span-2">Would you like to assign this agent to a cost center?</div>
+			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this agent to a cost center?</div>
 			<div class="span-2">
 				<InputText
 					v-model="cost_center"
-					placeholder="Enter cost center name"
 					type="text"
+					class="w-50"
+					placeholder="Enter cost center name"
+					aria-labelledby="aria-cost-center"
 				/>
 			</div>
 
-			<!-- Expiration -->
-			<div class="step-header span-2">Would you like to set an expiration on this agent?</div>
-			<div class="span-2">
-				<Calendar
-					v-model="expirationDate"
-					show-icon
-					show-button-bar
-					placeholder="Enter expiration date"
-					type="text"
-				/>
-			</div>
+            <!-- Expiration -->
+            <div class="step-header span-2">Would you like to set an expiration on this agent?</div>
+            <div class="span-2">
+                <Calendar
+                    v-model="expirationDate"
+                    show-icon
+                    show-button-bar
+                    placeholder="Enter expiration date"
+                    type="text"
+                />
+            </div>
 
 			<!-- <div class="step-header span-2">What are the orchestrator connection details?</div>
 			<div
@@ -630,7 +648,7 @@
 			<!-- System prompt -->
 			<div class="step-section-header span-2">System Prompt</div>
 
-			<div class="step-header">What is the persona of the agent?</div>
+			<div id="aria-persona" class="step-header">What is the persona of the agent?</div>
 
 			<div class="span-2">
 				<Textarea
@@ -640,6 +658,7 @@
 					rows="5"
 					type="text"
 					placeholder="You are an analytic agent named Khalil that helps people find information about FoundationaLLM. Provide concise answers that are polite and professional."
+					aria-labelledby="aria-persona"
 				/>
 			</div>
 			<div class="button-container column-2 justify-self-end">
@@ -678,7 +697,7 @@ import type {
 	DataSource,
 	CreateAgentRequest,
 	ExternalOrchestrationService,
-TextEmbeddingProfile,
+    TextEmbeddingProfile,
 	// AgentCheckNameResponse,
 } from '@/js/types';
 
