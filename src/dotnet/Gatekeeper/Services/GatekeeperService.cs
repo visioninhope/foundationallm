@@ -72,7 +72,7 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
                 var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
 
                 if (!string.IsNullOrWhiteSpace(promptInjectionResult))
-                    return new CompletionResponse() { OperationId=completionRequest.OperationId, Completion = promptInjectionResult };
+                    return new CompletionResponse() { OperationId = completionRequest.OperationId, Completion = promptInjectionResult };
             }
 
             if (_gatekeeperServiceSettings.EnableAzureContentSafety)
@@ -103,6 +103,6 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
             // TODO: Need to call State API to get the operation.
             throw new NotImplementedException();
-        
+
     }
 }
