@@ -2,9 +2,7 @@
 	<div>
 		<h1>Deployment Information</h1>
 		<p>This page provides information about the FoundationaLLM deployment.</p>
-		<p>
-			<strong>Instance ID:</strong> {{ $appConfigStore.instanceId }}
-				</p>
+		<p><strong>Instance ID:</strong> {{ $appConfigStore.instanceId }}</p>
 		<h3>API Status</h3>
 		<div class="api-cards">
 			<ApiStatusCard
@@ -16,7 +14,7 @@
 			/>
 		</div>
 
-				<h3>External Orchestration Service Status</h3>
+		<h3>External Orchestration Service Status</h3>
 		<div class="api-cards">
 			<ApiStatusCard
 				v-for="api in externalOrchestrationServices"
@@ -26,16 +24,13 @@
 				:description="api.description"
 			/>
 		</div>
-
 	</div>
 </template>
 
 <script lang="ts">
 import ApiStatusCard from '@/components/ApiStatusCard.vue';
 import api from '@/js/api';
-import type {
-	ExternalOrchestrationService,
-} from '@/js/types';
+import type { ExternalOrchestrationService } from '@/js/types';
 
 export default {
 	components: {
@@ -64,25 +59,29 @@ export default {
 				{
 					name: 'coreApiUrl',
 					displayName: 'Core API',
-					description: 'The Core API is the main user-based API for the FoundationaLLM platform. It is accessed by the User Portal.',
+					description:
+						'The Core API is the main user-based API for the FoundationaLLM platform. It is accessed by the User Portal.',
 					url: `${this.$appConfigStore.coreApiUrl}${instancePart}`,
 				},
 				{
 					name: 'apiUrl',
 					displayName: 'Management API',
-					description: 'The Management API is used by the Management Portal to manage the FoundationaLLM platform.',
+					description:
+						'The Management API is used by the Management Portal to manage the FoundationaLLM platform.',
 					url: `${this.$appConfigStore.apiUrl}${instancePart}`,
 				},
 				{
 					name: 'authorizationApiUrl',
 					displayName: 'Authorization API',
-					description: 'The Authorization API manages role-based access control (RBAC) and other auth-related functions for the FoundationaLLM platform.',
+					description:
+						'The Authorization API manages role-based access control (RBAC) and other auth-related functions for the FoundationaLLM platform.',
 					url: `${this.$appConfigStore.authorizationApiUrl}`,
 				},
 				{
 					name: 'stateApiUrl',
 					displayName: 'State API',
-					description: 'The State API manages background task and long-running operation state information for the FoundationaLLM platform.',
+					description:
+						'The State API manages background task and long-running operation state information for the FoundationaLLM platform.',
 					url: `${this.$appConfigStore.stateApiUrl}`,
 				},
 				// {
@@ -132,7 +131,9 @@ export default {
 			try {
 				this.loadingStatusText = 'Retrieving external orchestration services...';
 				const externalOrchestrationServicesResult = await api.getExternalOrchestrationServices();
-				this.externalOrchestrationServices = externalOrchestrationServicesResult.map(result => result.resource);
+				this.externalOrchestrationServices = externalOrchestrationServicesResult.map(
+					(result) => result.resource,
+				);
 			} catch (error) {
 				this.$toast.add({
 					severity: 'error',

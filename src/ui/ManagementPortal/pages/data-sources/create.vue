@@ -76,7 +76,9 @@
 			</div>
 
 			<!-- Type -->
-			<div id="aria-source-type" class="step-header span-2">What is the type of the data source?</div>
+			<div id="aria-source-type" class="step-header span-2">
+				What is the type of the data source?
+			</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="dataSource.type"
@@ -166,7 +168,14 @@
 					<div id="aria-folders-desc" class="mb-2">
 						Press <strong>Enter</strong> or <strong>,</strong> after typing each folder name.
 					</div>
-					<Chips v-model="folders" class="w-100" separator="," v-create-chip-on-blur:folders aria-labelledby="aria-folders aria-folders-desc" :pt="{ input: { 'aria-labelledby': 'aria-folders aria-folders-desc' }}" />
+					<Chips
+						v-model="folders"
+						class="w-100"
+						separator=","
+						v-create-chip-on-blur:folders
+						aria-labelledby="aria-folders aria-folders-desc"
+						:pt="{ input: { 'aria-labelledby': 'aria-folders aria-folders-desc' } }"
+					/>
 				</div>
 
 				<!-- OneLake -->
@@ -204,7 +213,7 @@
 						class="span-2"
 					>
 						<div id="aria-api-key" class="mb-2 mt-2">API Key:</div>
-						<SecretKeyInput 
+						<SecretKeyInput
 							v-model="dataSource.resolved_configuration_references.APIKey"
 							placeholder="Enter API key"
 							aria-labelledby="aria-api-key"
@@ -241,7 +250,14 @@
 					<div id="aria-workspaces-desc" class="mb-2">
 						Press <strong>Enter</strong> or <strong>,</strong> after typing each workspace name.
 					</div>
-					<Chips v-model="workspaces" class="w-100" separator="," v-create-chip-on-blur:workspaces aria-labelledby="aria-workspaces aria-workspaces-desc" :pt="{ input: { 'aria-labelledby': 'aria-workspaces aria-workspaces-desc' }}" />
+					<Chips
+						v-model="workspaces"
+						class="w-100"
+						separator=","
+						v-create-chip-on-blur:workspaces
+						aria-labelledby="aria-workspaces aria-workspaces-desc"
+						:pt="{ input: { 'aria-labelledby': 'aria-workspaces aria-workspaces-desc' } }"
+					/>
 				</div>
 
 				<!-- Azure SQL database -->
@@ -267,7 +283,7 @@
 								separator=","
 								v-create-chip-on-blur:tables
 								aria-labelledby="aria-table-names aria-table-names-desc"
-								:pt="{ input: { 'aria-labelledby': 'aria-table-names aria-table-names-desc' }}"
+								:pt="{ input: { 'aria-labelledby': 'aria-table-names aria-table-names-desc' } }"
 							/>
 						</template>
 					</div>
@@ -324,16 +340,25 @@
 						<template v-if="dataSource.document_libraries">
 							<div id="aria-document-libs" class="step-header mb-2 mt-2">Document Library(s):</div>
 							<div id="aria-document-libs-desc" class="mb-2">
-								Press <strong>Enter</strong> or <strong>,</strong> after typing each document library name.
+								Press <strong>Enter</strong> or <strong>,</strong> after typing each document
+								library name.
 							</div>
-							<Chips v-model="documentLibraries" class="w-100" separator="," v-create-chip-on-blur:documentLibraries aria-labelledby="aria-document-libs aria-document-libs-desc" :pt="{ input: { 'aria-labelledby': 'aria-document-libs aria-document-libs-desc' }}" />
+							<Chips
+								v-model="documentLibraries"
+								class="w-100"
+								separator=","
+								v-create-chip-on-blur:documentLibraries
+								aria-labelledby="aria-document-libs aria-document-libs-desc"
+								:pt="{ input: { 'aria-labelledby': 'aria-document-libs aria-document-libs-desc' } }"
+							/>
 						</template>
 					</div>
 				</div>
-
 			</div>
 
-			<div id="aria-cost-center" class="step-header span-2">Would you like to assign this data source to a cost center?</div>
+			<div id="aria-cost-center" class="step-header span-2">
+				Would you like to assign this data source to a cost center?
+			</div>
 			<div class="span-2">
 				<InputText
 					v-model="dataSource.cost_center"
@@ -873,7 +898,7 @@ input {
 		width: 100%;
 		li {
 			input {
-				width: 100%!important;
+				width: 100% !important;
 			}
 		}
 	}

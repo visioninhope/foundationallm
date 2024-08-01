@@ -52,7 +52,7 @@ export default {
 footer {
 	text-align: right;
 	font-size: 0.85rem;
-    margin-top: 24px;
+	margin-top: 24px;
 	padding-right: 24px;
 }
 </style>

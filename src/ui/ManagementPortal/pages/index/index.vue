@@ -27,8 +27,8 @@ export default {
 
 <style lang="scss">
 .navigation-boxes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 </style>

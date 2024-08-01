@@ -2,7 +2,7 @@
 	<!-- Trigger button -->
 	<div style="display: flex; align-items: center">
 		<Button @click="dialogOpen = true">
-			<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px;"></i>
+			<i class="pi pi-lock" style="color: var(--text-primary); margin-right: 8px"></i>
 			Access Control
 		</Button>
 	</div>
@@ -46,7 +46,6 @@
 				</Button>
 			</template>
 		</template>
-
 	</Dialog>
 </template>
 
@@ -88,7 +87,7 @@ export default {
 			try {
 				await this.$refs.createForm.createRoleAssignment();
 				this.currentStep = STEPS.TABLE_STEP;
-			} catch(error) {
+			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
 					detail: error,

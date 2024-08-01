@@ -21,9 +21,7 @@
 			table-style="max-width: 100%"
 			size="small"
 		>
-			<template #empty>
-				No role assignments found.
-			</template>
+			<template #empty> No role assignments found. </template>
 
 			<template #loading>Loading data sources. Please wait.</template>
 
@@ -35,7 +33,7 @@
 						autoHide: false,
 					}"
 				>
-					<i class="pi pi-info-circle" style="margin-left: 8px;"></i>
+					<i class="pi pi-info-circle" style="margin-left: 8px"></i>
 				</span>
 			</template>
 
@@ -53,7 +51,7 @@
 				}"
 			>
 				<template #body="{ data }">
-					<div class="d-flex align-center" style="gap: 12px; margin-left: 32px;">
+					<div class="d-flex align-center" style="gap: 12px; margin-left: 32px">
 						<i v-if="data.principal_type === 'Group'" class="pi pi-users"></i>
 						<i v-else-if="data.principal_type === 'User'" class="pi pi-user"></i>
 						<i v-else class="pi pi-verified"></i>
@@ -71,7 +69,7 @@
 				field="principal_type"
 				header="Type"
 				sortable
-				style="min-width: 120px;"
+				style="min-width: 120px"
 				:pt="{
 					headerCell: {
 						style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
@@ -82,7 +80,7 @@
 			</Column>
 
 			<!-- Role -->
-		<!-- 	<Column
+			<!-- 	<Column
 				field="role.display_name"
 				header="Role"
 				sortable
@@ -152,7 +150,11 @@
 			header="Delete Role Assignment"
 			:closable="false"
 		>
-			<p>Do you want to delete the role assignment for "{{ roleAssignmentToDelete.principal.display_name }}"?</p>
+			<p>
+				Do you want to delete the role assignment for "{{
+					roleAssignmentToDelete.principal.display_name
+				}}"?
+			</p>
 			<template #footer>
 				<Button label="Cancel" text @click="roleAssignmentToDelete = null" />
 				<Button label="Delete" severity="danger" @click="handleDeleteRoleAssignment" />
@@ -216,10 +218,14 @@ export default {
 					return {
 						name: assignment.resource.name,
 						principal_type: assignment.resource.principal_type,
-						principal: principals.find((principal) => principal.id === assignment.resource.principal_id),
+						principal: principals.find(
+							(principal) => principal.id === assignment.resource.principal_id,
+						),
 						scope: assignment.resource.scope,
 						scope_name: assignment.resource.scope_name,
-						role: roleDefinitions.find((role) => role.object_id === assignment.resource.role_definition_id),
+						role: roleDefinitions.find(
+							(role) => role.object_id === assignment.resource.role_definition_id,
+						),
 					};
 				});
 			} catch (error) {
