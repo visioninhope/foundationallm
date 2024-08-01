@@ -27,7 +27,9 @@
 							},
 						}"
 					/>
-					<span class="time-stamp" v-tooltip="formatTimeStamp(message.timeStamp)">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
+					<span v-tooltip="formatTimeStamp(message.timeStamp)" class="time-stamp">{{
+						$filters.timeAgo(new Date(message.timeStamp))
+					}}</span>
 				</span>
 			</div>
 
@@ -105,13 +107,14 @@
 						<p class="prompt-text">{{ prompt.prompt }}</p>
 						<template #footer>
 							<Button
-							:style="{
-								backgroundColor: primaryButtonBg,
-								borderColor: primaryButtonBg,
-								color: primaryButtonText
-							}"
-							label="Close"
-							@click="viewPrompt = false" />
+								:style="{
+									backgroundColor: primaryButtonBg,
+									borderColor: primaryButtonBg,
+									color: primaryButtonText,
+								}"
+								label="Close"
+								@click="viewPrompt = false"
+							/>
 						</template>
 					</Dialog>
 				</span>
@@ -126,17 +129,16 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
-import type { Message, CompletionPrompt } from '@/js/types';
-import api from '@/js/api';
-import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
-
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
-import { markedHighlight } from 'marked-highlight';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
+import type { PropType } from 'vue';
+
+import type { Message, CompletionPrompt } from '@/js/types';
+import api from '@/js/api';
+import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {
@@ -166,7 +168,9 @@ function addCodeHeaderComponents(htmlString) {
 	});
 
 	const html = doc.body.innerHTML;
-	const withVueCurlyBracesSanitized = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
+	const withVueCurlyBracesSanitized = html
+		.replace(/{{/g, '&#123;&#123;')
+		.replace(/}}/g, '&#125;&#125;');
 
 	return withVueCurlyBracesSanitized;
 }
@@ -210,7 +214,7 @@ export default {
 				components: {
 					CodeBlockHeader,
 				},
-			 };
+			};
 		},
 	},
 
@@ -251,7 +255,7 @@ export default {
 				hour: 'numeric',
 				minute: 'numeric',
 				second: 'numeric',
-				timeZoneName: 'short'
+				timeZoneName: 'short',
 			};
 			return date.toLocaleString(undefined, options);
 		},

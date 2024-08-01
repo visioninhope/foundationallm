@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.Instance;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.AspNetCore.Http;
@@ -45,7 +46,8 @@ namespace FoundationaLLM.Common.Middleware
                 callContext.CurrentUserIdentity = claimsProviderService.GetUserIdentity(context.User);
 
                 if (callContext.CurrentUserIdentity != null
-                    && !claimsProviderService.IsServicePrincipal(context.User))
+                    && !claimsProviderService.IsServicePrincipal(context.User)
+                    && instanceSettings.Value.SecurityGroupRetrievalStrategy == SecurityGroupRetrievalStrategies.IdentityManagementService)
                 {
                     // We are only expanding group membership for User objects
                     // Service Principal permissions must be assigned directly and not over group membership.

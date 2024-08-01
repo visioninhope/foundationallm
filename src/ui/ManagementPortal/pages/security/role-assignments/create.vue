@@ -25,7 +25,7 @@
 			<!-- Scope -->
 			<div class="step-header span-2">What is the assignment scope?</div>
 			<div class="span-2">
-				<div class="mb-2">Scope</div>
+				<div id="aria-scope" class="mb-2">Scope</div>
 				<div class="input-wrapper">
 					<InputText
 						:value="scope"
@@ -33,6 +33,7 @@
 						placeholder="Instance"
 						type="text"
 						class="w-100"
+						aria-labelledby="aria-scope"
 					/>
 				</div>
 			</div>
@@ -40,13 +41,14 @@
 			<!-- Description -->
 			<div class="step-header span-2">What is the description of the role assignment?</div>
 			<div class="span-2">
-				<div class="mb-2">Data description:</div>
+				<div id="aria-description" class="mb-2">Data description:</div>
 				<div class="input-wrapper">
 					<InputText
 						v-model="roleAssignment.description"
 						placeholder="Enter a description for this role assignment"
 						type="text"
 						class="w-100"
+						aria-labelledby="aria-description"
 					/>
 				</div>
 			</div>
@@ -54,58 +56,57 @@
 			<!-- Principal -->
 			<div class="step-header span-2">What principal to assign?</div>
 			<div class="span-2">
-
 				<!-- Type -->
-				<div class="mb-2">Principal Type:</div>
-				<div style="display: flex; gap: 16px;">
+				<div id="aria-principal-type" class="mb-2">Principal Type:</div>
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.object_type"
 						readonly
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-type"
 					/>
 				</div>
 
 				<!-- Name -->
-				<div class="mb-2 mt-2">Principal Name:</div>
-				<div style="display: flex; gap: 16px;">
+				<div id="aria-principal-name" class="mb-2 mt-2">Principal Name:</div>
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.display_name"
 						readonly
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-name"
 					/>
 				</div>
 
 				<!-- Email -->
-				<div class="mb-2 mt-2">Principal Email:</div>
-				<div style="display: flex; gap: 16px;">
+				<div id="aria-principal-email" class="mb-2 mt-2">Principal Email:</div>
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="principal.email"
 						readonly
 						:placeholder="!principal.email ? 'None specified' : 'Browse for selection'"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-email"
 					/>
 				</div>
 
 				<!-- ID -->
-				<div class="mb-2 mt-2">Principal ID:</div>
-				<div style="display: flex; gap: 16px;">
+				<div id="aria-principal-id" class="mb-2 mt-2">Principal ID:</div>
+				<div style="display: flex; gap: 16px">
 					<InputText
 						v-model="roleAssignment.principal_id"
 						readonly
 						placeholder="Browse for selection"
 						type="text"
 						class="w-50"
+						aria-labelledby="aria-principal-id"
 					/>
-					<Button
-						label="Browse"
-						severity="primary"
-						@click="selectPrincipalDialogOpen = true"
-					/>
+					<Button label="Browse" severity="primary" @click="selectPrincipalDialogOpen = true" />
 				</div>
 
 				<!-- Browse principals dialog -->
@@ -116,15 +117,16 @@
 					:closable="false"
 					:style="{ minWidth: '30rem' }"
 				>
-					<div class="mb-2">Search type</div>
+					<div id="aria-principal-search-type" class="mb-2">Search type</div>
 					<Dropdown
 						v-model="principalSearchType"
 						:options="principalTypeOptions"
 						placeholder="--Select--"
 						class="mb-2 w-100"
+						aria-labelledby="aria-principal-search-type"
 					/>
 
-					<div class="mb-2">Search query</div>
+					<div id="aria-principal-search-query" class="mb-2">Search query</div>
 					<AutoComplete
 						v-model="dialogPrincipal"
 						:suggestions="principalOptionsFiltered"
@@ -133,12 +135,13 @@
 						data-key="id"
 						option-label="display_name"
 						class="w-100"
+						aria-labelledby="aria-principal-search-query"
 						@complete="handlePrincipalSearch"
 					>
 						<template #option="{ option }">
 							<div class="flex items-center">
-									<div>{{ option.display_name }}</div>
-									<div style="font-size: 0.8rem">{{ option.email }}</div>
+								<div>{{ option.display_name }}</div>
+								<div style="font-size: 0.8rem">{{ option.email }}</div>
 							</div>
 						</template>
 					</AutoComplete>
@@ -151,7 +154,7 @@
 			</div>
 
 			<!-- Role -->
-			<div class="step-header span-2">What role to assign?</div>
+			<div id="aria-role" class="step-header span-2">What role to assign?</div>
 			<div class="span-2">
 				<Dropdown
 					v-model="roleAssignment.role_definition_id"
@@ -159,6 +162,7 @@
 					option-label="display_name"
 					option-value="object_id"
 					placeholder="--Select--"
+					aria-labelledby="aria-role"
 				/>
 			</div>
 
@@ -185,15 +189,11 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
-import { debounce } from 'lodash';
-import api from '@/js/api';
 import { v4 as uuidv4 } from 'uuid';
+import type { PropType } from 'vue';
+import api from '@/js/api';
 
-import type {
-	Role,
-	RoleAssignment,
-} from '@/js/types';
+import type { Role, RoleAssignment } from '@/js/types';
 
 export default {
 	name: 'CreateRoleAssignment',
@@ -214,6 +214,7 @@ export default {
 		scope: {
 			type: String,
 			required: false,
+			default: null,
 		},
 	},
 
@@ -307,7 +308,7 @@ export default {
 		},
 
 		handlePrincipalSearch(event) {
-			let optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
+			const optionsToSearch = this.principalSearchType === 'Group' ? this.groups : this.users;
 
 			this.principalOptionsFiltered = optionsToSearch.filter((principal) => {
 				const queryLowercase = event.query.toLowerCase();
@@ -344,7 +345,7 @@ export default {
 		async handleCreateRoleAssignment() {
 			try {
 				await this.createRoleAssignment();
-			} catch(error) {
+			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
 					detail: error,
@@ -629,7 +630,7 @@ input {
 		width: 100%;
 		li {
 			input {
-				width: 100%!important;
+				width: 100% !important;
 			}
 		}
 	}

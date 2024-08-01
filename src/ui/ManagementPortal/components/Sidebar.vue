@@ -4,7 +4,10 @@
 		<div class="sidebar__header">
 			<template v-if="$appConfigStore.logoUrl">
 				<NuxtLink to="/">
-					<img :src="$filters.publicDirectory($appConfigStore.logoUrl)"
+					<img
+						:src="$filters.publicDirectory($appConfigStore.logoUrl)"
+						aria-label="Logo as link to home"
+						alt="Logo"
 					/>
 				</NuxtLink>
 			</template>
@@ -55,7 +58,9 @@
 			<span>Security</span>
 		</div>
 
-		<NuxtLink to="/security/role-assignments" class="sidebar__item">Instance Access Control</NuxtLink>
+		<NuxtLink to="/security/role-assignments" class="sidebar__item">
+			Instance Access Control
+		</NuxtLink>
 
 		<!-- FLLM Deployment -->
 		<div class="sidebar__section-header">
