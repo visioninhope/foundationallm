@@ -27,7 +27,7 @@
 							},
 						}"
 					/>
-					<span class="time-stamp" v-tooltip="formatTimeStamp(message.timeStamp)">{{
+					<span v-tooltip="formatTimeStamp(message.timeStamp)" class="time-stamp">{{
 						$filters.timeAgo(new Date(message.timeStamp))
 					}}</span>
 				</span>
@@ -129,17 +129,16 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue';
-import type { Message, CompletionPrompt } from '@/js/types';
-import api from '@/js/api';
-import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
-
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
-import { markedHighlight } from 'marked-highlight';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
+import type { PropType } from 'vue';
+
+import type { Message, CompletionPrompt } from '@/js/types';
+import api from '@/js/api';
+import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {

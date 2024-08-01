@@ -163,8 +163,8 @@ export const useAppStore = defineStore('app', {
 		async sendMessage(text: string) {
 			if (!text) return;
 
-			let sessionId = this.currentSession!.id;
-			let relevantAttachments = this.attachments.filter(
+			const sessionId = this.currentSession!.id;
+			const relevantAttachments = this.attachments.filter(
 				(attachment) => attachment.sessionId === sessionId,
 			);
 
@@ -295,25 +295,21 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async uploadAttachment(file: FormData, sessionId: string) {
-			try {
-				const id = await api.uploadAttachment(file);
-				const fileName = file.get('file')?.name;
-				const newAttachment = { id, fileName, sessionId };
+			const id = await api.uploadAttachment(file);
+			const fileName = file.get('file')?.name;
+			const newAttachment = { id, fileName, sessionId };
 
-				const existingIndex = this.attachments.findIndex(
-					(attachment) => attachment.sessionId === sessionId,
-				);
+			const existingIndex = this.attachments.findIndex(
+				(attachment) => attachment.sessionId === sessionId,
+			);
 
-				if (existingIndex !== -1) {
-					this.attachments.splice(existingIndex, 1, newAttachment);
-				} else {
-					this.attachments.push(newAttachment);
-				}
-
-				return id;
-			} catch (error) {
-				throw error;
+			if (existingIndex !== -1) {
+				this.attachments.splice(existingIndex, 1, newAttachment);
+			} else {
+				this.attachments.push(newAttachment);
 			}
+
+			return id;
 		},
 	},
 });

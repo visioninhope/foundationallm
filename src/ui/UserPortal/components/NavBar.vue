@@ -11,8 +11,8 @@
 					size="small"
 					severity="secondary"
 					class="secondary-button"
-					@click="$appStore.toggleSidebar"
 					aria-label="Toggle sidebar"
+					@click="$appStore.toggleSidebar"
 				/>
 			</template>
 		</div>
@@ -30,8 +30,8 @@
 							icon="pi pi-copy"
 							text
 							severity="secondary"
-							@click="handleCopySession"
 							aria-label="Copy link to chat session"
+							@click="handleCopySession"
 						/>
 						<Toast position="top-center" />
 					</template>
@@ -53,15 +53,15 @@
 						/>
 						<Dropdown
 							v-model="agentSelection"
-							class="dropdown--agent"
 							:options="agentOptionsGroup"
+							:style="{ maxHeight: '300px' }"
+							class="dropdown--agent"
 							option-group-label="label"
 							option-group-children="items"
 							option-disabled="disabled"
 							option-label="label"
 							placeholder="--Select--"
 							@change="handleAgentChange"
-							:style="{ maxHeight: '300px' }"
 						/>
 					</span>
 				</template>

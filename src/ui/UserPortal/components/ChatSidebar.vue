@@ -13,8 +13,8 @@
 				size="small"
 				severity="secondary"
 				class="secondary-button"
-				@click="$appStore.toggleSidebar"
 				aria-label="Toggle sidebar"
+				@click="$appStore.toggleSidebar"
 			/>
 		</div>
 		<div class="chat-sidebar__section-header">
@@ -26,8 +26,8 @@
 				icon="pi pi-plus"
 				text
 				severity="secondary"
-				@click="handleAddSession"
 				aria-label="Add new chat"
+				@click="handleAddSession"
 			/>
 		</div>
 
@@ -53,8 +53,8 @@
 							size="small"
 							severity="secondary"
 							text
-							@click.stop="openRenameModal(session)"
 							aria-label="Rename chat session"
+							@click.stop="openRenameModal(session)"
 						/>
 
 						<!-- Delete session -->
@@ -64,8 +64,8 @@
 							size="small"
 							severity="danger"
 							text
-							@click.stop="sessionToDelete = session"
 							aria-label="Delete chat session"
+							@click.stop="sessionToDelete = session"
 						/>
 					</span>
 				</div>

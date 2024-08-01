@@ -2,45 +2,40 @@
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
 			<i
-				class="pi pi-info-circle tooltip-component"
 				v-tooltip.top="'Use Shift+Enter to add a new line'"
+				class="pi pi-info-circle tooltip-component"
 			></i>
 			<Button
+				v-tooltip.top="
+					`Attach files (${fileArrayFiltered.length === 1 ? '1 file' : fileArrayFiltered.length + ' files'})`
+				"
+				:badge="fileArrayFiltered.length.toString() || null"
+				:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
 				icon="pi pi-paperclip"
 				label=""
 				class="file-upload-button secondary-button"
 				style="height: 100%"
 				@click="toggleFileAttachmentOverlay"
-				:badge="fileArrayFiltered.length.toString() || null"
-				v-tooltip.top="
-					'Attach files' +
-					(fileArrayFiltered.length
-						? ' (' + fileArrayFiltered.length.toString() + ' file)'
-						: ' (0 files)')
-				"
-				:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
 					<h2 style="margin-bottom: 0px">Attached File</h2>
-					<div
-						class="attached-files"
-						v-for="file in fileArrayFiltered"
-						v-if="fileArrayFiltered.length"
-					>
-						<div class="file-name">{{ file.fileName }}</div>
-						<div class="file-remove">
-							<Button
-								icon="pi pi-times"
-								severity="danger"
-								text
-								rounded
-								aria-label="Remove attachment"
-								v-tooltip="'Remove attachment'"
-								@click="removeAttachment(file)"
-							/>
+					<template v-if="fileArrayFiltered.length">
+						<div v-for="(file, index) in fileArrayFiltered" :key="index" class="attached-files">
+							<div class="file-name">{{ file.fileName }}</div>
+							<div class="file-remove">
+								<Button
+									v-tooltip="'Remove attachment'"
+									icon="pi pi-times"
+									severity="danger"
+									text
+									rounded
+									aria-label="Remove attachment"
+									@click="removeAttachment(file)"
+								/>
+							</div>
 						</div>
-					</div>
+					</template>
 					<div v-else>No file attached</div>
 				</div>
 				<div class="p-d-flex p-jc-end">
@@ -58,40 +53,40 @@
 				</div>
 			</OverlayPanel>
 			<Dialog
-				v-model:visible="showFileUploadDialog"
+				:visible="showFileUploadDialog"
 				header="Upload File"
 				modal
 				aria-label="File Upload Dialog"
 			>
 				<FileUpload
+					ref="fileUpload"
+					:file-limit="1"
 					:auto="false"
 					:custom-upload="true"
 					@uploader="handleUpload"
-					ref="fileUpload"
-					:fileLimit="1"
 				>
 					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
 						<div>
 							<div class="upload-files-header">
 								<Button
-									@click="chooseCallback()"
+									:disabled="files.length !== 0"
 									icon="pi pi-images"
 									label="Choose"
-									:disabled="files.length !== 0"
 									style="margin-right: 0.5rem"
+									@click="chooseCallback()"
 								></Button>
 								<Button
-									@click="uploadFile(uploadCallback)"
 									icon="pi pi-cloud-upload"
 									label="Upload"
 									:disabled="!files || files.length === 0"
 									style="margin-right: 0.5rem"
+									@click="uploadFile(uploadCallback)"
 								></Button>
 								<Button
-									@click="clearCallback()"
 									icon="pi pi-times"
 									label="Cancel"
 									:disabled="!files || files.length === 0"
+									@click="clearCallback()"
 								></Button>
 							</div>
 						</div>
@@ -130,10 +125,9 @@
 								</div>
 								<Button
 									icon="pi pi-times"
-									@click="removeFileCallback(index)"
 									text
 									severity="danger"
-									style=""
+									@click="removeFileCallback(index)"
 								/>
 							</div>
 						</div>
@@ -148,7 +142,7 @@
 									<br />
 									or
 									<br />
-									<a @click="browseFiles" style="color: blue; cursor: pointer">Browse for files</a>
+									<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
 								</p>
 							</div>
 						</div>
@@ -168,14 +162,14 @@
 				@close="agentListOpen = false"
 			>
 				<textarea
-					ref="inputRef"
 					id="chat-input"
+					ref="inputRef"
 					v-model="text"
 					class="input"
 					:disabled="disabled"
 					placeholder="What would you like to ask?"
-					@keydown="handleKeydown"
 					autofocus
+					@keydown="handleKeydown"
 				/>
 				<template #no-result>
 					<div class="dim">No result</div>
@@ -203,7 +197,6 @@
 <script lang="ts">
 import { Mentionable } from 'vue-mention';
 import 'floating-vue/dist/style.css';
-import FileUpload from 'primevue/fileupload';
 
 export default {
 	name: 'ChatInput',

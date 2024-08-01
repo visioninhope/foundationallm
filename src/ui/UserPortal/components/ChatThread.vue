@@ -39,6 +39,7 @@
 		</div>
 
 		<footer v-if="$appConfigStore.footerText">
+			<!-- eslint-disable-next-line vue/no-v-html -->
 			<div class="footer-item" v-html="$appConfigStore.footerText"></div>
 		</footer>
 	</div>
@@ -80,6 +81,14 @@ export default {
 			await this.$appStore.getMessages();
 			this.isLoading = false;
 		},
+	},
+
+	beforeUnmount() {
+		eventBus.off('operation-completed', this.handleOperationCompleted);
+	},
+
+	mounted() {
+		eventBus.on('operation-completed', this.handleOperationCompleted);
 	},
 
 	methods: {
@@ -125,25 +134,11 @@ export default {
 			}
 		},
 
-		async handleOperationCompleted({
-			sessionId,
-			operationId,
-		}: {
-			sessionId: string;
-			operationId: string;
-		}) {
+		async handleOperationCompleted({ sessionId }: { sessionId: string; operationId: string }) {
 			if (this.currentSession.id === sessionId) {
 				await this.$appStore.getMessages();
 			}
 		},
-	},
-
-	mounted() {
-		eventBus.on('operation-completed', this.handleOperationCompleted);
-	},
-
-	beforeUnmount() {
-		eventBus.off('operation-completed', this.handleOperationCompleted);
 	},
 };
 </script>

@@ -261,7 +261,7 @@ export default {
 			user_prompt: text,
 			agent_name: agent.name,
 			settings: null,
-			attachments: attachments,
+			attachments,
 		};
 
 		if (agent.long_running) {
