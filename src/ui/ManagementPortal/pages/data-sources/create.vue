@@ -16,7 +16,7 @@
 			<!-- Edit access control -->
 			<AccessControl
 				v-if="editId"
-				:scope="`providers/FoundationaLLM.DataSource/dataSources/${this.dataSource.name}`"
+				:scope="`providers/FoundationaLLM.DataSource/dataSources/${dataSource.name}`"
 			/>
 		</div>
 
