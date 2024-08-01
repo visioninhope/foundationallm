@@ -6,7 +6,7 @@ interface ResourceBase {
 	description: string;
 	cost_center: string;
 	expiration_date: string;
-};
+}
 
 export type ResourceProviderGetResult<T> = {
 	/**
@@ -98,13 +98,13 @@ export type AIModel = ResourceBase & {
 	name: string;
 	type: string;
 	// The object id of the APIEndpointConfiguration object providing the configuration for the API endpoint used to interact with the model.
-    endpoint_object_id: string;
-    // The version of the AI model.
-    version?: string | null;
-    // The name of the deployment corresponding to the AI model.
-    deployment_name?: string | null;
-    // Dictionary with default values for the model parameters.
-    model_parameters: { [key: string]: any };
+	endpoint_object_id: string;
+	// The version of the AI model.
+	version?: string | null;
+	// The name of the deployment corresponding to the AI model.
+	deployment_name?: string | null;
+	// Dictionary with default values for the model parameters.
+	model_parameters: { [key: string]: any };
 };
 
 export interface ConfigurationReferenceMetadata {
@@ -244,7 +244,7 @@ export type TextEmbeddingProfile = ResourceBase & {
 	};
 	settings: {
 		model_name: string;
-	}
+	};
 	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
 	resolved_configuration_references: {
 		APIKey: string;
@@ -252,10 +252,10 @@ export type TextEmbeddingProfile = ResourceBase & {
 		AuthenticationType: string;
 		DeploymentName: string;
 		Endpoint: string;
-	 };
-	 resolved_settings: {
+	};
+	resolved_settings: {
 		model_name: string;
-	}
+	};
 };
 
 export type CheckNameResponse = {
@@ -359,13 +359,9 @@ export type CreateTextPartitioningProfileRequest = ResourceBase & {
 	};
 };
 
-export type Role = {
-	
-};
+export type Role = {};
 
-export type RoleAssignment = {
-
-};
+export type RoleAssignment = {};
 
 // Type guards
 export function isAzureDataLakeDataSource(
@@ -374,9 +370,7 @@ export function isAzureDataLakeDataSource(
 	return dataSource.type === 'azure-data-lake';
 }
 
-export function isOneLakeDataSource(
-	dataSource: DataSource,
-): dataSource is OneLakeDataSource {
+export function isOneLakeDataSource(dataSource: DataSource): dataSource is OneLakeDataSource {
 	return dataSource.type === 'onelake';
 }
 

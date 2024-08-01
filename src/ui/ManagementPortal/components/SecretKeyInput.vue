@@ -50,11 +50,13 @@ export default {
 		placeholder: {
 			type: String,
 			required: false,
+			default: '',
 		},
 
 		ariaLabelledby: {
 			type: String,
 			required: false,
+			default: '',
 		},
 	},
 
