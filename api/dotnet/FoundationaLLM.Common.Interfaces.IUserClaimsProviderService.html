@@ -129,6 +129,46 @@ to a <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUs
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetSecurityGroupIds_" data-uid="FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetSecurityGroupIds_System_Security_Claims_ClaimsPrincipal_" data-uid="FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)">
+  GetSecurityGroupIds(ClaimsPrincipal?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IUserClaimsProviderService.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a list of security group identifiers from the provided
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal">ClaimsPrincipal</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">List&lt;string&gt;? GetSecurityGroupIds(ClaimsPrincipal? userPrincipal)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>userPrincipal</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal">ClaimsPrincipal</a></dt>
+    <dd><p>The principal that provides multiple
+claims-based identities.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetUserIdentity*"></a>
 
   <h3 id="FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetUserIdentity_System_Security_Claims_ClaimsPrincipal_" data-uid="FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetUserIdentity(System.Security.Claims.ClaimsPrincipal)">

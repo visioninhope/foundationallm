@@ -4892,6 +4892,18 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authentication.AuthenticationTypes.Unknown
   fullName: FoundationaLLM.Common.Constants.Authentication.AuthenticationTypes.Unknown
   nameWithType: AuthenticationTypes.Unknown
+- uid: FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants
+  name: EntraUserClaimConstants
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants.html
+  commentId: T:FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants
+  fullName: FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants
+  nameWithType: EntraUserClaimConstants
+- uid: FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants.Groups
+  name: Groups
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants.html#FoundationaLLM_Common_Constants_Authentication_EntraUserClaimConstants_Groups
+  commentId: F:FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants.Groups
+  fullName: FoundationaLLM.Common.Constants.Authentication.EntraUserClaimConstants.Groups
+  nameWithType: EntraUserClaimConstants.Groups
 - uid: FoundationaLLM.Common.Constants.Authentication.ObjectTypes
   name: ObjectTypes
   href: api/dotnet/FoundationaLLM.Common.Constants.Authentication.ObjectTypes.html
@@ -7514,6 +7526,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies
   fullName: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies
   nameWithType: SecurityGroupRetrievalStrategies
+- uid: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.AccessToken
+  name: AccessToken
+  href: api/dotnet/FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.html#FoundationaLLM_Common_Constants_Instance_SecurityGroupRetrievalStrategies_AccessToken
+  commentId: F:FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.AccessToken
+  fullName: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.AccessToken
+  nameWithType: SecurityGroupRetrievalStrategies.AccessToken
 - uid: FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.IdentityManagementService
   name: IdentityManagementService
   href: api/dotnet/FoundationaLLM.Common.Constants.Instance.SecurityGroupRetrievalStrategies.html#FoundationaLLM_Common_Constants_Instance_SecurityGroupRetrievalStrategies_IdentityManagementService
@@ -10319,6 +10337,22 @@ references:
   commentId: T:FoundationaLLM.Common.Interfaces.IUserClaimsProviderService
   fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService
   nameWithType: IUserClaimsProviderService
+- uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name: GetSecurityGroupIds(ClaimsPrincipal?)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html#FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetSecurityGroupIds_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name.vb: GetSecurityGroupIds(ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal?)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: IUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal?)
+  nameWithType.vb: IUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds*
+  name: GetSecurityGroupIds
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html#FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetSecurityGroupIds_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetSecurityGroupIds
+  nameWithType: IUserClaimsProviderService.GetSecurityGroupIds
 - uid: FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.GetUserIdentity(System.Security.Claims.ClaimsPrincipal)
   name: GetUserIdentity(ClaimsPrincipal?)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IUserClaimsProviderService.html#FoundationaLLM_Common_Interfaces_IUserClaimsProviderService_GetUserIdentity_System_Security_Claims_ClaimsPrincipal_
@@ -22256,6 +22290,22 @@ references:
   commentId: T:FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService
   fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService
   nameWithType: EntraUserClaimsProviderService
+- uid: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name: GetSecurityGroupIds(ClaimsPrincipal?)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_EntraUserClaimsProviderService_GetSecurityGroupIds_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name.vb: GetSecurityGroupIds(ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal?)
+  fullName.vb: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: EntraUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal?)
+  nameWithType.vb: EntraUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds*
+  name: GetSecurityGroupIds
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_EntraUserClaimsProviderService_GetSecurityGroupIds_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetSecurityGroupIds
+  nameWithType: EntraUserClaimsProviderService.GetSecurityGroupIds
 - uid: FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.GetUserIdentity(System.Security.Claims.ClaimsPrincipal)
   name: GetUserIdentity(ClaimsPrincipal?)
   href: api/dotnet/FoundationaLLM.Common.Services.Security.EntraUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_EntraUserClaimsProviderService_GetUserIdentity_System_Security_Claims_ClaimsPrincipal_
@@ -22403,6 +22453,22 @@ references:
   commentId: T:FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService
   fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService
   nameWithType: NoOpUserClaimsProviderService
+- uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name: GetSecurityGroupIds(ClaimsPrincipal?)
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_NoOpUserClaimsProviderService_GetSecurityGroupIds_System_Security_Claims_ClaimsPrincipal_
+  commentId: M:FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  name.vb: GetSecurityGroupIds(ClaimsPrincipal)
+  fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal?)
+  fullName.vb: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds(System.Security.Claims.ClaimsPrincipal)
+  nameWithType: NoOpUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal?)
+  nameWithType.vb: NoOpUserClaimsProviderService.GetSecurityGroupIds(ClaimsPrincipal)
+- uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds*
+  name: GetSecurityGroupIds
+  href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_NoOpUserClaimsProviderService_GetSecurityGroupIds_
+  commentId: Overload:FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetSecurityGroupIds
+  nameWithType: NoOpUserClaimsProviderService.GetSecurityGroupIds
 - uid: FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.GetUserIdentity(System.Security.Claims.ClaimsPrincipal)
   name: GetUserIdentity(ClaimsPrincipal?)
   href: api/dotnet/FoundationaLLM.Common.Services.Security.NoOpUserClaimsProviderService.html#FoundationaLLM_Common_Services_Security_NoOpUserClaimsProviderService_GetUserIdentity_System_Security_Claims_ClaimsPrincipal_
