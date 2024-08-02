@@ -25,7 +25,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
             var coreClient = await GetCoreClientAsync();
             var serializedRequest = JsonSerializer.Serialize(completionRequest, SerializerOptions);
 
-            var responseMessage = await coreClient.PostAsync("completions",
+            var responseMessage = await coreClient.PostAsync($"instances/{_instanceId}/completions",
                 new StringContent(
                     serializedRequest,
                     Encoding.UTF8, "application/json"));
@@ -45,7 +45,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<IEnumerable<ResourceProviderGetResult<AgentBase>>> GetAgentsAsync()
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync("completions/agents");
+            var responseMessage = await coreClient.GetAsync($"instances/{_instanceId}/completions/agents");
 
             if (responseMessage.IsSuccessStatusCode)
             {
