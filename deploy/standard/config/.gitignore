@@ -1,2 +1,5 @@
-appconfig.json
+!*.template.json
+!version.json
 hosts*
+appconfig.json
+*-profile.json

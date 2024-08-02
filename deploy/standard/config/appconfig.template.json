@@ -7,6 +7,13 @@
           "content_type": "",
           "tags": {}
       },
+        {
+            "key": "FoundationaLLM:Instance:SecurityGroupRetrievalStrategy",
+            "value": "IdentityManagementService",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
       {
           "key": "FoundationaLLM:Configuration:KeyVaultURI",
           "value": "{{keyvaultUri}}",
@@ -822,6 +829,13 @@
       {
           "key": "FoundationaLLM:Events:Profiles:VectorizationWorker",
           "value": "{{vectorizationWorkerEventGridProfile}}",
+          "label": null,
+          "content_type": "application/json",
+          "tags": {}
+      },
+      {
+          "key": "FoundationaLLM:Events:Profiles:GatekeeperAPI",
+          "value": "{{gatekeeperApiEventGridProfile}}",
           "label": null,
           "content_type": "application/json",
           "tags": {}

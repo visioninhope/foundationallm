@@ -10,3 +10,4 @@ $fllmVersionConfig = (Get-content $fllmVersionConfigPath | ConvertFrom-Json)
 
 Write-Host "Setting FLLM Version to $($fllmVersionConfig.version)..." -ForegroundColor Blue
 azd env set FLLM_VERSION "$($fllmVersionConfig.version)"
+    

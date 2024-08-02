@@ -467,6 +467,7 @@ $eventGridProfileNames = @(
     "vectorization-api-event-profile"
     "vectorization-worker-event-profile"
     "management-api-event-profile"
+    "gatekeeper-api-event-profile"
 )
 foreach ($profileName in $eventGridProfileNames) {
     Write-Host "Populating $profileName..." -ForegroundColor Blue
@@ -482,6 +483,7 @@ foreach ($profileName in $eventGridProfileNames) {
     ).Replace('"', '\"')
 }
 
+$tokens.gatekeeperApiEventGridProfile = $eventGridProfiles["gatekeeper-api-event-profile"]
 $tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]
