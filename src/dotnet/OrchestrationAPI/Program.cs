@@ -50,7 +50,7 @@ namespace FoundationaLLM.Orchestration.API
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ExternalAPIs);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Orchestration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Agent);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAI);
@@ -61,6 +61,7 @@ namespace FoundationaLLM.Orchestration.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSource);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Attachment);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_AIModel);
             });
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -104,12 +105,7 @@ namespace FoundationaLLM.Orchestration.API
             builder.Services.AddOptions<OrchestrationSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Orchestration));
 
-            
-            builder.AddLLMOrchestrationServices();
-            builder.AddOrchestrationService();
-
             builder.Services.AddScoped<ICallContext, CallContext>();
-            builder.Services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
             builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
@@ -132,9 +128,12 @@ namespace FoundationaLLM.Orchestration.API
             builder.AddConfigurationResourceProvider();
             builder.AddDataSourceResourceProvider();
             builder.AddAttachmentResourceProvider();
+            builder.AddAIModelResourceProvider();
 
             // Register the downstream services and HTTP clients.
-            RegisterDownstreamServices(builder);
+            builder.AddHttpClientFactoryService();
+            builder.AddLLMOrchestrationServices();
+            builder.AddOrchestrationService();
 
             builder.Services
                 .AddApiVersioning(options =>
@@ -201,60 +200,6 @@ namespace FoundationaLLM.Orchestration.API
             app.MapControllers();
 
             app.Run();
-        }
-
-        /// <summary>
-        /// Bind the downstream API settings to the configuration and register the HTTP clients.
-        /// The AddResilienceHandler extension method is used to add the standard Polly resilience
-        /// strategies to the HTTP clients.
-        /// </summary>
-        /// <param name="builder"></param>
-        private static void RegisterDownstreamServices(WebApplicationBuilder builder)
-        {
-            var retryOptions = CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
-
-            var downstreamAPISettings = new DownstreamAPISettings
-            {
-                DownstreamAPIs = new Dictionary<string, DownstreamAPIClientConfiguration>()
-            };
-
-            var langChainAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_LangChainAPI_APIKey]!,
-                Timeout = TimeSpan.FromMinutes(30)
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.LangChainAPI] = langChainAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.LangChainAPI,
-                        client => { client.BaseAddress = new Uri(langChainAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            var semanticKernelAPISettings = new DownstreamAPIClientConfiguration
-            {
-                APIUrl = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIUrl]!,
-                APIKey = builder.Configuration[AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_APIKey]!,
-                Timeout = TimeSpan.FromMinutes(30)
-            };
-            downstreamAPISettings.DownstreamAPIs[HttpClients.SemanticKernelAPI] = semanticKernelAPISettings;
-
-            builder.Services
-                    .AddHttpClient(HttpClients.SemanticKernelAPI,
-                        client => { client.BaseAddress = new Uri(semanticKernelAPISettings.APIUrl); })
-                    .AddResilienceHandler(
-                        "DownstreamPipeline",
-                        strategyBuilder =>
-                        {
-                            strategyBuilder.AddRetry(retryOptions);
-                        });
-
-            builder.Services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
         }
     }
 }

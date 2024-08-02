@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using FoundationaLLM.Client.Core.Clients.Rest;
+using FoundationaLLM.Client.Core.Clients.RESTClients;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Configuration.API;
@@ -28,7 +28,7 @@ namespace FoundationaLLM.Client.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="CoreRESTClient"/> class and
         /// configures <see cref="IHttpClientFactory"/> with a named instance for the
-        /// CoreAPI (<see cref="HttpClients.CoreAPI"/>) based on the passed in URL.
+        /// CoreAPI (<see cref="HttpClientNames.CoreAPI"/>) based on the passed in URL.
         /// </summary>
         /// <param name="coreUri">The base URI of the Core API.</param>
         /// <param name="credential">A <see cref="TokenCredential"/> of an authenticated
@@ -39,7 +39,7 @@ namespace FoundationaLLM.Client.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="CoreRESTClient"/> class and
         /// configures <see cref="IHttpClientFactory"/> with a named instance for the
-        /// CoreAPI (<see cref="HttpClients.CoreAPI"/>) based on the passed in URL
+        /// CoreAPI (<see cref="HttpClientNames.CoreAPI"/>) based on the passed in URL
         /// and optional client settings.
         /// </summary>
         /// <param name="coreUri">The base URI of the Core API.</param>
@@ -75,7 +75,7 @@ namespace FoundationaLLM.Client.Core
         public IUserProfileRESTClient UserProfiles { get; private set; } = null!;
 
         private static void ConfigureHttpClient(IServiceCollection services, string coreUri, APIClientSettings options) =>
-            services.AddHttpClient(HttpClients.CoreAPI, client =>
+            services.AddHttpClient(HttpClientNames.CoreAPI, client =>
             {
               client.BaseAddress = new Uri(coreUri);
               client.Timeout = options.Timeout ?? TimeSpan.FromSeconds(900);

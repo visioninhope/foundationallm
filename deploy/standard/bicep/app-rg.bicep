@@ -196,9 +196,7 @@ module eventgrid 'modules/eventgrid.bicep' = {
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     opsResourceGroupName: opsResourceGroupName
-    privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'eventgrid' ], zone.key))
     resourceSuffix: resourceSuffix
-    subnetId: subnets.FLLMServices.id
     topics: [ 'storage', 'vectorization', 'configuration' ]
     tags: tags
   }
@@ -500,6 +498,7 @@ module searchIndexDataReaderSemanticKernelRole 'modules/utility/roleAssignments.
     principalId: srBackend[indexOf(backendServiceNames, 'semantic-kernel-api')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+      'Search Service Contributor': '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
     }
   }
 }

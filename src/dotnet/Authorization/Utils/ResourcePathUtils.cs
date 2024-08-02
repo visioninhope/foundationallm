@@ -76,6 +76,7 @@ namespace FoundationaLLM.Authorization.Utils
                 ResourceProviderNames.FoundationaLLM_Configuration => ConfigurationResourceProviderMetadata.AllowedResourceTypes,
                 ResourceProviderNames.FoundationaLLM_Attachment => AttachmentResourceProviderMetadata.AllowedResourceTypes,
                 ResourceProviderNames.FoundationaLLM_Authorization => AuthorizationResourceProviderMetadata.AllowedResourceTypes,
+                ResourceProviderNames.FoundationaLLM_AIModel => AIModelResourceProviderMetadata.AllowedResourceTypes,
                 _ => []
             };
     }

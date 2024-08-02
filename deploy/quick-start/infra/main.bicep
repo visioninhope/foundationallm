@@ -261,6 +261,7 @@ module searchReaderRoles './shared/roleAssignments.bicep' = [
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
         'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+        'Search Service Contributor': '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
       }
     }
   }
@@ -393,18 +394,6 @@ module storage './shared/storage.bicep' = {
   name: 'storage-${timestamp}'
   params: {
     containers: [
-      {
-        name: 'agents'
-      }
-      {
-        name: 'data-sources'
-      }
-      {
-        name: 'foundationallm-source'
-      }
-      {
-        name: 'prompts'
-      }
       {
         name: 'resource-provider'
       }
@@ -712,12 +701,14 @@ output SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL string = acaServices[indexOf(ser
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.uri
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-integration-api')].outputs.uri
 output SERVICE_GATEWAY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-api')].outputs.uri
+output SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-adapter-api')].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId
 output SERVICE_MANAGEMENT_UI_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-ui')].outputs.uri
 output SERVICE_PROMPT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'prompt-hub-api')].outputs.uri
 output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'semantic-kernel-api')].outputs.uri
+output SERVICE_STATE_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'state-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.miPrincipalId
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.uri

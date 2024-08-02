@@ -15,6 +15,7 @@ const allowedKeys = [
 	'FoundationaLLM:Management:Entra:Scopes',
 	'FoundationaLLM:Management:Entra:CallbackPath',
 
+	'FoundationaLLM:Branding:FavIconUrl',
 	'FoundationaLLM:Branding:LogoUrl',
 	'FoundationaLLM:Branding:LogoText',
 	'FoundationaLLM:Branding:BackgroundColor',
@@ -29,7 +30,7 @@ const allowedKeys = [
 	'FoundationaLLM:Branding:SecondaryButtonBackgroundColor',
 	'FoundationaLLM:Branding:SecondaryButtonTextColor',
 	'FoundationaLLM:Branding:FooterText',
-
+	'FoundationaLLM:Instance:Id',
 	'FoundationaLLM:APIs:AgentHubAPI:APIUrl',
 	'FoundationaLLM:APIs:AuthorizationAPI:APIUrl',
 	'FoundationaLLM:APIs:CoreAPI:APIUrl',

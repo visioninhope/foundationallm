@@ -1,3 +1,4 @@
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -62,7 +63,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
 
         private DataLakeContentSourceService CreateAzureDataLakeContentSourceService(string serviceName)
         {
-            var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
+            var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = AuthenticationTypes.Unknown };
             _configuration.Bind(
                 $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{serviceName}",
                 blobStorageServiceSettings);

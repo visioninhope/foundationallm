@@ -10,6 +10,7 @@
 				@click="toggleFileAttachmentOverlay"
 				:badge="$appStore.attachments.length.toString() || null"
 				v-tooltip.top="'Attach files' + ($appStore.attachments.length ? ' (' + $appStore.attachments.length.toString() + ' file)' : ' (0 files)')"
+				:aria-label="'Upload file (' + $appStore.attachments.length.toString() + ' files attached)'"
 			/>
 			<OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
@@ -35,6 +36,7 @@
 				<div class="p-d-flex p-jc-end">
 					<Button
 						label="Upload File"
+						aria-label="Upload file"
 						icon="pi pi-upload"
 						:style="{
 							backgroundColor: secondaryButtonBg,
@@ -45,21 +47,53 @@
 					/>
 				</div>
 			</OverlayPanel>
-			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal>
+			<Dialog v-model:visible="showFileUploadDialog" header="Upload File" modal aria-label="File Upload Dialog">
 				<FileUpload
-					accept="audio/mpeg,audio/wav"
-					:auto="true"
+					:auto="false"
 					:custom-upload="true"
-					mode="advanced"
 					@uploader="handleUpload"
+					ref="fileUpload"
+					:fileLimit="1"
 				>
-					<template #content>
-						<p class="p-m-0">
-							Use the <strong>+ Choose</strong> button to browse for a file or drag and drop a file here to upload.
-							The file will be used as an attachment for this chat as a context for the agent.
-						</p>
+					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
+						<div>
+							<div class="upload-files-header">
+								<Button @click="chooseCallback()" icon="pi pi-images" label="Choose" :disabled="files.length !== 0" style="margin-right: .5rem"></Button>
+								<Button @click="uploadFile(uploadCallback)" icon="pi pi-cloud-upload" label="Upload" :disabled="!files || files.length === 0" style="margin-right: .5rem"></Button>
+								<Button @click="clearCallback()" icon="pi pi-times" label="Cancel" :disabled="!files || files.length === 0"></Button>
+							</div>
+						</div>
+					</template>
+
+					<template #content="{ files, removeFileCallback }">
+						<div class="flex flex-wrap gap-4">
+							<div v-for="(file, index) of files" :key="file.name + file.type + file.size" style="border-color: rgb(226, 232, 240); border-radius: 6px; border-style: solid; border-width: 1px; display: flex; flex-direction: row; justify-content: space-between; padding: 0.5rem; width: 100%; align-items: center;">
+								<div style="flex: 1; display: flex; flex-direction: row; align-items: center; gap: 10px">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem;"></i>
+									<span style="font-weight: 600;">{{ file.name }}</span>
+									<div>{{ formatSize(file.size) }}</div>
+								</div>
+								<Button icon="pi pi-times" @click="removeFileCallback(index)" text severity="danger" style=""/>
+							</div>
+						</div>
+					</template>
+
+					<template #empty>
+						<div>
+							<i class="pi pi-cloud-upload file-upload-icon" />
+							<div style="width: 500px">
+								<p style="text-align: center;">
+									Drag and drop files here
+									<br />
+									or
+									<br />
+									<a @click="browseFiles" style="color: blue; cursor: pointer;">Browse for files</a>
+								</p>
+							</div>
+						</div>
 					</template>
 				</FileUpload>
+				<ConfirmDialog></ConfirmDialog>
 			</Dialog>
 			<Mentionable
 				:keys="['@']"
@@ -217,6 +251,53 @@ export default {
 		removeAttachment(file: any) {
 			this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
 		},
+
+		browseFiles() {
+			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
+		},
+
+		uploadFile(uploadCallback) {
+			if (this.$appStore.attachments.length) {
+				this.$confirm.require({
+					message: 'Uploading a new file will replace the file already attached.',
+					header: 'Confirm File Replacement',
+					icon: 'pi pi-exclamation-triangle',
+					rejectProps: {
+						label: 'Cancel',
+						severity: 'secondary',
+						outlined: true
+					},
+					acceptProps: {
+						label: 'Upload'
+					},
+					accept: () => {
+						uploadCallback();
+						this.showFileUploadDialog = false;
+					},
+					reject: () => {
+						this.showFileUploadDialog = false;
+					}
+				});
+			} else {
+				uploadCallback();
+				this.showFileUploadDialog = false;
+			}
+		},
+
+		formatSize(bytes) {
+            const k = 1024;
+            const dm = 3;
+            const sizes = this.$primevue.config.locale.fileSizeTypes;
+
+            if (bytes === 0) {
+                return `0 ${sizes[0]}`;
+            }
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+            return `${formattedSize} ${sizes[i]}`;
+        }
 	},
 };
 </script>
@@ -331,6 +412,15 @@ export default {
 .file-remove {
 	margin-left: 1rem;
 }
+
+.p-fileupload-content {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+}
+
+.upload-files-header {
+	width: 500px;
+}
 </style>
 
 <style lang="scss">
@@ -351,5 +441,12 @@ export default {
 .mention-selected {
 	background-color: #131833;
 	color: #fff;
+}
+
+.file-upload-icon {
+	width: 100%;
+	text-align: center;
+	font-size: 5rem;
+    color: #000;
 }
 </style>

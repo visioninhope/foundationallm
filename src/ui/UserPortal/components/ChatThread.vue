@@ -46,6 +46,7 @@
 
 <script lang="ts">
 import type { Message, Session } from '@/js/types';
+import eventBus from '@/js/eventBus';
 
 export default {
 	name: 'ChatThread',
@@ -57,6 +58,7 @@ export default {
 			isLoading: true,
 			userSentMessage: false,
 			isMessagePending: false,
+			longRunningOperations: new Map<string, boolean>(), // sessionId -> isPending
 		};
 	},
 
@@ -90,9 +92,52 @@ export default {
 
 			this.isMessagePending = true;
 			this.userSentMessage = true;
-			await this.$appStore.sendMessage(text);
+
+			const agent = this.$appStore.getSessionAgent(this.currentSession).resource;
+			if (agent.long_running) {
+				// Handle long-running operations
+				const operationId = await this.$appStore.startLongRunningProcess('/completions', {
+					session_id: this.currentSession.id,
+					user_prompt: text,
+					agent_name: agent.name,
+					settings: null,
+					attachments: this.$appStore.attachments.map(attachment => String(attachment.id))
+				});
+
+				this.longRunningOperations.set(this.currentSession.id, true);
+				await this.pollForCompletion(this.currentSession.id, operationId);
+			} else {
+				await this.$appStore.sendMessage(text);
+			}
+
 			this.isMessagePending = false;
 		},
+
+		async pollForCompletion(sessionId: string, operationId: string) {
+			while (true) {
+				const status = await this.$appStore.checkProcessStatus(operationId);
+				if (status.isCompleted) {
+					this.longRunningOperations.set(sessionId, false);
+					await this.$appStore.getMessages();
+					break;
+				}
+				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+			}
+		},
+
+		async handleOperationCompleted({ sessionId, operationId }: { sessionId: string, operationId: string }) {
+			if (this.currentSession.id === sessionId) {
+				await this.$appStore.getMessages();
+			}
+		},
+	},
+
+	mounted() {
+		eventBus.on('operation-completed', this.handleOperationCompleted);
+	},
+
+	beforeUnmount() {
+		eventBus.off('operation-completed', this.handleOperationCompleted);
 	},
 };
 </script>

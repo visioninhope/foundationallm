@@ -3,6 +3,7 @@ import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
 import type { Session, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
 import api from '@/js/api';
+import eventBus from '@/js/eventBus';
 
 export const useAppStore = defineStore('app', {
 	state: () => ({
@@ -14,6 +15,7 @@ export const useAppStore = defineStore('app', {
 		selectedAgents: new Map(),
 		lastSelectedAgent: null as ResourceProviderGetResult<Agent> | null,
 		attachments: [] as Attachment[],
+        longRunningOperations: new Map<string, string>(), // sessionId -> operationId
 	}),
 
 	getters: {},
@@ -25,7 +27,7 @@ export const useAppStore = defineStore('app', {
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
 				const newSession = await api.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
@@ -33,10 +35,15 @@ export const useAppStore = defineStore('app', {
 
 			if (this.sessions.length === 0) {
 				await this.addSession();
-				this.changeSession(this.sessions[0]);
+				await this.changeSession(this.sessions[0]);
 			} else {
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
-				this.changeSession(existingSession || this.sessions[0]);
+				await this.changeSession(existingSession || this.sessions[0]);
+			}
+
+			if (this.currentSession) {
+				await this.getMessages();
+				this.updateSessionAgentFromMessages(this.currentSession);
 			}
 		},
 
@@ -98,13 +105,13 @@ export const useAppStore = defineStore('app', {
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
 				const newSession = await this.addSession();
-				this.changeSession(newSession);
+				await this.changeSession(newSession);
 				return;
 			}
 
 			const firstSession = this.sessions[0];
 			if (firstSession) {
-				this.changeSession(firstSession);
+				await this.changeSession(firstSession);
 			}
 		},
 
@@ -113,7 +120,20 @@ export const useAppStore = defineStore('app', {
 			this.currentMessages = data;
 		},
 
+		updateSessionAgentFromMessages(session: Session) {
+			const lastAssistantMessage = this.currentMessages
+			  .filter((message) => message.sender.toLowerCase() === 'assistant')
+			  .pop();
+			if (lastAssistantMessage) {
+			  const agent = this.agents.find(agent => agent.resource.name === lastAssistantMessage.senderDisplayName);
+			  if (agent) {
+				this.setSessionAgent(session, agent);
+			  }
+			}
+		  },
+
 		getSessionAgent(session: Session) {
+			if (!session) return null;
 			let selectedAgent = this.selectedAgents.get(session.id);
 			if (!selectedAgent) {
 				if (this.lastSelectedAgent) {
@@ -132,6 +152,12 @@ export const useAppStore = defineStore('app', {
 			return this.selectedAgents.set(session.id, agent);
 		},
 
+		/**
+		 * Sends a message to the Core API.
+		 * 
+		 * @param text - The text of the message to send.
+		 * @returns A Promise that resolves when the message is sent.
+		 */
 		async sendMessage(text: string) {
 			if (!text) return;
 
@@ -166,23 +192,57 @@ export const useAppStore = defineStore('app', {
 			};
 			this.currentMessages.push(tempAssistantMessage);
 
-			await api.sendMessage(
-				this.currentSession!.id,
-				text,
-				this.getSessionAgent(this.currentSession!).resource,
-				this.attachments.map(attachment => String(attachment.id)), // Convert attachments to an array of strings
-			);
-			await this.getMessages();
+			const agent = this.getSessionAgent(this.currentSession!).resource;
+			if (agent.long_running) {
+				// Handle long-running operations
+				const operationId = await api.startLongRunningProcess('/completions', {
+					session_id: this.currentSession!.id,
+					user_prompt: text,
+					agent_name: agent.name,
+					settings: null,
+					attachments: this.attachments.map(attachment => String(attachment.id))
+				});
+
+				this.longRunningOperations.set(this.currentSession!.id, operationId);
+				this.pollForCompletion(this.currentSession!.id, operationId);
+			} else {
+				await api.sendMessage(
+					this.currentSession!.id,
+					text,
+					agent,
+					this.attachments.map(attachment => String(attachment.id)),
+				);
+				await this.getMessages();
+			}
 
 			// Update the session name based on the message sent.
 			if (this.currentMessages.length === 2) {
 				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
-				const { text: newSessionName } = await api.summarizeSessionName(
+				const { text: newSessionName } = await api.generateSessionName(
 					this.currentSession!.id,
 					sessionFullText,
-				);
-				await api.renameSession(this.currentSession!.id, newSessionName);
+				);				
+				// the generate session name already renames the session in the backend
 				this.currentSession!.name = newSessionName;
+			}
+        },
+
+		/**
+		 * Polls for the completion of a long-running operation.
+		 * 
+		 * @param sessionId - The session ID associated with the operation.
+		 * @param operationId - The ID of the operation to check for completion.
+		 */
+		async pollForCompletion(sessionId: string, operationId: string) {
+			while (true) {
+				const status = await api.checkProcessStatus(operationId);
+				if (status.isCompleted) {
+					this.longRunningOperations.delete(sessionId);
+					eventBus.emit('operation-completed', { sessionId, operationId });
+					await this.getMessages();
+					break;
+				}
+				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
 			}
 		},
 
@@ -202,7 +262,7 @@ export const useAppStore = defineStore('app', {
 			}
 		},
 
-		changeSession(newSession: Session) {
+		async changeSession(newSession: Session) {
 			const nuxtApp = useNuxtApp();
 			const appConfigStore = useAppConfigStore();
 
@@ -214,6 +274,8 @@ export const useAppStore = defineStore('app', {
 			}
 
 			this.currentSession = newSession;
+			await this.getMessages();
+			this.updateSessionAgentFromMessages(newSession);
 		},
 
 		toggleSidebar() {

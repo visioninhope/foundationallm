@@ -8,6 +8,7 @@
 						v-if="message.sender !== 'User'"
 						class="avatar"
 						src="~/assets/FLLM-Agent-Light.svg"
+						alt="Agent avatar"
 					/>
 					<span>{{ getDisplayName() }}</span>
 				</span>
@@ -35,7 +36,9 @@
 				<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 					<i class="pi pi-spin pi-spinner"></i>
 				</template>
-				<span v-else>{{ displayText }}</span>
+
+				<!-- Render the html content and any vue components within -->
+				<component :is="compiledMarkdownComponent"></component>
 			</div>
 
 			<div v-if="message.sender !== 'User'" class="message__footer">
@@ -126,6 +129,47 @@
 import type { PropType } from 'vue';
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
+import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
+
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github-dark-dimmed.css';
+import { marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
+import truncate from 'truncate-html';
+import DOMPurify from 'dompurify';
+
+const renderer = new marked.Renderer();
+renderer.code = (code, language) => {
+	const validLanguage = !!(language && hljs.getLanguage(language));
+	const highlighted = validLanguage ? hljs.highlight(code, { language }) : hljs.highlightAuto(code);
+	const languageClass = validLanguage ? `hljs language-${language}` : 'hljs';
+	const encodedCode = encodeURIComponent(code);
+	return `<pre><code class="${languageClass}" data-code="${encodedCode}" data-language="${highlighted.language}">${highlighted.value}</code></pre>`;
+};
+marked.use({ renderer });
+
+function addCodeHeaderComponents(htmlString) {
+	const parser = new DOMParser();
+	const doc = parser.parseFromString(htmlString, 'text/html');
+
+	doc.querySelectorAll('pre code').forEach((element) => {
+		const languageClass = element.getAttribute('class');
+		const encodedCode = element.getAttribute('data-code');
+		// const autoDetectLanguage = element.getAttribute('data-language');
+		const languageMatch = languageClass.match(/language-(\w+)/);
+		const language = languageMatch ? languageMatch[1] : 'plaintext';
+
+		const header = document.createElement('div');
+		header.innerHTML = `<code-block-header language="${language}" codecontent="${encodedCode}"></code-block-header>`;
+
+		element.parentNode.insertBefore(header.firstChild, element);
+	});
+
+	const html = doc.body.innerHTML;
+	const withVueCurlyBracesSanitized = html.replace(/{{/g, '&#123;&#123;').replace(/}}/g, '&#125;&#125;');
+
+	return withVueCurlyBracesSanitized;
+}
 
 export default {
 	name: 'ChatMessage',
@@ -148,34 +192,54 @@ export default {
 		return {
 			prompt: {} as CompletionPrompt,
 			viewPrompt: false,
-			displayText: '',
+			compiledVueTemplate: '',
+			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
-      		primaryButtonText: this.$appConfigStore.primaryButtonText
+			primaryButtonText: this.$appConfigStore.primaryButtonText,
 		};
+	},
+
+	computed: {
+		compiledMarkdown() {
+			return DOMPurify.sanitize(marked(this.message.text));
+		},
+
+		compiledMarkdownComponent() {
+			return {
+				template: `<div>${this.compiledVueTemplate}</div>`,
+				components: {
+					CodeBlockHeader,
+				},
+			 };
+		},
 	},
 
 	created() {
 		if (this.showWordAnimation) {
 			this.displayWordByWord();
 		} else {
-			this.displayText = this.message.text;
+			this.compiledVueTemplate = addCodeHeaderComponents(this.compiledMarkdown);
 		}
 	},
 
 	methods: {
 		displayWordByWord() {
-			const words = this.message.text.split(' ');
-			let index = 0;
+			if (this.currentWordIndex >= this.compiledMarkdown.split(/\s+/).length) return;
 
-			const displayNextWord = () => {
-				if (index < words.length) {
-					this.displayText += words[index] + ' ';
-					index++;
-					setTimeout(displayNextWord, 10);
-				}
-			};
+			this.currentWordIndex += 1;
+			const htmlString = truncate(this.compiledMarkdown, this.currentWordIndex, {
+				byWords: true,
+				stripTags: false,
+				ellipsis: '',
+				decodeEntities: false,
+				excludes: '',
+				reserveLastWord: false,
+				keepWhitespaces: true,
+			});
 
-			displayNextWord();
+			this.compiledVueTemplate = addCodeHeaderComponents(htmlString);
+
+			setTimeout(() => this.displayWordByWord(), 10);
 		},
 
 		formatTimeStamp(timeStamp: string) {
@@ -259,7 +323,7 @@ export default {
 }
 
 .message__body {
-	white-space: pre-wrap;
+	// white-space: pre-wrap;
 	overflow-wrap: break-word;
 	padding-left: 12px;
 	padding-right: 12px;

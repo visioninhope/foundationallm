@@ -118,12 +118,27 @@ $configurations = @{
         template = './data/role-assignments/DefaultRoleAssignments.template.json'
         render   = "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json"
     }
+    "completion-model" = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/completion-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/completion-model.json'
+    }
+    "embedding-model"  = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/embedding-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/embedding-model.json'
+    }
 }
 
 foreach ($configuration in $configurations.GetEnumerator()) {
     Write-Host "Formatting $($configuration.Key) environment variables" -ForegroundColor Blue
     $template = Resolve-Path $configuration.Value.template
     $render = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($configuration.Value.render)
+    Format-EnvironmentVariables -template $template -render $render
+}
+
+foreach ($apiConfigFilePath in $(Get-ChildItem -Path "./data/resource-provider/FoundationaLLM.Configuration")) {
+    $template = Resolve-Path "./data/resource-provider/FoundationaLLM.Configuration/$($apiConfigFilePath.Name)"
+    $formattedTemplateName = $apiConfigFilePath.Name -replace "template."
+    $render = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("../common/data/resource-provider/FoundationaLLM.Configuration/$formattedTemplateName")
     Format-EnvironmentVariables -template $template -render $render
 }
 

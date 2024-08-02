@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
@@ -10,6 +7,9 @@ using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Orchestration.Core.Services
 {
@@ -20,6 +20,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
     {
         readonly LangChainServiceSettings _settings;
         readonly ILogger<LangChainService> _logger;
+        private readonly ICallContext _callContext;
         private readonly IHttpClientFactoryService _httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions;
 
@@ -29,19 +30,21 @@ namespace FoundationaLLM.Orchestration.Core.Services
         public LangChainService(
             IOptions<LangChainServiceSettings> options,
             ILogger<LangChainService> logger,
+            ICallContext callContext,
             IHttpClientFactoryService httpClientFactoryService) 
         {
             _settings = options.Value;
             _logger = logger;
+            _callContext = callContext;
             _httpClientFactoryService = httpClientFactoryService;
             _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
             _jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         }
 
         /// <inheritdoc/>
-        public async Task<ServiceStatusInfo> GetStatus()
+        public async Task<ServiceStatusInfo> GetStatus(string instanceId)
         {
-            var client = _httpClientFactoryService.CreateClient(HttpClients.LangChainAPI);
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.LangChainAPI, _callContext.CurrentUserIdentity);
             var responseMessage = await client.SendAsync(
                 new HttpRequestMessage(HttpMethod.Get, "status"));
 
@@ -55,11 +58,12 @@ namespace FoundationaLLM.Orchestration.Core.Services
         /// <summary>
         /// Executes a completion request against the orchestration service.
         /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="request">Request object populated from the hub APIs including agent, prompt, data source, and model information.</param>
         /// <returns>Returns a completion response from the orchestration engine.</returns>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request)
+        public async Task<LLMCompletionResponse> GetCompletion(string instanceId, LLMCompletionRequest request)
         {
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.LangChainAPI);
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.LangChainAPI, _callContext.CurrentUserIdentity);
 
             var body = JsonSerializer.Serialize(request, _jsonSerializerOptions);
             var responseMessage = await client.PostAsync("orchestration/completion",
@@ -74,6 +78,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
                 return new LLMCompletionResponse
                 {
+                    OperationId = request.OperationId,
                     Completion = completionResponse!.Completion,
                     Citations = completionResponse.Citations,
                     UserPrompt = completionResponse.UserPrompt,
@@ -90,6 +95,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
 
             return new LLMCompletionResponse
             {
+                OperationId = request.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = request.UserPrompt,
                 PromptTemplate = string.Empty,

@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Vectorization;
@@ -31,7 +32,7 @@ namespace FoundationaLLM.Gateway.Models
         private readonly ITextEmbeddingService _textEmbeddingService = new SemanticKernelTextEmbeddingService(
                 Options.Create(new SemanticKernelTextEmbeddingServiceSettings
                 {
-                    AuthenticationType = AzureOpenAIAuthenticationTypes.AzureIdentity,
+                    AuthenticationType = AuthenticationTypes.AzureIdentity,
                     Endpoint = deployment.AccountEndpoint,
                     DeploymentName = deployment.Name
                 }),

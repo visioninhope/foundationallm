@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
@@ -9,7 +10,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(KnowledgeManagementAgent), "knowledge-management")]
-    [JsonDerivedType(typeof(InternalContextAgent), "internal-context")]
     public class AgentBase : ResourceBase
     {
         /// <inheritdoc/>
@@ -24,24 +24,37 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         /// <summary>
         /// The agent's conversation history configuration.
         /// </summary>
-        [JsonPropertyName("conversation_history")]
-        public ConversationHistory? ConversationHistory { get; set; }
+        [JsonPropertyName("conversation_history_settings")]
+        public ConversationHistorySettings? ConversationHistorySettings { get; set; }
         /// <summary>
         /// The agent's Gatekeeper configuration.
         /// </summary>
-        [JsonPropertyName("gatekeeper")]
-        public Gatekeeper? Gatekeeper { get; set; }
+        [JsonPropertyName("gatekeeper_settings")]
+        public GatekeeperSettings? GatekeeperSettings { get; set; }
 
         /// <summary>
         /// Settings for the orchestration service.
         /// </summary>
         [JsonPropertyName("orchestration_settings")]
-        public OrchestrationSettings? OrchestrationSettings { get; set; }
+        public AgentOrchestrationSettings? OrchestrationSettings { get; set; }
+
         /// <summary>
-        /// The agent's prompt.
+        /// The object identifier of the <see cref="PromptBase"/> object providing the prompt for the agent.
         /// </summary>
         [JsonPropertyName("prompt_object_id")]
         public string? PromptObjectId { get; set; }
+		
+        /// <summary>
+        /// The object identifier of the <see cref="AIModelBase"/> object providing the AI model for the agent.
+        /// </summary>
+        [JsonPropertyName("ai_model_object_id")]
+        public string? AIModelObjectId { get; set; }
+
+        /// <summary>
+        /// Indicates whether the agent is long running and should use the polling pattern.
+        /// </summary>
+        [JsonPropertyName("long_running")]
+        public bool LongRunning { get; set; } = false;
 
         /// <summary>
         /// The object type of the agent.
@@ -51,7 +64,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
             Type switch
             {
                 AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
-                AgentTypes.InternalContext => typeof(KnowledgeManagementAgent), // Temporary until InternalContextAgent is completeyl removed.
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }
@@ -59,7 +71,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// <summary>
     /// Agent conversation history settings.
     /// </summary>
-    public class ConversationHistory
+    public class ConversationHistorySettings
     {
         /// <summary>
         /// Indicates whether the conversation history is enabled.
@@ -76,7 +88,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// <summary>
     /// Agent Gatekeeper settings.
     /// </summary>
-    public class Gatekeeper
+    public class GatekeeperSettings
     {
         /// <summary>
         /// Indicates whether to abide by or override the system settings for the Gatekeeper.
