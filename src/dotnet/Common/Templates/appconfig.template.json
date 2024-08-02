@@ -8,6 +8,13 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:Instance:SecurityGroupRetrievalStrategy",
+            "value": "IdentityManagementService",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:Configuration:KeyVaultURI",
             "value": "${env:AZURE_KEY_VAULT_ENDPOINT}",
             "label": null,
@@ -822,6 +829,13 @@
         {
             "key": "FoundationaLLM:Events:Profiles:VectorizationWorker",
             "value": "${env:FOUNDATIONALLM_VECTORIZATION_WORKER_EVENT_GRID_PROFILE}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:GatekeeperAPI",
+            "value": "${env:FOUNDATIONALLM_GATEKEEPER_API_EVENT_GRID_PROFILE}",
             "label": null,
             "content_type": "application/json",
             "tags": {}
