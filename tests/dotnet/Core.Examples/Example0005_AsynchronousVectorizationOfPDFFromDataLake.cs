@@ -185,6 +185,11 @@ namespace FoundationaLLM.Core.Examples
                 if (result.VectorResults.TotalCount != 27)
                     throw new Exception($"Query did not return the expected number of vector results. Expected: 27, Retrieved: {result.VectorResults.TotalCount}");
             }
+            catch (Exception ex)
+            {
+                WriteLine($"Exception: {ex.Message}");
+                throw;
+            }
             finally
             {
                 WriteLine($"Delete the App Configuration key {accountNameAppConfigKey}");
