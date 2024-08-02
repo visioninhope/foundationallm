@@ -12,6 +12,7 @@ using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Services.RequestProcessors;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -126,6 +127,16 @@ namespace FoundationaLLM.Management.API
             builder.AddOpenTelemetry(
                 AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_AppInsightsConnectionString,
                 ServiceNames.ManagementAPI);
+
+            // Increase request size limit to 512 MB.
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.Limits.MaxRequestBodySize = 536870912; // 512 MB
+            });
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 536870912; // 512 MB
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddProblemDetails();
