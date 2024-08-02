@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Configuration.Storage;
+﻿using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Services.ContentSources;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,7 @@ namespace Vectorization.Tests.Services.ContentSources
         public DataLakeContentSourceServiceTests() {
             _dataLakeContentSourceService = new DataLakeContentSourceService(
                 new BlobStorageServiceSettings { 
-                    AuthenticationType = BlobStorageAuthenticationTypes.ConnectionString,
+                    AuthenticationType = AuthenticationTypes.ConnectionString,
                     ConnectionString = Environment.GetEnvironmentVariable("DataLakeContentServiceTestsConnectionString")
                 },
                 LoggerFactory.Create(builder => builder.AddConsole())

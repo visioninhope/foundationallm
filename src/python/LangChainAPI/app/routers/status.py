@@ -7,13 +7,13 @@ from foundationallm.config.environment_variables import HOSTNAME, FOUNDATIONALLM
 from app.dependencies import API_NAME
 
 router = APIRouter(
-    prefix='/status',
+    prefix='/instances/{instance_id}/status',
     tags=['status'],
     responses={404: {'description':'Not found'}}
 )
 
 @router.get('')
-async def get_status():
+async def get_status(instance_id: str):
     """
     Retrieves the status of the API.
     
@@ -24,7 +24,8 @@ async def get_status():
     """    
     statusMessage = {
         "name": API_NAME,
-        "instance": os.environ[HOSTNAME],
+        "instance_id": instance_id,
+        "instance_name": os.environ[HOSTNAME],
         "version": os.environ[FOUNDATIONALLM_VERSION],
         "status": "ready"
     }

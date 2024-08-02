@@ -8,18 +8,20 @@ export const useAppConfigStore = defineStore('appConfig', {
 		apiUrl: null,
 		authorizationApiUrl: null,
 		coreApiUrl: null,
-		gatekeeperApiUrl: null,
-		gatekeeperIntegrationApiUrl: null,
-		gatewayApiUrl: null,
-		langChainApiUrl: null,
-		orchestrationApiUrl: null,
-		semanticKernelApiUrl: null,
-		vectorizationApiUrl: null,
-		vectorizationWorkerApiUrl: null,
+		stateApiUrl: null,
+		// gatekeeperApiUrl: null,
+		// gatekeeperIntegrationApiUrl: null,
+		// gatewayApiUrl: null,
+		// langChainApiUrl: null,
+		// orchestrationApiUrl: null,
+		// semanticKernelApiUrl: null,
+		// vectorizationApiUrl: null,
+		// vectorizationWorkerApiUrl: null,
 
 		instanceId: null,
 
 		// Style: These settings impact the visual style of the chat interface.
+		favIconUrl: null,
 		logoUrl: null,
 		logoText: null,
 		primaryBg: null,
@@ -33,6 +35,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 		primaryButtonText: null,
 		secondaryButtonBg: null,
 		secondaryButtonText: null,
+		footerText: null,
 
 		// Auth: These settings configure the MSAL authentication.
 		auth: {
@@ -46,19 +49,29 @@ export const useAppConfigStore = defineStore('appConfig', {
 	getters: {},
 	actions: {
 		async getConfigVariables() {
+			const getConfigValueSafe = async (key: string, defaultValue: any = null) => {
+				try {
+					return await api.getConfigValue(key);
+				} catch (error) {
+					console.error(`Failed to get config value for key ${key}:`, error);
+					return defaultValue;
+				}
+			};
+
 			const [
 				apiUrl,
 				authorizationApiUrl,
 				coreApiUrl,
-				gatekeeperApiUrl,
-				gatekeeperIntegrationApiUrl,
-				gatewayApiUrl,
-				langChainApiUrl,
-				orchestrationApiUrl,
-				semanticKernelApiUrl,
-				vectorizationApiUrl,
-				vectorizationWorkerApiUrl,
-				instanceId,
+				stateApiUrl,
+				// gatekeeperApiUrl,
+				// gatekeeperIntegrationApiUrl,
+				// gatewayApiUrl,
+				// langChainApiUrl,
+				// orchestrationApiUrl,
+				// semanticKernelApiUrl,
+				// vectorizationApiUrl,
+				// vectorizationWorkerApiUrl,
+				favIconUrl,
 				logoUrl,
 				logoText,
 				primaryBg,
@@ -72,61 +85,66 @@ export const useAppConfigStore = defineStore('appConfig', {
 				primaryButtonText,
 				secondaryButtonBg,
 				secondaryButtonText,
+				footerText,
+				instanceId,
 				authClientId,
 				authInstance,
 				authTenantId,
 				authScopes,
 				authCallbackPath,
 			] = await Promise.all([
-				api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:AuthorizationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:CoreAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatekeeperAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatewayAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:LangChainAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:OrchestrationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:SemanticKernelAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:VectorizationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:VectorizationWorker:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:CoreAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:APIUrl'),
 
-				api.getConfigValue('FoundationaLLM:Instance:Id'),
+				getConfigValueSafe('FoundationaLLM:Branding:FavIconUrl'),
+				getConfigValueSafe('FoundationaLLM:Branding:LogoUrl', 'foundationallm-logo-white.svg'),
+				getConfigValueSafe('FoundationaLLM:Branding:LogoText'),
+				getConfigValueSafe('FoundationaLLM:Branding:BackgroundColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryColor', '#131833'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryColor', '#334581'),
+				getConfigValueSafe('FoundationaLLM:Branding:AccentColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:AccentTextColor', '#131833'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryButtonBackgroundColor', '#5472d4'),
+				getConfigValueSafe('FoundationaLLM:Branding:PrimaryButtonTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonBackgroundColor', '#70829a'),
+				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonTextColor', '#fff'),
+				getConfigValueSafe('FoundationaLLM:Branding:FooterText'),
+				getConfigValueSafe('FoundationaLLM:Instance:Id', '00000000-0000-0000-0000-000000000000'),
 
-				api.getConfigValue('FoundationaLLM:Branding:LogoUrl'),
-				api.getConfigValue('FoundationaLLM:Branding:LogoText'),
-				api.getConfigValue('FoundationaLLM:Branding:BackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryColor'),
-				api.getConfigValue('FoundationaLLM:Branding:AccentColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:AccentTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonBackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:PrimaryButtonTextColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonBackgroundColor'),
-				api.getConfigValue('FoundationaLLM:Branding:SecondaryButtonTextColor'),
-
-				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:TenantId'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:Scopes'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:CallbackPath'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:ClientId'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:Instance'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:TenantId'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:Scopes'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:CallbackPath'),
 			]);
 
 			this.apiUrl = apiUrl;
 			this.authorizationApiUrl = authorizationApiUrl;
 			this.coreApiUrl = coreApiUrl;
-			this.gatekeeperApiUrl = gatekeeperApiUrl;
-			this.gatekeeperIntegrationApiUrl = gatekeeperIntegrationApiUrl;
-			this.gatewayApiUrl = gatewayApiUrl;
-			this.langChainApiUrl = langChainApiUrl;
-			this.orchestrationApiUrl = orchestrationApiUrl;
-			this.semanticKernelApiUrl = semanticKernelApiUrl;
-			this.vectorizationApiUrl = vectorizationApiUrl;
-			this.vectorizationWorkerApiUrl = vectorizationWorkerApiUrl;
+			this.stateApiUrl = stateApiUrl;
+			// this.gatekeeperApiUrl = gatekeeperApiUrl;
+			// this.gatekeeperIntegrationApiUrl = gatekeeperIntegrationApiUrl;
+			// this.gatewayApiUrl = gatewayApiUrl;
+			// this.langChainApiUrl = langChainApiUrl;
+			// this.orchestrationApiUrl = orchestrationApiUrl;
+			// this.semanticKernelApiUrl = semanticKernelApiUrl;
+			// this.vectorizationApiUrl = vectorizationApiUrl;
+			// this.vectorizationWorkerApiUrl = vectorizationWorkerApiUrl;
 
 			this.instanceId = instanceId;
 
+			this.favIconUrl = favIconUrl;
 			this.logoUrl = logoUrl;
 			this.logoText = logoText;
 			this.primaryBg = primaryBg;
@@ -140,6 +158,7 @@ export const useAppConfigStore = defineStore('appConfig', {
 			this.primaryButtonText = primaryButtonText;
 			this.secondaryButtonBg = secondaryButtonBg;
 			this.secondaryButtonText = secondaryButtonText;
+			this.footerText = footerText;
 
 			this.auth.clientId = authClientId;
 			this.auth.instance = authInstance;

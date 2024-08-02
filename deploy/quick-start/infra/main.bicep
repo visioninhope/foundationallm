@@ -76,6 +76,9 @@ var openAiInstance = {
   subscriptionId: subscription().subscriptionId
 }
 
+var deploymentConfigurations = loadJsonContent('../../common/config/openAiDeploymentConfig.json')
+var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, location))
+
 // Tags that should be applied to all resources.
 //
 // Note that 'azd-service-name' tags should be applied separately to service host resources.
@@ -200,21 +203,31 @@ module cosmosDb './shared/cosmosdb.bicep' = {
         name: 'UserSessions'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'UserProfiles'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'Sessions'
         partitionKeyPath: '/sessionId'
         maxThroughput: 1000
+        defaultTtl: null
+      }
+      {
+        name: 'State'
+        partitionKeyPath: '/operation_id'
+        maxThroughput: 1000
+        defaultTtl: 604800
       }
       {
         name: 'leases'
         partitionKeyPath: '/id'
         maxThroughput: 1000
+        defaultTtl: null
       }
     ]
     databaseName: 'database'
@@ -261,6 +274,7 @@ module searchReaderRoles './shared/roleAssignments.bicep' = [
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
         'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+        'Search Service Contributor': '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
       }
     }
   }
@@ -351,30 +365,7 @@ module openAi './shared/openai.bicep' =
       sku: 'S0'
       tags: tags
 
-      deployments: [
-        {
-          name: 'completions'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'gpt-35-turbo'
-            version: '0613'
-          }
-        }
-        {
-          name: 'embeddings'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'text-embedding-ada-002'
-            version: '2'
-          }
-        }
-      ]
+      deployments: deployments
     }
   }
 
@@ -393,18 +384,6 @@ module storage './shared/storage.bicep' = {
   name: 'storage-${timestamp}'
   params: {
     containers: [
-      {
-        name: 'agents'
-      }
-      {
-        name: 'data-sources'
-      }
-      {
-        name: 'foundationallm-source'
-      }
-      {
-        name: 'prompts'
-      }
       {
         name: 'resource-provider'
       }
@@ -442,22 +421,28 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'configuration'
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'storage'
     location: location
     tags: tags
     storageAccountName: storage.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
@@ -527,6 +512,9 @@ module authAcaService './app/authAcaService.bicep' = {
     keyvaultName: authKeyvault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
+    cpu: authService.cpu
+    memory: authService.memory
+    replicaCount: empty(authService.replicaCount) ? 0 : int(authService.replicaCount)
     exists: authServiceExists == 'true'
     appDefinition: serviceDefinition
     hasIngress: true
@@ -554,13 +542,16 @@ module acaServices './app/acaService.bicep' = [
       appDefinition: serviceDefinition
       applicationInsightsName: monitoring.outputs.applicationInsightsName
       containerAppsEnvironmentName: appsEnv.outputs.name
+      cpu: service.cpu
       exists: servicesExist['${service.name}'] == 'true'
       hasIngress: service.hasIngress
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
       imageName: service.image
       keyvaultName: keyVault.outputs.name
       location: location
+      memory: service.memory
       name: '${abbrs.appContainerApps}${service.name}'
+      replicaCount: empty(service.replicaCount) ? 0 : int(service.replicaCount)
       resourceToken: resourceToken
       serviceName: service.name
       tags: tags
@@ -597,6 +588,7 @@ module acaServices './app/acaService.bicep' = [
 var cosmosRoleTargets = [
   'core-api'
   'core-job'
+  'state-api'
 ]
 
 module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
@@ -622,6 +614,23 @@ module openAiRoles './shared/roleAssignments.bicep' = [
       roleDefinitionNames: [
         'Cognitive Services OpenAI User'
         'Reader'
+      ]
+    }
+  }
+]
+
+var contentSafetyTargets = [
+  'gatekeeper-api'
+]
+
+module contentSafetyRoles './shared/roleAssignments.bicep' = [
+  for target in contentSafetyTargets: {
+    scope: rg
+    name: '${target}-cs-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services User'
       ]
     }
   }
@@ -683,12 +692,14 @@ output SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL string = acaServices[indexOf(ser
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.uri
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-integration-api')].outputs.uri
 output SERVICE_GATEWAY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-api')].outputs.uri
+output SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-adapter-api')].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId
 output SERVICE_MANAGEMENT_UI_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-ui')].outputs.uri
 output SERVICE_PROMPT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'prompt-hub-api')].outputs.uri
 output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'semantic-kernel-api')].outputs.uri
+output SERVICE_STATE_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'state-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.miPrincipalId
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.uri

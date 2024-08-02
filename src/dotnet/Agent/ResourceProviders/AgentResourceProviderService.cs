@@ -39,7 +39,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
@@ -248,7 +248,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                             DataSourceObjectId = kmAgent.Vectorization.DataSourceObjectId!,
                             TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
                             TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
-                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectId!,
+                            IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectIds[0]!,
                             TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!,
                             TriggerCronSchedule = kmAgent.Vectorization.TriggerCronSchedule
                         }),
@@ -273,6 +273,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
                         StatusCodes.Status400BadRequest);
                 }
             }
+
+            if (existingAgentReference == null)
+                agent.CreatedBy = userIdentity.UPN;
+            else
+                agent.UpdatedBy = userIdentity.UPN;
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,

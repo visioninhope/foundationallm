@@ -16,6 +16,11 @@
 				"name": "FoundationaLLM.Authorization/roleAssignments/delete",
 				"description": "Delete role assignments.",
 				"field_name": "FoundationaLLM_Authorization_RoleAssignments_Delete"
+			},
+			{
+				"name": "FoundationaLLM.Authorization/roleDefinitions/read",
+				"description": "Read role definitions.",
+				"field_name": "FoundationaLLM_Authorization_RoleDefinitions_Read"
 			}
 		]
 	},
@@ -73,19 +78,19 @@
 				"field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Delete"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/read",
-				"description": "Read external orchestration services.",
-				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Read"
+				"name": "FoundationaLLM.Configuration/apiEndpoints/read",
+				"description": "Read API endpoints.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Read"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/write",
-				"description": "Create or update external orchestration services.",
-				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Write"
+				"name": "FoundationaLLM.Configuration/apiEndpoints/write",
+				"description": "Create or update API endpoints.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Write"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/externalOrchestrationServices/delete",
-				"description": "Delete external orchestration services.",
-				"field_name": "FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete"
+				"name": "FoundationaLLM.Configuration/apiEndpoints/delete",
+				"description": "Delete API endpoints.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Delete"
 			}
 		]
 	},
@@ -276,6 +281,26 @@
 				"name": "FoundationaLLM.Attachment/attachments/delete",
 				"description": "Delete attachments.",
 				"field_name": "FoundationaLLM_Attachment_Attachments_Delete"
+			}
+		]
+	},
+	{
+		"category": "AIModel",
+		"actions": [
+			{
+				"name": "FoundationaLLM.AIModel/aiModels/read",
+				"description": "Read aiModels models",
+				"field_name": "FoundationaLLM_AIModel_Models_Read"
+			},
+			{
+				"name": "FoundationaLLM.AIModel/aiModels/write",
+				"description": "Create or update models.",
+				"field_name": "FoundationaLLM_AIModel_Models_Write"
+			},
+			{
+				"name": "FoundationaLLM.AIModel/aiModels/delete",
+				"description": "Delete models.",
+				"field_name": "FoundationaLLM_AIModel_Models_Delete"
 			}
 		]
 	}

@@ -1,10 +1,13 @@
 ﻿using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -32,12 +35,22 @@ namespace FoundationaLLM.Authorization.Services
         /// <inheritdoc/>
         public async Task<ActionAuthorizationResult> ProcessAuthorizationRequest(
             string instanceId,
-            ActionAuthorizationRequest authorizationRequest)
+            string action,
+            List<string> resourcePaths,
+            UnifiedUserIdentity userIdentity)
         {
-            var defaultResults = authorizationRequest.ResourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
+            var defaultResults = resourcePaths.Distinct().ToDictionary(rp => rp, auth => false);
 
             try
             {
+                var authorizationRequest = new ActionAuthorizationRequest
+                {
+                    Action = action,
+                    ResourcePaths = resourcePaths,
+                    PrincipalId = userIdentity.UserId,
+                    SecurityGroupIds = userIdentity.GroupIds
+                };
+
                 var httpClient = await CreateHttpClient();
                 var response = await httpClient.PostAsync(
                     $"/instances/{instanceId}/authorize",
@@ -60,7 +73,10 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(string instanceId, RoleAssignmentRequest roleAssignmentRequest)
+        public async Task<RoleAssignmentResult> ProcessRoleAssignmentRequest(
+            string instanceId,
+            RoleAssignmentRequest roleAssignmentRequest,
+            UnifiedUserIdentity userIdentity)
         {
             try
             {
@@ -91,9 +107,12 @@ namespace FoundationaLLM.Authorization.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, RoleAssignmentsWithactionsResult>> ProcessRoleAssignmentsWithActionsRequest(string instanceId, RoleAssignmentsWithActionsRequest request)
+        public async Task<Dictionary<string, RoleAssignmentsWithActionsResult>> ProcessRoleAssignmentsWithActionsRequest(
+            string instanceId,
+            RoleAssignmentsWithActionsRequest request,
+            UnifiedUserIdentity userIdentity)
         {
-            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithactionsResult() { Actions = [], Roles = [] });
+            var defaultResults = request.Scopes.Distinct().ToDictionary(scp => scp, res => new RoleAssignmentsWithActionsResult() { Actions = [], Roles = [] });
 
             try
             {
@@ -105,7 +124,7 @@ namespace FoundationaLLM.Authorization.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<Dictionary<string, RoleAssignmentsWithactionsResult>>(responseContent)!;
+                    return JsonSerializer.Deserialize<Dictionary<string, RoleAssignmentsWithActionsResult>>(responseContent)!;
                 }
 
                 _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
@@ -118,6 +137,73 @@ namespace FoundationaLLM.Authorization.Services
             }
         }
 
+
+        /// <inheritdoc/>
+        public async Task<List<object>> GetRoleAssignments(
+            string instanceId,
+            RoleAssignmentQueryParameters queryParameters,
+            UnifiedUserIdentity userIdentity)
+        {
+            try
+            {
+                var httpClient = await CreateHttpClient();
+                var response = await httpClient.PostAsync(
+                    $"/instances/{instanceId}/roleassignments/query",
+                    JsonContent.Create(queryParameters));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<List<object>>(responseContent)!;
+                }
+
+                _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
+                return [];
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was an error calling the Authorization API");
+                return [];
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<RoleAssignmentResult> RevokeRoleAssignment(
+            string instanceId,
+            string roleAssignment,
+            UnifiedUserIdentity userIdentity)
+        {
+            try
+            {
+                var httpClient = await CreateHttpClient();
+                var response = await httpClient.DeleteAsync(
+                    $"/instances/{instanceId}/roleassignments/{roleAssignment}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<RoleAssignmentResult>(responseContent);
+
+                    if (result == null)
+                        return new RoleAssignmentResult() { Success = false };
+
+                    return result;
+                }
+
+                _logger.LogError("The call to the Authorization API returned an error: {StatusCode} - {ReasonPhrase}.", response.StatusCode, response.ReasonPhrase);
+                return new RoleAssignmentResult() { Success = false };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was an error calling the Authorization API");
+                return new RoleAssignmentResult() { Success = false };
+            }
+        }
+
+        /// <summary>
+        /// Exception to the unified HTTP client factory when consuming the Authorization API.
+        /// </summary>
+        /// <returns></returns>
         private async Task<HttpClient> CreateHttpClient()
         {
             var httpClient = _httpClientFactory.CreateClient();
@@ -125,7 +211,7 @@ namespace FoundationaLLM.Authorization.Services
 
             var credentials = DefaultAuthentication.AzureCredential;
             var tokenResult = await credentials.GetTokenAsync(
-                new ([_settings.APIScope]),
+                new([_settings.APIScope]),
                 default);
 
             httpClient.DefaultRequestHeaders.Authorization =

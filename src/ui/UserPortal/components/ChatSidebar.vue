@@ -5,6 +5,7 @@
 			<img
 				v-if="$appConfigStore.logoUrl !== ''"
 				:src="$filters.enforceLeadingSlash($appConfigStore.logoUrl)"
+				alt="Logo"
 			/>
 			<span v-else>{{ $appConfigStore.logoText }}</span>
 			<Button
@@ -12,6 +13,7 @@
 				size="small"
 				severity="secondary"
 				class="secondary-button"
+				aria-label="Toggle sidebar"
 				@click="$appStore.toggleSidebar"
 			/>
 		</div>
@@ -20,7 +22,13 @@
 			<!-- <button @click="handleAddSession">
 				<span class="text">+</span>
 			</button> -->
-			<Button icon="pi pi-plus" text severity="secondary" @click="handleAddSession" />
+			<Button
+				icon="pi pi-plus"
+				text
+				severity="secondary"
+				aria-label="Add new chat"
+				@click="handleAddSession"
+			/>
 		</div>
 
 		<!-- Chats -->
@@ -45,6 +53,7 @@
 							size="small"
 							severity="secondary"
 							text
+							aria-label="Rename chat session"
 							@click.stop="openRenameModal(session)"
 						/>
 
@@ -55,6 +64,7 @@
 							size="small"
 							severity="danger"
 							text
+							aria-label="Delete chat session"
 							@click.stop="sessionToDelete = session"
 						/>
 					</span>

@@ -1,6 +1,7 @@
 appConfig:
   uri: {{appConfigEndpoint}}
   connectionString: {{appConfigConnectionString}}
+  rwConnectionString: {{appConfigRWConnectionString}}
 azureWorkloadIdentity:
   orchestrationApiClientId: {{orchestrationApiMiClientId}}
   agentHubApiClientId: {{agentHubApiMiClientId}}
@@ -22,6 +23,7 @@ azureWorkloadIdentity:
 apihost: {{serviceHostname}}
 authKeyvaultUri: {{authKeyvaultUri}}
 baseUrl: {{serviceBaseUrl}}
+instanceId: {{instanceId}}
 
 ingress:
   enabled: false

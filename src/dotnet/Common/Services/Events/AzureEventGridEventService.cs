@@ -1,8 +1,8 @@
 ﻿using Azure;
-using Azure.Identity;
 using Azure.Messaging.EventGrid.Namespaces;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Events;
@@ -45,6 +45,10 @@ namespace FoundationaLLM.Common.Services.Events
             },
             {
                 EventSetEventNamespaces.FoundationaLLM_ResourceProvider_Attachment,
+                null
+            },
+            {
+                EventSetEventNamespaces.FoundationaLLM_ResourceProvider_AIModel,
                 null
             }
         };
@@ -329,8 +333,8 @@ namespace FoundationaLLM.Common.Services.Events
         private EventGridClient? GetClient() =>
             _settings.AuthenticationType switch
             {
-                AzureEventGridAuthenticationTypes.AzureIdentity => GetClientFromIdentity(),
-                AzureEventGridAuthenticationTypes.APIKey => GetClientFromAPIKey(),
+                AuthenticationTypes.AzureIdentity => GetClientFromIdentity(),
+                AuthenticationTypes.APIKey => GetClientFromAPIKey(),
                 _ => throw new ConfigurationValueException($"The {_settings.AuthenticationType} authentication type is not supported by the Azure Event Grid events service.")
             };
 

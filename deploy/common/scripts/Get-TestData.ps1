@@ -45,12 +45,6 @@ function Get-AbsolutePath {
 # Navigate to the script directory so that we can use relative paths.
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 try {
-    $status = (azcopy login status)
-    if (-not $status.contains("Your login session is still active")) {
-        Write-Host -ForegroundColor Blue "Please Follow the instructions below to login to Azure using AzCopy."
-        azcopy login
-    }
-
     $testDataPath = "../data/test" | Get-AbsolutePath
     Write-Host "Writing vectorization-input data to: $testDataPath" -ForegroundColor Yellow
     Invoke-CLICommand "Copy vectorization-input data from the storage account: ${storageAccountName}" {
@@ -60,12 +54,6 @@ try {
     Write-Host "Writing index-backup data to: $testDataPath" -ForegroundColor Yellow
     Invoke-CLICommand "Copy index-backup data from the storage account: ${storageAccountName}" {
         azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/index-backup" $testDataPath --recursive
-    }
-
-    $testSettingsPath = "../../../tests/dotnet/Core.Examples/testsettings.json" | Get-AbsolutePath
-    Write-Host "Writing testsettings.json data to: $testSettingsPath" -ForegroundColor Yellow
-    Invoke-CLICommand "Copy testsettings.json data from the storage account: ${storageAccountName}" {
-        azcopy copy "https://$($storageAccountName).blob.core.windows.net/e2e/testsettings.json" $testSettingsPath
     }
 }
 catch {

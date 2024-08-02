@@ -6,6 +6,7 @@ class CompletionResponse(BaseModel):
     """
     Response from a language model.
     """
+    operation_id: str
     user_prompt: str
     full_prompt: Optional[str] = None
     completion: Union[str, set, List[str]]

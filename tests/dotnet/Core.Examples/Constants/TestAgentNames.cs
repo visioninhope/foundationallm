@@ -53,5 +53,10 @@
         /// The name of the Dune Authority agent that interacts with other agents.
         /// </summary>
         public const string Dune03 = "Dune-03";
+        /// <summary>
+        /// The name of the Dune semantic kernel agent.
+        /// </summary>
+        public const string LangChainDune = "KMAgentWithLangChainDune";
+
     }
 }

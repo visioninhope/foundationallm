@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Examples.Constants;
 
@@ -12,6 +11,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
     public static class AgentCatalog
     {
         #region Knowledge Management agents
+
         /// <summary>
         /// Catalog of knowledge management agents.
         /// </summary>
@@ -26,35 +26,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -65,35 +53,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null,
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
                     Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                        },
-                    ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                            { "deployment_name", "completions" }
-                        }
-                }
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -104,36 +80,24 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null,
                     DataSourceObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                        },
-                    ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                            { "deployment_name", "completions" }
-                        }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -144,36 +108,24 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null,
                     DataSourceObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
-                        {
-                            { "auth_type", "key" },
-                            { "provider", "microsoft" },
-                            { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                            { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                            { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                        },
-                    ModelParameters = new Dictionary<string, object>
-                        {
-                            { "temperature", 0 },
-                            { "deployment_name", "completions" }
-                        }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -184,35 +136,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -223,35 +163,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -262,35 +190,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.LangChain,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0.5 },
-                        { "deployment_name", "completions-gpt-4-32k" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_GPT4_32K
             },
             new KnowledgeManagementAgent
             {
@@ -301,35 +217,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -340,35 +244,23 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
             new KnowledgeManagementAgent
             {
@@ -379,36 +271,52 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Vectorization = new AgentVectorizationSettings
                 {
                     DedicatedPipeline = false,
-                    IndexingProfileObjectId = null,
+                    IndexingProfileObjectIds = null,
                     TextEmbeddingProfileObjectId = null
                 },
-                ConversationHistory = new ConversationHistory
+                ConversationHistorySettings = new ConversationHistorySettings
                 {
                     Enabled = true,
                     MaxHistory = 10
                 },
-                Gatekeeper = new Gatekeeper
+                GatekeeperSettings = new GatekeeperSettings
                 {
                     UseSystemSetting = false
                 },
-                OrchestrationSettings = new OrchestrationSettings
+                OrchestrationSettings = new AgentOrchestrationSettings
                 {
-                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel,
-                    EndpointConfiguration = new Dictionary<string, object>
-                    {
-                        { "auth_type", "key" },
-                        { "provider", "microsoft" },
-                        { "endpoint", "FoundationaLLM:AzureOpenAI:API:Endpoint" },
-                        { "api_key", "FoundationaLLM:AzureOpenAI:API:Key" },
-                        { "api_version", "FoundationaLLM:AzureOpenAI:API:Version" }
-                    },
-                    ModelParameters = new Dictionary<string, object>
-                    {
-                        { "temperature", 0 },
-                        { "deployment_name", "completions" }
-                    }
-                }
+                    Orchestrator = LLMOrchestrationServiceNames.SemanticKernel
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
             },
+            new KnowledgeManagementAgent
+            {
+                Name = TestAgentNames.LangChainDune,
+                Description = "Knowledge Management Agent that queries the Dune books using LangChain.",
+                InlineContext = false,
+                SessionsEnabled = true,
+                Vectorization = new AgentVectorizationSettings
+                {
+                    DedicatedPipeline = false,
+                    IndexingProfileObjectIds = null,
+                    TextEmbeddingProfileObjectId = null
+                },
+                ConversationHistorySettings = new ConversationHistorySettings
+                {
+                    Enabled = true,
+                    MaxHistory = 10
+                },
+                GatekeeperSettings = new GatekeeperSettings
+                {
+                    UseSystemSetting = false
+                },
+                OrchestrationSettings = new AgentOrchestrationSettings
+                {
+                    Orchestrator = LLMOrchestrationServiceNames.LangChain
+                },
+                AIModelObjectId = TestAIModelNames.Completions_Deployed_Default
+            },
+
         ];
         #endregion
 
@@ -420,7 +328,7 @@ namespace FoundationaLLM.Core.Examples.Catalogs
         {
             var agents = new List<AgentBase>();
             agents.AddRange(KnowledgeManagementAgents);
-            
+
             return agents;
         }
     }

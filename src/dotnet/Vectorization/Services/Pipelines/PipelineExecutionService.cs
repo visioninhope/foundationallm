@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 using System.Configuration;
 using FoundationaLLM.Vectorization.Services.DataSources.Configuration.SQLDatabase;
+using FoundationaLLM.Common.Constants.Authentication;
 
 namespace FoundationaLLM.Vectorization.Services.Pipelines
 {
@@ -122,7 +123,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                             {
                                 case DataSourceTypes.AzureDataLake:
                                     // resolve configuration references
-                                    var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = BlobStorageAuthenticationTypes.Unknown };
+                                    var blobStorageServiceSettings = new BlobStorageServiceSettings { AuthenticationType = AuthenticationTypes.Unknown };
                                     _configuration.Bind(
                                         $"{AppConfigurationKeySections.FoundationaLLM_DataSources}:{dataSource.Name}",
                                         blobStorageServiceSettings);
@@ -257,6 +258,7 @@ namespace FoundationaLLM.Vectorization.Services.Pipelines
                                             PipelineExecutionId = pipelineExecutionId,
                                             PipelineObjectId = activePipeline.ObjectId!,
                                             PipelineName = activePipeline.Name,
+                                            CostCenter = activePipeline.CostCenter,
                                             ContentIdentifier = new ContentIdentifier()
                                             {
                                                 DataSourceObjectId = dataSource.ObjectId!,

@@ -24,6 +24,7 @@ namespace FoundationaLLM.Common.Tests.Models.Orchestration
             // Act
             var completionRequest = new CompletionRequest
             {
+                OperationId = Guid.NewGuid().ToString(),
                 UserPrompt = expectedPrompt,
                 MessageHistory = expectedMessageHistory
             };

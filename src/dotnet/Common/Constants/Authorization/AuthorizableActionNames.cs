@@ -22,6 +22,11 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// </summary>
         public const string FoundationaLLM_Authorization_RoleAssignments_Delete = "FoundationaLLM.Authorization/roleAssignments/delete";
 
+        /// <summary>
+        /// Read role definitions.
+        /// </summary>
+        public const string FoundationaLLM_Authorization_RoleDefinitions_Read = "FoundationaLLM.Authorization/roleDefinitions/read";
+
         #endregion
 
         #region Agent
@@ -76,19 +81,19 @@ namespace FoundationaLLM.Common.Constants.Authorization
         public const string FoundationaLLM_Configuration_KeyVaultSecrets_Delete = "FoundationaLLM.Configuration/keyVaultSecrets/delete";
 
         /// <summary>
-        /// Read external orchestration services.
+        /// Read API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Read = "FoundationaLLM.Configuration/externalOrchestrationServices/read";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Read = "FoundationaLLM.Configuration/apiEndpointConfigurations/read";
 
         /// <summary>
-        /// Create or update external orchestration services.
+        /// Create or update API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Write = "FoundationaLLM.Configuration/externalOrchestrationServices/write";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Write = "FoundationaLLM.Configuration/apiEndpointConfigurations/write";
 
         /// <summary>
-        /// Delete external orchestration services.
+        /// Delete API endpoints.
         /// </summary>
-        public const string FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete = "FoundationaLLM.Configuration/externalOrchestrationServices/delete";
+        public const string FoundationaLLM_Configuration_APIEndpoints_Delete = "FoundationaLLM.Configuration/apiEndpointConfigurations/delete";
 
         #endregion
 
@@ -274,6 +279,25 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// Delete attachments.
         /// </summary>
         public const string FoundationaLLM_Attachment_Attachments_Delete = "FoundationaLLM.Attachment/attachments/delete";
+
+        #endregion
+
+        #region AIModel
+
+        /// <summary>
+        /// Read aiModels models
+        /// </summary>
+        public const string FoundationaLLM_AIModel_AIModels_Read = "FoundationaLLM.AIModel/aiModels/read";
+
+        /// <summary>
+        /// Create or update models.
+        /// </summary>
+        public const string FoundationaLLM_AIModel_AIModels_Write = "FoundationaLLM.AIModel/aiModels/write";
+
+        /// <summary>
+        /// Delete models.
+        /// </summary>
+        public const string FoundationaLLM_AIModel_AIModels_Delete = "FoundationaLLM.AIModel/aiModels/delete";
 
         #endregion
     }

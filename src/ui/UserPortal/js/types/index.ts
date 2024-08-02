@@ -13,7 +13,7 @@ export type ResourceProviderGetResult<T> = {
 	 * List of roles on the resource.
 	 */
 	roles: string[];
-}
+};
 
 export interface Citation {
 	id: string;
@@ -63,13 +63,20 @@ export interface Agent {
 	name: string;
 	object_id: string;
 	description: string;
+	long_running: boolean;
 	orchestration_settings?: OrchestrationSettings;
 }
 
-export interface OrchestrationRequest {
+export interface CompletionRequest {
 	session_id?: string;
 	user_prompt: string;
 	agent_name?: string;
 	settings?: OrchestrationSettings;
 	attachments?: string[];
+}
+
+export interface Attachment {
+	id: string;
+	fileName: string;
+	sessionId: string;
 }

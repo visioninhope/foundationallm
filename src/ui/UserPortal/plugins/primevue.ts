@@ -12,6 +12,11 @@ import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
 import FileUpload from 'primevue/fileupload';
+import OverlayPanel from 'primevue/overlaypanel';
+import Badge from 'primevue/badge';
+import BadgeDirective from 'primevue/badgedirective';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
 
 import { defineNuxtPlugin } from '#app';
 
@@ -28,6 +33,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('Dropdown', Dropdown);
 	nuxtApp.vueApp.component('Avatar', Avatar);
 	nuxtApp.vueApp.component('FileUpload', FileUpload);
+	nuxtApp.vueApp.component('OverlayPanel', OverlayPanel);
+	nuxtApp.vueApp.component('Badge', Badge);
+	nuxtApp.vueApp.directive('badge', BadgeDirective);
+	nuxtApp.vueApp.component('ConfirmDialog', ConfirmDialog);
+
+	nuxtApp.vueApp.use(ConfirmationService);
 
 	nuxtApp.vueApp.use(ToastService);
 	nuxtApp.vueApp.directive('tooltip', Tooltip);

@@ -1,96 +1,99 @@
-﻿namespace FoundationaLLM.Common.Constants.Configuration
+// -------------------------------------------------------------------------------
+//
+// WARNING!
+// This file is auto-generated based on the AppConfiguration.json file.
+// Do not make changes to this file, as they will be automatically overwritten.
+//
+// -------------------------------------------------------------------------------
+namespace FoundationaLLM.Common.Constants.Configuration
 {
     /// <summary>
-    /// Contains constants of the keys for all keyed dependency injections.
+    /// Defines all keys used for named dependency injection.
     /// </summary>
-    public static class DependencyInjectionKeys
-    {
+    public static partial class DependencyInjectionKeys
+    {        
         /// <summary>
-        /// The dependency injection key for the blob storage vectorization state service.
+        /// Dependency injection key used by the FoundationaLLM.AIModel resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_BlobStorageVectorizationStateService = "FoundationaLLM:Vectorization:BlobStorageVectorizationStateService";
-
+        public const string FoundationaLLM_ResourceProviders_AIModel =
+            "FoundationaLLM:ResourceProviders:AIModel";
+        
         /// <summary>
-        /// The dependency injection key for the vectorization data lake content source service.
+        /// Dependency injection key used by the FoundationaLLM.Agent resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_DataLakeContentSourceService = "FoundationaLLM:Vectorization:DataLakeContentSourceService";
-
+        public const string FoundationaLLM_ResourceProviders_Agent =
+            "FoundationaLLM:ResourceProviders:Agent";
+        
         /// <summary>
-        /// The dependency injection key for the content source service factory.
+        /// Dependency injection key used by the FoundationaLLM.Attachment resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_ContentSourceServiceFactory = "FoundationaLLM:Vectorization:ContentSourceServiceFactory";
-
+        public const string FoundationaLLM_ResourceProviders_Attachment =
+            "FoundationaLLM:ResourceProviders:Attachment";
+        
         /// <summary>
-        /// The dependency injection key for the Semantic Kernel text embedding service.
+        /// Dependency injection key used by the FoundationaLLM.Configuration resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_SemanticKernelTextEmbeddingService = "FoundationaLLM:Vectorization:SemanticKernelTextEmbeddingService";
-
+        public const string FoundationaLLM_ResourceProviders_Configuration =
+            "FoundationaLLM:ResourceProviders:Configuration";
+        
         /// <summary>
-        /// The dependency injection key for the Gateway text embedding service.
+        /// Dependency injection key used by the FoundationaLLM.DataSource resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_GatewayTextEmbeddingService = "FoundationaLLM:Vectorization:GatewayTextEmbeddingService";
-
+        public const string FoundationaLLM_ResourceProviders_DataSource =
+            "FoundationaLLM:ResourceProviders:DataSource";
+        
         /// <summary>
-        /// The dependency injection key for the Azure AI Search indexing service.
+        /// Dependency injection key used by the FoundationaLLM.Prompt resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_AzureAISearchIndexingService = "FoundationaLLM:Vectorization:AzureAISearchIndexingService";
-
+        public const string FoundationaLLM_ResourceProviders_Prompt =
+            "FoundationaLLM:ResourceProviders:Prompt";
+        
         /// <summary>
-        /// The dependency injection key for the Azure Cosmos DB NoSQL indexing service.
+        /// Dependency injection key used by the FoundationaLLM.Vectorization resource provider.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_AzureCosmosDBNoSQLIndexingService = "FoundationaLLM:Vectorization:AzureCosmosDBNoSQLIndexingService";
-
+        public const string FoundationaLLM_ResourceProviders_Vectorization =
+            "FoundationaLLM:ResourceProviders:Vectorization";
+        
         /// <summary>
-        /// The dependency injection key for the PostgreSQL indexing service.
+        /// Dependency injection key used to inject the implementation of IIndexingService based on Azure AI Search.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_PostgresIndexingService = "FoundationaLLM:Vectorization:PostgresIndexingService";
-
+        public const string FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration =
+            "FoundationaLLM:APIEndpoints:AzureAISearchVectorStore:Configuration";
+        
         /// <summary>
-        /// The dependency injection key for the vectorization queues configuration section.
+        /// Dependency injection key used to inject the implementation of IIndexingService based on Azure Cosmos DB NoSQL.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Queues = "FoundationaLLM:Vectorization:Queues";
-
+        public const string FoundationaLLM_APIEndpoints_AzureCosmosDBNoSQLVectorStore_Configuration =
+            "FoundationaLLM:APIEndpoints:AzureCosmosDBNoSQLVectorStore:Configuration";
+        
         /// <summary>
-        /// The dependency injection key for the vectorization steps configuration section.
+        /// Dependency injection key used to inject the implementation of IIndexingService based on Azure PostgreSQL.
         /// </summary>
-        public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
-
-        #region Resource providers
-
+        public const string FoundationaLLM_APIEndpoints_AzurePostgreSQLVectorStore_Configuration =
+            "FoundationaLLM:APIEndpoints:AzurePostgreSQLVectorStore:Configuration";
+        
         /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Agent resource provider.
+        /// Dependency injection key used to inject the IConfiguration section for vectorization steps.
         /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Agent = "FoundationaLLM:ResourceProvider:Agent";
-
+        public const string FoundationaLLM_Vectorization_Steps =
+            "FoundationaLLM:Vectorization:Steps";
+        
         /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Prompt resource provider.
+        /// Dependency injection key used to inject the IConfiguration section for vectorization queues.
         /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Prompt = "FoundationaLLM:ResourceProvider:Prompt";
-
+        public const string FoundationaLLM_Vectorization_Queues =
+            "FoundationaLLM:Vectorization:Queues";
+        
         /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Vectorization resource provider.
+        /// Dependency injection key used to inject storage settings for the Vectorization state service.
         /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Vectorization = "FoundationaLLM:ResourceProvider:Vectorization";
-
+        public const string FoundationaLLM_Vectorization_StateService_Storage =
+            "FoundationaLLM:Vectorization:StateService:Storage";
+        
         /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Configuration resource provider.
+        /// Dependency injection key used to inject the ITextEmbeddingService implementation that uses the FoundationaLLM Gateway for embedding.
         /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Configuration = "FoundationaLLM:ResourceProvider:Configuration";
-
-        /// <summary>
-        /// The dependency injection key for the FoundationaLLM.DataSource resource provider.
-        /// </summary>
-        public const string FoundationaLLM_ResourceProvider_DataSource = "FoundationaLLM:ResourceProvider:DataSource";
-
-        /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Attachment resource provider.
-        /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Attachment = "FoundationaLLM:ResourceProvider:Attachment";
-        /// <summary>
-        /// The dependency injection key for the FoundationaLLM.Authorization resource provider.
-        /// </summary>
-        public const string FoundationaLLM_ResourceProvider_Authorization = "FoundationaLLM:ResourceProvider:Authorization";
-
-        #endregion
+        public const string FoundationaLLM_Vectorization_TextEmbedding_Gateway =
+            "FoundationaLLM:Vectorization:TextEmbedding:Gateway";
     }
 }

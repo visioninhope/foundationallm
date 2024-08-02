@@ -12,36 +12,43 @@ namespace FoundationaLLM.Core.Services
     /// </summary>
     public class GatekeeperAPIService : IGatekeeperAPIService
     {
+        private readonly ICallContext _callContext;
         private readonly IHttpClientFactoryService _httpClientFactoryService;
         readonly JsonSerializerOptions _jsonSerializerOptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GatekeeperAPIService"/> class.
         /// </summary>
+        /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
+        /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
         /// <param name="httpClientFactoryService">The <see cref="IHttpClientFactoryService"/>
         /// used to retrieve an <see cref="HttpClient"/> instance that contains required
         /// headers for Gateway API requests.</param>
-        public GatekeeperAPIService(IHttpClientFactoryService httpClientFactoryService)
+        public GatekeeperAPIService(
+            ICallContext callContext,
+            IHttpClientFactoryService httpClientFactoryService)
         {
+            _callContext = callContext;
             _httpClientFactoryService = httpClientFactoryService;
             _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions();
         }
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
+        public async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
         {
             // TODO: Call RefinementService to refine userPrompt
             // await _refinementService.RefineUserPrompt(completionRequest);
 
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
+            var client = await _httpClientFactoryService.CreateClient(Common.Constants.HttpClientNames.GatekeeperAPI, _callContext.CurrentUserIdentity);
                        
-            var responseMessage = await client.PostAsync("orchestration/completion",
+            var responseMessage = await client.PostAsync($"instances/{instanceId}/completions",
             new StringContent(
                     JsonSerializer.Serialize(completionRequest, _jsonSerializerOptions),
                     Encoding.UTF8, "application/json"));
 
             var defaultCompletionResponse = new CompletionResponse
             {
+                OperationId = completionRequest.OperationId,
                 Completion = "A problem on my side prevented me from responding.",
                 UserPrompt = completionRequest.UserPrompt ?? string.Empty,
                 PromptTokens = 0,
@@ -58,30 +65,6 @@ namespace FoundationaLLM.Core.Services
             }
 
             return defaultCompletionResponse;
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> GetSummary(SummaryRequest summaryRequest)
-        {
-            // TODO: Call RefinementService to refine userPrompt
-            // await _refinementService.RefineUserPrompt(content);
-
-            var client = _httpClientFactoryService.CreateClient(Common.Constants.HttpClients.GatekeeperAPI);
-
-            var responseMessage = await client.PostAsync("orchestration/summary",
-                new StringContent(
-                    JsonSerializer.Serialize(summaryRequest, _jsonSerializerOptions),
-                    Encoding.UTF8, "application/json"));
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseContent = await responseMessage.Content.ReadAsStringAsync();
-                var summarizeResponse = JsonSerializer.Deserialize<SummaryResponse>(responseContent);
-
-                return summarizeResponse?.Summary ?? string.Empty;
-            }
-            else
-                return "A problem on my side prevented me from responding.";
         }
 
         /// <inheritdoc/>
