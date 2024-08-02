@@ -2209,24 +2209,24 @@ references:
   fullName.vb: FoundationaLLM.Client.Core.CoreClient.New()
   nameWithType: CoreClient.CoreClient()
   nameWithType.vb: CoreClient.New()
-- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential)
-  name: CoreClient(string, TokenCredential)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_
-  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential)
-  name.vb: New(String, TokenCredential)
-  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential)
-  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential)
-  nameWithType: CoreClient.CoreClient(string, TokenCredential)
-  nameWithType.vb: CoreClient.New(String, TokenCredential)
-- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name: CoreClient(string, TokenCredential, APIClientSettings)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
-  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name.vb: New(String, TokenCredential, APIClientSettings)
-  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  nameWithType: CoreClient.CoreClient(string, TokenCredential, APIClientSettings)
-  nameWithType.vb: CoreClient.New(String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,System.String)
+  name: CoreClient(string, TokenCredential, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,System.String)
+  name.vb: New(String, TokenCredential, String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential, string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential, String)
+  nameWithType: CoreClient.CoreClient(string, TokenCredential, string)
+  nameWithType.vb: CoreClient.New(String, TokenCredential, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: CoreClient(string, TokenCredential, string, APIClientSettings)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_System_String_Azure_Core_TokenCredential_System_String_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.#ctor(System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: New(String, TokenCredential, String, APIClientSettings)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CoreClient(string, Azure.Core.TokenCredential, string, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.New(String, Azure.Core.TokenCredential, String, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: CoreClient.CoreClient(string, TokenCredential, string, APIClientSettings)
+  nameWithType.vb: CoreClient.New(String, TokenCredential, String, APIClientSettings)
 - uid: FoundationaLLM.Client.Core.CoreClient.#ctor*
   name: CoreClient
   href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient__ctor_
@@ -2373,24 +2373,24 @@ references:
   fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New()
   nameWithType: CoreRESTClient.CoreRESTClient()
   nameWithType.vb: CoreRESTClient.New()
-- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential)
-  name: CoreRESTClient(string, TokenCredential)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_
-  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential)
-  name.vb: New(String, TokenCredential)
-  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential)
-  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential)
-  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential)
-  nameWithType.vb: CoreRESTClient.New(String, TokenCredential)
-- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name: CoreRESTClient(string, TokenCredential, APIClientSettings)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
-  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name.vb: New(String, TokenCredential, APIClientSettings)
-  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential, APIClientSettings)
-  nameWithType.vb: CoreRESTClient.New(String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,System.String)
+  name: CoreRESTClient(string, TokenCredential, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,System.String)
+  name.vb: New(String, TokenCredential, String)
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential, string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential, String)
+  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential, string)
+  nameWithType.vb: CoreRESTClient.New(String, TokenCredential, String)
+- uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: CoreRESTClient(string, TokenCredential, string, APIClientSettings)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_System_String_Azure_Core_TokenCredential_System_String_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.Client.Core.CoreRESTClient.#ctor(System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: New(String, TokenCredential, String, APIClientSettings)
+  fullName: FoundationaLLM.Client.Core.CoreRESTClient.CoreRESTClient(string, Azure.Core.TokenCredential, string, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  fullName.vb: FoundationaLLM.Client.Core.CoreRESTClient.New(String, Azure.Core.TokenCredential, String, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: CoreRESTClient.CoreRESTClient(string, TokenCredential, string, APIClientSettings)
+  nameWithType.vb: CoreRESTClient.New(String, TokenCredential, String, APIClientSettings)
 - uid: FoundationaLLM.Client.Core.CoreRESTClient.#ctor*
   name: CoreRESTClient
   href: api/dotnet/FoundationaLLM.Client.Core.CoreRESTClient.html#FoundationaLLM_Client_Core_CoreRESTClient__ctor_
@@ -2950,6 +2950,35 @@ references:
   commentId: T:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient
   fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient
   nameWithType: IAIModelManagementClient
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync(System.String)
+  name: GetAIModelAsync(string)
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelAsync_System_String_
+  commentId: M:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync(System.String)
+  name.vb: GetAIModelAsync(String)
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync(string)
+  fullName.vb: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync(String)
+  nameWithType: IAIModelManagementClient.GetAIModelAsync(string)
+  nameWithType.vb: IAIModelManagementClient.GetAIModelAsync(String)
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync*
+  name: GetAIModelAsync
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelAsync_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync
+  nameWithType: IAIModelManagementClient.GetAIModelAsync
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync
+  name: GetAIModelsAsync()
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelsAsync
+  commentId: M:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync()
+  nameWithType: IAIModelManagementClient.GetAIModelsAsync()
+- uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync*
+  name: GetAIModelsAsync
+  href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelsAsync_
+  commentId: Overload:FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync
+  nameWithType: IAIModelManagementClient.GetAIModelsAsync
 - uid: FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel(FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase)
   name: UpsertAIModel(AIModelBase)
   href: api/dotnet/FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.html#FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_UpsertAIModel_FoundationaLLM_Common_Models_ResourceProviders_AIModel_AIModelBase_
@@ -26537,15 +26566,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage
   nameWithType: DependencyInjection.AddConfigurationResourceProviderStorage
-- uid: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name: AddCoreClient(IServiceCollection, string, TokenCredential, APIClientSettings?)
-  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCoreClient_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Azure_Core_TokenCredential_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
-  commentId: M:FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  name.vb: AddCoreClient(IServiceCollection, String, TokenCredential, APIClientSettings)
-  fullName: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, string, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings?)
-  fullName.vb: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, String, Azure.Core.TokenCredential, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
-  nameWithType: DependencyInjection.AddCoreClient(IServiceCollection, string, TokenCredential, APIClientSettings?)
-  nameWithType.vb: DependencyInjection.AddCoreClient(IServiceCollection, String, TokenCredential, APIClientSettings)
+- uid: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name: AddCoreClient(IServiceCollection, string, TokenCredential, string, APIClientSettings?)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCoreClient_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Azure_Core_TokenCredential_System_String_FoundationaLLM_Common_Models_Configuration_API_APIClientSettings_
+  commentId: M:FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Azure.Core.TokenCredential,System.String,FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  name.vb: AddCoreClient(IServiceCollection, String, TokenCredential, String, APIClientSettings)
+  fullName: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, string, Azure.Core.TokenCredential, string, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings?)
+  fullName.vb: FoundationaLLM.DependencyInjection.AddCoreClient(Microsoft.Extensions.DependencyInjection.IServiceCollection, String, Azure.Core.TokenCredential, String, FoundationaLLM.Common.Models.Configuration.API.APIClientSettings)
+  nameWithType: DependencyInjection.AddCoreClient(IServiceCollection, string, TokenCredential, string, APIClientSettings?)
+  nameWithType.vb: DependencyInjection.AddCoreClient(IServiceCollection, String, TokenCredential, String, APIClientSettings)
 - uid: FoundationaLLM.DependencyInjection.AddCoreClient*
   name: AddCoreClient
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddCoreClient_

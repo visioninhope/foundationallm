@@ -128,15 +128,86 @@ Interface IAIModelManagementClient  <a class="header-action link-secondary" titl
 </h2>
 
 
+  <a id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelAsync_" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync*"></a>
+
+  <h3 id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelAsync_System_String_" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelAsync(System.String)">
+  GetAIModelAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IAIModelManagementClient.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a specific AI model by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ResourceProviderGetResult&lt;AIModelBase&gt;&gt; GetAIModelAsync(string aiModelName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>aiModelName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the AI model to retrieve.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderGetResult-1.html">ResourceProviderGetResult</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelsAsync_" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync*"></a>
+
+  <h3 id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_GetAIModelsAsync" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.GetAIModelsAsync">
+  GetAIModelsAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IAIModelManagementClient.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves all AI model resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;List&lt;ResourceProviderGetResult&lt;AIModelBase&gt;&gt;&gt; GetAIModelsAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderGetResult-1.html">ResourceProviderGetResult</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a>&gt;&gt;&gt;</dt>
+    <dd><p>All AI model resources to which the caller has access and which have not been marked as deleted.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_UpsertAIModel_" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel*"></a>
 
   <h3 id="FoundationaLLM_Client_Management_Interfaces_IAIModelManagementClient_UpsertAIModel_FoundationaLLM_Common_Models_ResourceProviders_AIModel_AIModelBase_" data-uid="FoundationaLLM.Client.Management.Interfaces.IAIModelManagementClient.UpsertAIModel(FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase)">
   UpsertAIModel(AIModelBase)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IAIModelManagementClient.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/ManagementClient/Interfaces/IAIModelManagementClient.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Upserts an ai model resource. If an ai model does not exist, it will be created.
-If an ai model configuration does exist, it will be updated.</p>
+  <div class="markdown level1 summary"><p>Upserts an AI model resource. If an AI model does not exist, it will be created.
+If an AI model configuration does exist, it will be updated.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -147,7 +218,7 @@ If an ai model configuration does exist, it will be updated.</p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>aiModel</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AIModel.AIModelBase.html">AIModelBase</a></dt>
-    <dd><p>The api endpoint configuration resource to create or update.</p>
+    <dd><p>The API endpoint configuration resource to create or update.</p>
 </dd>
   </dl>
 
