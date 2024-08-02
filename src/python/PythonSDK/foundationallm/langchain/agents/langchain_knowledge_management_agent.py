@@ -48,9 +48,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         
         try:
             storage_manager = BlobStorageManager(
-                account_name=self.config.get_value('FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName'),
+                account_name=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AccountName'),
                 container_name=file.split('/')[0],
-                authentication_type=self.config.get_value('FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType')
+                authentication_type=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AuthenticationType')
             )
         except Exception as e:
             raise e
@@ -79,8 +79,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         audio_embeddings = clap_model.get_audio_embeddings(file_paths, resample=True)
         data = audio_embeddings.numpy().tolist()
 
-        base_url = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:APIUrl').rstrip('/')
-        endpoint = self.config.get_value('FoundationaLLM:APIs:AudioClassificationAPI:Classification:PredictionEndpoint')
+        base_url = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:APIUrl').rstrip('/')
+        endpoint = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:Classification:PredictionEndpoint')
         api_endpoint = f'{base_url}{endpoint}'
 
         # Create the embeddings payload.
@@ -111,6 +111,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         Get the vector document retriever, if it exists.
         """
         retriever = None
+        
         if agent.vectorization is not None and not agent.inline_context:
             text_embedding_profile = AzureOpenAIEmbeddingProfile.from_object(
                 request.objects[agent.vectorization.text_embedding_profile_object_id]
@@ -241,7 +242,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self.prompt = self._get_prompt_from_object_id(request.agent.prompt_object_id, request.objects)
         if self.prompt.prefix is None or self.prompt.prefix == '':
             raise LangChainException("The Prompt object provided in the request's objects dictionary is invalid because it is missing a prefix value.", 400)
-        if request.agent.vectorization is not None:
+ 
+        if request.agent.vectorization is not None and not request.agent.inline_context:
             if request.agent.vectorization.text_embedding_profile_object_id is None or request.agent.vectorization.text_embedding_profile_object_id == '':
                 raise LangChainException("The TextEmbeddingProfileObjectId property of the agent's Vectorization property cannot be null or empty.", 400)
 

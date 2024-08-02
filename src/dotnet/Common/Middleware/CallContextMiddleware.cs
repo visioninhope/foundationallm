@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.Instance;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.AspNetCore.Http;
@@ -44,13 +45,24 @@ namespace FoundationaLLM.Common.Middleware
                 // Extract from ClaimsPrincipal if available:
                 callContext.CurrentUserIdentity = claimsProviderService.GetUserIdentity(context.User);
 
+                // We are only expanding group membership for User objects
+                // Service Principal permissions must be assigned directly and not over group membership.
                 if (callContext.CurrentUserIdentity != null
                     && !claimsProviderService.IsServicePrincipal(context.User))
                 {
-                    // We are only expanding group membership for User objects
-                    // Service Principal permissions must be assigned directly and not over group membership.
-                    callContext.CurrentUserIdentity.GroupIds = await identityManagementService.GetGroupsForPrincipal(
-                        callContext.CurrentUserIdentity.UserId!);
+                    switch(instanceSettings.Value.SecurityGroupRetrievalStrategy)
+                    {
+                        case SecurityGroupRetrievalStrategies.IdentityManagementService:
+                            callContext.CurrentUserIdentity.GroupIds = await identityManagementService.GetGroupsForPrincipal(
+                                callContext.CurrentUserIdentity.UserId!);
+                            break;
+                        case SecurityGroupRetrievalStrategies.AccessToken:
+                            callContext.CurrentUserIdentity.GroupIds = claimsProviderService.GetSecurityGroupIds(context.User) ?? [];
+                            break;
+                        case SecurityGroupRetrievalStrategies.None:
+                        default:
+                            break;
+                    }
                 }
             }
             else

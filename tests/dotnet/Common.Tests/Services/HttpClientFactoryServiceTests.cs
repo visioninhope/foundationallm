@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Authentication;
+﻿using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Services;
 using Microsoft.Extensions.Configuration;
 using NSubstitute;

@@ -39,7 +39,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
     public class AgentResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Agent)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Agent)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,

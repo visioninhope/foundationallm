@@ -39,6 +39,7 @@
 		</div>
 
 		<footer v-if="$appConfigStore.footerText">
+			<!-- eslint-disable-next-line vue/no-v-html -->
 			<div class="footer-item" v-html="$appConfigStore.footerText"></div>
 		</footer>
 	</div>
@@ -82,6 +83,14 @@ export default {
 		},
 	},
 
+	beforeUnmount() {
+		eventBus.off('operation-completed', this.handleOperationCompleted);
+	},
+
+	mounted() {
+		eventBus.on('operation-completed', this.handleOperationCompleted);
+	},
+
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
@@ -101,7 +110,7 @@ export default {
 					user_prompt: text,
 					agent_name: agent.name,
 					settings: null,
-					attachments: this.$appStore.attachments.map(attachment => String(attachment.id))
+					attachments: this.$appStore.attachments.map((attachment) => String(attachment.id)),
 				});
 
 				this.longRunningOperations.set(this.currentSession.id, true);
@@ -121,23 +130,15 @@ export default {
 					await this.$appStore.getMessages();
 					break;
 				}
-				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+				await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
 			}
 		},
 
-		async handleOperationCompleted({ sessionId, operationId }: { sessionId: string, operationId: string }) {
+		async handleOperationCompleted({ sessionId }: { sessionId: string; operationId: string }) {
 			if (this.currentSession.id === sessionId) {
 				await this.$appStore.getMessages();
 			}
 		},
-	},
-
-	mounted() {
-		eventBus.on('operation-completed', this.handleOperationCompleted);
-	},
-
-	beforeUnmount() {
-		eventBus.off('operation-completed', this.handleOperationCompleted);
 	},
 };
 </script>
@@ -214,6 +215,6 @@ export default {
 footer {
 	text-align: right;
 	font-size: 0.85rem;
-    padding-right: 24px;
+	padding-right: 24px;
 }
 </style>

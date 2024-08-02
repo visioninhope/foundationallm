@@ -11,8 +11,8 @@
 					size="small"
 					severity="secondary"
 					class="secondary-button"
-					@click="$appStore.toggleSidebar"
 					aria-label="Toggle sidebar"
+					@click="$appStore.toggleSidebar"
 				/>
 			</template>
 		</div>
@@ -30,8 +30,8 @@
 							icon="pi pi-copy"
 							text
 							severity="secondary"
-							@click="handleCopySession"
 							aria-label="Copy link to chat session"
+							@click="handleCopySession"
 						/>
 						<Toast position="top-center" />
 					</template>
@@ -53,15 +53,15 @@
 						/>
 						<Dropdown
 							v-model="agentSelection"
-							class="dropdown--agent"
 							:options="agentOptionsGroup"
+							:style="{ maxHeight: '300px' }"
+							class="dropdown--agent"
 							option-group-label="label"
 							option-group-children="items"
 							option-disabled="disabled"
 							option-label="label"
 							placeholder="--Select--"
 							@change="handleAgentChange"
-							:style="{ maxHeight: '300px' }"
 						/>
 					</span>
 				</template>
@@ -163,7 +163,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: 'Chat link copied!',
-				life: 2000,
+				life: 5000,
 			});
 		},
 
@@ -176,7 +176,7 @@ export default {
 			this.$toast.add({
 				severity: 'success',
 				detail: message,
-				life: 2000,
+				life: 5000,
 			});
 		},
 
@@ -186,7 +186,10 @@ export default {
 
 		updateAgentSelection() {
 			const agent = this.$appStore.getSessionAgent(this.currentSession);
-			this.agentSelection = this.agentOptions.find((option) => option.value.resource.object_id === agent.resource.object_id) || null;
+			this.agentSelection =
+				this.agentOptions.find(
+					(option) => option.value.resource.object_id === agent.resource.object_id,
+				) || null;
 		},
 	},
 };
@@ -306,6 +309,6 @@ export default {
 }
 
 .p-dropdown-items-wrapper {
-  max-height: 300px !important;
+	max-height: 300px !important;
 }
 </style>

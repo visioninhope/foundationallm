@@ -3,12 +3,10 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
 using FoundationaLLM.SemanticKernel.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Linq;
 using System.Text.Json;
 
 namespace FoundationaLLM.Gateway.Models

@@ -39,7 +39,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
     public class VectorizationResourceProviderService(        
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,        
         IServiceProvider serviceProvider,
