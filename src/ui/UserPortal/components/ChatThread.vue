@@ -102,7 +102,20 @@ export default {
 			this.isMessagePending = true;
 			this.userSentMessage = true;
 
-			const agent = this.$appStore.getSessionAgent(this.currentSession).resource;
+			const agent = this.$appStore.getSessionAgent(this.currentSession)?.resource;
+
+			// Display an error toast message if agent is null or undefined.
+			if (!agent) {
+				this.$toast.add({
+					severity: 'info',
+					summary: 'Could not send message',
+					detail: 'Please select an agent and try again. If no agents are available, refresh the page.',
+					life: 8000,
+				});
+				this.isMessagePending = false;
+				return;
+			}
+
 			if (agent.long_running) {
 				// Handle long-running operations
 				const operationId = await this.$appStore.startLongRunningProcess('/completions', {

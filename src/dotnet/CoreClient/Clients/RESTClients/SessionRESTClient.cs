@@ -11,13 +11,16 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
     /// </summary>
     internal class SessionRESTClient(
         IHttpClientFactory httpClientFactory,
-        TokenCredential credential) : CoreRESTClientBase(httpClientFactory, credential), ISessionRESTClient
+        TokenCredential credential,
+        string instanceId) : CoreRESTClientBase(httpClientFactory, credential), ISessionRESTClient
     {
+        private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
+
         /// <inheritdoc/>
         public async Task<string> CreateSessionAsync()
         {
             var coreClient = await GetCoreClientAsync();
-            var responseSession = await coreClient.PostAsync("sessions", null);
+            var responseSession = await coreClient.PostAsync($"instances/{_instanceId}/sessions", null);
 
             if (responseSession.IsSuccessStatusCode)
             {
@@ -36,7 +39,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<string> RenameChatSession(string sessionId, string sessionName)
         {
             var coreClient = await GetCoreClientAsync();
-            var response = await coreClient.PostAsync($"sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
+            var response = await coreClient.PostAsync($"instances/{_instanceId}/sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
 
             if (response.IsSuccessStatusCode)
             {
@@ -50,7 +53,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<CompletionPrompt> GetCompletionPromptAsync(string sessionId, string completionPromptId)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync($"sessions/{sessionId}/completionprompts/{completionPromptId}");
+            var responseMessage = await coreClient.GetAsync($"instances/{_instanceId}/sessions/{sessionId}/completionprompts/{completionPromptId}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -67,7 +70,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<IEnumerable<Message>> GetChatSessionMessagesAsync(string sessionId)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync($"sessions/{sessionId}/messages");
+            var responseMessage = await coreClient.GetAsync($"instances/{_instanceId}/sessions/{sessionId}/messages");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -83,7 +86,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<IEnumerable<Session>> GetAllChatSessionsAsync()
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.GetAsync("sessions");
+            var responseMessage = await coreClient.GetAsync($"instances/{_instanceId}/sessions");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -99,7 +102,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task RateMessageAsync(string sessionId, string messageId, bool rating)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseMessage = await coreClient.PostAsync($"sessions/{sessionId}/message/{messageId}/rate?rating={rating}", null);
+            var responseMessage = await coreClient.PostAsync($"instances/{_instanceId}/sessions/{sessionId}/message/{messageId}/rate?rating={rating}", null);
 
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -111,7 +114,7 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task DeleteSessionAsync(string sessionId)
         {
             var coreClient = await GetCoreClientAsync();
-            await coreClient.DeleteAsync($"sessions/{sessionId}");
+            await coreClient.DeleteAsync($"instances/{_instanceId}/sessions/{sessionId}");
         }
     }
 }

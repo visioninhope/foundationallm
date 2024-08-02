@@ -62,12 +62,6 @@ namespace FoundationaLLM.Core.Examples.Services
                 await coreClient.DeleteSessionAsync(sessionId);
             }
 
-            if (createAgent)
-            {
-                // Delete the agent and its dependencies.
-                await managementAPITestManager.DeleteAgent(agentName);
-            }
-
             return messages;
         }
 

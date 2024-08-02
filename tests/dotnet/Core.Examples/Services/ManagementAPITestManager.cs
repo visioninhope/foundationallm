@@ -1,3 +1,4 @@
+using System.Net;
 using FoundationaLLM.Client.Management.Interfaces;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -270,6 +271,24 @@ namespace FoundationaLLM.Core.Examples.Services
             // Add the prompt ObjectId to the agent.
             agent.PromptObjectId = agentPrompt.ObjectId;
 
+            // Create APIEndpointConfiguration and AIModel object.
+            if (!string.IsNullOrWhiteSpace(apiEndpointName)
+                && !string.IsNullOrWhiteSpace(apiEndpointUrl)
+                && !string.IsNullOrWhiteSpace(aiModelName))
+            {
+                var endpointObjectId = await CreateAPIEndpointConfiguration(apiEndpointName, apiEndpointUrl);
+                agent.AIModelObjectId = await CreateAIModel(aiModelName, endpointObjectId);
+            }
+            else
+            {
+                // Attempt to lookup the AIModel to retrieve its ObjectId.
+                var aiModel = await managementClient.AIModels.GetAIModelAsync(agent.AIModelObjectId!);
+                if (aiModel is {Resource: not null})
+                {
+                    agent.AIModelObjectId = aiModel.Resource.ObjectId;
+                }
+            }
+
             // TODO: Create any other dependencies for the agent here.
 
             bool inlineContext = ((KnowledgeManagementAgent)agent).InlineContext;
@@ -289,15 +308,6 @@ namespace FoundationaLLM.Core.Examples.Services
             var response = await managementClient.Agents.UpsertAgentAsync(agent);
 
             agent.ObjectId = GetObjectId(response);
-
-            // Create APIEndpointConfiguration and AIModel object
-            if(!string.IsNullOrWhiteSpace(apiEndpointName) 
-                && !string.IsNullOrWhiteSpace(apiEndpointUrl)
-                && !string.IsNullOrWhiteSpace(aiModelName))
-            {
-                var endpointObjectId = await CreateAPIEndpointConfiguration(apiEndpointName, apiEndpointUrl);
-                agent.AIModelObjectId = await CreateAIModel(aiModelName, endpointObjectId);
-            }
 
             return agent;
         }
