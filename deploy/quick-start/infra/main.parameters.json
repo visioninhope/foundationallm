@@ -7,10 +7,10 @@
       },
       "authAppRegistration": {
         "value": {
-          "instance": "${ENTRA_AUTH_API_INSTANCE}",
+          "instance": "${ENTRA_AUTH_API_INSTANCE=https://login.microsoftonline.com}",
           "clientId": "${ENTRA_AUTH_API_CLIENT_ID}",
           "scopes": "${ENTRA_AUTH_API_SCOPES}",
-          "tenantId": "${ENTRA_AUTH_API_TENANT_ID}"
+          "tenantId": "${ENTRA_AUTH_API_TENANT_ID=''}"
         }
       },
       "authClientSecret": {
