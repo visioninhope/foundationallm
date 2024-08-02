@@ -148,7 +148,7 @@ module authKeyvault './shared/keyvault.bicep' = {
       }
       {
         name: 'foundationallm-authorizationapi-entra-tenantid'
-        value: authAppRegistration.tenantId
+        value: empty(authAppRegistration.tenantId) ? tenant().tenantId : authAppRegistration.tenantId
       }
       {
         name: 'foundationallm-authorizationapi-entra-clientid'
