@@ -144,11 +144,11 @@ module authKeyvault './shared/keyvault.bicep' = {
     secrets: [
       {
         name: 'foundationallm-authorizationapi-entra-instance'
-        value: authAppRegistration.instance
+        value: 'https://login.microsoftonline.com'
       }
       {
         name: 'foundationallm-authorizationapi-entra-tenantid'
-        value: empty(authAppRegistration.tenantId) ? tenant().tenantId : authAppRegistration.tenantId
+        value: tenant().tenantId
       }
       {
         name: 'foundationallm-authorizationapi-entra-clientid'
@@ -653,27 +653,27 @@ output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name
 
 var appRegNames = [for appRegistration in appRegistrations: appRegistration.name]
 
-output ENTRA_AUTH_API_SCOPES string = authAppRegistration.scopes
+output ENTRA_AUTH_API_SCOPES string = 'api://FoundationaLLM-Authorization'
 
 output ENTRA_CHAT_UI_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'chat-ui')].clientId
-output ENTRA_CHAT_UI_SCOPES string = appRegistrations[indexOf(appRegNames, 'chat-ui')].scopes
-output ENTRA_CHAT_UI_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'chat-ui')].tenantId
+output ENTRA_CHAT_UI_SCOPES string = 'api://FoundationaLLM-Core/Data.Read'
+output ENTRA_CHAT_UI_TENANT_ID string = tenant().tenantId
 
 output ENTRA_CORE_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'core-api')].clientId
-output ENTRA_CORE_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'core-api')].scopes
-output ENTRA_CORE_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'core-api')].tenantId
+output ENTRA_CORE_API_SCOPES string ='Data.Read'
+output ENTRA_CORE_API_TENANT_ID string = tenant().tenantId
 
 output ENTRA_MANAGEMENT_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'management-api')].clientId
-output ENTRA_MANAGEMENT_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'management-api')].scopes
-output ENTRA_MANAGEMENT_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'management-api')].tenantId
+output ENTRA_MANAGEMENT_API_SCOPES string = 'Data.Manage'
+output ENTRA_MANAGEMENT_API_TENANT_ID string = tenant().tenantId
 
 output ENTRA_MANAGEMENT_UI_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'management-ui')].clientId
-output ENTRA_MANAGEMENT_UI_SCOPES string = appRegistrations[indexOf(appRegNames, 'management-ui')].scopes
-output ENTRA_MANAGEMENT_UI_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'management-ui')].tenantId
+output ENTRA_MANAGEMENT_UI_SCOPES string = 'api://FoundationaLLM-Management/Data.Manage'
+output ENTRA_MANAGEMENT_UI_TENANT_ID string = tenant().tenantId
 
 output ENTRA_VECTORIZATION_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].clientId
 output ENTRA_VECTORIZATION_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].scopes
-output ENTRA_VECTORIZATION_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].tenantId
+output ENTRA_VECTORIZATION_API_TENANT_ID string = tenant().tenantId
 
 output FOUNDATIONALLM_INSTANCE_ID string = instanceId
 
