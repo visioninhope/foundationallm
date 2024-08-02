@@ -1,8 +1,6 @@
 ﻿using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Configuration.API;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -25,7 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
+using System.Net.Http;
 
 namespace FoundationaLLM.Core.Examples.Setup
 {
@@ -68,7 +66,6 @@ namespace FoundationaLLM.Core.Examples.Setup
 
             services.AddKeyedSingleton<IIndexingService, AzureAISearchIndexingService>(
                 DependencyInjectionKeys.FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration);
-
         }
 
         private static void RegisterClientLibraries(IServiceCollection services, IConfiguration configuration)
@@ -76,7 +73,8 @@ namespace FoundationaLLM.Core.Examples.Setup
             var instanceId = configuration.GetValue<string>(AppConfigurationKeys.FoundationaLLM_Instance_Id);
             services.AddCoreClient(
                 configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Essentials_APIUrl]!,
-                DefaultAuthentication.AzureCredential!);
+                DefaultAuthentication.AzureCredential!,
+                instanceId);
             services.AddManagementClient(
                 configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_APIUrl]!,
                 DefaultAuthentication.AzureCredential!,
@@ -129,7 +127,86 @@ namespace FoundationaLLM.Core.Examples.Setup
             }
 		}
 
-		private static void RegisterLogging(IServiceCollection services)
+        private static void RegisterHttpClients(IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<HttpClientOptions>(HttpClients.CoreAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_CoreAPI_APIUrl]!;
+                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Chat_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            services.Configure<HttpClientOptions>(HttpClients.ManagementAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_ManagementAPI_APIUrl]!;
+                options.Scope = configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_Scopes]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            services.Configure<HttpClientOptions>(HttpClients.VectorizationAPI, options =>
+            {
+                options.BaseUri = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!;
+                options.Timeout = TimeSpan.FromSeconds(120);
+            });
+
+            var vectorizationAPISettings = new DownstreamAPIKeySettings
+            {
+                APIUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIUrl]!,
+                APIKey = configuration[AppConfigurationKeys.FoundationaLLM_APIs_VectorizationAPI_APIKey]!
+            };
+            var downstreamAPISettings = new DownstreamAPISettings
+            {
+                DownstreamAPIs = []
+            };
+
+            downstreamAPISettings.DownstreamAPIs[HttpClients.VectorizationAPI] = vectorizationAPISettings;
+
+            services.AddHttpClient(HttpClients.CoreAPI)
+            .ConfigureHttpClient((serviceProvider, client) =>
+            {
+                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.CoreAPI);
+                    client.BaseAddress = new Uri(options.BaseUri!);
+                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                })
+                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                {
+                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                });
+
+            services.AddHttpClient(HttpClients.ManagementAPI)
+            .ConfigureHttpClient((serviceProvider, client) =>
+            {
+                    var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.ManagementAPI);
+                    client.BaseAddress = new Uri(options.BaseUri!);
+                    if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                })
+                .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                {
+                    CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                });
+
+            services.AddHttpClient(HttpClients.VectorizationAPI)
+            .ConfigureHttpClient((serviceProvider, client) =>
+            {
+                     var options = serviceProvider.GetRequiredService<IOptionsSnapshot<HttpClientOptions>>().Get(HttpClients.VectorizationAPI);
+                     client.DefaultRequestHeaders.Add("X-API-KEY", vectorizationAPISettings.APIKey);
+                     client.BaseAddress = new Uri(options.BaseUri!);
+                     if (options.Timeout != null) client.Timeout = (TimeSpan)options.Timeout;
+                 })
+                 .AddResilienceHandler("DownstreamPipeline", static strategyBuilder =>
+                 {
+                     CommonHttpRetryStrategyOptions.GetCommonHttpRetryStrategyOptions();
+                 });
+
+            services.AddSingleton<IDownstreamAPISettings>(downstreamAPISettings);
+
+            services.AddScoped<IDownstreamAPIService, DownstreamAPIService>((serviceProvider)
+                => new DownstreamAPIService(HttpClients.VectorizationAPI, serviceProvider.GetService<IHttpClientFactoryService>()!));
+
+            services.Configure<DownstreamAPISettings>(configuration.GetSection("DownstreamAPIs"));
+        }
+
+        private static void RegisterLogging(IServiceCollection services)
 		{
 			services.AddLogging(builder =>
 			{
