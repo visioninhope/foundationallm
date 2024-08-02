@@ -14,5 +14,10 @@
         /// The name of the GPT-4-32K completions AI model.
         /// </summary>
         public const string Completions_GPT4_32K = "completions-gpt-4-32k";
+
+        /// <summary>
+        /// The name of the default embeddings AI model.
+        /// </summary>
+        public const string Embeddings_Default = "embeddings";
     }
 }
