@@ -68,6 +68,11 @@ namespace FoundationaLLM.Core.Examples
 
                 Assert.True(invalidAgentResponsesFound == 0, $"{invalidAgentResponsesFound} invalid agent responses found.");
             }
+            catch (Exception ex)
+            {
+                WriteLine($"Exception: {ex.Message}");
+                throw;
+            }
             finally
             {
                 await _managementAPITestManager.DeleteAgent(agentName);
