@@ -57,6 +57,14 @@ $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
 
+$env:ENTRA_AUTH_API_SCOPES = "api://FoundationaLLM-Authorization"
+$env:ENTRA_CHAT_UI_SCOPES = "api://FoundationaLLM-Core/Data.Read"
+$env:ENTRA_CORE_API_SCOPES = "Data.Read"
+$env:ENTRA_MANAGEMENT_API_SCOPES = "Data.Manage"
+$env:ENTRA_MAANGEMENT_UI_SCOPES = "api://FoundationaLLM-Management/Data.Manage"
+
+$env:ENTRA_CHAT_UI_TENANT_ID = 
+
 $envConfiguraitons = @{
     "orchestration-api-event-profile"    = @{
         template     = './config/orchestration-api-event-profile.template.json'
