@@ -462,11 +462,12 @@ $tokens.vectorizationJobMiClientId = $services["vectorizationjob"].miClientId
 
 $eventGridProfiles = @{}
 $eventGridProfileNames = @(
-    "orchestration-api-event-profile"
     "core-api-event-profile"
+    "gatekeeper-api-event-profile"
+    "orchestration-api-event-profile"
+    "management-api-event-profile"
     "vectorization-api-event-profile"
     "vectorization-worker-event-profile"
-    "management-api-event-profile"
 )
 foreach ($profileName in $eventGridProfileNames) {
     Write-Host "Populating $profileName..." -ForegroundColor Blue
@@ -482,11 +483,12 @@ foreach ($profileName in $eventGridProfileNames) {
     ).Replace('"', '\"')
 }
 
-$tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
+$tokens.gatekeeperApiEventGridProfile = $eventGridProfiles["gatekeeper-api-event-profile"]
+$tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
+$tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]
 $tokens.vectorizationWorkerEventGridProfile = $eventGridProfiles["vectorization-worker-event-profile"]
-$tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
 $tokens.authKeyvaultUri = $authKeyvault.uri
 
 PopulateTemplate $tokens "..,config,appconfig.template.json" "..,config,appconfig.json"
@@ -523,6 +525,8 @@ $($ingress.frontendIngress).PSBase.Keys | ForEach-Object {
 
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Agent,FoundationaLLM.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.AIModel,completion-model.template.json" "..,..,common,data,resource-provider,FoundationaLLM.AIModel,completion-model.json"
+PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.AIModel,completion-4-model.template.json" "..,..,common,data,resource-provider,FoundationaLLM.AIModel,completion-4-model.json"
+PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.AIModel,completion-4o-model.template.json" "..,..,common,data,resource-provider,FoundationaLLM.AIModel,completion-4o-model.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.AIModel,embedding-model.template.json" "..,..,common,data,resource-provider,FoundationaLLM.AIModel,embedding-model.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Configuration,AzureAISearch.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Configuration,AzureAISearch.json"
 PopulateTemplate $tokens "..,data,resource-provider,FoundationaLLM.Configuration,AzureContentSafety.template.json" "..,..,common,data,resource-provider,FoundationaLLM.Configuration,AzureContentSafety.json"
