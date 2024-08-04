@@ -383,6 +383,7 @@ log
 **/Deployment-Manifest.json
 **/Deployment-Manifest.*.json
 .azure
+**/gatekeeper-api-event-profile.json
 **/orchestration-api-event-profile.json
 **/core-api-event-profile.json
 **/vectorization-api-event-profile.json
