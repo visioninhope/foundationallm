@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -6,6 +7,7 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
@@ -22,7 +24,7 @@ namespace FoundationaLLM.Common.Services
         private readonly IConfiguration _configuration;
         private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes(10);
 
-        private IResourceProviderService _configurationResourceProvider;
+        private IResourceProviderService? _configurationResourceProvider;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HttpClientFactoryService"/> class.
@@ -42,19 +44,38 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public async Task<HttpClient> CreateClient(string clientName, UnifiedUserIdentity? userIdentity)
+        public async Task<HttpClient> CreateClient(string clientName, UnifiedUserIdentity userIdentity)
         {
-            EnsureConfigurationResourceProvider();
-
-            var endpointConfiguration = await _configurationResourceProvider.GetResource<APIEndpointConfiguration>(
-                $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{clientName}",
-                userIdentity);
-
-            if (endpointConfiguration == null)
-                throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {clientName} endpoint settings.");
+            var endpointConfiguration = await GetEndpoint(clientName, userIdentity);
 
             return await CreateClient(endpointConfiguration, userIdentity);
         }
+
+        /// <inheritdoc/>
+        public async Task<T> CreateClient<T>(string clientName, UnifiedUserIdentity userIdentity, Func<Dictionary<string, object>, T> clientBuilder)
+        {
+            var endpointConfiguration = await GetEndpoint(clientName, userIdentity);
+
+            Dictionary<string, object> clientBuilderParameters = [];
+
+            clientBuilderParameters[HttpClientFactoryServiceKeyNames.Endpoint] =
+                endpointConfiguration.UrlExceptions.Where(x => x.UserPrincipalName == userIdentity.UPN).SingleOrDefault()?.Url
+                ?? endpointConfiguration.Url;
+            clientBuilderParameters[HttpClientFactoryServiceKeyNames.TimeoutSeconds] = endpointConfiguration.TimeoutSeconds;
+            clientBuilderParameters[HttpClientFactoryServiceKeyNames.AuthenticationType] = endpointConfiguration.AuthenticationType;
+            if (endpointConfiguration.AuthenticationType == AuthenticationTypes.APIKey)
+            {
+                if (!endpointConfiguration.AuthenticationParameters.TryGetValue(
+                        AuthenticationParametersKeys.APIKeyConfigurationName, out var apiKeyConfigurationNameObj))
+                    throw new Exception($"The {AuthenticationParametersKeys.APIKeyConfigurationName} key is missing from the endpoint's authentication parameters dictionary.");
+
+                var apiKey = _configuration.GetValue<string>(apiKeyConfigurationNameObj.ToString()!);
+                clientBuilderParameters[HttpClientFactoryServiceKeyNames.APIKey] = apiKey!;
+            }
+
+            return clientBuilder(clientBuilderParameters);
+        }
+
 
         /// <inheritdoc/>
         public async Task<HttpClient> CreateClient(APIEndpointConfiguration endpointConfiguration, UnifiedUserIdentity? userIdentity)
@@ -157,7 +178,7 @@ namespace FoundationaLLM.Common.Services
             return httpClient;
         }
 
-        private void EnsureConfigurationResourceProvider()
+        private async Task EnsureConfigurationResourceProvider()
         {
             if (_configurationResourceProvider != null)
                 return;
@@ -166,6 +187,21 @@ namespace FoundationaLLM.Common.Services
             _configurationResourceProvider = resourceProviderServices
                 .SingleOrDefault(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration)
                 ?? throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
+
+
+            await _configurationResourceProvider.WaitForInitialization();
+        }
+
+        private async Task<APIEndpointConfiguration> GetEndpoint(string name, UnifiedUserIdentity userIdentity)
+        {
+            await EnsureConfigurationResourceProvider();
+
+            var endpointConfiguration = await _configurationResourceProvider!.GetResource<APIEndpointConfiguration>(
+                $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{name}",
+                userIdentity)
+                ?? throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {name} endpoint configuration.");
+
+            return endpointConfiguration;
         }
     }
 }
