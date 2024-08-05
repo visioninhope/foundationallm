@@ -206,7 +206,7 @@ namespace FoundationaLLM.Common.Services.API
 
         private async Task<APIEndpointConfiguration> GetEndpoint(string name, UnifiedUserIdentity userIdentity)
         {
-            EnsureConfigurationResourceProvider();
+            await EnsureConfigurationResourceProvider();
 
             var endpointConfiguration = await _configurationResourceProvider!.GetResource<APIEndpointConfiguration>(
                 $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{name}",
