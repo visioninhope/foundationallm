@@ -8,14 +8,15 @@ export const useAppConfigStore = defineStore('appConfig', {
 		apiUrl: null,
 		authorizationApiUrl: null,
 		coreApiUrl: null,
-		gatekeeperApiUrl: null,
-		gatekeeperIntegrationApiUrl: null,
-		gatewayApiUrl: null,
-		langChainApiUrl: null,
-		orchestrationApiUrl: null,
-		semanticKernelApiUrl: null,
-		vectorizationApiUrl: null,
-		vectorizationWorkerApiUrl: null,
+		stateApiUrl: null,
+		// gatekeeperApiUrl: null,
+		// gatekeeperIntegrationApiUrl: null,
+		// gatewayApiUrl: null,
+		// langChainApiUrl: null,
+		// orchestrationApiUrl: null,
+		// semanticKernelApiUrl: null,
+		// vectorizationApiUrl: null,
+		// vectorizationWorkerApiUrl: null,
 
 		instanceId: null,
 
@@ -61,14 +62,15 @@ export const useAppConfigStore = defineStore('appConfig', {
 				apiUrl,
 				authorizationApiUrl,
 				coreApiUrl,
-				gatekeeperApiUrl,
-				gatekeeperIntegrationApiUrl,
-				gatewayApiUrl,
-				langChainApiUrl,
-				orchestrationApiUrl,
-				semanticKernelApiUrl,
-				vectorizationApiUrl,
-				vectorizationWorkerApiUrl,
+				stateApiUrl,
+				// gatekeeperApiUrl,
+				// gatekeeperIntegrationApiUrl,
+				// gatewayApiUrl,
+				// langChainApiUrl,
+				// orchestrationApiUrl,
+				// semanticKernelApiUrl,
+				// vectorizationApiUrl,
+				// vectorizationWorkerApiUrl,
 				favIconUrl,
 				logoUrl,
 				logoText,
@@ -91,17 +93,17 @@ export const useAppConfigStore = defineStore('appConfig', {
 				authScopes,
 				authCallbackPath,
 			] = await Promise.all([
-				api.getConfigValue('FoundationaLLM:APIs:ManagementAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:AuthorizationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:CoreAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatekeeperAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatekeeperIntegrationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:GatewayAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:LangChainAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:OrchestrationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:SemanticKernelAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:VectorizationAPI:APIUrl'),
-				api.getConfigValue('FoundationaLLM:APIs:VectorizationWorker:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:AuthorizationAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:CoreAPI:Essentials:APIUrl'),
+				api.getConfigValue('FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:GatewayAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:LangChainAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:OrchestrationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:SemanticKernelAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:VectorizationAPI:Essentials:APIUrl'),
+				// api.getConfigValue('FoundationaLLM:APIEndpoints:VectorizationWorker:Essentials:APIUrl'),
 
 				getConfigValueSafe('FoundationaLLM:Branding:FavIconUrl'),
 				getConfigValueSafe('FoundationaLLM:Branding:LogoUrl', 'foundationallm-logo-white.svg'),
@@ -118,26 +120,27 @@ export const useAppConfigStore = defineStore('appConfig', {
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonBackgroundColor', '#70829a'),
 				getConfigValueSafe('FoundationaLLM:Branding:SecondaryButtonTextColor', '#fff'),
 				getConfigValueSafe('FoundationaLLM:Branding:FooterText'),
-				getConfigValueSafe('FoundationaLLM:Instance:Id','00000000-0000-0000-0000-000000000000'),
-				
-				api.getConfigValue('FoundationaLLM:Management:Entra:ClientId'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:Instance'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:TenantId'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:Scopes'),
-				api.getConfigValue('FoundationaLLM:Management:Entra:CallbackPath'),
+				getConfigValueSafe('FoundationaLLM:Instance:Id', '00000000-0000-0000-0000-000000000000'),
+
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:ClientId'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:Instance'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:TenantId'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:Scopes'),
+				api.getConfigValue('FoundationaLLM:ManagementPortal:Authentication:Entra:CallbackPath'),
 			]);
 
 			this.apiUrl = apiUrl;
 			this.authorizationApiUrl = authorizationApiUrl;
 			this.coreApiUrl = coreApiUrl;
-			this.gatekeeperApiUrl = gatekeeperApiUrl;
-			this.gatekeeperIntegrationApiUrl = gatekeeperIntegrationApiUrl;
-			this.gatewayApiUrl = gatewayApiUrl;
-			this.langChainApiUrl = langChainApiUrl;
-			this.orchestrationApiUrl = orchestrationApiUrl;
-			this.semanticKernelApiUrl = semanticKernelApiUrl;
-			this.vectorizationApiUrl = vectorizationApiUrl;
-			this.vectorizationWorkerApiUrl = vectorizationWorkerApiUrl;
+			this.stateApiUrl = stateApiUrl;
+			// this.gatekeeperApiUrl = gatekeeperApiUrl;
+			// this.gatekeeperIntegrationApiUrl = gatekeeperIntegrationApiUrl;
+			// this.gatewayApiUrl = gatewayApiUrl;
+			// this.langChainApiUrl = langChainApiUrl;
+			// this.orchestrationApiUrl = orchestrationApiUrl;
+			// this.semanticKernelApiUrl = semanticKernelApiUrl;
+			// this.vectorizationApiUrl = vectorizationApiUrl;
+			// this.vectorizationWorkerApiUrl = vectorizationWorkerApiUrl;
 
 			this.instanceId = instanceId;
 

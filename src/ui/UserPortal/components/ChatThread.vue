@@ -39,6 +39,7 @@
 		</div>
 
 		<footer v-if="$appConfigStore.footerText">
+			<!-- eslint-disable-next-line vue/no-v-html -->
 			<div class="footer-item" v-html="$appConfigStore.footerText"></div>
 		</footer>
 	</div>
@@ -82,6 +83,14 @@ export default {
 		},
 	},
 
+	beforeUnmount() {
+		eventBus.off('operation-completed', this.handleOperationCompleted);
+	},
+
+	mounted() {
+		eventBus.on('operation-completed', this.handleOperationCompleted);
+	},
+
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
@@ -93,7 +102,20 @@ export default {
 			this.isMessagePending = true;
 			this.userSentMessage = true;
 
-			const agent = this.$appStore.getSessionAgent(this.currentSession).resource;
+			const agent = this.$appStore.getSessionAgent(this.currentSession)?.resource;
+
+			// Display an error toast message if agent is null or undefined.
+			if (!agent) {
+				this.$toast.add({
+					severity: 'info',
+					summary: 'Could not send message',
+					detail: 'Please select an agent and try again. If no agents are available, refresh the page.',
+					life: 8000,
+				});
+				this.isMessagePending = false;
+				return;
+			}
+
 			if (agent.long_running) {
 				// Handle long-running operations
 				const operationId = await this.$appStore.startLongRunningProcess('/completions', {
@@ -101,7 +123,7 @@ export default {
 					user_prompt: text,
 					agent_name: agent.name,
 					settings: null,
-					attachments: this.$appStore.attachments.map(attachment => String(attachment.id))
+					attachments: this.$appStore.attachments.map((attachment) => String(attachment.id)),
 				});
 
 				this.longRunningOperations.set(this.currentSession.id, true);
@@ -121,23 +143,15 @@ export default {
 					await this.$appStore.getMessages();
 					break;
 				}
-				await new Promise(resolve => setTimeout(resolve, 2000)); // Poll every 2 seconds
+				await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
 			}
 		},
 
-		async handleOperationCompleted({ sessionId, operationId }: { sessionId: string, operationId: string }) {
+		async handleOperationCompleted({ sessionId }: { sessionId: string; operationId: string }) {
 			if (this.currentSession.id === sessionId) {
 				await this.$appStore.getMessages();
 			}
 		},
-	},
-
-	mounted() {
-		eventBus.on('operation-completed', this.handleOperationCompleted);
-	},
-
-	beforeUnmount() {
-		eventBus.off('operation-completed', this.handleOperationCompleted);
 	},
 };
 </script>
@@ -214,6 +228,6 @@ export default {
 footer {
 	text-align: right;
 	font-size: 0.85rem;
-    padding-right: 24px;
+	padding-right: 24px;
 }
 </style>

@@ -5,19 +5,11 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
-@description('Chat UI OIDC Client Secret')
-@secure()
-param chatUiClientSecret string
-
-@description('Core API OIDC Client Secret')
-@secure()
-param coreApiClientSecret string
-
-@description('DNS Resource Group Name')
-param dnsResourceGroupName string
-
 @description('The environment name token used in naming resources.')
 param environmentName string
+
+param hubResourceGroup string
+param hubSubscriptionId string = subscription().subscriptionId
 
 @description('AKS namespace')
 param k8sNamespace string
@@ -31,14 +23,6 @@ param logAnalyticsWorkspaceId string
 @description('Log Analytics Workspace Resource Id to use for diagnostics')
 param logAnalyticsWorkspaceResourceId string
 
-@description('Management UI OIDC Client Secret')
-@secure()
-param managementUiClientSecret string
-
-@description('Management API OIDC Client Secret')
-@secure()
-param managementApiClientSecret string
-
 @description('Networking Resource Group Name')
 param networkingResourceGroupName string
 
@@ -48,15 +32,14 @@ param opsResourceGroupName string
 @description('Project Name, used in naming resources.')
 param project string
 
+param services array
+var serviceNames = [for service in services: service.name]
+
 @description('Storage Resource Group name')
 param storageResourceGroupName string
 
 @description('Timestamp used in naming nested deployments.')
 param timestamp string = utcNow()
-
-@description('Vectorization API OIDC Client Secret')
-@secure()
-param vectorizationApiClientSecret string
 
 @description('Vectorization Resource Group name')
 param vectorizationResourceGroupName string
@@ -82,16 +65,18 @@ var tags = {
 }
 
 var backendServices = {
-  'gateway-api': { displayName: 'GatewayAPI' }
   'agent-hub-api': { displayName: 'AgentHubAPI' }
   'core-job': { displayName: 'CoreWorker' }
   'data-source-hub-api': { displayName: 'DataSourceHubAPI' }
   'gatekeeper-api': { displayName: 'GatekeeperAPI' }
   'gatekeeper-integration-api': { displayName: 'GatekeeperIntegrationAPI' }
+  'gateway-adapter-api': { displayName: 'GatewayAdapterAPI' }
+  'gateway-api': { displayName: 'GatewayAPI' }
   'langchain-api': { displayName: 'LangChainAPI' }
   'prompt-hub-api': { displayName: 'PromptHubAPI' }
   'orchestration-api': { displayName: 'OrchestrationAPI' }
   'semantic-kernel-api': { displayName: 'SemanticKernelAPI' }
+  'state-api': { displayName: 'StateAPI' }
   'vectorization-job': { displayName: 'VectorizationWorker' }
 }
 var backendServiceNames = [for service in items(backendServices): service.key]
@@ -147,7 +132,8 @@ module aksBackend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    dnsResourceGroupName: dnsResourceGroupName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
@@ -166,7 +152,8 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
-    dnsResourceGroupName: dnsResourceGroupName
+    hubResourceGroup: hubResourceGroup
+    hubSubscriptionId: hubSubscriptionId
     location: location
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     logAnalyticWorkspaceResourceId: logAnalyticsWorkspaceResourceId
@@ -182,7 +169,7 @@ module aksFrontend 'modules/aks.bicep' = {
 
 module dnsZones 'modules/utility/dnsZoneData.bicep' = {
   name: 'dnsZones-${timestamp}'
-  scope: resourceGroup(dnsResourceGroupName)
+  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
   params: {
     location: location
   }
@@ -281,6 +268,7 @@ module srBackend 'modules/service.bicep' = [for service in items(backendServices
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -291,13 +279,13 @@ module srBackend 'modules/service.bicep' = [for service in items(backendServices
 module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService): {
   name: 'srCoreApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: coreApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -309,13 +297,13 @@ module srCoreApi 'modules/service.bicep' = [for service in items(coreApiService)
 module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): {
   name: 'srChatUi-${service.key}-${timestamp}'
   params: {
-    clientSecret: chatUiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -327,13 +315,13 @@ module srChatUi 'modules/service.bicep' = [for service in items(chatUiService): 
 module srManagementApi 'modules/service.bicep' = [for service in items(managementApiService): {
   name: 'srManagementApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: managementApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -345,13 +333,13 @@ module srManagementApi 'modules/service.bicep' = [for service in items(managemen
 module srManagementUi 'modules/service.bicep' = [for service in items(managementUiService): {
   name: 'srManagementUi-${service.key}-${timestamp}'
   params: {
-    clientSecret: managementUiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksFrontend.outputs.oidcIssuerUrl
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -363,13 +351,13 @@ module srManagementUi 'modules/service.bicep' = [for service in items(management
 module srVectorizationApi 'modules/service.bicep' = [for service in items(vectorizationApiService): {
   name: 'srVectorizationApi-${service.key}-${timestamp}'
   params: {
-    clientSecret: vectorizationApiClientSecret
     location: location
     namespace: k8sNamespace
     oidcIssuerUrl: aksBackend.outputs.oidcIssuerUrl
     opsResourceGroupName: opsResourceGroupName
     opsResourceSuffix: opsResourceSuffix
     resourceSuffix: resourceSuffix
+    secretName: services[indexOf(serviceNames, service.key)].apiKeySecretName
     serviceName: service.key
     storageResourceGroupName: storageResourceGroupName
     tags: tags
@@ -395,6 +383,18 @@ module cosmosRoles './modules/sqlRoleAssignments.bicep' = {
   params: {
     accountName: cosmosDb.name
     principalId: srBackend[indexOf(backendServiceNames, 'core-job')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
+    }
+  }
+}
+
+module stateApiCosmosRoles './modules/sqlRoleAssignments.bicep' = {
+  scope: resourceGroup(storageResourceGroupName)
+  name: 'state-api-cosmos-role'
+  params: {
+    accountName: cosmosDb.name
+    principalId: srBackend[indexOf(backendServiceNames, 'state-api')].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cosmos DB Built-in Data Contributor': '00000000-0000-0000-0000-000000000002'
     }

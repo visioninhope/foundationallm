@@ -71,6 +71,18 @@
 			"Filename": "/FoundationaLLM.Configuration/AzureOpenAI.json",
 			"Type": "api-endpoint",
 			"Deleted": false
+		},
+		{
+			"Name": "AzureAISearch",
+			"Filename": "/FoundationaLLM.Configuration/AzureAISearch.json",
+			"Type": "api-endpoint",
+			"Deleted": false
+		},
+		{
+			"Name": "AzureEventGrid",
+			"Filename": "/FoundationaLLM.Configuration/AzureEventGrid.json",
+			"Type": "api-endpoint",
+			"Deleted": false
 		}
 	]
 }

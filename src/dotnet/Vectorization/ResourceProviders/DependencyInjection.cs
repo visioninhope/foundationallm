@@ -27,23 +27,7 @@ namespace FoundationaLLM
         /// <param name="builder">The application builder.</param>
         public static void AddVectorizationResourceProvider(this IHostApplicationBuilder builder)
         {
-            builder.Services.AddOptions<BlobStorageServiceSettings>(
-                DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization)
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Vectorization_ResourceProviderService_Storage));
-
-            builder.Services.AddSingleton<IStorageService, BlobStorageService>(sp =>
-            {
-                var settings = sp.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
-                var logger = sp.GetRequiredService<ILogger<BlobStorageService>>();
-
-                return new BlobStorageService(
-                    Options.Create<BlobStorageServiceSettings>(settings),
-                    logger)
-                {
-                    InstanceName = DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization
-                };
-            });            
+            builder.AddVectorizationResourceProviderStorage();         
 
             // Register validators.
             builder.Services.AddSingleton<IValidator<TextPartitioningProfile>, TextPartitioningProfileValidator>();
@@ -58,7 +42,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),                    
                     sp.GetRequiredService<IAuthorizationService>(),
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
-                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization),
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization),
                     sp.GetRequiredService<IEventService>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),                    
                     sp,                    
