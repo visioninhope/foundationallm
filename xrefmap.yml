@@ -5353,36 +5353,6 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
   fullName: FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
   nameWithType: AuthorizationClaims.ApplicationId
-- uid: FoundationaLLM.Common.Constants.CacheCategories
-  name: CacheCategories
-  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html
-  commentId: T:FoundationaLLM.Common.Constants.CacheCategories
-  fullName: FoundationaLLM.Common.Constants.CacheCategories
-  nameWithType: CacheCategories
-- uid: FoundationaLLM.Common.Constants.CacheCategories.Agent
-  name: Agent
-  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_Agent
-  commentId: F:FoundationaLLM.Common.Constants.CacheCategories.Agent
-  fullName: FoundationaLLM.Common.Constants.CacheCategories.Agent
-  nameWithType: CacheCategories.Agent
-- uid: FoundationaLLM.Common.Constants.CacheCategories.Attachment
-  name: Attachment
-  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_Attachment
-  commentId: F:FoundationaLLM.Common.Constants.CacheCategories.Attachment
-  fullName: FoundationaLLM.Common.Constants.CacheCategories.Attachment
-  nameWithType: CacheCategories.Attachment
-- uid: FoundationaLLM.Common.Constants.CacheCategories.DataSource
-  name: DataSource
-  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_DataSource
-  commentId: F:FoundationaLLM.Common.Constants.CacheCategories.DataSource
-  fullName: FoundationaLLM.Common.Constants.CacheCategories.DataSource
-  nameWithType: CacheCategories.DataSource
-- uid: FoundationaLLM.Common.Constants.CacheCategories.Prompt
-  name: Prompt
-  href: api/dotnet/FoundationaLLM.Common.Constants.CacheCategories.html#FoundationaLLM_Common_Constants_CacheCategories_Prompt
-  commentId: F:FoundationaLLM.Common.Constants.CacheCategories.Prompt
-  fullName: FoundationaLLM.Common.Constants.CacheCategories.Prompt
-  nameWithType: CacheCategories.Prompt
 - uid: FoundationaLLM.Common.Constants.Configuration
   name: FoundationaLLM.Common.Constants.Configuration
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.html
@@ -7399,6 +7369,36 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
   fullName: FoundationaLLM.Common.Constants.GatekeeperOptionNames.MicrosoftPresidio
   nameWithType: GatekeeperOptionNames.MicrosoftPresidio
+- uid: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames
+  name: HttpClientFactoryServiceKeyNames
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.html
+  commentId: T:FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames
+  fullName: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames
+  nameWithType: HttpClientFactoryServiceKeyNames
+- uid: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.APIKey
+  name: APIKey
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.html#FoundationaLLM_Common_Constants_HttpClientFactoryServiceKeyNames_APIKey
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.APIKey
+  fullName: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.APIKey
+  nameWithType: HttpClientFactoryServiceKeyNames.APIKey
+- uid: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.AuthenticationType
+  name: AuthenticationType
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.html#FoundationaLLM_Common_Constants_HttpClientFactoryServiceKeyNames_AuthenticationType
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.AuthenticationType
+  fullName: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.AuthenticationType
+  nameWithType: HttpClientFactoryServiceKeyNames.AuthenticationType
+- uid: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.Endpoint
+  name: Endpoint
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.html#FoundationaLLM_Common_Constants_HttpClientFactoryServiceKeyNames_Endpoint
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.Endpoint
+  fullName: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.Endpoint
+  nameWithType: HttpClientFactoryServiceKeyNames.Endpoint
+- uid: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.TimeoutSeconds
+  name: TimeoutSeconds
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.html#FoundationaLLM_Common_Constants_HttpClientFactoryServiceKeyNames_TimeoutSeconds
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.TimeoutSeconds
+  fullName: FoundationaLLM.Common.Constants.HttpClientFactoryServiceKeyNames.TimeoutSeconds
+  nameWithType: HttpClientFactoryServiceKeyNames.TimeoutSeconds
 - uid: FoundationaLLM.Common.Constants.HttpClientNames
   name: HttpClientNames
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html
@@ -7435,6 +7435,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AzureContentSafety
   fullName: FoundationaLLM.Common.Constants.HttpClientNames.AzureContentSafety
   nameWithType: HttpClientNames.AzureContentSafety
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.AzureEventGrid
+  name: AzureEventGrid
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_AzureEventGrid
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.AzureEventGrid
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.AzureEventGrid
+  nameWithType: HttpClientNames.AzureEventGrid
 - uid: FoundationaLLM.Common.Constants.HttpClientNames.CoreAPI
   name: CoreAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_CoreAPI
@@ -9840,13 +9846,13 @@ references:
   nameWithType: IHttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
   nameWithType.vb: IHttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: CreateClient(string, UnifiedUserIdentity?)
+  name: CreateClient(string, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
   commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name.vb: CreateClient(String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   fullName.vb: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: IHttpClientFactoryService.CreateClient(string, UnifiedUserIdentity?)
+  nameWithType: IHttpClientFactoryService.CreateClient(string, UnifiedUserIdentity)
   nameWithType.vb: IHttpClientFactoryService.CreateClient(String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient*
   name: CreateClient
@@ -9855,6 +9861,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient
   nameWithType: IHttpClientFactoryService.CreateClient
+- uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Func{System.Collections.Generic.Dictionary{System.String,System.Object},``0})
+  name: CreateClient<T>(string, UnifiedUserIdentity, Func<Dictionary<string, object>, T>)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateClient__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_System_Func_System_Collections_Generic_Dictionary_System_String_System_Object____0__
+  commentId: M:FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Func{System.Collections.Generic.Dictionary{System.String,System.Object},``0})
+  name.vb: CreateClient(Of T)(String, UnifiedUserIdentity, Func(Of Dictionary(Of String, Object), T))
+  fullName: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Func<System.Collections.Generic.Dictionary<string, object>, T>)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateClient(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Func(Of System.Collections.Generic.Dictionary(Of String, Object), T))
+  nameWithType: IHttpClientFactoryService.CreateClient<T>(string, UnifiedUserIdentity, Func<Dictionary<string, object>, T>)
+  nameWithType.vb: IHttpClientFactoryService.CreateClient(Of T)(String, UnifiedUserIdentity, Func(Of Dictionary(Of String, Object), T))
 - uid: FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
   name: CreateUnregisteredClient(TimeSpan?)
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.html#FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_CreateUnregisteredClient_System_Nullable_System_TimeSpan__
@@ -13847,45 +13862,6 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings
   fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings
   nameWithType: AzureEventGridEventServiceSettings
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_APIKey
-  commentId: P:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey
-  nameWithType: AzureEventGridEventServiceSettings.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey*
-  name: APIKey
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_APIKey_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.APIKey
-  nameWithType: AzureEventGridEventServiceSettings.APIKey
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType
-  name: AuthenticationType
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_AuthenticationType
-  commentId: P:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType
-  nameWithType: AzureEventGridEventServiceSettings.AuthenticationType
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType*
-  name: AuthenticationType
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_AuthenticationType_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.AuthenticationType
-  nameWithType: AzureEventGridEventServiceSettings.AuthenticationType
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint
-  name: Endpoint
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_Endpoint
-  commentId: P:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint
-  nameWithType: AzureEventGridEventServiceSettings.Endpoint
-- uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint*
-  name: Endpoint
-  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_Endpoint_
-  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.Endpoint
-  nameWithType: AzureEventGridEventServiceSettings.Endpoint
 - uid: FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.NamespaceId
   name: NamespaceId
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings.html#FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings_NamespaceId
@@ -21336,15 +21312,15 @@ references:
   commentId: T:FoundationaLLM.Common.Services.Events.AzureEventGridEventService
   fullName: FoundationaLLM.Common.Services.Events.AzureEventGridEventService
   nameWithType: AzureEventGridEventService
-- uid: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile},FoundationaLLM.Common.Interfaces.IAzureResourceManagerService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Events.AzureEventGridEventService})
-  name: AzureEventGridEventService(IOptions<AzureEventGridEventServiceSettings>, IOptions<AzureEventGridEventServiceProfile>, IAzureResourceManagerService, ILogger<AzureEventGridEventService>)
-  href: api/dotnet/FoundationaLLM.Common.Services.Events.AzureEventGridEventService.html#FoundationaLLM_Common_Services_Events_AzureEventGridEventService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceProfile__FoundationaLLM_Common_Interfaces_IAzureResourceManagerService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Events_AzureEventGridEventService__
-  commentId: M:FoundationaLLM.Common.Services.Events.AzureEventGridEventService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile},FoundationaLLM.Common.Interfaces.IAzureResourceManagerService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Events.AzureEventGridEventService})
-  name.vb: New(IOptions(Of AzureEventGridEventServiceSettings), IOptions(Of AzureEventGridEventServiceProfile), IAzureResourceManagerService, ILogger(Of AzureEventGridEventService))
-  fullName: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.AzureEventGridEventService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile>, FoundationaLLM.Common.Interfaces.IAzureResourceManagerService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Events.AzureEventGridEventService>)
-  fullName.vb: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile), FoundationaLLM.Common.Interfaces.IAzureResourceManagerService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Events.AzureEventGridEventService))
-  nameWithType: AzureEventGridEventService.AzureEventGridEventService(IOptions<AzureEventGridEventServiceSettings>, IOptions<AzureEventGridEventServiceProfile>, IAzureResourceManagerService, ILogger<AzureEventGridEventService>)
-  nameWithType.vb: AzureEventGridEventService.New(IOptions(Of AzureEventGridEventServiceSettings), IOptions(Of AzureEventGridEventServiceProfile), IAzureResourceManagerService, ILogger(Of AzureEventGridEventService))
+- uid: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile},FoundationaLLM.Common.Interfaces.IAzureResourceManagerService,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Events.AzureEventGridEventService})
+  name: AzureEventGridEventService(IOptions<AzureEventGridEventServiceSettings>, IOptions<AzureEventGridEventServiceProfile>, IAzureResourceManagerService, IHttpClientFactoryService, ILogger<AzureEventGridEventService>)
+  href: api/dotnet/FoundationaLLM.Common.Services.Events.AzureEventGridEventService.html#FoundationaLLM_Common_Services_Events_AzureEventGridEventService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceSettings__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Events_AzureEventGridEventServiceProfile__FoundationaLLM_Common_Interfaces_IAzureResourceManagerService_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Services_Events_AzureEventGridEventService__
+  commentId: M:FoundationaLLM.Common.Services.Events.AzureEventGridEventService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile},FoundationaLLM.Common.Interfaces.IAzureResourceManagerService,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Services.Events.AzureEventGridEventService})
+  name.vb: New(IOptions(Of AzureEventGridEventServiceSettings), IOptions(Of AzureEventGridEventServiceProfile), IAzureResourceManagerService, IHttpClientFactoryService, ILogger(Of AzureEventGridEventService))
+  fullName: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.AzureEventGridEventService(Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile>, FoundationaLLM.Common.Interfaces.IAzureResourceManagerService, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Services.Events.AzureEventGridEventService>)
+  fullName.vb: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.New(Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceSettings), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Events.AzureEventGridEventServiceProfile), FoundationaLLM.Common.Interfaces.IAzureResourceManagerService, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Services.Events.AzureEventGridEventService))
+  nameWithType: AzureEventGridEventService.AzureEventGridEventService(IOptions<AzureEventGridEventServiceSettings>, IOptions<AzureEventGridEventServiceProfile>, IAzureResourceManagerService, IHttpClientFactoryService, ILogger<AzureEventGridEventService>)
+  nameWithType.vb: AzureEventGridEventService.New(IOptions(Of AzureEventGridEventServiceSettings), IOptions(Of AzureEventGridEventServiceProfile), IAzureResourceManagerService, IHttpClientFactoryService, ILogger(Of AzureEventGridEventService))
 - uid: FoundationaLLM.Common.Services.Events.AzureEventGridEventService.#ctor*
   name: AzureEventGridEventService
   href: api/dotnet/FoundationaLLM.Common.Services.Events.AzureEventGridEventService.html#FoundationaLLM_Common_Services_Events_AzureEventGridEventService__ctor_
@@ -21569,13 +21545,13 @@ references:
   nameWithType: HttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity?)
   nameWithType.vb: HttpClientFactoryService.CreateClient(APIEndpointConfiguration, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: CreateClient(string, UnifiedUserIdentity?)
+  name: CreateClient(string, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
   commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name.vb: CreateClient(String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity?)
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: HttpClientFactoryService.CreateClient(string, UnifiedUserIdentity?)
+  nameWithType: HttpClientFactoryService.CreateClient(string, UnifiedUserIdentity)
   nameWithType.vb: HttpClientFactoryService.CreateClient(String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient*
   name: CreateClient
@@ -21584,6 +21560,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient
   nameWithType: HttpClientFactoryService.CreateClient
+- uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Func{System.Collections.Generic.Dictionary{System.String,System.Object},``0})
+  name: CreateClient<T>(string, UnifiedUserIdentity, Func<Dictionary<string, object>, T>)
+  href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateClient__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_System_Func_System_Collections_Generic_Dictionary_System_String_System_Object____0__
+  commentId: M:FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,System.Func{System.Collections.Generic.Dictionary{System.String,System.Object},``0})
+  name.vb: CreateClient(Of T)(String, UnifiedUserIdentity, Func(Of Dictionary(Of String, Object), T))
+  fullName: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Func<System.Collections.Generic.Dictionary<string, object>, T>)
+  fullName.vb: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateClient(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, System.Func(Of System.Collections.Generic.Dictionary(Of String, Object), T))
+  nameWithType: HttpClientFactoryService.CreateClient<T>(string, UnifiedUserIdentity, Func<Dictionary<string, object>, T>)
+  nameWithType.vb: HttpClientFactoryService.CreateClient(Of T)(String, UnifiedUserIdentity, Func(Of Dictionary(Of String, Object), T))
 - uid: FoundationaLLM.Common.Services.HttpClientFactoryService.CreateUnregisteredClient(System.Nullable{System.TimeSpan})
   name: CreateUnregisteredClient(TimeSpan?)
   href: api/dotnet/FoundationaLLM.Common.Services.HttpClientFactoryService.html#FoundationaLLM_Common_Services_HttpClientFactoryService_CreateUnregisteredClient_System_Nullable_System_TimeSpan__
