@@ -36,20 +36,22 @@ var privateDnsZone = {
   vault: 'privatelink.vaultcore.azure.net'
 }
 
-var cidrFllmAuth = cidrSubnet(cidrVnet, 26, 17) // 10.220.132.64/26
-var cidrFllmBackend = cidrSubnet(cidrVnet, 24, 1) // 10.220.129.0/24
-var cidrFllmFrontend = cidrSubnet(cidrVnet, 24, 2) // 10.220.130.0/24
-var cidrFllmOpenAi = cidrSubnet(cidrVnet, 26, 12) // 10.220.131.0/26
-var cidrFllmOps = cidrSubnet(cidrVnet, 26, 15) // 10.220.131.192/26
-var cidrFllmVec = cidrSubnet(cidrVnet, 26, 16) // 10.220.132.0/26
-var cidrNetSvc = cidrSubnet(cidrVnet, 24, 6) // 10.220.134.0/24
+var dnsResolverSubnetCidr = cidrSubnet(cidrVnet, 28, 0) // 10.220.134.0/28
+var opsSubnetCidr = cidrSubnet(cidrVnet, 26, 1) // 10.220.128.64/26
+var servicesSubnetCidr = cidrSubnet(cidrVnet, 26, 2) // 10.220.128.128/26
+var authSubnetCidr = cidrSubnet(cidrVnet, 26, 3) // 10.220.128.192/26
+var openAiSubnetCidr = cidrSubnet(cidrVnet, 26, 4) // 10.220.129.0/26
+var storageSubnetCidr = cidrSubnet(cidrVnet, 26, 5) // 10.220.129.64/26
+var vectorizationSubnetCidr = cidrSubnet(cidrVnet, 26, 6) // 10.220.129.128/26
+var backendAksSubnetCidr = cidrSubnet(cidrVnet, 22, 1) // 10.220.132.0/22
+var frontendAksSubnetCidr = cidrSubnet(cidrVnet, 22, 4) // 10.220.140.0/22
 // TODO: Use Namer FUnction from main.bicep
 var name = networkName == '' ? 'vnet-${environmentName}-${location}-net' : networkName
 
 var subnets = [
   {
-    name: 'FLLMBackend'
-    addressPrefix: cidrFllmBackend
+    name: 'aks-backend'
+    addressPrefix: backendAksSubnetCidr
     inbound: [
       {
         access: 'Allow'
@@ -70,8 +72,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMFrontEnd'
-    addressPrefix: cidrFllmFrontend
+    name: 'aks-frontend'
+    addressPrefix: frontendAksSubnetCidr
     inbound: [
       {
         access: 'Allow'
@@ -92,8 +94,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMNetSvc'
-    addressPrefix: cidrNetSvc
+    name: 'dns-resolver'
+    addressPrefix: dnsResolverSubnetCidr
     rules: {
       inbound: [
         {
@@ -118,8 +120,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMOpenAI'
-    addressPrefix: cidrFllmOpenAi
+    name: 'openai'
+    addressPrefix: openAiSubnetCidr
     rules: {
       inbound: [
         {
@@ -151,7 +153,7 @@ var subnets = [
           protocol: '*'
           sourcePortRange: '*'
           sourceAddressPrefixes: [
-            cidrFllmBackend
+            backendAksSubnetCidr
           ]
         }
         {
@@ -236,8 +238,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMServices'
-    addressPrefix: cidrSubnet(cidrVnet, 26, 13)
+    name: 'services'
+    addressPrefix: servicesSubnetCidr
     rules: {
       inbound: [
         {
@@ -248,7 +250,7 @@ var subnets = [
           priority: 256
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: [cidrFllmBackend]
+          sourceAddressPrefixes: [backendAksSubnetCidr]
         }
         {
           access: 'Allow'
@@ -280,8 +282,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMStorage'
-    addressPrefix: cidrSubnet(cidrVnet, 26, 14)
+    name: 'storage'
+    addressPrefix: storageSubnetCidr
     rules: {
       inbound: [
         {
@@ -292,7 +294,7 @@ var subnets = [
           priority: 128
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: [cidrFllmOps]
+          sourceAddressPrefixes: [opsSubnetCidr]
         }
         {
           access: 'Allow'
@@ -312,7 +314,7 @@ var subnets = [
           name: 'allow-aks-inbound'
           priority: 256
           protocol: '*'
-          sourceAddressPrefixes: [cidrFllmBackend]
+          sourceAddressPrefixes: [backendAksSubnetCidr]
           sourcePortRange: '*'
         }
         {
@@ -347,8 +349,8 @@ var subnets = [
     ]
   }
   {
-    name: 'ops' // TODO: PLEs.  Maybe put these in FLLMServices?
-    addressPrefix: cidrFllmOps
+    name: 'ops' // TODO: PLEs.  Maybe put these in services?
+    addressPrefix: opsSubnetCidr
     rules: {
       inbound: [
         {
@@ -359,7 +361,7 @@ var subnets = [
           priority: 128
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: [cidrFllmOps]
+          sourceAddressPrefixes: [opsSubnetCidr]
         }
         {
           access: 'Allow'
@@ -380,8 +382,8 @@ var subnets = [
           protocol: '*'
           sourcePortRange: '*'
           sourceAddressPrefixes: [
-            cidrFllmFrontend
-            cidrFllmBackend
+            frontendAksSubnetCidr
+            backendAksSubnetCidr
           ]
         }
         {
@@ -404,8 +406,8 @@ var subnets = [
     ]
   }
   {
-    name: 'Vectorization'
-    addressPrefix: cidrFllmVec
+    name: 'vectorization'
+    addressPrefix: vectorizationSubnetCidr
     rules: {
       inbound: [
         {
@@ -425,7 +427,7 @@ var subnets = [
           name: 'allow-aks-inbound'
           priority: 256
           protocol: '*'
-          sourceAddressPrefixes: [cidrFllmBackend]
+          sourceAddressPrefixes: [backendAksSubnetCidr]
           sourcePortRange: '*'
         }
         {
@@ -461,8 +463,8 @@ var subnets = [
     ]
   }
   {
-    name: 'FLLMAuth'
-    addressPrefix: cidrFllmAuth
+    name: 'auth'
+    addressPrefix: authSubnetCidr
     rules: {
       inbound: [
         {
@@ -473,7 +475,7 @@ var subnets = [
           priority: 128
           protocol: '*'
           sourcePortRange: '*'
-          sourceAddressPrefixes: [cidrFllmOps]
+          sourceAddressPrefixes: [opsSubnetCidr]
         }
         {
           access: 'Allow'
@@ -493,7 +495,7 @@ var subnets = [
           name: 'allow-aks-inbound'
           priority: 256
           protocol: '*'
-          sourceAddressPrefixes: [cidrFllmBackend]
+          sourceAddressPrefixes: [backendAksSubnetCidr]
           sourcePortRange: '*'
         }
         {
