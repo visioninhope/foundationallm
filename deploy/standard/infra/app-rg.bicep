@@ -106,9 +106,9 @@ module network 'modules/utility/virtualNetworkData.bicep' = {
   params: {
     vnetName: vnetName
     subnetNames: [
-      'FLLMBackend'
-      'FLLMFrontend'
-      'FLLMServices'
+      'aks-backend'
+      'aks-frontend'
+      'services'
     ]
   }
 }
@@ -141,8 +141,8 @@ module aksBackend 'modules/aks.bicep' = {
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-backend'
-    subnetId: subnets.FLLMBackend.id
-    subnetIdPrivateEndpoint: subnets.FLLMServices.id
+    subnetId: subnets.aks-backend.id
+    subnetIdPrivateEndpoint: subnets.services.id
     tags: tags
   }
 }
@@ -161,8 +161,8 @@ module aksFrontend 'modules/aks.bicep' = {
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-frontend'
-    subnetId: subnets.FLLMFrontend.id
-    subnetIdPrivateEndpoint: subnets.FLLMServices.id
+    subnetId: subnets.aks-frontend.id
+    subnetIdPrivateEndpoint: subnets.services.id
     tags: tags
   }
 }

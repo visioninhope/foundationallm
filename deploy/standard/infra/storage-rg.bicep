@@ -57,7 +57,7 @@ module cosmosdb 'modules/cosmosdb.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'cosmosdb')
     resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMStorage'
+    subnetId: '${vnetId}/subnets/storage'
     tags: tags
   }
 }
@@ -73,7 +73,7 @@ module storage 'modules/storageAccount.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     privateDnsZones: dnsZones.outputs.idsStorage
     resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMStorage'
+    subnetId: '${vnetId}/subnets/storage'
     tags: tags
     containers: [
       'resource-provider'
