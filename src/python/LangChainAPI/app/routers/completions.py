@@ -78,37 +78,37 @@ async def submit_completion_request(
         Object containing the operation ID and status.
     """
     with tracer.start_as_current_span('submit_completion_request') as span:
-        try:
-            # Get the operation_id from the completion request.
-            operation_id = completion_request.operation_id
-            
-            span.set_attribute('operation_id', operation_id)
-            span.set_attribute('instance_id', instance_id)
-            span.set_attribute('user_identity', x_user_identity)
+        # try:
+        # Get the operation_id from the completion request.
+        operation_id = completion_request.operation_id
+        
+        span.set_attribute('operation_id', operation_id)
+        span.set_attribute('instance_id', instance_id)
+        span.set_attribute('user_identity', x_user_identity)
 
-            location = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}/status'
-            response.headers['location'] = location
-            
-            # Create an operations manager to create the operation.
-            operations_manager = OperationsManager(raw_request.app.extra['config'])
-            # Submit the completion request operation to the state API.
-            operation = await operations_manager.create_operation(operation_id, instance_id)
-            
-            # Start a background task to perform the completion request.
-            background_tasks.add_task(
-                create_completion_response,
-                operation_id,
-                instance_id,
-                completion_request,
-                raw_request.app.extra['config'],
-                x_user_identity
-            )
+        location = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}/status'
+        response.headers['location'] = location
+        
+        # Create an operations manager to create the operation.
+        operations_manager = OperationsManager(raw_request.app.extra['config'])
+        # Submit the completion request operation to the state API.
+        operation = await operations_manager.create_operation(operation_id, instance_id)
+        
+        # Start a background task to perform the completion request.
+        background_tasks.add_task(
+            create_completion_response,
+            operation_id,
+            instance_id,
+            completion_request,
+            raw_request.app.extra['config'],
+            x_user_identity
+        )
 
-            # Return the long running operation object.
-            return operation
+        # Return the long running operation object.
+        return operation
     
-        except Exception as e:
-            handle_exception(e)
+        # except Exception as e:
+        #     handle_exception(e)
 
 async def create_completion_response(
     operation_id: str,
