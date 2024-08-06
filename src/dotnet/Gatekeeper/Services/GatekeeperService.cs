@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
+using FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard;
 using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Gatekeeper.Core.Services
@@ -92,17 +93,71 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest) =>
-            // TODO: Need to call State API to start the operation.
-            throw new NotImplementedException();
+        public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, CompletionRequest completionRequest)
+        {
+            if (completionRequest.GatekeeperOptions != null && completionRequest.GatekeeperOptions.Length > 0)
+            {
+                _gatekeeperServiceSettings.EnableAzureContentSafety = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.AzureContentSafety);
+                _gatekeeperServiceSettings.EnableMicrosoftPresidio = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.MicrosoftPresidio);
+                _gatekeeperServiceSettings.EnableLakeraGuard = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.LakeraGuard);
+                _gatekeeperServiceSettings.EnableEnkryptGuardrails = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.EnkryptGuardrails);
+                _gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield = completionRequest.GatekeeperOptions.Any(x => x == GatekeeperOptionNames.AzureContentSafetyPromptShield);
+            }
+
+            if (_gatekeeperServiceSettings.EnableLakeraGuard)
+            {
+                var promptInjectionResult = await _lakeraGuardService.DetectPromptInjection(completionRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
+                    return new LongRunningOperation() { OperationId = completionRequest.OperationId, StatusMessage = promptInjectionResult, Status = OperationStatus.Failed };
+            }
+
+            if (_gatekeeperServiceSettings.EnableEnkryptGuardrails)
+            {
+                var promptInjectionResult = await _enkryptGuardrailsService.DetectPromptInjection(completionRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
+                    return new LongRunningOperation() { OperationId = completionRequest.OperationId, StatusMessage = promptInjectionResult, Status = OperationStatus.Failed };
+            }
+
+            if (_gatekeeperServiceSettings.EnableAzureContentSafetyPromptShield)
+            {
+                var promptInjectionResult = await _contentSafetyService.DetectPromptInjection(completionRequest.UserPrompt!);
+
+                if (!string.IsNullOrWhiteSpace(promptInjectionResult))
+                    return new LongRunningOperation() { OperationId = completionRequest.OperationId, StatusMessage = promptInjectionResult, Status = OperationStatus.Failed };
+            }
+
+            if (_gatekeeperServiceSettings.EnableAzureContentSafety)
+            {
+                var contentSafetyResult = await _contentSafetyService.AnalyzeText(completionRequest.UserPrompt!);
+
+                if (!contentSafetyResult.Safe)
+                    return new LongRunningOperation() { OperationId = completionRequest.OperationId, StatusMessage = contentSafetyResult.Reason, Status = OperationStatus.Failed };
+            }
+
+            var response = await _orchestrationAPIService.StartCompletionOperation(instanceId, completionRequest);
+
+            return response;
+        }
 
         /// <inheritdoc/>
-        public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) => throw new NotImplementedException();
+        public async Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId)
+        {
+            var response = await _orchestrationAPIService.GetCompletionOperationStatus(instanceId, operationId);
+
+            return response;
+        }
 
         /// <inheritdoc/>
-        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
-            // TODO: Need to call State API to get the operation.
-            throw new NotImplementedException();
+        public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId)
+        {
+            var completionResponse = await _orchestrationAPIService.GetCompletionOperationResult(instanceId, operationId);
 
+            if (_gatekeeperServiceSettings.EnableMicrosoftPresidio)
+                completionResponse.Completion = await _gatekeeperIntegrationAPIService.AnonymizeText(completionResponse.Completion);
+
+            return completionResponse;
+        }
     }
 }
