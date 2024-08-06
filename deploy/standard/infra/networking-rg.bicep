@@ -530,9 +530,9 @@ var subnets = [
 ]
 
 var tags = {
-  Environment: environmentName
-  IaC: 'Bicep'
-  Project: project
+  'azd-env-name': environmentName
+  'iac-type': 'bicep'
+  'project-name': project
   Purpose: 'Networking'
 }
 
