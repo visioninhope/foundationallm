@@ -457,7 +457,7 @@
         },
         {
             "key": "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIUrl",
-            "value": "http://state-api/state",
+            "value": "http://state-api",
             "label": null,
             "content_type": "",
             "tags": {}
