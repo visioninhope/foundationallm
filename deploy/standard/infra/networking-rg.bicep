@@ -1,5 +1,5 @@
 // Inputs
-param cidrVnet string = '10.220.128.0/21'
+param cidrVnet string = '10.220.128.0/20'
 param environmentName string
 param hubResourceGroup string
 param hubSubscriptionId string = subscription().subscriptionId
@@ -36,15 +36,14 @@ var privateDnsZone = {
   vault: 'privatelink.vaultcore.azure.net'
 }
 
-var dnsResolverSubnetCidr = cidrSubnet(cidrVnet, 28, 0) // 10.220.134.0/28
-var opsSubnetCidr = cidrSubnet(cidrVnet, 26, 1) // 10.220.128.64/26
-var servicesSubnetCidr = cidrSubnet(cidrVnet, 26, 2) // 10.220.128.128/26
-var authSubnetCidr = cidrSubnet(cidrVnet, 26, 3) // 10.220.128.192/26
-var openAiSubnetCidr = cidrSubnet(cidrVnet, 26, 4) // 10.220.129.0/26
-var storageSubnetCidr = cidrSubnet(cidrVnet, 26, 5) // 10.220.129.64/26
-var vectorizationSubnetCidr = cidrSubnet(cidrVnet, 26, 6) // 10.220.129.128/26
+var opsSubnetCidr = cidrSubnet(cidrVnet, 26, 0) // 10.220.128.0/26
+var servicesSubnetCidr = cidrSubnet(cidrVnet, 26, 1) // 10.220.128.64/26
+var authSubnetCidr = cidrSubnet(cidrVnet, 26, 2) // 10.220.128.128/26
+var openAiSubnetCidr = cidrSubnet(cidrVnet, 26, 3) // 10.220.128.192/26
+var storageSubnetCidr = cidrSubnet(cidrVnet, 26, 4) // 10.220.129.0/26
+var vectorizationSubnetCidr = cidrSubnet(cidrVnet, 26, 5) // 10.220.129.64/26
 var backendAksSubnetCidr = cidrSubnet(cidrVnet, 22, 1) // 10.220.132.0/22
-var frontendAksSubnetCidr = cidrSubnet(cidrVnet, 22, 4) // 10.220.140.0/22
+var frontendAksSubnetCidr = cidrSubnet(cidrVnet, 22, 2) // 10.220.140.0/22
 // TODO: Use Namer FUnction from main.bicep
 var name = networkName == '' ? 'vnet-${environmentName}-${location}-net' : networkName
 
@@ -90,32 +89,6 @@ var subnets = [
       {
         service: 'Microsoft.KeyVault'
         locations: ['*']
-      }
-    ]
-  }
-  {
-    name: 'dns-resolver'
-    addressPrefix: dnsResolverSubnetCidr
-    rules: {
-      inbound: [
-        {
-          access: 'Allow'
-          destinationAddressPrefix: 'VirtualNetwork'
-          destinationPortRange: '*'
-          name: 'allow-vpn'
-          priority: 256
-          protocol: '*'
-          sourcePortRange: '*'
-          sourceAddressPrefixes: [allowedExternalCidr]
-        }
-      ]
-    }
-    delegations: [
-      {
-        name: 'Microsoft.Network/dnsResolvers'
-        properties: {
-          serviceName: 'Microsoft.Network/dnsResolvers'
-        }
       }
     ]
   }

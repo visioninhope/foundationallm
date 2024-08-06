@@ -141,7 +141,7 @@ module aksBackend 'modules/aks.bicep' = {
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-backend'
-    subnetId: subnets.aks-backend.id
+    subnetId: subnets['aks-backend'].id
     subnetIdPrivateEndpoint: subnets.services.id
     tags: tags
   }
@@ -161,7 +161,7 @@ module aksFrontend 'modules/aks.bicep' = {
     opsResourceGroupName: opsResourceGroupName
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains([ 'aks' ], zone.key))
     resourceSuffix: '${resourceSuffix}-frontend'
-    subnetId: subnets.aks-frontend.id
+    subnetId: subnets['aks-frontend'].id
     subnetIdPrivateEndpoint: subnets.services.id
     tags: tags
   }
