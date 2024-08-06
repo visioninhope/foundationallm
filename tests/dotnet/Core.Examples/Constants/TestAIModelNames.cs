@@ -19,5 +19,10 @@ namespace FoundationaLLM.Core.Examples.Constants
         /// The name of the default completions AI model deployed in new FoundationaLLM environments.
         /// </summary>
         public const string Completions_Deployed_Default = "DefaultCompletionAIModel";
+        
+        /// <summary>
+        /// The name of the default embeddings AI model.
+        /// </summary>
+        public const string Embeddings_Default = "embeddings";
     }
 }
