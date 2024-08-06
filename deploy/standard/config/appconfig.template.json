@@ -289,7 +289,7 @@
         },
         {
             "key": "FoundationaLLM:APIEndpoints:GatekeeperIntegrationAPI:Essentials:APIKey",
-            "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperintergrationapi-apikey\"}",
+            "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-gatekeeperintegrationapi-apikey\"}",
             "label": null,
             "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
             "tags": {}
@@ -464,7 +464,7 @@
         },
         {
             "key": "FoundationaLLM:APIEndpoints:StateAPI:Essentials:APIKey",
-            "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apinedpoints-stateapi-apikey\"}",
+            "value": "{\"uri\":\"{{keyvaultUri}}secrets/foundationallm-apiendpoints-stateapi-apikey\"}",
             "label": null,
             "content_type": "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8",
             "tags": {}
