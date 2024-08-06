@@ -3,7 +3,6 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
-using FoundationaLLM.Gatekeeper.Core.Models.LakeraGuard;
 using Microsoft.Extensions.Options;
 
 namespace FoundationaLLM.Gatekeeper.Core.Services
