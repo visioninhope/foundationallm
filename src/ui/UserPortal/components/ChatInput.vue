@@ -63,6 +63,7 @@
 					:file-limit="1"
 					:auto="false"
 					:custom-upload="true"
+					:max-file-size="512000000"
 					@uploader="handleUpload"
 				>
 					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
