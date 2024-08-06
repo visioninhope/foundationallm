@@ -56,17 +56,24 @@ $env:GUID03 = $($(New-Guid).Guid)
 $env:GUID04 = $($(New-Guid).Guid)
 $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
+$env:GUID07 = $($(New-Guid).Guid)
+$env:GUID08 = $($(New-Guid).Guid)
 
 $envConfiguraitons = @{
-    "orchestration-api-event-profile"    = @{
-        template     = './config/orchestration-api-event-profile.template.json'
-        render       = './config/orchestration-api-event-profile.json'
-        variableName = 'FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE'
-    }
     "core-api-event-profile"             = @{
         template     = './config/core-api-event-profile.template.json'
         render       = './config/core-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_CORE_API_EVENT_GRID_PROFILE'
+    }
+    "gatekeeper-api-event-profile"             = @{
+        template     = './config/gatekeeper-api-event-profile.template.json'
+        render       = './config/gatekeeper-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_GATEKEEPER_API_EVENT_GRID_PROFILE'
+    }
+    "orchestration-api-event-profile"    = @{
+        template     = './config/orchestration-api-event-profile.template.json'
+        render       = './config/orchestration-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_ORCHESTRATION_API_EVENT_GRID_PROFILE'
     }
     "management-api-event-profile"       = @{
         template     = './config/management-api-event-profile.template.json'
