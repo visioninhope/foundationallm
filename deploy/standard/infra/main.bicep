@@ -41,7 +41,7 @@ var existingOpenAiInstance = {
 var tags = {
   'compute-type': 'aks'
   'create-date': createDate
-  'env-name': environmentName
+  'azd-env-name': environmentName
   'iac-type': 'bicep'
   'project-name': project
 }
