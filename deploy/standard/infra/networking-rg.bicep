@@ -581,30 +581,4 @@ resource hub 'Microsoft.Network/virtualNetworks@2024-01-01' existing = {
   scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
 }
 
-module srcToDest './modules/vnet-peering.bicep' = {
-  dependsOn: [ hub ]
-  name: 'srcToDest-${timestamp}'
-  scope: resourceGroup()
-  params: {
-    vnetName: main.name
-    destVnetId: hub.id
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: false
-    useRemoteGateways: true
-  }
-}
-
-module destToSrc './modules/vnet-peering.bicep' = {
-  dependsOn: [ hub ]
-  name: 'destToSrc-${timestamp}'
-  scope: resourceGroup(hubSubscriptionId, hubResourceGroup)
-  params: {
-    vnetName: hub.name
-    destVnetId: main.id
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: true
-    useRemoteGateways: false
-  }
-}
+output hubVnetId string = hub.id
