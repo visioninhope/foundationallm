@@ -94,48 +94,49 @@
 					</template>
 
 					<template #content="{ files, removeFileCallback }">
-						<div class="flex flex-wrap gap-4">
+						<div v-if="files.length || uploadProgress !== 0">
+							<ProgressBar :value="uploadProgress" :showValue="false" style="display: flex; width: 95%; margin: 10px 2.5%;" />
+						</div>
+						<div
+							v-for="(file, index) of files"
+							:key="file.name + file.type + file.size"
+							style="
+								border-color: rgb(226, 232, 240);
+								border-radius: 6px;
+								border-style: solid;
+								border-width: 1px;
+								display: flex;
+								flex-direction: row;
+								justify-content: space-between;
+								padding: 0.5rem;
+								width: 100%;
+								align-items: center;
+							"
+						>
 							<div
-								v-for="(file, index) of files"
-								:key="file.name + file.type + file.size"
 								style="
-									border-color: rgb(226, 232, 240);
-									border-radius: 6px;
-									border-style: solid;
-									border-width: 1px;
+									flex: 1;
 									display: flex;
 									flex-direction: row;
-									justify-content: space-between;
-									padding: 0.5rem;
-									width: 100%;
 									align-items: center;
+									gap: 10px;
 								"
 							>
-								<div
-									style="
-										flex: 1;
-										display: flex;
-										flex-direction: row;
-										align-items: center;
-										gap: 10px;
-									"
-								>
-									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
-									<span style="font-weight: 600">{{ file.name }}</span>
-									<div>{{ formatSize(file.size) }}</div>
-								</div>
-								<Button
-									icon="pi pi-times"
-									text
-									severity="danger"
-									@click="removeFileCallback(index)"
-								/>
+								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+								<span style="font-weight: 600">{{ file.name }}</span>
+								<div>{{ formatSize(file.size) }}</div>
 							</div>
+							<Button
+								icon="pi pi-times"
+								text
+								severity="danger"
+								@click="removeFileCallback(index)"
+							/>
 						</div>
 					</template>
 
 					<template #empty>
-						<div>
+						<div v-if="uploadProgress === 0">
 							<i class="pi pi-cloud-upload file-upload-icon" />
 							<div style="width: 500px">
 								<p style="text-align: center">
@@ -146,6 +147,9 @@
 									<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
 								</p>
 							</div>
+						</div>
+						<div v-else>
+							<p style="text-align: center">Uploading...</p>
 						</div>
 					</template>
 				</FileUpload>
@@ -228,6 +232,7 @@ export default {
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
 			secondaryButtonBg: this.$appConfigStore.secondaryButtonBg,
 			secondaryButtonText: this.$appConfigStore.secondaryButtonText,
+			uploadProgress: 0,
 		};
 	},
 
@@ -293,6 +298,7 @@ export default {
 		},
 
 		async handleUpload(event: any) {
+			this.uploadProgress = 70;
 			try {
 				const formData = new FormData();
 				formData.append('file', event.files[0]);
@@ -310,6 +316,7 @@ export default {
 					life: 5000,
 				});
 				this.showFileUploadDialog = false;
+				this.uploadProgress = 0;
 			} catch (error) {
 				this.$toast.add({
 					severity: 'error',
@@ -333,6 +340,7 @@ export default {
 		},
 
 		uploadFile(uploadCallback) {
+			this.uploadProgress = 0;
 			if (this.fileArrayFiltered.length) {
 				this.$confirm.require({
 					message: 'Uploading a new file will replace the file already attached.',
@@ -353,12 +361,10 @@ export default {
 					},
 					reject: () => {
 						uploadCallback();
-						this.showFileUploadDialog = false;
 					},
 				});
 			} else {
 				uploadCallback();
-				this.showFileUploadDialog = false;
 			}
 		},
 
