@@ -9753,6 +9753,54 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletion
   nameWithType: IDownstreamAPIService.GetCompletion
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult(System.String,System.String)
+  name: GetCompletionOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletionOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult(System.String,System.String)
+  name.vb: GetCompletionOperationResult(String, String)
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult(string, string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult(String, String)
+  nameWithType: IDownstreamAPIService.GetCompletionOperationResult(string, string)
+  nameWithType.vb: IDownstreamAPIService.GetCompletionOperationResult(String, String)
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult*
+  name: GetCompletionOperationResult
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletionOperationResult_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationResult
+  nameWithType: IDownstreamAPIService.GetCompletionOperationResult
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus(String, String)
+  nameWithType: IDownstreamAPIService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: IDownstreamAPIService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.GetCompletionOperationStatus
+  nameWithType: IDownstreamAPIService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: IDownstreamAPIService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: IDownstreamAPIService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IDownstreamAPIService.html#FoundationaLLM_Common_Interfaces_IDownstreamAPIService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IDownstreamAPIService.StartCompletionOperation
+  nameWithType: IDownstreamAPIService.StartCompletionOperation
 - uid: FoundationaLLM.Common.Interfaces.IEventService
   name: IEventService
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IEventService.html
@@ -20819,6 +20867,54 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletion
   nameWithType: DownstreamAPIService.GetCompletion
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult(System.String,System.String)
+  name: GetCompletionOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletionOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult(System.String,System.String)
+  name.vb: GetCompletionOperationResult(String, String)
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult(string, string)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult(String, String)
+  nameWithType: DownstreamAPIService.GetCompletionOperationResult(string, string)
+  nameWithType.vb: DownstreamAPIService.GetCompletionOperationResult(String, String)
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult*
+  name: GetCompletionOperationResult
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletionOperationResult_
+  commentId: Overload:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationResult
+  nameWithType: DownstreamAPIService.GetCompletionOperationResult
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus(String, String)
+  nameWithType: DownstreamAPIService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: DownstreamAPIService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.GetCompletionOperationStatus
+  nameWithType: DownstreamAPIService.GetCompletionOperationStatus
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name: StartCompletionOperation(string, CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_
+  commentId: M:FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  name.vb: StartCompletionOperation(String, CompletionRequest)
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  fullName.vb: FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
+  nameWithType: DownstreamAPIService.StartCompletionOperation(string, CompletionRequest)
+  nameWithType.vb: DownstreamAPIService.StartCompletionOperation(String, CompletionRequest)
+- uid: FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.Common.Services.API.DownstreamAPIService.html#FoundationaLLM_Common_Services_API_DownstreamAPIService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.API.DownstreamAPIService.StartCompletionOperation
+  nameWithType: DownstreamAPIService.StartCompletionOperation
 - uid: FoundationaLLM.Common.Services.Azure
   name: FoundationaLLM.Common.Services.Azure
   href: api/dotnet/FoundationaLLM.Common.Services.Azure.html
