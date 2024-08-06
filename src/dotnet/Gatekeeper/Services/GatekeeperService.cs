@@ -141,12 +141,8 @@ namespace FoundationaLLM.Gatekeeper.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId)
-        {
-            var response = await _orchestrationAPIService.GetCompletionOperationStatus(instanceId, operationId);
-
-            return response;
-        }
+        public async Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
+            await _orchestrationAPIService.GetCompletionOperationStatus(instanceId, operationId);
 
         /// <inheritdoc/>
         public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId)
