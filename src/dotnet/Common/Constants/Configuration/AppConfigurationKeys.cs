@@ -476,6 +476,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #endregion
 
         #region FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration:MaxConcurrentCompletions setting.
+        /// <para>Value description:<br/>The maximum number of background completion operations allowed to run in parallel. If a new completion request comes in and the maximum number is already reached, the request will generate an error.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions =
+            "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration:MaxConcurrentCompletions";
 
         #endregion
 
