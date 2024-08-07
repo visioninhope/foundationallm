@@ -47,7 +47,7 @@ export type Agent = ResourceBase & {
 	orchestration_settings: {
 		orchestrator: string;
 	};
-	conversation_history: {
+	conversation_history_settings: {
 		enabled: boolean;
 		max_history: number;
 	};
@@ -330,7 +330,7 @@ export type CreateAgentRequest = ResourceBase & {
 	orchestration_settings: {
 		orchestrator: string;
 	};
-	conversation_history: {
+	conversation_history_settings: {
 		enabled: boolean;
 		max_history: number;
 	};
