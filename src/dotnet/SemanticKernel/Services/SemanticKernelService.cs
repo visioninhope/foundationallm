@@ -9,6 +9,7 @@ using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -137,7 +138,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
 
             _ = await stateAPIClient.PutAsync(
                 $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                new StringContent(JsonSerializer.Serialize(operation)));
+                new StringContent(JsonSerializer.Serialize(operation, _jsonSerializerOptions), Encoding.UTF8, "application/json"));
 
             try
             {
@@ -154,31 +155,31 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 operation.Status = OperationStatus.Completed;
                 operation.StatusMessage = $"Operation {completionRequest.OperationId} completed successfully.";
 
-                _ = await stateAPIClient.PutAsync(
+                _ = await stateAPIClient.PostAsync(
                     $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
-                    new StringContent(JsonSerializer.Serialize(completion)));
+                    new StringContent(JsonSerializer.Serialize(completion, _jsonSerializerOptions), Encoding.UTF8, "application/json"));
 
                 _ = await stateAPIClient.PutAsync(
                     $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                    new StringContent(JsonSerializer.Serialize(operation))); 
+                    new StringContent(JsonSerializer.Serialize(operation, _jsonSerializerOptions), Encoding.UTF8, "application/json")); 
             }
             catch (Exception ex)
             {
                 operation.Status = OperationStatus.Failed;
                 operation.StatusMessage = $"Operation failed with error: {ex}";
 
-                _ = await stateAPIClient.PutAsync(
+                _ = await stateAPIClient.PostAsync(
                     $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
                     new StringContent(JsonSerializer.Serialize(new LLMCompletionResponse()
                     {
                         OperationId = operation.OperationId!,
                         UserPrompt = completionRequest.UserPrompt,
                         Completion = $"Operation failed with error: {ex}"
-                    })));
+                    }, _jsonSerializerOptions), Encoding.UTF8, "application/json"));
 
                 _ = await stateAPIClient.PutAsync(
                     $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                    new StringContent(JsonSerializer.Serialize(operation)));
+                    new StringContent(JsonSerializer.Serialize(operation, _jsonSerializerOptions), Encoding.UTF8, "application/json"));
             }
         }
     }
