@@ -182,26 +182,6 @@ public partial class CoreService(
     public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
         throw new NotImplementedException();
 
-    /// <inheritdoc/>
-    public async Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)
-    {
-        try
-        {
-            ArgumentNullException.ThrowIfNull(sessionId);
-
-            var sessionName = string.Empty;            
-            sessionName = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
-            await RenameChatSessionAsync(instanceId, sessionId, sessionName);
-
-            return new Completion { Text = sessionName };
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error generating session name for session {sessionId} for text [{text}].");
-            return new Completion { Text = "[No Name]" };
-        }
-    }
-
     private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
         ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
         || (agentOption == AgentGatekeeperOverrideOption.MustBypass)

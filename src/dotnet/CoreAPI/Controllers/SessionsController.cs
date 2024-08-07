@@ -91,15 +91,5 @@ namespace FoundationaLLM.Core.API.Controllers
         [HttpDelete("{sessionId}", Name = "DeleteChatSession")]
         public async Task DeleteChatSession(string instanceId, string sessionId) =>
             await _coreService.DeleteChatSessionAsync(instanceId, sessionId);
-
-        /// <summary>
-        /// Generate a name for a chat message, based on the passed in prompt.
-        /// </summary>
-        /// <param name="instanceId">The id of the instance.</param>
-        /// <param name="sessionId">The id of the session for which to generate a name.</param>
-        /// <param name="text">The prompt to use to generate the name.</param>
-        [HttpPost("{sessionId}/generate-name", Name = "GenerateChatSessionName")]
-        public async Task<Completion> GenerateChatSessionName(string instanceId, string sessionId, [FromBody] string text) =>
-            await _coreService.GenerateChatSessionNameAsync(instanceId, sessionId, text);
     }
 }
