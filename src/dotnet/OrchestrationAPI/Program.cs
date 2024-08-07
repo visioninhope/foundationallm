@@ -88,7 +88,6 @@ namespace FoundationaLLM.Orchestration.API
 
             // Add API Key Authorization
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials));
