@@ -344,6 +344,13 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:APIEndpoints:SemanticKernelAPI:Configuration:MaxConcurrentCompletions",
+            "value": "20",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:APIEndpoints:ManagementAPI:Essentials:APIUrl",
             "value": "${env:SERVICE_MANAGEMENT_API_ENDPOINT_URL}",
             "label": null,

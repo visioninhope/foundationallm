@@ -1040,9 +1040,9 @@ export default {
 				this.aiModelOptions.find((aiModel) => aiModel.object_id === agent.ai_model_object_id) ||
 				null;
 
-			this.conversationHistory = agent.conversation_history?.enabled || this.conversationHistory;
+			this.conversationHistory = agent.conversation_history_settings?.enabled || this.conversationHistory;
 			this.conversationMaxMessages =
-				agent.conversation_history?.max_history || this.conversationMaxMessages;
+				agent.conversation_history_settings?.max_history || this.conversationMaxMessages;
 
 			this.gatekeeperEnabled = Boolean(agent.gatekeeper_settings?.use_system_setting);
 
@@ -1261,7 +1261,7 @@ export default {
 						trigger_cron_schedule: this.triggerFrequencyScheduled,
 					},
 
-					conversation_history: {
+					conversation_history_settings: {
 						enabled: this.conversationHistory,
 						max_history: Number(this.conversationMaxMessages),
 					},

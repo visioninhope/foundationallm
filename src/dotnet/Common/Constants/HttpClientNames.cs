@@ -103,6 +103,11 @@ public static class HttpClientNames
     public const string AzureEventGrid = "AzureEventGrid";
 
     /// <summary>
+    /// Named client with matching configuration for the State API.
+    /// </summary>
+    public const string StateAPI = "StateAPI";
+
+    /// <summary>
     /// All HTTP client names.
     /// </summary>
     public readonly static string[] All = [
@@ -124,7 +129,8 @@ public static class HttpClientNames
         AzureContentSafety,
         EnkryptGuardrails,
         LakeraGuard,
-        AzureEventGrid
+        AzureEventGrid,
+        StateAPI
     ];
 
     /// <summary>

@@ -658,7 +658,16 @@
 		"configuration_section": {
 			"description": "Configuration section used to identify the main Semantic Kernel API settings."
 		},
-		"configuration_keys": []
+		"configuration_keys": [
+			{
+				"name": "MaxConcurrentCompletions",
+				"description": "The maximum number of background completion operations allowed to run in parallel. If a new completion request comes in and the maximum number is already reached, the request will generate an error.",
+				"secret": "",
+				"value": "20",
+				"content_type": "",
+				"first_version": "0.8.0"
+			}
+		]
 	},
 	{
 		"namespace": "APIEndpoints:ManagementAPI:Essentials",
