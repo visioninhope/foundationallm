@@ -10,14 +10,14 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
     /// Provides methods for checking the status of the service.
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("instances/{instanceId}/[controller]")]
     public class StatusController : ControllerBase
     {
         /// <summary>
         /// Returns the status of the Semantic Kernel API service.
         /// </summary>
         [HttpGet(Name = "GetServiceStatus")]
-        public IActionResult Get() => new OkObjectResult(new ServiceStatusInfo
+        public IActionResult Get(string instanceId) => new OkObjectResult(new ServiceStatusInfo
         {
             Name = ServiceNames.SemanticKernelAPI,
             InstanceName = ValidatedEnvironment.MachineName,
