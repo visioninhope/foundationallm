@@ -35,9 +35,9 @@ var openAiInstance = {
 var deploymentConfigurations = loadJsonContent('../../common/config/openAiDeploymentConfig.json')
 
 var tags = {
-  Environment: environmentName
-  IaC: 'Bicep'
-  Project: project
+  'azd-env-name': environmentName
+  'iac-type': 'bicep'
+  'project-name': project
   Purpose: 'OpenAI'
 }
 
