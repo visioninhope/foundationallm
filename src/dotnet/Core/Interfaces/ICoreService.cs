@@ -26,7 +26,8 @@ public interface ICoreService
     /// Creates a new chat session.
     /// </summary>
     /// <param name="instanceId">The instance Id.</param>
-    Task<Session> CreateNewChatSessionAsync(string instanceId);
+    /// <param name="chatSessionName">The name for the chat session.</param>
+    Task<Session> CreateNewChatSessionAsync(string instanceId, string chatSessionName);
 
     /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.

@@ -68,9 +68,10 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Creates a new chat session.
         /// </summary>
         /// <param name="instanceId">The id of the instance.</param>
+        /// <param name="chatSessionName">The name for the chat session.</param>
         [HttpPost(Name = "CreateNewChatSession")]
-        public async Task<Session> CreateNewChatSession(string instanceId) =>
-            await _coreService.CreateNewChatSessionAsync(instanceId);
+        public async Task<Session> CreateNewChatSession(string instanceId, string chatSessionName) =>
+            await _coreService.CreateNewChatSessionAsync(instanceId, chatSessionName);
 
         /// <summary>
         /// Rename the chat session.
