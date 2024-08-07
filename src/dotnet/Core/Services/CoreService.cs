@@ -66,10 +66,13 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> CreateNewChatSessionAsync(string instanceId)
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId, string chatSessionName)
     {
+        ArgumentException.ThrowIfNullOrEmpty(chatSessionName);
+
         Session session = new()
         {
+            Name = chatSessionName,
             Type = _sessionType,
             UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
         };

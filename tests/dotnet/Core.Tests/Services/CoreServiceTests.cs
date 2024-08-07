@@ -123,7 +123,8 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var currentUserUPN = "testuser@example.com";
             var sessionType = "Test_type";
-            var newSession = new Session { Type = sessionType, UPN = currentUserUPN };
+            var chatSessionName = "Test_name";
+            var newSession = new Session { Name = chatSessionName, Type = sessionType, UPN = currentUserUPN };
 
             // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
@@ -132,12 +133,13 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId);
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, chatSessionName);
 
             // Assert
             Assert.NotNull(resultSession);
             Assert.Equal(sessionType, resultSession.Type);
             Assert.Equal(currentUserUPN, resultSession.UPN);
+            Assert.Equal(chatSessionName, resultSession.Name);
         }
 
         #endregion
