@@ -60,14 +60,6 @@ public interface ICoreService
     Task<Completion> GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest);
 
     /// <summary>
-    /// Generate a name for a chat message, based on the passed in prompt.
-    /// </summary>
-    /// <param name="instanceId">The instance id.</param>
-    /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="text">The text to use when generating the name.</param>
-    Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text);
-
-    /// <summary>
     /// Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.
     /// </summary>
     /// <param name="instanceId">The instance id.</param>
