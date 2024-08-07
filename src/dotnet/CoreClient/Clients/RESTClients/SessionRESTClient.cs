@@ -1,8 +1,8 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using Azure.Core;
+﻿using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace FoundationaLLM.Client.Core.Clients.RESTClients
 {
@@ -17,10 +17,10 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
 
         /// <inheritdoc/>
-        public async Task<string> CreateSessionAsync()
+        public async Task<string> CreateSessionAsync(string chatSessionName)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseSession = await coreClient.PostAsync($"instances/{_instanceId}/sessions", null);
+            var responseSession = await coreClient.PostAsync($"instances/{_instanceId}/sessions?chatSessionName={chatSessionName}", null);
 
             if (responseSession.IsSuccessStatusCode)
             {

@@ -1,5 +1,4 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
 
 namespace FoundationaLLM.Client.Core.Interfaces
 {
@@ -24,10 +23,11 @@ namespace FoundationaLLM.Client.Core.Interfaces
         Task RateMessageAsync(string sessionId, string messageId, bool rating);
 
         /// <summary>
-        /// Creates and renames a session.
+        /// Creates a new session with the specified name.
         /// </summary>
+        /// <param name="chatSessionName">The name for the chat session.</param>
         /// <returns>Returns the new Session ID.</returns>
-        Task<string> CreateSessionAsync();
+        Task<string> CreateSessionAsync(string chatSessionName);
 
         /// <summary>
         /// Renames a chat session.

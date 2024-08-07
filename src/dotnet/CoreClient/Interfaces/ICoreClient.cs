@@ -12,11 +12,11 @@ namespace FoundationaLLM.Client.Core.Interfaces
     public interface ICoreClient
     {
         /// <summary>
-        /// Creates a new chat session and renames it if a session name is provided.
+        /// Creates a new chat session with the specified name.
         /// </summary>
-        /// <param name="sessionName">Renames the new chat session if not null or empty.</param>
+        /// <param name="sessionName">The chat session name.</param>
         /// <returns>The new chat session ID.</returns>
-        Task<string> CreateChatSessionAsync(string? sessionName);
+        Task<string> CreateChatSessionAsync(string sessionName);
 
         /// <summary>
         /// Runs a single completion request with an agent using the Core API and a chat session.

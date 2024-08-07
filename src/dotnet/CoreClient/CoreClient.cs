@@ -54,14 +54,9 @@ namespace FoundationaLLM.Client.Core
             _coreRestClient = new CoreRESTClient(coreUri, credential, instanceId, options);
 
         /// <inheritdoc/>
-        public async Task<string> CreateChatSessionAsync(string? sessionName)
+        public async Task<string> CreateChatSessionAsync(string sessionName)
         {
-            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync();
-            if (!string.IsNullOrWhiteSpace(sessionName))
-            {
-                await _coreRestClient.Sessions.RenameChatSession(sessionId, sessionName);
-            }
-
+            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync(sessionName);
             return sessionId;
         }
 
@@ -71,6 +66,13 @@ namespace FoundationaLLM.Client.Core
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
+                if (string.IsNullOrWhiteSpace(sessionName))
+                {
+                    throw new ArgumentException(
+                        "The completion request must contain a sessionName if no sessionId is provided. " +
+                        "A new session will be created with the provided session name.");
+                }
+
                 sessionId = await CreateChatSessionAsync(sessionName);
             }
 
@@ -81,6 +83,7 @@ namespace FoundationaLLM.Client.Core
                 SessionId = sessionId,
                 UserPrompt = userPrompt
             };
+
             return await GetCompletionWithSessionAsync(orchestrationRequest);
         }
 
@@ -139,6 +142,13 @@ namespace FoundationaLLM.Client.Core
             {
                 if (string.IsNullOrWhiteSpace(sessionId))
                 {
+                    if (string.IsNullOrWhiteSpace(sessionName))
+                    {
+                        throw new ArgumentException(
+                            "The completion request must contain a sessionName if no sessionId is provided. " +
+                            "A new session will be created with the provided session name.");
+                    }
+
                     sessionId = await CreateChatSessionAsync(sessionName);
                 }
 
