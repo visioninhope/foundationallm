@@ -18,15 +18,6 @@ namespace FoundationaLLM.SemanticKernel.API.Controllers
         private readonly ISemanticKernelService _semanticKernelService = semanticKernelService;
 
         /// <summary>
-        /// Gets a completion from the Semantic Kernel service.
-        /// </summary>
-        /// <param name="request">The <see cref="LLMCompletionRequest"/> completion request.</param>
-        /// <returns>A <see cref="LLMCompletionResponse"/> containing the response to the completion request.</returns>
-        [HttpPost("completion")]
-        public async Task<LLMCompletionResponse> GetCompletion([FromBody] LLMCompletionRequest request) =>
-            await _semanticKernelService.GetCompletion(request);
-
-        /// <summary>
         /// Begins a completion operation.
         /// </summary>
         /// <param name="instanceId">The FoundationaLLM instance id.</param>

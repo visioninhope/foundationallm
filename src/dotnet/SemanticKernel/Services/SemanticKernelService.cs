@@ -3,8 +3,11 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Settings;
+using FoundationaLLM.Common.Tasks;
 using FoundationaLLM.SemanticKernel.Core.Agents;
+using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,16 +22,19 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
     /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
     /// <param name="resourceProviderServices">A collection of <see cref="IResourceProviderService"/> resource providers.</param>
     /// <param name="httpClientFactoryService">The HTTP client factory service.</param>
+    /// <param name="taskPool">The global <see cref="TaskPool"/> object that keeps track of active completion tasks.</param>
     public class SemanticKernelService(
         ILoggerFactory loggerFactory,
         ICallContext callContext,
         IEnumerable<IResourceProviderService> resourceProviderServices,
-        IHttpClientFactoryService httpClientFactoryService) : ISemanticKernelService
+        IHttpClientFactoryService httpClientFactoryService,
+        ConcurrentTaskPool taskPool) : ISemanticKernelService
     {
         private readonly ICallContext _callContext = callContext;
         private readonly IEnumerable<IResourceProviderService> _resourceProviderServices = resourceProviderServices;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
         private readonly IHttpClientFactoryService _httpClientFactoryService = httpClientFactoryService;
+        private readonly ConcurrentTaskPool _taskPool = taskPool;
 
         private readonly JsonSerializerOptions _jsonSerializerOptions = CommonJsonSerializerOptions.GetJsonSerializerOptions(
             options =>
@@ -38,23 +44,13 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             });
 
         /// <inheritdoc/>
-        public async Task<LLMCompletionResponse> GetCompletion(LLMCompletionRequest request) => request.Agent switch
-        {
-            KnowledgeManagementAgent => await (new SemanticKernelKnowledgeManagementAgent(
-                request,
-                _resourceProviderServices,
-                _loggerFactory,
-                _httpClientFactoryService)).GetCompletion(),
-            _ => throw new Exception($"The agent type {request.Agent.GetType()} is not supported.")
-        };
-
-        /// <inheritdoc/>
         public async Task<LongRunningOperation> StartCompletionOperation(string instanceId, LLMCompletionRequest completionRequest)
         {
             var fallback = new LongRunningOperation
             {
                 OperationId = completionRequest.OperationId,
-                Status = OperationStatus.Failed
+                Status = OperationStatus.Failed,
+                StatusMessage = "An error occured while attempting to start the completion operation."
             };
 
             var client = await _httpClientFactoryService.CreateClient(HttpClientNames.StateAPI, _callContext.CurrentUserIdentity);
@@ -66,50 +62,20 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var operation = JsonSerializer.Deserialize<LongRunningOperation>(responseContent, _jsonSerializerOptions)!;
 
-                /// TODO perform this tasks in background and return the operation immediately
-                await Task.Run(async () =>
+                var success = _taskPool.TryAdd([
+                    new TaskInfo
+                    {
+                        PayloadId = operation.Id!,
+                        StartTime = DateTime.UtcNow,
+                        Task = RunCompletionOperation(instanceId, completionRequest, operation, client)
+                    }]);
+
+                if (!success)
                 {
-                    operation.Status = OperationStatus.InProgress;
-                    operation.StatusMessage = "Operation state changed to in progress.";
-
-                    _ = client.PutAsync(
-                        $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                        new StringContent(JsonSerializer.Serialize(operation)));
-
-                    try
-                    {
-                        var completion = await GetCompletion(completionRequest);
-
-                        operation.Status = OperationStatus.Completed;
-                        operation.StatusMessage = $"Operation {completionRequest.OperationId} completed successfully.";
-
-                        _ = await client.PutAsync(
-                            $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                            new StringContent(JsonSerializer.Serialize(operation)));
-
-                        _ = await client.PutAsync(
-                            $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
-                            new StringContent(JsonSerializer.Serialize(completion)));
-                    }
-                    catch (Exception ex)
-                    {
-                        operation.Status = OperationStatus.Failed;
-                        operation.StatusMessage = $"Operation failed with error: {ex}";
-
-                        _ = await client.PutAsync(
-                            $"instances/{instanceId}/operations/{completionRequest.OperationId}",
-                            new StringContent(JsonSerializer.Serialize(operation)));
-
-                        _ = await client.PutAsync(
-                            $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
-                            new StringContent(JsonSerializer.Serialize(new LLMCompletionResponse()
-                            {
-                                OperationId = operation.OperationId!,
-                                UserPrompt = completionRequest.UserPrompt,
-                                Completion = $"Operation failed with error: {ex}"
-                            })));
-                    }
-                });
+                    throw new SemanticKernelException(
+                        "Could not schedule the execution of the completion operation on the internal task pool. This is most likely due to exceeding the maximum capacity of the task pool.",
+                        StatusCodes.Status500InternalServerError);
+                }
 
                 return operation;
             }
@@ -162,6 +128,58 @@ namespace FoundationaLLM.SemanticKernel.Core.Services
             }
 
             return fallback;
+        }
+
+        private async Task RunCompletionOperation(string instanceId, LLMCompletionRequest completionRequest, LongRunningOperation operation, HttpClient stateAPIClient)
+        {
+            operation.Status = OperationStatus.InProgress;
+            operation.StatusMessage = "Operation state changed to in progress.";
+
+            _ = await stateAPIClient.PutAsync(
+                $"instances/{instanceId}/operations/{completionRequest.OperationId}",
+                new StringContent(JsonSerializer.Serialize(operation)));
+
+            try
+            {
+                var completion = completionRequest.Agent switch
+                {
+                    KnowledgeManagementAgent => await (new SemanticKernelKnowledgeManagementAgent(
+                        completionRequest,
+                        _resourceProviderServices,
+                        _loggerFactory,
+                        _httpClientFactoryService)).GetCompletion(),
+                    _ => throw new Exception($"The agent type {completionRequest.Agent.GetType()} is not supported.")
+                };
+
+                operation.Status = OperationStatus.Completed;
+                operation.StatusMessage = $"Operation {completionRequest.OperationId} completed successfully.";
+
+                _ = await stateAPIClient.PutAsync(
+                    $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
+                    new StringContent(JsonSerializer.Serialize(completion)));
+
+                _ = await stateAPIClient.PutAsync(
+                    $"instances/{instanceId}/operations/{completionRequest.OperationId}",
+                    new StringContent(JsonSerializer.Serialize(operation))); 
+            }
+            catch (Exception ex)
+            {
+                operation.Status = OperationStatus.Failed;
+                operation.StatusMessage = $"Operation failed with error: {ex}";
+
+                _ = await stateAPIClient.PutAsync(
+                    $"instances/{instanceId}/operations/{completionRequest.OperationId}/result",
+                    new StringContent(JsonSerializer.Serialize(new LLMCompletionResponse()
+                    {
+                        OperationId = operation.OperationId!,
+                        UserPrompt = completionRequest.UserPrompt,
+                        Completion = $"Operation failed with error: {ex}"
+                    })));
+
+                _ = await stateAPIClient.PutAsync(
+                    $"instances/{instanceId}/operations/{completionRequest.OperationId}",
+                    new StringContent(JsonSerializer.Serialize(operation)));
+            }
         }
     }
 }
