@@ -6361,6 +6361,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials_AppInsightsConnectionString
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials_AppInsightsConnectionString
   nameWithType: AppConfigurationKeys.FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials_AppInsightsConnectionString
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
+  name: FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration_MaxConcurrentCompletions
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_APIKey
   name: FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_APIKey
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_APIKey
@@ -7519,6 +7525,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.SemanticKernelAPI
   fullName: FoundationaLLM.Common.Constants.HttpClientNames.SemanticKernelAPI
   nameWithType: HttpClientNames.SemanticKernelAPI
+- uid: FoundationaLLM.Common.Constants.HttpClientNames.StateAPI
+  name: StateAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_StateAPI
+  commentId: F:FoundationaLLM.Common.Constants.HttpClientNames.StateAPI
+  fullName: FoundationaLLM.Common.Constants.HttpClientNames.StateAPI
+  nameWithType: HttpClientNames.StateAPI
 - uid: FoundationaLLM.Common.Constants.HttpClientNames.VectorizationAPI
   name: VectorizationAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.HttpClientNames.html#FoundationaLLM_Common_Constants_HttpClientNames_VectorizationAPI
@@ -23392,6 +23404,76 @@ references:
   commentId: N:FoundationaLLM.Common.Tasks
   fullName: FoundationaLLM.Common.Tasks
   nameWithType: FoundationaLLM.Common.Tasks
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool
+  name: ConcurrentTaskPool
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html
+  commentId: T:FoundationaLLM.Common.Tasks.ConcurrentTaskPool
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool
+  nameWithType: ConcurrentTaskPool
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.ConcurrentTaskPool})
+  name: ConcurrentTaskPool(int, ILogger<ConcurrentTaskPool>)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Tasks_ConcurrentTaskPool__
+  commentId: M:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.ConcurrentTaskPool})
+  name.vb: New(Integer, ILogger(Of ConcurrentTaskPool))
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.ConcurrentTaskPool(int, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Tasks.ConcurrentTaskPool>)
+  fullName.vb: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.New(Integer, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Tasks.ConcurrentTaskPool))
+  nameWithType: ConcurrentTaskPool.ConcurrentTaskPool(int, ILogger<ConcurrentTaskPool>)
+  nameWithType.vb: ConcurrentTaskPool.New(Integer, ILogger(Of ConcurrentTaskPool))
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.#ctor*
+  name: ConcurrentTaskPool
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool__ctor_
+  commentId: Overload:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.ConcurrentTaskPool
+  fullName.vb: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.New
+  nameWithType: ConcurrentTaskPool.ConcurrentTaskPool
+  nameWithType.vb: ConcurrentTaskPool.New
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity
+  name: AvailableCapacity
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_AvailableCapacity
+  commentId: P:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity
+  nameWithType: ConcurrentTaskPool.AvailableCapacity
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity*
+  name: AvailableCapacity
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_AvailableCapacity_
+  commentId: Overload:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.AvailableCapacity
+  nameWithType: ConcurrentTaskPool.AvailableCapacity
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload(System.String)
+  name: HasRunningTaskForPayload(string)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_HasRunningTaskForPayload_System_String_
+  commentId: M:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload(System.String)
+  name.vb: HasRunningTaskForPayload(String)
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload(string)
+  fullName.vb: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload(String)
+  nameWithType: ConcurrentTaskPool.HasRunningTaskForPayload(string)
+  nameWithType.vb: ConcurrentTaskPool.HasRunningTaskForPayload(String)
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload*
+  name: HasRunningTaskForPayload
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_HasRunningTaskForPayload_
+  commentId: Overload:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.HasRunningTaskForPayload
+  nameWithType: ConcurrentTaskPool.HasRunningTaskForPayload
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Tasks.TaskInfo})
+  name: TryAdd(IEnumerable<TaskInfo>)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_TryAdd_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Tasks_TaskInfo__
+  commentId: M:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Tasks.TaskInfo})
+  name.vb: TryAdd(IEnumerable(Of TaskInfo))
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd(System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Tasks.TaskInfo>)
+  fullName.vb: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd(System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Tasks.TaskInfo))
+  nameWithType: ConcurrentTaskPool.TryAdd(IEnumerable<TaskInfo>)
+  nameWithType.vb: ConcurrentTaskPool.TryAdd(IEnumerable(Of TaskInfo))
+- uid: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd*
+  name: TryAdd
+  href: api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html#FoundationaLLM_Common_Tasks_ConcurrentTaskPool_TryAdd_
+  commentId: Overload:FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Tasks.ConcurrentTaskPool.TryAdd
+  nameWithType: ConcurrentTaskPool.TryAdd
 - uid: FoundationaLLM.Common.Tasks.TaskInfo
   name: TaskInfo
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.html
@@ -23443,15 +23525,15 @@ references:
   commentId: T:FoundationaLLM.Common.Tasks.TaskPool
   fullName: FoundationaLLM.Common.Tasks.TaskPool
   nameWithType: TaskPool
-- uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.TaskPool})
-  name: TaskPool(int, ILogger<TaskPool>)
-  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Common_Tasks_TaskPool__
-  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Common.Tasks.TaskPool})
-  name.vb: New(Integer, ILogger(Of TaskPool))
-  fullName: FoundationaLLM.Common.Tasks.TaskPool.TaskPool(int, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Common.Tasks.TaskPool>)
-  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.New(Integer, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Common.Tasks.TaskPool))
-  nameWithType: TaskPool.TaskPool(int, ILogger<TaskPool>)
-  nameWithType.vb: TaskPool.New(Integer, ILogger(Of TaskPool))
+- uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)
+  name: TaskPool(int, ILogger)
+  href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_System_Int32_Microsoft_Extensions_Logging_ILogger_
+  commentId: M:FoundationaLLM.Common.Tasks.TaskPool.#ctor(System.Int32,Microsoft.Extensions.Logging.ILogger)
+  name.vb: New(Integer, ILogger)
+  fullName: FoundationaLLM.Common.Tasks.TaskPool.TaskPool(int, Microsoft.Extensions.Logging.ILogger)
+  fullName.vb: FoundationaLLM.Common.Tasks.TaskPool.New(Integer, Microsoft.Extensions.Logging.ILogger)
+  nameWithType: TaskPool.TaskPool(int, ILogger)
+  nameWithType.vb: TaskPool.New(Integer, ILogger)
 - uid: FoundationaLLM.Common.Tasks.TaskPool.#ctor*
   name: TaskPool
   href: api/dotnet/FoundationaLLM.Common.Tasks.TaskPool.html#FoundationaLLM_Common_Tasks_TaskPool__ctor_
@@ -30804,56 +30886,94 @@ references:
   commentId: N:FoundationaLLM.SemanticKernel.API.Controllers
   fullName: FoundationaLLM.SemanticKernel.API.Controllers
   nameWithType: FoundationaLLM.SemanticKernel.API.Controllers
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html
-  commentId: T:FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController
-  nameWithType: OrchestrationController
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
-  name: OrchestrationController(ISemanticKernelService)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html#FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_
-  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html
+  commentId: T:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController
+  nameWithType: CompletionsController
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
+  name: CompletionsController(ISemanticKernelService)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_
+  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
   name.vb: New(ISemanticKernelService)
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.OrchestrationController(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
-  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.New(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
-  nameWithType: OrchestrationController.OrchestrationController(ISemanticKernelService)
-  nameWithType.vb: OrchestrationController.New(ISemanticKernelService)
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor*
-  name: OrchestrationController
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html#FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_
-  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.CompletionsController(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.New(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)
+  nameWithType: CompletionsController.CompletionsController(ISemanticKernelService)
+  nameWithType.vb: CompletionsController.New(ISemanticKernelService)
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor*
+  name: CompletionsController
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController__ctor_
+  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor
   isSpec: "True"
   name.vb: New
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.OrchestrationController
-  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.New
-  nameWithType: OrchestrationController.OrchestrationController
-  nameWithType.vb: OrchestrationController.New
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html#FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: OrchestrationController.GetCompletion(LLMCompletionRequest)
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion*
-  name: GetCompletion
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html#FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController_GetCompletion_
-  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.CompletionsController
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.New
+  nameWithType: CompletionsController.CompletionsController
+  nameWithType.vb: CompletionsController.New
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult(System.String,System.String)
+  name: GetCompletionOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult(System.String,System.String)
+  name.vb: GetCompletionOperationResult(String, String)
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult(String, String)
+  nameWithType: CompletionsController.GetCompletionOperationResult(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperationResult(String, String)
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult*
+  name: GetCompletionOperationResult
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationResult_
+  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult
   isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion
-  nameWithType: OrchestrationController.GetCompletion
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult
+  nameWithType: CompletionsController.GetCompletionOperationResult
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus(String, String)
+  nameWithType: CompletionsController.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: CompletionsController.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus
+  nameWithType: CompletionsController.GetCompletionOperationStatus
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: StartCompletionOperation(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: StartCompletionOperation(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: CompletionsController.StartCompletionOperation(string, LLMCompletionRequest)
+  nameWithType.vb: CompletionsController.StartCompletionOperation(String, LLMCompletionRequest)
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html#FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation
+  nameWithType: CompletionsController.StartCompletionOperation
 - uid: FoundationaLLM.SemanticKernel.API.Controllers.StatusController
   name: StatusController
   href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.StatusController.html
   commentId: T:FoundationaLLM.SemanticKernel.API.Controllers.StatusController
   fullName: FoundationaLLM.SemanticKernel.API.Controllers.StatusController
   nameWithType: StatusController
-- uid: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get
-  name: Get()
-  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.StatusController.html#FoundationaLLM_SemanticKernel_API_Controllers_StatusController_Get
-  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get
-  fullName: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get()
-  nameWithType: StatusController.Get()
+- uid: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get(System.String)
+  name: Get(string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.StatusController.html#FoundationaLLM_SemanticKernel_API_Controllers_StatusController_Get_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get(System.String)
+  name.vb: Get(String)
+  fullName: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get(string)
+  fullName.vb: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get(String)
+  nameWithType: StatusController.Get(string)
+  nameWithType.vb: StatusController.Get(String)
 - uid: FoundationaLLM.SemanticKernel.API.Controllers.StatusController.Get*
   name: Get
   href: api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.StatusController.html#FoundationaLLM_SemanticKernel_API_Controllers_StatusController_Get_
@@ -31238,19 +31358,54 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService
   fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService
   nameWithType: ISemanticKernelService
-- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: ISemanticKernelService.GetCompletion(LLMCompletionRequest)
-- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion*
-  name: GetCompletion
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletion_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult(System.String,System.String)
+  name: GetCompletionOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletionOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult(System.String,System.String)
+  name.vb: GetCompletionOperationResult(String, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult(String, String)
+  nameWithType: ISemanticKernelService.GetCompletionOperationResult(string, string)
+  nameWithType.vb: ISemanticKernelService.GetCompletionOperationResult(String, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult*
+  name: GetCompletionOperationResult
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletionOperationResult_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult
   isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletion
-  nameWithType: ISemanticKernelService.GetCompletion
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationResult
+  nameWithType: ISemanticKernelService.GetCompletionOperationResult
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus(String, String)
+  nameWithType: ISemanticKernelService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: ISemanticKernelService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.GetCompletionOperationStatus
+  nameWithType: ISemanticKernelService.GetCompletionOperationStatus
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: StartCompletionOperation(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: StartCompletionOperation(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: ISemanticKernelService.StartCompletionOperation(string, LLMCompletionRequest)
+  nameWithType.vb: ISemanticKernelService.StartCompletionOperation(String, LLMCompletionRequest)
+- uid: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService.StartCompletionOperation
+  nameWithType: ISemanticKernelService.StartCompletionOperation
 - uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration
   name: FoundationaLLM.SemanticKernel.Core.Models.Configuration
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.html
@@ -31405,6 +31560,25 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.VectorSize
   nameWithType: PostgresIndexingServiceSettings.VectorSize
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings
+  name: SemanticKernelServiceSettings
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.html
+  commentId: T:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings
+  nameWithType: SemanticKernelServiceSettings
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions
+  name: MaxConcurrentCompletions
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelServiceSettings_MaxConcurrentCompletions
+  commentId: P:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions
+  nameWithType: SemanticKernelServiceSettings.MaxConcurrentCompletions
+- uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions*
+  name: MaxConcurrentCompletions
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.html#FoundationaLLM_SemanticKernel_Core_Models_Configuration_SemanticKernelServiceSettings_MaxConcurrentCompletions_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.MaxConcurrentCompletions
+  nameWithType: SemanticKernelServiceSettings.MaxConcurrentCompletions
 - uid: FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings
   name: SemanticKernelTextEmbeddingServiceSettings
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelTextEmbeddingServiceSettings.html
@@ -31692,15 +31866,15 @@ references:
   commentId: T:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService
   fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService
   nameWithType: SemanticKernelService
-- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name: SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>, IHttpClientFactoryService)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  name.vb: New(ILoggerFactory, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService)
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Logging.ILoggerFactory, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService)
-  nameWithType: SemanticKernelService.SemanticKernelService(ILoggerFactory, IEnumerable<IResourceProviderService>, IHttpClientFactoryService)
-  nameWithType.vb: SemanticKernelService.New(ILoggerFactory, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Tasks.ConcurrentTaskPool)
+  name: SemanticKernelService(ILoggerFactory, ICallContext, IEnumerable<IResourceProviderService>, IHttpClientFactoryService, ConcurrentTaskPool)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_Microsoft_Extensions_Logging_ILoggerFactory_FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_FoundationaLLM_Common_Tasks_ConcurrentTaskPool_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,FoundationaLLM.Common.Tasks.ConcurrentTaskPool)
+  name.vb: New(ILoggerFactory, ICallContext, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService, ConcurrentTaskPool)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.SemanticKernelService(Microsoft.Extensions.Logging.ILoggerFactory, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Tasks.ConcurrentTaskPool)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.New(Microsoft.Extensions.Logging.ILoggerFactory, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), FoundationaLLM.Common.Interfaces.IHttpClientFactoryService, FoundationaLLM.Common.Tasks.ConcurrentTaskPool)
+  nameWithType: SemanticKernelService.SemanticKernelService(ILoggerFactory, ICallContext, IEnumerable<IResourceProviderService>, IHttpClientFactoryService, ConcurrentTaskPool)
+  nameWithType.vb: SemanticKernelService.New(ILoggerFactory, ICallContext, IEnumerable(Of IResourceProviderService), IHttpClientFactoryService, ConcurrentTaskPool)
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.#ctor*
   name: SemanticKernelService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService__ctor_
@@ -31711,19 +31885,54 @@ references:
   fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.New
   nameWithType: SemanticKernelService.SemanticKernelService
   nameWithType.vb: SemanticKernelService.New
-- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  name: GetCompletion(LLMCompletionRequest)
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
-  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
-  nameWithType: SemanticKernelService.GetCompletion(LLMCompletionRequest)
-- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion*
-  name: GetCompletion
-  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletion_
-  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult(System.String,System.String)
+  name: GetCompletionOperationResult(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletionOperationResult_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult(System.String,System.String)
+  name.vb: GetCompletionOperationResult(String, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult(String, String)
+  nameWithType: SemanticKernelService.GetCompletionOperationResult(string, string)
+  nameWithType.vb: SemanticKernelService.GetCompletionOperationResult(String, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult*
+  name: GetCompletionOperationResult
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletionOperationResult_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult
   isSpec: "True"
-  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletion
-  nameWithType: SemanticKernelService.GetCompletion
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationResult
+  nameWithType: SemanticKernelService.GetCompletionOperationResult
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus(System.String,System.String)
+  name: GetCompletionOperationStatus(string, string)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletionOperationStatus_System_String_System_String_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus(System.String,System.String)
+  name.vb: GetCompletionOperationStatus(String, String)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus(string, string)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus(String, String)
+  nameWithType: SemanticKernelService.GetCompletionOperationStatus(string, string)
+  nameWithType.vb: SemanticKernelService.GetCompletionOperationStatus(String, String)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus*
+  name: GetCompletionOperationStatus
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_GetCompletionOperationStatus_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.GetCompletionOperationStatus
+  nameWithType: SemanticKernelService.GetCompletionOperationStatus
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name: StartCompletionOperation(string, LLMCompletionRequest)
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_
+  commentId: M:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  name.vb: StartCompletionOperation(String, LLMCompletionRequest)
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation(string, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  fullName.vb: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation(String, FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)
+  nameWithType: SemanticKernelService.StartCompletionOperation(string, LLMCompletionRequest)
+  nameWithType.vb: SemanticKernelService.StartCompletionOperation(String, LLMCompletionRequest)
+- uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation*
+  name: StartCompletionOperation
+  href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.html#FoundationaLLM_SemanticKernel_Core_Services_SemanticKernelService_StartCompletionOperation_
+  commentId: Overload:FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation
+  isSpec: "True"
+  fullName: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelService.StartCompletionOperation
+  nameWithType: SemanticKernelService.StartCompletionOperation
 - uid: FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService
   name: SemanticKernelTextEmbeddingService
   href: api/dotnet/FoundationaLLM.SemanticKernel.Core.Services.SemanticKernelTextEmbeddingService.html

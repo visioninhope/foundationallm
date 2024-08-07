@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class OrchestrationController | FoundationaLLM </title>
+      <title>Class CompletionsController | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class OrchestrationController | FoundationaLLM ">
+      <meta name="title" content="Class CompletionsController | FoundationaLLM ">
       
       <meta name="description" content="Wrapper for the Semantic Kernel service.">
       <link rel="icon" href="../../media/favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController.md&amp;value=---%0Auid%3A%20FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController.md&amp;value=---%0Auid%3A%20FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,12 +84,12 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController">
+        <article data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController">
 
 
 
-  <h1 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController" class="text-break">
-Class OrchestrationController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController" class="text-break">
+Class CompletionsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -104,8 +104,8 @@ Class OrchestrationController  <a class="header-action link-secondary" title="Vi
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[ApiController]
 [APIKeyAuthentication]
-[Route(&quot;[controller]&quot;)]
-public class OrchestrationController : ControllerBase</code></pre>
+[Route(&quot;instances/{instanceId}&quot;)]
+public class CompletionsController : ControllerBase</code></pre>
   </div>
 
 
@@ -116,7 +116,7 @@ public class OrchestrationController : ControllerBase</code></pre>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase">ControllerBase</a></div>
-      <div><span class="xref">OrchestrationController</span></div>
+      <div><span class="xref">CompletionsController</span></div>
     </dd>
   </dl>
 
@@ -683,11 +683,11 @@ public class OrchestrationController : ControllerBase</code></pre>
 </h2>
 
 
-  <a id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor*"></a>
+  <a id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController__ctor_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)">
-  OrchestrationController(ISemanticKernelService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController__ctor_FoundationaLLM_SemanticKernel_Core_Interfaces_ISemanticKernelService_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.#ctor(FoundationaLLM.SemanticKernel.Core.Interfaces.ISemanticKernelService)">
+  CompletionsController(ISemanticKernelService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Wrapper for the Semantic Kernel service.</p>
@@ -695,7 +695,7 @@ public class OrchestrationController : ControllerBase</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OrchestrationController(ISemanticKernelService semanticKernelService)</code></pre>
+    <pre><code class="lang-csharp hljs">public CompletionsController(ISemanticKernelService semanticKernelService)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -720,26 +720,29 @@ public class OrchestrationController : ControllerBase</code></pre>
 </h2>
 
 
-  <a id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController_GetCompletion_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion*"></a>
+  <a id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationResult_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult*"></a>
 
-  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_OrchestrationController_GetCompletion_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.GetCompletion(FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
-  GetCompletion(LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationResult_System_String_System_String_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationResult(System.String,System.String)">
+  GetCompletionOperationResult(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets a completion from the Semantic Kernel service.</p>
+  <div class="markdown level1 summary"><p>Gets a completion operation from the Orchestration service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;completion&quot;)]
-public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest request)</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpGet(&quot;async-completions/{operationId}/result&quot;)]
+public Task&lt;LLMCompletionResponse&gt; GetCompletionOperationResult(string instanceId, string operationId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a> completion request.</p>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance id.</p>
+</dd>
+    <dt><code>operationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The ID of the operation to retrieve.</p>
 </dd>
   </dl>
 
@@ -760,11 +763,97 @@ public Task&lt;LLMCompletionResponse&gt; GetCompletion(LLMCompletionRequest requ
 
 
 
+  <a id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationStatus_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus*"></a>
+
+  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_GetCompletionOperationStatus_System_String_System_String_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)">
+  GetCompletionOperationStatus(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the status of a completion operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[HttpGet(&quot;async-completions/{operationId}/status&quot;)]
+public Task&lt;LongRunningOperation&gt; GetCompletionOperationStatus(string instanceId, string operationId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance id.</p>
+</dd>
+    <dt><code>operationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The OperationId for which to retrieve the status.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a>&gt;</dt>
+    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a> object containing the OperationId and Status.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_StartCompletionOperation_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation*"></a>
+
+  <h3 id="FoundationaLLM_SemanticKernel_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  StartCompletionOperation(string, LLMCompletionRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Begins a completion operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[HttpPost(&quot;async-completions&quot;)]
+public Task&lt;ActionResult&lt;LongRunningOperation&gt;&gt; StartCompletionOperation(string instanceId, LLMCompletionRequest completionRequest)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance id.</p>
+</dd>
+    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
+    <dd><p>The completion request containing the user prompt and message history.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1">ActionResult</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a>&gt;&gt;</dt>
+    <dd><p>Returns an <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LongRunningOperation.html">LongRunningOperation</a> object containing the OperationId and Status.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/OrchestrationController.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/SemanticKernelAPI/Controllers/CompletionsController.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

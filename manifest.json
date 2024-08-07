@@ -4652,6 +4652,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Tasks.ConcurrentTaskPool.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Tasks.TaskInfo.yml",
       "output": {
         ".html": {
@@ -6542,10 +6552,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.yml",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.yml",
       "output": {
         ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.OrchestrationController.html"
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.API.Controllers.CompletionsController.html"
         }
       },
       "version": ""
@@ -6716,6 +6726,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.PostgresIndexingServiceSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.SemanticKernel.Core.Models.Configuration.SemanticKernelServiceSettings.html"
         }
       },
       "version": ""
