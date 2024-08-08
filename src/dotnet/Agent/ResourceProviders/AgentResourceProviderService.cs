@@ -234,6 +234,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             };
 
             agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            agent.Capabilities ??= [AgentCapabilities.OpenAIAssistants];
 
             if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
