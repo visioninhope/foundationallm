@@ -84,10 +84,10 @@ public record Message
     public Citation[]? Citations { get; set; }
 
     /// <summary>
-    /// Content returned from the Assistants API.
+    /// The content of the message.
     /// </summary>
     [JsonPropertyName("content")]
-    public List<MessageContentItemBase>? Content { get; set; }
+    public List<MessageContent>? Content { get; set; }
 
     /// <summary>
     /// Constructor for Message.
