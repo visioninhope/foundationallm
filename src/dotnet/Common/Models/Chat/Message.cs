@@ -1,5 +1,6 @@
 using Azure.Search.Documents.Indexes;
 using FoundationaLLM.Common.Models.Orchestration;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Chat;
 
@@ -83,11 +84,17 @@ public record Message
     public Citation[]? Citations { get; set; }
 
     /// <summary>
+    /// Content returned from the Assistants API.
+    /// </summary>
+    [JsonPropertyName("content")]
+    public List<MessageContentItemBase>? Content { get; set; }
+
+    /// <summary>
     /// Constructor for Message.
     /// </summary>
     public Message(string sessionId, string sender, int? tokens, string text,
         float[]? vector, bool? rating, string upn, string? senderDisplayName = null,
-        Citation[]? citations = null, string? expectedCompletion = null)
+        Citation[]? citations = null, string? expectedCompletion = null, List<MessageContentItemBase>? content = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
@@ -102,5 +109,6 @@ public record Message
         UPN = upn;
         ExpectedCompletion = expectedCompletion;
         Citations = citations;
+        Content = content;
     }
 }
