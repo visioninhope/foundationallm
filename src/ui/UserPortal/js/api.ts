@@ -1,6 +1,7 @@
 import type {
 	Message,
 	Session,
+	ChatSessionProperties,
 	CompletionPrompt,
 	Agent,
 	CompletionRequest,
@@ -158,9 +159,10 @@ export default {
 	 * Adds a new chat session.
 	 * @returns {Promise<Session>} A promise that resolves to the created session.
 	 */
-	async addSession() {
+	async addSession(properties: ChatSessionProperties) {
 		return (await this.fetch(`/instances/${this.instanceId}/sessions`, {
 			method: 'POST',
+			body: properties,
 		})) as Session;
 	},
 
@@ -171,26 +173,11 @@ export default {
 	 * @returns The renamed session.
 	 */
 	async renameSession(sessionId: string, newChatSessionName: string) {
+		const properties: ChatSessionProperties = { name: newChatSessionName };
 		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/rename`, {
 			method: 'POST',
-			params: {
-				newChatSessionName,
-			},
+			body: properties,
 		})) as Session;
-	},
-
-	/**
-	 * Generates the session name.
-	 *
-	 * @param sessionId - The ID of the session.
-	 * @param text - The text to be used when generating a session name.
-	 * @returns The generated text.
-	 */
-	async generateSessionName(sessionId: string, text: string) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/generate-name`, {
-			method: 'POST',
-			body: JSON.stringify(text),
-		})) as { text: string };
 	},
 
 	/**
