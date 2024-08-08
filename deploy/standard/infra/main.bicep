@@ -5,6 +5,7 @@ param allowedExternalCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
+param cidrVnet string
 param createDate string = utcNow('u')
 param environmentName string
 param externalNetworkingResourceGroupName string = ''
@@ -140,6 +141,7 @@ module networking 'networking-rg.bicep' = {
   name: 'networking-${timestamp}'
   scope: resourceGroup(resourceGroups.net)
   params: {
+    cidrVnet: cidrVnet
     allowedExternalCidr: allowedExternalCidr
     environmentName: environmentName
     hubResourceGroup: hubResourceGroup
