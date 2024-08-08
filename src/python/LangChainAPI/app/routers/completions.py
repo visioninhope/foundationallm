@@ -42,11 +42,15 @@ router = APIRouter(
     responses={404: {'description':'Not found'}}
 )
 
-async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:   
-    agent_type = request_body.get("agent", {}).get("type", None)    
-    
+async def resolve_completion_request(request_body: dict = Body(...)) -> CompletionRequestBase:
+    agent_type = request_body.get("agent", {}).get("type", None)
+
     match agent_type:
         case "knowledge-management":
+            request = KnowledgeManagementCompletionRequest(**request_body)
+            request.agent.type = agent_type
+            return request
+        case "audio-classification":
             request = KnowledgeManagementCompletionRequest(**request_body)
             request.agent.type = agent_type
             return request
@@ -71,7 +75,7 @@ async def submit_completion_request(
 ) -> LongRunningOperation:
     """
     Initiates the creation of a completion response in the background.
-    
+
     Returns
     -------
     CompletionOperation
@@ -81,19 +85,19 @@ async def submit_completion_request(
         try:
             # Get the operation_id from the completion request.
             operation_id = completion_request.operation_id
-            
+
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
             span.set_attribute('user_identity', x_user_identity)
 
             location = f'{raw_request.base_url}instances/{instance_id}/async-completions/{operation_id}/status'
             response.headers['location'] = location
-            
+
             # Create an operations manager to create the operation.
             operations_manager = OperationsManager(raw_request.app.extra['config'])
             # Submit the completion request operation to the state API.
             operation = await operations_manager.create_operation(operation_id, instance_id)
-            
+
             # Start a background task to perform the completion request.
             background_tasks.add_task(
                 create_completion_response,
@@ -106,7 +110,7 @@ async def submit_completion_request(
 
             # Return the long running operation object.
             return operation
-    
+
         except Exception as e:
             handle_exception(e)
 
@@ -123,7 +127,7 @@ async def create_completion_response(
     with tracer.start_as_current_span(f'create_completion_response') as span:
         # Create an operations manager to update the operation status.
         operations_manager = OperationsManager(configuration)
-            
+
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
@@ -136,7 +140,7 @@ async def create_completion_response(
                 status = OperationStatus.INPROGRESS,
                 status_message = 'Operation state changed to in progress.'
             )
-           
+
             # Create an orchestration manager to process the completion request.
             orchestration_manager = OrchestrationManager(
                 completion_request = completion_request,
@@ -157,7 +161,7 @@ async def create_completion_response(
                     status=OperationStatus.COMPLETED,
                     status_message=f'Operation {operation_id} completed successfully.'
                 )
-            )            
+            )
         except Exception as e:
             # Send the completion response to the State API and mark the operation as failed.
             print(f'Operation {operation_id} failed with error: {e}')
@@ -177,7 +181,7 @@ async def create_completion_response(
                     status = OperationStatus.FAILED,
                     status_message = f'Operation failed with error: {e}'
                 )
-            )           
+            )
 
 @router.get(
     '/async-completions/{operation_id}/status',
@@ -195,7 +199,7 @@ async def get_operation_status(
     with tracer.start_as_current_span(f'get_operation_status') as span:
         # Create an operations manager to get the operation status.
         operations_manager = OperationsManager(raw_request.app.extra['config'])
-        
+
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
@@ -204,7 +208,7 @@ async def get_operation_status(
                 operation_id,
                 instance_id
             )
-            
+
             if operation is None:
                 raise HTTPException(status_code=404)
 
@@ -228,16 +232,16 @@ async def get_operation_result(
     with tracer.start_as_current_span(f'get_operation_result') as span:
         # Create an operations manager to get the operation result.
         operations_manager = OperationsManager(raw_request.app.extra['config'])
-        
+
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
-            
+
             completion_response = await operations_manager.get_operation_result(
                 operation_id,
                 instance_id
             )
-            
+
             if completion_response is None:
                 raise HTTPException(status_code=404)
 
@@ -261,16 +265,16 @@ async def get_operation_log(
     with tracer.start_as_current_span(f'get_operation_log') as span:
         # Create an operations manager to get the operation log.
         operations_manager = OperationsManager(raw_request.app.extra['config'])
-        
+
         try:
             span.set_attribute('operation_id', operation_id)
             span.set_attribute('instance_id', instance_id)
-            
+
             log = await operations_manager.get_operation_log(
                 operation_id,
                 instance_id
             )
-            
+
             if log is None:
                 raise HTTPException(status_code=404)
 
