@@ -17284,6 +17284,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.AgentType
   nameWithType: AgentBase.AgentType
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities
+  name: Capabilities
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Capabilities
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities
+  nameWithType: AgentBase.Capabilities
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities*
+  name: Capabilities
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_Capabilities_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Capabilities
+  nameWithType: AgentBase.Capabilities
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.ConversationHistorySettings
   name: ConversationHistorySettings
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentBase_ConversationHistorySettings
@@ -17375,6 +17388,18 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentBase.Type
   nameWithType: AgentBase.Type
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities
+  name: AgentCapabilities
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities
+  nameWithType: AgentCapabilities
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities.OpenAIAssistants
+  name: OpenAIAssistants
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentCapabilities_OpenAIAssistants
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities.OpenAIAssistants
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentCapabilities.OpenAIAssistants
+  nameWithType: AgentCapabilities.OpenAIAssistants
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentOrchestrationSettings
   name: AgentOrchestrationSettings
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentOrchestrationSettings.html
