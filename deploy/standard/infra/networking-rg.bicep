@@ -565,6 +565,7 @@ module dns './modules/dns.bicep' = [for zone in items(privateDnsZone): {
   params: {
     key: zone.key
     vnetId: main.id
+    vnetName: main.name
     zone: zone.value
 
     tags: {
