@@ -1,4 +1,3 @@
-using Azure.Core;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -66,13 +65,13 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> CreateNewChatSessionAsync(string instanceId, string chatSessionName)
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId, string sessionName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(chatSessionName);
+        ArgumentException.ThrowIfNullOrEmpty(sessionName);
 
         Session session = new()
         {
-            Name = chatSessionName,
+            Name = sessionName,
             Type = _sessionType,
             UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
         };
@@ -80,12 +79,12 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName)
+    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string sessionName)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        ArgumentException.ThrowIfNullOrEmpty(newChatSessionName);
+        ArgumentException.ThrowIfNullOrEmpty(sessionName);
 
-        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, newChatSessionName);
+        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, sessionName);
     }
 
     /// <inheritdoc/>

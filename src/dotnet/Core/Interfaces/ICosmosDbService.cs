@@ -80,10 +80,10 @@ public interface ICosmosDbService
     /// Updates a session's name through a patch operation.
     /// </summary>
     /// <param name="id">The session id.</param>
-    /// <param name="name">The session's new name.</param>
+    /// <param name="sessionName">The session's new name.</param>
     /// <param name="cancellationToken">Cancellation token for async calls.</param>
     /// <returns>Revised chat session item.</returns>
-    Task<Session> UpdateSessionNameAsync(string id, string name, CancellationToken cancellationToken = default);
+    Task<Session> UpdateSessionNameAsync(string id, string sessionName, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Batch create or update chat messages and session.

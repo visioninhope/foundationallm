@@ -123,8 +123,8 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var currentUserUPN = "testuser@example.com";
             var sessionType = "Test_type";
-            var chatSessionName = "Test_name";
-            var newSession = new Session { Name = chatSessionName, Type = sessionType, UPN = currentUserUPN };
+            var sessionName = "Test_name";
+            var newSession = new Session { Name = sessionName, Type = sessionType, UPN = currentUserUPN };
 
             // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
@@ -133,13 +133,13 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, chatSessionName);
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, sessionName);
 
             // Assert
             Assert.NotNull(resultSession);
             Assert.Equal(sessionType, resultSession.Type);
             Assert.Equal(currentUserUPN, resultSession.UPN);
-            Assert.Equal(chatSessionName, resultSession.Name);
+            Assert.Equal(sessionName, resultSession.Name);
         }
 
         #endregion
@@ -176,12 +176,12 @@ namespace FoundationaLLM.Core.Tests.Services
         public async Task RenameChatSessionAsync_ShouldThrowExceptionWhenSessionIdIsNull()
         {
             // Arrange
-            var newChatSessionName = "NewName";
+            var sessionName = "NewName";
 
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, null!, newChatSessionName);
+                await _testedService.RenameChatSessionAsync(_instanceId, null!, sessionName);
             });
         }
 

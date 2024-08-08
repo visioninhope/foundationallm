@@ -26,16 +26,16 @@ public interface ICoreService
     /// Creates a new chat session.
     /// </summary>
     /// <param name="instanceId">The instance Id.</param>
-    /// <param name="chatSessionName">The name for the chat session.</param>
-    Task<Session> CreateNewChatSessionAsync(string instanceId, string chatSessionName);
+    /// <param name="sessionName">The name for the chat session.</param>
+    Task<Session> CreateNewChatSessionAsync(string instanceId, string sessionName);
 
     /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
     /// </summary>
     /// <param name="instanceId">The instance id.</param>
     /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="newChatSessionName">The new name for the chat session.</param>
-    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName);
+    /// <param name="sessionName">The new name for the chat session.</param>
+    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string sessionName);
 
     /// <summary>
     /// Delete a chat session and related messages.
