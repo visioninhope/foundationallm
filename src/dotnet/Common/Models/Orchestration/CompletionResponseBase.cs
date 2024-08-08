@@ -20,6 +20,12 @@ namespace FoundationaLLM.Common.Models.Orchestration
         public string Completion { get; set; }
 
         /// <summary>
+        /// Content returned from the Assistants API.
+        /// </summary>
+        [JsonPropertyName("content")]
+        public List<MessageContentItemBase>? Content { get; set; }
+
+        /// <summary>
         /// The citations used in building the completion response.
         /// </summary>
         [JsonPropertyName("citations")]
