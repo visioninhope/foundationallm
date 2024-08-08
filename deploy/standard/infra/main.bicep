@@ -247,7 +247,7 @@ output FLLM_MGMT_API_HOSTNAME string = managementApiHostname
 
 output FOUNDATIONALLM_VNET_NAME string = networking.outputs.vnetName
 output FOUNDATIONALLM_VNET_ID string = networking.outputs.vnetId
-output FOUNDATIONALLM_HUB_VNET_NAME string = networking.outputs.hubVnetId
+output FOUNDATIONALLM_HUB_VNET_ID string = networking.outputs.hubVnetId
 
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = 'http://gatekeeper-api/gatekeeper/'
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = 'http://gatekeeper-integration-api/gatekeeperintegration'
