@@ -15,9 +15,9 @@
 				label=""
 				class="file-upload-button secondary-button"
 				style="height: 100%"
-				@click="toggleFileAttachmentOverlay"
+				@click="showFileUploadDialog = true"
 			/>
-			<OverlayPanel ref="fileAttachmentPanel">
+			<!-- <OverlayPanel ref="fileAttachmentPanel">
 				<div class="attached-files-container">
 					<h2 style="margin-bottom: 0px">Attached File</h2>
 					<template v-if="fileArrayFiltered.length">
@@ -51,7 +51,7 @@
 						@click="showFileUploadDialog = true"
 					/>
 				</div>
-			</OverlayPanel>
+			</OverlayPanel> -->
 			<Dialog
 				v-model:visible="showFileUploadDialog"
 				header="Upload File"
@@ -60,7 +60,7 @@
 			>
 				<FileUpload
 					ref="fileUpload"
-					:file-limit="1"
+					:multiple="true"
 					:auto="false"
 					:custom-upload="true"
 					:max-file-size="512000000"
@@ -81,7 +81,7 @@
 									label="Upload"
 									:disabled="!files || files.length === 0"
 									style="margin-right: 0.5rem"
-									@click="uploadFile(uploadCallback)"
+									@click="uploadCallback()"
 								></Button>
 								<Button
 									icon="pi pi-times"
@@ -100,56 +100,58 @@
 						<div
 							v-for="(file, index) of files"
 							:key="file.name + file.type + file.size"
-							style="
-								border-color: rgb(226, 232, 240);
-								border-radius: 6px;
-								border-style: solid;
-								border-width: 1px;
-								display: flex;
-								flex-direction: row;
-								justify-content: space-between;
-								padding: 0.5rem;
-								width: 100%;
-								align-items: center;
-							"
+							class="file-upload-file"
 						>
-							<div
-								style="
-									flex: 1;
-									display: flex;
-									flex-direction: row;
-									align-items: center;
-									gap: 10px;
-								"
-							>
+							<div class="file-upload-file_info">
 								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
 								<span style="font-weight: 600">{{ file.name }}</span>
 								<div>{{ formatSize(file.size) }}</div>
 							</div>
-							<Button
-								icon="pi pi-times"
-								text
-								severity="danger"
-								@click="removeFileCallback(index)"
-							/>
-						</div>
-					</template>
-
-					<template #empty>
-						<div v-if="uploadProgress === 0">
-							<i class="pi pi-cloud-upload file-upload-icon" />
-							<div style="width: 500px">
-								<p style="text-align: center">
-									Drag and drop files here
-									<br />
-									or
-									<br />
-									<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
-								</p>
+							<div style="display: flex; align-items: center; margin-left: 10px;">
+								<Badge value="Pending" />
+								<Button
+									icon="pi pi-times"
+									text
+									severity="danger"
+									@click="removeFileCallback(index)"
+								/>
 							</div>
 						</div>
-						<div v-else>
-							<p style="text-align: center">Uploading...</p>
+						<div
+							v-for="file in fileArrayFiltered"
+							:key="file.fileName"
+							class="file-upload-file"
+						>
+							<div class="file-upload-file_info">
+								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+								<span style="font-weight: 600">{{ file.fileName }}</span>
+							</div>
+							<div style="display: flex; align-items: center; margin-left: 10px;">
+								<Badge value="Uploaded" severity="success" />
+								<Button
+									icon="pi pi-times"
+									text
+									severity="danger"
+									@click="removeAttachment(file)"
+								/>
+							</div>
+						</div>
+						<div v-if="files.length === 0 && fileArrayFiltered.length === 0">
+							<div v-if="uploadProgress === 0">
+								<i class="pi pi-cloud-upload file-upload-icon" />
+								<div style="width: 500px">
+									<p style="text-align: center">
+										Drag and drop files here
+										<br />
+										or
+										<br />
+										<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
+									</p>
+								</div>
+							</div>
+							<div v-else>
+								<p style="text-align: center">Uploading...</p>
+							</div>
 						</div>
 					</template>
 				</FileUpload>
@@ -339,34 +341,34 @@ export default {
 			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
 		},
 
-		uploadFile(uploadCallback) {
-			this.uploadProgress = 0;
-			if (this.fileArrayFiltered.length) {
-				this.$confirm.require({
-					message: 'Uploading a new file will replace the file already attached.',
-					header: 'Confirm File Replacement',
-					icon: 'pi pi-exclamation-triangle',
-					rejectLabel: 'Upload',
-					acceptLabel: 'Cancel',
-					rejectProps: {
-						label: 'Upload',
-					},
-					acceptProps: {
-						label: 'Cancel',
-						severity: 'secondary',
-						outlined: true,
-					},
-					accept: () => {
-						this.showFileUploadDialog = false;
-					},
-					reject: () => {
-						uploadCallback();
-					},
-				});
-			} else {
-				uploadCallback();
-			}
-		},
+		// uploadFile(uploadCallback) {
+		// 	this.uploadProgress = 0;
+		// 	if (this.fileArrayFiltered.length) {
+		// 		this.$confirm.require({
+		// 			message: 'Uploading a new file will replace the file already attached.',
+		// 			header: 'Confirm File Replacement',
+		// 			icon: 'pi pi-exclamation-triangle',
+		// 			rejectLabel: 'Upload',
+		// 			acceptLabel: 'Cancel',
+		// 			rejectProps: {
+		// 				label: 'Upload',
+		// 			},
+		// 			acceptProps: {
+		// 				label: 'Cancel',
+		// 				severity: 'secondary',
+		// 				outlined: true,
+		// 			},
+		// 			accept: () => {
+		// 				this.showFileUploadDialog = false;
+		// 			},
+		// 			reject: () => {
+		// 				uploadCallback();
+		// 			},
+		// 		});
+		// 	} else {
+		// 		uploadCallback();
+		// 	}
+		// },
 
 		formatSize(bytes) {
 			const k = 1024;
@@ -532,5 +534,31 @@ export default {
 	text-align: center;
 	font-size: 5rem;
 	color: #000;
+}
+
+.file-upload-file {
+	border-color: rgb(226, 232, 240);
+	border-radius: 6px;
+	border-style: solid;
+	border-width: 1px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0.5rem;
+	width: 100%;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.file-upload-file_info {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+.p-fileupload-content {
+	padding: 30px 10px 10px 10px;
 }
 </style>
