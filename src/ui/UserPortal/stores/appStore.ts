@@ -98,21 +98,25 @@ export const useAppStore = defineStore('app', {
 			await api.deleteSession(sessionToDelete!.id);
 			await this.getSessions();
 
-			this.sessions = this.sessions.filter(
-				(session: Session) => session.id !== sessionToDelete!.id,
-			);
+			this.removeSession(sessionToDelete!.id);
 
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
 				const newSession = await this.addSession();
+				this.removeSession(sessionToDelete!.id);
 				await this.changeSession(newSession);
-				return;
 			}
 
 			const firstSession = this.sessions[0];
 			if (firstSession) {
 				await this.changeSession(firstSession);
 			}
+		},
+
+		removeSession(sessionId: string) {
+			this.sessions = this.sessions.filter(
+				(session: Session) => session.id !== sessionId
+			);
 		},
 
 		async getMessages() {
