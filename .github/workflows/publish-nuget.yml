@@ -21,6 +21,9 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    - name: Make versioning script executable
+      run: chmod +x ./versioning.sh
+
     - name: Run versioning script
       run: ./versioning.sh
       id: versioning
