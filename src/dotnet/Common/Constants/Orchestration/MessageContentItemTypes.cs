@@ -14,5 +14,10 @@
         /// Image file content.
         /// </summary>
         public const string ImageFile = "image_file";
+
+        /// <summary>
+        /// File path content.
+        /// </summary>
+        public const string FilePath = "file_path";
     }
 }
