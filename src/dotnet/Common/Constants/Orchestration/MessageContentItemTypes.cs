@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Common.Constants
+﻿namespace FoundationaLLM.Common.Constants.Orchestration
 {
     /// <summary>
     /// Contains constants for the types of message content items.
