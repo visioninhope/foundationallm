@@ -17,12 +17,12 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
 
         /// <inheritdoc/>
-        public async Task<string> CreateSessionAsync(SessionProperties sessionProperties)
+        public async Task<string> CreateSessionAsync(ChatSessionProperties chatSessionProperties)
         {
             var coreClient = await GetCoreClientAsync();
             var responseSession = await coreClient.PostAsync(
                 $"instances/{_instanceId}/sessions",
-                JsonContent.Create(sessionProperties));
+                JsonContent.Create(chatSessionProperties));
 
             if (responseSession.IsSuccessStatusCode)
             {
@@ -38,16 +38,16 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         }
 
         /// <inheritdoc/>
-        public async Task<string> RenameChatSession(string sessionId, SessionProperties sessionProperties)
+        public async Task<string> RenameChatSession(string sessionId, ChatSessionProperties chatSessionProperties)
         {
             var coreClient = await GetCoreClientAsync();
             var response = await coreClient.PostAsync(
                 $"instances/{_instanceId}/sessions/{sessionId}/rename",
-                JsonContent.Create(sessionProperties));
+                JsonContent.Create(chatSessionProperties));
 
             if (response.IsSuccessStatusCode)
             {
-                return sessionProperties.SessionName;
+                return chatSessionProperties.Name;
             }
 
             throw new Exception($"Failed to rename chat session. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");

@@ -16,7 +16,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// </summary>
         /// <param name="sessionProperties">The session properties.</param>
         /// <returns>The new chat session ID.</returns>
-        Task<string> CreateChatSessionAsync(SessionProperties sessionProperties);
+        Task<string> CreateChatSessionAsync(ChatSessionProperties sessionProperties);
 
         /// <summary>
         /// Runs a single completion request with an agent using the Core API and a chat session.
@@ -30,7 +30,7 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <param name="agentName">The name of the FoundationaLLM agent that will handle the
         /// completion request.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> GetCompletionWithSessionAsync(string? sessionId, SessionProperties? sessionProperties,
+        Task<Completion> GetCompletionWithSessionAsync(string? sessionId, ChatSessionProperties? sessionProperties,
             string userPrompt, string agentName);
 
         /// <summary>
@@ -83,11 +83,11 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// false, no session is created and the sessionless orchestration flow is used.</param>
         /// <param name="sessionId">The ID of an existing session. If null or empty, a new session
         /// is created first.</param>
-        /// <param name="sessionProperties">Optional session properties.</param>
+        /// <param name="chatSessionProperties">Optional session properties.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, SessionProperties? sessionProperties);
+            string agentName, string question, bool useSession, string? sessionId, ChatSessionProperties? chatSessionProperties);
 
         /// <summary>
         /// Returns the chat messages related to an existing session.

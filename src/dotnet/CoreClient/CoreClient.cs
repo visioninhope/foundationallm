@@ -54,29 +54,29 @@ namespace FoundationaLLM.Client.Core
             _coreRestClient = new CoreRESTClient(coreUri, credential, instanceId, options);
 
         /// <inheritdoc/>
-        public async Task<string> CreateChatSessionAsync(SessionProperties sessionProperties)
+        public async Task<string> CreateChatSessionAsync(ChatSessionProperties chatSessionProperties)
         {
-            if (string.IsNullOrWhiteSpace(sessionProperties.SessionName))
+            if (string.IsNullOrWhiteSpace(chatSessionProperties.Name))
                 throw new ArgumentException("A session name must be provided when creating a new session.");
 
-            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync(sessionProperties);
+            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync(chatSessionProperties);
             return sessionId;
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> GetCompletionWithSessionAsync(string? sessionId, SessionProperties? sessionProperties,
+        public async Task<Completion> GetCompletionWithSessionAsync(string? sessionId, ChatSessionProperties? chatSessionProperties,
             string userPrompt, string agentName)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
-                if (sessionProperties == null)
+                if (chatSessionProperties == null)
                 {
                     throw new ArgumentException(
                         "The completion request must contain a session name if no session Id is provided. " +
                         "A new session will be created with the provided session name.");
                 }
 
-                sessionId = await CreateChatSessionAsync(sessionProperties);
+                sessionId = await CreateChatSessionAsync(chatSessionProperties);
             }
 
             var orchestrationRequest = new CompletionRequest
@@ -132,7 +132,7 @@ namespace FoundationaLLM.Client.Core
 
         /// <inheritdoc/>
         public async Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, SessionProperties? sessionProperties)
+            string agentName, string question, bool useSession, string? sessionId, ChatSessionProperties? chatSessionProperties)
         {
             if (fileStream == null)
             {
@@ -145,14 +145,14 @@ namespace FoundationaLLM.Client.Core
             {
                 if (string.IsNullOrWhiteSpace(sessionId))
                 {
-                    if (sessionProperties == null)
+                    if (chatSessionProperties == null)
                     {
                         throw new ArgumentException(
                             "The completion request must contain a session name if no session Id is provided. " +
                             "A new session will be created with the provided session name.");
                     }
 
-                    sessionId = await CreateChatSessionAsync(sessionProperties);
+                    sessionId = await CreateChatSessionAsync(chatSessionProperties);
                 }
 
                 var orchestrationRequest = new CompletionRequest

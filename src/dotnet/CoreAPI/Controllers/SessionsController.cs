@@ -68,20 +68,20 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Creates a new chat session.
         /// </summary>
         /// <param name="instanceId">The id of the instance.</param>
-        /// <param name="sessionProperties">The session properties.</param>
+        /// <param name="chatSessionProperties">The session properties.</param>
         [HttpPost(Name = "CreateNewChatSession")]
-        public async Task<Session> CreateNewChatSession(string instanceId, [FromBody] SessionProperties sessionProperties) =>
-            await _coreService.CreateNewChatSessionAsync(instanceId, sessionProperties);
+        public async Task<Session> CreateNewChatSession(string instanceId, [FromBody] ChatSessionProperties chatSessionProperties) =>
+            await _coreService.CreateNewChatSessionAsync(instanceId, chatSessionProperties);
 
         /// <summary>
         /// Rename the chat session.
         /// </summary>
         /// <param name="instanceId">The id of the instance.</param>
         /// <param name="sessionId">The id of the session to rename.</param>
-        /// <param name="sessionProperties">The session properties.</param>
+        /// <param name="chatSessionProperties">The session properties.</param>
         [HttpPost("{sessionId}/rename", Name = "RenameChatSession")]
-        public async Task<Session> RenameChatSession(string instanceId, string sessionId, [FromBody] SessionProperties sessionProperties) =>
-            await _coreService.RenameChatSessionAsync(instanceId, sessionId, sessionProperties);
+        public async Task<Session> RenameChatSession(string instanceId, string sessionId, [FromBody] ChatSessionProperties chatSessionProperties) =>
+            await _coreService.RenameChatSessionAsync(instanceId, sessionId, chatSessionProperties);
 
         /// <summary>
         /// Delete a chat session and related messages.

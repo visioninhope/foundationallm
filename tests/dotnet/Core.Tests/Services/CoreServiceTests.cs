@@ -123,8 +123,8 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var currentUserUPN = "testuser@example.com";
             var sessionType = "Test_type";
-            var sessionProperties = new SessionProperties() { SessionName = "Test_name" };
-            var newSession = new Session { Name = sessionProperties.SessionName, Type = sessionType, UPN = currentUserUPN };
+            var chatSessionProperties = new ChatSessionProperties() { Name = "Test_name" };
+            var newSession = new Session { Name = chatSessionProperties.Name, Type = sessionType, UPN = currentUserUPN };
 
             // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
@@ -133,13 +133,13 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, sessionProperties);
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, chatSessionProperties);
 
             // Assert
             Assert.NotNull(resultSession);
             Assert.Equal(sessionType, resultSession.Type);
             Assert.Equal(currentUserUPN, resultSession.UPN);
-            Assert.Equal(sessionProperties.SessionName, resultSession.Name);
+            Assert.Equal(chatSessionProperties.Name, resultSession.Name);
         }
 
         #endregion
@@ -151,37 +151,37 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var session = new Session() { Name = "OldName" };
-            var sessionProperties = new SessionProperties() { SessionName = "NewName" };
+            var chatSessionProperties = new ChatSessionProperties() { Name = "NewName" };
 
             var expectedSession = new Session()
             {
                 Id = session.Id,
                 Messages = session.Messages,
-                Name = sessionProperties.SessionName,
+                Name = chatSessionProperties.Name,
                 SessionId = session.SessionId,
                 TokensUsed = session.TokensUsed,
                 Type = session.Type,
             };
-            _cosmosDbService.UpdateSessionNameAsync(session.Id, sessionProperties.SessionName).Returns(expectedSession);
+            _cosmosDbService.UpdateSessionNameAsync(session.Id, chatSessionProperties.Name).Returns(expectedSession);
 
             // Act
-            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, sessionProperties);
+            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, chatSessionProperties);
 
             // Assert
             Assert.Equivalent(expectedSession, actualSession);
-            Assert.Equal(sessionProperties.SessionName, actualSession.Name);
+            Assert.Equal(chatSessionProperties.Name, actualSession.Name);
         }
 
         [Fact]
         public async Task RenameChatSessionAsync_ShouldThrowExceptionWhenSessionIdIsNull()
         {
             // Arrange
-            var sessionProperties = new SessionProperties() { SessionName = "NewName" };
+            var chatSessionProperties = new ChatSessionProperties() { Name = "NewName" };
 
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, null!, sessionProperties);
+                await _testedService.RenameChatSessionAsync(_instanceId, null!, chatSessionProperties);
             });
         }
 
@@ -199,7 +199,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, new SessionProperties() { SessionName = string.Empty });
+                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, new ChatSessionProperties() { Name = string.Empty });
             });
         }
 
