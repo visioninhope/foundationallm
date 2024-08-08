@@ -14,9 +14,9 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <summary>
         /// Creates a new chat session with the specified name.
         /// </summary>
-        /// <param name="sessionName">The chat session name.</param>
+        /// <param name="sessionProperties">The session properties.</param>
         /// <returns>The new chat session ID.</returns>
-        Task<string> CreateChatSessionAsync(string sessionName);
+        Task<string> CreateChatSessionAsync(SessionProperties sessionProperties);
 
         /// <summary>
         /// Runs a single completion request with an agent using the Core API and a chat session.
@@ -25,12 +25,12 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// </summary>
         /// <param name="sessionId">The ID of an existing session. If null or empty, a new session
         /// is created first.</param>
-        /// <param name="sessionName">Renames the new chat session if not null or empty.</param>
+        /// <param name="sessionProperties">Optional session priperties.</param>
         /// <param name="userPrompt">The user prompt to send to the agent.</param>
         /// <param name="agentName">The name of the FoundationaLLM agent that will handle the
         /// completion request.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
-        Task<Completion> GetCompletionWithSessionAsync(string? sessionId, string? sessionName,
+        Task<Completion> GetCompletionWithSessionAsync(string? sessionId, SessionProperties? sessionProperties,
             string userPrompt, string agentName);
 
         /// <summary>
@@ -83,11 +83,11 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// false, no session is created and the sessionless orchestration flow is used.</param>
         /// <param name="sessionId">The ID of an existing session. If null or empty, a new session
         /// is created first.</param>
-        /// <param name="sessionName">Renames the new chat session if not null or empty.</param>
+        /// <param name="sessionProperties">Optional session properties.</param>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         /// <returns>A completion from the designated FoundationaLLM agent.</returns>
         Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, string? sessionName);
+            string agentName, string question, bool useSession, string? sessionId, SessionProperties? sessionProperties);
 
         /// <summary>
         /// Returns the chat messages related to an existing session.

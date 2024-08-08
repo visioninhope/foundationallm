@@ -123,8 +123,8 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var currentUserUPN = "testuser@example.com";
             var sessionType = "Test_type";
-            var sessionName = "Test_name";
-            var newSession = new Session { Name = sessionName, Type = sessionType, UPN = currentUserUPN };
+            var sessionProperties = new SessionProperties() { SessionName = "Test_name" };
+            var newSession = new Session { Name = sessionProperties.SessionName, Type = sessionType, UPN = currentUserUPN };
 
             // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
@@ -133,13 +133,13 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, sessionName);
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, sessionProperties);
 
             // Assert
             Assert.NotNull(resultSession);
             Assert.Equal(sessionType, resultSession.Type);
             Assert.Equal(currentUserUPN, resultSession.UPN);
-            Assert.Equal(sessionName, resultSession.Name);
+            Assert.Equal(sessionProperties.SessionName, resultSession.Name);
         }
 
         #endregion
@@ -151,37 +151,37 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var session = new Session() { Name = "OldName" };
-            var expectedName = "NewName";
+            var sessionProperties = new SessionProperties() { SessionName = "NewName" };
 
             var expectedSession = new Session()
             {
                 Id = session.Id,
                 Messages = session.Messages,
-                Name = expectedName,
+                Name = sessionProperties.SessionName,
                 SessionId = session.SessionId,
                 TokensUsed = session.TokensUsed,
                 Type = session.Type,
             };
-            _cosmosDbService.UpdateSessionNameAsync(session.Id, expectedName).Returns(expectedSession);
+            _cosmosDbService.UpdateSessionNameAsync(session.Id, sessionProperties.SessionName).Returns(expectedSession);
 
             // Act
-            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, expectedName);
+            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, sessionProperties);
 
             // Assert
             Assert.Equivalent(expectedSession, actualSession);
-            Assert.Equal(expectedName, actualSession.Name);
+            Assert.Equal(sessionProperties.SessionName, actualSession.Name);
         }
 
         [Fact]
         public async Task RenameChatSessionAsync_ShouldThrowExceptionWhenSessionIdIsNull()
         {
             // Arrange
-            var sessionName = "NewName";
+            var sessionProperties = new SessionProperties() { SessionName = "NewName" };
 
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, null!, sessionName);
+                await _testedService.RenameChatSessionAsync(_instanceId, null!, sessionProperties);
             });
         }
 
@@ -199,7 +199,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, string.Empty);
+                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, new SessionProperties() { SessionName = string.Empty });
             });
         }
 

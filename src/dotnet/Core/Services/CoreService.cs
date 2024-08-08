@@ -65,13 +65,13 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> CreateNewChatSessionAsync(string instanceId, string sessionName)
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId, SessionProperties sessionProperties)
     {
-        ArgumentException.ThrowIfNullOrEmpty(sessionName);
+        ArgumentException.ThrowIfNullOrEmpty(sessionProperties.SessionName);
 
         Session session = new()
         {
-            Name = sessionName,
+            Name = sessionProperties.SessionName,
             Type = _sessionType,
             UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
         };
@@ -79,12 +79,12 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string sessionName)
+    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, SessionProperties sessionProperties)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        ArgumentException.ThrowIfNullOrEmpty(sessionName);
+        ArgumentException.ThrowIfNullOrEmpty(sessionProperties.SessionName);
 
-        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, sessionName);
+        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, sessionProperties.SessionName);
     }
 
     /// <inheritdoc/>
