@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using FoundationaLLM.Common.Constants.Orchestration;
+﻿using FoundationaLLM.Common.Constants.Orchestration;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {

@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using FoundationaLLM.Common.Constants.Orchestration;
+﻿using FoundationaLLM.Common.Constants.Orchestration;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Orchestration
 {
@@ -9,6 +9,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(OpenAITextMessageContentItem), MessageContentItemTypes.Text)]
     [JsonDerivedType(typeof(OpenAIImageFileMessageContentItem), MessageContentItemTypes.ImageFile)]
+    [JsonDerivedType(typeof(OpenAIFilePathContentItem), MessageContentItemTypes.FilePath)]
     public class MessageContentItemBase
     {
         /// <summary>
