@@ -80,11 +80,11 @@ try {
     }
 
     $entraClientIds = @{
-        authorization = $env:FLLM_AUTHORIZATION_CLIENT_ID
-        chat          = $env:FLLM_USER_PORTAL_CLIENT_ID
-        core          = $env:FLLM_CORE_API_CLIENT_ID
-        managementapi = $env:FLLM_MANAGEMENT_API_CLIENT_ID
-        managementui  = $env:FLLM_MANAGEMENT_PORTAL_CLIENT_ID
+        authorization = $env:ENTRA_AUTH_API_CLIENT_ID
+        chat          = $env:ENTRA_CHAT_UI_CLIENT_ID
+        core          = $env:ENTRA_CORE_API_CLIENT_ID
+        managementapi = $env:ENTRA_MANAGEMENT_API_CLIENT_ID
+        managementui  = $env:ENTRA_MANAGEMENT_UI_CLIENT_ID
     }
 
     $entraScopes = @{
