@@ -22,12 +22,10 @@
 
 				<!-- New chat alert -->
 				<div v-else class="new-chat-alert">
-					<div class="alert-header">
-						<i class="pi pi-exclamation-circle"></i>
-						<span class="alert-header-text">Get Started</span>
-					</div>
 					<div class="alert-body">
-						<span class="alert-body-text">How can I help?</span>
+						<div class="alert-body-text">
+							Start the conversation using the text box below.
+						</div>
 					</div>
 				</div>
 			</template>
@@ -201,10 +199,14 @@ export default {
 	flex-direction: column;
 }
 .new-chat-alert {
-	background-color: #d9f0d1;
+	background-color: #FAFAFA;
 	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
 	padding: 10px;
 	border-radius: 6px;
+	width: 55%;
 }
 
 .alert-header,
@@ -220,8 +222,10 @@ export default {
 }
 
 .alert-body-text {
-	font-size: 1.2rem;
-	font-weight: 300;
+	color: #000;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 	font-style: italic;
 }
 
