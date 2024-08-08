@@ -1,7 +1,8 @@
 from foundationallm.config import Configuration
 from foundationallm.langchain.agents import (
     LangChainAgentBase,
-    LangChainKnowledgeManagementAgent
+    LangChainKnowledgeManagementAgent,
+    LangChainAudioClassifierAgent
 )
 
 class AgentFactory:
@@ -28,7 +29,7 @@ class AgentFactory:
         ----------
         agent_type : str
             The type type assign to the agent returned.
-        
+
         Returns
         -------
         AgentBase
@@ -36,9 +37,11 @@ class AgentFactory:
         """
         if agent_type is None:
             raise ValueError("Agent not constructed. Cannot access an object of 'NoneType'.")
-        
+
         match agent_type:
             case 'knowledge-management':
                 return LangChainKnowledgeManagementAgent(config=self.config)
+            case 'audio-classification':
+                return LangChainAudioClassifierAgent(config=self.config)
             case _:
                 raise ValueError(f'The agent type {agent_type} is not supported.')
