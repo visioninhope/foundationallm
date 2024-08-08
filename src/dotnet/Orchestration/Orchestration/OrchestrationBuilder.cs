@@ -13,6 +13,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
+using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -151,8 +152,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .ToDictionary(x => x.Name, x => x.Description);
             explodedObjects[CompletionRequestObjectsKeys.AllAgents] = allAgentsDescriptions;
 
-            if (agentBase is KnowledgeManagementAgent kmAgent)
+            if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(AudioClassificationAgent))
             {
+                KnowledgeManagementAgent kmAgent = (KnowledgeManagementAgent)agentBase;
+
                 // Check for inline-context agents, they are valid KM agents that do not have a vectorization section.
                 if (kmAgent is {Vectorization: not null, InlineContext: false})
                 {
