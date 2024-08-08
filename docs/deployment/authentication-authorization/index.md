@@ -4,6 +4,20 @@ FoundationaLLM uses the [Microsoft Entra ID](https://learn.microsoft.com/entra/f
 
 ## Microsoft Entra ID
 
+Starting `release 0.8.0` there are 2 options of completing the app registrations for the 5 apps required for FoundationaLLM. Option #1 is to run a script that will register all 5 applications for you. Option #2 is to manually register the 5 applications. The steps for both options are below.
+
+## Option #1 - Run the script to register all 5 applications
+The script is available in the `\deploy\common\scripts\` folder. The script is called `Create-FllmEntraIdApps.ps1`. The script will register the 5 required applications in the Entra ID tenant that you are logged into.
+
+![Entra ID app registration script](../media/EntraIDAppsCreation.png)
+
+After the completion of the script execution, you will see the 5 applications registered in the Entra ID tenant under `App registrations`
+
+![Entra ID registered apps in Portal](../media/EntraIDRegisteredAppsPortal.png)
+
+> [!IMPORTANT]
+> Make sure to copy and save the Application (Client) ID of all 5 applications in a text editor as you will need them in the next steps.
+
 > [!IMPORTANT]
 > The following steps are required to set up authentication and authorization for the solution. You will need to create app registrations in the Entra ID tenant in the Azure portal.  There are currently **five** app registrations required for the solution as listed below.  After you complete the 5 app registrations, you will need to finish the deployment process of the solution and revisit these app registrations to fill in some missing values that are generated during the deployment itself.
 
