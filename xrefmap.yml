@@ -2237,15 +2237,15 @@ references:
   fullName.vb: FoundationaLLM.Client.Core.CoreClient.New
   nameWithType: CoreClient.CoreClient
   nameWithType.vb: CoreClient.New
-- uid: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
-  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_
-  commentId: M:FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
-  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
-  fullName: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, string?)
-  fullName.vb: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, String)
-  nameWithType: CoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  nameWithType.vb: CoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, ChatSessionProperties?)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, FoundationaLLM.Common.Models.Chat.ChatSessionProperties?)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: CoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, ChatSessionProperties?)
+  nameWithType.vb: CoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync*
   name: AttachFileAndAskQuestionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_
@@ -2253,15 +2253,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync
   nameWithType: CoreClient.AttachFileAndAskQuestionAsync
-- uid: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(System.String)
-  name: CreateChatSessionAsync(string?)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(System.String)
-  name.vb: CreateChatSessionAsync(String)
-  fullName: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(string?)
-  fullName.vb: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(String)
-  nameWithType: CoreClient.CreateChatSessionAsync(string?)
-  nameWithType.vb: CoreClient.CreateChatSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateChatSessionAsync(ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: CoreClient.CreateChatSessionAsync(ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync*
   name: CreateChatSessionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_
@@ -2342,15 +2339,15 @@ references:
   commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
   fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
   nameWithType: CoreClient.GetCompletionWithSessionAsync(CompletionRequest)
-- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
-  name: GetCompletionWithSessionAsync(string?, string?, string, string)
-  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_System_String_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
-  name.vb: GetCompletionWithSessionAsync(String, String, String, String)
-  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
-  fullName.vb: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(String, String, String, String)
-  nameWithType: CoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
-  nameWithType.vb: CoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+- uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties,System.String,System.String)
+  name: GetCompletionWithSessionAsync(string?, ChatSessionProperties?, string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties,System.String,System.String)
+  name.vb: GetCompletionWithSessionAsync(String, ChatSessionProperties, String, String)
+  fullName: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(string?, FoundationaLLM.Common.Models.Chat.ChatSessionProperties?, string, string)
+  fullName.vb: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties, String, String)
+  nameWithType: CoreClient.GetCompletionWithSessionAsync(string?, ChatSessionProperties?, string, string)
+  nameWithType.vb: CoreClient.GetCompletionWithSessionAsync(String, ChatSessionProperties, String, String)
 - uid: FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync*
   name: GetCompletionWithSessionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.CoreClient.html#FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_
@@ -2564,15 +2561,15 @@ references:
   commentId: T:FoundationaLLM.Client.Core.Interfaces.ICoreClient
   fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient
   nameWithType: ICoreClient
-- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
-  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_
-  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)
-  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
-  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, string?)
-  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, String)
-  nameWithType: ICoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  nameWithType.vb: ICoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, ChatSessionProperties?)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, string, string, string, string, bool, string?, FoundationaLLM.Common.Models.Chat.ChatSessionProperties?)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream, String, String, String, String, Boolean, String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ICoreClient.AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, ChatSessionProperties?)
+  nameWithType.vb: ICoreClient.AttachFileAndAskQuestionAsync(Stream, String, String, String, String, Boolean, String, ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync*
   name: AttachFileAndAskQuestionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_AttachFileAndAskQuestionAsync_
@@ -2580,15 +2577,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.AttachFileAndAskQuestionAsync
   nameWithType: ICoreClient.AttachFileAndAskQuestionAsync
-- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(System.String)
-  name: CreateChatSessionAsync(string?)
-  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_CreateChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(System.String)
-  name.vb: CreateChatSessionAsync(String)
-  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(string?)
-  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(String)
-  nameWithType: ICoreClient.CreateChatSessionAsync(string?)
-  nameWithType.vb: ICoreClient.CreateChatSessionAsync(String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateChatSessionAsync(ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_CreateChatSessionAsync_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ICoreClient.CreateChatSessionAsync(ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.CreateChatSessionAsync*
   name: CreateChatSessionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_CreateChatSessionAsync_
@@ -2669,15 +2663,15 @@ references:
   commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
   fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)
   nameWithType: ICoreClient.GetCompletionWithSessionAsync(CompletionRequest)
-- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
-  name: GetCompletionWithSessionAsync(string?, string?, string, string)
-  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_System_String_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)
-  name.vb: GetCompletionWithSessionAsync(String, String, String, String)
-  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
-  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(String, String, String, String)
-  nameWithType: ICoreClient.GetCompletionWithSessionAsync(string?, string?, string, string)
-  nameWithType.vb: ICoreClient.GetCompletionWithSessionAsync(String, String, String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties,System.String,System.String)
+  name: GetCompletionWithSessionAsync(string?, ChatSessionProperties?, string, string)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_System_String_System_String_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties,System.String,System.String)
+  name.vb: GetCompletionWithSessionAsync(String, ChatSessionProperties, String, String)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(string?, FoundationaLLM.Common.Models.Chat.ChatSessionProperties?, string, string)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties, String, String)
+  nameWithType: ICoreClient.GetCompletionWithSessionAsync(string?, ChatSessionProperties?, string, string)
+  nameWithType.vb: ICoreClient.GetCompletionWithSessionAsync(String, ChatSessionProperties, String, String)
 - uid: FoundationaLLM.Client.Core.Interfaces.ICoreClient.GetCompletionWithSessionAsync*
   name: GetCompletionWithSessionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ICoreClient.html#FoundationaLLM_Client_Core_Interfaces_ICoreClient_GetCompletionWithSessionAsync_
@@ -2775,12 +2769,12 @@ references:
   commentId: T:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient
   fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient
   nameWithType: ISessionRESTClient
-- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
-  name: CreateSessionAsync()
-  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_CreateSessionAsync
-  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync
-  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync()
-  nameWithType: ISessionRESTClient.CreateSessionAsync()
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateSessionAsync(ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_CreateSessionAsync_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ISessionRESTClient.CreateSessionAsync(ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.CreateSessionAsync*
   name: CreateSessionAsync
   href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_CreateSessionAsync_
@@ -2865,15 +2859,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RateMessageAsync
   nameWithType: ISessionRESTClient.RateMessageAsync
-- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,System.String)
-  name: RenameChatSession(string, string)
-  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RenameChatSession_System_String_System_String_
-  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,System.String)
-  name.vb: RenameChatSession(String, String)
-  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(string, string)
-  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(String, String)
-  nameWithType: ISessionRESTClient.RenameChatSession(string, string)
-  nameWithType.vb: ISessionRESTClient.RenameChatSession(String, String)
+- uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: RenameChatSession(string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RenameChatSession_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: RenameChatSession(String, ChatSessionProperties)
+  fullName: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ISessionRESTClient.RenameChatSession(string, ChatSessionProperties)
+  nameWithType.vb: ISessionRESTClient.RenameChatSession(String, ChatSessionProperties)
 - uid: FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.RenameChatSession*
   name: RenameChatSession
   href: api/dotnet/FoundationaLLM.Client.Core.Interfaces.ISessionRESTClient.html#FoundationaLLM_Client_Core_Interfaces_ISessionRESTClient_RenameChatSession_
@@ -12361,6 +12355,25 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Chat
   fullName: FoundationaLLM.Common.Models.Chat
   nameWithType: FoundationaLLM.Common.Models.Chat
+- uid: FoundationaLLM.Common.Models.Chat.ChatSessionProperties
+  name: ChatSessionProperties
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html
+  commentId: T:FoundationaLLM.Common.Models.Chat.ChatSessionProperties
+  fullName: FoundationaLLM.Common.Models.Chat.ChatSessionProperties
+  nameWithType: ChatSessionProperties
+- uid: FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html#FoundationaLLM_Common_Models_Chat_ChatSessionProperties_Name
+  commentId: P:FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name
+  fullName: FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name
+  nameWithType: ChatSessionProperties.Name
+- uid: FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name*
+  name: Name
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html#FoundationaLLM_Common_Models_Chat_ChatSessionProperties_Name_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.ChatSessionProperties.Name
+  nameWithType: ChatSessionProperties.Name
 - uid: FoundationaLLM.Common.Models.Chat.Completion
   name: Completion
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Completion.html
@@ -24406,15 +24419,15 @@ references:
   fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.New
   nameWithType: SessionsController.SessionsController
   nameWithType.vb: SessionsController.New
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String)
-  name: CreateNewChatSession(string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String)
-  name.vb: CreateNewChatSession(String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(String)
-  nameWithType: SessionsController.CreateNewChatSession(string)
-  nameWithType.vb: SessionsController.CreateNewChatSession(String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateNewChatSession(string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: CreateNewChatSession(String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: SessionsController.CreateNewChatSession(string, ChatSessionProperties)
+  nameWithType.vb: SessionsController.CreateNewChatSession(String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession*
   name: CreateNewChatSession
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_
@@ -24438,22 +24451,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession
   nameWithType: SessionsController.DeleteChatSession
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(System.String,System.String,System.String)
-  name: GenerateChatSessionName(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(System.String,System.String,System.String)
-  name.vb: GenerateChatSessionName(String, String, String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(string, string, string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(String, String, String)
-  nameWithType: SessionsController.GenerateChatSessionName(string, string, string)
-  nameWithType.vb: SessionsController.GenerateChatSessionName(String, String, String)
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName*
-  name: GenerateChatSessionName
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_
-  commentId: Overload:FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName
-  nameWithType: SessionsController.GenerateChatSessionName
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.GetAllChatSessions(System.String)
   name: GetAllChatSessions(string)
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_GetAllChatSessions_System_String_
@@ -24518,15 +24515,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RateMessage
   nameWithType: SessionsController.RateMessage
-- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,System.String)
-  name: RenameChatSession(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,System.String)
-  name.vb: RenameChatSession(String, String, String)
-  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(string, string, string)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(String, String, String)
-  nameWithType: SessionsController.RenameChatSession(string, string, string)
-  nameWithType.vb: SessionsController.RenameChatSession(String, String, String)
+- uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: RenameChatSession(string, string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: RenameChatSession(String, String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(string, string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(String, String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: SessionsController.RenameChatSession(string, string, ChatSessionProperties)
+  nameWithType.vb: SessionsController.RenameChatSession(String, String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession*
   name: RenameChatSession
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.SessionsController.html#FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_
@@ -24660,15 +24657,15 @@ references:
   commentId: T:FoundationaLLM.Core.Interfaces.ICoreService
   fullName: FoundationaLLM.Core.Interfaces.ICoreService
   nameWithType: ICoreService
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String)
-  name: CreateNewChatSessionAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String)
-  name.vb: CreateNewChatSessionAsync(String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(String)
-  nameWithType: ICoreService.CreateNewChatSessionAsync(string)
-  nameWithType.vb: ICoreService.CreateNewChatSessionAsync(String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateNewChatSessionAsync(string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: CreateNewChatSessionAsync(String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ICoreService.CreateNewChatSessionAsync(string, ChatSessionProperties)
+  nameWithType.vb: ICoreService.CreateNewChatSessionAsync(String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.CreateNewChatSessionAsync*
   name: CreateNewChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_CreateNewChatSessionAsync_
@@ -24692,22 +24689,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.DeleteChatSessionAsync
   nameWithType: ICoreService.DeleteChatSessionAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
-  name: GenerateChatSessionNameAsync(string, string?, string?)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
-  name.vb: GenerateChatSessionNameAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(string, string?, string?)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync(String, String, String)
-  nameWithType: ICoreService.GenerateChatSessionNameAsync(string, string?, string?)
-  nameWithType.vb: ICoreService.GenerateChatSessionNameAsync(String, String, String)
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync*
-  name: GenerateChatSessionNameAsync
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GenerateChatSessionNameAsync_
-  commentId: Overload:FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.GenerateChatSessionNameAsync
-  nameWithType: ICoreService.GenerateChatSessionNameAsync
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.GetAllChatSessionsAsync(System.String)
   name: GetAllChatSessionsAsync(string)
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_GetAllChatSessionsAsync_System_String_
@@ -24836,15 +24817,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.RateMessageAsync
   nameWithType: ICoreService.RateMessageAsync
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,System.String)
-  name: RenameChatSessionAsync(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,System.String)
-  name.vb: RenameChatSessionAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(string, string, string)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(String, String, String)
-  nameWithType: ICoreService.RenameChatSessionAsync(string, string, string)
-  nameWithType.vb: ICoreService.RenameChatSessionAsync(String, String, String)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: RenameChatSessionAsync(string, string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_System_String_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: RenameChatSessionAsync(String, String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(string, string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync(String, String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: ICoreService.RenameChatSessionAsync(string, string, ChatSessionProperties)
+  nameWithType.vb: ICoreService.RenameChatSessionAsync(String, String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.RenameChatSessionAsync*
   name: RenameChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_RenameChatSessionAsync_
@@ -25400,15 +25381,15 @@ references:
   fullName.vb: FoundationaLLM.Core.Services.CoreService.New
   nameWithType: CoreService.CoreService
   nameWithType.vb: CoreService.New
-- uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String)
-  name: CreateNewChatSessionAsync(string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String)
-  name.vb: CreateNewChatSessionAsync(String)
-  fullName: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(String)
-  nameWithType: CoreService.CreateNewChatSessionAsync(string)
-  nameWithType.vb: CoreService.CreateNewChatSessionAsync(String)
+- uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: CreateNewChatSessionAsync(string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: CreateNewChatSessionAsync(String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync(String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: CoreService.CreateNewChatSessionAsync(string, ChatSessionProperties)
+  nameWithType.vb: CoreService.CreateNewChatSessionAsync(String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.Services.CoreService.CreateNewChatSessionAsync*
   name: CreateNewChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_CreateNewChatSessionAsync_
@@ -25432,22 +25413,6 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.DeleteChatSessionAsync
   nameWithType: CoreService.DeleteChatSessionAsync
-- uid: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
-  name: GenerateChatSessionNameAsync(string, string?, string?)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GenerateChatSessionNameAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(System.String,System.String,System.String)
-  name.vb: GenerateChatSessionNameAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(string, string?, string?)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync(String, String, String)
-  nameWithType: CoreService.GenerateChatSessionNameAsync(string, string?, string?)
-  nameWithType.vb: CoreService.GenerateChatSessionNameAsync(String, String, String)
-- uid: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync*
-  name: GenerateChatSessionNameAsync
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GenerateChatSessionNameAsync_
-  commentId: Overload:FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync
-  isSpec: "True"
-  fullName: FoundationaLLM.Core.Services.CoreService.GenerateChatSessionNameAsync
-  nameWithType: CoreService.GenerateChatSessionNameAsync
 - uid: FoundationaLLM.Core.Services.CoreService.GetAllChatSessionsAsync(System.String)
   name: GetAllChatSessionsAsync(string)
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_GetAllChatSessionsAsync_System_String_
@@ -25576,15 +25541,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.RateMessageAsync
   nameWithType: CoreService.RateMessageAsync
-- uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,System.String)
-  name: RenameChatSessionAsync(string, string, string)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_System_String_System_String_System_String_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,System.String)
-  name.vb: RenameChatSessionAsync(String, String, String)
-  fullName: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(string, string, string)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(String, String, String)
-  nameWithType: CoreService.RenameChatSessionAsync(string, string, string)
-  nameWithType.vb: CoreService.RenameChatSessionAsync(String, String, String)
+- uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name: RenameChatSessionAsync(string, string, ChatSessionProperties)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_System_String_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  name.vb: RenameChatSessionAsync(String, String, ChatSessionProperties)
+  fullName: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(string, string, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync(String, String, FoundationaLLM.Common.Models.Chat.ChatSessionProperties)
+  nameWithType: CoreService.RenameChatSessionAsync(string, string, ChatSessionProperties)
+  nameWithType.vb: CoreService.RenameChatSessionAsync(String, String, ChatSessionProperties)
 - uid: FoundationaLLM.Core.Services.CoreService.RenameChatSessionAsync*
   name: RenameChatSessionAsync
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_RenameChatSessionAsync_

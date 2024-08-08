@@ -733,9 +733,9 @@ sessions and messages, and for getting completions from the orchestrator.</p>
 
   <a id="FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String)">
-  CreateNewChatSession(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_CreateNewChatSession_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.CreateNewChatSession(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)">
+  CreateNewChatSession(string, ChatSessionProperties)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new chat session.</p>
@@ -744,13 +744,16 @@ sessions and messages, and for getting completions from the orchestrator.</p>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpPost(Name = &quot;CreateNewChatSession&quot;)]
-public Task&lt;Session&gt; CreateNewChatSession(string instanceId)</code></pre>
+public Task&lt;Session&gt; CreateNewChatSession(string instanceId, ChatSessionProperties chatSessionProperties)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The id of the instance.</p>
+</dd>
+    <dt><code>chatSessionProperties</code> <a class="xref" href="FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html">ChatSessionProperties</a></dt>
+    <dd><p>The session properties.</p>
 </dd>
   </dl>
 
@@ -774,7 +777,7 @@ public Task&lt;Session&gt; CreateNewChatSession(string instanceId)</code></pre>
 
   <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_DeleteChatSession_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.DeleteChatSession(System.String,System.String)">
   DeleteChatSession(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Delete a chat session and related messages.</p>
@@ -799,51 +802,6 @@ public Task DeleteChatSession(string instanceId, string sessionId)</code></pre>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName*"></a>
-
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_GenerateChatSessionName_System_String_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.GenerateChatSessionName(System.String,System.String,System.String)">
-  GenerateChatSessionName(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L100"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Generate a name for a chat message, based on the passed in prompt.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/generate-name&quot;, Name = &quot;GenerateChatSessionName&quot;)]
-public Task&lt;Completion&gt; GenerateChatSessionName(string instanceId, string sessionId, string text)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the instance.</p>
-</dd>
-    <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The id of the session for which to generate a name.</p>
-</dd>
-    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The prompt to use to generate the name.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.Completion.html">Completion</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -1034,9 +992,9 @@ public Task&lt;Message&gt; RateMessage(string instanceId, string messageId, stri
 
   <a id="FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession*"></a>
 
-  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_System_String_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,System.String)">
-  RenameChatSession(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Core_API_Controllers_SessionsController_RenameChatSession_System_String_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_" data-uid="FoundationaLLM.Core.API.Controllers.SessionsController.RenameChatSession(System.String,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)">
+  RenameChatSession(string, string, ChatSessionProperties)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreAPI/Controllers/SessionsController.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Rename the chat session.</p>
@@ -1045,7 +1003,7 @@ public Task&lt;Message&gt; RateMessage(string instanceId, string messageId, stri
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpPost(&quot;{sessionId}/rename&quot;, Name = &quot;RenameChatSession&quot;)]
-public Task&lt;Session&gt; RenameChatSession(string instanceId, string sessionId, string newChatSessionName)</code></pre>
+public Task&lt;Session&gt; RenameChatSession(string instanceId, string sessionId, ChatSessionProperties chatSessionProperties)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1056,8 +1014,8 @@ public Task&lt;Session&gt; RenameChatSession(string instanceId, string sessionId
     <dt><code>sessionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The id of the session to rename.</p>
 </dd>
-    <dt><code>newChatSessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The new name for the session.</p>
+    <dt><code>chatSessionProperties</code> <a class="xref" href="FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html">ChatSessionProperties</a></dt>
+    <dd><p>The session properties.</p>
 </dd>
   </dl>
 

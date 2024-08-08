@@ -288,9 +288,9 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <a id="FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_" data-uid="FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)">
-  AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, string?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Client_Core_CoreClient_AttachFileAndAskQuestionAsync_System_IO_Stream_System_String_System_String_System_String_System_String_System_Boolean_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_" data-uid="FoundationaLLM.Client.Core.CoreClient.AttachFileAndAskQuestionAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.Boolean,System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties)">
+  AttachFileAndAskQuestionAsync(Stream, string, string, string, string, bool, string?, ChatSessionProperties?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L134"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Attaches a file to the completion request and sends a question to the agent using the
@@ -301,7 +301,7 @@ existing session</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Completion&gt; AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType, string agentName, string question, bool useSession, string? sessionId, string? sessionName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Completion&gt; AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType, string agentName, string question, bool useSession, string? sessionId, ChatSessionProperties? chatSessionProperties)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -332,8 +332,8 @@ false, no session is created and the sessionless orchestration flow is used.</p>
     <dd><p>The ID of an existing session. If null or empty, a new session
 is created first.</p>
 </dd>
-    <dt><code>sessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Renames the new chat session if not null or empty.</p>
+    <dt><code>chatSessionProperties</code> <a class="xref" href="FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html">ChatSessionProperties</a></dt>
+    <dd><p>Optional session properties.</p>
 </dd>
   </dl>
 
@@ -356,24 +356,23 @@ is created first.</p>
 
   <a id="FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_" data-uid="FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(System.String)">
-  CreateChatSessionAsync(string?)
+  <h3 id="FoundationaLLM_Client_Core_CoreClient_CreateChatSessionAsync_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_" data-uid="FoundationaLLM.Client.Core.CoreClient.CreateChatSessionAsync(FoundationaLLM.Common.Models.Chat.ChatSessionProperties)">
+  CreateChatSessionAsync(ChatSessionProperties)
   <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a new chat session and renames it if a session name is provided.</p>
+  <div class="markdown level1 summary"><p>Creates a new chat session with the specified name.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; CreateChatSessionAsync(string? sessionName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; CreateChatSessionAsync(ChatSessionProperties chatSessionProperties)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>sessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Renames the new chat session if not null or empty.</p>
-</dd>
+    <dt><code>chatSessionProperties</code> <a class="xref" href="FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html">ChatSessionProperties</a></dt>
+    <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -397,7 +396,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_DeleteSessionAsync_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.DeleteSessionAsync(System.String)">
   DeleteSessionAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L195"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Deletes a chat session.</p>
@@ -435,7 +434,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_GetAgentsAsync" data-uid="FoundationaLLM.Client.Core.CoreClient.GetAgentsAsync">
   GetAgentsAsync()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L188"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves agents available to the user for orchestration and session-based requests.</p>
@@ -468,7 +467,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_GetChatSessionMessagesAsync_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetChatSessionMessagesAsync(System.String)">
   GetChatSessionMessagesAsync(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L185"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the chat messages related to an existing session.</p>
@@ -505,7 +504,7 @@ is created first.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_GetCompletionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetCompletionAsync(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L121"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Runs a single completion with an agent using the Core API without a chat session
@@ -548,7 +547,7 @@ and UserPrompt at a minimum.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_GetCompletionAsync_System_String_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionAsync(System.String,System.String)">
   GetCompletionAsync(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L108"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Runs a single completion with an agent using the Core API without a chat session
@@ -593,7 +592,7 @@ completion request.</p>
 
   <h3 id="FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
   GetCompletionWithSessionAsync(CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L94"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Runs a single completion request with an agent using the Core API and a chat session.
@@ -633,9 +632,9 @@ SessionID, AgentName, and UserPrompt at a minimum.</p>
 
   <a id="FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync*"></a>
 
-  <h3 id="FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_System_String_System_String_System_String_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,System.String,System.String,System.String)">
-  GetCompletionWithSessionAsync(string?, string?, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Client_Core_CoreClient_GetCompletionWithSessionAsync_System_String_FoundationaLLM_Common_Models_Chat_ChatSessionProperties_System_String_System_String_" data-uid="FoundationaLLM.Client.Core.CoreClient.GetCompletionWithSessionAsync(System.String,FoundationaLLM.Common.Models.Chat.ChatSessionProperties,System.String,System.String)">
+  GetCompletionWithSessionAsync(string?, ChatSessionProperties?, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/CoreClient/CoreClient.cs/#L67"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Runs a single completion request with an agent using the Core API and a chat session.
@@ -645,7 +644,7 @@ be created. If the session name is provided, the session is renamed.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Completion&gt; GetCompletionWithSessionAsync(string? sessionId, string? sessionName, string userPrompt, string agentName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Completion&gt; GetCompletionWithSessionAsync(string? sessionId, ChatSessionProperties? chatSessionProperties, string userPrompt, string agentName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -654,9 +653,8 @@ be created. If the session name is provided, the session is renamed.</p>
     <dd><p>The ID of an existing session. If null or empty, a new session
 is created first.</p>
 </dd>
-    <dt><code>sessionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Renames the new chat session if not null or empty.</p>
-</dd>
+    <dt><code>chatSessionProperties</code> <a class="xref" href="FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html">ChatSessionProperties</a></dt>
+    <dd></dd>
     <dt><code>userPrompt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The user prompt to send to the agent.</p>
 </dd>
