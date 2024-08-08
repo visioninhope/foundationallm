@@ -36,7 +36,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 
@@ -74,7 +74,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 
@@ -148,7 +148,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 

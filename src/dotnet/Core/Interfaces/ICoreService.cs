@@ -26,15 +26,16 @@ public interface ICoreService
     /// Creates a new chat session.
     /// </summary>
     /// <param name="instanceId">The instance Id.</param>
-    Task<Session> CreateNewChatSessionAsync(string instanceId);
+    /// <param name="chatSessionProperties">The session properties.</param>
+    Task<Session> CreateNewChatSessionAsync(string instanceId, ChatSessionProperties chatSessionProperties);
 
     /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
     /// </summary>
     /// <param name="instanceId">The instance id.</param>
     /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="newChatSessionName">The new name for the chat session.</param>
-    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName);
+    /// <param name="chatSessionProperties">The session properties.</param>
+    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, ChatSessionProperties chatSessionProperties);
 
     /// <summary>
     /// Delete a chat session and related messages.
@@ -57,14 +58,6 @@ public interface ICoreService
     /// <param name="instanceId">The instance id.</param>
     /// <param name="directCompletionRequest">The completion request.</param>
     Task<Completion> GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest);
-
-    /// <summary>
-    /// Generate a name for a chat message, based on the passed in prompt.
-    /// </summary>
-    /// <param name="instanceId">The instance id.</param>
-    /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="text">The text to use when generating the name.</param>
-    Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text);
 
     /// <summary>
     /// Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.
