@@ -13,8 +13,10 @@
             <div class="step span-2" v-for="key in orderedKeysColors" :key="key">
                 <div class="step-header mb-2">{{ key }}</div>
                 <div class="mb-2">{{ getBrandingDescription(key) }}</div>
-                <InputText :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" />
-                <ColorPicker :modelValue="getBrandingValue(key)" @change="updateBrandingValue(key, $event.value)" />
+                <div class="color-input-container">
+                    <InputText :value="getBrandingValue(key)" @input="updateBrandingValue(key, $event.target.value)" />
+                    <ColorPicker :modelValue="getBrandingValue(key)" class="color-picker" @change="updateBrandingValue(key, $event.value)" />
+                </div>
             </div>
             <div style="border-top: 3px solid #bbb;"></div>
             <div class="step span-2" v-for="brand in branding" :key="brand.resource.key">
@@ -162,11 +164,10 @@ export default {
 
         updateBrandingValue(key: string, newValue: string) {
             // if newValue equals regular expression of hex color code \b[0-9a-fA-F]{6}\b
-            console.log("newValue", newValue);
             if (newValue.match(/\b[0-9a-fA-F]{6}\b/)) {
-                console.log("hex color code");
-                // newValue = "#" + newValue all caps;
-                newValue = "#" + newValue.toUpperCase();
+                if (!newValue.startsWith("#")) {
+                    newValue = "#" + newValue;
+                }
             }
             const brand = this.branding?.find((item: any) => item.resource.key === key);
             if (brand) {
@@ -234,5 +235,20 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 14px;
+}
+
+.color-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.color-picker {
+    width: 50px;
+}
+
+.p-colorpicker-preview {
+    border-radius: 0px;
+    height: 100%;
+    border-left: 0px;
 }
 </style>
