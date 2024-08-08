@@ -64,7 +64,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (result.Agent == null) return null;
             
-            if (result.Agent.AgentType == typeof(KnowledgeManagementAgent))
+            if (result.Agent.AgentType == typeof(KnowledgeManagementAgent) || result.Agent.AgentType == typeof(AudioClassificationAgent))
             {
                 var orchestrationName = string.IsNullOrWhiteSpace(result.Agent.OrchestrationSettings?.Orchestrator)
                     ? LLMOrchestrationServiceNames.LangChain
