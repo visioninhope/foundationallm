@@ -7645,6 +7645,30 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationResult
   fullName: FoundationaLLM.Common.Constants.Orchestration.LongRunningOperationTypes.LongRunningOperationResult
   nameWithType: LongRunningOperationTypes.LongRunningOperationResult
+- uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes
+  name: MessageContentItemTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes
+  fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes
+  nameWithType: MessageContentItemTypes
+- uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.FilePath
+  name: FilePath
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html#FoundationaLLM_Common_Constants_Orchestration_MessageContentItemTypes_FilePath
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.FilePath
+  fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.FilePath
+  nameWithType: MessageContentItemTypes.FilePath
+- uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.ImageFile
+  name: ImageFile
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html#FoundationaLLM_Common_Constants_Orchestration_MessageContentItemTypes_ImageFile
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.ImageFile
+  fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.ImageFile
+  nameWithType: MessageContentItemTypes.ImageFile
+- uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.Text
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html#FoundationaLLM_Common_Constants_Orchestration_MessageContentItemTypes_Text
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.Text
+  fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.Text
+  nameWithType: MessageContentItemTypes.Text
 - uid: FoundationaLLM.Common.Constants.Participants
   name: Participants
   href: api/dotnet/FoundationaLLM.Common.Constants.Participants.html
@@ -12605,15 +12629,15 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.Message
   fullName: FoundationaLLM.Common.Models.Chat.Message
   nameWithType: Message
-- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[],System.String)
-  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___System_String_
-  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[],System.String)
-  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String)
-  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Citation[]?, string?)
-  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Citation(), String)
-  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?)
-  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String)
+- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent})
+  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__
+  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent})
+  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent))
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Citation[]?, string?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.MessageContent>?)
+  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Citation(), String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.MessageContent))
+  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?)
+  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent))
 - uid: FoundationaLLM.Common.Models.Chat.Message.#ctor*
   name: Message
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_
@@ -12650,6 +12674,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Chat.Message.CompletionPromptId
   nameWithType: Message.CompletionPromptId
+- uid: FoundationaLLM.Common.Models.Chat.Message.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Content
+  commentId: P:FoundationaLLM.Common.Models.Chat.Message.Content
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Content
+  nameWithType: Message.Content
+- uid: FoundationaLLM.Common.Models.Chat.Message.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.Message.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Content
+  nameWithType: Message.Content
 - uid: FoundationaLLM.Common.Models.Chat.Message.Deleted
   name: Deleted
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Deleted
@@ -12819,6 +12856,38 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Chat.Message.Vector
   nameWithType: Message.Vector
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent
+  name: MessageContent
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html
+  commentId: T:FoundationaLLM.Common.Models.Chat.MessageContent
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent
+  nameWithType: MessageContent
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_Type
+  commentId: P:FoundationaLLM.Common.Models.Chat.MessageContent.Type
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.Type
+  nameWithType: MessageContent.Type
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.MessageContent.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.Type
+  nameWithType: MessageContent.Type
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.Value
+  name: Value
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_Value
+  commentId: P:FoundationaLLM.Common.Models.Chat.MessageContent.Value
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.Value
+  nameWithType: MessageContent.Value
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.Value*
+  name: Value
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_Value_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.MessageContent.Value
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.Value
+  nameWithType: MessageContent.Value
 - uid: FoundationaLLM.Common.Models.Chat.MessageHistoryItem
   name: MessageHistoryItem
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageHistoryItem.html
@@ -15325,6 +15394,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.CompletionTokens
   nameWithType: CompletionResponseBase.CompletionTokens
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Content
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content
+  nameWithType: CompletionResponseBase.Content
+- uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content*
+  name: Content
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Content_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Content
+  nameWithType: CompletionResponseBase.Content
 - uid: FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.Deleted
   name: Deleted
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_CompletionResponseBase_Deleted
@@ -17058,6 +17140,243 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.LongRunningOperationLogEntry.Type
   nameWithType: LongRunningOperationLogEntry.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase
+  name: MessageContentItemBase
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase
+  fullName: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase
+  nameWithType: MessageContentItemBase
+- uid: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.html#FoundationaLLM_Common_Models_Orchestration_MessageContentItemBase_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type
+  nameWithType: MessageContentItemBase.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.html#FoundationaLLM_Common_Models_Orchestration_MessageContentItemBase_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.Type
+  nameWithType: MessageContentItemBase.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem
+  name: OpenAIFilePathContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem
+  nameWithType: OpenAIFilePathContentItem
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.#ctor
+  name: OpenAIFilePathContentItem()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.OpenAIFilePathContentItem()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.New()
+  nameWithType: OpenAIFilePathContentItem.OpenAIFilePathContentItem()
+  nameWithType.vb: OpenAIFilePathContentItem.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.#ctor*
+  name: OpenAIFilePathContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.OpenAIFilePathContentItem
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.New
+  nameWithType: OpenAIFilePathContentItem.OpenAIFilePathContentItem
+  nameWithType.vb: OpenAIFilePathContentItem.New
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex
+  name: EndIndex
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_EndIndex
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex
+  nameWithType: OpenAIFilePathContentItem.EndIndex
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex*
+  name: EndIndex
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_EndIndex_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.EndIndex
+  nameWithType: OpenAIFilePathContentItem.EndIndex
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId
+  name: FileId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_FileId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId
+  nameWithType: OpenAIFilePathContentItem.FileId
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId*
+  name: FileId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_FileId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.FileId
+  nameWithType: OpenAIFilePathContentItem.FileId
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex
+  name: StartIndex
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_StartIndex
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex
+  nameWithType: OpenAIFilePathContentItem.StartIndex
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex*
+  name: StartIndex
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_StartIndex_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.StartIndex
+  nameWithType: OpenAIFilePathContentItem.StartIndex
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_Text
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text
+  nameWithType: OpenAIFilePathContentItem.Text
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text*
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_Text_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Text
+  nameWithType: OpenAIFilePathContentItem.Text
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type
+  nameWithType: OpenAIFilePathContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIFilePathContentItem_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.Type
+  nameWithType: OpenAIFilePathContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem
+  name: OpenAIImageFileMessageContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem
+  nameWithType: OpenAIImageFileMessageContentItem
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.#ctor
+  name: OpenAIImageFileMessageContentItem()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.OpenAIImageFileMessageContentItem()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.New()
+  nameWithType: OpenAIImageFileMessageContentItem.OpenAIImageFileMessageContentItem()
+  nameWithType.vb: OpenAIImageFileMessageContentItem.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.#ctor*
+  name: OpenAIImageFileMessageContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.OpenAIImageFileMessageContentItem
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.New
+  nameWithType: OpenAIImageFileMessageContentItem.OpenAIImageFileMessageContentItem
+  nameWithType.vb: OpenAIImageFileMessageContentItem.New
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId
+  name: FileId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_FileId
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId
+  nameWithType: OpenAIImageFileMessageContentItem.FileId
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId*
+  name: FileId
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_FileId_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileId
+  nameWithType: OpenAIImageFileMessageContentItem.FileId
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl
+  name: FileUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_FileUrl
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl
+  nameWithType: OpenAIImageFileMessageContentItem.FileUrl
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl*
+  name: FileUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_FileUrl_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.FileUrl
+  nameWithType: OpenAIImageFileMessageContentItem.FileUrl
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type
+  nameWithType: OpenAIImageFileMessageContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAIImageFileMessageContentItem_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAIImageFileMessageContentItem.Type
+  nameWithType: OpenAIImageFileMessageContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem
+  name: OpenAITextMessageContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem
+  nameWithType: OpenAITextMessageContentItem
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor
+  name: OpenAITextMessageContentItem()
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem__ctor
+  commentId: M:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.OpenAITextMessageContentItem()
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.New()
+  nameWithType: OpenAITextMessageContentItem.OpenAITextMessageContentItem()
+  nameWithType.vb: OpenAITextMessageContentItem.New()
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor*
+  name: OpenAITextMessageContentItem
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.OpenAITextMessageContentItem
+  fullName.vb: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.New
+  nameWithType: OpenAITextMessageContentItem.OpenAITextMessageContentItem
+  nameWithType.vb: OpenAITextMessageContentItem.New
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations
+  name: Annotations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Annotations
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations
+  nameWithType: OpenAITextMessageContentItem.Annotations
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations*
+  name: Annotations
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Annotations_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations
+  nameWithType: OpenAITextMessageContentItem.Annotations
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Type
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type
+  nameWithType: OpenAITextMessageContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type*
+  name: Type
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Type_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type
+  nameWithType: OpenAITextMessageContentItem.Type
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value
+  name: Value
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Value
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value
+  nameWithType: OpenAITextMessageContentItem.Value
+- uid: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value*
+  name: Value
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.html#FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Value_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value
+  nameWithType: OpenAITextMessageContentItem.Value
 - uid: FoundationaLLM.Common.Models.Orchestration.OperationStatus
   name: OperationStatus
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.OperationStatus.html
