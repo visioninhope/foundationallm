@@ -45,6 +45,10 @@ export interface Session {
 	messages: Array<Message>;
 }
 
+export interface ChatSessionProperties {
+	name: string;
+}
+
 export interface CompletionPrompt {
 	id: string;
 	type: string;
