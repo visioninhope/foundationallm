@@ -68,20 +68,20 @@ namespace FoundationaLLM.Core.API.Controllers
         /// Creates a new chat session.
         /// </summary>
         /// <param name="instanceId">The id of the instance.</param>
-        /// <param name="chatSessionName">The name for the chat session.</param>
+        /// <param name="sessionName">The name for the chat session.</param>
         [HttpPost(Name = "CreateNewChatSession")]
-        public async Task<Session> CreateNewChatSession(string instanceId, string chatSessionName) =>
-            await _coreService.CreateNewChatSessionAsync(instanceId, chatSessionName);
+        public async Task<Session> CreateNewChatSession(string instanceId, [FromBody] string sessionName) =>
+            await _coreService.CreateNewChatSessionAsync(instanceId, sessionName);
 
         /// <summary>
         /// Rename the chat session.
         /// </summary>
         /// <param name="instanceId">The id of the instance.</param>
         /// <param name="sessionId">The id of the session to rename.</param>
-        /// <param name="newChatSessionName">The new name for the session.</param>
+        /// <param name="sessionName">The new name for the session.</param>
         [HttpPost("{sessionId}/rename", Name = "RenameChatSession")]
-        public async Task<Session> RenameChatSession(string instanceId, string sessionId, string newChatSessionName) =>
-            await _coreService.RenameChatSessionAsync(instanceId, sessionId, newChatSessionName);
+        public async Task<Session> RenameChatSession(string instanceId, string sessionId, [FromBody] string sessionName) =>
+            await _coreService.RenameChatSessionAsync(instanceId, sessionId, sessionName);
 
         /// <summary>
         /// Delete a chat session and related messages.

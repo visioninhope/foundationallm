@@ -25,9 +25,9 @@ namespace FoundationaLLM.Client.Core.Interfaces
         /// <summary>
         /// Creates a new session with the specified name.
         /// </summary>
-        /// <param name="chatSessionName">The name for the chat session.</param>
+        /// <param name="sessionName">The name for the chat session.</param>
         /// <returns>Returns the new Session ID.</returns>
-        Task<string> CreateSessionAsync(string chatSessionName);
+        Task<string> CreateSessionAsync(string sessionName);
 
         /// <summary>
         /// Renames a chat session.

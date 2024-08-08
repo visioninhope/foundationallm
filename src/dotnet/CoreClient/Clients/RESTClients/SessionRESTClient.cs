@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
-using System.Text.Encodings.Web;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace FoundationaLLM.Client.Core.Clients.RESTClients
@@ -17,10 +17,12 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
 
         /// <inheritdoc/>
-        public async Task<string> CreateSessionAsync(string chatSessionName)
+        public async Task<string> CreateSessionAsync(string sessionName)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseSession = await coreClient.PostAsync($"instances/{_instanceId}/sessions?chatSessionName={chatSessionName}", null);
+            var responseSession = await coreClient.PostAsync(
+                $"instances/{_instanceId}/sessions",
+                JsonContent.Create(sessionName));
 
             if (responseSession.IsSuccessStatusCode)
             {
@@ -39,7 +41,9 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         public async Task<string> RenameChatSession(string sessionId, string sessionName)
         {
             var coreClient = await GetCoreClientAsync();
-            var response = await coreClient.PostAsync($"instances/{_instanceId}/sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
+            var response = await coreClient.PostAsync(
+                $"instances/{_instanceId}/sessions/{sessionId}/rename",
+                JsonContent.Create(sessionName));
 
             if (response.IsSuccessStatusCode)
             {
