@@ -17457,6 +17457,12 @@ references:
   commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Analytic
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Analytic
   nameWithType: AgentTypes.Analytic
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.AudioClassification
+  name: AudioClassification
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_AudioClassification
+  commentId: F:FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.AudioClassification
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.AudioClassification
+  nameWithType: AgentTypes.AudioClassification
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.Basic
   name: Basic
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentTypes.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AgentTypes_Basic
@@ -17579,6 +17585,31 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AgentVectorizationSettings.VectorizationDataPipelineObjectId
   nameWithType: AgentVectorizationSettings.VectorizationDataPipelineObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent
+  name: AudioClassificationAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent
+  nameWithType: AudioClassificationAgent
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.#ctor
+  name: AudioClassificationAgent()
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AudioClassificationAgent__ctor
+  commentId: M:FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.#ctor
+  name.vb: New()
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.AudioClassificationAgent()
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.New()
+  nameWithType: AudioClassificationAgent.AudioClassificationAgent()
+  nameWithType.vb: AudioClassificationAgent.New()
+- uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.#ctor*
+  name: AudioClassificationAgent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.html#FoundationaLLM_Common_Models_ResourceProviders_Agent_AudioClassificationAgent__ctor_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.AudioClassificationAgent
+  fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.Agent.AudioClassificationAgent.New
+  nameWithType: AudioClassificationAgent.AudioClassificationAgent
+  nameWithType.vb: AudioClassificationAgent.New
 - uid: FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistorySettings
   name: ConversationHistorySettings
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.Agent.ConversationHistorySettings.html
