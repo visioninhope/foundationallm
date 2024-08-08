@@ -230,9 +230,14 @@ export default {
 
 	methods: {
 		displayWordByWord() {
-			if (this.currentWordIndex >= this.compiledMarkdown.split(/\s+/).length) return;
+			const words = this.compiledMarkdown.split(/\s+/);
+			if (this.currentWordIndex >= words.length) {
+				this.compiledVueTemplate = addCodeHeaderComponents(this.compiledMarkdown);
+				return;
+			}
 
 			this.currentWordIndex += 1;
+
 			const htmlString = truncate(this.compiledMarkdown, this.currentWordIndex, {
 				byWords: true,
 				stripTags: false,
