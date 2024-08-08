@@ -94,7 +94,7 @@ public record Message
     /// </summary>
     public Message(string sessionId, string sender, int? tokens, string text,
         float[]? vector, bool? rating, string upn, string? senderDisplayName = null,
-        Citation[]? citations = null, string? expectedCompletion = null, List<MessageContentItemBase>? content = null)
+        Citation[]? citations = null, string? expectedCompletion = null, List<MessageContent>? content = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
