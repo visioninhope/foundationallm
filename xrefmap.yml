@@ -5347,6 +5347,42 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
   fullName: FoundationaLLM.Common.Constants.AuthorizationClaims.ApplicationId
   nameWithType: AuthorizationClaims.ApplicationId
+- uid: FoundationaLLM.Common.Constants.Chat
+  name: FoundationaLLM.Common.Constants.Chat
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.html
+  commentId: N:FoundationaLLM.Common.Constants.Chat
+  fullName: FoundationaLLM.Common.Constants.Chat
+  nameWithType: FoundationaLLM.Common.Constants.Chat
+- uid: FoundationaLLM.Common.Constants.Chat.MessageContentTypes
+  name: MessageContentTypes
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.MessageContentTypes.html
+  commentId: T:FoundationaLLM.Common.Constants.Chat.MessageContentTypes
+  fullName: FoundationaLLM.Common.Constants.Chat.MessageContentTypes
+  nameWithType: MessageContentTypes
+- uid: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.File
+  name: File
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.MessageContentTypes.html#FoundationaLLM_Common_Constants_Chat_MessageContentTypes_File
+  commentId: F:FoundationaLLM.Common.Constants.Chat.MessageContentTypes.File
+  fullName: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.File
+  nameWithType: MessageContentTypes.File
+- uid: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Html
+  name: Html
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.MessageContentTypes.html#FoundationaLLM_Common_Constants_Chat_MessageContentTypes_Html
+  commentId: F:FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Html
+  fullName: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Html
+  nameWithType: MessageContentTypes.Html
+- uid: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Image
+  name: Image
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.MessageContentTypes.html#FoundationaLLM_Common_Constants_Chat_MessageContentTypes_Image
+  commentId: F:FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Image
+  fullName: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Image
+  nameWithType: MessageContentTypes.Image
+- uid: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Text
+  name: Text
+  href: api/dotnet/FoundationaLLM.Common.Constants.Chat.MessageContentTypes.html#FoundationaLLM_Common_Constants_Chat_MessageContentTypes_Text
+  commentId: F:FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Text
+  fullName: FoundationaLLM.Common.Constants.Chat.MessageContentTypes.Text
+  nameWithType: MessageContentTypes.Text
 - uid: FoundationaLLM.Common.Constants.Configuration
   name: FoundationaLLM.Common.Constants.Configuration
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.html
@@ -12862,6 +12898,19 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.MessageContent
   fullName: FoundationaLLM.Common.Models.Chat.MessageContent
   nameWithType: MessageContent
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.FileName
+  name: FileName
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_FileName
+  commentId: P:FoundationaLLM.Common.Models.Chat.MessageContent.FileName
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.FileName
+  nameWithType: MessageContent.FileName
+- uid: FoundationaLLM.Common.Models.Chat.MessageContent.FileName*
+  name: FileName
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_FileName_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.MessageContent.FileName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.MessageContent.FileName
+  nameWithType: MessageContent.FileName
 - uid: FoundationaLLM.Common.Models.Chat.MessageContent.Type
   name: Type
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.MessageContent.html#FoundationaLLM_Common_Models_Chat_MessageContent_Type
