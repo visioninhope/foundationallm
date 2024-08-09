@@ -28,14 +28,13 @@
 					:multiple="true"
 					:auto="false"
 					:custom-upload="true"
-					:max-file-size="512000000"
 					@uploader="handleUpload"
+					@select="fileSelected"
 				>
 					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
 						<div>
 							<div class="upload-files-header">
 								<Button
-									:disabled="files.length !== 0"
 									icon="pi pi-images"
 									label="Choose"
 									style="margin-right: 0.5rem"
@@ -285,6 +284,7 @@ export default {
 						life: 5000,
 					});
 					if (index === numberOfFiles - 1) {
+						console.log('All files uploaded', index, numberOfFiles);
 						this.showFileUploadDialog = false;
 						this.uploadProgress = 0;
 					}
@@ -324,6 +324,21 @@ export default {
 			const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
 			return `${formattedSize} ${sizes[i]}`;
+		},
+
+		fileSelected(event: any) {
+			console.log('File selected', event);
+			event.files.forEach((file: any, index) => {
+				if (file.size > 512000000) {
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error',
+						detail: 'File size exceeds the limit of 512MB.',
+						life: 5000,
+					});
+					event.files.splice(index, 1);
+				}
+			});
 		},
 	},
 };
