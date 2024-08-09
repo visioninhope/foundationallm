@@ -40,8 +40,26 @@
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
 
-					<!-- Render the html content and any vue components within -->
-					<component :is="compiledMarkdownComponent"></component>
+					<template v-if="!message.content">
+						<div v-html="compiledVueTemplate"></div>
+					</template>
+					<template v-else>
+						<!-- Render the html content and any vue components within -->
+						<div v-for="content in message.content" :key="content.file_name" class="message-content">
+							<div v-if="content.type === 'text'">
+								<component :is="renderMarkdownComponent(content.value)"></component>
+							</div>
+							<div v-else-if="content.type === 'image'">
+								<img :src="content.value" :alt="content.file_name" />
+							</div>
+							<div v-else-if="content.type === 'html'">
+								<iframe :src="content.value" frameborder="0"></iframe>
+							</div>
+							<div v-else-if="content.type === 'file'">
+								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+							</div>
+						</div>
+					</template>
 				</div>
 
 				<div v-if="message.sender !== 'User'" class="message__footer">
@@ -229,6 +247,16 @@ export default {
 	},
 
 	methods: {
+		renderMarkdownComponent(contentValue: string) {
+      		const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
+			return {
+				template: `<div>${sanitizedContent}</div>`,
+				components: {
+				CodeBlockHeader,
+				},
+			};
+		},
+
 		displayWordByWord() {
 			const words = this.compiledMarkdown.split(/\s+/);
 			if (this.currentWordIndex >= words.length) {
@@ -429,6 +457,23 @@ export default {
 	background-color: var(--primary-button-bg) !important;
 	border-color: var(--primary-button-bg) !important;
 	color: var(--primary-button-text) !important;
+}
+
+.message-content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+iframe {
+  width: 100%;
+  height: 600px;
+  border-radius: 8px;
 }
 </style>
 
