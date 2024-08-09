@@ -51,7 +51,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="instanceId">The instance ID.</param>
         /// <param name="file">The file sent with the HTTP request.</param>
         /// <returns></returns>
-        [HttpPost("Upload")]
+        [HttpPost("upload")]
         public async Task<IActionResult> Upload(string instanceId, IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -81,6 +81,55 @@ namespace FoundationaLLM.Core.API.Controllers
                     return BadRequest(e.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Uploads an attachment.
+        /// </summary>
+        /// <param name="instanceId">The instance ID.</param>
+        /// <param name="files">The list of files sent with the HTTP request.</param>
+        /// <returns></returns>
+        [HttpPost("bulk-upload")]
+        public async Task<IActionResult> UploadBulk(string instanceId, List<IFormFile> files)
+        {
+            if (files == null || files.Count == 0)
+                return BadRequest("No file(s) selected.");
+
+            if (files.Any(file => file == null || file.Length == 0))
+                return BadRequest("One or more file(s) are invalid.");
+
+            var results = files.ToDictionary(key => key.FileName, value => (string?)null);
+
+            foreach (var file in files)
+            {
+                var fileName = file.FileName;
+                var name = fileName.GenerateValidResourceName();
+                var contentType = file.ContentType;
+
+                using (var stream = file.OpenReadStream())
+                {
+                    try
+                    {
+                        var result = await _attachmentResourceProvider.UpsertResourceAsync(
+                            $"attachments/{name}",
+                            new AttachmentFile
+                            {
+                                Name = name,
+                                Content = stream,
+                                DisplayName = fileName,
+                                ContentType = contentType
+                            });
+
+                        results[file.FileName] = result;
+                    }
+                    catch (ResourceProviderException e)
+                    {
+                        return BadRequest(e.Message);
+                    }
+                }
+            }
+
+            return Ok(results);
         }
     }
 }
