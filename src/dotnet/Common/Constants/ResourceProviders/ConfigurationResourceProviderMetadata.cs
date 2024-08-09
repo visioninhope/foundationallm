@@ -1,9 +1,8 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 
-namespace FoundationaLLM.Configuration.Services
+namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Provides metadata for the FoundationaLLM.Configuration resource provider.
@@ -21,7 +20,7 @@ namespace FoundationaLLM.Configuration.Services
                         ConfigurationResourceTypeNames.AppConfigurations)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(AppConfigurationKeyBase)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<AppConfigurationKeyBase>)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(AgentBase)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
@@ -31,15 +30,16 @@ namespace FoundationaLLM.Configuration.Services
                             ])
                         ]
                 }
-            },
+            }
+            ,
             {
-                ConfigurationResourceTypeNames.ExternalOrchestrationServices,
+                ConfigurationResourceTypeNames.APIEndpointConfigurations,
                 new ResourceTypeDescriptor(
-                        ConfigurationResourceTypeNames.ExternalOrchestrationServices)
+                        ConfigurationResourceTypeNames.APIEndpointConfigurations)
                 {
                     AllowedTypes = [
-                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ExternalOrchestrationService)]),
-                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ExternalOrchestrationService)], [typeof(ResourceProviderUpsertResult)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<APIEndpointConfiguration>)]),
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(APIEndpointConfiguration)], [typeof(ResourceProviderUpsertResult)]),
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ]
                 }

@@ -20,35 +20,24 @@ namespace FoundationaLLM.Core.Examples.Setup
 
             var configRoot = new ConfigurationBuilder()
 				.AddJsonFile("testsettings.json", true)
+				.AddJsonFile("testsettings.e2e.json", true)
 				.AddEnvironmentVariables()
 				.AddUserSecrets<Environment>()
-				.AddAzureAppConfiguration(options =>
+				.AddAzureAppConfiguration((Action<Microsoft.Extensions.Configuration.AzureAppConfiguration.AzureAppConfigurationOptions>)(options =>
 				{
 					var connectionString = Environment.Variable(EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString);
 					if (string.IsNullOrEmpty(connectionString))
 					{
 						throw new InvalidOperationException("Azure App Configuration connection string is not set.");
 					}
-					options.Connect(connectionString)
-						.ConfigureKeyVault(kv =>
-						{
-							kv.SetCredential(DefaultAuthentication.AzureCredential);
-						});
-                        // Select the configuration sections to load:
-						/*
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Instance)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Chat_Entra)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Management_Entra)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_CosmosDB)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_APIs_VectorizationAPI)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization)
-						.Select(AppConfigurationKeyFilters.FoundationaLLM_DataSources)
-                        .Select(AppConfigurationKeyFilters.FoundationaLLM_AzureAIStudio_BlobStorageServiceSettings);
-						*/
-				})
+                    options.Connect(connectionString)
+                        .ConfigureKeyVault(kv =>
+                        {
+                            kv.SetCredential(DefaultAuthentication.AzureCredential);
+                        })
+                        // Select all configuration sections
+                        .Select("*");
+				}))
 				.Build();
 
 			TestServicesInitializer.InitializeServices(serviceCollection, configRoot);

@@ -5,6 +5,7 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Models;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
@@ -78,12 +79,20 @@ namespace FoundationaLLM.Core.Examples.Services
         public async Task<ReadOnlyMemory<float>> GetVector(TextEmbeddingProfile embedProfile, string query)
         {
             //embed the query
-            string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["Endpoint"]);
-            string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);
-            string apiVersion = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIVersion"]);
-            AzureKeyCredential credentials = new(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"]));
-
-            OpenAIClient openAIClient = new(new Uri(oaiEndpoint), credentials);
+            string oaiEndpoint = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["EndpointUrl"]);
+            string authType = await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["AuthenticationType"]);            
+            OpenAIClient openAIClient;
+            switch(authType)
+            {
+                case "AzureIdentity":
+                    openAIClient = new OpenAIClient(new Uri(oaiEndpoint), new DefaultAzureCredential());
+                    break;
+                case "ApiKey":
+                    openAIClient = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(await TestConfiguration.GetAppConfigValueAsync(embedProfile.ConfigurationReferences["APIKey"])));
+                    break;
+                default:
+                    throw new Exception("Invalid authentication type");
+            }    
 
             EmbeddingsOptions embeddingOptions = new()
             {
@@ -98,7 +107,7 @@ namespace FoundationaLLM.Core.Examples.Services
 
         async public Task<SearchIndexClient> GetIndexClient(IndexingProfile indexProfile)
         {
-            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["Endpoint"]);
+            string searchServiceEndPoint = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["EndpointUrl"]);
             string authType = await TestConfiguration.GetAppConfigValueAsync(indexProfile.ConfigurationReferences["AuthenticationType"]);
 
             SearchIndexClient indexClient = null;
@@ -175,7 +184,7 @@ namespace FoundationaLLM.Core.Examples.Services
         {
             TestSearchResult searchResult = new();
 
-            searchResult.VectorResults = await PerformVectorSearch(indexProfile, embedProfile, query, new List<string> { "Id", "Text"}, new List<string> { "Embedding" });
+            searchResult.VectorResults = await PerformVectorSearch(indexProfile, embedProfile, query, new List<string> { "Name", "Text"}, new List<string> { "Embedding" });
             searchResult.QueryResult = await PerformQuerySearch(indexProfile, query);
 
             return searchResult;
@@ -213,6 +222,16 @@ namespace FoundationaLLM.Core.Examples.Services
             }
 
             await managementAPITestManager.DeleteIndexingProfile(name);
+        }
+
+        async public Task CreateAppConfiguration(AppConfigurationKeyValue appConfigurationKeyValue)
+        {
+            await managementAPITestManager.CreateAppConfiguration(appConfigurationKeyValue);
+        }
+
+        async public Task DeleteAppConfiguration(string key)
+        {
+            await managementAPITestManager.DeleteAppConfiguration(key);
         }
     }
 }

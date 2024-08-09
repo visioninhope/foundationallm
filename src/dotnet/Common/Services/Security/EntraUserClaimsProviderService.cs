@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using Microsoft.Identity.Web;
 using System.Security.Claims;
@@ -20,12 +21,28 @@ namespace FoundationaLLM.Common.Services.Security
             }
             return new UnifiedUserIdentity
             {
-                Name = userPrincipal.FindFirstValue(ClaimConstants.Name),
+                Name = userPrincipal.FindFirstValue(ClaimConstants.Name) ?? string.Empty,
                 Username = ResolveUsername(userPrincipal),
                 UPN = ResolveUsername(userPrincipal),
                 UserId = userPrincipal.FindFirstValue(ClaimConstants.Oid) ?? userPrincipal.FindFirstValue(ClaimConstants.ObjectId)
             };
         }
+
+        /// <inheritdoc/>
+        public List<string>? GetSecurityGroupIds(ClaimsPrincipal? userPrincipal)
+        {
+            if (userPrincipal == null)
+            {
+                return null;
+            }
+            return userPrincipal.Claims.Where(c => c.Type == EntraUserClaimConstants.Groups).Select(x => x?.Value).ToList()!;
+        }
+
+        /// <inheritdoc/>
+        public bool IsServicePrincipal(ClaimsPrincipal userPrincipal) =>
+            // Service Principal tokens do not have a "scp" claim
+            userPrincipal.FindFirstValue(ClaimConstants.Scp) == null &&
+            userPrincipal.FindFirstValue(ClaimConstants.Scope) == null;
 
         /// <summary>
         /// Resolves the username from the provided <see cref="ClaimsPrincipal"/> object.

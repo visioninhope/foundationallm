@@ -1,11 +1,6 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoundationaLLM.Common.Services.Security
 {
@@ -15,14 +10,13 @@ namespace FoundationaLLM.Common.Services.Security
     /// </summary>
     public class NoOpUserClaimsProviderService : IUserClaimsProviderService
     {
-        /// <summary>
-        /// Returns null.
-        /// </summary>
-        /// <param name="userPrincipal"></param>
-        /// <returns></returns>
-        public UnifiedUserIdentity? GetUserIdentity(ClaimsPrincipal? userPrincipal)
-        {
-            return null;
-        }
+        /// <inheritdoc/>
+        public UnifiedUserIdentity? GetUserIdentity(ClaimsPrincipal? userPrincipal) => null;
+
+        /// <inheritdoc/>
+        public List<string>? GetSecurityGroupIds(ClaimsPrincipal? userPrincipal) => null;
+
+        /// <inheritdoc/>
+        public bool IsServicePrincipal(ClaimsPrincipal userPrincipal) => false;
     }
 }

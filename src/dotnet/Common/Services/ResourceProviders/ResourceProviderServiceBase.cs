@@ -1,4 +1,7 @@
-﻿using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
@@ -187,9 +190,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 _allowedResourceTypes,
                 allowAction: false);
 
-            // Authorize access to the resource path.
-            await Authorize(parsedResourcePath, userIdentity, "read");
-
+            if(!parsedResourcePath.IsResourceTypePath)
+            {
+                // Authorize access to the resource path.
+                await Authorize(parsedResourcePath, userIdentity, "read");
+            }
+           
             return await GetResourcesAsync(parsedResourcePath, userIdentity);
         }
 
@@ -209,7 +215,35 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             if (parsedResourcePath.ResourceTypeInstances.Last().Action != null)
                 return await ExecuteActionAsync(parsedResourcePath, serializedResource, userIdentity);
             else
-                return await UpsertResourceAsync(parsedResourcePath, serializedResource, userIdentity);
+            {
+                var resource = await UpsertResourceAsync(parsedResourcePath, serializedResource, userIdentity);
+
+                var upsertResult = resource as ResourceProviderUpsertResult;
+
+                if (upsertResult!.ResourceExists == false && Name != ResourceProviderNames.FoundationaLLM_Authorization)
+                {
+                    var roleAssignmentName = Guid.NewGuid().ToString();
+                    var roleAssignmentDescription = $"Owner role for {userIdentity.Name}";
+                    var roleAssignmentResult = await _authorizationService.ProcessRoleAssignmentRequest(
+                        _instanceSettings.Id,
+                        new RoleAssignmentRequest()
+                        {
+                            Name = roleAssignmentName,
+                            Description = roleAssignmentDescription,
+                            ObjectId = $"/instances/{_instanceSettings.Id}/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleAssignments}/{roleAssignmentName}",
+                            PrincipalId = userIdentity.UserId!,
+                            PrincipalType = PrincipalTypes.User,
+                            RoleDefinitionId = $"/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleDefinitions}/{RoleDefinitionNames.Owner}",
+                            Scope = upsertResult!.ObjectId ?? throw new ResourceProviderException($"The {roleAssignmentDescription} could not be assigned. Could not set the scope for the resource.")
+                        },
+                        userIdentity);
+
+                    if (!roleAssignmentResult.Success)
+                        _logger.LogError("The {RoleAssignment} could not be assigned.", roleAssignmentDescription);
+                }
+
+                return resource;
+            }
         }
 
         /// <inheritdoc/>
@@ -365,21 +399,17 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 var rp = resourcePath.GetObjectId(_instanceSettings.Id, _name);
                 var result = await _authorizationService.ProcessAuthorizationRequest(
                     _instanceSettings.Id,
-                    new ActionAuthorizationRequest
-                        {
-                            Action = $"{_name}/{resourcePath.MainResourceType}/{actionType}",
-                            ResourcePaths = [rp],
-                            PrincipalId = userIdentity.UserId,
-                            SecurityGroupIds = userIdentity.GroupIds
-                        });
+                    $"{_name}/{resourcePath.MainResourceType}/{actionType}",
+                    [rp],
+                    userIdentity);
 
                 if (!result.AuthorizationResults[rp])
                     throw new AuthorizationException("Access is not authorized.");
             }
             catch (AuthorizationException)
             {
-                _logger.LogWarning("The {ActionType} access to the resource path {ResourcePath} was not authorized for user {UserName}.",
-                    actionType, resourcePath.GetObjectId(_instanceSettings.Id, _name), userIdentity!.Username);
+                _logger.LogWarning("The {ActionType} access to the resource path {ResourcePath} was not authorized for user {UserName} : userId {UserId}.",
+                    actionType, resourcePath.GetObjectId(_instanceSettings.Id, _name), userIdentity!.Username, userIdentity!.UserId);
                 throw new ResourceProviderException("Access is not authorized.", StatusCodes.Status403Forbidden);
             }
             catch (Exception ex)

@@ -25,10 +25,10 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         public string? DataSourceObjectId { get; set; }
 
         /// <summary>
-        /// The vectorization indexing profile resource path.
+        /// The vectorization indexing profile resource paths.
         /// </summary>
-        [JsonPropertyName("indexing_profile_object_id")]
-        public string? IndexingProfileObjectId { get; set; }
+        [JsonPropertyName("indexing_profile_object_ids")]
+        public List<string>? IndexingProfileObjectIds { get; set; }
 
         /// <summary>
         /// The vectorization text embedding profile resource path.
@@ -37,7 +37,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         public string? TextEmbeddingProfileObjectId { get; set; }
 
         /// <summary>
-        /// The vectorization text partitioning profile resource path. 
+        /// The vectorization text partitioning profile resource path.
         /// </summary>
         [JsonPropertyName("text_partitioning_profile_object_id")]
         public string? TextPartitioningProfileObjectId { get; set; }

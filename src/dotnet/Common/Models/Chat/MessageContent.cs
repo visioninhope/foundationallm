@@ -1,0 +1,22 @@
+﻿using System.Text.Json.Serialization;
+
+namespace FoundationaLLM.Common.Models.Chat
+{
+    /// <summary>
+    /// Contains parts that compose the message content.
+    /// </summary>
+    public class MessageContent
+    {
+        /// <summary>
+        /// The type of the message content. Could be text, image, etc.
+        /// </summary>
+        [JsonPropertyName("type")]
+        public string? Type { get; set; }
+
+        /// <summary>
+        /// The value of the message content.
+        /// </summary>
+        [JsonPropertyName("value")]
+        public string? Value { get; set; }
+    }
+}
