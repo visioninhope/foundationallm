@@ -1,4 +1,4 @@
-using FoundationaLLM.Authorization.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
@@ -31,6 +31,13 @@ namespace FoundationaLLM.Authorization.Models
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Authorization_RoleAssignments_Delete,
                         "Delete role assignments.",
+                        "Authorization")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Authorization_RoleDefinitions_Read,
+                        "Read role definitions.",
                         "Authorization")
                 },
                 {
@@ -97,24 +104,24 @@ namespace FoundationaLLM.Authorization.Models
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Read,
-                        "Read external orchestration services.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
+                        "Read API endpoints.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Write,
-                        "Create or update external orchestration services.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
+                        "Create or update API endpoints.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_ExternalOrchestrationServices_Delete,
-                        "Delete external orchestration services.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
+                        "Delete API endpoints.",
                         "Configuration")
                 },
                 {
@@ -326,6 +333,48 @@ namespace FoundationaLLM.Authorization.Models
                         AuthorizableActionNames.FoundationaLLM_Completion_DirectCompletions_Delete,
                         "Delete direct completions.",
                         "Completion")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Read,
+                        "Read attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Write,
+                        "Create or update attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_Attachment_Attachments_Delete,
+                        "Delete attachments.",
+                        "Attachment")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
+                        "Read AIModels.",
+                        "AIModel")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
+                        "Create or update AIModels.",
+                        "AIModel")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
+                        "Delete AIModel.",
+                        "AIModel")
                 },
             });
 

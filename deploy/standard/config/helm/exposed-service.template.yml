@@ -1,6 +1,7 @@
 appConfig:
   uri: {{appConfigEndpoint}}
   connectionString: {{appConfigConnectionString}}
+  rwConnectionString: {{appConfigRWConnectionString}}
 azureWorkloadIdentity:
   orchestrationApiClientId: {{orchestrationApiMiClientId}}
   agentHubApiClientId: {{agentHubApiMiClientId}}
@@ -17,10 +18,12 @@ azureWorkloadIdentity:
   semanticKernelApiClientId: {{semanticKernelApiMiClientId}}
   vectorizationApiClientId: {{vectorizationApiMiClientId}}
   vectorizationJobClientId: {{vectorizationJobMiClientId}}
+  authorizationApiClientId: {{authorizationApiMiClientId}}
   tenantId: {{tenantId}}
 apihost: {{serviceHostname}}
 authKeyvaultUri: {{authKeyvaultUri}}
 baseUrl: {{serviceBaseUrl}}
+instanceId: {{instanceId}}
 
 ingress:
   enabled: false

@@ -11,7 +11,7 @@ namespace FoundationaLLM.Management.API.Controllers
     /// </summary>
     [Authorize(Policy = "DefaultPolicy")]
     [ApiController]
-    [Route("status")]
+    [Route("instances/{instanceId}/[controller]")]
     [Consumes("application/json")]
     [Produces("application/json")]
     public class StatusController : ControllerBase
@@ -25,7 +25,7 @@ namespace FoundationaLLM.Management.API.Controllers
             new OkObjectResult(new ServiceStatusInfo
             {
                 Name = ServiceNames.ManagementAPI,
-                Instance = ValidatedEnvironment.MachineName,
+                InstanceName = ValidatedEnvironment.MachineName,
                 Version = Environment.GetEnvironmentVariable(EnvironmentVariables.FoundationaLLM_Version),
                 Status = ServiceStatuses.Ready
             });

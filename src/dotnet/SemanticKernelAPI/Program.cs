@@ -5,9 +5,12 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
+using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -34,7 +37,7 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", false, true);
             builder.Configuration.AddEnvironmentVariables();
-            builder.Configuration.AddAzureAppConfiguration(options =>
+            builder.Configuration.AddAzureAppConfiguration((Action<Microsoft.Extensions.Configuration.AzureAppConfiguration.AzureAppConfigurationOptions>)(options =>
             {
                 options.Connect(builder.Configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
                 options.ConfigureKeyVault(options =>
@@ -42,17 +45,20 @@ namespace FoundationaLLM.SemanticKernel.API
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIs);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_BlobStorageMemorySource);
-                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
-            });
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_VectorizationAPI);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Configuration);
+
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
+            }));
             if (builder.Environment.IsDevelopment())
                 builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
-                AppConfigurationKeys.FoundationaLLM_APIs_SemanticKernelAPI_AppInsightsConnectionString,
+                AppConfigurationKeys.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials_AppInsightsConnectionString,
                 ServiceNames.SemanticKernelAPI);
 
             // CORS policies
@@ -63,8 +69,8 @@ namespace FoundationaLLM.SemanticKernel.API
 
             builder.AddSemanticKernelService();
 
-            #region Resource providers (to be removed)
-
+            // Add authorization services.
+            builder.AddGroupMembership();
             builder.Services.AddSingleton<IAuthorizationService, NullAuthorizationService>();
 
             // Resource validation
@@ -73,7 +79,7 @@ namespace FoundationaLLM.SemanticKernel.API
             // Add event services
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
-                AppConfigurationKeySections.FoundationaLLM_Events_AzureEventGridEventService_Profiles_VectorizationAPI);
+                AppConfigurationKeySections.FoundationaLLM_Events_Profiles_VectorizationAPI);
 
             // Add Azure ARM services
             builder.Services.AddAzureResourceManager();
@@ -81,9 +87,10 @@ namespace FoundationaLLM.SemanticKernel.API
             // Resource providers
             builder.AddConfigurationResourceProvider();
 
-            #endregion
+            builder.AddHttpClientFactoryService();
+            builder.Services.AddScoped<ICallContext, CallContext>();
+            builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
-            builder.Services.AddHttpClient();
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             builder.Services
@@ -102,7 +109,7 @@ namespace FoundationaLLM.SemanticKernel.API
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<APIKeyAuthenticationFilter>();
             builder.Services.AddOptions<APIKeyValidationSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_SemanticKernelAPI));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_SemanticKernelAPI_Essentials));
             builder.Services.AddOptions<InstanceSettings>()
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
             builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
@@ -138,6 +145,8 @@ namespace FoundationaLLM.SemanticKernel.API
             // Set the CORS policy before other middleware.
             app.UseCors(CorsPolicyNames.AllowAllOrigins);
 
+            // Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
+            app.UseMiddleware<CallContextMiddleware>();
             app.UseExceptionHandler();
 
             // Configure the HTTP request pipeline.
@@ -154,8 +163,6 @@ namespace FoundationaLLM.SemanticKernel.API
                         var name = description.GroupName.ToUpperInvariant();
                         options.SwaggerEndpoint(url, name);
                     }
-
-                    options.OAuthAdditionalQueryStringParams(new Dictionary<string, string>() { { "resource", builder.Configuration[AppConfigurationKeys.FoundationaLLM_Management_Entra_ClientId] } });
                 });
 
             app.UseHttpsRedirection();

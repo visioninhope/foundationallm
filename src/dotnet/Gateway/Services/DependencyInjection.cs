@@ -20,7 +20,7 @@ namespace FoundationaLLM
         public static void AddGatewayCore(this IHostApplicationBuilder builder)
         {
             builder.Services.AddOptions<GatewayCoreSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Gateway));
+                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatewayAPI_Configuration));
 
             builder.Services.AddSingleton<IGatewayCore, GatewayCore>();
             builder.Services.AddHostedService<GatewayWorker>();
@@ -30,12 +30,7 @@ namespace FoundationaLLM
         /// Adds the Gateway API service to the dependency injection container.
         /// </summary>
         /// <param name="builder">The host application builder.</param>
-        public static void AddGatewayService(this IHostApplicationBuilder builder)
-        {
-            builder.Services.AddOptions<GatewayServiceSettings>()
-                .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIs_GatewayAPI));
-
+        public static void AddGatewayService(this IHostApplicationBuilder builder) =>
             builder.Services.AddScoped<IGatewayServiceClient, GatewayServiceClient>();
-        }
     }
 }

@@ -6,11 +6,12 @@ import { AppConfigurationClient } from '@azure/app-configuration';
 dns.setDefaultResultOrder('ipv4first');
 
 const allowedKeys = [
-	'FoundationaLLM:APIs:CoreAPI:APIUrl',
+	'FoundationaLLM:APIEndpoints:CoreAPI:Essentials:APIUrl',
 	'.appconfig.featureflag/FoundationaLLM-AllowAgentHint',
 	'FoundationaLLM:Branding:AllowAgentSelection',
 	'FoundationaLLM:Branding:KioskMode',
 	'FoundationaLLM:Branding:PageTitle',
+	'FoundationaLLM:Branding:FavIconUrl',
 	'FoundationaLLM:Branding:LogoUrl',
 	'FoundationaLLM:Branding:LogoText',
 	'FoundationaLLM:Branding:BackgroundColor',
@@ -24,11 +25,13 @@ const allowedKeys = [
 	'FoundationaLLM:Branding:PrimaryButtonTextColor',
 	'FoundationaLLM:Branding:SecondaryButtonBackgroundColor',
 	'FoundationaLLM:Branding:SecondaryButtonTextColor',
-	'FoundationaLLM:Chat:Entra:ClientId',
-	'FoundationaLLM:Chat:Entra:Instance',
-	'FoundationaLLM:Chat:Entra:TenantId',
-	'FoundationaLLM:Chat:Entra:Scopes',
-	'FoundationaLLM:Chat:Entra:CallbackPath',
+	'FoundationaLLM:Branding:FooterText',
+	'FoundationaLLM:Instance:Id',
+	'FoundationaLLM:UserPortal:Authentication:Entra:ClientId',
+	'FoundationaLLM:UserPortal:Authentication:Entra:Instance',
+	'FoundationaLLM:UserPortal:Authentication:Entra:TenantId',
+	'FoundationaLLM:UserPortal:Authentication:Entra:Scopes',
+	'FoundationaLLM:UserPortal:Authentication:Entra:CallbackPath',
 ];
 
 export default defineEventHandler(async (event) => {

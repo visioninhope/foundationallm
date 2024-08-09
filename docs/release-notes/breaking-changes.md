@@ -3,7 +3,71 @@
 > [!NOTE]
 > This section is for changes that are not yet released but will affect future releases.
 
-## Breaking changes that will affect future releases.
+## Breaking changes that will affect future releases
+
+### Starting with 0.8.0
+
+Core API changes:
+
+1. All Core API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+   1. The previous `/orchestration/completions` endpoint is now `/instances/{instanceId}/completions`.
+3. The `/sessions/{sessionId}/completion` endpoint has been moved to `/instances/{instanceId}/completions`. Instead of having the `sessionId` as a path parameter, it is now in the request body as part of the `CompletionRequest` payload.
+4. `/sessions/{sessionId}/summarize-name` has been removed. In the future, the `/completions` endpoint will be used to generate summaries.
+5. `OrchestrationRequest` and `CompletionRequest` have combined into a single `CompletionRequest` object.
+6. `DirectionCompletionRequest` has been removed. Use `CompletionRequest` instead.
+7. `Status` controllers `\status` action in the .NET API projects return value has renamed the `Instance` property to `InstanceName`.
+8. The `CompletionController.cs` file under `dotnet/CoreApi/controllers` has introduced the `Async-Completions` endpoint to handle asynchronous completions.
+9. With the introduction of `Async-Completions`, long running operations can now report on completion status based on `Pending`, `InProgress`, `Completed` and `Failed` states.
+
+Gatekeeper API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+
+Orchestration API changes:
+1. All Gatekeeper API endpoints have been moved to the `/instances/{instanceId}` path. For example, the `/status` endpoint is now `/instances/{instanceId}/status`.
+2. The `/orchestration/*` endpoints have been moved to `/instances/{instanceId}/completions/*`.
+=======
+#### New APIs
+
+**Gateway Adapter API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIUrl`
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIKey` (mapped to the `foundationallm-apis-gatewayadapterapi-apikey` secret)
+- `FoundationaLLM:APIs:GatewayAdapterAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+- 
+**Stater API** - requires the following configuration settings:
+
+- `FoundationaLLM:APIs:StateAPI:APIUrl`
+- `FoundationaLLM:APIs:StateAPI:APIKey` (mapped to the `foundationallm-apis-stateapi-apikey` secret)
+- `FoundationaLLM:APIs:StateAPI:APIAppInsightsConnectionString` (mapped to the `foundationallm-app-insights-connection-string` secret)
+
+> [!NOTE]
+> These new APIs will be converted to use the new `APIEndpoint` artifacts.
+
+#### Changes in app registration names
+
+API Name | Entra ID app registration name | Application ID URI | Scope name
+--- | --- | --- | ---
+Core API | `FoundationaLLM-Core-API` | `api://FoundationaLLM-Core` | `Data.Read`
+Management API | `FoundationaLLM-Management-API` | `api://FoundationaLLM-Management` | `Data.Manage`
+Authorization API | `FoundationaLLM-Authorization-API` | `api://FoundationaLLM-Authorization` | `Authorization.Manage`
+User Portal | `FoundationaLLM-Core-Portal` | `api://FoundationaLLM-Core-Portal` | N/A
+Management Portal | `FoundationaLLM-Management-Portal` | `api://FoundationaLLM-Management-Portal` | N/A
+
+#### Changes in app configuration settings
+
+The `FoundationaLLM:APIs` and `FoundationaLLM:ExternalAPIs` configuration namespaces have been replaced with the `FoundationaLLM:APIEndpoints` configuration namespace.
+
+> [!IMPORTANT]
+> All existing API registrations need to be updated to reflect these changes. The only two settings that will exist under `FoundationaLLM:APIEndpoints` are `APIKey` (for those API enpoints which use API key authentication) and `AppInsightsConnectionString`, all the other settings are now part of the `APIEndpoint` artifact managed by the `FoundationaLLM.Configuration` resource provider.
+> This is an example for `CoreAPI`:
+> - `FoundationaLLM:APIEndpoints:CoreAPI:APIKey`
+> - `FoundationaLLM:APIEndpoints:CoreAPI:AppInsightsConnectionString`
+
+The `FoundationaLLM:AzureAIStudio` configuration namespace expects an `APIEndpointConfigurationName` property instead of `BaseUrl`.
+
+### Pre-0.8.0
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.
 2. The items in the `index_references` collection have a property incorrectly named `type` which was renamed to `index_entry_id`.
@@ -110,7 +174,36 @@
     - `FoundationaLLM:ExternalAPIs:BaselineTradingGlobalMacro:APIKey`
 
 > [!NOTE]
-> These entries do not need to be created as part of the deployment process. 
+> These entries do not need to be created as part of the deployment process.
+
+12. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+13. New app config entries required:
+
+    - `FoundationaLLM:Attachment:ResourceProviderService:Storage:AuthenticationType`
+    - `FoundationaLLM:Attachment:ResourceProviderService:Storage:AccountName`
+
+14. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+
+15. The following App Config setting needs to be added/updated as key-values:
+
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableAzureContentSafetyPromptShield`
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableLakeraGuard`
+   - Add `FoundationaLLM:APIs:GatekeeperAPI:Configuration:EnableEnkryptGuardrails`
+   - Rename `FoundationaLLM:AzureContentSafety:APIKey` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIKey`
+   - Rename `FoundationaLLM:AzureContentSafety:APIUrl` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:APIUrl`
+   - Rename `FoundationaLLM:AzureContentSafety:HateSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:HateSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:SelfHarmSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SelfHarmSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:SexualSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:SexualSeverity`
+   - Rename `FoundationaLLM:AzureContentSafety:ViolenceSeverity` in `FoundationaLLM:APIs:Gatekeeper:AzureContentSafety:ViolenceSeverity`
+   - Add `FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIKey`
+   - Add `FoundationaLLM:APIs:Gatekeeper:LakeraGuard:APIUrl`
+   - Add `FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIKey`
+   - Add `FoundationaLLM:APIs:Gatekeeper:EnkryptGuardrails:APIUrl`
+
+16. The following Key Vault secret is needed:
+
+    - `lakera-guard-api-key`
+    - `enkrypt-guardrails-apikey`
 
 
-11. App Config key namespace that was previously `FoundationaLLM:Vectorization:ContentSources:*` has been moved to `FoundationaLLM:DataSources:*`. All existing keys need to be moved to the new namespace.
+

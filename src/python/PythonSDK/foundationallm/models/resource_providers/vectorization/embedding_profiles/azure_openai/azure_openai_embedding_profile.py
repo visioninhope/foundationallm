@@ -4,13 +4,30 @@ Classes:
 Description:
     Settings specific to the Azure AI Search Indexes
 """
-from typing import Optional
-from foundationallm.models.resource_providers.vectorization import SettingsBase, EmbeddingProfileBase
+from typing import Any, Self, Optional
+from foundationallm.models.resource_providers.vectorization import EmbeddingProfileBase
 from .azure_openai_configuration_references import AzureOpenAIConfigurationReferences
+from foundationallm.models.utils import ObjectUtils
+from foundationallm.langchain.exceptions import LangChainException
 
 class AzureOpenAIEmbeddingProfile(EmbeddingProfileBase):
     """
     An Azure AI Search indexing profile.
     """
-    settings: Optional[SettingsBase] = None
+    settings: Optional[dict] = None
     configuration_references: AzureOpenAIConfigurationReferences
+
+    @staticmethod
+    def from_object(obj: Any) -> Self:
+
+        text_embedding_profile: AzureOpenAIEmbeddingProfile = None
+
+        try:
+            text_embedding_profile = AzureOpenAIEmbeddingProfile(**ObjectUtils.translate_keys(obj))
+        except Exception as e:
+            raise LangChainException(f"The text embedding profile object provided in the agent parameters is invalid. {str(e)}", 400)
+        
+        if text_embedding_profile is None:
+            raise LangChainException("The text embedding profile object is missing in the agent parameters.", 400)
+
+        return text_embedding_profile

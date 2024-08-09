@@ -1,8 +1,9 @@
 <template>
-	<main :style="style">
+	<main>
 		<Head>
 			<Title>{{ pageTitle }}</Title>
 			<Meta name="description" :content="pageTitle" />
+			<Link rel="icon" type="image/x-icon" :href="iconLink" />
 		</Head>
 
 		<NuxtLayout>
@@ -18,6 +19,7 @@ export default {
 	data() {
 		return {
 			pageTitle: 'FoundationaLLM Management',
+			iconLink: this.$appConfigStore.favIconUrl || '/favicon.ico',
 		};
 	},
 
@@ -36,6 +38,17 @@ export default {
 				'--secondary-button-bg': this.$appConfigStore.secondaryButtonBg,
 				'--secondary-button-text': this.$appConfigStore.secondaryButtonText,
 			};
+		},
+	},
+
+	watch: {
+		style: {
+			immediate: true,
+			handler() {
+				for (const cssVar in this.style) {
+					document.documentElement.style.setProperty(cssVar, this.style[cssVar]);
+				}
+			},
 		},
 	},
 };

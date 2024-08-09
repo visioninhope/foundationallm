@@ -8,7 +8,7 @@
 
 			<div style="display: flex; align-items: center">
 				<NuxtLink to="/data-sources/create">
-					<Button>
+					<Button aria-label="Create data source">
 						<i class="pi pi-plus" style="color: var(--text-primary); margin-right: 8px"></i>
 						Create Data Source
 					</Button>
@@ -33,15 +33,13 @@
 				table-style="max-width: 100%"
 				size="small"
 			>
-				<template #empty>
-					No data sources found. Please use the menu on the left to create a new data
-					source.</template
-				>
+				<template #empty> No data sources found. </template>
+
 				<template #loading>Loading data sources. Please wait.</template>
 
 				<!-- Name -->
 				<Column
-					field="name"
+					field="resource.name"
 					header="Name"
 					sortable
 					style="min-width: 200px"
@@ -55,7 +53,7 @@
 
 				<!-- Type -->
 				<Column
-					field="type"
+					field="resource.type"
 					header="Source Type"
 					sortable
 					style="min-width: 200px"
@@ -80,8 +78,8 @@
 					}"
 				>
 					<template #body="{ data }">
-						<NuxtLink :to="'/data-sources/edit/' + data.name" class="table__button">
-							<Button link>
+						<NuxtLink :to="'/data-sources/edit/' + data.resource.name" class="table__button">
+							<Button link :aria-label="`Edit ${data.resource.name}`">
 								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
 							</Button>
 						</NuxtLink>
@@ -101,7 +99,11 @@
 					}"
 				>
 					<template #body="{ data }">
-						<Button link @click="dataSourceToDelete = data">
+						<Button
+							link
+							:aria-label="`Delete ${data.resource.name}`"
+							@click="dataSourceToDelete = data.resource"
+						>
 							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400)"></i>
 						</Button>
 					</template>
@@ -127,17 +129,17 @@
 
 <script lang="ts">
 import api from '@/js/api';
-import type { Agent } from '@/js/types';
+import type { DataSource, ResourceProviderGetResult } from '@/js/types';
 
 export default {
-	name: 'PublicAgents',
+	name: 'PublicDataSources',
 
 	data() {
 		return {
-			dataSources: [] as Agent,
+			dataSources: [] as ResourceProviderGetResult<DataSource>[],
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
-			dataSourceToDelete: null as Agent | null,
+			dataSourceToDelete: null as DataSource | null,
 		};
 	},
 
@@ -172,7 +174,7 @@ export default {
 				});
 			}
 
-			await this.getAgents();
+			await this.getAgentDataSources();
 		},
 	},
 };

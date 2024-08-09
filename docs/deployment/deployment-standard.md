@@ -48,7 +48,7 @@ Follow the steps below to deploy the solution to your Azure subscription.
 ```powershell
   git clone https://github.com/solliancenet/foundationallm.git
   cd foundationallm/deploy/standard
-  git checkout release/0.6.0
+  git checkout release/0.7.0
 ```
 3. Create your deployment manifest:
 
@@ -82,13 +82,12 @@ Follow the steps below to deploy the solution to your Azure subscription.
 
 Create certificates for the appropriate domains and package them in PFX format.  Place the PFX files in `foundationallm/deploy/standard/config/certbot/certs` following the naming convention below.  The values for `Host Name` and `Domain Name` should match the values you provided in your deployment manifest:
 
-    | Service Name      | Host Name         | Domain Name | File Name                         |
-    | ----------------- | ----------------- | ----------- | --------------------------------- |
-    | core-api          | api               | example.com | api.example.com.pfx               |
-    | management-api    | management-api    | example.com | management-api.example.com.pfx    |
-    | vectorization-api | vectorization-api | example.com | vectorization-api.example.com.pfx |
-    | chat-ui           | chat              | example.com | chat.example.com.pfx              |
-    | management-ui     | management        | example.com | management.example.com.pfx        |
+| Service Name      | Host Name         | Domain Name | File Name                         |
+| ----------------- | ----------------- | ----------- | --------------------------------- |
+| core-api          | api               | example.com | api.example.com.pfx               |
+| management-api    | management-api    | example.com | management-api.example.com.pfx    |
+| chat-ui           | chat              | example.com | chat.example.com.pfx              |
+| management-ui     | management        | example.com | management.example.com.pfx        |
 
 ## Provision Infrastructure
 
@@ -114,20 +113,35 @@ The post-deployment script will generate a host file describing all the private 
 
 10. Connect to VPN
 
-    First visit the VPN gateway in the networking resource group and follow the following instructions to download the configuration, client and connect to VPN.
-
+    First, download and install the Azure VPN client and connect to the VPN gateway.
     - [Windows](https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client)
     - [MacOS](https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-client-mac)
+
+    Next, using the Azure portal download and then import the VPN configuration. Locate the VPN gateway in the networking resource group, click Point-to-Site, then *Download VPN Client* and follow the following instructions to download the configuration, client and connect to VPN.
+    
+    ![Download the VPN Configuration from the Azure Portal.](media/vpn-client.png)
+
+    > [!NOTE]
+    > Make sure to connect to the VPN before proceeding to the next step.
+
 
 11. Execute the second post-provision script:
 
 ```powershell
   ./Post-Provision.2.ps1
 ```
-
     The post-deployment script will upload the certificates to the Azure Key Vault.
 
-12. Execute the deployment script:
+
+12. Run the bootstrap script to prepare download and install Azcopy:
+
+```powershell
+  ./Bootstrap.ps1
+```
+
+When prompted, sign in to your Azcopy with your Azure account. This should be the same account you used to log in to the Azure CLI.
+
+13. Execute the deployment script:
 
 ```powershell
   ./Deploy.ps1

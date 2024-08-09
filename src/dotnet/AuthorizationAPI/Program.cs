@@ -36,9 +36,9 @@ builder.AddCorsPolicies();
 
 // Add authentication configuration.
 builder.AddAuthenticationConfiguration(
-    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_Instance,
-    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_TenantId,
-    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Entra_ClientId,
+    AuthorizationKeyVaultSecretNames.FoundationaLLM_APIEndpoints_AuthorizationAPI_Configuration_Entra_Instance,
+    AuthorizationKeyVaultSecretNames.FoundationaLLM_APIEndpoints_AuthorizationAPI_Configuration_Entra_TenantId,
+    AuthorizationKeyVaultSecretNames.FoundationaLLM_APIEndpoints_AuthorizationAPI_Configuration_Entra_ClientId,
     null,
     policyName: "RequiredClaims",
     requireScopes: false,
@@ -46,7 +46,7 @@ builder.AddAuthenticationConfiguration(
 
 // Add OpenTelemetry.
 builder.AddOpenTelemetry(
-    KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_AppInsights_ConnectionString,
+    AuthorizationKeyVaultSecretNames.FoundationaLLM_APIEndpoints_AuthorizationAPI_AppInsightsConnectionString,
     ServiceNames.AuthorizationAPI);
 
 builder.Services.AddControllers();

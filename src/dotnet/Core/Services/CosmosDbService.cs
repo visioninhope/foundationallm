@@ -1,18 +1,14 @@
-﻿using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.Configuration.CosmosDB;
+using FoundationaLLM.Common.Models.Configuration.Users;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
-using FoundationaLLM.Common.Models.Configuration.Users;
 using Polly;
 using Polly.Retry;
-using Azure.Identity;
-using FoundationaLLM.Common.Models.Configuration.CosmosDB;
-using FoundationaLLM.Common.Authentication;
+using System.Diagnostics;
 
 namespace FoundationaLLM.Core.Services
 {
@@ -38,6 +34,7 @@ namespace FoundationaLLM.Core.Services
         /// </summary>
         /// <param name="settings">The <see cref="CosmosDbSettings"/> settings retrieved
         /// by the injected <see cref="IOptions{TOptions}"/>.</param>
+        /// <param name="client">The Cosmos DB client.</param>
         /// <param name="logger">The logging interface used to log under the
         /// <see cref="CosmosDbService"></see> type name.</param>
         /// <exception cref="ArgumentException">Thrown if any of the required settings
@@ -226,14 +223,14 @@ namespace FoundationaLLM.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Session> UpdateSessionNameAsync(string id, string name, CancellationToken cancellationToken = default)
+        public async Task<Session> UpdateSessionNameAsync(string id, string sessionName, CancellationToken cancellationToken = default)
         {
             var response = await _sessions.PatchItemAsync<Session>(
                 id: id,
                 partitionKey: new PartitionKey(id),
                 patchOperations: new[]
                 {
-                    PatchOperation.Set("/name", name),
+                    PatchOperation.Set("/name", sessionName),
                 },
                 cancellationToken: cancellationToken
             );

@@ -5,6 +5,7 @@ param adminGroupObjectId string
 param authAppRegistration object
 param timestamp string = utcNow()
 param appRegistrations array
+param isE2ETest bool = false
 
 param createDate string = utcNow('u')
 
@@ -67,12 +68,16 @@ var clientSecrets = [
 
 var deployOpenAi = empty(existingOpenAiInstance.name)
 var azureOpenAiEndpoint = deployOpenAi ? openAi.outputs.endpoint : customerOpenAi.properties.endpoint
+var azureOpenAiId = deployOpenAi ? openAi.outputs.id : customerOpenAi.id
 var azureOpenAi = deployOpenAi ? openAiInstance : existingOpenAiInstance
 var openAiInstance = {
   name: openAi.outputs.name
   resourceGroup: rg.name
   subscriptionId: subscription().subscriptionId
 }
+
+var deploymentConfigurations = loadJsonContent('../../common/config/openAiDeploymentConfig.json')
+var deployments = filter(deploymentConfigurations, (d) => contains(d.locations, location))
 
 // Tags that should be applied to all resources.
 //
@@ -139,11 +144,11 @@ module authKeyvault './shared/keyvault.bicep' = {
     secrets: [
       {
         name: 'foundationallm-authorizationapi-entra-instance'
-        value: authAppRegistration.instance
+        value: 'https://login.microsoftonline.com'
       }
       {
         name: 'foundationallm-authorizationapi-entra-tenantid'
-        value: authAppRegistration.tenantId
+        value: tenant().tenantId
       }
       {
         name: 'foundationallm-authorizationapi-entra-clientid'
@@ -156,6 +161,10 @@ module authKeyvault './shared/keyvault.bicep' = {
       {
         name: 'foundationallm-authorizationapi-instanceids'
         value: instanceId
+      }
+      {
+        name: 'foundationallm-authorizationapi-appinsights-connectionstring'
+        value: monitoring.outputs.applicationInsightsConnectionString
       }
     ]
   }
@@ -194,21 +203,31 @@ module cosmosDb './shared/cosmosdb.bicep' = {
         name: 'UserSessions'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'UserProfiles'
         partitionKeyPath: '/upn'
         maxThroughput: 1000
+        defaultTtl: null
       }
       {
         name: 'Sessions'
         partitionKeyPath: '/sessionId'
         maxThroughput: 1000
+        defaultTtl: null
+      }
+      {
+        name: 'State'
+        partitionKeyPath: '/operation_id'
+        maxThroughput: 1000
+        defaultTtl: 604800
       }
       {
         name: 'leases'
         partitionKeyPath: '/id'
         maxThroughput: 1000
+        defaultTtl: null
       }
     ]
     databaseName: 'database'
@@ -241,6 +260,12 @@ var searchWriterRoleTargets = [
   'vectorization-job'
 ]
 
+var openAiRoleTargets = [
+  'gateway-api'
+  'semantic-kernel-api'
+  'langchain-api'
+]
+
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
@@ -249,6 +274,7 @@ module searchReaderRoles './shared/roleAssignments.bicep' = [
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionIds: {
         'Search Index Data Reader': '1407120a-92aa-4202-b7e9-c0e197c71c8f'
+        'Search Service Contributor': '7ca78c08-252a-4471-8644-bb5ff32d4ba0'
       }
     }
   }
@@ -339,30 +365,7 @@ module openAi './shared/openai.bicep' =
       sku: 'S0'
       tags: tags
 
-      deployments: [
-        {
-          name: 'completions'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'gpt-35-turbo'
-            version: '0613'
-          }
-        }
-        {
-          name: 'embeddings'
-          sku: {
-            name: 'Standard'
-            capacity: 10
-          }
-          model: {
-            name: 'text-embedding-ada-002'
-            version: '2'
-          }
-        }
-      ]
+      deployments: deployments
     }
   }
 
@@ -381,18 +384,6 @@ module storage './shared/storage.bicep' = {
   name: 'storage-${timestamp}'
   params: {
     containers: [
-      {
-        name: 'agents'
-      }
-      {
-        name: 'data-sources'
-      }
-      {
-        name: 'foundationallm-source'
-      }
-      {
-        name: 'prompts'
-      }
       {
         name: 'resource-provider'
       }
@@ -430,22 +421,28 @@ module configTopic 'shared/config-system-topic.bicep' = {
   name: 'configTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}config${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'configuration'
     location: location
     tags: tags
     appConfigAccountName: appConfig.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageTopic 'shared/storage-system-topic.bicep' = {
   name: 'storageTopic-${timestamp}'
   params: {
     name: '${abbrs.eventGridDomainsTopics}storage${resourceToken}'
+    eventGridName: eventgrid.outputs.name
+    destinationTopicName: 'storage'
     location: location
     tags: tags
     storageAccountName: storage.outputs.name
   }
   scope: rg
+  dependsOn: [eventgrid]
 }
 
 module storageSub 'shared/system-topic-subscription.bicep' = {
@@ -515,6 +512,9 @@ module authAcaService './app/authAcaService.bicep' = {
     keyvaultName: authKeyvault.outputs.name
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     containerAppsEnvironmentName: appsEnv.outputs.name
+    cpu: authService.cpu
+    memory: authService.memory
+    replicaCount: empty(authService.replicaCount) ? 0 : int(authService.replicaCount)
     exists: authServiceExists == 'true'
     appDefinition: serviceDefinition
     hasIngress: true
@@ -542,25 +542,35 @@ module acaServices './app/acaService.bicep' = [
       appDefinition: serviceDefinition
       applicationInsightsName: monitoring.outputs.applicationInsightsName
       containerAppsEnvironmentName: appsEnv.outputs.name
+      cpu: service.cpu
       exists: servicesExist['${service.name}'] == 'true'
       hasIngress: service.hasIngress
       identityName: '${abbrs.managedIdentityUserAssignedIdentities}${service.name}-${resourceToken}'
       imageName: service.image
       keyvaultName: keyVault.outputs.name
       location: location
+      memory: service.memory
       name: '${abbrs.appContainerApps}${service.name}'
+      replicaCount: empty(service.replicaCount) ? 0 : int(service.replicaCount)
       resourceToken: resourceToken
       serviceName: service.name
       tags: tags
 
-      envSettings: service.useEndpoint
+      envSettings: union(service.useEndpoint
         ? [
             {
               name: service.appConfigEnvironmentVarName
               value: appConfig.outputs.endpoint
             }
           ]
-        : []
+        : [], isE2ETest
+        ? [
+            {
+              name: 'FOUNDATIONALLM_ENVIRONMENT'
+              value: 'E2ETest'
+            }
+          ]
+        : [])
 
       secretSettings: service.useEndpoint
         ? []
@@ -578,6 +588,7 @@ module acaServices './app/acaService.bicep' = [
 var cosmosRoleTargets = [
   'core-api'
   'core-job'
+  'state-api'
 ]
 
 module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
@@ -594,42 +605,75 @@ module cosmosRoles './shared/sqlRoleAssignments.bicep' = [
   }
 ]
 
+module openAiRoles './shared/roleAssignments.bicep' = [
+  for target in openAiRoleTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services OpenAI User'
+        'Reader'
+      ]
+    }
+  }
+]
+
+var contentSafetyTargets = [
+  'gatekeeper-api'
+]
+
+module contentSafetyRoles './shared/roleAssignments.bicep' = [
+  for target in contentSafetyTargets: {
+    scope: rg
+    name: '${target}-cs-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services User'
+      ]
+    }
+  }
+]
+
 output AZURE_APP_CONFIG_NAME string = appConfig.outputs.name
 output AZURE_AUTHORIZATION_STORAGE_ACCOUNT_NAME string = authStore.outputs.name
 output AZURE_COGNITIVE_SEARCH_ENDPOINT string = cogSearch.outputs.endpoint
+output AZURE_COGNITIVE_SEARCH_NAME string = cogSearch.outputs.name
 output AZURE_CONTENT_SAFETY_ENDPOINT string = contentSafety.outputs.endpoint
-output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_COSMOS_DB_ENDPOINT string = cosmosDb.outputs.endpoint
+output AZURE_COSMOS_DB_NAME string = cosmosDb.outputs.name
 output AZURE_EVENT_GRID_ENDPOINT string = eventgrid.outputs.endpoint
 output AZURE_EVENT_GRID_ID string = eventgrid.outputs.id
-output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
+output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_OPENAI_ENDPOINT string = azureOpenAiEndpoint
+output AZURE_OPENAI_ID string = azureOpenAiId
 output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name
 
 var appRegNames = [for appRegistration in appRegistrations: appRegistration.name]
 
-output ENTRA_AUTH_API_SCOPES string = authAppRegistration.scopes
+output ENTRA_AUTH_API_SCOPES string = 'api://FoundationaLLM-Authorization'
 
 output ENTRA_CHAT_UI_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'chat-ui')].clientId
-output ENTRA_CHAT_UI_SCOPES string = appRegistrations[indexOf(appRegNames, 'chat-ui')].scopes
-output ENTRA_CHAT_UI_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'chat-ui')].tenantId
+output ENTRA_CHAT_UI_SCOPES string = 'api://FoundationaLLM-Core/Data.Read'
+output ENTRA_CHAT_UI_TENANT_ID string = tenant().tenantId
 
 output ENTRA_CORE_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'core-api')].clientId
-output ENTRA_CORE_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'core-api')].scopes
-output ENTRA_CORE_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'core-api')].tenantId
+output ENTRA_CORE_API_SCOPES string ='Data.Read'
+output ENTRA_CORE_API_TENANT_ID string = tenant().tenantId
 
 output ENTRA_MANAGEMENT_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'management-api')].clientId
-output ENTRA_MANAGEMENT_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'management-api')].scopes
-output ENTRA_MANAGEMENT_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'management-api')].tenantId
+output ENTRA_MANAGEMENT_API_SCOPES string = 'Data.Manage'
+output ENTRA_MANAGEMENT_API_TENANT_ID string = tenant().tenantId
 
 output ENTRA_MANAGEMENT_UI_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'management-ui')].clientId
-output ENTRA_MANAGEMENT_UI_SCOPES string = appRegistrations[indexOf(appRegNames, 'management-ui')].scopes
-output ENTRA_MANAGEMENT_UI_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'management-ui')].tenantId
+output ENTRA_MANAGEMENT_UI_SCOPES string = 'api://FoundationaLLM-Management/Data.Manage'
+output ENTRA_MANAGEMENT_UI_TENANT_ID string = tenant().tenantId
 
 output ENTRA_VECTORIZATION_API_CLIENT_ID string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].clientId
 output ENTRA_VECTORIZATION_API_SCOPES string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].scopes
-output ENTRA_VECTORIZATION_API_TENANT_ID string = appRegistrations[indexOf(appRegNames, 'vectorization-api')].tenantId
+output ENTRA_VECTORIZATION_API_TENANT_ID string = tenant().tenantId
 
 output FOUNDATIONALLM_INSTANCE_ID string = instanceId
 
@@ -646,14 +690,19 @@ output SERVICE_CORE_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 
 output SERVICE_CORE_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'core-job')].outputs.uri
 output SERVICE_DATA_SOURCE_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'data-source-hub-api')].outputs.uri
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.uri
+output SERVICE_GATEKEEPER_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.miPrincipalId
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-integration-api')].outputs.uri
+output SERVICE_GATEWAY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-api')].outputs.uri
+output SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-adapter-api')].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'management-api')].outputs.miPrincipalId
 output SERVICE_MANAGEMENT_UI_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-ui')].outputs.uri
 output SERVICE_PROMPT_HUB_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'prompt-hub-api')].outputs.uri
 output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'semantic-kernel-api')].outputs.uri
+output SERVICE_STATE_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'state-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.uri
 output SERVICE_VECTORIZATION_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'vectorization-api')].outputs.miPrincipalId
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.uri
 output SERVICE_VECTORIZATION_JOB_NAME string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.name
+output SERVICE_VECTORIZATION_JOB_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'vectorization-job')].outputs.miPrincipalId

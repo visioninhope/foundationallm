@@ -1,9 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Interfaces;
-using FoundationaLLM.Gateway.Models.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -14,23 +13,24 @@ namespace FoundationaLLM.Gateway.Client
     /// </summary>
     public class GatewayServiceClient : IGatewayServiceClient
     {
-        private readonly GatewayServiceSettings _settings;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ICallContext _callContext;
+        private readonly IHttpClientFactoryService _httpClientFactoryService;
         private readonly ILogger<GatewayServiceClient> _logger;
 
         /// <summary>
         /// Creates a new instance of the Gateway API service.
         /// </summary>
-        /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> used to create the HTTP client.</param>
-        /// <param name="options">The options object containing the <see cref="GatewayServiceSettings"/> object with the setting.</param>
+        /// <param name="callContext">Stores context information extracted from the current HTTP request. This information
+        /// is primarily used to inject HTTP headers into downstream HTTP calls.</param>
+        /// <param name="httpClientFactoryService">The <see cref="IHttpClientFactoryService"/> used to create the HTTP client.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public GatewayServiceClient(
-            IHttpClientFactory httpClientFactory,
-            IOptions<GatewayServiceSettings> options,
+            ICallContext callContext,
+            IHttpClientFactoryService httpClientFactoryService,
             ILogger<GatewayServiceClient> logger)
         {
-            _httpClientFactory = httpClientFactory;
-            _settings = options.Value;
+            _callContext = callContext;
+            _httpClientFactoryService = httpClientFactoryService;
             _logger = logger;
         }
 
@@ -42,7 +42,7 @@ namespace FoundationaLLM.Gateway.Client
                 OperationId = null
             };
 
-            var client = GetHttpClient();
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.GatewayAPI, _callContext.CurrentUserIdentity);
             var response = await client.GetAsync($"embeddings?operationId={operationId}");
 
             if (response.IsSuccessStatusCode)
@@ -64,7 +64,7 @@ namespace FoundationaLLM.Gateway.Client
                 OperationId = null
             };
 
-            var client = GetHttpClient();
+            var client = await _httpClientFactoryService.CreateClient(HttpClientNames.GatewayAPI, _callContext.CurrentUserIdentity);
             var serializedRequest = JsonSerializer.Serialize(embeddingRequest);
             var response = await client.PostAsync("embeddings",
                 new StringContent(
@@ -81,15 +81,6 @@ namespace FoundationaLLM.Gateway.Client
             }
 
             return fallback;
-        }
-
-        private HttpClient GetHttpClient()
-        {
-            var httpClient = _httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(_settings.APIUrl);
-            httpClient.DefaultRequestHeaders.Add(HttpHeaders.APIKey, _settings.APIKey);
-
-            return httpClient;
         }
     }
 }

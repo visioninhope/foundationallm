@@ -2,11 +2,18 @@
 	<div class="sidebar">
 		<!-- Sidebar section header -->
 		<div class="sidebar__header">
-			<img
-				v-if="$appConfigStore.logoUrl"
-				:src="$filters.publicDirectory($appConfigStore.logoUrl)"
-			/>
-			<span v-else>{{ $appConfigStore.logoText }}</span>
+			<template v-if="$appConfigStore.logoUrl">
+				<NuxtLink to="/">
+					<img
+						:src="$filters.publicDirectory($appConfigStore.logoUrl)"
+						aria-label="Logo as link to home"
+						alt="Logo"
+					/>
+				</NuxtLink>
+			</template>
+			<template v-else>
+				<NuxtLink to="/">{{ $appConfigStore.logoText }}</NuxtLink>
+			</template>
 		</div>
 
 		<!-- Agents -->
@@ -51,7 +58,17 @@
 			<span>Security</span>
 		</div>
 
-		<div class="sidebar__item">Identity & Access Management (IAM)</div>
+		<NuxtLink to="/security/role-assignments" class="sidebar__item">
+			Instance Access Control
+		</NuxtLink>
+
+		<!-- FLLM Deployment -->
+		<div class="sidebar__section-header">
+			<span class="pi pi-cloud"></span>
+			<span>FLLM Platform</span>
+		</div>
+
+		<NuxtLink to="/info" class="sidebar__item">Deployment Information</NuxtLink>
 
 		<!-- Logged in user -->
 		<div v-if="$authStore.currentAccount?.name" class="sidebar__account">
@@ -100,7 +117,7 @@ a {
 	padding-right: 24px;
 	padding-left: 24px;
 	padding-top: 12px;
-	display: flex;
+	/*display: flex;*/
 	align-items: center;
 	color: var(--primary-text);
 

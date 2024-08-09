@@ -21,7 +21,7 @@
 
 				<!-- Name -->
 				<Column
-					field="name"
+					field="resource.name"
 					header="Name"
 					sortable
 					style="min-width: 200px"
@@ -35,7 +35,7 @@
 
 				<!-- Type -->
 				<Column
-					field="type"
+					field="resource.type"
 					header="Type"
 					sortable
 					style="min-width: 200px"
@@ -46,6 +46,24 @@
 						sortIcon: { style: { color: 'var(--primary-text)' } },
 					}"
 				></Column>
+
+				<!-- Expiration -->
+				<Column
+					field="resource.expiration_date"
+					header="Expiration Date"
+					sortable
+					style="min-width: 200px"
+					:pt="{
+						headerCell: {
+							style: { backgroundColor: 'var(--primary-color)', color: 'var(--primary-text)' },
+						},
+						sortIcon: { style: { color: 'var(--primary-text)' } },
+					}"
+				>
+					<template #body="{ data }">
+						<span>{{ $filters.formatDate(data.resource.expiration_date) }}</span>
+					</template>
+				</Column>
 
 				<!-- Edit -->
 				<Column
@@ -60,8 +78,12 @@
 					}"
 				>
 					<template #body="{ data }">
-						<NuxtLink :to="'/agents/edit/' + data.name" class="table__button">
-							<Button link>
+						<NuxtLink :to="'/agents/edit/' + data.resource.name" class="table__button">
+							<Button
+								link
+								:disabled="!data.actions.includes('FoundationaLLM.Agent/agents/write')"
+								:aria-label="`Edit ${data.resource.name}`"
+							>
 								<i class="pi pi-cog" style="font-size: 1.2rem"></i>
 							</Button>
 						</NuxtLink>
@@ -81,7 +103,12 @@
 					}"
 				>
 					<template #body="{ data }">
-						<Button link @click="agentToDelete = data">
+						<Button
+							link
+							:disabled="!data.actions.includes('FoundationaLLM.Agent/agents/delete')"
+							:aria-label="`Delete ${data.resource.name}`"
+							@click="agentToDelete = data.resource"
+						>
 							<i class="pi pi-trash" style="font-size: 1.2rem; color: var(--red-400)"></i>
 						</Button>
 					</template>
@@ -102,17 +129,18 @@
 
 <script lang="ts">
 import api from '@/js/api';
-import type { Agent } from '@/js/types';
+import type { Agent, ResourceProviderGetResult } from '@/js/types';
 
 export default {
 	name: 'PublicAgents',
 
 	data() {
 		return {
-			agents: [] as Agent,
+			agents: [] as ResourceProviderGetResult<Agent>[],
 			loading: false as boolean,
 			loadingStatusText: 'Retrieving data...' as string,
 			agentToDelete: null as Agent | null,
+			accessControlModalOpen: false,
 		};
 	},
 

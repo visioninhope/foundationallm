@@ -1,5 +1,7 @@
-﻿using FoundationaLLM.Authorization.Interfaces;
+﻿using FluentValidation;
+using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.ResourceProviders;
+using FoundationaLLM.Authorization.Validation;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,11 +17,13 @@ namespace FoundationaLLM
     public static partial class DependencyInjection
     {
         /// <summary>
-        /// Register the FoundatiionaLLM.Authorization resource provider with the dependency injection container.
+        /// Register the FoundationaLLM.Authorization resource provider with the dependency injection container.
         /// </summary>
         /// <param name="builder">Application builder.</param>
         public static void AddAuthorizationResourceProvider(this IHostApplicationBuilder builder)
         {
+            builder.Services.AddSingleton<IValidator<RoleAssignment>, RoleAssignmentValidator>();
+
             builder.Services.AddSingleton<IResourceProviderService, AuthorizationResourceProviderService>(sp =>
                 new AuthorizationResourceProviderService(
                     sp.GetRequiredService<IOptions<InstanceSettings>>(),

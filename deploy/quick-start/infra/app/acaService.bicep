@@ -2,6 +2,7 @@
 param apiKeySecretName string
 param applicationInsightsName string
 param containerAppsEnvironmentName string
+param cpu string
 param envSettings array = []
 param exists bool
 param hasIngress bool = false
@@ -9,7 +10,9 @@ param identityName string
 param imageName string
 param keyvaultName string
 param location string = resourceGroup().location
+param memory string
 param name string
+param replicaCount int
 param resourceToken string
 param secretSettings array = []
 param serviceName string
@@ -36,7 +39,6 @@ var env = union(
 )
 
 var secretNames = [
-  '${serviceName}-apikey'
   apiKeySecretName
 ]
 
@@ -52,7 +54,7 @@ var secrets = union(
   secretSettings
 )
 
-var serviceRoleAssignments = concat(commonRoleAssignments, keyVaultRoleAssignments)
+var serviceRoleAssignments = concat(commonRoleAssignments, keyVaultRoleAssignments, certificateRoleAssignments)
 var commonRoleAssignments = [
   'App Configuration Data Reader'
   'Storage Blob Data Contributor'
@@ -63,6 +65,10 @@ var commonRoleAssignments = [
 var keyVaultRoleAssignments = contains(['management-api'], serviceName)
   ? ['Key Vault Secrets Officer']
   : ['Key Vault Secrets User']
+
+var certificateRoleAssignments = contains(['vectorization-api','vectorization-job'], serviceName)
+  ? ['Key Vault Certificate User']
+  : []
 
 /** Data Sources **/
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = {
@@ -143,12 +149,15 @@ resource app 'Microsoft.App/containerApps@2023-04-01-preview' = {
             )
           )
           resources: {
-            cpu: json('1.0')
-            memory: '2.0Gi'
+            cpu: json(cpu)
+            memory: memory
           }
         }
       ]
-      scale: {
+      scale: replicaCount > 0 ? {
+        minReplicas: replicaCount
+        maxReplicas: replicaCount
+      } : {
         minReplicas: 1
         maxReplicas: 10
       }

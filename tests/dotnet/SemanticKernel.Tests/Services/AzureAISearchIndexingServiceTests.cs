@@ -1,24 +1,25 @@
 ﻿using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.SemanticKernel.Core.Services.Indexing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SemanticKernel.Tests.Models;
 
 namespace FoundationaLLM.SemanticKernel.Tests.Services
 {
-    public class AzureAISearchIndexingServiceTests
+    public class AzureAiSearchIndexingServiceTests
     {
         private readonly SearchIndexClient _searchIndexClient;
         private readonly IIndexingService _indexingService;
         private readonly string _indexName = Environment.GetEnvironmentVariable("AzureAISearchIndexingServiceTestsCollectionName") ?? "semantickernel-integration-tests";
 
-        public AzureAISearchIndexingServiceTests()
+        public AzureAiSearchIndexingServiceTests()
         {
             var endpoint = Environment.GetEnvironmentVariable("AzureAISearchIndexingServiceTestsSearchEndpoint") ?? "";
             _searchIndexClient = new SearchIndexClient(
@@ -30,7 +31,7 @@ namespace FoundationaLLM.SemanticKernel.Tests.Services
                     new AzureAISearchIndexingServiceSettings
                     {
                         Endpoint = endpoint,
-                        AuthenticationType = AzureAISearchAuthenticationTypes.AzureIdentity
+                        AuthenticationType = AuthenticationTypes.AzureIdentity
                     }
                 ),
                 LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<AzureAISearchIndexingService>()

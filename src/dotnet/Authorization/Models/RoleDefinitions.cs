@@ -25,7 +25,8 @@ namespace FoundationaLLM.Authorization.Models
                                 Actions = [
                                     "FoundationaLLM.Authorization/roleAssignments/read",
                                     "FoundationaLLM.Authorization/roleAssignments/write",
-                                    "FoundationaLLM.Authorization/roleAssignments/delete",],
+                                    "FoundationaLLM.Authorization/roleAssignments/delete",
+                                    "FoundationaLLM.Authorization/roleDefinitions/read",],
                                 NotActions = [],
                                 DataActions = [],
                                 NotDataActions = [],
@@ -107,6 +108,32 @@ namespace FoundationaLLM.Authorization.Models
                                 Actions = [
                                     "*/read",
                                     "FoundationaLLM.Authorization/*",],
+                                NotActions = [],
+                                DataActions = [],
+                                NotDataActions = [],
+                            },],
+                        CreatedOn = DateTimeOffset.Parse("2024-03-07T00:00:00.0000000Z"),
+                        UpdatedOn = DateTimeOffset.Parse("2024-03-07T00:00:00.0000000Z"),
+                        CreatedBy = null,
+                        UpdatedBy = null
+                    }
+                },
+                {
+                    "/providers/FoundationaLLM.Authorization/roleDefinitions/1301f8d4-3bea-4880-945f-315dbd2ddb46",
+                    new RoleDefinition
+                    {
+                        Name = "1301f8d4-3bea-4880-945f-315dbd2ddb46",
+                        Type = "FoundationaLLM.Authorization/roleDefinitions",
+                        ObjectId = "/providers/FoundationaLLM.Authorization/roleDefinitions/1301f8d4-3bea-4880-945f-315dbd2ddb46",
+                        DisplayName = "Owner",
+                        Description = "Full access to manage all resources, including the ability to assign roles in FoundationaLLM RBAC.",
+                        AssignableScopes = [
+                            "/",],
+                        Permissions = [                            
+                            new RoleDefinitionPermissions
+                            {
+                                Actions = [
+                                    "*",],
                                 NotActions = [],
                                 DataActions = [],
                                 NotDataActions = [],

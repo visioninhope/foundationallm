@@ -1,9 +1,11 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -35,7 +37,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
     public class DataSourceResourceProviderService(
         IOptions<InstanceSettings> instanceOptions,
         IAuthorizationService authorizationService,
-        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_DataSource)] IStorageService storageService,
+        [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_DataSource)] IStorageService storageService,
         IEventService eventService,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
@@ -99,26 +101,25 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0]),
+                DataSourceResourceTypeNames.DataSources => await LoadDataSources(resourcePath.ResourceTypeInstances[0], userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for GetResourcesAsyncInternal
 
-        private async Task<List<DataSourceBase>> LoadDataSources(ResourceTypeInstance instance)
+        private async Task<List<ResourceProviderGetResult<DataSourceBase>>> LoadDataSources(ResourceTypeInstance instance, UnifiedUserIdentity userIdentity)
         {
+            var dataSources = new List<DataSourceBase>();
+
             if (instance.ResourceId == null)
             {
-                return
-                [
-                    .. (await Task.WhenAll(
-                        _dataSourceReferences.Values
-                            .Where(dsr => !dsr.Deleted)
-                            .Select(dsr => LoadDataSource(dsr))))
-                    .Where(ds => ds != null)
-                    .ToList()
-                ];
+                dataSources = (await Task.WhenAll(_dataSourceReferences.Values
+                                         .Where(dsr => !dsr.Deleted)
+                                         .Select(dsr => LoadDataSource(dsr))))
+                                             .Where(ds => ds != null)
+                                             .Select(ds => ds!)
+                                             .ToList();
             }
             else
             {
@@ -127,27 +128,24 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                 {
                     dataSource = await LoadDataSource(null, instance.ResourceId);
                     if (dataSource != null)
-                    {
-                        return [dataSource];
-                    }
-                    return [];
+                        dataSources.Add(dataSource);
                 }
-
-                if (dataSourceReference.Deleted)
+                else
                 {
-                    throw new ResourceProviderException(
-                        $"Could not locate the {instance.ResourceId} data source resource.",
-                        StatusCodes.Status404NotFound);
-                }
+                    if (dataSourceReference.Deleted)
+                        throw new ResourceProviderException(
+                            $"Could not locate the {instance.ResourceId} data source resource.",
+                            StatusCodes.Status404NotFound);
 
-                dataSource = await LoadDataSource(dataSourceReference);
-
-                if (dataSource != null)
-                {
-                    return [dataSource];
+                    dataSource = await LoadDataSource(dataSourceReference);
+                    if (dataSource != null)
+                        dataSources.Add(dataSource);
                 }
-                return [];
             }
+
+            return await _authorizationService.FilterResourcesByAuthorizableAction(
+                _instanceSettings.Id, userIdentity, dataSources,
+                AuthorizableActionNames.FoundationaLLM_DataSource_DataSources_Read);
         }
 
         private async Task<DataSourceBase?> LoadDataSource(DataSourceReference? dataSourceReference, string? resourceId = null)
@@ -197,14 +195,14 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         protected override async Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(resourcePath, serializedResource),
+                DataSourceResourceTypeNames.DataSources => await UpdateDataSource(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource)
+        private async Task<ResourceProviderUpsertResult> UpdateDataSource(ResourcePath resourcePath, string serializedDataSource, UnifiedUserIdentity userIdentity)
         {
             var dataSource = JsonSerializer.Deserialize<DataSourceBase>(serializedDataSource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
@@ -240,6 +238,11 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                         StatusCodes.Status400BadRequest);
                 }
             }
+
+            if (existingDataSourceReference == null)
+                dataSource.CreatedBy = userIdentity.UPN;
+            else
+                dataSource.UpdatedBy = userIdentity.UPN;
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
@@ -441,14 +444,14 @@ namespace FoundationaLLM.DataSource.ResourceProviders
 
             if (typeof(T) != typeof(DataSourceBase))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
-
+                     
             _dataSourceReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var dataSourceReference);
-            if (dataSourceReference == null || dataSourceReference.Deleted)
-                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            if (dataSourceReference is not null && dataSourceReference.Deleted)
+                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId} of type {resourcePath.ResourceTypeInstances[0].ResourceType} has been soft deleted.");
 
-            var dataSource = LoadDataSource(dataSourceReference).Result;
+            var dataSource = LoadDataSource(dataSourceReference, resourcePath.ResourceTypeInstances[0].ResourceId).Result;
             return dataSource as T
-                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
         
 

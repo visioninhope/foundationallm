@@ -31,10 +31,15 @@ You will use the following tools during deployment:
 
 - **[Docker Desktop](https://www.docker.com/products/docker-desktop/)**
 
+> [!IMPORTANT]
+> The perception of the `main` branch in GitHub, or any version control system, can vary depending on the development workflow adopted by a particular team or organization. The Foundationa**LLM** team uses the `main` branch as the primary **development** branch. In this case, the `main` branch might indeed be considered a **work in progress**, with developers regularly pushing changes and updates directly to it. It is where ongoing development work happens. 
+So for deployment purposes, it is recommended to use the latest release branch, which is considered stable and tested. The release branch is a snapshot of the `main` branch at a specific point in time, where the code is considered stable and ready for deployment. The release branch is tagged with a version number, such as `0.6.0`, and is the recommended branch for deployment.  Please find our latest releases [here](https://github.com/solliancenet/foundationallm/releases)
+
+
 ## Deployment steps
 
 Follow the steps below to deploy the solution to your Azure subscription.
-If you are upgrading from a previous version, like `0.5.0`, please refer to the changes in the [release notes](changes-060.md).
+If you are upgrading from a previous version, like `0.5.0`, please refer to the changes in the [breaking changes notes](../release-notes/breaking-changes.md).
 
 > [!IMPORTANT]
 > Follow the instructions in the [Authentication and Authorization setup document](authentication-authorization/index.md) to finalize authentication and authorization for the solution. Bear in mind that creating the app registrations in the Entra ID tenant is a **prerequisite** for the deployment, but you will have to revisit some of these settings after the deployment is complete later to fill in some missing values that are generated during the deployment.
@@ -46,24 +51,31 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     ```cmd
     git clone https://github.com/solliancenet/foundationallm.git
     cd foundationallm/deploy/quick-start
-    git checkout release/0.6.0
+    git checkout release/0.7.0
     ```
 
-3. Run the following commands to log into the Azure and Azure Developer CLIs:
+3. **For release 0.7.0+:** Run the following script to install the deployment utilities, including `AzCopy`, locally.
+
+    ```cmd
+    ./scripts/bootstrap.ps1
+    ```
+
+4. Run the following commands to log into Azure CLI, Azure Developer CLI and AzCopy:
 
     ```azurecli
     az login            # Log into Azure CLI
     azd auth login      # Log into Azure Developer CLI
+    azcopy login        # Log into AzCopy
     ```
 
-4. Set up an `azd` environment targeting your Azure subscription and desired deployment region:
+5. Set up an `azd` environment targeting your Azure subscription and desired deployment region:
 
     ```azurecli
     # Set your target Subscription and Location
     azd env new --location <Supported Azure Region> --subscription <Azure Subscription ID>
     ```
 
-5. Run the following commands to set the appropriate application registration settings for OIDC authentication.
+6. Run the following commands to set the appropriate application registration settings for OIDC authentication.
 
     ```text
     azd env set ENTRA_AUTH_API_INSTANCE <Auth API Instance>
@@ -116,6 +128,9 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
     azd env set OPENAI_RESOURCE_GROUP <OpenAI Resource Group>
     azd env set OPENAI_SUBSCRIPTION_ID <OpenAI Subscription ID>
     ```
+> [!IMPORTANT]
+> Deploying with `Bring Your Own Azure OpenAI`, customers need to make sure that the relevant Managed Identities (LangChain API, Semantic Kernel API, and Gateway API) are assigned the `Open AI reader role` on the Azure OpenAI account object.
+
 2. Deploy the solution
 
     After setting the OIDC-specific settings in the AZD environment above, run `azd up` in the same folder location to provision the infrastructure, update the App Configuration entries, deploy the API and web app services, and import files into the storage account.
@@ -126,7 +141,7 @@ If you are upgrading from a previous version, like `0.5.0`, please refer to the 
 
 ### Running script to allow MS Graph access through Role Permissions
 
-After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
+After the deployment is complete, you will need to run the following script to allow MS Graph access through Role Permissions. [Role Permissions Script](https://github.com/solliancenet/foundationallm/blob/main/deploy/common/scripts/Assign-MSGraph-Roles.ps1)
 This script will need to be executed twice for the principal IDs of the following:
 - Core API Managed Identity
 - Management API Managed Identity
@@ -144,7 +159,7 @@ The syntax for running the script from the `deploy\common\scripts` folder is:
 ```
 
 > [!IMPORTANT]
-> For this release, you will need to restart the Auth API container in the resource group to allow the changes to take effect.
+> For this release, you will need to restart the `CORE API` container and the `MANAGEMENT API` container in the resource group to allow the changes to take effect.
 
 # Teardown
 

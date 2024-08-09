@@ -1,15 +1,40 @@
 // import type { AccountEntity } from "@azure/msal-browser";
 
-export type Agent = {
-	name: string;
+interface ResourceBase {
 	object_id: string;
+	display_name: string;
 	description: string;
+	cost_center: string;
+	expiration_date: string;
+}
+
+export type ResourceProviderGetResult<T> = {
+	/**
+	 * Represents the result of a fetch operation.
+	 */
+	resource: T;
+
+	/**
+	 * List of authorized actions on the resource.
+	 */
+	actions: string[];
+
+	/**
+	 * List of roles on the resource.
+	 */
+	roles: string[];
+};
+
+export type Agent = ResourceBase & {
+	name: string;
 	type: 'knowledge-management' | 'analytics';
 	inline_context: boolean;
 
+	ai_model_object_id: string;
+
 	vectorization: {
 		dedicated_pipeline: boolean;
-		indexing_profile_object_id: string;
+		indexing_profile_object_ids: string[];
 		text_embedding_profile_object_id: string;
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
@@ -21,27 +46,14 @@ export type Agent = {
 	sessions_enabled: boolean;
 	orchestration_settings: {
 		orchestrator: string;
-		endpoint_configuration: {
-			endpoint: string;
-			api_key: string;
-			api_version: string;
-			operation_type: string;
-		};
-		model_parameters: {
-			temperature: number;
-			deployment_name: string;
-		};
 	};
-	conversation_history: {
+	conversation_history_settings: {
 		enabled: boolean;
 		max_history: number;
 	};
-	gatekeeper: {
+	gatekeeper_settings: {
 		use_system_setting: boolean;
-		options: {
-			content_safety: number;
-			data_protection: number;
-		};
+		options: string[];
 	};
 	language_model: {
 		type: string;
@@ -57,7 +69,7 @@ export type Agent = {
 	prompt_object_id: string;
 };
 
-export type Prompt = {
+export type Prompt = ResourceBase & {
 	type: string;
 	name: string;
 	object_id: string;
@@ -66,10 +78,33 @@ export type Prompt = {
 	suffix: string;
 };
 
-export type AgentDataSource = {
+export type AgentDataSource = ResourceBase & {
 	name: string;
 	content_source: string;
 	object_id: string;
+};
+
+export type ExternalOrchestrationService = ResourceBase & {
+	type: string;
+	name: string;
+	api_url_configuration_name: string;
+	api_key_configuration_name: string;
+	url: string;
+	// The resolved value of the API key configuration reference for displaying in the UI and updating the configuration.
+	resolved_api_key: string;
+};
+
+export type AIModel = ResourceBase & {
+	name: string;
+	type: string;
+	// The object id of the APIEndpointConfiguration object providing the configuration for the API endpoint used to interact with the model.
+	endpoint_object_id: string;
+	// The version of the AI model.
+	version?: string | null;
+	// The name of the deployment corresponding to the AI model.
+	deployment_name?: string | null;
+	// Dictionary with default values for the model parameters.
+	model_parameters: { [key: string]: any };
 };
 
 export interface ConfigurationReferenceMetadata {
@@ -77,11 +112,9 @@ export interface ConfigurationReferenceMetadata {
 }
 
 // Data sources
-interface BaseDataSource {
+interface BaseDataSource extends ResourceBase {
 	type: string;
 	name: string;
-	object_id: string;
-	description: string;
 	configuration_references: { [key: string]: string };
 	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
 	resolved_configuration_references: { [key: string]: string | null };
@@ -141,11 +174,9 @@ export type DataSource =
 // End data sources
 
 // App Configuration
-export interface AppConfigBase {
+export interface AppConfigBase extends ResourceBase {
 	type: string;
 	name: string;
-	object_id: string;
-	display_name: string;
 	description: string | null;
 	key: string;
 	value: string;
@@ -167,10 +198,8 @@ export interface AppConfigKeyVault extends AppConfigBase {
 export type AppConfigUnion = AppConfig | AppConfigKeyVault;
 // End App Configuration
 
-export type AgentIndex = {
+export type AgentIndex = ResourceBase & {
 	name: string;
-	object_id: string;
-	description: string;
 	indexer: string;
 	settings: {
 		IndexName: string;
@@ -184,12 +213,16 @@ export type AgentIndex = {
 		AuthenticationType: string;
 		Endpoint: string;
 	};
+	resolved_configuration_references: {
+		APIKey: string;
+		AuthenticationType: string;
+		Endpoint: string;
+	};
 };
 
-export type TextPartitioningProfile = {
+export type TextPartitioningProfile = ResourceBase & {
 	text_splitter: string;
 	name: string;
-	object_id: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
@@ -198,17 +231,30 @@ export type TextPartitioningProfile = {
 	};
 };
 
-export type TextEmbeddingProfile = {
+export type TextEmbeddingProfile = ResourceBase & {
 	type: string;
 	text_embedding: string;
 	name: string;
-	object_id: string;
 	configuration_references: {
 		APIKey: string;
 		APIVersion: string;
 		AuthenticationType: string;
 		DeploymentName: string;
 		Endpoint: string;
+	};
+	settings: {
+		model_name: string;
+	};
+	// The resolved configuration references are used to store the resolved values for displaying in the UI and updating the configuration.
+	resolved_configuration_references: {
+		APIKey: string;
+		APIVersion: string;
+		AuthenticationType: string;
+		DeploymentName: string;
+		Endpoint: string;
+	};
+	resolved_settings: {
+		model_name: string;
 	};
 };
 
@@ -250,12 +296,12 @@ export type MockCreateAgentRequest = {
 	prompt: string;
 };
 
-export type CreateAgentRequest = {
+export type CreateAgentRequest = ResourceBase & {
 	type: 'knowledge-management' | 'analytics';
 	name: string;
-	description: string;
-	object_id: string;
 	inline_context: boolean;
+
+	ai_model_object_id: string;
 
 	language_model: {
 		type: string;
@@ -271,7 +317,7 @@ export type CreateAgentRequest = {
 
 	vectorization: {
 		dedicated_pipeline: boolean;
-		indexing_profile_object_id: string;
+		indexing_profile_object_ids: string[];
 		text_embedding_profile_object_id: string;
 		text_partitioning_profile_object_id: string;
 		data_source_object_id: string;
@@ -283,41 +329,28 @@ export type CreateAgentRequest = {
 	sessions_enabled: boolean;
 	orchestration_settings: {
 		orchestrator: string;
-		endpoint_configuration: {
-			endpoint: string;
-			api_key: string;
-			api_version: string;
-			operation_type: string;
-		};
-		model_parameters: {
-			temperature: number;
-			deployment_name: string;
-		};
 	};
-	conversation_history: {
+	conversation_history_settings: {
 		enabled: boolean;
 		max_history: number;
 	};
-	gatekeeper: {
+	gatekeeper_settings: {
 		use_system_setting: boolean;
 		options: string[];
 	};
 	prompt_object_id: string;
 };
 
-export type CreatePromptRequest = {
+export type CreatePromptRequest = ResourceBase & {
 	type: 'basic' | 'multipart';
 	name: string;
-	object_id: string;
-	description: string;
 	prefix: string;
 	suffix: string;
 };
 
-export type CreateTextPartitioningProfileRequest = {
+export type CreateTextPartitioningProfileRequest = ResourceBase & {
 	text_splitter: string;
 	name: string;
-	object_id?: string;
 	settings: {
 		Tokenizer: string;
 		TokenizerEncoder: string;
@@ -326,6 +359,10 @@ export type CreateTextPartitioningProfileRequest = {
 	};
 };
 
+export type Role = {};
+
+export type RoleAssignment = {};
+
 // Type guards
 export function isAzureDataLakeDataSource(
 	dataSource: DataSource,
@@ -333,9 +370,7 @@ export function isAzureDataLakeDataSource(
 	return dataSource.type === 'azure-data-lake';
 }
 
-export function isOneLakeDataSource(
-	dataSource: DataSource,
-): dataSource is OneLakeDataSource {
+export function isOneLakeDataSource(dataSource: DataSource): dataSource is OneLakeDataSource {
 	return dataSource.type === 'onelake';
 }
 
@@ -364,6 +399,7 @@ export function convertDataSourceToAzureDataLake(dataSource: DataSource): AzureD
 		type: 'azure-data-lake',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		folders: dataSource.folders || [],
 		configuration_references: {
@@ -389,6 +425,7 @@ export function convertDataSourceToOneLake(dataSource: DataSource): OneLakeDataS
 		type: 'onelake',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		workspaces: dataSource.workspaces || [],
 		configuration_references: {
@@ -416,6 +453,7 @@ export function convertDataSourceToSharePointOnlineSite(
 		type: 'sharepoint-online-site',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		site_url: dataSource.site_url || '',
 		document_libraries: dataSource.document_libraries || [],
@@ -442,6 +480,7 @@ export function convertDataSourceToAzureSQLDatabase(
 		type: 'azure-sql-database',
 		name: dataSource.name,
 		object_id: dataSource.object_id,
+		cost_center: dataSource.cost_center,
 		description: dataSource.description,
 		tables: dataSource.tables || [],
 		configuration_references: {

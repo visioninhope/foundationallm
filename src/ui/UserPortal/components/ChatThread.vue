@@ -22,12 +22,10 @@
 
 				<!-- New chat alert -->
 				<div v-else class="new-chat-alert">
-					<div class="alert-header">
-						<i class="pi pi-exclamation-circle"></i>
-						<span class="alert-header-text">Get Started</span>
-					</div>
 					<div class="alert-body">
-						<span class="alert-body-text">How can I help?</span>
+						<div class="alert-body-text">
+							Start the conversation using the text box below.
+						</div>
 					</div>
 				</div>
 			</template>
@@ -37,11 +35,17 @@
 		<div class="chat-thread__input">
 			<ChatInput :disabled="isLoading || isMessagePending" @send="handleSend" />
 		</div>
+
+		<footer v-if="$appConfigStore.footerText">
+			<!-- eslint-disable-next-line vue/no-v-html -->
+			<div class="footer-item" v-html="$appConfigStore.footerText"></div>
+		</footer>
 	</div>
 </template>
 
 <script lang="ts">
 import type { Message, Session } from '@/js/types';
+import eventBus from '@/js/eventBus';
 
 export default {
 	name: 'ChatThread',
@@ -53,6 +57,7 @@ export default {
 			isLoading: true,
 			userSentMessage: false,
 			isMessagePending: false,
+			longRunningOperations: new Map<string, boolean>(), // sessionId -> isPending
 		};
 	},
 
@@ -76,6 +81,14 @@ export default {
 		},
 	},
 
+	beforeUnmount() {
+		eventBus.off('operation-completed', this.handleOperationCompleted);
+	},
+
+	mounted() {
+		eventBus.on('operation-completed', this.handleOperationCompleted);
+	},
+
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
@@ -86,8 +99,56 @@ export default {
 
 			this.isMessagePending = true;
 			this.userSentMessage = true;
-			await this.$appStore.sendMessage(text);
+
+			const agent = this.$appStore.getSessionAgent(this.currentSession)?.resource;
+
+			// Display an error toast message if agent is null or undefined.
+			if (!agent) {
+				this.$toast.add({
+					severity: 'info',
+					summary: 'Could not send message',
+					detail: 'Please select an agent and try again. If no agents are available, refresh the page.',
+					life: 8000,
+				});
+				this.isMessagePending = false;
+				return;
+			}
+
+			if (agent.long_running) {
+				// Handle long-running operations
+				const operationId = await this.$appStore.startLongRunningProcess('/completions', {
+					session_id: this.currentSession.id,
+					user_prompt: text,
+					agent_name: agent.name,
+					settings: null,
+					attachments: this.$appStore.attachments.map((attachment) => String(attachment.id)),
+				});
+
+				this.longRunningOperations.set(this.currentSession.id, true);
+				await this.pollForCompletion(this.currentSession.id, operationId);
+			} else {
+				await this.$appStore.sendMessage(text);
+			}
+
 			this.isMessagePending = false;
+		},
+
+		async pollForCompletion(sessionId: string, operationId: string) {
+			while (true) {
+				const status = await this.$appStore.checkProcessStatus(operationId);
+				if (status.isCompleted) {
+					this.longRunningOperations.set(sessionId, false);
+					await this.$appStore.getMessages();
+					break;
+				}
+				await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2 seconds
+			}
+		},
+
+		async handleOperationCompleted({ sessionId }: { sessionId: string; operationId: string }) {
+			if (this.currentSession.id === sessionId) {
+				await this.$appStore.getMessages();
+			}
 		},
 	},
 };
@@ -130,7 +191,7 @@ export default {
 
 .chat-thread__input {
 	display: flex;
-	margin: 0px 24px 24px 24px;
+	margin: 0px 24px 8px 24px;
 	// box-shadow: 0 -5px 10px 0 rgba(27, 29, 33, 0.1);
 }
 
@@ -138,10 +199,14 @@ export default {
 	flex-direction: column;
 }
 .new-chat-alert {
-	background-color: #d9f0d1;
+	background-color: #FAFAFA;
 	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
 	padding: 10px;
 	border-radius: 6px;
+	width: 55%;
 }
 
 .alert-header,
@@ -157,8 +222,16 @@ export default {
 }
 
 .alert-body-text {
-	font-size: 1.2rem;
-	font-weight: 300;
+	color: #000;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 	font-style: italic;
+}
+
+footer {
+	text-align: right;
+	font-size: 0.85rem;
+	padding-right: 24px;
 }
 </style>
