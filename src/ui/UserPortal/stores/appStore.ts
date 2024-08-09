@@ -301,15 +301,6 @@ export const useAppStore = defineStore('app', {
 			const fileName = file.get('file')?.name;
 			const newAttachment = { id, fileName, sessionId };
 
-			// const existingIndex = this.attachments.findIndex(
-			// 	(attachment) => attachment.sessionId === sessionId,
-			// );
-
-			// if (existingIndex !== -1) {
-			// 	this.attachments.splice(existingIndex, 1, newAttachment);
-			// } else {
-			// 	this.attachments.push(newAttachment);
-			// }
 			this.attachments.push(newAttachment);
 
 			return id;
