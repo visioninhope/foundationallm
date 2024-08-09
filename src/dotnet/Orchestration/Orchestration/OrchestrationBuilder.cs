@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.EMMA;
-using FoundationaLLM.Common.Constants;
+﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -17,7 +16,6 @@ using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Graph.Communications.OnlineMeetings.CreateOrGet;
 using System.Net;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
