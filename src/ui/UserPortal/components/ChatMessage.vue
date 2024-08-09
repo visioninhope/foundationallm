@@ -55,6 +55,9 @@
 							<div v-else-if="content.type === 'html'">
 								<iframe :src="content.value" frameborder="0"></iframe>
 							</div>
+							<div v-else-if="content.type === 'file'">
+								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+							</div>
 						</div>
 					</template>
 				</div>
