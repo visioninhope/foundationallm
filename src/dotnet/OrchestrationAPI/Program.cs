@@ -118,9 +118,6 @@ namespace FoundationaLLM.Orchestration.API
             builder.AddGroupMembership();
             builder.AddAuthorizationService();
 
-            // Add Gateway client
-            builder.AddGatewayServiceClient();
-
             //----------------------------
             // Resource providers
             //----------------------------

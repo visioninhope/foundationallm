@@ -158,7 +158,6 @@ builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames
 // Gateway text embedding
 builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_TextEmbedding_Gateway);
-builder.AddGatewayServiceClient();
 
 builder.Services.AddScoped<ICallContext, CallContext>();
 builder.AddHttpClientFactoryService();

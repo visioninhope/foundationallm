@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains constants for the agent capability names.
     /// </summary>
-    public static class AgentCapabilityNames
+    public static class AgentCapabilityCategoryNames
     {
         /// <summary>
         /// Indicates the agent has the OpenAI Assistants API capability.

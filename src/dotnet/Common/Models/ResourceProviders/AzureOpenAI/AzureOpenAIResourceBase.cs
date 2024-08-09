@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
 {

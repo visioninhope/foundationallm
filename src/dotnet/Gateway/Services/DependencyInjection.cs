@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Gateway.Client;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models.Configuration;
@@ -25,12 +26,5 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IGatewayCore, GatewayCore>();
             builder.Services.AddHostedService<GatewayWorker>();
         }
-
-        /// <summary>
-        /// Adds the Gateway API service client to the dependency injection container.
-        /// </summary>
-        /// <param name="builder">The host application builder.</param>
-        public static void AddGatewayServiceClient(this IHostApplicationBuilder builder) =>
-            builder.Services.AddScoped<IGatewayServiceClient, GatewayServiceClient>();
     }
 }

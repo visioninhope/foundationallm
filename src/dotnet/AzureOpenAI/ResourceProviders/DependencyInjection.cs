@@ -23,7 +23,7 @@ namespace FoundationaLLM
         /// </remarks>
         public static void AddAzureOpenAIResourceProvider(this IHostApplicationBuilder builder)
         {
-            builder.AddPromptResourceProviderStorage();
+            builder.AddAzureOpenAIResourceProviderStorage();
 
             builder.Services.AddSingleton<IResourceProviderService, AzureOpenAIResourceProviderService>(sp =>
                 new AzureOpenAIResourceProviderService(

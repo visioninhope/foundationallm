@@ -45,6 +45,26 @@
 		]
 	},
 	{
+		"category": "AzureOpenAI",
+		"actions": [
+			{
+				"name": "FoundationaLLM.AzureOpenAI/assistantUserContexts/read",
+				"description": "Read assistant user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_AssistantUserContexts_Read"
+			},
+			{
+				"name": "FoundationaLLM.AzureOpenAI/assistantUserContexts/write",
+				"description": "Create or update assistant user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write"
+			},
+			{
+				"name": "FoundationaLLM.AzureOpenAI/assistantUserContexts/delete",
+				"description": "Delete assistant user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete"
+			}
+		]
+	},
+	{
 		"category": "Configuration",
 		"actions": [
 			{
@@ -78,19 +98,19 @@
 				"field_name": "FoundationaLLM_Configuration_KeyVaultSecrets_Delete"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/apiEndpoints/read",
-				"description": "Read API endpoints.",
-				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Read"
+				"name": "FoundationaLLM.Configuration/apiEndpointConfigurations/read",
+				"description": "Read API endpoint configurations.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpointConfigurations_Read"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/apiEndpoints/write",
-				"description": "Create or update API endpoints.",
-				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Write"
+				"name": "FoundationaLLM.Configuration/apiEndpointConfigurations/write",
+				"description": "Create or update API endpoint configurations.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpointConfigurations_Write"
 			},
 			{
-				"name": "FoundationaLLM.Configuration/apiEndpoints/delete",
-				"description": "Delete API endpoints.",
-				"field_name": "FoundationaLLM_Configuration_APIEndpoints_Delete"
+				"name": "FoundationaLLM.Configuration/apiEndpointConfigurations/delete",
+				"description": "Delete API endpoint configurations.",
+				"field_name": "FoundationaLLM_Configuration_APIEndpoinConfigurations_Delete"
 			}
 		]
 	},
@@ -289,18 +309,18 @@
 		"actions": [
 			{
 				"name": "FoundationaLLM.AIModel/aiModels/read",
-				"description": "Read aiModels models",
-				"field_name": "FoundationaLLM_AIModel_Models_Read"
+				"description": "Read AI models",
+				"field_name": "FoundationaLLM_AIModel_AIModels_Read"
 			},
 			{
 				"name": "FoundationaLLM.AIModel/aiModels/write",
-				"description": "Create or update models.",
-				"field_name": "FoundationaLLM_AIModel_Models_Write"
+				"description": "Create or update AI models.",
+				"field_name": "FoundationaLLM_AIModel_AIModels_Write"
 			},
 			{
 				"name": "FoundationaLLM.AIModel/aiModels/delete",
-				"description": "Delete models.",
-				"field_name": "FoundationaLLM_AIModel_Models_Delete"
+				"description": "Delete AI models.",
+				"field_name": "FoundationaLLM_AIModel_AIModels_Delete"
 			}
 		]
 	}

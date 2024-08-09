@@ -16,20 +16,22 @@ namespace FoundationaLLM.Common.Extensions
         /// Creates or updates a resource.
         /// </summary>
         /// <typeparam name="T">The object type of the resource being created or updated.</typeparam>
+        /// <typeparam name="TResult">The object type of the response returned by the operation</typeparam>
         /// <param name="resourceProviderService">The <see cref="IResourceProviderService"/> providing the resource provider services.</param>
         /// <param name="instanceId">The FoundationaLLM instance ID.</param>
         /// <param name="resource">The resource object.</param>
         /// <param name="resourceTypeName">The name of the resource type.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
-        /// <returns>A <see cref="ResourceProviderUpsertResult"/> object holding the result of the operation.</returns>
+        /// <returns>A <typeparamref name="TResult"/> object with the result of the operation.</returns>
         /// <exception cref="ResourceProviderException"></exception>
-        public static async Task<ResourceProviderUpsertResult> CreateOrUpdateResource<T>(
+        public static async Task<TResult> CreateOrUpdateResource<T, TResult>(
             this IResourceProviderService resourceProviderService,
             string instanceId,
             T resource,
             string resourceTypeName,
             UnifiedUserIdentity userIdentity)
             where T : ResourceBase
+            where TResult : ResourceProviderUpsertResult
         {
             if (!resourceProviderService.IsInitialized)
                 throw new ResourceProviderException($"The resource provider {resourceProviderService.Name} is not initialized.");
@@ -39,7 +41,7 @@ namespace FoundationaLLM.Common.Extensions
                 JsonSerializer.Serialize(resource),
                 userIdentity);
 
-            return (result as ResourceProviderUpsertResult)!;
+            return (result as TResult)!;
         }
 
         /// <summary>
