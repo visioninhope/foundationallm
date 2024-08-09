@@ -578,6 +578,75 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
 
 
+  <a id="FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProvider_" data-uid="FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
+  AddAzureOpenAIResourceProvider(IHostApplicationBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AzureOpenAI/ResourceProviders/DependencyInjection.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Register the handler as a hosted service, passing the step name to the handler ctor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddAzureOpenAIResourceProvider(this IHostApplicationBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostapplicationbuilder">IHostApplicationBuilder</a></dt>
+    <dd><p>The application builder.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Requires an <a class="xref" href="FoundationaLLM.Common.Interfaces.IGatewayServiceClient.html">IGatewayServiceClient</a> service to be also registered with the dependency injection container.</p>
+</div>
+
+
+
+
+  <a id="FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProviderStorage_" data-uid="FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage*"></a>
+
+  <h3 id="FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
+  AddAzureOpenAIResourceProviderStorage(IHostApplicationBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Add the named <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> implementation for the FoundationaLLM.AzureOpenAI resource provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddAzureOpenAIResourceProviderStorage(this IHostApplicationBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostapplicationbuilder">IHostApplicationBuilder</a></dt>
+    <dd><p>The application builder.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_DependencyInjection_AddConfigurationResourceProvider_" data-uid="FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider*"></a>
 
   <h3 id="FoundationaLLM_DependencyInjection_AddConfigurationResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
@@ -615,7 +684,7 @@ Class DependencyInjection  <a class="header-action link-secondary" title="View s
 
   <h3 id="FoundationaLLM_DependencyInjection_AddConfigurationResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
   AddConfigurationResourceProviderStorage(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L128"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add the named <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> implementation for the FoundationaLLM.Configuration resource provider.</p>
@@ -762,7 +831,7 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <h3 id="FoundationaLLM_DependencyInjection_AddDataSourceResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddDataSourceResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
   AddDataSourceResourceProviderStorage(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L153"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add the named <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> implementation for the FoundationaLLM.DataSource resource provider.</p>
@@ -831,7 +900,7 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <h3 id="FoundationaLLM_DependencyInjection_AddGatewayCore_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddGatewayCore(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
   AddGatewayCore(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/DependencyInjection.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/DependencyInjection.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds the core Gateway service the the dependency injection container.</p>
@@ -873,39 +942,6 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddGatewayGenericExceptionHandling(this IHostApplicationBuilder builder)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostapplicationbuilder">IHostApplicationBuilder</a></dt>
-    <dd><p>The host application builder.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_DependencyInjection_AddGatewayService_" data-uid="FoundationaLLM.DependencyInjection.AddGatewayService*"></a>
-
-  <h3 id="FoundationaLLM_DependencyInjection_AddGatewayService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddGatewayService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
-  AddGatewayService(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/DependencyInjection.cs/#L33"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Adds the Gateway API service to the dependency injection container.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void AddGatewayService(this IHostApplicationBuilder builder)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1250,7 +1286,7 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <h3 id="FoundationaLLM_DependencyInjection_AddPromptResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddPromptResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
   AddPromptResourceProviderStorage(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L153"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L178"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add the named <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> implementation for the FoundationaLLM.Prompt resource provider.</p>
@@ -1448,7 +1484,7 @@ Locate this value in the FoundationaLLM Management Portal or in Azure App Config
 
   <h3 id="FoundationaLLM_DependencyInjection_AddVectorizationResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_" data-uid="FoundationaLLM.DependencyInjection.AddVectorizationResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)">
   AddVectorizationResourceProviderStorage(IHostApplicationBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Constants/Configuration/DependencyInjection.cs/#L203"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Add the named <a class="xref" href="FoundationaLLM.Common.Interfaces.IStorageService.html">IStorageService</a> implementation for the FoundationaLLM.Vectorization resource provider.</p>

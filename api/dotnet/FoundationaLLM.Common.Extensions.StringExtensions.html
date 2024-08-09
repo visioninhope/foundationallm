@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Extensions_StringExtensions" data-uid="FoundationaLLM.Common.Extensions.StringExtensions" class="text-break">
-Class StringExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class StringExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -153,34 +153,33 @@ Class StringExtensions  <a class="header-action link-secondary" title="View sour
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Extensions_StringExtensions_GenerateValidResourceName_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName*"></a>
+  <a id="FoundationaLLM_Common_Extensions_StringExtensions_NormalizeUserPrincipalName_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.NormalizeUserPrincipalName*"></a>
 
-  <h3 id="FoundationaLLM_Common_Extensions_StringExtensions_GenerateValidResourceName_System_String_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.GenerateValidResourceName(System.String)">
-  GenerateValidResourceName(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Extensions_StringExtensions_NormalizeUserPrincipalName_System_String_" data-uid="FoundationaLLM.Common.Extensions.StringExtensions.NormalizeUserPrincipalName(System.String)">
+  NormalizeUserPrincipalName(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Generates a valid resource name from the provided name.
-A good example use for this method is generating a valid
-resource name from an uploaded file name.</p>
+  <div class="markdown level1 summary"><p>Converts a UPN (User Principal Name) to a string that is better suited to be used as an identifier.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GenerateValidResourceName(this string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string NormalizeUserPrincipalName(this string upn)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The original resource name to convert.</p>
+    <dt><code>upn</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The original UPN (User Principal Name).</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>A string containing the normalized UPN (User Principal Name).</p>
+</dd>
   </dl>
 
 
@@ -197,7 +196,7 @@ resource name from an uploaded file name.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/StringExtensions.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions" class="text-break">
-Class ResourceProviderServiceExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class ResourceProviderServiceExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -153,11 +153,127 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_CheckResourceName_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.CheckResourceName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_CheckResourceName_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.CheckResourceName(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  CheckResourceName(IResourceProviderService, string, string, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks a resource name for availability.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;ResourceNameCheckResult&gt; CheckResourceName(this IResourceProviderService resourceProviderService, string instanceId, string resourceName, string resourceTypeName, UnifiedUserIdentity userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> providing the resource provider services.</p>
+</dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+    <dt><code>resourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The resource name being checked.</p>
+</dd>
+    <dt><code>resourceTypeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource type.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceNameCheckResult.html">ResourceNameCheckResult</a>&gt;</dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceNameCheckResult.html">ResourceNameCheckResult</a> object with the result of the name check.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_CreateOrUpdateResource_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.CreateOrUpdateResource*"></a>
+
+  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_CreateOrUpdateResource__2_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String___0_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.CreateOrUpdateResource``2(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,``0,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  CreateOrUpdateResource&lt;T, TResult&gt;(IResourceProviderService, string, T, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates or updates a resource.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; CreateOrUpdateResource&lt;T, TResult&gt;(this IResourceProviderService resourceProviderService, string instanceId, T resource, string resourceTypeName, UnifiedUserIdentity userIdentity) where T : ResourceBase where TResult : ResourceProviderUpsertResult</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> providing the resource provider services.</p>
+</dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+    <dt><code>resource</code> <span class="xref">T</span></dt>
+    <dd><p>The resource object.</p>
+</dd>
+    <dt><code>resourceTypeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource type.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TResult&gt;</dt>
+    <dd><p>A <code class="typeparamref">TResult</code> object with the result of the operation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The object type of the resource being created or updated.</p>
+</dd>
+    <dt><code>TResult</code></dt>
+    <dd><p>The object type of the response returned by the operation</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="FoundationaLLM.Common.Exceptions.ResourceProviderException.html">ResourceProviderException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
   <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource*"></a>
 
   <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResource&lt;T&gt;(IResourceProviderService, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource from the resource provider service.</p>
@@ -204,11 +320,68 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 
 
 
+  <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource*"></a>
+
+  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetResource&lt;T&gt;(IResourceProviderService, string, string, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a resource from the resource provider service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; GetResource&lt;T&gt;(this IResourceProviderService resourceProviderService, string instanceId, string resourceName, string resourceTypeName, UnifiedUserIdentity userIdentity) where T : ResourceBase</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> providing the resource provider services.</p>
+</dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+    <dt><code>resourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The resource name being checked.</p>
+</dd>
+    <dt><code>resourceTypeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource type.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
+    <dd><p>A resource object of type <code class="typeparamref">T</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>The object type of the resource being retrieved.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC*"></a>
 
   <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResourcesWithRBAC__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResourcesWithRBAC``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResourcesWithRBAC&lt;T&gt;(IResourceProviderService, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L141"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of resources with RBAC information from the resource provider service.</p>
@@ -264,7 +437,7 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResources&lt;T&gt;(IResourceProviderService, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L113"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of resources from the resource provider service.</p>
@@ -313,11 +486,65 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 
 
 
+  <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_ResourceExists_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.ResourceExists*"></a>
+
+  <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_ResourceExists_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.ResourceExists(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  ResourceExists(IResourceProviderService, string, string, string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks if a resource exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;bool&gt; ResourceExists(this IResourceProviderService resourceProviderService, string instanceId, string resourceName, string resourceTypeName, UnifiedUserIdentity userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resourceProviderService</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.IResourceProviderService.html">IResourceProviderService</a> providing the resource provider services.</p>
+</dd>
+    <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The FoundationaLLM instance ID.</p>
+</dd>
+    <dt><code>resourceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The resource name being checked.</p>
+</dd>
+    <dt><code>resourceTypeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the resource type.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>True if the resource exists, False otherwise.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_ResourceExists_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>If a resource was logically deleted but not purged, this method will return True, indicating the existence of the resource.</p>
+</div>
+
+
+
+
   <a id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization*"></a>
 
   <h3 id="FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_WaitForInitialization_FoundationaLLM_Common_Interfaces_IResourceProviderService_" data-uid="FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.WaitForInitialization(FoundationaLLM.Common.Interfaces.IResourceProviderService)">
   WaitForInitialization(IResourceProviderService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L223"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Waits for the resource provider service to be initialized.</p>
@@ -355,7 +582,7 @@ Class ResourceProviderServiceExtensions  <a class="header-action link-secondary"
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Extensions/ResourceProviderServiceExtensions.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

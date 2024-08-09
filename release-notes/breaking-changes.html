@@ -179,6 +179,12 @@ This is an example for <code>CoreAPI</code>:</p>
 </ul>
 </div>
 <p>The <code>FoundationaLLM:AzureAIStudio</code> configuration namespace expects an <code>APIEndpointConfigurationName</code> property instead of <code>BaseUrl</code>.</p>
+<p>A new configuration setting named <code>FoundationaLLM:Instance:SecurityGroupRetrievalStrategy</code> with a value of <code>IdentityManagementService</code> must exist in the app configuration. It will be added by default in new deployments.</p>
+<p>Two new configuration settings required by the new <code>FoundationaLLM.AzureOpenAI</code> resource provider:</p>
+<ul>
+<li><code>FoundationaLLM:ResourceProviders:AzureOpenAI:Storage:AuthenticationType</code></li>
+<li><code>FoundationaLLM:ResourceProviders:AzureOpenAI:Storage:AccountName</code></li>
+</ul>
 <h3 id="pre-080">Pre-0.8.0</h3>
 <ol>
 <li><p>Vectorization resource stores use a unique collection name, <code>Resources</code>. They also add a new top-level property named <code>DefaultResourceName</code>.</p>
