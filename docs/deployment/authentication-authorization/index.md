@@ -18,8 +18,10 @@ After the completion of the script execution, you will see the 5 applications re
 > [!IMPORTANT]
 > Make sure to copy and save the Application (Client) ID of all 5 applications in a text editor as you will need them in the next steps.
 
+## Option 2 - Manually registering the 5 applications
+
 > [!IMPORTANT]
-> The following steps are required to set up authentication and authorization for the solution. You will need to create app registrations in the Entra ID tenant in the Azure portal.  There are currently **five** app registrations required for the solution as listed below.  After you complete the 5 app registrations, you will need to finish the deployment process of the solution and revisit these app registrations to fill in some missing values that are generated during the deployment itself.
+> The following steps are to set up authentication and authorization for the solution. You will need to create app registrations in the Entra ID tenant in the Azure portal manually if you choose not to run the automatic script for any reason.  There are currently **five** app registrations required for the solution as listed below.  After you complete the 5 app registrations, you will need to finish the deployment process of the solution and revisit these app registrations to fill in some missing values that are generated during the deployment itself.
 
 ### Steps to perform before the deployment
 - [Core API and user portal authentication pre-deployment - Microsoft Entra ID](core-authentication-setup-entra.md)
