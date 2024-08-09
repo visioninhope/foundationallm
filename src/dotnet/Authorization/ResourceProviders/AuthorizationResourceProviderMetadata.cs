@@ -25,7 +25,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
                     ],
                     Actions = [
-                        new ResourceTypeAction(AuthorizationResourceProviderActions.Filter, false, true, [
+                        new ResourceTypeAction(ResourceProviderActions.Filter, false, true, [
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(RoleAssignmentQueryParameters)], [typeof(ResourceProviderGetResult<RoleAssignment>)])
                         ])
                     ]

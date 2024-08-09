@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
@@ -218,11 +219,12 @@ public class OrchestrationService : IOrchestrationService
     {
         var agentResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Agent];
 
-        var result = await agentResourceProvider.HandlePostAsync(
-            $"/instances/{instanceId}/{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
-            JsonSerializer.Serialize(new ResourceName { Name = agentName }),
+        var result = await agentResourceProvider.CheckResourceName(
+            instanceId,
+            agentName,
+            AgentResourceTypeNames.Agents,
             _callContext.CurrentUserIdentity!);
 
-        return true;
+        return result.Status == NameCheckResultType.Allowed;
     }
 }

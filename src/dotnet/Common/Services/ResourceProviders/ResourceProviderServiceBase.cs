@@ -29,8 +29,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly List<string>? _eventNamespacesToSubscribe;
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
-        private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
+
+        /// <summary>
+        /// The <see cref="IServiceProvider"/> tha provides dependency injection services.
+        /// </summary>
+        protected readonly IServiceProvider _serviceProvider;
 
         /// <summary>
         /// The <see cref="IAuthorizationService"/> providing authorization services to the resource provider.

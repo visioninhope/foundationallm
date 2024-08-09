@@ -82,5 +82,8 @@ namespace FoundationaLLM.Gateway.Client
 
             return fallback;
         }
+
+        public async Task<string> CreateAgentCapability(string category, string name, Dictionary<string, object>? parameters = null) =>
+            await Task.FromResult<string>(Guid.NewGuid().ToString());
     }
 }

@@ -27,10 +27,10 @@ namespace FoundationaLLM
         }
 
         /// <summary>
-        /// Adds the Gateway API service to the dependency injection container.
+        /// Adds the Gateway API service client to the dependency injection container.
         /// </summary>
         /// <param name="builder">The host application builder.</param>
-        public static void AddGatewayService(this IHostApplicationBuilder builder) =>
+        public static void AddGatewayServiceClient(this IHostApplicationBuilder builder) =>
             builder.Services.AddScoped<IGatewayServiceClient, GatewayServiceClient>();
     }
 }
