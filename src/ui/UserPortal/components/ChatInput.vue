@@ -58,50 +58,51 @@
 					</template>
 
 					<template #content="{ files, removeFileCallback }">
-						<div v-if="files.length || uploadProgress !== 0">
+						<div v-if="uploadProgress !== 0">
 							<ProgressBar :value="uploadProgress" :showValue="false" style="display: flex; width: 95%; margin: 10px 2.5%;" />
+							<p style="text-align: center">Uploading...</p>
 						</div>
-						<div
-							v-for="(file, index) of files"
-							:key="file.name + file.type + file.size"
-							class="file-upload-file"
-						>
-							<div class="file-upload-file_info">
-								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
-								<span style="font-weight: 600">{{ file.name }}</span>
-								<div>{{ formatSize(file.size) }}</div>
+						<div v-else>
+							<div
+								v-for="(file, index) of files"
+								:key="file.name + file.type + file.size"
+								class="file-upload-file"
+							>
+								<div class="file-upload-file_info">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+									<span style="font-weight: 600">{{ file.name }}</span>
+									<div>{{ formatSize(file.size) }}</div>
+								</div>
+								<div style="display: flex; align-items: center; margin-left: 10px;">
+									<Badge value="Pending" />
+									<Button
+										icon="pi pi-times"
+										text
+										severity="danger"
+										@click="removeFileCallback(index)"
+									/>
+								</div>
 							</div>
-							<div style="display: flex; align-items: center; margin-left: 10px;">
-								<Badge value="Pending" />
-								<Button
-									icon="pi pi-times"
-									text
-									severity="danger"
-									@click="removeFileCallback(index)"
-								/>
+							<div
+								v-for="file in fileArrayFiltered"
+								:key="file.fileName"
+								class="file-upload-file"
+							>
+								<div class="file-upload-file_info">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+									<span style="font-weight: 600">{{ file.fileName }}</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-left: 10px;">
+									<Badge value="Uploaded" severity="success" />
+									<Button
+										icon="pi pi-times"
+										text
+										severity="danger"
+										@click="removeAttachment(file)"
+									/>
+								</div>
 							</div>
-						</div>
-						<div
-							v-for="file in fileArrayFiltered"
-							:key="file.fileName"
-							class="file-upload-file"
-						>
-							<div class="file-upload-file_info">
-								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
-								<span style="font-weight: 600">{{ file.fileName }}</span>
-							</div>
-							<div style="display: flex; align-items: center; margin-left: 10px;">
-								<Badge value="Uploaded" severity="success" />
-								<Button
-									icon="pi pi-times"
-									text
-									severity="danger"
-									@click="removeAttachment(file)"
-								/>
-							</div>
-						</div>
-						<div v-if="files.length === 0 && fileArrayFiltered.length === 0">
-							<div v-if="uploadProgress === 0">
+							<div v-if="files.length === 0 && fileArrayFiltered.length === 0">
 								<i class="pi pi-cloud-upload file-upload-icon" />
 								<div style="width: 500px">
 									<p style="text-align: center">
@@ -112,9 +113,6 @@
 										<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
 									</p>
 								</div>
-							</div>
-							<div v-else>
-								<p style="text-align: center">Uploading...</p>
 							</div>
 						</div>
 					</template>
