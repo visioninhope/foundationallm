@@ -56,7 +56,7 @@ module search 'modules/search.bicep' = {
     logAnalyticsWorkspaceId: logAnalyticsWorkspaceId
     resourceSuffix: resourceSuffix
     tags: tags
-    subnetId: '${vnetId}/subnets/Vectorization'
+    subnetId: '${vnetId}/subnets/vectorization'
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'search')
   }
 }

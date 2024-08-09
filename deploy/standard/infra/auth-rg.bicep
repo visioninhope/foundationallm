@@ -113,7 +113,7 @@ module authStore 'modules/storageAccount.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => contains(['blob', 'dfs'], zone.key))
     resourceSuffix: resourceToken
-    subnetId: '${vnetId}/subnets/FLLMAuth'
+    subnetId: '${vnetId}/subnets/auth'
     tags: tags
     containers: [
       'role-assignments'
@@ -132,7 +132,7 @@ module authKeyvault 'modules/keyVault.bicep' = {
     logAnalyticWorkspaceId: logAnalyticsWorkspaceId
     privateDnsZones: filter(dnsZones.outputs.ids, (zone) => zone.key == 'vault')
     resourceSuffix: resourceSuffix
-    subnetId: '${vnetId}/subnets/FLLMAuth'
+    subnetId: '${vnetId}/subnets/auth'
     tags: tags
   }
 }

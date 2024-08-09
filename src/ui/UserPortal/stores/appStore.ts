@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
+import type { Session, ChatSessionProperties, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
 
@@ -26,7 +26,7 @@ export const useAppStore = defineStore('app', {
 
 			// No need to load sessions if in kiosk mode, simply create a new one and skip.
 			if (appConfigStore.isKioskMode) {
-				const newSession = await api.addSession();
+				const newSession = await api.addSession(this.getDefaultChatSessionProperties());
 				await this.changeSession(newSession);
 				return;
 			}
@@ -34,7 +34,7 @@ export const useAppStore = defineStore('app', {
 			await this.getSessions();
 
 			if (this.sessions.length === 0) {
-				await this.addSession();
+				await this.addSession(this.getDefaultChatSessionProperties());
 				await this.changeSession(this.sessions[0]);
 			} else {
 				const existingSession = this.sessions.find((session: Session) => session.id === sessionId);
@@ -45,6 +45,23 @@ export const useAppStore = defineStore('app', {
 				await this.getMessages();
 				this.updateSessionAgentFromMessages(this.currentSession);
 			}
+		},
+
+		getDefaultChatSessionProperties(): ChatSessionProperties {
+			const now = new Date();
+			// Using the 'sv-SE' locale since it uses the 'YYY-MM-DD' format.
+			const formattedNow = now.toLocaleString('sv-SE', {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit',
+			hour12: false,
+			}).replace(' ', 'T').replace('T', ' ');
+			return {
+				name: formattedNow,
+			};
 		},
 
 		async getSessions(session?: Session) {
@@ -65,8 +82,12 @@ export const useAppStore = defineStore('app', {
 			}
 		},
 
-		async addSession() {
-			const newSession = await api.addSession();
+		async addSession(properties: ChatSessionProperties) {
+			if (!properties) {
+				properties = this.getDefaultChatSessionProperties();
+			}
+
+			const newSession = await api.addSession(properties);
 			await this.getSessions(newSession);
 
 			// Only add newSession to the list if it doesn't already exist.
@@ -98,21 +119,25 @@ export const useAppStore = defineStore('app', {
 			await api.deleteSession(sessionToDelete!.id);
 			await this.getSessions();
 
-			this.sessions = this.sessions.filter(
-				(session: Session) => session.id !== sessionToDelete!.id,
-			);
+			this.removeSession(sessionToDelete!.id);
 
 			// Ensure there is at least always 1 session
 			if (this.sessions.length === 0) {
-				const newSession = await this.addSession();
+				const newSession = await this.addSession(this.getDefaultChatSessionProperties());
+				this.removeSession(sessionToDelete!.id);
 				await this.changeSession(newSession);
-				return;
 			}
 
 			const firstSession = this.sessions[0];
 			if (firstSession) {
 				await this.changeSession(firstSession);
 			}
+		},
+
+		removeSession(sessionId: string) {
+			this.sessions = this.sessions.filter(
+				(session: Session) => session.id !== sessionId
+			);
 		},
 
 		async getMessages() {
@@ -220,17 +245,8 @@ export const useAppStore = defineStore('app', {
 					relevantAttachments.map((attachment) => String(attachment.id)),
 				);
 				await this.getMessages();
-			}
-
-			// Update the session name based on the message sent.
-			if (this.currentMessages.length === 2) {
-				const sessionFullText = this.currentMessages.map((message) => message.text).join('\n');
-				const { text: newSessionName } = await api.generateSessionName(
-					this.currentSession!.id,
-					sessionFullText,
-				);
-				// the generate session name already renames the session in the backend
-				this.currentSession!.name = newSessionName;
+				// Get rid of the attachments that were just sent.
+				this.attachments = this.attachments.filter((attachment) => { return !relevantAttachments.includes(attachment) });
 			}
 		},
 
@@ -299,15 +315,7 @@ export const useAppStore = defineStore('app', {
 			const fileName = file.get('file')?.name;
 			const newAttachment = { id, fileName, sessionId };
 
-			const existingIndex = this.attachments.findIndex(
-				(attachment) => attachment.sessionId === sessionId,
-			);
-
-			if (existingIndex !== -1) {
-				this.attachments.splice(existingIndex, 1, newAttachment);
-			} else {
-				this.attachments.push(newAttachment);
-			}
+			this.attachments.push(newAttachment);
 
 			return id;
 		},

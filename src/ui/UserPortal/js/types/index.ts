@@ -34,6 +34,13 @@ export interface Message {
 	vector: Array<Number>;
 	completionPromptId: string | null;
 	citations: Array<Citation>;
+	content: Array<MessageContent>;
+}
+
+export interface MessageContent {
+	type: string;
+	fileName: string;
+	value: string;
 }
 
 export interface Session {
@@ -43,6 +50,10 @@ export interface Session {
 	tokensUsed: Number;
 	name: string;
 	messages: Array<Message>;
+}
+
+export interface ChatSessionProperties {
+	name: string;
 }
 
 export interface CompletionPrompt {

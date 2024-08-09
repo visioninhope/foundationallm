@@ -1,8 +1,8 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using Azure.Core;
+﻿using Azure.Core;
 using FoundationaLLM.Client.Core.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace FoundationaLLM.Client.Core.Clients.RESTClients
 {
@@ -17,10 +17,12 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         private readonly string _instanceId = instanceId ?? throw new ArgumentNullException(nameof(instanceId));
 
         /// <inheritdoc/>
-        public async Task<string> CreateSessionAsync()
+        public async Task<string> CreateSessionAsync(ChatSessionProperties chatSessionProperties)
         {
             var coreClient = await GetCoreClientAsync();
-            var responseSession = await coreClient.PostAsync($"instances/{_instanceId}/sessions", null);
+            var responseSession = await coreClient.PostAsync(
+                $"instances/{_instanceId}/sessions",
+                JsonContent.Create(chatSessionProperties));
 
             if (responseSession.IsSuccessStatusCode)
             {
@@ -36,14 +38,16 @@ namespace FoundationaLLM.Client.Core.Clients.RESTClients
         }
 
         /// <inheritdoc/>
-        public async Task<string> RenameChatSession(string sessionId, string sessionName)
+        public async Task<string> RenameChatSession(string sessionId, ChatSessionProperties chatSessionProperties)
         {
             var coreClient = await GetCoreClientAsync();
-            var response = await coreClient.PostAsync($"instances/{_instanceId}/sessions/{sessionId}/rename?newChatSessionName={UrlEncoder.Default.Encode(sessionName)}", null);
+            var response = await coreClient.PostAsync(
+                $"instances/{_instanceId}/sessions/{sessionId}/rename",
+                JsonContent.Create(chatSessionProperties));
 
             if (response.IsSuccessStatusCode)
             {
-                return sessionName;
+                return chatSessionProperties.Name;
             }
 
             throw new Exception($"Failed to rename chat session. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");

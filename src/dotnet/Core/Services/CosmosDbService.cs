@@ -223,14 +223,14 @@ namespace FoundationaLLM.Core.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Session> UpdateSessionNameAsync(string id, string name, CancellationToken cancellationToken = default)
+        public async Task<Session> UpdateSessionNameAsync(string id, string sessionName, CancellationToken cancellationToken = default)
         {
             var response = await _sessions.PatchItemAsync<Session>(
                 id: id,
                 partitionKey: new PartitionKey(id),
                 patchOperations: new[]
                 {
-                    PatchOperation.Set("/name", name),
+                    PatchOperation.Set("/name", sessionName),
                 },
                 cancellationToken: cancellationToken
             );
