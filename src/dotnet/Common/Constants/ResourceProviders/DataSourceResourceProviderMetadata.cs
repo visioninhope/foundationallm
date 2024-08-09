@@ -24,13 +24,13 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                            new ResourceTypeAction(DataSourceResourceProviderActions.CheckName, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ]),
-                            new ResourceTypeAction(DataSourceResourceProviderActions.Filter, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.Filter, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(DataSourceBase)])
                             ]),
-                            new ResourceTypeAction(DataSourceResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]

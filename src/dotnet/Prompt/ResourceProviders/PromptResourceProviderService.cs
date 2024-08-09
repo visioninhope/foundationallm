@@ -254,8 +254,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             {
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
-                    PromptResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },

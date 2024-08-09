@@ -275,9 +275,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             {
                 DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
-                    DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
-                    DataSourceResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
+                    ResourceProviderActions.Filter => await Filter(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
