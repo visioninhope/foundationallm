@@ -39,7 +39,7 @@ export interface Message {
 
 export interface MessageContent {
 	type: string;
-	file_name: string;
+	fileName: string;
 	value: string;
 }
 

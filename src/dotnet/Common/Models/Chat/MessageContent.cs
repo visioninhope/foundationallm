@@ -16,7 +16,7 @@ namespace FoundationaLLM.Common.Models.Chat
         /// <summary>
         /// The file name related to the Value, if applicable.
         /// </summary>
-        [JsonPropertyName("file_name")]
+        [JsonPropertyName("fileName")]
         public string? FileName { get; set; }
 
         /// <summary>
