@@ -34,6 +34,13 @@ export interface Message {
 	vector: Array<Number>;
 	completionPromptId: string | null;
 	citations: Array<Citation>;
+	content: Array<MessageContent>;
+}
+
+export interface MessageContent {
+	type: string;
+	file_name: string;
+	value: string;
 }
 
 export interface Session {
