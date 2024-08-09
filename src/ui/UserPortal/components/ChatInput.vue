@@ -274,17 +274,15 @@ export default {
 						this.$appStore.currentSession.sessionId,
 					);
 
-					console.log(`File uploaded: ObjectId: ${objectId}`);
-					this.$toast.add({
-						severity: 'success',
-						summary: 'Success',
-						detail: 'File uploaded successfully.',
-						life: 5000,
-					});
 					if (index === numberOfFiles - 1) {
-						console.log('All files uploaded', index, numberOfFiles);
 						this.showFileUploadDialog = false;
 						this.uploadProgress = 0;
+						this.$toast.add({
+							severity: 'success',
+							summary: 'Success',
+							detail: `File${numberOfFiles > 1 ? 's' : ''} uploaded successfully.`,
+							life: 5000,
+						});
 					}
 				} catch (error) {
 					this.$toast.add({
@@ -325,7 +323,6 @@ export default {
 		},
 
 		fileSelected(event: any) {
-			console.log('File selected', event);
 			event.files.forEach((file: any, index) => {
 				if (file.size > 512000000) {
 					this.$toast.add({
