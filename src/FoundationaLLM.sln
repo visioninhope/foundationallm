@@ -121,8 +121,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State", "dotnet\State\State
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateAPI", "dotnet\StateAPI\StateAPI.csproj", "{B0D4EBB4-2057-4081-8A80-65390BFBA654}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "dotnet\Upgrade\Utility.csproj", "{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -312,10 +310,6 @@ Global
 		{B0D4EBB4-2057-4081-8A80-65390BFBA654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0D4EBB4-2057-4081-8A80-65390BFBA654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0D4EBB4-2057-4081-8A80-65390BFBA654}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -374,7 +368,6 @@ Global
 		{F826A354-9DF5-4DE5-97CB-F8F0D4566C0F} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{BF7614CE-4E64-4E69-A56D-A7E72EDA8ABD} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 		{B0D4EBB4-2057-4081-8A80-65390BFBA654} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
-		{07BC8407-0EBB-4746-9CB9-1A5C6A954CB0} = {B6DC1190-2873-44A3-85B3-63D7BDE99231}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF5DE858-4B85-4EE8-8A6D-46E8E4FBA078}

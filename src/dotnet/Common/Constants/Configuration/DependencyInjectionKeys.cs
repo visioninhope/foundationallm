@@ -60,15 +60,6 @@ namespace FoundationaLLM.Common.Constants.Configuration
         public const string FoundationaLLM_APIEndpoints_AzureAISearchVectorStore_Configuration =
             "FoundationaLLM:APIEndpoints:AzureAISearchVectorStore:Configuration";
 
-        public const string FoundationaLLM_Vectorization_Steps = "FoundationaLLM:Vectorization:Steps";
-
-        /// <summary>
-        /// The dependency injection key for the backup configuration section.
-        /// </summary>
-        public const string FoundationaLLM_Backup = "FoundationaLLM:Backup";
-
-        #region Resource providers
-
         /// <summary>
         /// Dependency injection key used to inject the implementation of IIndexingService based on Azure Cosmos DB NoSQL.
         /// </summary>

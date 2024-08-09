@@ -15,10 +15,5 @@
         /// The security group retrieval strategy of the FoundationaLLM instance.
         /// </summary>
         public string? SecurityGroupRetrievalStrategy { get; set; }
-
-        /// <summary>
-        /// The FoundationaLLM Version.
-        /// </summary>
-        public required string Version { get; set; }
     }
 }

@@ -34,11 +34,6 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         [JsonPropertyName("cost_center")]
         [JsonPropertyOrder(-1)]
         public string? CostCenter { get; set; }
-        /// The version of the resource.
-        /// </summary>
-        [JsonPropertyName("version")]
-        [JsonPropertyOrder(-2)]
-        public Version? Version { get; set; }
 
         /// <summary>
         /// The time at which the security role definition was created.
