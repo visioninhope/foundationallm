@@ -293,7 +293,14 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB_Endpoint =
             "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:Endpoint";
-        
+
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:Endpoint setting.
+        /// <para>Value description:<br/>The URL of the Azure Cosmos DB service used by the Core API.</para>
+        /// </summary>
+        public const string FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB_Key =
+            "FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:Key";
+
         /// <summary>
         /// The app configuration key for the FoundationaLLM:APIEndpoints:CoreAPI:Configuration:CosmosDB:Database setting.
         /// <para>Value description:<br/>The name of the Azure Cosmos DB database used by the Core API.</para>
