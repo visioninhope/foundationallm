@@ -15,43 +15,8 @@
 				label=""
 				class="file-upload-button secondary-button"
 				style="height: 100%"
-				@click="toggleFileAttachmentOverlay"
+				@click="showFileUploadDialog = true"
 			/>
-			<OverlayPanel ref="fileAttachmentPanel">
-				<div class="attached-files-container">
-					<h2 style="margin-bottom: 0px">Attached File</h2>
-					<template v-if="fileArrayFiltered.length">
-						<div v-for="(file, index) in fileArrayFiltered" :key="index" class="attached-files">
-							<div class="file-name">{{ file.fileName }}</div>
-							<div class="file-remove">
-								<Button
-									v-tooltip="'Remove attachment'"
-									icon="pi pi-times"
-									severity="danger"
-									text
-									rounded
-									aria-label="Remove attachment"
-									@click="removeAttachment(file)"
-								/>
-							</div>
-						</div>
-					</template>
-					<div v-else>No file attached</div>
-				</div>
-				<div class="p-d-flex p-jc-end">
-					<Button
-						label="Upload File"
-						aria-label="Upload file"
-						icon="pi pi-upload"
-						:style="{
-							backgroundColor: secondaryButtonBg,
-							borderColor: secondaryButtonBg,
-							color: secondaryButtonText,
-						}"
-						@click="showFileUploadDialog = true"
-					/>
-				</div>
-			</OverlayPanel>
 			<Dialog
 				v-model:visible="showFileUploadDialog"
 				header="Upload File"
@@ -60,17 +25,16 @@
 			>
 				<FileUpload
 					ref="fileUpload"
-					:file-limit="1"
+					:multiple="true"
 					:auto="false"
 					:custom-upload="true"
-					:max-file-size="512000000"
 					@uploader="handleUpload"
+					@select="fileSelected"
 				>
 					<template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
 						<div>
 							<div class="upload-files-header">
 								<Button
-									:disabled="files.length !== 0"
 									icon="pi pi-images"
 									label="Choose"
 									style="margin-right: 0.5rem"
@@ -81,7 +45,7 @@
 									label="Upload"
 									:disabled="!files || files.length === 0"
 									style="margin-right: 0.5rem"
-									@click="uploadFile(uploadCallback)"
+									@click="uploadCallback()"
 								></Button>
 								<Button
 									icon="pi pi-times"
@@ -94,62 +58,62 @@
 					</template>
 
 					<template #content="{ files, removeFileCallback }">
-						<div v-if="files.length || uploadProgress !== 0">
+						<div v-if="uploadProgress !== 0">
 							<ProgressBar :value="uploadProgress" :showValue="false" style="display: flex; width: 95%; margin: 10px 2.5%;" />
-						</div>
-						<div
-							v-for="(file, index) of files"
-							:key="file.name + file.type + file.size"
-							style="
-								border-color: rgb(226, 232, 240);
-								border-radius: 6px;
-								border-style: solid;
-								border-width: 1px;
-								display: flex;
-								flex-direction: row;
-								justify-content: space-between;
-								padding: 0.5rem;
-								width: 100%;
-								align-items: center;
-							"
-						>
-							<div
-								style="
-									flex: 1;
-									display: flex;
-									flex-direction: row;
-									align-items: center;
-									gap: 10px;
-								"
-							>
-								<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
-								<span style="font-weight: 600">{{ file.name }}</span>
-								<div>{{ formatSize(file.size) }}</div>
-							</div>
-							<Button
-								icon="pi pi-times"
-								text
-								severity="danger"
-								@click="removeFileCallback(index)"
-							/>
-						</div>
-					</template>
-
-					<template #empty>
-						<div v-if="uploadProgress === 0">
-							<i class="pi pi-cloud-upload file-upload-icon" />
-							<div style="width: 500px">
-								<p style="text-align: center">
-									Drag and drop files here
-									<br />
-									or
-									<br />
-									<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
-								</p>
-							</div>
+							<p style="text-align: center">Uploading...</p>
 						</div>
 						<div v-else>
-							<p style="text-align: center">Uploading...</p>
+							<div
+								v-for="(file, index) of files"
+								:key="file.name + file.type + file.size"
+								class="file-upload-file"
+							>
+								<div class="file-upload-file_info">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+									<span style="font-weight: 600">{{ file.name }}</span>
+									<div>{{ formatSize(file.size) }}</div>
+								</div>
+								<div style="display: flex; align-items: center; margin-left: 10px;">
+									<Badge value="Pending" />
+									<Button
+										icon="pi pi-times"
+										text
+										severity="danger"
+										@click="removeFileCallback(index)"
+									/>
+								</div>
+							</div>
+							<div
+								v-for="file in fileArrayFiltered"
+								:key="file.fileName"
+								class="file-upload-file"
+							>
+								<div class="file-upload-file_info">
+									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
+									<span style="font-weight: 600">{{ file.fileName }}</span>
+								</div>
+								<div style="display: flex; align-items: center; margin-left: 10px;">
+									<Badge value="Uploaded" severity="success" />
+									<Button
+										icon="pi pi-times"
+										text
+										severity="danger"
+										@click="removeAttachment(file)"
+									/>
+								</div>
+							</div>
+							<div v-if="files.length === 0 && fileArrayFiltered.length === 0">
+								<i class="pi pi-cloud-upload file-upload-icon" />
+								<div style="width: 500px">
+									<p style="text-align: center">
+										Drag and drop files here
+										<br />
+										or
+										<br />
+										<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
+									</p>
+								</div>
+							</div>
 						</div>
 					</template>
 				</FileUpload>
@@ -298,33 +262,37 @@ export default {
 		},
 
 		async handleUpload(event: any) {
-			this.uploadProgress = 70;
-			try {
-				const formData = new FormData();
-				formData.append('file', event.files[0]);
+			const numberOfFiles = event.files.length;
+			event.files.forEach(async (file: any, index) => {
+				this.uploadProgress = 70;
+				try {
+					const formData = new FormData();
+					formData.append('file', file);
 
-				const objectId = await this.$appStore.uploadAttachment(
-					formData,
-					this.$appStore.currentSession.sessionId,
-				);
+					const objectId = await this.$appStore.uploadAttachment(
+						formData,
+						this.$appStore.currentSession.sessionId,
+					);
 
-				console.log(`File uploaded: ObjectId: ${objectId}`);
-				this.$toast.add({
-					severity: 'success',
-					summary: 'Success',
-					detail: 'File uploaded successfully.',
-					life: 5000,
-				});
-				this.showFileUploadDialog = false;
-				this.uploadProgress = 0;
-			} catch (error) {
-				this.$toast.add({
-					severity: 'error',
-					summary: 'Error',
-					detail: `File upload failed. ${error.message}`,
-					life: 5000,
-				});
-			}
+					if (index === numberOfFiles - 1) {
+						this.showFileUploadDialog = false;
+						this.uploadProgress = 0;
+						this.$toast.add({
+							severity: 'success',
+							summary: 'Success',
+							detail: `File${numberOfFiles > 1 ? 's' : ''} uploaded successfully.`,
+							life: 5000,
+						});
+					}
+				} catch (error) {
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error',
+						detail: `File upload failed. ${error.message}`,
+						life: 5000,
+					});
+				}
+			});
 		},
 
 		toggleFileAttachmentOverlay(event: any) {
@@ -337,35 +305,6 @@ export default {
 
 		browseFiles() {
 			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
-		},
-
-		uploadFile(uploadCallback) {
-			this.uploadProgress = 0;
-			if (this.fileArrayFiltered.length) {
-				this.$confirm.require({
-					message: 'Uploading a new file will replace the file already attached.',
-					header: 'Confirm File Replacement',
-					icon: 'pi pi-exclamation-triangle',
-					rejectLabel: 'Upload',
-					acceptLabel: 'Cancel',
-					rejectProps: {
-						label: 'Upload',
-					},
-					acceptProps: {
-						label: 'Cancel',
-						severity: 'secondary',
-						outlined: true,
-					},
-					accept: () => {
-						this.showFileUploadDialog = false;
-					},
-					reject: () => {
-						uploadCallback();
-					},
-				});
-			} else {
-				uploadCallback();
-			}
 		},
 
 		formatSize(bytes) {
@@ -381,6 +320,20 @@ export default {
 			const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 
 			return `${formattedSize} ${sizes[i]}`;
+		},
+
+		fileSelected(event: any) {
+			event.files.forEach((file: any, index) => {
+				if (file.size > 512000000) {
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error',
+						detail: 'File size exceeds the limit of 512MB.',
+						life: 5000,
+					});
+					event.files.splice(index, 1);
+				}
+			});
 		},
 	},
 };
@@ -532,5 +485,31 @@ export default {
 	text-align: center;
 	font-size: 5rem;
 	color: #000;
+}
+
+.file-upload-file {
+	border-color: rgb(226, 232, 240);
+	border-radius: 6px;
+	border-style: solid;
+	border-width: 1px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0.5rem;
+	width: 100%;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.file-upload-file_info {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+.p-fileupload-content {
+	padding: 30px 10px 10px 10px;
 }
 </style>
