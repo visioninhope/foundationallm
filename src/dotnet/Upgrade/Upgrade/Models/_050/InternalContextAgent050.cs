@@ -11,6 +11,6 @@ namespace FoundationaLLM.Utility.Upgrade.Models._050
         /// Set default property values.
         /// </summary>
         public InternalContextAgent050() =>
-            Type = AgentTypes.InternalContext;
+            Type = AgentTypes050.InternalContext;
     }
 }

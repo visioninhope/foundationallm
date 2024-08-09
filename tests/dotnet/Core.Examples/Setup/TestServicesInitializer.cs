@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
@@ -49,11 +50,11 @@ namespace FoundationaLLM.Core.Examples.Setup
                     DependencyInjectionKeys.FoundationaLLM_Backup)
                 .Bind(configRoot.GetSection("FoundationaLLM:Vectorization:ResourceProviderService:Storage"));
 
-            services.AddOptions<BlobStorageServiceSettings>(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization).Configure(
+            services.AddOptions<BlobStorageServiceSettings>(AuthorizationDependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization).Configure(
                 configureOptions =>
                 {
-                    configureOptions.AuthenticationType = BlobStorageAuthenticationTypes.AzureIdentity;
-                    configureOptions.AccountName = configRoot[KeyVaultSecretNames.FoundationaLLM_AuthorizationAPI_Storage_AccountName];
+                    configureOptions.AuthenticationType = AuthenticationTypes.AzureIdentity;
+                    configureOptions.AccountName = configRoot[$"{AuthorizationDependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization}:Storage:AccountName"];
                 });
 
             RegisterInstance(services, configRoot);

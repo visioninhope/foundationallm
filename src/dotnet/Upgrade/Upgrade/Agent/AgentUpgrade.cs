@@ -1,7 +1,6 @@
 ﻿using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services.Storage;
-using FoundationaLLM.Utility.Upgrade;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;

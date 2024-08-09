@@ -16,7 +16,7 @@ namespace FoundationaLLM.Utility.Upgrade.Models._050
         /// Provider of the language model.
         /// </summary>
         [JsonPropertyName("provider")]
-        public string? Provider { get; set; } = LanguageModelProviders.MICROSOFT;
+        public string? Provider { get; set; } = LanguageModelProviders050.MICROSOFT;
 
         /// <summary>
         /// Temperature value to assign on the language model.

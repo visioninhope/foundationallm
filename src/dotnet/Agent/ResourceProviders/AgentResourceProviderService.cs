@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
@@ -76,11 +77,11 @@ namespace FoundationaLLM.Agent.ResourceProviders
             if (await _storageService.FileExistsAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default))
             {
                 var fileContent = await _storageService.ReadFileAsync(_storageContainerName, AGENT_REFERENCES_FILE_PATH, default);
-                var agentReferenceStore = JsonSerializer.Deserialize<AgentReferenceStore>(
+                AgentReferenceStore agentReferenceStore = JsonSerializer.Deserialize<AgentReferenceStore>(
                     Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _agentReferences = new ConcurrentDictionary<string, AgentReference>(
-                    agentReferenceStore!.ToDictionary());
+                    agentReferenceStore!.ToDictionary().AsEnumerable());
             }
             else
             {
@@ -189,7 +190,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             }
 
             var agentName = "legacy";
-            if (agentReference!= null)
+            if (agentReference != null)
             {
                 agentName = agentReference.Name;
             }
@@ -236,7 +237,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
             agent.Capabilities ??= [AgentCapabilities.OpenAIAssistants];
 
-            if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
+            if ((agent is KnowledgeManagementAgent { Vectorization.DedicatedPipeline: true, InlineContext: false } kmAgent))
             {
                 var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
                     .HandlePostAsync(
@@ -250,7 +251,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
                             TextPartitioningProfileObjectId = kmAgent.Vectorization.TextPartitioningProfileObjectId!,
                             TextEmbeddingProfileObjectId = kmAgent.Vectorization.TextEmbeddingProfileObjectId!,
                             IndexingProfileObjectId = kmAgent.Vectorization.IndexingProfileObjectIds[0]!,
-                            TriggerType = (VectorizationPipelineTriggerType) kmAgent.Vectorization.TriggerType!,
+                            TriggerType = (VectorizationPipelineTriggerType)kmAgent.Vectorization.TriggerType!,
                             TriggerCronSchedule = kmAgent.Vectorization.TriggerCronSchedule
                         }),
                         userIdentity);

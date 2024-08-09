@@ -52,8 +52,8 @@ namespace FoundationaLLM.Utility.Upgrade.Models._050
         public Type AgentType =>
             Type switch
             {
-                AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
-                AgentTypes.InternalContext => typeof(InternalContextAgent),
+                AgentTypes050.KnowledgeManagement => typeof(KnowledgeManagementAgent),
+                AgentTypes050.InternalContext => typeof(InternalContextAgent050),
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }

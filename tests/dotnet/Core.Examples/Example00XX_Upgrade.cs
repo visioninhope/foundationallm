@@ -51,7 +51,7 @@ namespace FoundationaLLM.Core.Examples
             _loggerFactory = ServiceProvider.GetRequiredService<ILoggerFactory>();
 
             _settings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>()
-                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+                    .Get(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization);
 
             //setup blob storage account (main)
             BlobStorageService blobStorageService = new BlobStorageService(Options.Create<BlobStorageServiceSettings>(_settings), ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>());

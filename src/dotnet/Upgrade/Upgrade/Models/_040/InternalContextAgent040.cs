@@ -5,12 +5,12 @@ namespace FoundationaLLM.Utility.Upgrade.Models._040
     /// <summary>
     /// The Internal Context agent metadata model.
     /// </summary>
-    public class InternalContextAgent050 : Agent040
+    public class InternalContextAgent040 : Agent040
     {
         /// <summary>
         /// Set default property values.
         /// </summary>
-        public InternalContextAgent050() =>
-            Type = AgentTypes.InternalContext;
+        public InternalContextAgent040() =>
+            Type = AgentTypes040.InternalContext;
     }
 }

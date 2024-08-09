@@ -6,7 +6,7 @@ namespace FoundationaLLM.Utility.Upgrade.Models._040
     /// <summary>
     /// The Knowledge Management agent metadata model.
     /// </summary>
-    public class KnowledgeManagementAgent050 : Agent040
+    public class KnowledgeManagementAgent040 : Agent040
     {
         /// <summary>
         /// The vectorization content source profile.
@@ -35,7 +35,7 @@ namespace FoundationaLLM.Utility.Upgrade.Models._040
         /// <summary>
         /// Set default property values.
         /// </summary>
-        public KnowledgeManagementAgent050() =>
+        public KnowledgeManagementAgent040() =>
             Type = AgentTypes.KnowledgeManagement;
     }
 }

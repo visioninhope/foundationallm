@@ -3,7 +3,6 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Core.Examples.Setup;
-using FoundationaLLM.Utility.Backup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -49,11 +48,11 @@ namespace FoundationaLLM.Core.Examples
 
             _httpClientFactory = ServiceProvider.GetRequiredService<IHttpClientFactory>();
 
-            _instanceStorageSettings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>().Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Vectorization);
+            _instanceStorageSettings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>().Get(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Vectorization);
             
             _backupStorageSettings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>().Get(DependencyInjectionKeys.FoundationaLLM_Backup);
 
-            _authStorageSettings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>().Get(DependencyInjectionKeys.FoundationaLLM_ResourceProvider_Authorization);
+            _authStorageSettings = ServiceProvider.GetRequiredService<IOptionsMonitor<BlobStorageServiceSettings>>().Get(AuthorizationDependencyInjectionKeys.FoundationaLLM_ResourceProviders_Authorization);
 
             BlobStorageService instanceStorageService = new BlobStorageService(Options.Create<BlobStorageServiceSettings>(_instanceStorageSettings), ServiceProvider.GetRequiredService<ILogger<BlobStorageService>>());
 
@@ -79,7 +78,7 @@ namespace FoundationaLLM.Core.Examples
             config.VectorizationEnabled = true;
             config.CosmosEnabled = true;
             config.CosmosDatabases = new List<string> { "database" };
-            config.CosmosCollections = new List<string> { "leases", "Sessions", "UserProfiles", "UserSessions" };
+            config.CosmosCollections = new List<string> { "leases", "Sessions", "UserProfiles", "UserSessions", "State" };
             config.AppConfigFilters = new List<string> { "FoundationaLLM:DataSources:*" };
                 
             BackupManager bm = new BackupManager(_loggerFactory, backupStorageService, instanceStorageService, _instanceSettings, config, _httpClientFactory, _configRoot);

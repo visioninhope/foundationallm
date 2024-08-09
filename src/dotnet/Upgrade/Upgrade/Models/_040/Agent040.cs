@@ -9,8 +9,8 @@ namespace FoundationaLLM.Utility.Upgrade.Models._040
     /// Base agent metadata model.
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-    [JsonDerivedType(typeof(KnowledgeManagementAgent050), "knowledge-management")]
-    [JsonDerivedType(typeof(InternalContextAgent050), "internal-context")]
+    [JsonDerivedType(typeof(KnowledgeManagementAgent040), "knowledge-management")]
+    [JsonDerivedType(typeof(InternalContextAgent040), "internal-context")]
     public class Agent040 : ResourceBase040
     {
         /// <inheritdoc/>
@@ -55,8 +55,8 @@ namespace FoundationaLLM.Utility.Upgrade.Models._040
         public Type AgentType =>
             Type switch
             {
-                AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
-                AgentTypes.InternalContext => typeof(InternalContextAgent),
+                AgentTypes040.KnowledgeManagement => typeof(KnowledgeManagementAgent),
+                AgentTypes040.InternalContext => typeof(InternalContextAgent040),
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }
