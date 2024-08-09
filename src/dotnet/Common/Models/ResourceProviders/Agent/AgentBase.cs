@@ -10,6 +10,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(KnowledgeManagementAgent), "knowledge-management")]
+    [JsonDerivedType(typeof(AudioClassificationAgent), "audio-classification")]
     public class AgentBase : ResourceBase
     {
         /// <inheritdoc/>
@@ -57,6 +58,12 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
         public bool LongRunning { get; set; } = false;
 
         /// <summary>
+        /// List of capabilities that the agent supports.
+        /// </summary>
+        [JsonPropertyName("capabilities")]
+        public string[]? Capabilities { get; set; }
+
+        /// <summary>
         /// The object type of the agent.
         /// </summary>
         [JsonIgnore]
@@ -64,6 +71,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
             Type switch
             {
                 AgentTypes.KnowledgeManagement => typeof(KnowledgeManagementAgent),
+                AgentTypes.AudioClassification => typeof(AudioClassificationAgent),
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
     }

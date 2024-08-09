@@ -399,7 +399,7 @@ $vnetName = Invoke-AndRequireSuccess "Get VNet Name" {
 
 $subnetBackend = Invoke-AndRequireSuccess "Get Backend Subnet CIDR" {
     az network vnet subnet show `
-        --name "FLLMBackend" `
+        --name "aks-backend" `
         --query addressPrefix `
         --resource-group $resourceGroups.net `
         --vnet-name $vnetName `
@@ -409,7 +409,7 @@ $tokens.privateIpIngressBackend = Get-CIDRHost -baseCidr $subnetBackend -hostNum
 
 $subnetFrontend = Invoke-AndRequireSuccess "Get Frontend Subnet CIDR" {
     az network vnet subnet show `
-        --name "FLLMFrontend" `
+        --name "aks-frontend" `
         --query addressPrefix `
         --resource-group $resourceGroups.net `
         --vnet-name $vnetName `

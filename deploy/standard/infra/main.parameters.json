@@ -6,7 +6,7 @@
         "value": "${FLLM_ALLOWED_CIDR=192.168.101.0/28}"
       },
       "authAppRegistrationClientId": {
-        "value": "${FLLM_AUTHORIZATION_CLIENT_ID}"
+        "value": "${ENTRA_AUTH_API_CLIENT_ID}"
       },
       "authAppRegistrationInstance": {
         "value": "${ENTRA_AUTH_API_INSTANCE=https://login.microsoftonline.com}"
@@ -16,6 +16,9 @@
       },
       "authAppRegistrationTenantId": {
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
+      },
+      "cidrVnet": {
+        "value": "${FLLM_CIDR_VNET=10.220.128.0/20}"
       },
       "environmentName": {
         "value": "${AZURE_ENV_NAME}"
@@ -45,7 +48,7 @@
         "value": "${FOUNDATIONALLM_HUB_TENANT_ID}"
       },
       "hubVnetName": {
-        "value": "${FOUNDATIONALL_HUB_VNET_NAME}"
+        "value": "${FOUNDATIONALLM_HUB_VNET_NAME}"
       },
       "instanceId": {
         "value": "${FOUNDATIONALLM_INSTANCE_ID=''}"

@@ -1,131 +1,151 @@
 <template>
-	<div class="message-row" :class="message.sender === 'User' ? 'message--out' : 'message--in'">
-		<div class="message">
-			<div class="message__header">
-				<!-- Sender -->
-				<span class="header__sender">
-					<img
-						v-if="message.sender !== 'User'"
-						class="avatar"
-						src="~/assets/FLLM-Agent-Light.svg"
-						alt="Agent avatar"
-					/>
-					<span>{{ getDisplayName() }}</span>
-				</span>
+	<div>
+		<div class="message-row" :class="message.sender === 'User' ? 'message--out' : 'message--in'">
+			<div class="message">
+				<div class="message__header">
+					<!-- Sender -->
+					<span class="header__sender">
+						<img
+							v-if="message.sender !== 'User'"
+							class="avatar"
+							src="~/assets/FLLM-Agent-Light.svg"
+							alt="Agent avatar"
+						/>
+						<span>{{ getDisplayName() }}</span>
+					</span>
 
-				<!-- Tokens & Timestamp -->
-				<span class="message__header--right">
-					<Chip
-						:label="`Tokens: ${message.tokens}`"
-						class="token-chip"
-						:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'"
-						:pt="{
-							label: {
-								style: {
-									color: message.sender === 'User' ? 'var(--accent-text)' : 'var(--primary-text)',
+					<!-- Tokens & Timestamp -->
+					<span class="message__header--right">
+						<Chip
+							:label="`Tokens: ${message.tokens}`"
+							class="token-chip"
+							:class="message.sender === 'User' ? 'token-chip--out' : 'token-chip--in'"
+							:pt="{
+								label: {
+									style: {
+										color: message.sender === 'User' ? 'var(--accent-text)' : 'var(--primary-text)',
+									},
 								},
-							},
-						}"
-					/>
-					<span v-tooltip="formatTimeStamp(message.timeStamp)" class="time-stamp">{{
-						$filters.timeAgo(new Date(message.timeStamp))
-					}}</span>
-				</span>
-			</div>
-
-			<!-- Message text -->
-			<div class="message__body">
-				<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
-					<i class="pi pi-spin pi-spinner"></i>
-				</template>
-
-				<!-- Render the html content and any vue components within -->
-				<component :is="compiledMarkdownComponent"></component>
-			</div>
-
-			<div v-if="message.sender !== 'User'" class="message__footer">
-				<div v-if="message.citations?.length" class="citations">
-					<span><b>Citations: </b></span>
-					<span
-						v-for="citation in message.citations"
-						:key="citation.id"
-						v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }"
-						class="citation"
-					>
-						<i class="pi pi-file"></i>
-						{{ citation.title.split('/').pop() }}
+							}"
+						/>
+						<span v-tooltip="formatTimeStamp(message.timeStamp)" class="time-stamp">{{
+							$filters.timeAgo(new Date(message.timeStamp))
+						}}</span>
 					</span>
 				</div>
-				<span class="ratings">
-					<!-- Like -->
-					<span>
-						<Button
-							class="message__button"
-							:disabled="message.type === 'LoadingMessage'"
-							size="small"
-							text
-							:icon="message.rating ? 'pi pi-thumbs-up-fill' : 'pi pi-thumbs-up'"
-							:label="message.rating ? 'Message Liked!' : 'Like'"
-							@click.stop="handleRate(message, true)"
-						/>
-					</span>
 
-					<!-- Dislike -->
-					<span>
-						<Button
-							class="message__button"
-							:disabled="message.type === 'LoadingMessage'"
-							size="small"
-							text
-							:icon="message.rating === false ? 'pi pi-thumbs-down-fill' : 'pi pi-thumbs-down'"
-							:label="message.rating === false ? 'Message Disliked.' : 'Dislike'"
-							@click.stop="handleRate(message, false)"
-						/>
-					</span>
-				</span>
+				<!-- Message text -->
+				<div class="message__body">
+					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
+						<i class="pi pi-spin pi-spinner"></i>
+					</template>
 
-				<!-- View prompt -->
-				<span class="view-prompt">
-					<Button
-						class="message__button"
-						:disabled="message.type === 'LoadingMessage'"
-						size="small"
-						text
-						icon="pi pi-book"
-						label="View Prompt"
-						@click.stop="handleViewPrompt"
-					/>
+					<template v-if="!message.content">
+						<div v-html="compiledVueTemplate"></div>
+					</template>
+					<template v-else>
+						<!-- Render the html content and any vue components within -->
+						<div v-for="content in message.content" :key="content.file_name" class="message-content">
+							<div v-if="content.type === 'text'">
+								<component :is="renderMarkdownComponent(content.value)"></component>
+							</div>
+							<div v-else-if="content.type === 'image'">
+								<img :src="content.value" :alt="content.file_name" />
+							</div>
+							<div v-else-if="content.type === 'html'">
+								<iframe :src="content.value" frameborder="0"></iframe>
+							</div>
+							<div v-else-if="content.type === 'file'">
+								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+							</div>
+						</div>
+					</template>
+				</div>
 
-					<!-- Prompt dialog -->
-					<Dialog
-						class="prompt-dialog"
-						:visible="viewPrompt"
-						modal
-						header="Completion Prompt"
-						:closable="false"
-					>
-						<p class="prompt-text">{{ prompt.prompt }}</p>
-						<template #footer>
+				<div v-if="message.sender !== 'User'" class="message__footer">
+					<div v-if="message.citations?.length" class="citations">
+						<span><b>Citations: </b></span>
+						<span
+							v-for="citation in message.citations"
+							:key="citation.id"
+							v-tooltip.top="{ value: citation.filepath, showDelay: 500, hideDelay: 300 }"
+							class="citation"
+						>
+							<i class="pi pi-file"></i>
+							{{ citation.title.split('/').pop() }}
+						</span>
+					</div>
+					<span class="ratings">
+						<!-- Like -->
+						<span>
 							<Button
-								:style="{
-									backgroundColor: primaryButtonBg,
-									borderColor: primaryButtonBg,
-									color: primaryButtonText,
-								}"
-								label="Close"
-								@click="viewPrompt = false"
+								class="message__button"
+								:disabled="message.type === 'LoadingMessage'"
+								size="small"
+								text
+								:icon="message.rating ? 'pi pi-thumbs-up-fill' : 'pi pi-thumbs-up'"
+								:label="message.rating ? 'Message Liked!' : 'Like'"
+								@click.stop="handleRate(message, true)"
 							/>
-						</template>
-					</Dialog>
-				</span>
+						</span>
+
+						<!-- Dislike -->
+						<span>
+							<Button
+								class="message__button"
+								:disabled="message.type === 'LoadingMessage'"
+								size="small"
+								text
+								:icon="message.rating === false ? 'pi pi-thumbs-down-fill' : 'pi pi-thumbs-down'"
+								:label="message.rating === false ? 'Message Disliked.' : 'Dislike'"
+								@click.stop="handleRate(message, false)"
+							/>
+						</span>
+					</span>
+
+					<!-- View prompt -->
+					<span class="view-prompt">
+						<Button
+							class="message__button"
+							:disabled="message.type === 'LoadingMessage'"
+							size="small"
+							text
+							icon="pi pi-book"
+							label="View Prompt"
+							@click.stop="handleViewPrompt"
+						/>
+
+						<!-- Prompt dialog -->
+						<Dialog
+							class="prompt-dialog"
+							:visible="viewPrompt"
+							modal
+							header="Completion Prompt"
+							:closable="false"
+						>
+							<p class="prompt-text">{{ prompt.prompt }}</p>
+							<template #footer>
+								<Button
+									:style="{
+										backgroundColor: primaryButtonBg,
+										borderColor: primaryButtonBg,
+										color: primaryButtonText,
+									}"
+									label="Close"
+									@click="viewPrompt = false"
+								/>
+							</template>
+						</Dialog>
+					</span>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Date Divider -->
-	<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
-		{{ $filters.timeAgo(new Date(message.timeStamp)) }}
-	</Divider>
+		<!-- Date Divider -->
+		<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
+			{{ $filters.timeAgo(new Date(message.timeStamp)) }}
+		</Divider>
+	</div>
 </template>
 
 <script lang="ts">
@@ -227,10 +247,25 @@ export default {
 	},
 
 	methods: {
+		renderMarkdownComponent(contentValue: string) {
+      		const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
+			return {
+				template: `<div>${sanitizedContent}</div>`,
+				components: {
+				CodeBlockHeader,
+				},
+			};
+		},
+
 		displayWordByWord() {
-			if (this.currentWordIndex >= this.compiledMarkdown.split(/\s+/).length) return;
+			const words = this.compiledMarkdown.split(/\s+/);
+			if (this.currentWordIndex >= words.length) {
+				this.compiledVueTemplate = addCodeHeaderComponents(this.compiledMarkdown);
+				return;
+			}
 
 			this.currentWordIndex += 1;
+
 			const htmlString = truncate(this.compiledMarkdown, this.currentWordIndex, {
 				byWords: true,
 				stripTags: false,
@@ -422,6 +457,23 @@ export default {
 	background-color: var(--primary-button-bg) !important;
 	border-color: var(--primary-button-bg) !important;
 	color: var(--primary-button-text) !important;
+}
+
+.message-content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+iframe {
+  width: 100%;
+  height: 600px;
+  border-radius: 8px;
 }
 </style>
 

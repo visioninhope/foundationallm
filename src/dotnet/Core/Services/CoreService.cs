@@ -1,4 +1,3 @@
-using Azure.Core;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -66,10 +65,13 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> CreateNewChatSessionAsync(string instanceId)
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId, ChatSessionProperties chatSessionProperties)
     {
+        ArgumentException.ThrowIfNullOrEmpty(chatSessionProperties.Name);
+
         Session session = new()
         {
+            Name = chatSessionProperties.Name,
             Type = _sessionType,
             UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
         };
@@ -77,12 +79,12 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName)
+    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, ChatSessionProperties chatSessionProperties)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        ArgumentException.ThrowIfNullOrEmpty(newChatSessionName);
+        ArgumentException.ThrowIfNullOrEmpty(chatSessionProperties.Name);
 
-        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, newChatSessionName);
+        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, chatSessionProperties.Name);
     }
 
     /// <inheritdoc/>
@@ -178,26 +180,6 @@ public partial class CoreService(
     /// <inheritdoc/>
     public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
         throw new NotImplementedException();
-
-    /// <inheritdoc/>
-    public async Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)
-    {
-        try
-        {
-            ArgumentNullException.ThrowIfNull(sessionId);
-
-            var sessionName = string.Empty;            
-            sessionName = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
-            await RenameChatSessionAsync(instanceId, sessionId, sessionName);
-
-            return new Completion { Text = sessionName };
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error generating session name for session {sessionId} for text [{text}].");
-            return new Completion { Text = "[No Name]" };
-        }
-    }
 
     private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
         ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)

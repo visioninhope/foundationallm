@@ -54,24 +54,29 @@ namespace FoundationaLLM.Client.Core
             _coreRestClient = new CoreRESTClient(coreUri, credential, instanceId, options);
 
         /// <inheritdoc/>
-        public async Task<string> CreateChatSessionAsync(string? sessionName)
+        public async Task<string> CreateChatSessionAsync(ChatSessionProperties chatSessionProperties)
         {
-            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync();
-            if (!string.IsNullOrWhiteSpace(sessionName))
-            {
-                await _coreRestClient.Sessions.RenameChatSession(sessionId, sessionName);
-            }
+            if (string.IsNullOrWhiteSpace(chatSessionProperties.Name))
+                throw new ArgumentException("A session name must be provided when creating a new session.");
 
+            var sessionId = await _coreRestClient.Sessions.CreateSessionAsync(chatSessionProperties);
             return sessionId;
         }
 
         /// <inheritdoc/>
-        public async Task<Completion> GetCompletionWithSessionAsync(string? sessionId, string? sessionName,
+        public async Task<Completion> GetCompletionWithSessionAsync(string? sessionId, ChatSessionProperties? chatSessionProperties,
             string userPrompt, string agentName)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
-                sessionId = await CreateChatSessionAsync(sessionName);
+                if (chatSessionProperties == null)
+                {
+                    throw new ArgumentException(
+                        "The completion request must contain a session name if no session Id is provided. " +
+                        "A new session will be created with the provided session name.");
+                }
+
+                sessionId = await CreateChatSessionAsync(chatSessionProperties);
             }
 
             var orchestrationRequest = new CompletionRequest
@@ -81,6 +86,7 @@ namespace FoundationaLLM.Client.Core
                 SessionId = sessionId,
                 UserPrompt = userPrompt
             };
+
             return await GetCompletionWithSessionAsync(orchestrationRequest);
         }
 
@@ -126,7 +132,7 @@ namespace FoundationaLLM.Client.Core
 
         /// <inheritdoc/>
         public async Task<Completion> AttachFileAndAskQuestionAsync(Stream fileStream, string fileName, string contentType,
-            string agentName, string question, bool useSession, string? sessionId, string? sessionName)
+            string agentName, string question, bool useSession, string? sessionId, ChatSessionProperties? chatSessionProperties)
         {
             if (fileStream == null)
             {
@@ -139,7 +145,14 @@ namespace FoundationaLLM.Client.Core
             {
                 if (string.IsNullOrWhiteSpace(sessionId))
                 {
-                    sessionId = await CreateChatSessionAsync(sessionName);
+                    if (chatSessionProperties == null)
+                    {
+                        throw new ArgumentException(
+                            "The completion request must contain a session name if no session Id is provided. " +
+                            "A new session will be created with the provided session name.");
+                    }
+
+                    sessionId = await CreateChatSessionAsync(chatSessionProperties);
                 }
 
                 var orchestrationRequest = new CompletionRequest
