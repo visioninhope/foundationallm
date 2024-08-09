@@ -17,41 +17,6 @@
 				style="height: 100%"
 				@click="showFileUploadDialog = true"
 			/>
-			<!-- <OverlayPanel ref="fileAttachmentPanel">
-				<div class="attached-files-container">
-					<h2 style="margin-bottom: 0px">Attached File</h2>
-					<template v-if="fileArrayFiltered.length">
-						<div v-for="(file, index) in fileArrayFiltered" :key="index" class="attached-files">
-							<div class="file-name">{{ file.fileName }}</div>
-							<div class="file-remove">
-								<Button
-									v-tooltip="'Remove attachment'"
-									icon="pi pi-times"
-									severity="danger"
-									text
-									rounded
-									aria-label="Remove attachment"
-									@click="removeAttachment(file)"
-								/>
-							</div>
-						</div>
-					</template>
-					<div v-else>No file attached</div>
-				</div>
-				<div class="p-d-flex p-jc-end">
-					<Button
-						label="Upload File"
-						aria-label="Upload file"
-						icon="pi pi-upload"
-						:style="{
-							backgroundColor: secondaryButtonBg,
-							borderColor: secondaryButtonBg,
-							color: secondaryButtonText,
-						}"
-						@click="showFileUploadDialog = true"
-					/>
-				</div>
-			</OverlayPanel> -->
 			<Dialog
 				v-model:visible="showFileUploadDialog"
 				header="Upload File"
@@ -300,33 +265,38 @@ export default {
 		},
 
 		async handleUpload(event: any) {
-			this.uploadProgress = 70;
-			try {
-				const formData = new FormData();
-				formData.append('file', event.files[0]);
+			const numberOfFiles = event.files.length;
+			event.files.forEach(async (file: any, index) => {
+				this.uploadProgress = 70;
+				try {
+					const formData = new FormData();
+					formData.append('file', file);
 
-				const objectId = await this.$appStore.uploadAttachment(
-					formData,
-					this.$appStore.currentSession.sessionId,
-				);
+					const objectId = await this.$appStore.uploadAttachment(
+						formData,
+						this.$appStore.currentSession.sessionId,
+					);
 
-				console.log(`File uploaded: ObjectId: ${objectId}`);
-				this.$toast.add({
-					severity: 'success',
-					summary: 'Success',
-					detail: 'File uploaded successfully.',
-					life: 5000,
-				});
-				this.showFileUploadDialog = false;
-				this.uploadProgress = 0;
-			} catch (error) {
-				this.$toast.add({
-					severity: 'error',
-					summary: 'Error',
-					detail: `File upload failed. ${error.message}`,
-					life: 5000,
-				});
-			}
+					console.log(`File uploaded: ObjectId: ${objectId}`);
+					this.$toast.add({
+						severity: 'success',
+						summary: 'Success',
+						detail: 'File uploaded successfully.',
+						life: 5000,
+					});
+					if (index === numberOfFiles - 1) {
+						this.showFileUploadDialog = false;
+						this.uploadProgress = 0;
+					}
+				} catch (error) {
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error',
+						detail: `File upload failed. ${error.message}`,
+						life: 5000,
+					});
+				}
+			});
 		},
 
 		toggleFileAttachmentOverlay(event: any) {
@@ -340,35 +310,6 @@ export default {
 		browseFiles() {
 			this.$refs.fileUpload.$el.querySelector('input[type="file"]').click();
 		},
-
-		// uploadFile(uploadCallback) {
-		// 	this.uploadProgress = 0;
-		// 	if (this.fileArrayFiltered.length) {
-		// 		this.$confirm.require({
-		// 			message: 'Uploading a new file will replace the file already attached.',
-		// 			header: 'Confirm File Replacement',
-		// 			icon: 'pi pi-exclamation-triangle',
-		// 			rejectLabel: 'Upload',
-		// 			acceptLabel: 'Cancel',
-		// 			rejectProps: {
-		// 				label: 'Upload',
-		// 			},
-		// 			acceptProps: {
-		// 				label: 'Cancel',
-		// 				severity: 'secondary',
-		// 				outlined: true,
-		// 			},
-		// 			accept: () => {
-		// 				this.showFileUploadDialog = false;
-		// 			},
-		// 			reject: () => {
-		// 				uploadCallback();
-		// 			},
-		// 		});
-		// 	} else {
-		// 		uploadCallback();
-		// 	}
-		// },
 
 		formatSize(bytes) {
 			const k = 1024;

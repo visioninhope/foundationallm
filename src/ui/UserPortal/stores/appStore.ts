@@ -245,6 +245,8 @@ export const useAppStore = defineStore('app', {
 					relevantAttachments.map((attachment) => String(attachment.id)),
 				);
 				await this.getMessages();
+				// Get rid of the attachments that were just sent.
+				this.attachments = this.attachments.filter((attachment) => { return !relevantAttachments.includes(attachment) });
 			}
 		},
 
