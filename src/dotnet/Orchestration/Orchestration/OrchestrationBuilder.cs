@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.EMMA;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -18,7 +17,6 @@ using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Graph.Communications.OnlineMeetings.CreateOrGet;
 using System.Net;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
