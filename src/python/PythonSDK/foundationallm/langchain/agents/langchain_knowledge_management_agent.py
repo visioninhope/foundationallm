@@ -20,14 +20,8 @@ from foundationallm.models.resource_providers.vectorization import (
     AzureAISearchIndexingProfile,
     AzureOpenAIEmbeddingProfile
 )
-import requests
-from typing import List, Optional
 from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
 from foundationallm.services.openai_assistants_api_service import OpenAIAssistantsApiService
-from foundationallm.storage import BlobStorageManager
-import uuid
-import os
-from pathlib import Path
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
@@ -216,6 +210,35 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         """
         self._validate_request(request)
 
+        # Check for Assistants API capability
+        if "OpenAI.Assistants" in request.agent.capabilities:
+            print("API VERSION: "+ self.api_endpoint.api_version)
+            operation_type_override = OperationTypes.ASSISTANTS_API
+            # create the service
+            assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override))
+            
+            # populate service request object
+            assistant_req = OpenAIAssistantsAPIRequest(
+                assistant_id=request.objects["OpenAI.AssistantId"],
+                thread_id=request.objects["OpenAI.AssistantThreadId"],
+                attachments=request.attachments,
+                user_prompt=request.user_prompt
+            )
+            print("Invoking Assistants API Service.")
+            # invoke/run the service
+            assistant_response = assistant_svc.run(assistant_req)
+            
+            # create the CompletionResponse object
+            return CompletionResponse(
+                operation_id = request.operation_id,
+                completion= "",
+                content= assistant_response.content,
+                completion_tokens= assistant_response.completion_tokens,
+                prompt_tokens= assistant_response.prompt_tokens,
+                total_tokens= assistant_response.total_tokens,
+                user_prompt= request.user_prompt
+                )
+
         agent = request.agent
 
         with get_openai_callback() as cb:
@@ -285,10 +308,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if "OpenAI.Assistants" in request.agent.capabilities:
             print("API VERSION: "+ self.api_endpoint.api_version)
             operation_type_override = OperationTypes.ASSISTANTS_API
-            print("Creating Assistants API Service.")
             # create the service
             assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override))
-            print("Creating Assistants API Service Request.")
+            
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
@@ -299,12 +321,11 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             print("Invoking Assistants API Service.")
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
-            print("Response from Assistants API Service: ", assistant_response)
+            
             # create the CompletionResponse object
-            print("Creating and returning the CompletionResponse.")
             return CompletionResponse(
                 operation_id = request.operation_id,
-                completion= "See content",
+                completion= "",
                 content= assistant_response.content,
                 completion_tokens= assistant_response.completion_tokens,
                 prompt_tokens= assistant_response.prompt_tokens,
