@@ -14,6 +14,8 @@ from foundationallm.models.orchestration.openai_image_file_message_content_item 
 from foundationallm.models.orchestration.openai_text_message_content_item import OpenAITextMessageContentItem
 from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
 from foundationallm.models.services.openai_assistants_response import OpenAIAssistantsAPIResponse
+from foundationallm.services.open_ai_async_event_handler import OpenAIAsyncEventHandler
+from foundationallm.services.open_ai_event_handler import OpenAIEventHandler
 
 class OpenAIAssistantsApiService:
     """
@@ -57,10 +59,15 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        run = self.client.beta.threads.runs.create_and_poll(
-            thread_id = request.thread_id,
-            assistant_id = request.assistant_id
-            )
+        accumulatorHandler = OpenAIEventHandler()
+        with self.client.beta.threads.runs.stream(
+          thread_id=request.thread_id,
+          assistant_id=request.assistant_id,
+          event_handler=accumulatorHandler,
+        ) as stream:
+          stream.until_done()
+
+        run = stream.get_final_run()
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
@@ -71,6 +78,7 @@ class OpenAIAssistantsApiService:
         
         return OpenAIAssistantsAPIResponse(
             content = content,
+            analysis = accumulatorHandler.get_buffer(),
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
@@ -103,10 +111,15 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        run = await self.client.beta.threads.runs.create_and_poll(
-            thread_id = request.thread_id,
-            assistant_id = request.assistant_id
-            )
+        accumulatorHandler = OpenAIAsyncEventHandler()
+        async with self.client.beta.threads.runs.stream(
+          thread_id=request.thread_id,
+          assistant_id=request.assistant_id,
+          event_handler=accumulatorHandler,
+        ) as stream:
+          await stream.until_done()
+
+        run = await stream.get_final_run()
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
@@ -117,6 +130,7 @@ class OpenAIAssistantsApiService:
         
         return OpenAIAssistantsAPIResponse(
             content = content,
+            analysis = await accumulatorHandler.get_buffer(),
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
