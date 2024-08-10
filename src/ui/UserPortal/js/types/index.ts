@@ -35,12 +35,20 @@ export interface Message {
 	completionPromptId: string | null;
 	citations: Array<Citation>;
 	content: Array<MessageContent>;
+	attachments: Array<string>;
+	attachmentDetails: Array<AttachmentDetail>;
 }
 
 export interface MessageContent {
 	type: string;
 	fileName: string;
 	value: string;
+}
+
+export interface AttachmentDetail {
+	objectId: string;
+	displayName: string;
+	contentType: string;
 }
 
 export interface Session {
