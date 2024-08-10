@@ -1,6 +1,8 @@
 ﻿using FoundationaLLM.AzureOpenAI.Models;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.OpenAI;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
@@ -9,8 +11,7 @@ using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Gateway.Interfaces;
-using FoundationaLLM.Prompt.Models.Resources;
+using FoundationaLLM.Gateway.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -60,8 +61,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_AzureOpenAI;
 
-        private IGatewayServiceClient? _gatewayClient;
-
         /// <inheritdoc/>
         protected override async Task InitializeInternal()
         {
@@ -85,8 +84,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     default,
                     default);
             }
-
-            _gatewayClient = _serviceProvider.GetRequiredService<IGatewayServiceClient>();
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
@@ -202,47 +199,113 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
         #region Helpers for UpsertResourceAsync
 
-        private async Task<ResourceProviderUpsertResult> UpdateAssistantUserContext(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
+        private async Task<AssistantUserContextUpsertResult> UpdateAssistantUserContext(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
-            var userContext = JsonSerializer.Deserialize<AssistantUserContext>(serializedResource)
+            var assistantUserContext = JsonSerializer.Deserialize<AssistantUserContext>(serializedResource)
                 ?? throw new ResourceProviderException("The object definition is invalid.");
 
             // Check if the resource was logically deleted.
-            if (_resourceReferences.TryGetValue(userContext.Name!, out var existingResourceReference)
+            if (_resourceReferences.TryGetValue(assistantUserContext.Name!, out var existingResourceReference)
                 && existingResourceReference!.Deleted)
-                throw new ResourceProviderException($"The prompt resource {existingResourceReference.Name} cannot be added or updated.",
+                throw new ResourceProviderException($"The resource {existingResourceReference.Name} cannot be added or updated.",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != userContext.Name)
+            if (resourcePath.ResourceTypeInstances[0].ResourceId != assistantUserContext.Name)
                 throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                     StatusCodes.Status400BadRequest);
 
             var resourceReference = new AzureOpenAIResourceReference
             {
-                Name = userContext.Name!,
-                Type = userContext.Type!,
-                Filename = $"/{_name}/{userContext.Name}.json",
+                Name = assistantUserContext.Name!,
+                Type = assistantUserContext.Type!,
+                Filename = $"/{_name}/{assistantUserContext.Name}.json",
                 Deleted = false
             };
 
-            userContext.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+            assistantUserContext.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+
+            var gatewayClient = new GatewayServiceClient(
+                await _serviceProvider.GetRequiredService<IHttpClientFactoryService>()
+                    .CreateClient(HttpClientNames.GatewayAPI, userIdentity),
+                _serviceProvider.GetRequiredService<ILogger<GatewayServiceClient>>());
+
+            var newOpenAIAssistantId = default(string);
+            var newOpenAIAssistantThreadId = default(string);
 
             if (existingResourceReference == null)
             {
                 // Creating a new resource.
-                userContext.CreatedBy = userIdentity.UPN;
+                assistantUserContext.CreatedBy = userIdentity.UPN;
 
-                var assistantId = await _gatewayClient!.CreateAgentCapability(
-                    AgentCapabilityNames.OpenAIAssistants,
-                    resourceReference.Name);
+                var result = await gatewayClient!.CreateAgentCapability(
+                    _instanceSettings.Id,
+                    AgentCapabilityCategoryNames.OpenAIAssistants,
+                    resourceReference.Name,
+                    new()
+                    {
+                        { OpenAIAgentCapabilityParameterNames.CreateAssistant, true },
+                        { OpenAIAgentCapabilityParameterNames.CreateAssistantThread, true },
+                        { OpenAIAgentCapabilityParameterNames.Endpoint, assistantUserContext.Endpoint },
+                        { OpenAIAgentCapabilityParameterNames.ModelDeploymentName , assistantUserContext.ModelDeploymentName },
+                        { OpenAIAgentCapabilityParameterNames.AssistantPrompt, assistantUserContext.Prompt }
+                    });
+
+                result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantId, out var newOpenAIAssistantIdObject);
+                newOpenAIAssistantId = ((JsonElement)newOpenAIAssistantIdObject!).Deserialize<string>();
+
+                result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantThreadId, out var newOpenAIAssistantThreadIdObject);
+                newOpenAIAssistantThreadId = ((JsonElement)newOpenAIAssistantThreadIdObject!).Deserialize<string>();
+
+                assistantUserContext.OpenAIAssistantId = newOpenAIAssistantId;
+                assistantUserContext.OpenAIAssistantCreatedOn = DateTimeOffset.UtcNow;
+
+                var conversation = assistantUserContext.Conversations.Values
+                    .SingleOrDefault(c => string.IsNullOrWhiteSpace(c.OpenAIThreadId))
+                    ?? throw new ResourceProviderException("Could not find a conversation with an empty assistant thread id.");
+
+                conversation.OpenAIThreadId = newOpenAIAssistantThreadId;
+                conversation.OpenAIThreadCreatedOn = assistantUserContext.OpenAIAssistantCreatedOn;
             }
             else
-                userContext.UpdatedBy = userIdentity.UPN;
+            {
+                assistantUserContext.UpdatedBy = userIdentity.UPN;
+
+                var incompleteConversations = assistantUserContext.Conversations.Values
+                    .Where(c => string.IsNullOrWhiteSpace(c.OpenAIThreadId))
+                    .ToList();
+
+                if (incompleteConversations.Count > 1)
+                    throw new ResourceProviderException($"The Assistant user context {assistantUserContext.Name} contains more than one incomplete conversation. This indicates an inconsistent approach in the resource management flow.");
+
+                if (incompleteConversations.Count == 1)
+                {
+                    var result = await gatewayClient!.CreateAgentCapability(
+                        _instanceSettings.Id,
+                        AgentCapabilityCategoryNames.OpenAIAssistants,
+                        resourceReference.Name,
+                        new()
+                        {
+                            { OpenAIAgentCapabilityParameterNames.AssistantId, assistantUserContext.OpenAIAssistantId! },
+                            { OpenAIAgentCapabilityParameterNames.CreateAssistantThread, true },
+                            { OpenAIAgentCapabilityParameterNames.Endpoint, assistantUserContext.Endpoint }
+                        });
+
+                    result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantThreadId, out var newOpenAIAssistantThreadIdObject);
+                    newOpenAIAssistantThreadId = ((JsonElement)newOpenAIAssistantThreadIdObject!).Deserialize<string>();
+
+                    var conversation = assistantUserContext.Conversations.Values
+                        .SingleOrDefault(c => string.IsNullOrWhiteSpace(c.OpenAIThreadId))
+                        ?? throw new ResourceProviderException("Could not find a conversation with an empty assistant thread id.");
+
+                    conversation.OpenAIThreadId = newOpenAIAssistantThreadId;
+                    conversation.OpenAIThreadCreatedOn = DateTimeOffset.UtcNow;
+                }
+            }
 
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 resourceReference.Filename,
-                JsonSerializer.Serialize<AssistantUserContext>(userContext, _serializerSettings),
+                JsonSerializer.Serialize<AssistantUserContext>(assistantUserContext, _serializerSettings),
                 default,
                 default);
 
@@ -255,9 +318,11 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     default,
                     default);
 
-            return new ResourceProviderUpsertResult
+            return new AssistantUserContextUpsertResult
             {
-                ObjectId = (userContext as AssistantUserContext)!.ObjectId
+                ObjectId = (assistantUserContext as AssistantUserContext)!.ObjectId,
+                NewOpenAIAssistantId = newOpenAIAssistantId,
+                NewOpenAIAssistantThreadId = newOpenAIAssistantThreadId
             };
         }
 
@@ -332,13 +397,13 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                 else
                 {
                     throw new ResourceProviderException(
-                        $"The {resourceName} prompt resource is not soft-deleted and cannot be purged.",
+                        $"The {resourceName} resource is not soft-deleted and cannot be purged.",
                         StatusCodes.Status400BadRequest);
                 }
             }
             else
             {
-                throw new ResourceProviderException($"Could not locate the {resourceName} prompt resource.",
+                throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
                     StatusCodes.Status404NotFound);
             }
         }

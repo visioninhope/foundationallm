@@ -170,7 +170,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
                         StatusCodes.Status400BadRequest);
                 else
                     return $"/instances/{_instanceId}/providers/{_resourceProvider}/{string.Join("/",
-                        _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+                        _resourceTypeInstances.Select(i => i.ResourceId == null ? $"{i.ResourceType}" : $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
             }
         }
 

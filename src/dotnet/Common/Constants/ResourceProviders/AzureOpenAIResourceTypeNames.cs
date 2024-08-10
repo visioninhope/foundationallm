@@ -8,6 +8,6 @@
         /// <summary>
         /// Prompts.
         /// </summary>
-        public const string AssistantUserContext = "assistantUserContext";
+        public const string AssistantUserContext = "assistantUserContexts";
     }
 }

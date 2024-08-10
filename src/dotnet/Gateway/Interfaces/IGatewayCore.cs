@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Vectorization;
+﻿using FoundationaLLM.Common.Interfaces;
 
 namespace FoundationaLLM.Gateway.Interfaces
 {
