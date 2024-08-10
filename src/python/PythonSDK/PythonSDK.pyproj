@@ -25,6 +25,7 @@
     <Compile Include="foundationallm\config\context.py" />
     <Compile Include="foundationallm\config\environment_variables.py" />
     <Compile Include="foundationallm\config\user_identity.py" />
+    <Compile Include="foundationallm\langchain\agents\langchain_audio_classifier_agent.py" />
     <Compile Include="foundationallm\langchain\agents\langchain_knowledge_management_agent.py" />
     <Compile Include="foundationallm\langchain\exceptions\langchain_exception.py" />
     <Compile Include="foundationallm\langchain\exceptions\__init__.py" />
