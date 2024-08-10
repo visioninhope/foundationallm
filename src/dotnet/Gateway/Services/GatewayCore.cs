@@ -177,5 +177,7 @@ namespace FoundationaLLM.Gateway.Services
             else
                 return await Task.FromResult(operationContext.Result);
         }
+
+        public Task<string> CreateAgentCapability(string category, string name, Dictionary<string, object>? parameters = null) => throw new NotImplementedException();
     }
 }

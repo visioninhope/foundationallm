@@ -1,9 +1,5 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Common.Extensions
 {
@@ -37,5 +33,18 @@ namespace FoundationaLLM.Common.Extensions
             // Ensure the name length is within a reasonable limit, e.g., 50 characters.
             return validName.Length > 50 ? validName[..50] : validName;
         }
+
+        /// <summary>
+        /// Converts a UPN (User Principal Name) to a string that is better suited to be used as an identifier.
+        /// </summary>
+        /// <param name="upn">The original UPN (User Principal Name).</param>
+        /// <returns>A string containing the normalized UPN (User Principal Name).</returns>
+        public static string NormalizeUserPrincipalName(
+            this string upn) =>
+            upn
+                .Replace('.', '_')
+                .Replace("#", ".")
+                .Replace("@", "_")
+                .ToLower();
     }
 }

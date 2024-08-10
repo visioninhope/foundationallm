@@ -74,6 +74,14 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.Agent
                 AgentTypes.AudioClassification => typeof(AudioClassificationAgent),
                 _ => throw new ResourceProviderException($"The agent type {Type} is not supported.")
             };
+
+        /// <summary>
+        /// Checks whether the agent has a specified capbability.
+        /// </summary>
+        /// <param name="capabilityName">The name of the capability.</param>
+        /// <returns>True if the agent has the capability, False otherwise.</returns>
+        public bool HasCapability(string capabilityName) =>
+            Capabilities?.Contains(capabilityName) ?? false;
     }
 
     /// <summary>

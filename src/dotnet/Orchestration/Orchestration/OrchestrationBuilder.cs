@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -8,6 +8,7 @@ using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
@@ -16,6 +17,7 @@ using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Graph.Communications.OnlineMeetings.CreateOrGet;
 using System.Net;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
@@ -57,7 +59,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             var logger = loggerFactory.CreateLogger<OrchestrationBuilder>();
 
             var result = await LoadAgent(
+                instanceId,
                 agentName,
+                originalRequest.SessionId,
                 originalRequest.Settings?.ModelParameters,
                 resourceProviderServices,
                 callContext.CurrentUserIdentity!,
@@ -89,7 +93,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         }
 
         private static async Task<(AgentBase? Agent, Dictionary<string, object>? ExplodedObjects, bool DataSourceAccessDenied)> LoadAgent(
-            string? agentName,
+            string instanceId,
+            string agentName,
+            string? sessionId,
             Dictionary<string, object>? modelParameterOverrides,
             Dictionary<string, IResourceProviderService> resourceProviderServices,
             UnifiedUserIdentity currentUserIdentity,
@@ -110,6 +116,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_AIModel} was not loaded.");
             if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Configuration, out var configurationResourceProvider))
                 throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
+            if (!resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_AzureOpenAI, out var azureOpenAIResourceProvider))
+                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_AzureOpenAI} was not loaded.");
 
             var explodedObjects = new Dictionary<string, object>();
 
@@ -152,6 +160,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .ToDictionary(x => x.Name, x => x.Description);
             explodedObjects[CompletionRequestObjectsKeys.AllAgents] = allAgentsDescriptions;
 
+            #region Knowledge management processing
             if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(AudioClassificationAgent))
             {
                 KnowledgeManagementAgent kmAgent = (KnowledgeManagementAgent)agentBase;
@@ -201,6 +210,66 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     }
                 }
             }
+
+            #endregion
+
+            #region OpenAI assistants capability processing
+
+            if (agentBase.HasCapability(AgentCapabilityNames.OpenAIAssistants))
+            {
+                var assistantUserContextName = $"{currentUserIdentity.UPN!.NormalizeUserPrincipalName()}-{instanceId.ToLower()}";
+
+                // TODO: we are doing too many round-trips to set this up.
+                // There must be a more efficience way to achieve this.
+
+                if (! await azureOpenAIResourceProvider.ResourceExists(
+                    instanceId,
+                    assistantUserContextName,
+                    AzureOpenAIResourceTypeNames.AssistantUserContext,
+                    currentUserIdentity))
+                {
+                    var result = await azureOpenAIResourceProvider.CreateOrUpdateResource<AssistantUserContext>(
+                        instanceId,
+                        new AssistantUserContext
+                        {
+                            Name = assistantUserContextName,
+                            UserPrincipalName = currentUserIdentity.UPN!
+                        },
+                        AzureOpenAIResourceTypeNames.AssistantUserContext,
+                        currentUserIdentity);
+                }
+
+                var assistantUserContext = await azureOpenAIResourceProvider.GetResource<AssistantUserContext>(
+                    instanceId,
+                    assistantUserContextName,
+                    AzureOpenAIResourceTypeNames.AssistantUserContext,
+                    currentUserIdentity);
+
+                if (!assistantUserContext.Conversations.ContainsKey(sessionId!))
+                {
+                    assistantUserContext.Conversations[sessionId!] = new AssistantConversation
+                    {
+                        SessionId = sessionId!
+                    };
+
+                    await azureOpenAIResourceProvider.CreateOrUpdateResource<AssistantUserContext>(
+                        instanceId,
+                        assistantUserContext,
+                        AzureOpenAIResourceTypeNames.AssistantUserContext,
+                        currentUserIdentity);
+
+                    assistantUserContext = await azureOpenAIResourceProvider.GetResource<AssistantUserContext>(
+                        instanceId,
+                        assistantUserContextName,
+                        AzureOpenAIResourceTypeNames.AssistantUserContext,
+                        currentUserIdentity);
+                }
+
+                explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantId] = assistantUserContext.OpenAIAssistantId!;
+                explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantThreadId] = assistantUserContext.Conversations[sessionId!].OpenAIThreadId!;
+            }
+
+            #endregion
 
             return (agentBase, explodedObjects, false);
         }
