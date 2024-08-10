@@ -67,6 +67,12 @@ The `FoundationaLLM:APIs` and `FoundationaLLM:ExternalAPIs` configuration namesp
 
 The `FoundationaLLM:AzureAIStudio` configuration namespace expects an `APIEndpointConfigurationName` property instead of `BaseUrl`.
 
+A new configuration setting named `FoundationaLLM:Instance:SecurityGroupRetrievalStrategy` with a value of `IdentityManagementService` must exist in the app configuration. It will be added by default in new deployments.
+
+Two new configuration settings required by the new `FoundationaLLM.AzureOpenAI` resource provider:
+- `FoundationaLLM:ResourceProviders:AzureOpenAI:Storage:AuthenticationType`
+- `FoundationaLLM:ResourceProviders:AzureOpenAI:Storage:AccountName`
+
 ### Pre-0.8.0
 
 1. Vectorization resource stores use a unique collection name, `Resources`. They also add a new top-level property named `DefaultResourceName`.

@@ -14,6 +14,12 @@ namespace FoundationaLLM.Common.Models.Chat
         public string? Type { get; set; }
 
         /// <summary>
+        /// The file name related to the Value, if applicable.
+        /// </summary>
+        [JsonPropertyName("fileName")]
+        public string? FileName { get; set; }
+
+        /// <summary>
         /// The value of the message content.
         /// </summary>
         [JsonPropertyName("value")]

@@ -14,6 +14,16 @@ namespace FoundationaLLM.Common.Constants.Agents
         public const string AllAgents = "AllAgents";
 
         /// <summary>
+        /// The key name for the OpenAI assistant identifier value.
+        /// </summary>
+        public const string OpenAIAssistantId = "OpenAI.AssistantId";
+
+        /// <summary>
+        /// The key name for the OpenAI assistant thread identifier value.
+        /// </summary>
+        public const string OpenAIAssistantThreadId = "OpenAI.AssistantThreadId";
+
+        /// <summary>
         /// All completion request objects dictionary keys.
         /// </summary>
         public readonly static string[] All = [
