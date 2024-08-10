@@ -37,6 +37,7 @@
 								<Button
 									icon="pi pi-images"
 									label="Choose"
+									:disabled="uploadProgress !== 0"
 									style="margin-right: 0.5rem"
 									@click="chooseCallback()"
 								></Button>
