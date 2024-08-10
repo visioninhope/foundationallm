@@ -44,8 +44,7 @@ class OpenAIAssistantsApiService:
         request : OpenAIAssistantsAPIRequest
             The request to run with the OpenAI Assistants API service.
         """
-        print("Entered OpenAIAssistantsAPIService.run method.")
-
+        
         # Process file attachments and assign tools
         attachments = self._get_request_attachments(request)        
     
@@ -58,15 +57,11 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        print("Executing the Assistant run.")
         run = self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
             )
-
-        # Output
-        print(run.usage)
-
+        
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
                 thread_id=request.thread_id, order="asc", after=message.id
@@ -95,12 +90,10 @@ class OpenAIAssistantsApiService:
         OpenAIAssistantsAPIResponse
             The response parsed from the OpenAI Assistants API service response.
         """
-        print("Entered OpenAIAssistantsAPIService.arun method.")
-
+        
         # Process file attachments and assign tools
         attachments = await self._aget_request_attachments(request)        
 
-        print("Add message to thread.")
         # Add User prompt to the thread
         message = await self.client.beta.threads.messages.create(
             thread_id=request.thread_id,
@@ -110,15 +103,11 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        print("Executing the Assistant run.")
         run = await self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
             )
-
-        # Output
-        print(run.usage)
-        print("Get message list.")
+        
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
                 thread_id=request.thread_id, order="asc", after=message.id
