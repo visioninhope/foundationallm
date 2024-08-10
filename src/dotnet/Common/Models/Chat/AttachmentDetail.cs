@@ -5,30 +5,24 @@ namespace FoundationaLLM.Common.Models.Chat
     /// <summary>
     /// Represents an attachment in a chat message or session.
     /// </summary>
-    public class Attachment
+    public class AttachmentDetail
     {
         /// <summary>
         /// The unique identifier of the attachment resource.
         /// </summary>
-        [JsonPropertyName("object_id")]
+        [JsonPropertyName("objectId")]
         public string? ObjectId { get; set; }
-
-        /// <summary>
-        /// The date the attachment was added.
-        /// </summary>
-        [JsonPropertyName("date_added")]
-        public DateTime DateAdded { get; set; }
 
         /// <summary>
         /// The attachment file name.
         /// </summary>
-        [JsonPropertyName("display_name")]
+        [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
 
         /// <summary>
         /// The mime content type of the attachment.
         /// </summary>
-        [JsonPropertyName("content_type")]
+        [JsonPropertyName("contentType")]
         public string? ContentType { get; set; }
     }
 }
