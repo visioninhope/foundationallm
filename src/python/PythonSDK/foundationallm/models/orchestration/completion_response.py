@@ -1,6 +1,9 @@
 from typing import List, Optional, Union
 from pydantic import BaseModel
 from .citation import Citation
+from .openai_file_path_message_content_item import OpenAIFilePathMessageContentItem
+from .openai_image_file_message_content_item import OpenAIImageFileMessageContentItem
+from .openai_text_message_content_item import OpenAITextMessageContentItem
 
 class CompletionResponse(BaseModel):
     """
@@ -10,6 +13,15 @@ class CompletionResponse(BaseModel):
     user_prompt: str
     full_prompt: Optional[str] = None
     completion: Union[str, set, List[str]]
+    content: Optional[
+        List[
+            Union[
+                OpenAIFilePathMessageContentItem, 
+                OpenAIImageFileMessageContentItem, 
+                OpenAITextMessageContentItem
+            ]
+        ]
+    ] = None
     citations: Optional[List[Citation]] = []
     user_prompt_embedding: Optional[List[float]] = []
     prompt_tokens: int = 0

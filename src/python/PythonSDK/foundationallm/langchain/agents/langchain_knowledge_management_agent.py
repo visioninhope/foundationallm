@@ -15,12 +15,15 @@ from foundationallm.models.agents import (
 )
 from foundationallm.models.authentication import AuthenticationTypes
 from foundationallm.models.language_models import LanguageModelProvider
+from foundationallm.models.orchestration.operation_types import OperationTypes
 from foundationallm.models.resource_providers.vectorization import (
     AzureAISearchIndexingProfile,
     AzureOpenAIEmbeddingProfile
 )
 import requests
 from typing import List, Optional
+from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
+from foundationallm.services.openai_assistants_api_service import OpenAIAssistantsApiService
 from foundationallm.storage import BlobStorageManager
 import uuid
 import os
@@ -183,12 +186,22 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 self.has_indexing_profiles = True
 
+        
+        # if the OpenAI.Assistants capability is present, validate the following required fields:
+        #   AssistantId, AssistantThreadId
+          
+        if "OpenAI.Assistants" in request.agent.capabilities:
+            required_fields = ["OpenAI.AssistantId", "OpenAI.AssistantThreadId"]
+            for field in required_fields:
+                if not request.objects.get(field):
+                    raise LangChainException(f"The {field} property is required when the OpenAI.Assistants capability is present.", 400)
+
         self._validate_conversation_history(request.agent.conversation_history_settings)
 
     def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
         """
         Executes a synchronous completion request.
-        If a vector index exists, it will be queryied with the user prompt.
+        If a vector index exists, it will be queried with the user prompt.
 
         Parameters
         ----------
@@ -267,6 +280,28 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             generated full prompt with context and token utilization and execution cost details.
         """
         self._validate_request(request)
+
+        # Check for Assistants API capability
+        if "OpenAI.Assistants" in request.agent.capabilities:
+            print("API VERSION: "+ self.api_endpoint.api_version)
+            operation_type_override = OperationTypes.ASSISTANTS_API
+            print("Creating Assistants API Service.")
+            # create the service
+            assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override))
+            print("Creating Assistants API Service Request.")
+            # populate service request object
+            assistant_req = OpenAIAssistantsAPIRequest(
+                assistant_id=request.objects["OpenAI.AssistantId"],
+                thread_id=request.objects["OpenAI.AssistantThreadId"],
+                file_id_list=request.attachments,
+                user_prompt=request.user_prompt
+            )
+            print("Invoking Assistants API Service.")
+            # invoke/run the service
+            assistant_response = assistant_svc.run(assistant_req)
+            print("Response from Assistants API Service: ", assistant_response)
+            # return the response
+            return assistant_response            
 
         agent = request.agent
 
