@@ -4,3 +4,4 @@ class OperationTypes(str, Enum):
    """Enumerator of the Operation Types."""
    COMPLETIONS = "completions"
    CHAT = "chat"
+   ASSISTANTS_API = "assistants_api"
