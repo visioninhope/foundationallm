@@ -5,6 +5,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from langchain_core.language_models import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
 from openai import AzureOpenAI as aoi
+from openai import AsyncAzureOpenAI as async_aoi
 from foundationallm.config.configuration import Configuration
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.models.orchestration import OperationTypes
@@ -202,7 +203,7 @@ class LangChainAgentBase():
         self.full_prompt = prompt
         return prompt
 
-    def _get_language_model(self, override_operation_type: OperationTypes = None) -> BaseLanguageModel:
+    def _get_language_model(self, override_operation_type: OperationTypes = None, is_async: bool=False) -> BaseLanguageModel:
         """
         Create a language model using the specified endpoint settings.
 
@@ -245,12 +246,21 @@ class LangChainAgentBase():
                         )
                     elif op_type == OperationTypes.ASSISTANTS_API:
                         # Assistants API clients can't have deployment as that is assigned at the assistant level.
-                        language_model = aoi(
-                            azure_endpoint=self.api_endpoint.url,
-                            api_version=self.api_endpoint.api_version,
-                            openai_api_type='azure_ad',
-                            azure_ad_token_provider=token_provider,
-                        )
+                        if is_async:
+                            # create async client
+                            language_model = async_aoi(
+                                azure_endpoint=self.api_endpoint.url,
+                                api_version=self.api_endpoint.api_version,
+                                openai_api_type='azure_ad',
+                                azure_ad_token_provider=token_provider,
+                            )
+                        else:
+                            language_model = aoi(
+                                azure_endpoint=self.api_endpoint.url,
+                                api_version=self.api_endpoint.api_version,
+                                openai_api_type='azure_ad',
+                                azure_ad_token_provider=token_provider,
+                            )
                     else:
                         raise LangChainException(f"Unsupported operation type: {op_type}", 400)
 
@@ -274,11 +284,19 @@ class LangChainAgentBase():
                     )
                 elif op_type == OperationTypes.ASSISTANTS_API:
                     # Assistants API clients can't have deployment as that is assigned at the assistant level.
-                    language_model = aoi(
-                        azure_endpoint=self.api_endpoint.url,
-                        api_key=api_key,
-                        api_version=self.api_endpoint.api_version,
-                    )
+                    if is_async:
+                        # create async client
+                        language_model = async_aoi(
+                            azure_endpoint=self.api_endpoint.url,
+                            api_key=api_key,
+                            api_version=self.api_endpoint.api_version,
+                        )
+                    else:
+                        language_model = aoi(
+                            azure_endpoint=self.api_endpoint.url,
+                            api_key=api_key,
+                            api_version=self.api_endpoint.api_version,
+                        )
                 else:
                     raise LangChainException(f"Unsupported operation type: {op_type}", 400)
 
