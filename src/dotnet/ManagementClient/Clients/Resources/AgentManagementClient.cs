@@ -43,7 +43,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
 
             return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
+                $"{AgentResourceTypeNames.Agents}/{ResourceProviderActions.CheckName}",
                 resourceName
             );
         }
@@ -58,7 +58,7 @@ namespace FoundationaLLM.Client.Management.Clients.Resources
 
             return await managementRestClient.Resources.ExecuteResourceActionAsync<ResourceProviderActionResult>(
                 ResourceProviderNames.FoundationaLLM_Agent,
-                $"{AgentResourceTypeNames.Agents}/{agentName}/{AgentResourceProviderActions.Purge}",
+                $"{AgentResourceTypeNames.Agents}/{agentName}/{ResourceProviderActions.Purge}",
                 new { }
             );
         }

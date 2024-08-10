@@ -62,6 +62,27 @@ namespace FoundationaLLM.Authorization.Models
                         "Agent")
                 },
                 {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Read,
+                        "Read assistant user contexts.",
+                        "AzureOpenAI")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write,
+                        "Create or update assistant user contexts.",
+                        "AzureOpenAI")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete,
+                        "Delete assistant user contexts.",
+                        "AzureOpenAI")
+                },
+                {
                     AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Read,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Read,
@@ -104,24 +125,24 @@ namespace FoundationaLLM.Authorization.Models
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpointConfigurations_Read,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Read,
-                        "Read API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpointConfigurations_Read,
+                        "Read API endpoint configurations.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpointConfigurations_Write,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Write,
-                        "Create or update API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpointConfigurations_Write,
+                        "Create or update API endpoint configurations.",
                         "Configuration")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
+                    AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoinConfigurations_Delete,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoints_Delete,
-                        "Delete API endpoints.",
+                        AuthorizableActionNames.FoundationaLLM_Configuration_APIEndpoinConfigurations_Delete,
+                        "Delete API endpoint configurations.",
                         "Configuration")
                 },
                 {
@@ -359,21 +380,21 @@ namespace FoundationaLLM.Authorization.Models
                     AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
-                        "Read AIModels.",
+                        "Read AI models",
                         "AIModel")
                 },
                 {
                     AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
-                        "Create or update AIModels.",
+                        "Create or update AI models.",
                         "AIModel")
                 },
                 {
                     AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
-                        "Delete AIModel.",
+                        "Delete AI models.",
                         "AIModel")
                 },
             });

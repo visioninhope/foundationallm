@@ -1,21 +1,23 @@
 ﻿namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
-    /// The names of the actions implemented by the Data Source resource provider.
+    /// The names of the actions implemented by most of the FoundationaLLM resource providers.
     /// </summary>
-    public class DataSourceResourceProviderActions
+    public static class ResourceProviderActions
     {
         /// <summary>
         /// Check the validity of a resource name.
         /// </summary>
         public const string CheckName = "checkname";
-        /// <summary>
-        /// Apply a filter for data source retrieval.
-        /// </summary>
-        public const string Filter = "filter";
+
         /// <summary>
         /// Purges a soft-deleted resource.
         /// </summary>
         public const string Purge = "purge";
+
+        /// <summary>
+        /// Filter resources.
+        /// </summary>
+        public const string Filter = "filter";
     }
 }

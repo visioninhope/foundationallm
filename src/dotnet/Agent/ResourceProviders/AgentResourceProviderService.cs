@@ -2,6 +2,7 @@
 using FluentValidation;
 using FoundationaLLM.Agent.Models.Resources;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -234,7 +235,6 @@ namespace FoundationaLLM.Agent.ResourceProviders
             };
 
             agent.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
-            agent.Capabilities ??= [AgentCapabilities.OpenAIAssistants];
 
             if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
@@ -312,8 +312,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
-                    AgentResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckAgentName(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },

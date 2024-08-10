@@ -31,7 +31,7 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         new ResourceTypeAction(VectorizationResourceProviderActions.Deactivate, true, false, [
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(VectorizationResult)])
                         ]),
-                        new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                        new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                         ])
                     ]
@@ -65,10 +65,10 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                            new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ]),
-                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
@@ -85,10 +85,10 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                            new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ]),
-                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
@@ -105,13 +105,13 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                         new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                            new ResourceTypeAction(VectorizationResourceProviderActions.CheckName, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.CheckName, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ]),
-                            new ResourceTypeAction(VectorizationResourceProviderActions.Filter, false, true, [
+                            new ResourceTypeAction(ResourceProviderActions.Filter, false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(IndexingProfile)])
                             ]),
-                            new ResourceTypeAction(VectorizationResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]

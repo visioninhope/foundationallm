@@ -1,4 +1,8 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using Azure.AI.OpenAI.Assistants;
+using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.OpenAI;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Exceptions;
@@ -9,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
+using System.Text.Json;
 
 namespace FoundationaLLM.Gateway.Services
 {
@@ -43,6 +48,7 @@ namespace FoundationaLLM.Gateway.Services
             try
             {
                 var openAIAccounts = _settings.AzureOpenAIAccounts.Split(";");
+
                 foreach (var openAIAccount in openAIAccounts)
                 {
                     _logger.LogInformation("Loading properties for the Azure OpenAI account with resource id {AccountResourceId}.", openAIAccount);
@@ -111,7 +117,7 @@ namespace FoundationaLLM.Gateway.Services
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> StartEmbeddingOperation(TextEmbeddingRequest embeddingRequest)
+        public async Task<TextEmbeddingResult> StartEmbeddingOperation(string instanceId, TextEmbeddingRequest embeddingRequest)
         {
             if (!_initialized)
                 throw new GatewayException("The Gateway service is not initialized.");
@@ -152,7 +158,7 @@ namespace FoundationaLLM.Gateway.Services
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string operationId)
+        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string instanceId, string operationId)
         {
             if (!_initialized)
                 throw new GatewayException("The Gateway service is not initialized.");
@@ -176,6 +182,80 @@ namespace FoundationaLLM.Gateway.Services
                 });
             else
                 return await Task.FromResult(operationContext.Result);
+        }
+
+        /// <inheritdoc/>
+        public async Task<Dictionary<string, object>> CreateAgentCapability(string instanceId, string capabilityCategory, string capabilityName, Dictionary<string, object>? parameters = null)
+        {
+            if (!_initialized)
+                throw new GatewayException("The Gateway service is not initialized.");
+
+            return capabilityCategory switch
+            {
+                AgentCapabilityCategoryNames.OpenAIAssistants => await CreateOpenAIAgentCapability(instanceId, capabilityName, parameters!),
+                _ => throw new GatewayException($"The agent capability category {capabilityCategory} is not supported by the Gateway service.",
+                   StatusCodes.Status400BadRequest),
+            };
+        }
+
+        private async Task<Dictionary<string, object>> CreateOpenAIAgentCapability(string instanceId, string capabilityName, Dictionary<string, object> parameters)
+        {
+            if (string.IsNullOrEmpty(capabilityName))
+                throw new GatewayException("The specified capability name is invalid.", StatusCodes.Status400BadRequest);
+
+            Dictionary<string, object> result = [];
+
+            var endpoint = parameters[OpenAIAgentCapabilityParameterNames.Endpoint].ToString();
+            var azureOpenAIAccount = _azureOpenAIAccounts.Values.FirstOrDefault(
+                a => Uri.Compare(
+                    new Uri(endpoint!),
+                    new Uri(a.Endpoint),
+                    UriComponents.Host,
+                    UriFormat.SafeUnescaped,
+                    StringComparison.OrdinalIgnoreCase) == 0)
+                ?? throw new GatewayException($"The Gateway service is not configured to use the {endpoint} endpoint.");
+
+            var assistantsClient = new AssistantsClient(new Uri(azureOpenAIAccount.Endpoint), DefaultAuthentication.AzureCredential);
+
+            parameters.TryGetValue(OpenAIAgentCapabilityParameterNames.CreateAssistant, out var createAssistantObject);
+            var createAssistant = ((JsonElement)createAssistantObject!).Deserialize<bool>();
+
+            parameters.TryGetValue(OpenAIAgentCapabilityParameterNames.CreateAssistantThread, out var createAssistantThreadObject);
+            var createAssistantThread = ((JsonElement)createAssistantThreadObject!).Deserialize<bool>();
+
+            if (createAssistant)
+            {
+                var prompt = parameters[OpenAIAgentCapabilityParameterNames.AssistantPrompt].ToString();
+                var modelDeploymentName = parameters[OpenAIAgentCapabilityParameterNames.ModelDeploymentName].ToString();
+                var azureOpenAIModel = azureOpenAIAccount.Deployments.FirstOrDefault(
+                    d => string.Compare(
+                        modelDeploymentName,
+                        d.Name,
+                        true) == 0)
+                    ?? throw new GatewayException($"The Gateway service cannot find the {modelDeploymentName} model deployment in the account with endpoint {endpoint}.");
+
+                var response = await assistantsClient.CreateAssistantAsync(new AssistantCreationOptions(modelDeploymentName)
+                {
+                    Name = capabilityName,
+                    Instructions = prompt,
+                    Tools =
+                    {
+                        new CodeInterpreterToolDefinition()
+                    }
+                });
+
+                var assistant = response.Value;
+                result[OpenAIAgentCapabilityParameterNames.AssistantId] = assistant.Id;
+            }
+
+            if (createAssistantThread)
+            {
+                var response = await assistantsClient.CreateThreadAsync();
+                var thread = response.Value;
+                result[OpenAIAgentCapabilityParameterNames.AssistantThreadId] = thread.Id;
+            }
+
+            return result;
         }
     }
 }
