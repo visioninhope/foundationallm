@@ -4,6 +4,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from langchain_core.language_models import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
+from openai import AzureOpenAI as aoi
 from foundationallm.config.configuration import Configuration
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.models.orchestration import OperationTypes
@@ -242,12 +243,12 @@ class LangChainAgentBase():
                             azure_ad_token_provider=token_provider,
                             azure_deployment=self.ai_model.deployment_name
                         ) if op_type == OperationTypes.CHAT
-                        else AzureOpenAI(
+                        else aoi( #AzureOpenAI(
                             azure_endpoint=self.api_endpoint.url,
                             api_version=self.api_endpoint.api_version,
                             openai_api_type='azure_ad',
                             azure_ad_token_provider=token_provider,
-                            azure_deployment=self.ai_model.deployment_name
+                            #azure_deployment=self.ai_model.deployment_name
                         )
                     )
                 except Exception as e:
@@ -268,11 +269,11 @@ class LangChainAgentBase():
                         api_version=self.api_endpoint.api_version,
                         azure_deployment=self.ai_model.deployment_name
                     ) if op_type == OperationTypes.CHAT
-                    else AzureOpenAI(
+                    else aoi( #AzureOpenAI(
                         azure_endpoint=self.api_endpoint.url,
                         api_key=api_key,
                         api_version=self.api_endpoint.api_version,
-                        azure_deployment=self.ai_model.deployment_name
+                        #azure_deployment=self.ai_model.deployment_name
                     )
                 )
         else:
