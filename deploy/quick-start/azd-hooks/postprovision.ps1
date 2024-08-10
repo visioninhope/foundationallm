@@ -58,6 +58,7 @@ $env:GUID05 = $($(New-Guid).Guid)
 $env:GUID06 = $($(New-Guid).Guid)
 $env:GUID07 = $($(New-Guid).Guid)
 $env:GUID08 = $($(New-Guid).Guid)
+$env:GUID09 = $($(New-Guid).Guid)
 
 $envConfiguraitons = @{
     "core-api-event-profile"             = @{
