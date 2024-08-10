@@ -1,11 +1,41 @@
 #! /usr/bin/pwsh
 <#
 .SYNOPSIS
-    Destructive script that purges Azure AD applications based on a predefined list of names.
+    Automates the deletion of specific Entra ID applications based on their display names.
 
 .DESCRIPTION
-    This script uses the Azure CLI to delete all Azure AD applications that match any of the names in a hardcoded list.
+    This script is designed to remove Entra applications by their display names. It allows the user to specify custom application names 
+    or use the default ones provided. The script supports an interactive mode that prompts the user for confirmation before deletion.
+    This ensures that critical applications are not accidentally removed. The script is useful for managing and cleaning up Entra 
+    environments by removing outdated or unused applications.
 
+.PARAMETER authAppName
+    The display name of the Authorization API application to be deleted. Default is "FoundationaLLM-Authorization-API".
+
+.PARAMETER coreAppName
+    The display name of the Core API application to be deleted. Default is "FoundationaLLM-Core-API".
+
+.PARAMETER coreClientAppName
+    The display name of the Core Portal application to be deleted. Default is "FoundationaLLM-Core-Portal".
+
+.PARAMETER mgmtAppName
+    The display name of the Management API application to be deleted. Default is "FoundationaLLM-Management-API".
+
+.PARAMETER mgmtClientAppName
+    The display name of the Management Portal application to be deleted. Default is "FoundationaLLM-Management-Portal".
+
+.PARAMETER interactiveMode
+    Boolean flag to determine if the script should run in interactive mode, prompting for user confirmation before deletion. 
+    Default is $true.
+
+.EXAMPLE
+    ./Remove-EntraIdMApps.ps1
+    This example runs the script to delete the default Entra applications prompting for confirmation.
+
+.NOTES
+	This is a destructive script. Use with caution and ensure that the applications to be deleted are no longer needed.
+	The script requires the Azure CLI to be installed and authenticated and the subscription with the Entra Set using
+	the 'az account set --subscription' command.
 #>
 
 Param(
@@ -17,13 +47,18 @@ Param(
 	[parameter(Mandatory=$false)][bool]$interactiveMode = $true
 )
 
+# Set Debugging and Error Handling
+Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
+
 # Predefined list of application names to delete
 $AppNames = @(
-	$coreAppName, 
 	$authAppName, 
-	$mgmtClientAppName, 
+	$coreAppName, 
+	$coreClientAppName,
 	$mgmtAppName, 
-	$coreClientAppName
+	$mgmtClientAppName
 )
 
 # Function to filter and delete Azure AD applications based on display name
@@ -37,16 +72,16 @@ function Delete-AppByName {
 	$appIds = az ad app list --all --query "[].{appId:appId,displayName:displayName}[?displayName=='$Name'].appId" --output tsv
 
 	if (-not $appIds) {
-		Write-Host "No applications found with name: $Name"
+		Write-Host -ForegroundColor Red "No applications found with name: $Name"
 		return
 	}
 
 	# Display warning message and ask for confirmation
-	Write-Host "Applications to be deleted with name '$Name':"
+	Write-Host -ForegroundColor Blue "Application to be deleted with name '$Name':"
 	az ad app list --all --query "[].{displayName:displayName}[?displayName=='$Name'].displayName" --output table
 
 	if ($interactiveMode) {
-		$confirmation = Read-Host "Are you sure you want to delete these applications? (yes/no)"
+		$confirmation = Read-Host "Are you sure you want to delete the application? This can't be undone (yes/no)"
 	} else {
 		$confirmation = "yes"
 	}
@@ -54,12 +89,13 @@ function Delete-AppByName {
 	# Delete applications if confirmed
 	if ($confirmation -eq "yes") {
 		foreach ($appId in $appIds.Split("`n")) {
-			Write-Host "Deleting Azure AD application with ID: $appId"
+			Write-Host -ForegroundColor Yellow "Deleting Entra application with ID: $appId"
 			az ad app delete --id $appId --only-show-errors
+			Write-Host -ForegroundColor Green "Application with ID: $appId deleted successfully"
 		}
 	}
  else {
-		Write-Host "Deletion cancelled for applications with name: $Name"
+		Write-Host -ForegroundColor Red "Deletion cancelled for applications with name: $Name"
 	}
 }
 
