@@ -235,22 +235,25 @@ class LangChainAgentBase():
                         scope
                     )
                     
-                    language_model = (
-                        AzureChatOpenAI(
+                    if op_type == OperationTypes.CHAT:
+                        language_model = AzureChatOpenAI(
                             azure_endpoint=self.api_endpoint.url,
                             api_version=self.api_endpoint.api_version,
                             openai_api_type='azure_ad',
                             azure_ad_token_provider=token_provider,
                             azure_deployment=self.ai_model.deployment_name
-                        ) if op_type == OperationTypes.CHAT
-                        else aoi( #AzureOpenAI(
+                        )
+                    elif op_type == OperationTypes.ASSISTANTS_API:
+                        # Assistants API clients can't have deployment as that is assigned at the assistant level.
+                        language_model = aoi(
                             azure_endpoint=self.api_endpoint.url,
                             api_version=self.api_endpoint.api_version,
                             openai_api_type='azure_ad',
                             azure_ad_token_provider=token_provider,
-                            #azure_deployment=self.ai_model.deployment_name
                         )
-                    )
+                    else:
+                        raise LangChainException(f"Unsupported operation type: {op_type}", 400)
+
                 except Exception as e:
                     raise LangChainException(f"Failed to create Azure OpenAI API connector: {str(e)}", 500)
             else: # Key-based authentication
@@ -262,20 +265,23 @@ class LangChainAgentBase():
                 if api_key is None:
                     raise LangChainException("API key is missing from the configuration settings.", 400)
                         
-                language_model = (
-                    AzureChatOpenAI(
+                if op_type == OperationTypes.CHAT:
+                    language_model = AzureChatOpenAI(
                         azure_endpoint=self.api_endpoint.url,
                         api_key=api_key,
                         api_version=self.api_endpoint.api_version,
                         azure_deployment=self.ai_model.deployment_name
-                    ) if op_type == OperationTypes.CHAT
-                    else aoi( #AzureOpenAI(
+                    )
+                elif op_type == OperationTypes.ASSISTANTS_API:
+                    # Assistants API clients can't have deployment as that is assigned at the assistant level.
+                    language_model = aoi(
                         azure_endpoint=self.api_endpoint.url,
                         api_key=api_key,
                         api_version=self.api_endpoint.api_version,
-                        #azure_deployment=self.ai_model.deployment_name
                     )
-                )
+                else:
+                    raise LangChainException(f"Unsupported operation type: {op_type}", 400)
+
         else:
             try:
                 api_key = self.config.get_value(self.api_endpoint.authentication_parameters.get('api_key_configuration_name'))

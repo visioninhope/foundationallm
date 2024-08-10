@@ -32,6 +32,7 @@
     <Compile Include="foundationallm\models\orchestration\openai_file_path_message_content_item.py" />
     <Compile Include="foundationallm\models\orchestration\openai_image_file_message_content_item.py" />
     <Compile Include="foundationallm\models\orchestration\openai_text_message_content_item.py" />
+    <Compile Include="foundationallm\models\services\openai_assistants_response.py" />
     <Compile Include="foundationallm\services\openai_assistants_api_service.py" />
     <Compile Include="foundationallm\langchain\exceptions\langchain_exception.py" />
     <Compile Include="foundationallm\langchain\exceptions\__init__.py" />
