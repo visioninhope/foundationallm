@@ -11,6 +11,7 @@ class OpenAIAssistantsAPIResponse(BaseModel):
        
     """
     content: Optional[List[Union[OpenAIFilePathMessageContentItem, OpenAIImageFileMessageContentItem, OpenAITextMessageContentItem]]]
+    analysis: Optional[str]
     completion_tokens: Optional[int]
     prompt_tokens: Optional[int]
     total_tokens: Optional[int]

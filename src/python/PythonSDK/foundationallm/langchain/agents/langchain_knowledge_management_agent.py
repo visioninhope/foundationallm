@@ -231,6 +231,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             return CompletionResponse(
                 operation_id = request.operation_id,
                 completion= "",
+                full_prompt = assistant_response.analysis,
                 content= assistant_response.content,
                 completion_tokens= assistant_response.completion_tokens,
                 prompt_tokens= assistant_response.prompt_tokens,
@@ -324,6 +325,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             return CompletionResponse(
                 operation_id = request.operation_id,
                 completion= "",
+                full_prompt = assistant_response.analysis,
                 content= assistant_response.content,
                 completion_tokens= assistant_response.completion_tokens,
                 prompt_tokens= assistant_response.prompt_tokens,
