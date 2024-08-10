@@ -293,15 +293,24 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
                 thread_id=request.objects["OpenAI.AssistantThreadId"],
-                file_id_list=request.attachments,
+                attachments=request.attachments,
                 user_prompt=request.user_prompt
             )
             print("Invoking Assistants API Service.")
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
             print("Response from Assistants API Service: ", assistant_response)
-            # return the response
-            return assistant_response            
+            # create the CompletionResponse object
+            print("Creating and returning the CompletionResponse.")
+            return CompletionResponse(
+                operation_id = request.operation_id,
+                completion= "See content",
+                content= assistant_response.content,
+                completion_tokens= assistant_response.completion_tokens,
+                prompt_tokens= assistant_response.prompt_tokens,
+                total_tokens= assistant_response.total_tokens,
+                user_prompt= request.user_prompt
+                )          
 
         agent = request.agent
 
