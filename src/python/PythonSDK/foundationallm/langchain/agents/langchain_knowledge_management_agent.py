@@ -20,6 +20,7 @@ from foundationallm.models.resource_providers.vectorization import (
     AzureAISearchIndexingProfile,
     AzureOpenAIEmbeddingProfile
 )
+from openai import AzureOpenAI, AsyncAzureOpenAI
 from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
 from foundationallm.services.openai_assistants_api_service import OpenAIAssistantsApiService
 
@@ -27,7 +28,45 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
     """
-
+    def _analyze_image(self, image_url: str) -> str:
+        """
+        Get the image analysis results from Azure OpenAI.
+        """
+        api_key = self.config.get_value(self.api_endpoint.authentication_parameters.get('api_key_configuration_name'))
+        
+        client = AzureOpenAI(
+            azure_endpoint=self.api_endpoint.url,
+            api_key=api_key,
+            api_version=self.api_endpoint.api_version,
+            azure_deployment=self.ai_model.deployment_name
+        )
+        response = client.chat.completions.create(
+            model=self.ai_model.deployment_name,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant who provides information about the data found in images. Provide key insights and analysis about the data in the image. You should provide as many details as possible and be specific. Output the results in a markdown formatted table."
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "content": "Analyze the image:"
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": image_url
+                            }
+                        }
+                    ]
+                }
+            ],
+            max_tokens=4000,
+            temperature=0.5
+        )
+        return response.choices[0].message.content
 
     def _get_document_retriever(
         self,
@@ -86,7 +125,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if self.prompt.suffix is not None:
             prompt_builder += f'\n\n{self.prompt.suffix}'
 
-        if self.has_retriever:
+        if self.has_retriever or len(request.attachments) > 0:
             # Insert the user prompt into the template.
             prompt_builder += "\n\nQuestion: {question}"
 
@@ -349,6 +388,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
+                elif len(request.attachments) > 0 and (request.attachments[0].endswith('.png') or request.attachments[0].endswith('.jpg')):
+                    chain_context = { "context": lambda x: self._analyze_image(request.attachments[0]), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
