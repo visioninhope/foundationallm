@@ -212,7 +212,6 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in request.agent.capabilities:
-            print("API VERSION: "+ self.api_endpoint.api_version)
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
             assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override))
@@ -224,7 +223,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 attachments=request.attachments,
                 user_prompt=request.user_prompt
             )
-            print("Invoking Assistants API Service.")
+
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
             
@@ -306,7 +305,6 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in request.agent.capabilities:
-            print("API VERSION: "+ self.api_endpoint.api_version)
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
             assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
@@ -318,7 +316,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 attachments=request.attachments,
                 user_prompt=request.user_prompt
             )
-            print("Invoking Assistants API Service.")
+
             # invoke/run the service
             assistant_response = await assistant_svc.arun(assistant_req)
             

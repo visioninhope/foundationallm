@@ -9,7 +9,7 @@ fastapi==0.112.0
 langchain==0.2.12
 langchain-experimental==0.0.64
 langchain-openai==0.1.20
-openai==1.40.2
 -e git+https://github.com/microsoft/CLAP.git@1af3d710ee796dc96d3a96e2b1fdf66ef2520e63#egg=msclap
+openai==1.40.2
 pylint==3.2.6
 uvicorn==0.30.5
