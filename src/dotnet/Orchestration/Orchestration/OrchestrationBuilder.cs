@@ -171,6 +171,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 KnowledgeManagementAgent kmAgent = (KnowledgeManagementAgent)agentBase;
 
+            if (agentBase.AgentType == typeof(KnowledgeManagementAgent) || agentBase.AgentType == typeof(AudioClassificationAgent))
+            {
+                KnowledgeManagementAgent kmAgent = (KnowledgeManagementAgent)agentBase;
+
                 // Check for inline-context agents, they are valid KM agents that do not have a vectorization section.
                 if (kmAgent is { Vectorization: not null, InlineContext: false })
                 {
