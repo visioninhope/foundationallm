@@ -93,7 +93,7 @@ class ImageAnalysisService:
                                 {
                                     "type": "image_url",
                                     "image_url": {
-                                        "url": self._get_as_base64(mime_type=attachment.content_type, image_url=f'https://{attachment.provider_storage_account_name}.blob.windows.net/{attachment.provider_file_name}')
+                                        "url": self._get_as_base64(mime_type=attachment.content_type, image_url=f'https://{attachment.provider_storage_account_name}.blob.core.windows.net/{attachment.provider_file_name}')
                                     }
                                 }
                             ]

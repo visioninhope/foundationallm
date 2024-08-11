@@ -8,13 +8,14 @@ from openai.pagination import AsyncCursorPage, SyncCursorPage
 from openai.types import FileObject
 from openai.types.beta.threads import FileCitationAnnotation, FilePathAnnotation, ImageFileContentBlock, ImageURLContentBlock, Message, TextContentBlock
 from openai.types.beta.threads.message import Attachment
-from foundationallm.models.orchestration.openai_file_path_message_content_item import OpenAIFilePathMessageContentItem
-from foundationallm.models.orchestration.openai_image_file_message_content_item import OpenAIImageFileMessageContentItem
-from foundationallm.models.orchestration.openai_text_message_content_item import OpenAITextMessageContentItem
-from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
-from foundationallm.models.services.openai_assistants_response import OpenAIAssistantsAPIResponse
-from foundationallm.services.open_ai_async_event_handler import OpenAIAsyncEventHandler
-from foundationallm.services.open_ai_event_handler import OpenAIEventHandler
+from foundationallm.models.constants import AgentCapabilityCategories
+from foundationallm.models.orchestration import (
+    OpenAIFilePathMessageContentItem,
+    OpenAIImageFileMessageContentItem,
+    OpenAITextMessageContentItem
+)
+from foundationallm.models.services import OpenAIAssistantsAPIRequest, OpenAIAssistantsAPIResponse
+from foundationallm.services import OpenAIAsyncEventHandler, OpenAIEventHandler
 
 class OpenAIAssistantsApiService:
     """
@@ -241,7 +242,8 @@ class OpenAIAssistantsApiService:
                 match ci:
                     case TextContentBlock():
                         text_ci = OpenAITextMessageContentItem(
-                            value=ci.text.value
+                            value=ci.text.value,
+                            agent_capability_category = AgentCapabilityCategories.OPENAI_ASSISTANTS
                         )
                         for annotation in ci.text.annotations:
                             match annotation:
@@ -250,7 +252,8 @@ class OpenAIAssistantsApiService:
                                         file_id=annotation.file_path.file_id,
                                         start_index=annotation.start_index,
                                         end_index=annotation.end_index,
-                                        text=annotation.text
+                                        text=annotation.text,
+                                        agent_capability_category = AgentCapabilityCategories.OPENAI_ASSISTANTS
                                     )
                                     text_ci.annotations.append(file_an)
                                 case FileCitationAnnotation():
@@ -258,18 +261,21 @@ class OpenAIAssistantsApiService:
                                         file_id=annotation.file_citation.file_id,
                                         start_index=annotation.start_index,
                                         end_index=annotation.end_index,
-                                        text=annotation.text
+                                        text=annotation.text,
+                                        agent_capability_category = AgentCapabilityCategories.OPENAI_ASSISTANTS
                                     )
                                     text_ci.annotations.append(file_cit)
                         ret_content.append(text_ci)
                     case ImageFileContentBlock():
                         ci_img = OpenAIImageFileMessageContentItem(
-                            file_id=ci.image_file.file_id
+                            file_id=ci.image_file.file_id,
+                            agent_capability_category = AgentCapabilityCategories.OPENAI_ASSISTANTS
                         )
                         ret_content.append(ci_img)
                     case ImageURLContentBlock():
                         ci_img_url = OpenAIImageFileMessageContentItem(
-                            file_url=ci.image_url.url
+                            file_url=ci.image_url.url,
+                            agent_capability_category = AgentCapabilityCategories.OPENAI_ASSISTANTS
                         )
                         ret_content.append(ci_img_url)
         return ret_content
