@@ -7,7 +7,6 @@ using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Management.Models.Configuration;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -82,7 +81,7 @@ namespace FoundationaLLM.Management.API
             builder.Services.AddInstanceProperties(builder.Configuration);
 
             // Add Azure ARM services
-            builder.Services.AddAzureResourceManager();
+            builder.AddAzureResourceManager();
 
             // Add event services
             builder.Services.AddAzureEventGridEvents(

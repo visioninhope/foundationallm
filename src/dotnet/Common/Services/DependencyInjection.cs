@@ -4,6 +4,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Azure;
@@ -166,5 +167,13 @@ namespace FoundationaLLM
                     serviceProvider.GetService<IHttpClientFactoryService>()!,
                     serviceProvider.GetService<ILogger<DownstreamAPIService>>()!
                 ));
+
+        /// <summary>
+        /// Register the <see cref="IAzureResourceManagerService"/> implementation with the dependency injection container.
+        /// </summary>
+        /// <param name="builder">The host application builder.</param>
+        public static void AddAzureResourceManager(
+            this IHostApplicationBuilder builder) =>
+            builder.Services.AddSingleton<IAzureResourceManagerService, AzureResourceManagerService>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Security.KeyVault.Secrets;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Azure
 {
     /// <summary>
     /// Provides access to and management of Azure Key Vault.

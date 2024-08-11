@@ -5,7 +5,7 @@ using FoundationaLLM.Common.Authentication;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Azure
 {
     /// <summary>
     /// Provides access to and management of Azure App Configuration.
@@ -131,7 +131,7 @@ namespace FoundationaLLM.Common.Services
         public async Task DeleteAppConfigurationSettingAsync(string key)
         {
             ConfigurationSetting setting = await _configurationClient.GetConfigurationSettingAsync(key);
-            
+
             if (setting is SecretReferenceConfigurationSetting secretReference)
             {
                 var identifier = new KeyVaultSecretIdentifier(secretReference.SecretId);

@@ -1,5 +1,5 @@
 using Azure.Search.Documents.Indexes;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.Chat;

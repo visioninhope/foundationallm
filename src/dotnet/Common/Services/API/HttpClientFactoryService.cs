@@ -12,7 +12,7 @@ using Microsoft.Net.Http.Headers;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.API
 {
     /// <inheritdoc/>
     public class HttpClientFactoryService : IHttpClientFactoryService
