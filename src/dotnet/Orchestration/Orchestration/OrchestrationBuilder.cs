@@ -5,7 +5,7 @@ using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
@@ -86,6 +86,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 var orchestrationService = llmOrchestrationServiceManager.GetService(instanceId, orchestrationName!, serviceProvider, callContext);
 
                 var kmOrchestration = new KnowledgeManagementOrchestration(
+                    instanceId,
                     (KnowledgeManagementAgent)result.Agent,
                     result.ExplodedObjects ?? [],
                     callContext,

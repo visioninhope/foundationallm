@@ -9,5 +9,10 @@
         /// Indicates the agent has the OpenAI Assistants API capability.
         /// </summary>
         public const string OpenAIAssistants = "OpenAI.Assistants";
+
+        /// <summary>
+        /// Indicates the agent has the FoundationaLLM Knowledge Management capability.
+        /// </summary>
+        public const string FoundationaLLMKnowledgeManagement = "FoundationaLLM.KnowledgeManagement";
     }
 }
