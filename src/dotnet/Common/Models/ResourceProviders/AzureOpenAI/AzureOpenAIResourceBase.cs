@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
 {
@@ -6,7 +7,8 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
     /// Basic model for resources managed by the FoundationaLLM.AzureOpenAI resource manager.
     /// </summary>
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-    [JsonDerivedType(typeof(AssistantUserContext), "assistant-user-context")]
+    [JsonDerivedType(typeof(AssistantUserContext), AzureOpenAITypes.AssistantUserContext)]
+    [JsonDerivedType(typeof(FileUserContext), AzureOpenAITypes.FileUserContext)]
     public class AzureOpenAIResourceBase : ResourceBase
     {
         /// <inheritdoc/>

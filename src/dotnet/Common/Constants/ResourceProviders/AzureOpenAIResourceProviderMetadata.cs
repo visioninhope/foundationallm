@@ -14,9 +14,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
         public static Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => new()
         {
             {
-                AzureOpenAIResourceTypeNames.AssistantUserContext,
+                AzureOpenAIResourceTypeNames.AssistantUserContexts,
                 new ResourceTypeDescriptor(
-                        AzureOpenAIResourceTypeNames.AssistantUserContext)
+                    AzureOpenAIResourceTypeNames.AssistantUserContexts)
                 {
                     AllowedTypes = [
                         new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<AssistantUserContext>)]),
@@ -31,6 +31,31 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                         ])
                     ]
+                }
+            },
+            {
+                AzureOpenAIResourceTypeNames.FileUserContexts,
+                new ResourceTypeDescriptor(
+                    AzureOpenAIResourceTypeNames.FileUserContexts)
+                {
+                    AllowedTypes = [
+                        new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<FileUserContext>)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(FileUserContext)], [typeof(FileUserContextUpsertResult)]),
+                        new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], [])
+                    ],
+                    SubTypes = new()
+                    {
+                        {
+                            AzureOpenAIResourceTypeNames.FilesContent,
+                            new ResourceTypeDescriptor (
+                                AzureOpenAIResourceTypeNames.FilesContent)
+                            {
+                                AllowedTypes = [
+                                    new ResourceTypeAllowedTypes(HttpMethod.Get.Method, [], [], [typeof(ResourceProviderGetResult<FileContent>)])
+                                ]
+                            }
+                        }
+                    }
                 }
             }
         };

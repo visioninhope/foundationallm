@@ -50,9 +50,9 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         /// <summary>
         /// The main resource type of the path.
         /// </summary>
-        public string MainResourceType =>
+        public string? MainResourceType =>
             _resourceTypeInstances == null || _resourceTypeInstances.Count == 0
-            ? throw new ResourceProviderException()
+            ? null
             : _resourceTypeInstances[0].ResourceType;
 
         /// <summary>

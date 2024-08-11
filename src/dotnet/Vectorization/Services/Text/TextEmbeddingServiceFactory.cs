@@ -3,6 +3,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Settings;
@@ -38,14 +39,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public ITextEmbeddingService GetService(string serviceName)
+        public async Task<ITextEmbeddingService> GetService(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var textEmbeddingProfile = vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
-                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");
+            var textEmbeddingProfile = await vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
+                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}", userIdentity);
 
             return textEmbeddingProfile.TextEmbedding switch
             {
@@ -56,14 +57,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (ITextEmbeddingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public async Task<(ITextEmbeddingService Service, ResourceBase Resource)> GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var textEmbeddingProfile = vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
-                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}");
+            var textEmbeddingProfile = await vectorizationResourceProviderService.GetResource<TextEmbeddingProfile>(
+                $"/{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{serviceName}", userIdentity);
 
             return textEmbeddingProfile.TextEmbedding switch
             {

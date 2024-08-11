@@ -99,7 +99,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -150,7 +150,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             return attachments.Select(attachment => new ResourceProviderGetResult<AttachmentFile>() { Resource = attachment, Actions = [], Roles = [] }).ToList();
         }
 
-        private async Task<AttachmentFile?> LoadAttachment(AttachmentReference? attachmentReference, string? resourceId = null)
+        private async Task<AttachmentFile?> LoadAttachment(AttachmentReference? attachmentReference, string? resourceId = null, bool loadContent = false)
         {
             if (attachmentReference != null || !string.IsNullOrWhiteSpace(resourceId))
             {
@@ -162,63 +162,33 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     Deleted = false
                 };
 
-
-                return new AttachmentFile
+                var attachmentFile = new AttachmentFile
                 {
+                    ObjectId = attachmentReference.ObjectId,
                     Name = attachmentReference.Name,
+                    OriginalFileName = attachmentReference.OriginalFilename,
                     Type = attachmentReference.Type,
-                    Path = $"{_storageContainerName}{attachmentReference.Filename}"
+                    Path = $"{_storageContainerName}{attachmentReference.Filename}",
+                    ContentType = attachmentReference.ContentType
                 };
 
-                if (await _storageService.FileExistsAsync(_storageContainerName, attachmentReference.Filename, default))
+                if (loadContent)
                 {
-                    var fileContent = await _storageService.ReadFileAsync(_storageContainerName, attachmentReference.Filename, default);
-                    var attachment = JsonSerializer.Deserialize(
-                               Encoding.UTF8.GetString(fileContent.ToArray()),
-                               typeof(AttachmentFile),
-                               _serializerSettings) as AttachmentFile
-                           ?? throw new ResourceProviderException($"Failed to load the attachment {attachmentReference.Name}.",
-                               StatusCodes.Status400BadRequest);
-
-                    if (!string.IsNullOrWhiteSpace(resourceId))
-                    {
-                        attachmentReference.Type = attachment.Type!;
-                        _attachmentReferences.AddOrUpdate(attachmentReference.Name, attachmentReference, (k, v) => attachmentReference);
-                    }
-
-                    return attachment;
+                    var fileContent = await _storageService.ReadFileAsync(
+                        _storageContainerName,
+                        attachmentReference.Filename,
+                        default);
+                    attachmentFile.Content = fileContent.ToStream();
                 }
 
-                if (string.IsNullOrWhiteSpace(resourceId))
-                {
-                    // Remove the reference from the dictionary since the file does not exist.
-                    _attachmentReferences.TryRemove(attachmentReference.Name, out _);
-                    return null;
-                }
+                return attachmentFile;
             }
-            throw new ResourceProviderException($"Could not locate the {attachmentReference.Name} attachment resource.",
-                StatusCodes.Status404NotFound);
+
+            throw new ResourceProviderException($"The {_name} resource provider could not locate a resource because of invalid resource identification parameters.",
+                StatusCodes.Status400BadRequest);
         }
 
         #endregion
-
-
-        protected override async Task<object> UpsertResourceAsync<T>(ResourcePath resourcePath, T resource) 
-        {
-            var attachment = resource as AttachmentFile;
-            if (attachment == null)
-                throw new ResourceProviderException($"Invalid resource type");
-
-            if (resourcePath.ResourceTypeInstances[0].ResourceType != AttachmentResourceTypeNames.Attachments)
-            {
-                throw new ResourceProviderException(
-                        $"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
-                        StatusCodes.Status400BadRequest);
-            }
-            return await UpdateAttachment(resourcePath, attachment);
-        }
-
-
 
         /// <inheritdoc/>
         protected override Task<object> UpsertResourceAsync(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity) => null;
@@ -240,17 +210,18 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             var extension = GetFileExtension(attachment.DisplayName!);
             var fullName = $"{attachment.Name}{extension}";
 
+            attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
             var attachmentReference = new AttachmentReference
             {
+                ObjectId = attachment.ObjectId,
                 OriginalFilename = attachment.DisplayName!,
                 ContentType = attachment.ContentType!,
                 Name = attachment.Name,
                 Type = nameof(AttachmentFile),
                 Filename = $"/{_name}/{fullName}",
+                SecondaryProvider = attachment.SecondaryProvider,
                 Deleted = false
             };
-
-            attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
 
             var validator = _resourceValidatorFactory.GetValidator(typeof(AttachmentFile));
             if (validator is IValidator attachmentValidator)
@@ -343,24 +314,31 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         #endregion
 
+        #region Resource provider strongly typed operations
+
         /// <inheritdoc/>
-        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class
+        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class
         {
-            if (resourcePath.ResourceTypeInstances.Count != 1)
-                throw new ResourceProviderException($"Invalid resource path");
-
-            if (typeof(T) != typeof(AttachmentFile))
-                throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
-
             _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
             if (attachmentReference == null || attachmentReference.Deleted)
                 throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
 
-            var attachment = LoadAttachment(attachmentReference).Result;
+            var attachment = await LoadAttachment(attachmentReference, loadContent: false);
             return attachment as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
+        /// <inheritdoc/>
+        protected override async Task<TResult> UpsertResourceAsyncInternal<T, TResult>(ResourcePath resourcePath, T resource, UnifiedUserIdentity userIdentity) =>
+            resource switch
+            {
+                AttachmentFile attachment => (TResult) await UpdateAttachment(resourcePath, attachment),
+                _ => throw new ResourceProviderException(
+                    $"The type {nameof(T)} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
+            };
+
+        #endregion
 
         #region Event handling
 

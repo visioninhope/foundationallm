@@ -32,7 +32,8 @@ namespace Management.Client.Tests.Clients.Resources
                         Name = "test-attachment",
                         Content = fileStream,
                         ContentType = "application/octet-stream",
-                        Path = "test-attachment.txt"
+                        Path = "test-attachment.txt",
+                        OriginalFileName = "test-attachment.txt"
                     },
                     Actions = [],
                     Roles = []
@@ -70,7 +71,8 @@ namespace Management.Client.Tests.Clients.Resources
                     Name = attachmentName,
                     Content = fileStream,
                     ContentType = "application/octet-stream",
-                    Path = "test-attachment.txt"
+                    Path = "test-attachment.txt",
+                    OriginalFileName = "test-attachment.txt"
                 },
                 Actions = [],
                 Roles = []
@@ -116,7 +118,7 @@ namespace Management.Client.Tests.Clients.Resources
         public async Task UpsertAttachmentAsync_ShouldReturnUpsertResult()
         {
             // Arrange
-            var attachment = new AttachmentFile { Name = "test-attachment" };
+            var attachment = new AttachmentFile { Name = "test-attachment", OriginalFileName = "test-attachment.txt" };
             var expectedUpsertResult = new ResourceProviderUpsertResult
             {
                 ObjectId = "test-object-id"

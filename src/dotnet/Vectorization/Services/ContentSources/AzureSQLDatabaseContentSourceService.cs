@@ -4,6 +4,7 @@ using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using FoundationaLLM.Common.Models.Authentication;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -35,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[4] = the value of the unique identifier of the file.
         /// contentId[5] = the file name.
         /// </remarks>
-        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, UnifiedUserIdentity userIdentity, CancellationToken cancellationToken)
         {
             contentId.ValidateMultipartId(6);
 
