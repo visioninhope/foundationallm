@@ -241,12 +241,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             if (agent.HasCapability(AgentCapabilityCategoryNames.OpenAIAssistants))
             {
-                var assistantUserContextName = $"{currentUserIdentity.UPN?.NormalizeUserPrincipalName() ?? currentUserIdentity.UserId}-{instanceId.ToLower()}";
+                var assistantUserContextName = $"{currentUserIdentity.UPN?.NormalizeUserPrincipalName() ?? currentUserIdentity.UserId}-assistant-{instanceId.ToLower()}";
 
                 if (!await azureOpenAIResourceProvider.ResourceExists(
                     instanceId,
                     assistantUserContextName,
-                    AzureOpenAIResourceTypeNames.AssistantUserContext,
+                    AzureOpenAIResourceTypeNames.AssistantUserContexts,
                     currentUserIdentity))
                 {
                     var result = await azureOpenAIResourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
@@ -262,14 +262,14 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                             {
                                 {
                                     sessionId!,
-                                    new AssistantConversation
+                                    new ConversationMapping
                                     {
-                                        SessionId = sessionId!
+                                        FoundationaLLMSessionId = sessionId!
                                     }
                                 }
                             }
                         },
-                        AzureOpenAIResourceTypeNames.AssistantUserContext,
+                        AzureOpenAIResourceTypeNames.AssistantUserContexts,
                         currentUserIdentity);
 
                     if (!string.IsNullOrWhiteSpace(result.NewOpenAIAssistantId))
@@ -283,24 +283,24 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     var assistantUserContext = await azureOpenAIResourceProvider.GetResource<AssistantUserContext>(
                         instanceId,
                         assistantUserContextName,
-                        AzureOpenAIResourceTypeNames.AssistantUserContext,
+                        AzureOpenAIResourceTypeNames.AssistantUserContexts,
                         currentUserIdentity);
 
                     explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantId] = assistantUserContext.OpenAIAssistantId!;
 
-                    if (!assistantUserContext.Conversations.TryGetValue(sessionId!, out AssistantConversation? assistantConversation))
+                    if (!assistantUserContext.Conversations.TryGetValue(sessionId!, out ConversationMapping? assistantConversation))
                     {
                         assistantUserContext.Conversations.Add(
                             sessionId!,
-                            new AssistantConversation
+                            new ConversationMapping
                             {
-                                SessionId = sessionId!
+                                FoundationaLLMSessionId = sessionId!
                             });
 
                         var result = await azureOpenAIResourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
                             instanceId,
                             assistantUserContext,
-                            AzureOpenAIResourceTypeNames.AssistantUserContext,
+                            AzureOpenAIResourceTypeNames.AssistantUserContexts,
                             currentUserIdentity);
 
                         if (!string.IsNullOrWhiteSpace(result.NewOpenAIAssistantThreadId))

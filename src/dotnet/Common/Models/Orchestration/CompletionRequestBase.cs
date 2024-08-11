@@ -31,13 +31,5 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("message_history")]
         public List<MessageHistoryItem>? MessageHistory { get; set; } = [];
-
-        /// <summary>
-        /// One or more attachments to include with the orchestration request.
-        /// The values should be the ObjectID of the attachment(s).
-        /// </summary>
-        [JsonPropertyName("attachments")]
-        public List<string> Attachments { get; init; } = [];
-
     }
 }

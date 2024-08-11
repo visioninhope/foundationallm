@@ -5,13 +5,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
     /// <summary>
     /// Provides information about a conversation driven by an OpenAI assistant.
     /// </summary>
-    public class AssistantConversation
+    public class ConversationMapping
     {
         /// <summary>
         /// The FoundationaLLM session (conversation) id.
         /// </summary>
-        [JsonPropertyName("session_id")]
-        public required string SessionId { get; set; }
+        [JsonPropertyName("foundationallm_session_id")]
+        public required string FoundationaLLMSessionId { get; set; }
 
         /// <summary>
         /// The OpenAI thread id associated with the FoundationaLLM session (conversation) id.

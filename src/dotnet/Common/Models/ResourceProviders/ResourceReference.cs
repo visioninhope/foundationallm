@@ -1,10 +1,17 @@
-﻿namespace FoundationaLLM.Common.Models.ResourceProviders
+﻿using System.Text.Json.Serialization;
+
+namespace FoundationaLLM.Common.Models.ResourceProviders
 {
     /// <summary>
     /// Resource reference used by resource providers to index the resources they manage.
     /// </summary>
     public class ResourceReference
     {
+        /// <summary>
+        /// The unique identifier of the resource.
+        /// </summary>
+        public string? ObjectId { get; set; }
+
         /// <summary>
         /// The name of the resource.
         /// </summary>

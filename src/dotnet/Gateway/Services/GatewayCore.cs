@@ -2,8 +2,11 @@
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.OpenAI;
+using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Exceptions;
 using FoundationaLLM.Gateway.Interfaces;
@@ -22,15 +25,19 @@ namespace FoundationaLLM.Gateway.Services
     /// </summary>
     /// <param name="armService">The <see cref="IAzureResourceManagerService"/> instance providing Azure Resource Manager services.</param>
     /// <param name="options">The options providing the <see cref="GatewayCoreSettings"/> object.</param>
+    /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/> used to create loggers for logging.</param>
     public class GatewayCore(
         IAzureResourceManagerService armService,
         IOptions<GatewayCoreSettings> options,
+        IEnumerable<IResourceProviderService> resourceProviderServices,
         ILoggerFactory loggerFactory) : IGatewayCore
     {
         private readonly IAzureResourceManagerService _armService = armService;
         private readonly GatewayCoreSettings _settings = options.Value;
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
+        private readonly IResourceProviderService _attachmentResourceProvider =
+            resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Attachment);
         private readonly ILogger<GatewayCore> _logger = loggerFactory.CreateLogger<GatewayCore>();
 
         private bool _initialized = false;
@@ -117,7 +124,7 @@ namespace FoundationaLLM.Gateway.Services
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> StartEmbeddingOperation(string instanceId, TextEmbeddingRequest embeddingRequest)
+        public async Task<TextEmbeddingResult> StartEmbeddingOperation(string instanceId, TextEmbeddingRequest embeddingRequest, UnifiedUserIdentity userIdentity)
         {
             if (!_initialized)
                 throw new GatewayException("The Gateway service is not initialized.");
@@ -158,7 +165,7 @@ namespace FoundationaLLM.Gateway.Services
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string instanceId, string operationId)
+        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string instanceId, string operationId, UnifiedUserIdentity userIdentity)
         {
             if (!_initialized)
                 throw new GatewayException("The Gateway service is not initialized.");
@@ -185,27 +192,30 @@ namespace FoundationaLLM.Gateway.Services
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, object>> CreateAgentCapability(string instanceId, string capabilityCategory, string capabilityName, Dictionary<string, object>? parameters = null)
+        public async Task<Dictionary<string, object>> CreateAgentCapability(string instanceId, string capabilityCategory, string capabilityName, UnifiedUserIdentity userIdentity, Dictionary<string, object>? parameters = null)
         {
             if (!_initialized)
                 throw new GatewayException("The Gateway service is not initialized.");
 
             return capabilityCategory switch
             {
-                AgentCapabilityCategoryNames.OpenAIAssistants => await CreateOpenAIAgentCapability(instanceId, capabilityName, parameters!),
+                AgentCapabilityCategoryNames.OpenAIAssistants => await CreateOpenAIAgentCapability(instanceId, capabilityName, userIdentity, parameters!),
                 _ => throw new GatewayException($"The agent capability category {capabilityCategory} is not supported by the Gateway service.",
                    StatusCodes.Status400BadRequest),
             };
         }
 
-        private async Task<Dictionary<string, object>> CreateOpenAIAgentCapability(string instanceId, string capabilityName, Dictionary<string, object> parameters)
+        private async Task<Dictionary<string, object>> CreateOpenAIAgentCapability(string instanceId, string capabilityName, UnifiedUserIdentity userIdentity, Dictionary<string, object> parameters)
         {
             if (string.IsNullOrEmpty(capabilityName))
                 throw new GatewayException("The specified capability name is invalid.", StatusCodes.Status400BadRequest);
 
             Dictionary<string, object> result = [];
+            var createAssistant = GetParameterValue<bool>(parameters, OpenAIAgentCapabilityParameterNames.CreateAssistant, false);
+            var createAssistantThread = GetParameterValue<bool>(parameters, OpenAIAgentCapabilityParameterNames.CreateAssistantThread, false);
+            var createAssistantFile = GetParameterValue<bool>(parameters, OpenAIAgentCapabilityParameterNames.CreateAssistantFile, false);
 
-            var endpoint = parameters[OpenAIAgentCapabilityParameterNames.Endpoint].ToString();
+            var endpoint = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.Endpoint);
             var azureOpenAIAccount = _azureOpenAIAccounts.Values.FirstOrDefault(
                 a => Uri.Compare(
                     new Uri(endpoint!),
@@ -217,16 +227,10 @@ namespace FoundationaLLM.Gateway.Services
 
             var assistantsClient = new AssistantsClient(new Uri(azureOpenAIAccount.Endpoint), DefaultAuthentication.AzureCredential);
 
-            parameters.TryGetValue(OpenAIAgentCapabilityParameterNames.CreateAssistant, out var createAssistantObject);
-            var createAssistant = ((JsonElement)createAssistantObject!).Deserialize<bool>();
-
-            parameters.TryGetValue(OpenAIAgentCapabilityParameterNames.CreateAssistantThread, out var createAssistantThreadObject);
-            var createAssistantThread = ((JsonElement)createAssistantThreadObject!).Deserialize<bool>();
-
             if (createAssistant)
             {
-                var prompt = parameters[OpenAIAgentCapabilityParameterNames.AssistantPrompt].ToString();
-                var modelDeploymentName = parameters[OpenAIAgentCapabilityParameterNames.ModelDeploymentName].ToString();
+                var prompt = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AssistantPrompt);
+                var modelDeploymentName = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.ModelDeploymentName);
                 var azureOpenAIModel = azureOpenAIAccount.Deployments.FirstOrDefault(
                     d => string.Compare(
                         modelDeploymentName,
@@ -255,7 +259,32 @@ namespace FoundationaLLM.Gateway.Services
                 result[OpenAIAgentCapabilityParameterNames.AssistantThreadId] = thread.Id;
             }
 
+            if (createAssistantFile)
+            {
+                var attachmentObjectId = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AttachmentObjectId);
+                var attachmentFile = await _attachmentResourceProvider.GetResource<AttachmentFile>(attachmentObjectId, userIdentity);
+
+                var response = await assistantsClient.UploadFileAsync(
+                    attachmentFile.Content,
+                    OpenAIFilePurpose.Assistants,
+                    attachmentFile.OriginalFileName);
+                var file = response.Value;
+                result[OpenAIAgentCapabilityParameterNames.AssistantFileId] = file.Id;
+            }
+
             return result;
         }
+
+        private T GetParameterValue<T>(Dictionary<string, object> parameters, string parameterName, T defaultValue) =>
+            parameters.TryGetValue(parameterName, out var parameterValueObject)
+                ? ((JsonElement)parameterValueObject!).Deserialize<T>()
+                    ?? defaultValue
+                : defaultValue;
+
+        private T GetRequiredParameterValue<T>(Dictionary<string, object> parameters, string parameterName) =>
+            parameters.TryGetValue(parameterName, out var parameterValueObject)
+                ? ((JsonElement)parameterValueObject!).Deserialize<T>()
+                    ?? throw new GatewayException($"Could not load required parameter {parameterName}.", StatusCodes.Status400BadRequest)
+                : throw new GatewayException($"The required parameter {parameterName} was not found.");
     }
 }

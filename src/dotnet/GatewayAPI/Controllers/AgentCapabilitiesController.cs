@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants.OpenAI;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,16 @@ namespace FoundationaLLM.Gateway.API.Controllers
     /// Methods for managing agent capabilities.
     /// </summary>
     /// <param name="gatewayCore">The <see cref="IGatewayCore"/> that provides LLM gateway services.</param>
+    /// <param name="callContext">The <see cref="ICallContext"/> call context of the request being handled.</param>
     [ApiController]
     [APIKeyAuthentication]
     [Route("instances/{instanceId}/[controller]")]
     public class AgentCapabilitiesController(
-    IGatewayCore gatewayCore)
+        IGatewayCore gatewayCore,
+        ICallContext callContext)
     {
         readonly IGatewayCore _gatewayCore = gatewayCore;
+        private readonly ICallContext _callContext = callContext;
 
         /// <summary>
         /// Creates an agent capability.
@@ -40,6 +44,7 @@ namespace FoundationaLLM.Gateway.API.Controllers
                 instanceId,
                 agentCapabilityRequest.CapabilityCategory,
                 agentCapabilityRequest.CapabilityName,
+                _callContext.CurrentUserIdentity!,
                 agentCapabilityRequest.Parameters));
     }
 }

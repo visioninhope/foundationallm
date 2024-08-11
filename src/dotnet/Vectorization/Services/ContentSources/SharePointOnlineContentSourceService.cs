@@ -14,6 +14,7 @@ using System;
 using PnP.Core.Model.SharePoint;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Vectorization;
+using FoundationaLLM.Common.Models.Authentication;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -44,7 +45,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[2] = the folder path, starting with the document library.
         /// contentId[3] = the name of the file.
         /// </remarks>
-        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, UnifiedUserIdentity userIdentity, CancellationToken cancellationToken)
         {
             contentId.ValidateMultipartId(4);
             await EnsureServiceProvider($"{contentId[0]}/{contentId[1]}");

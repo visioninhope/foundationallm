@@ -1,8 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
-using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Attachment.Models
 {
@@ -22,5 +18,13 @@ namespace FoundationaLLM.Attachment.Models
         /// The mime content type of the attachment.
         /// </summary>
         public string ContentType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Indicates an optional secondary provider for the attachment.
+        /// </summary>
+        /// <remarks>
+        /// The only secondary provider currently supported is the FoundationaLLM.AzureOpenAI provider.
+        /// </remarks>
+        public string? SecondaryProvider { get; set; }
     }
 }

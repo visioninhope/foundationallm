@@ -129,7 +129,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #endregion
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -221,7 +221,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 VectorizationResourceTypeNames.VectorizationPipelines =>
                     await UpdateResource<VectorizationPipeline, VectorizationPipeline>(resourcePath, serializedResource, userIdentity, _pipelines, PIPELINES_FILE_PATH),
                 VectorizationResourceTypeNames.VectorizationRequests =>
-                    await UpdateVectorizationRequestResource(resourcePath, serializedResource),
+                    await UpdateVectorizationRequestResource(resourcePath, serializedResource, userIdentity),
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
             };
@@ -278,7 +278,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             };
         }
 
-        private async Task<ResourceProviderUpsertResult> UpdateVectorizationRequestResource(ResourcePath resourcePath, string serializedResource)
+        private async Task<ResourceProviderUpsertResult> UpdateVectorizationRequestResource(ResourcePath resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {            
             var resource = JsonSerializer.Deserialize<VectorizationRequest>(serializedResource)
                 ?? throw new ResourceProviderException("The object definition is invalid.",
@@ -298,7 +298,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                         StatusCodes.Status400BadRequest);
                 }
             }
-            await UpdateVectorizationRequest(resourcePath, resource);
+            await UpdateVectorizationRequest(resourcePath, resource, userIdentity);
             return new ResourceProviderUpsertResult
             {
                 ObjectId = resource.ObjectId
@@ -573,14 +573,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class =>
+        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class =>
             resourcePath.ResourceTypeInstances[0].ResourceType switch
             {
-                VectorizationResourceTypeNames.TextPartitioningProfiles => GetTextPartitioningProfile<T>(resourcePath),
-                VectorizationResourceTypeNames.TextEmbeddingProfiles => GetTextEmbeddingProfile<T>(resourcePath),
-                VectorizationResourceTypeNames.IndexingProfiles => GetIndexingProfile<T>(resourcePath),
-                VectorizationResourceTypeNames.VectorizationPipelines => GetVectorizationProfile<T>(resourcePath),
-                VectorizationResourceTypeNames.VectorizationRequests => GetVectorizationRequest<T>(resourcePath),
+                VectorizationResourceTypeNames.TextPartitioningProfiles => await GetTextPartitioningProfile<T>(resourcePath),
+                VectorizationResourceTypeNames.TextEmbeddingProfiles => await GetTextEmbeddingProfile<T>(resourcePath),
+                VectorizationResourceTypeNames.IndexingProfiles => await GetIndexingProfile<T>(resourcePath),
+                VectorizationResourceTypeNames.VectorizationPipelines => await GetVectorizationProfile<T>(resourcePath),
+                VectorizationResourceTypeNames.VectorizationRequests => await GetVectorizationRequest<T>(resourcePath),
 
                 _ => throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
                     StatusCodes.Status400BadRequest)
@@ -589,7 +589,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
 
         #region Helpers for GetResourceInternal<T>
 
-        private T GetTextPartitioningProfile<T>(ResourcePath resourcePath) where T : class
+        private async Task<T> GetTextPartitioningProfile<T>(ResourcePath resourcePath) where T : class
         {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -597,13 +597,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(TextPartitioningProfile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var textPartitioningProfileGetResult = LoadResources<TextPartitioningProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles).Result;
+            var textPartitioningProfileGetResult = await LoadResources<TextPartitioningProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textPartitioningProfiles);
             var textPartitioningProfile = textPartitioningProfileGetResult.FirstOrDefault()?.Resource;           
             return textPartitioningProfile as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
-        private T GetTextEmbeddingProfile<T>(ResourcePath resourcePath) where T : class
+        private async Task<T> GetTextEmbeddingProfile<T>(ResourcePath resourcePath) where T : class
         {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -611,13 +611,13 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(TextEmbeddingProfile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var textEmbeddingProfileGetResult = LoadResources<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles).Result;
+            var textEmbeddingProfileGetResult = await LoadResources<TextEmbeddingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _textEmbeddingProfiles);
             var textEmbeddingProfile = textEmbeddingProfileGetResult.FirstOrDefault()?.Resource;
             return textEmbeddingProfile as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
-        private T GetIndexingProfile<T>(ResourcePath resourcePath) where T : class
+        private async Task<T> GetIndexingProfile<T>(ResourcePath resourcePath) where T : class
         {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -625,14 +625,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(IndexingProfile))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var indexingProfileGetResult = LoadResources<IndexingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _indexingProfiles).Result;
+            var indexingProfileGetResult = await LoadResources<IndexingProfile, VectorizationProfileBase>(resourcePath.ResourceTypeInstances[0], _indexingProfiles);
             var indexingProfile = indexingProfileGetResult.FirstOrDefault()?.Resource;
            
             return indexingProfile as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
-        private T GetVectorizationProfile<T>(ResourcePath resourcePath) where T : class
+        private async Task<T> GetVectorizationProfile<T>(ResourcePath resourcePath) where T : class
         {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -640,14 +640,14 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(VectorizationPipeline))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var pipelineGetResult = LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines).Result;
+            var pipelineGetResult = await LoadResources<VectorizationPipeline, VectorizationPipeline>(resourcePath.ResourceTypeInstances[0], _pipelines);
             var pipeline = pipelineGetResult.FirstOrDefault()?.Resource;
             
             return pipeline as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
 
-        private T GetVectorizationRequest<T>(ResourcePath resourcePath) where T : class
+        private async Task<T> GetVectorizationRequest<T>(ResourcePath resourcePath) where T : class
         {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
@@ -655,7 +655,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
             if (typeof(T) != typeof(VectorizationRequest))
                 throw new ResourceProviderException($"The type of requested resource ({typeof(T)}) does not match the resource type specified in the path ({resourcePath.ResourceTypeInstances[0].ResourceType}).");
 
-            var vectorizationRequestList = (LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!).Result) as List<T>;
+            var vectorizationRequestList = (await LoadVectorizationRequestResource(resourcePath.ResourceTypeInstances[0].ResourceId!)) as List<T>;
             if (vectorizationRequestList is not null && vectorizationRequestList.Count == 1)
             {
                 return vectorizationRequestList.First() as T;
@@ -667,24 +667,18 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource)
-        {
-            switch (resourcePath.ResourceTypeInstances[0].ResourceType)
+        protected override async Task<TResult> UpsertResourceAsyncInternal<T, TResult>(ResourcePath resourcePath, T resource, UnifiedUserIdentity userIdentity) =>
+            resource switch
             {
-                case VectorizationResourceTypeNames.VectorizationRequests:
-                    await UpdateVectorizationRequest(resourcePath, resource as VectorizationRequest ??
-                        throw new ResourceProviderException($"The type {typeof(T)} was not VectorizationRequest.",
-                            StatusCodes.Status400BadRequest));
-                    break;
-                default:
-                    throw new ResourceProviderException($"The resource type {resourcePath.ResourceTypeInstances[0].ResourceType} is not supported by the {_name} resource provider.",
-                        StatusCodes.Status400BadRequest);
-            }
-        }
+                VectorizationRequest vectorizationRequest => (TResult) await UpdateVectorizationRequest(resourcePath, vectorizationRequest, userIdentity),
+                _ => throw new ResourceProviderException(
+                    $"The type {nameof(T)} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest)
+            };
 
         #region Helpers for UpsertResourceAsync<T>
 
-        private async Task UpdateVectorizationRequest(ResourcePath resourcePath, VectorizationRequest request)
+        private async Task<ResourceProviderUpsertResult> UpdateVectorizationRequest(ResourcePath resourcePath, VectorizationRequest request, UnifiedUserIdentity userIdentity)
         {
             request.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
             await PopulateRequestResourceFilePath(request);
@@ -704,7 +698,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 request.ResourceFilePath = $"{REQUEST_RESOURCES_DIRECTORY_NAME}/{request.Name}-{DateTime.UtcNow:yyyyMMdd}.json";
 
                 // validate the data source at request creation time.
-                ValidateContentIdentifierWithDataSource(request);
+                await ValidateContentIdentifierWithDataSource(request, userIdentity);
             }
 
             // create/update the vectorization request resource file
@@ -714,6 +708,11 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
                 JsonSerializer.Serialize(request),
                 default,
                 default);
+
+            return new ResourceProviderUpsertResult
+            {
+                ObjectId = request.ObjectId
+            };
         }
 
 
@@ -721,17 +720,18 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         /// Validates the data source of a vectorization request.
         /// </summary>
         /// <param name="request">The vectorization request.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>true if the data source is valid.</returns>
         /// <exception cref="ResourceProviderException"></exception>
-        private bool ValidateContentIdentifierWithDataSource(VectorizationRequest request)
+        private async Task<bool> ValidateContentIdentifierWithDataSource(VectorizationRequest request, UnifiedUserIdentity userIdentity)
         {
-            var dataSourceResourceProviderService = GetResourceProviderService(ResourceProviderNames.FoundationaLLM_DataSource);
+            var dataSourceResourceProviderService = GetResourceProviderServiceByName(ResourceProviderNames.FoundationaLLM_DataSource);
 
             if (dataSourceResourceProviderService == null)
                 throw new ResourceProviderException($"The {ResourceProviderNames.FoundationaLLM_DataSource} resource provider was not loaded.",
                                            StatusCodes.Status400BadRequest);
 
-            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(request.ContentIdentifier.DataSourceObjectId)
+            var dataSource = await dataSourceResourceProviderService.GetResource<DataSourceBase>(request.ContentIdentifier.DataSourceObjectId, userIdentity)
                 ?? throw new ResourceProviderException($"The data source {request.ContentIdentifier.DataSourceObjectId} was not found.",
                                            StatusCodes.Status400BadRequest);
 

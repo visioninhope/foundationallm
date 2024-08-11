@@ -96,7 +96,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -189,13 +189,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
             }
 
-            var agentName = "legacy";
-            if (agentReference!= null)
-            {
-                agentName = agentReference.Name;
-            }
-            throw new ResourceProviderException($"Could not locate the {agentName} agent resource.",
-                StatusCodes.Status404NotFound);
+            throw new ResourceProviderException($"The {_name} resource provider could not locate a resource because of invalid resource identification parameters.",
+                StatusCodes.Status400BadRequest);
         }
 
         #endregion
@@ -238,7 +233,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
-                var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
+                var result = await GetResourceProviderServiceByName(ResourceProviderNames.FoundationaLLM_Vectorization)
                     .HandlePostAsync(
                         $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
                         JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline

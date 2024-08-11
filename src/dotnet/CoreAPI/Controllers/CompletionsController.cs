@@ -24,9 +24,8 @@ namespace FoundationaLLM.Core.API.Controllers
     {
         private readonly ICoreService _coreService;
         private readonly IResourceProviderService _agentResourceProvider;
-#pragma warning disable IDE0052 // Remove unread private members.
         private readonly ILogger<CompletionsController> _logger;
-        ICallContext _callContext;
+        private readonly ICallContext _callContext;
 
         /// <summary>
         /// Methods for orchestration services exposed by the Gatekeeper API service.

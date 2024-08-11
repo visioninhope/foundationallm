@@ -10,6 +10,8 @@ namespace FoundationaLLM.Common.Constants.OpenAI
     /// </remarks>
     public static class OpenAIAgentCapabilityParameterNames
     {
+        #region Requests
+
         /// <summary>
         /// Indicates the need to create a new OpenAI assistant.
         /// </summary>
@@ -21,19 +23,18 @@ namespace FoundationaLLM.Common.Constants.OpenAI
         public const string CreateAssistantThread = "OpenAI.Assistants.CreateAssistantThread";
 
         /// <summary>
-        /// Provides the identifier of an existing OpenAI assistant.
+        /// Indicates the need to create a new OpenAI assistant file.
         /// </summary>
-        public const string AssistantId = "OpenAI.Assistants.AssistantId";
+        public const string CreateAssistantFile = "OpenAI.Assistants.CreateAssistantFile";
+
+        #endregion
+
+        #region Inputs
 
         /// <summary>
         /// Provides the prompt used by the OpenAI assistant.
         /// </summary>
         public const string AssistantPrompt = "OpenAI.Assistants.AssistantPrompt";
-
-        /// <summary>
-        /// Provides the identifier of an existing OpenAI assistant thread.
-        /// </summary>
-        public const string AssistantThreadId = "OpenAI.Assistants.AssistantThreadId";
 
         /// <summary>
         /// Provides the Azure OpenAI endpoint used to manage Open AI assistants.
@@ -44,5 +45,31 @@ namespace FoundationaLLM.Common.Constants.OpenAI
         /// Provides the model deployment name used by the OpenAI assistant.
         /// </summary>
         public const string ModelDeploymentName = "OpenAI.Assistants.ModelDeploymentName";
+
+        /// <summary>
+        /// The object identifier of the FoundationaLLM attachment resource.
+        /// </summary>
+        public const string AttachmentObjectId = "OpenAI.Assistants.AttachmentObjectId";
+
+        #endregion
+
+        #region Outputs
+
+        /// <summary>
+        /// Provides the identifier of an existing OpenAI assistant.
+        /// </summary>
+        public const string AssistantId = "OpenAI.Assistants.AssistantId";
+
+        /// <summary>
+        /// Provides the identifier of an existing OpenAI assistant thread.
+        /// </summary>
+        public const string AssistantThreadId = "OpenAI.Assistants.AssistantThreadId";
+
+        /// <summary>
+        /// Provides the identifier of an existing OpenAI assistant file.
+        /// </summary>
+        public const string AssistantFileId = "OpenAI.Assistants.AssistantFileId";
+
+        #endregion
     }
 }

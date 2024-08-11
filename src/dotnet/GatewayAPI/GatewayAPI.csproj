@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Attachments\Attachment.csproj" />
     <ProjectReference Include="..\Gateway\Gateway.csproj" />
   </ItemGroup>
 
