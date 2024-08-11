@@ -38,14 +38,12 @@
 									icon="pi pi-images"
 									label="Choose"
 									:disabled="uploadProgress !== 0"
-									style="margin-right: 0.5rem"
 									@click="chooseCallback()"
 								></Button>
 								<Button
 									icon="pi pi-cloud-upload"
 									label="Upload"
 									:disabled="!files || files.length === 0"
-									style="margin-right: 0.5rem"
 									@click="uploadCallback()"
 								></Button>
 								<Button
@@ -105,12 +103,14 @@
 							</div>
 							<div v-if="files.length === 0 && fileArrayFiltered.length === 0">
 								<i class="pi pi-cloud-upload file-upload-icon" />
-								<div style="width: 500px">
+								<div>
 									<p style="text-align: center">
-										Drag and drop files here
-										<br />
-										or
-										<br />
+										<span class="file-upload-empty-desktop">
+											Drag and drop files here
+											<br />
+											or
+											<br />
+										</span>
 										<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
 									</p>
 								</div>
@@ -459,6 +459,33 @@ export default {
 
 .upload-files-header {
 	width: 500px;
+}
+
+.upload-files-header button {
+	margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 405px) {
+	.upload-files-header button {
+		padding: 0.1rem 0.25rem !important;
+	}
+}
+
+@media only screen and (max-width: 620px) {
+	.upload-files-header {
+		width: auto !important;
+	}
+
+	.upload-files-header button {
+		padding: 0.25rem 0.5rem;
+		margin-right: 0.25rem !important;
+	}
+}
+
+@media only screen and (max-width: 950px) {
+	.file-upload-empty-desktop {
+		display: none;
+	}
 }
 </style>
 

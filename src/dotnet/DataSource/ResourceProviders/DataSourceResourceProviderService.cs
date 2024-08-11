@@ -95,7 +95,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -185,8 +185,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
                     return null;
                 }
             }
-            throw new ResourceProviderException($"Could not locate the {dataSourceReference.Name} data source resource.",
-                StatusCodes.Status404NotFound);
+
+            throw new ResourceProviderException($"The {_name} resource provider could not locate a resource because of invalid resource identification parameters.",
+                StatusCodes.Status400BadRequest);
         }
 
         #endregion
@@ -275,9 +276,9 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             {
                 DataSourceResourceTypeNames.DataSources => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    DataSourceResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
-                    DataSourceResourceProviderActions.Filter => await Filter(serializedAction),
-                    DataSourceResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckDataSourceName(serializedAction),
+                    ResourceProviderActions.Filter => await Filter(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -438,7 +439,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         #endregion
 
         /// <inheritdoc/>
-        protected override T GetResourceInternal<T>(ResourcePath resourcePath) where T : class {
+        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class {
             if (resourcePath.ResourceTypeInstances.Count != 1)
                 throw new ResourceProviderException($"Invalid resource path");
 
@@ -449,7 +450,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
             if (dataSourceReference is not null && dataSourceReference.Deleted)
                 throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId} of type {resourcePath.ResourceTypeInstances[0].ResourceType} has been soft deleted.");
 
-            var dataSource = LoadDataSource(dataSourceReference, resourcePath.ResourceTypeInstances[0].ResourceId).Result;
+            var dataSource = await LoadDataSource(dataSourceReference, resourcePath.ResourceTypeInstances[0].ResourceId);
             return dataSource as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }

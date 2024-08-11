@@ -4,6 +4,9 @@ using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Middleware;
+using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
 using FoundationaLLM.Common.Services.Azure;
 using Microsoft.Extensions.Options;
@@ -25,8 +28,11 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Configuration);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -34,6 +40,8 @@ if (builder.Environment.IsDevelopment())
 builder.AddOpenTelemetry(
     AppConfigurationKeys.FoundationaLLM_APIEndpoints_GatewayAPI_Essentials_AppInsightsConnectionString,
     ServiceNames.GatewayAPI);
+
+builder.Services.AddInstanceProperties(builder.Configuration);
 
 // CORS policies
 builder.AddCorsPolicies();
@@ -47,11 +55,22 @@ builder.Services.AddAzureResourceManager();
 // Core Gateway service
 builder.AddGatewayCore();
 
+builder.Services.AddInstanceProperties(builder.Configuration);
+
 // Open API (Swagger)
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
+// Authorization
+builder.AddAuthorizationService();
+
+//----------------------------
+// Resource providers
+//----------------------------
+builder.AddAttachmentResourceProvider();
+
 // API key validation
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
+builder.Services.AddScoped<ICallContext, CallContext>();
 
 builder.Services.AddControllers();
 
@@ -90,6 +109,9 @@ builder.Services.AddSwaggerGen(
     .AddSwaggerGenNewtonsoftSupport();
 
 var app = builder.Build();
+
+// Register the middleware to extract the user identity context and other HTTP request context data required by the downstream services.
+app.UseMiddleware<CallContextMiddleware>();
 
 // Configure the HTTP request pipeline.
 

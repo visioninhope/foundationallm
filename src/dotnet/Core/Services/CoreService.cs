@@ -1,19 +1,25 @@
 using System.Text.Json;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.IO;
 using System.Text.RegularExpressions;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
@@ -50,9 +56,17 @@ public partial class CoreService(
     private readonly ICallContext _callContext = callContext;
     private readonly string _sessionType = brandingSettings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
     private readonly CoreServiceSettings _settings = settings.Value;
-    private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
-        resourceProviderServices.ToDictionary<IResourceProviderService, string>(
-            rps => rps.Name);
+
+    private readonly IResourceProviderService _attachmentResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Attachment);
+    private readonly IResourceProviderService _agentResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Agent);
+    private readonly IResourceProviderService _azureOpenAIResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AzureOpenAI);
+    private readonly IResourceProviderService _aiModelResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AIModel);
+    private readonly IResourceProviderService _configurationResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration);
 
     /// <inheritdoc/>
     public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
@@ -241,6 +255,95 @@ public partial class CoreService(
     public async Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId) =>
         throw new NotImplementedException();
 
+    /// <inheritdoc/>
+    public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
+    {
+        var agentBase = await _agentResourceProvider.GetResource<AgentBase>(
+            $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
+            userIdentity);
+        var aiModelBase = await _agentResourceProvider.GetResource<AIModelBase>(
+            agentBase.AIModelObjectId!,
+            userIdentity);
+        var apiEndpointConfiguration = await _configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+            aiModelBase.EndpointObjectId!,
+            userIdentity);
+
+        var agentRequiresOpenAIAssistants = agentBase.HasCapability(AgentCapabilityCategoryNames.OpenAIAssistants);
+
+        attachmentFile.SecondaryProvider = agentRequiresOpenAIAssistants
+            ? ResourceProviderNames.FoundationaLLM_AzureOpenAI
+            : null;
+        var result = await _attachmentResourceProvider.UpsertResourceAsync<AttachmentFile, ResourceProviderUpsertResult>(
+                $"/instance/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
+                attachmentFile,
+                _callContext.CurrentUserIdentity!);
+
+        if (agentRequiresOpenAIAssistants)
+        {
+            var userName = userIdentity.UPN?.NormalizeUserPrincipalName() ?? userIdentity.UserId;
+            var assistantUserContextName = $"{userName}-assistant-{instanceId.ToLower()}";
+            var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
+
+            var fileUserContext = new FileUserContext
+            {
+                Name = fileUserContextName,
+                UserPrincipalName = userName!,
+                Endpoint = apiEndpointConfiguration.Url,
+                AssistantUserContextName = assistantUserContextName,
+                Files = new()
+                {
+                    {
+                        result.ObjectId!,
+                        new FileMapping
+                        {
+                            FoundationaLLMAttachmentObjectId = result.ObjectId!,
+                            OriginalFileName = attachmentFile.OriginalFileName,
+                            ContentType = attachmentFile.ContentType!
+                        }
+                    }
+                }
+            };
+
+            _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
+                fileUserContext,
+                userIdentity);
+        }
+
+        return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task<AttachmentFile?> DownloadAttachment(string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity)
+    {
+        try
+        {
+            if (fileProvider == ResourceProviderNames.FoundationaLLM_AzureOpenAI)
+            {
+                var userName = userIdentity.UPN?.NormalizeUserPrincipalName() ?? userIdentity.UserId;
+                var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
+
+                var result = await _azureOpenAIResourceProvider.GetResource<FileContent>(
+                    $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{fileId}",
+                    userIdentity);
+
+                return new AttachmentFile
+                {
+                    Name = result.Name,
+                    OriginalFileName = result.OriginalFileName,
+                    ContentType = result.ContentType,
+                    Content = new MemoryStream(result.BinaryContent!.Value.ToArray())
+                };
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error downloading attachment {FileId} from {FileProvider}.", fileId, fileProvider);
+        }
+
+        return null;
+    }
+
     private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
         ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
         || (agentOption == AgentGatekeeperOverrideOption.MustBypass)
@@ -249,10 +352,7 @@ public partial class CoreService(
 
     private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
-        if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
-            throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
-
-        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
+        var agentBase = await _agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.GatekeeperSettings?.UseSystemSetting == false)

@@ -40,5 +40,10 @@ namespace FoundationaLLM.Common.Constants
         /// The namespace name for events concerning the FoundationaLLM.AIModel resource provider.
         /// </summary>
         public const string FoundationaLLM_ResourceProvider_AIModel = "ResourceProvider.FoundationaLLM.AIModel";
+
+        /// <summary>
+        /// The namespace name for events concerning the FoundationaLLM.AzureOpenAI resource provider.
+        /// </summary>
+        public const string FoundationaLLM_ResourceProvider_AzureOpenAI = "ResourceProvider.FoundationaLLM.AzureOpenAI";
     }
 }

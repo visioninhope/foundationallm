@@ -1,5 +1,8 @@
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Interfaces;
 
@@ -100,4 +103,31 @@ public interface ICoreService
     /// <param name="operationId">The ID of the operation to retrieve.</param>
     /// <returns>Returns a <see cref="CompletionResponse" /> object.</returns>
     Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId);
+
+    /// <summary>
+    /// Uploads an attachment.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="attachmentFile">The <see cref="AttachmentFile"/> object containing the attachment file data.</param>
+    /// <param name="agentName">The name of the agent.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>A <see cref="ResourceProviderUpsertResult"/> object with the FoundationaLLM.Attachment resource provider object id.</returns>
+    Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity);
+
+    /// <summary>
+    /// Downloads an attachment.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="fileProvider">The name of the file provider.</param>
+    /// <param name="fileId">The identifier of the file.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>An <see cref="AttachmentFile"/> object with the properties and the content of the attachment.</returns>
+    /// <remarks>
+    /// The following file providers are supported:
+    /// <list type="bullet">
+    /// <item>FoundationaLLM.Attachments</item>
+    /// <item>FoundationaLLM.AzureOpenAI</item>
+    /// </list>
+    /// </remarks>
+    Task<AttachmentFile?> DownloadAttachment(string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity); 
 }

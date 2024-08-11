@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Authentication;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -41,11 +42,12 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
+            UnifiedUserIdentity userIdentity,
             CancellationToken cancellationToken)
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextEmbeddingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text embedding service factory instance.");
-            var (textEmbeddingService, textEmbeddingProfileResourceBase) = serviceFactory.GetServiceWithResource(_parameters["text_embedding_profile_name"]);
+            var (textEmbeddingService, textEmbeddingProfileResourceBase) = await serviceFactory.GetServiceWithResource(_parameters["text_embedding_profile_name"], userIdentity);
             var textEmbeddingProfile = textEmbeddingProfileResourceBase as TextEmbeddingProfile;
             var embeddingModelName = textEmbeddingProfile!.Settings?.TryGetValue("model_name", out var modelName) == true ? modelName : null;
 

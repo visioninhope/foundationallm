@@ -532,7 +532,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<ResourceProviderActionResult>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.VectorizationPipelines}/{pipelineName}/{VectorizationResourceProviderActions.Purge}",
+                    $"{VectorizationResourceTypeNames.VectorizationPipelines}/{pipelineName}/{ResourceProviderActions.Purge}",
                     Arg.Any<object>()
                 )
                 .Returns(Task.FromResult(expectedPurgeResult));
@@ -544,7 +544,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedPurgeResult, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<ResourceProviderActionResult>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.VectorizationPipelines}/{pipelineName}/{VectorizationResourceProviderActions.Purge}",
+                $"{VectorizationResourceTypeNames.VectorizationPipelines}/{pipelineName}/{ResourceProviderActions.Purge}",
                 Arg.Any<object>()
             );
         }
@@ -569,7 +569,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<ResourceProviderActionResult>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                    $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                     Arg.Any<object>()
                 )
                 .Returns(Task.FromResult(expectedPurgeResult));
@@ -581,7 +581,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedPurgeResult, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<ResourceProviderActionResult>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                $"{VectorizationResourceTypeNames.TextPartitioningProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                 Arg.Any<object>()
             );
         }
@@ -606,7 +606,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<ResourceProviderActionResult>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                    $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                     Arg.Any<object>()
                 )
                 .Returns(Task.FromResult(expectedPurgeResult));
@@ -618,7 +618,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedPurgeResult, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<ResourceProviderActionResult>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                $"{VectorizationResourceTypeNames.TextEmbeddingProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                 Arg.Any<object>()
             );
         }
@@ -648,7 +648,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<ResourceNameCheckResult>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{VectorizationResourceProviderActions.CheckName}",
+                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{ResourceProviderActions.CheckName}",
                     resourceName
                 )
                 .Returns(Task.FromResult(expectedCheckResult));
@@ -660,7 +660,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedCheckResult, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<ResourceNameCheckResult>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.IndexingProfiles}/{VectorizationResourceProviderActions.CheckName}",
+                $"{VectorizationResourceTypeNames.IndexingProfiles}/{ResourceProviderActions.CheckName}",
                 resourceName
             );
         }
@@ -695,7 +695,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<List<IndexingProfile>>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{VectorizationResourceProviderActions.Filter}",
+                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{ResourceProviderActions.Filter}",
                     resourceFilter
                 )
                 .Returns(Task.FromResult(expectedProfiles));
@@ -707,7 +707,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedProfiles, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<List<IndexingProfile>>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.IndexingProfiles}/{VectorizationResourceProviderActions.Filter}",
+                $"{VectorizationResourceTypeNames.IndexingProfiles}/{ResourceProviderActions.Filter}",
                 resourceFilter
             );
         }
@@ -722,7 +722,7 @@ namespace Management.Client.Tests.Clients.Resources
             _mockRestClient.Resources
                 .ExecuteResourceActionAsync<ResourceProviderActionResult>(
                     ResourceProviderNames.FoundationaLLM_Vectorization,
-                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                    $"{VectorizationResourceTypeNames.IndexingProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                     Arg.Any<object>()
                 )
                 .Returns(Task.FromResult(expectedPurgeResult));
@@ -734,7 +734,7 @@ namespace Management.Client.Tests.Clients.Resources
             Assert.Equal(expectedPurgeResult, result);
             await _mockRestClient.Resources.Received(1).ExecuteResourceActionAsync<ResourceProviderActionResult>(
                 ResourceProviderNames.FoundationaLLM_Vectorization,
-                $"{VectorizationResourceTypeNames.IndexingProfiles}/{profileName}/{VectorizationResourceProviderActions.Purge}",
+                $"{VectorizationResourceTypeNames.IndexingProfiles}/{profileName}/{ResourceProviderActions.Purge}",
                 Arg.Any<object>()
             );
         }

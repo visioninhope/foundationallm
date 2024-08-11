@@ -4,6 +4,8 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from langchain_core.language_models import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, AzureOpenAI, ChatOpenAI, OpenAI
+from openai import AzureOpenAI as aoi
+from openai import AsyncAzureOpenAI as async_aoi
 from foundationallm.config.configuration import Configuration
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.models.orchestration import OperationTypes
@@ -201,16 +203,18 @@ class LangChainAgentBase():
         self.full_prompt = prompt
         return prompt
 
-    def _get_language_model(self) -> BaseLanguageModel:
+    def _get_language_model(self, override_operation_type: OperationTypes = None, is_async: bool=False) -> BaseLanguageModel:
         """
         Create a language model using the specified endpoint settings.
+
+        override_operation_type : OperationTypes - internally override the operation type for the API endpoint.
 
         Returns
         -------
         BaseLanguageModel
             Returns an API connector for a chat completion model.
         """                
-        langauge_model:BaseLanguageModel = None
+        language_model:BaseLanguageModel = None
         api_key = None
 
         if self.ai_model is None:
@@ -219,6 +223,9 @@ class LangChainAgentBase():
             raise LangChainException("API endpoint configuration settings are missing.", 400)
 
         if self.api_endpoint.provider == LanguageModelProvider.MICROSOFT:
+            op_type = self.api_endpoint.operation_type
+            if override_operation_type is not None:
+                op_type = override_operation_type
             if self.api_endpoint.authentication_type == AuthenticationTypes.AZURE_IDENTITY:
                 try:
                     scope = self.api_endpoint.authentication_parameters.get('scope', 'https://cognitiveservices.azure.com/.default')
@@ -228,23 +235,35 @@ class LangChainAgentBase():
                         DefaultAzureCredential(exclude_environment_credential=True),
                         scope
                     )
-                
-                    langauge_model = (
-                        AzureChatOpenAI(
-                            azure_endpoint=self.api_endpoint.url,
-                            api_version=self.api_endpoint.api_version,
-                            openai_api_type='azure_ad',
-                            azure_ad_token_provider=token_provider,
-                            azure_deployment=self.ai_model.deployment_name
-                        ) if self.api_endpoint.operation_type == OperationTypes.CHAT
-                        else AzureOpenAI(
+                    
+                    if op_type == OperationTypes.CHAT:
+                        language_model = AzureChatOpenAI(
                             azure_endpoint=self.api_endpoint.url,
                             api_version=self.api_endpoint.api_version,
                             openai_api_type='azure_ad',
                             azure_ad_token_provider=token_provider,
                             azure_deployment=self.ai_model.deployment_name
                         )
-                    )
+                    elif op_type == OperationTypes.ASSISTANTS_API or op_type == OperationTypes.IMAGE_ANALYSIS:
+                        # Assistants API clients can't have deployment as that is assigned at the assistant level.
+                        if is_async:
+                            # create async client
+                            language_model = async_aoi(
+                                azure_endpoint=self.api_endpoint.url,
+                                api_version=self.api_endpoint.api_version,
+                                openai_api_type='azure_ad',
+                                azure_ad_token_provider=token_provider,
+                            )
+                        else:
+                            language_model = aoi(
+                                azure_endpoint=self.api_endpoint.url,
+                                api_version=self.api_endpoint.api_version,
+                                openai_api_type='azure_ad',
+                                azure_ad_token_provider=token_provider,
+                            )
+                    else:
+                        raise LangChainException(f"Unsupported operation type: {op_type}", 400)
+
                 except Exception as e:
                     raise LangChainException(f"Failed to create Azure OpenAI API connector: {str(e)}", 500)
             else: # Key-based authentication
@@ -256,20 +275,31 @@ class LangChainAgentBase():
                 if api_key is None:
                     raise LangChainException("API key is missing from the configuration settings.", 400)
                         
-                langauge_model = (
-                    AzureChatOpenAI(
-                        azure_endpoint=self.api_endpoint.url,
-                        api_key=api_key,
-                        api_version=self.api_endpoint.api_version,
-                        azure_deployment=self.ai_model.deployment_name
-                    ) if self.api_endpoint.operation_type == OperationTypes.CHAT
-                    else AzureOpenAI(
+                if op_type == OperationTypes.CHAT:
+                    language_model = AzureChatOpenAI(
                         azure_endpoint=self.api_endpoint.url,
                         api_key=api_key,
                         api_version=self.api_endpoint.api_version,
                         azure_deployment=self.ai_model.deployment_name
                     )
-                )
+                elif op_type == OperationTypes.ASSISTANTS_API or op_type == OperationTypes.IMAGE_ANALYSIS:
+                    # Assistants API clients can't have deployment as that is assigned at the assistant level.
+                    if is_async:
+                        # create async client
+                        language_model = async_aoi(
+                            azure_endpoint=self.api_endpoint.url,
+                            api_key=api_key,
+                            api_version=self.api_endpoint.api_version,
+                        )
+                    else:
+                        language_model = aoi(
+                            azure_endpoint=self.api_endpoint.url,
+                            api_key=api_key,
+                            api_version=self.api_endpoint.api_version,
+                        )
+                else:
+                    raise LangChainException(f"Unsupported operation type: {op_type}", 400)
+
         else:
             try:
                 api_key = self.config.get_value(self.api_endpoint.authentication_parameters.get('api_key_configuration_name'))
@@ -279,7 +309,7 @@ class LangChainAgentBase():
             if api_key is None:
                 raise LangChainException("API key is missing from the configuration settings.", 400)
                 
-            langauge_model = (
+            language_model = (
                 ChatOpenAI(base_url=self.api_endpoint.url, api_key=api_key)
                 if self.api_endpoint.operation_type == OperationTypes.CHAT
                 else OpenAI(base_url=self.api_endpoint.url, api_key=api_key)
@@ -287,7 +317,7 @@ class LangChainAgentBase():
 
         # Set model parameters.
         for key, value in self.ai_model.model_parameters.items():
-            if hasattr(langauge_model, key):
-                setattr(langauge_model, key, value)
+            if hasattr(language_model, key):
+                setattr(language_model, key, value)
 
-        return langauge_model
+        return language_model

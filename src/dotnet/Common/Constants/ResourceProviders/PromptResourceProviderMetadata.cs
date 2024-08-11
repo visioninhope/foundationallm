@@ -27,7 +27,7 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAction("checkname", false, true, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceName)], [typeof(ResourceNameCheckResult)])
                             ]),
-                            new ResourceTypeAction(PromptResourceProviderActions.Purge, true, false, [
+                            new ResourceTypeAction(ResourceProviderActions.Purge, true, false, [
                                 new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [], [typeof(ResourceProviderActionResult)])
                             ])
                         ]
