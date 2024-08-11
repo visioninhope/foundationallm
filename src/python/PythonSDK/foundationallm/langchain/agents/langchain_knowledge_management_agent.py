@@ -5,6 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from foundationallm.langchain.agents import LangChainAgentBase
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.langchain.retrievers import RetrieverFactory, CitationRetrievalBase
+from foundationallm.models.constants import AgentCapabilityCategories
 from foundationallm.models.orchestration import (
     CompletionResponse
 )
@@ -87,7 +88,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if self.prompt.suffix is not None:
             prompt_builder += f'\n\n{self.prompt.suffix}'
 
-        if self.has_retriever or len(request.attachments) > 0:
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if self.has_retriever or len(image_attachments) > 0:
             # Insert the user prompt into the template.
             prompt_builder += "\n\nQuestion: {question}"
 
@@ -241,14 +243,14 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     thread_id = assistant_req.thread_id,
                     role = "user",
                     content = "Analyze any attached images.",
-                    attachments= []
+                    attachments = []
                 )
                 # Add assistant message
                 assistant_svc.add_thread_message(
                     thread_id = assistant_req.thread_id,
                     role = "assistant",
                     content = image_analysis_svc.format_results(image_analysis_results),
-                    attachments= []
+                    attachments = []
                 )
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
@@ -294,7 +296,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 completion = chain.invoke(request.user_prompt)
                 response_content = OpenAITextMessageContentItem(
-                    value=completion
+                    value = completion,
+                    agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
                 )
                 
                 citations = []
@@ -364,14 +367,14 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     thread_id = assistant_req.thread_id,
                     role = "user",
                     content = "Analyze any attached images.",
-                    attachments= []
+                    attachments = []
                 )
                 # Add assistant message
                 await assistant_svc.aadd_thread_message(
                     thread_id = assistant_req.thread_id,
                     role = "assistant",
                     content = image_analysis_svc.format_results(image_analysis_results),
-                    attachments= []
+                    attachments = []
                 )
 
             # invoke/run the service
@@ -423,7 +426,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     completion = await chain.ainvoke(request.user_prompt)
 
                 response_content = OpenAITextMessageContentItem(
-                    value=completion
+                    value = completion,
+                    agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
                 )
 
                 citations = []
