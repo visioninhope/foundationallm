@@ -108,12 +108,15 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
         private async Task<List<AttachmentProperties>> GetAttachmentPaths(string instanceId, List<string> attachmentObjectIds)
         {
+            if (attachmentObjectIds.Count == 0)
+                return [];
+
             var attachments = attachmentObjectIds
                 .ToAsyncEnumerable()
                 .SelectAwait(async x => await _attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
 
             var fileUserContextName = $"{_callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? _callContext.CurrentUserIdentity!.UserId}-assistant-{instanceId.ToLower()}";
-            var fileUserContex = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
+            var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
                 _callContext.CurrentUserIdentity!);
 
@@ -126,7 +129,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     Provider = attachment.SecondaryProvider ?? ResourceProviderNames.FoundationaLLM_Attachment,
                     ProviderFileName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
                         ? attachment.Path
-                        : fileUserContex.Files[attachment.ObjectId!].OpenAIFileId!,
+                        : fileUserContext.Files[attachment.ObjectId!].OpenAIFileId!,
                     ProviderStorageAccountName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
                         ? _attachmentResourceProvider.StorageAccountName
                         : null

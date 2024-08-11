@@ -1538,6 +1538,14 @@
 				"value": "${env:FOUNDATIONALLM_GATEKEEPER_API_EVENT_GRID_PROFILE}",
 				"content_type": "application/json",
 				"first_version": "0.8.0"
+			},
+			{
+				"name": "GatewayAPI",
+				"description": "The settings used by the Gateway API to process Azure Event Grid events.",
+				"secret": "",
+				"value": "${env:FOUNDATIONALLM_GATEWAY_API_EVENT_GRID_PROFILE}",
+				"content_type": "application/json",
+				"first_version": "0.8.0"
 			}
 		]
 	},
@@ -1586,6 +1594,14 @@
 		"dependency_injection_key": null,
 		"configuration_section": {
 			"description": "Configuration section used to identify the settings for the events infrastructure used by the Gatekeeper API."
+		},
+		"configuration_keys": []
+	},
+	{
+		"namespace": "Events:Profiles:GatewayAPI",
+		"dependency_injection_key": null,
+		"configuration_section": {
+			"description": "Configuration section used to identify the settings for the events infrastructure used by the Gateway API."
 		},
 		"configuration_keys": []
 	}

@@ -347,5 +347,11 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Events_Profiles_GatekeeperAPI =
             "FoundationaLLM:Events:Profiles:GatekeeperAPI:*";
+        
+        /// <summary>
+        /// Filter for the configuration section used to identify the settings for the events infrastructure used by the Gateway API.
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_GatewayAPI =
+            "FoundationaLLM:Events:Profiles:GatewayAPI:*";
     }
 }
