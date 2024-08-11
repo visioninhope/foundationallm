@@ -13,61 +13,24 @@ from foundationallm.models.agents import (
     KnowledgeManagementAgent,
     KnowledgeManagementCompletionRequest
 )
+from foundationallm.models.attachments import AttachmentProviders
 from foundationallm.models.authentication import AuthenticationTypes
 from foundationallm.models.language_models import LanguageModelProvider
+from foundationallm.models.orchestration.openai_text_message_content_item import OpenAITextMessageContentItem
 from foundationallm.models.orchestration.operation_types import OperationTypes
 from foundationallm.models.resource_providers.vectorization import (
     AzureAISearchIndexingProfile,
     AzureOpenAIEmbeddingProfile
 )
+from foundationallm.models.services import OpenAIAssistantsAPIRequest
+from foundationallm.services import ImageAnalysisService, OpenAIAssistantsApiService
 from openai import AzureOpenAI, AsyncAzureOpenAI
-from foundationallm.models.services.openai_assistants_request import OpenAIAssistantsAPIRequest
-from foundationallm.services.openai_assistants_api_service import OpenAIAssistantsApiService
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
     """
-    def _analyze_image(self, image_url: str) -> str:
-        """
-        Get the image analysis results from Azure OpenAI.
-        """
-        api_key = self.config.get_value(self.api_endpoint.authentication_parameters.get('api_key_configuration_name'))
-        
-        client = AzureOpenAI(
-            azure_endpoint=self.api_endpoint.url,
-            api_key=api_key,
-            api_version=self.api_endpoint.api_version,
-            azure_deployment=self.ai_model.deployment_name
-        )
-        response = client.chat.completions.create(
-            model=self.ai_model.deployment_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant who provides information about the data found in images. Provide key insights and analysis about the data in the image. You should provide as many details as possible and be specific. Output the results in a markdown formatted table."
-                },
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "content": "Analyze the image:"
-                        },
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": image_url
-                            }
-                        }
-                    ]
-                }
-            ],
-            max_tokens=4000,
-            temperature=0.5
-        )
-        return response.choices[0].message.content
-
+    
     def _get_document_retriever(
         self,
         request: KnowledgeManagementCompletionRequest,
@@ -249,36 +212,58 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         """
         self._validate_request(request)
 
+        agent = request.agent
+
+        image_analysis_results = None
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if len(image_attachments) > 0:
+            image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=False)
+            image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results = image_analysis_svc.analyze_images(image_attachments)
+
         # Check for Assistants API capability
-        if "OpenAI.Assistants" in request.agent.capabilities:
+        if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
-            assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override))
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=False))
             
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
                 thread_id=request.objects["OpenAI.AssistantThreadId"],
-                attachments=request.attachments,
+                attachments=[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.OPENAI_FILESTORE],
                 user_prompt=request.user_prompt
             )
 
+            # Add user and assistant messages related to image analysis to the Assistants API request.
+            if image_analysis_results is not None:
+                # Add user message
+                assistant_svc.add_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "user",
+                    content = "Analyze any attached images.",
+                    attachments= []
+                )
+                # Add assistant message
+                assistant_svc.add_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "assistant",
+                    content = image_analysis_svc.format_results(image_analysis_results),
+                    attachments= []
+                )
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
             
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
-                completion= "",
                 full_prompt = assistant_response.analysis,
-                content= assistant_response.content,
-                completion_tokens= assistant_response.completion_tokens,
-                prompt_tokens= assistant_response.prompt_tokens,
-                total_tokens= assistant_response.total_tokens,
-                user_prompt= request.user_prompt
+                content = assistant_response.content,
+                completion_tokens = assistant_response.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens,
+                total_tokens = assistant_response.total_tokens,
+                user_prompt = request.user_prompt
                 )
-
-        agent = request.agent
 
         with get_openai_callback() as cb:
             try:
@@ -294,6 +279,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
+                elif image_analysis_results is not None:
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }    
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -307,13 +294,17 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 )
 
                 completion = chain.invoke(request.user_prompt)
+                response_content = OpenAITextMessageContentItem(
+                    value=completion
+                )
+                
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
 
                 return CompletionResponse(
                     operation_id = request.operation_id,
-                    completion = completion,
+                    content = [response_content],
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
@@ -343,19 +334,46 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         """
         self._validate_request(request)
 
+        agent = request.agent
+
+        image_analysis_results = None
+        # Get image attachments that are images with URL file paths.
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if len(image_attachments) > 0:
+            image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=True)
+            image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results = await image_analysis_svc.aanalyze_images(image_attachments)
+
         # Check for Assistants API capability
-        if "OpenAI.Assistants" in request.agent.capabilities:
+        if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
-            assistant_svc = OpenAIAssistantsApiService(config=self.config, azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
-            
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
+
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
                 thread_id=request.objects["OpenAI.AssistantThreadId"],
-                attachments=request.attachments,
+                attachments=[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.OPENAI_FILESTORE],
                 user_prompt=request.user_prompt
             )
+
+            # Add user and assistant messages related to image analysis to the Assistants API request.
+            if image_analysis_results is not None:
+                # Add user message
+                await assistant_svc.aadd_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "user",
+                    content = "Analyze any attached images.",
+                    attachments= []
+                )
+                # Add assistant message
+                await assistant_svc.aadd_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "assistant",
+                    content = image_analysis_svc.format_results(image_analysis_results),
+                    attachments= []
+                )
 
             # invoke/run the service
             assistant_response = await assistant_svc.arun(assistant_req)
@@ -363,16 +381,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
-                completion= "",
                 full_prompt = assistant_response.analysis,
-                content= assistant_response.content,
-                completion_tokens= assistant_response.completion_tokens,
-                prompt_tokens= assistant_response.prompt_tokens,
-                total_tokens= assistant_response.total_tokens,
-                user_prompt= request.user_prompt
+                content = assistant_response.content,
+                completion_tokens = assistant_response.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens,
+                total_tokens = assistant_response.total_tokens,
+                user_prompt = request.user_prompt
                 )          
-
-        agent = request.agent
 
         with get_openai_callback() as cb:
             try:
@@ -388,8 +403,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
-                elif len(request.attachments) > 0 and (request.attachments[0].endswith('.png') or request.attachments[0].endswith('.jpg')):
-                    chain_context = { "context": lambda x: self._analyze_image(request.attachments[0]), "question": RunnablePassthrough() }
+                elif image_analysis_results is not None:
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -402,9 +417,15 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | StrOutputParser()
                 )
 
-                # ainvoke isn't working because search is possibly involved in the completion request. Need to dive deeper into how to get this working.
-                # completion = await chain.ainvoke(request.user_prompt)
-                completion = chain.invoke(request.user_prompt)
+                # ainvoke isn't working if search is involved in the completion request. Need to dive deeper into how to get this working.
+                if self.has_retriever:
+                    completion = chain.invoke(request.user_prompt)
+                else:
+                    completion = await chain.ainvoke(request.user_prompt)
+
+                response_content = OpenAITextMessageContentItem(
+                    value=completion
+                )
 
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
@@ -412,7 +433,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 return CompletionResponse(
                     operation_id = request.operation_id,
-                    completion = completion,
+                    content = [response_content],
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,

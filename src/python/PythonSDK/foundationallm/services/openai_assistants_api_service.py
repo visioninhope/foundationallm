@@ -8,7 +8,6 @@ from openai.pagination import AsyncCursorPage, SyncCursorPage
 from openai.types import FileObject
 from openai.types.beta.threads import FileCitationAnnotation, FilePathAnnotation, ImageFileContentBlock, ImageURLContentBlock, Message, TextContentBlock
 from openai.types.beta.threads.message import Attachment
-from foundationallm.config import Configuration
 from foundationallm.models.orchestration.openai_file_path_message_content_item import OpenAIFilePathMessageContentItem
 from foundationallm.models.orchestration.openai_image_file_message_content_item import OpenAIImageFileMessageContentItem
 from foundationallm.models.orchestration.openai_text_message_content_item import OpenAITextMessageContentItem
@@ -22,20 +21,33 @@ class OpenAIAssistantsApiService:
     Integration with the OpenAI Assistants API.
     """
 
-    def __init__(self, config: Configuration, azure_openai_client: Union[AzureOpenAI, AsyncAzureOpenAI]):
+    def __init__(self, azure_openai_client: Union[AzureOpenAI, AsyncAzureOpenAI]):
         """
         Initializes an OpenAI Assistants API service.
 
         Parameters
         ----------
-        config : Configuration
-            Application configuration class for retrieving configuration settings.
         azure_openai_client : AzureOpenAI
             Azure OpenAI client for interacting with the OpenAI Assistants API.
             TODO: AzureOpenAI extends OpenAI, test with OpenAI client as input at some point, for now just focus on Azure.
         """
-        self.config = config
         self.client = azure_openai_client
+
+    async def aadd_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
+        return await self.client.beta.threads.messages.create(
+            thread_id = thread_id,
+            role = role,
+            content = content,
+            attachments = attachments
+        )
+
+    def add_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
+        return self.client.beta.threads.messages.create(
+            thread_id = thread_id,
+            role = role,
+            content = content,
+            attachments = attachments
+        )
         
     def run(self, request: OpenAIAssistantsAPIRequest) -> OpenAIAssistantsAPIResponse:
         """
@@ -51,11 +63,11 @@ class OpenAIAssistantsApiService:
         attachments = self._get_request_attachments(request)        
     
         # Add User prompt to the thread
-        message = self.client.beta.threads.messages.create(
-            thread_id=request.thread_id,
-            role="user",
-            content=request.user_prompt,
-            attachments=attachments
+        message = self.add_thread_message(
+            thread_id = request.thread_id,
+            role = "user",
+            content = request.user_prompt,
+            attachments = attachments
         )
         
         # Create and execute the run
@@ -71,7 +83,7 @@ class OpenAIAssistantsApiService:
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
-                thread_id=request.thread_id, order="asc", after=message.id
+            thread_id=request.thread_id, order="asc", after=message.id
         )
 
         content = self._parse_messages(messages)
@@ -103,11 +115,11 @@ class OpenAIAssistantsApiService:
         attachments = await self._aget_request_attachments(request)        
 
         # Add User prompt to the thread
-        message = await self.client.beta.threads.messages.create(
-            thread_id=request.thread_id,
-            role="user",
-            content=request.user_prompt,
-            attachments=attachments
+        message = await self.aadd_thread_message(
+            thread_id = request.thread_id,
+            role = "user",
+            content = request.user_prompt,
+            attachments = attachments
         )
         
         # Create and execute the run
@@ -123,7 +135,7 @@ class OpenAIAssistantsApiService:
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
-                thread_id=request.thread_id, order="asc", after=message.id
+            thread_id=request.thread_id, order="asc", after=message.id
         )
 
         content = await self._aparse_messages(messages)
@@ -157,9 +169,9 @@ class OpenAIAssistantsApiService:
         if filename_extension in file_search_supported_extensions:
             tools.append({"type": "file_search"})
         return Attachment(
-                    file_id=file.id,
-                    tools = tools
-                )
+            file_id=file.id,
+            tools = tools
+        )
  
     def _get_request_attachments(self, request: OpenAIAssistantsAPIRequest):
         """
@@ -204,7 +216,7 @@ class OpenAIAssistantsApiService:
                 oai_file = await self.client.files.retrieve(file_id)
                 attachments.append(
                      self._create_attachment_from_fileobject(oai_file)
-                  )
+                )
         return attachments
 
     def _parse_single_message(self, message: Message):

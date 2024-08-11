@@ -11,7 +11,7 @@ class CompletionResponse(BaseModel):
     operation_id: str
     user_prompt: str
     full_prompt: Optional[str] = None
-    completion: Union[str, set, List[str]]
+    completion: Optional[Union[str, set, List[str]]] = None
     content: Optional[
         List[
             Union[
