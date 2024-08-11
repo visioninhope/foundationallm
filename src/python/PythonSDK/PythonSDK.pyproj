@@ -30,6 +30,8 @@
     <Compile Include="foundationallm\models\attachments\attachment_properties.py" />
     <Compile Include="foundationallm\models\attachments\attachment_providers.py" />
     <Compile Include="foundationallm\models\attachments\__init__.py" />
+    <Compile Include="foundationallm\models\constants\agent_capability_categories.py" />
+    <Compile Include="foundationallm\models\constants\__init__.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_base.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_types.py" />
     <Compile Include="foundationallm\models\orchestration\openai_file_path_message_content_item.py" />
@@ -153,6 +155,7 @@
     <Folder Include="foundationallm\langchain\language_models\openai\" />
     <Folder Include="foundationallm\langchain\exceptions\" />
     <Folder Include="foundationallm\models\attachments\" />
+    <Folder Include="foundationallm\models\constants\" />
     <Folder Include="foundationallm\services\" />
     <Folder Include="foundationallm\langchain\retrievers\" />
     <Folder Include="foundationallm\langchain\orchestration\" />
