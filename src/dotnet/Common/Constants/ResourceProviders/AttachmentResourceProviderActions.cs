@@ -5,6 +5,9 @@
     /// </summary>
     public class AttachmentResourceProviderActions
     {
-
+        /// <summary>
+        /// Apply a filter for attachment reference retrieval.
+        /// </summary>
+        public const string Filter = "filter";
     }
 }

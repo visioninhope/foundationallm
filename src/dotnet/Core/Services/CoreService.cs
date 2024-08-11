@@ -1,3 +1,4 @@
+using System.Text.Json;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
@@ -6,6 +7,7 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
@@ -13,6 +15,7 @@ using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.RegularExpressions;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -60,8 +63,53 @@ public partial class CoreService(
     public async Task<List<Message>> GetChatSessionMessagesAsync(string instanceId, string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        return await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
+        var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
+
+        _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Attachment, out var attachmentResourceProviderService);
+
+        // Get a list of all attachment IDs in the messages.
+        var attachmentIds = messages.SelectMany(m => m.Attachments ?? Enumerable.Empty<string>()).Distinct().ToList();
+        if (attachmentIds.Count > 0)
+        {
+            // First, get just the last part of the object IDs after the last slash.
+            var ids = attachmentIds.Select(id => id.Split('/').Last()).ToList();
+            var filter = new ResourceFilter
+            {
+                ObjectIDs = ids
+            };
+            // Get the attachment details from the attachment resource provider.
+            var result = await attachmentResourceProviderService!.HandlePostAsync(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{AttachmentResourceProviderActions.Filter}",
+                JsonSerializer.Serialize(filter),
+                _callContext.CurrentUserIdentity!);
+            // Cast the result to a list of AttachmentReference objects.
+            var attachmentReferences = result as List<AttachmentDetail> ?? [];
+
+            if (attachmentReferences.Count > 0)
+            {
+                
+                // Add the attachment details to the messages.
+                foreach (var message in messages)
+                {
+                    if (message.Attachments is { Count: > 0 })
+                    {
+                        var messageAttachmentDetails = new List<AttachmentDetail>();
+                        foreach (var attachment in message.Attachments)
+                        {
+                            var attachmentDetail = attachmentReferences.FirstOrDefault(ad => ad.ObjectId == attachment);
+                            if (attachmentDetail != null)
+                            {
+                                messageAttachmentDetails.Add(attachmentDetail);
+                            }
+                        }
+                        message.AttachmentDetails = messageAttachmentDetails;
+                    }
+                }
+            }
+        }
+
+        return messages.ToList();
     }
 
     /// <inheritdoc/>
@@ -115,7 +163,19 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
             // Create prompt message, then persist in Cosmos as transaction with the Session details.
-            var promptMessage = new Message(completionRequest.SessionId, nameof(Participants.User), null, completionRequest.UserPrompt, null, null, upn, _callContext.CurrentUserIdentity?.Name);
+            var promptMessage = new Message(
+                completionRequest.SessionId,
+                nameof(Participants.User),
+                null,
+                completionRequest.UserPrompt,
+                null,
+                null,
+                upn,
+                _callContext.CurrentUserIdentity?.Name,
+                null,
+                null,
+                null,
+                completionRequest.Attachments);
             await AddSessionMessageAsync(completionRequest.SessionId, promptMessage);
 
             var agentOption = await ProcessGatekeeperOptions(completionRequest);

@@ -13,5 +13,11 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         /// </summary>
         [JsonPropertyName("default")]
         public bool? Default { get; set; }
+
+        /// <summary>
+        /// Retrieve resources or resource references that match the list of Object IDs.
+        /// </summary>
+        [JsonPropertyName("object_ids")]
+        public List<string>? ObjectIDs { get; set; }
     }
 }

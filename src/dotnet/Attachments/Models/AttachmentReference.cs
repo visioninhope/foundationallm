@@ -1,8 +1,4 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.ResourceProviders;
-using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
-using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Attachment.Models
 {
