@@ -7,6 +7,8 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
+using FoundationaLLM.Common.Services.Security;
+using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -27,10 +29,16 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
+
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Essentials);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration);
+    options.Select(AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI);
 });
 if (builder.Environment.IsDevelopment())
     builder.Configuration.AddJsonFile("appsettings.development.json", true, true);
@@ -50,6 +58,11 @@ builder.AddGatewayGenericExceptionHandling();
 // Add Azure ARM services
 builder.AddAzureResourceManager();
 
+// Add event services
+builder.Services.AddAzureEventGridEvents(
+    builder.Configuration,
+    AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatewayAPI);
+
 // Core Gateway service
 builder.AddGatewayCore();
 
@@ -59,20 +72,26 @@ builder.Services.AddInstanceProperties(builder.Configuration);
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 // Authorization
+builder.AddGroupMembership();
 builder.AddAuthorizationService();
 
 //----------------------------
 // Resource providers
 //----------------------------
 builder.AddAttachmentResourceProvider();
+builder.AddConfigurationResourceProvider();
+
+builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
 // API key validation
 builder.Services.AddTransient<IAPIKeyValidationService, APIKeyValidationService>();
 builder.Services.AddScoped<ICallContext, CallContext>();
+builder.Services.AddScoped<IUserClaimsProviderService, NoOpUserClaimsProviderService>();
 
 builder.Services.AddControllers();
 
 // Add API Key Authorization
+builder.AddHttpClientFactoryService();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<APIKeyAuthenticationFilter>();
 builder.Services.AddOptions<APIKeyValidationSettings>()

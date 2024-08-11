@@ -65,6 +65,21 @@ namespace FoundationaLLM.Common.Constants.Authorization
         /// </summary>
         public const string FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete = "FoundationaLLM.AzureOpenAI/assistantUserContexts/delete";
 
+        /// <summary>
+        /// Read file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Read = "FoundationaLLM.AzureOpenAI/fileUserContexts/read";
+
+        /// <summary>
+        /// Create or update file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Write = "FoundationaLLM.AzureOpenAI/fileUserContexts/write";
+
+        /// <summary>
+        /// Delete file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Delete = "FoundationaLLM.AzureOpenAI/fileUserContexts/delete";
+
         #endregion
 
         #region Configuration
