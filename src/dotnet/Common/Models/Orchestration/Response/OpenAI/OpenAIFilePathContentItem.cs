@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants.Orchestration;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Response.OpenAI
 {
     /// <summary>
     /// File content item used to generate a message content item.
@@ -35,6 +35,12 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("file_id")]
         public string? FileId { get; set; }
+
+        /// <summary>
+        /// The URL of the image file.
+        /// </summary>
+        [JsonPropertyName("file_url")]
+        public string? FileUrl { get; set; }
 
         /// <summary>
         /// Set default property values.
