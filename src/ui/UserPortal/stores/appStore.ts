@@ -319,5 +319,10 @@ export const useAppStore = defineStore('app', {
 
 			return id;
 		},
+
+		async deleteAttachment(attachment: Attachment) {
+			//await api.deleteAttachment(attachment.id);
+			this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
+		}
 	},
 });
