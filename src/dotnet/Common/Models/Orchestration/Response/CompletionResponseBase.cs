@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Response
         /// The completion response from the language model.
         /// </summary>
         [JsonPropertyName("completion")]
-        public string Completion { get; set; }
+        public string? Completion { get; set; }
 
         /// <summary>
         /// Content returned from the Assistants API.
