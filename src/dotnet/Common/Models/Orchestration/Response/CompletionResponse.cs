@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration;
+namespace FoundationaLLM.Common.Models.Orchestration.Response;
 
 /// <summary>
 /// Response from a language model.

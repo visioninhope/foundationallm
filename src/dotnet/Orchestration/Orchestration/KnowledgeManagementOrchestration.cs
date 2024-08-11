@@ -1,7 +1,11 @@
-﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
@@ -16,6 +20,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <remarks>
     /// Constructor for default agent.
     /// </remarks>
+    /// <param name="instanceId">The FoundationaLLM instance ID.</param>
     /// <param name="agent">The <see cref="KnowledgeManagementAgent"/> agent.</param>
     /// <param name="explodedObjects">A dictionary of objects retrieved from various object ids related to the agent. For more details see <see cref="LLMCompletionRequest.Objects"/> .</param>
     /// <param name="callContext">The call context of the request being handled.</param>
@@ -24,6 +29,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
     /// <param name="resourceProviderServices">The dictionary of <see cref="IResourceProviderService"/></param>
     /// <param name="dataSourceAccessDenied">Inidicates that access was denied to all underlying data sources.</param>
     public class KnowledgeManagementOrchestration(
+        string instanceId,
         KnowledgeManagementAgent agent,
         Dictionary<string, object> explodedObjects,
         ICallContext callContext,
@@ -32,6 +38,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         Dictionary<string, IResourceProviderService> resourceProviderServices,
         bool dataSourceAccessDenied) : OrchestrationBase(orchestrationService)
     {
+        private readonly string _instanceId = instanceId;
         private readonly KnowledgeManagementAgent _agent = agent;
         private readonly Dictionary<string, object> _explodedObjects = explodedObjects;
         private readonly ICallContext _callContext = callContext;
@@ -88,6 +95,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 OperationId = completionRequest.OperationId,
                 Completion = result.Completion!,
+                Content = result.Content,
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
                 FullPrompt = result.FullPrompt,
@@ -126,5 +134,57 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             return result;
         }
+
+        private MessageContentItemBase TransformContentItem(MessageContentItemBase contentItem) =>
+            contentItem.AgentCapabilityCategory switch
+            {
+                AgentCapabilityCategoryNames.OpenAIAssistants => TransformOpenAIAssistantsContentItem(contentItem),
+                AgentCapabilityCategoryNames.FoundationaLLMKnowledgeManagement => TransformFoundationaLLMKnowledgeManagementContentItem(contentItem),
+                _ => throw new OrchestrationException($"The agent capability category {contentItem.AgentCapabilityCategory} is not supported.")
+            };
+
+        #region OpenAI Assistants content items
+
+        private MessageContentItemBase TransformOpenAIAssistantsContentItem(MessageContentItemBase contentItem) =>
+            contentItem switch
+            {
+                OpenAIImageFileMessageContentItem openAIImageFile => TransformOpenAIAssistantsImageFile(openAIImageFile),
+                OpenAITextMessageContentItem openAITextMessage => TransformOpenAIAssistantsTextMessage(openAITextMessage),
+                _ => throw new OrchestrationException($"The content item type {contentItem.GetType().Name} is not supported.")
+            };
+
+        private OpenAIImageFileMessageContentItem TransformOpenAIAssistantsImageFile(OpenAIImageFileMessageContentItem openAIImageFile)
+        {
+            openAIImageFile.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIImageFile.FileId}";
+            return openAIImageFile;
+        }
+
+        private OpenAIFilePathContentItem TransformOpenAIAssistantsFilePath(OpenAIFilePathContentItem openAIFilePath)
+        {
+            openAIFilePath.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
+            return openAIFilePath;
+        }
+
+        private OpenAITextMessageContentItem TransformOpenAIAssistantsTextMessage(OpenAITextMessageContentItem openAITextMessage)
+        {
+            openAITextMessage.Annotations = openAITextMessage.Annotations
+                .Select(a => TransformOpenAIAssistantsFilePath(a))
+                .ToList();
+            var sandboxPlaceholders = openAITextMessage.Annotations.ToDictionary(
+                a => a.Text!,
+                a => a.FileUrl!);
+
+            openAITextMessage.Value = openAITextMessage.Value;
+            return openAITextMessage;
+        }
+
+        #endregion
+
+        #region FoundationaLLM Knowledge Management content items
+
+        private MessageContentItemBase TransformFoundationaLLMKnowledgeManagementContentItem(MessageContentItemBase contentItem) =>
+            contentItem;
+
+        #endregion
     }
 }

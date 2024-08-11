@@ -9,7 +9,6 @@ using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Validation;
 using Microsoft.Extensions.Options;
@@ -82,7 +81,7 @@ namespace FoundationaLLM.SemanticKernel.API
                 AppConfigurationKeySections.FoundationaLLM_Events_Profiles_VectorizationAPI);
 
             // Add Azure ARM services
-            builder.Services.AddAzureResourceManager();
+            builder.AddAzureResourceManager();
 
             // Resource providers
             builder.AddConfigurationResourceProvider();

@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants.Agents;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Request
 {
     /// <summary>
     /// Provides settings for a completion request of type <see cref="CompletionRequest"/>.
