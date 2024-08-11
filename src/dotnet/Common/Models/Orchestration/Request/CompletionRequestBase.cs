@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Request
 {
     /// <summary>
     /// Base for completion requests

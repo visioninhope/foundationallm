@@ -1,5 +1,4 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.AzureAIService;
 using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Settings;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Azure
 {
     /// <summary>
     /// Service to interact with Azure AI Studio.
@@ -51,7 +50,7 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public async Task<DataVersionResponse> CreateDataSetVersion(string dataSetName, string dataSetPath, int version=1)
+        public async Task<DataVersionResponse> CreateDataSetVersion(string dataSetName, string dataSetPath, int version = 1)
         {
             var req = new DatasetVersionRequest
             {
@@ -86,7 +85,7 @@ namespace FoundationaLLM.Common.Services
         /// <inheritdoc/>
         public async Task<Guid> SubmitJob(string displayName, string dataSetName, int dataSetVersion, string metrics)
         {
-            if (string.IsNullOrWhiteSpace(metrics) && _settings is {Metrics: not null})
+            if (string.IsNullOrWhiteSpace(metrics) && _settings is { Metrics: not null })
             {
                 metrics = _settings.Metrics;
             }
@@ -172,7 +171,7 @@ namespace FoundationaLLM.Common.Services
         }
 
         /// <inheritdoc/>
-        public async Task<string> GetResultsByIndex(Guid jobId, int startIndex=0, int endIndex=149)
+        public async Task<string> GetResultsByIndex(Guid jobId, int startIndex = 0, int endIndex = 149)
         {
             try
             {
@@ -223,7 +222,7 @@ namespace FoundationaLLM.Common.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "There was an error downloading results");                
+                _logger.LogError(ex, "There was an error downloading results");
             }
 
             return null;

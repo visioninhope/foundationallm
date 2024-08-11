@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Response
 {
     /// <summary>
     /// Base model for a response from a language model.
@@ -17,7 +17,7 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// The completion response from the language model.
         /// </summary>
         [JsonPropertyName("completion")]
-        public string Completion { get; set; }
+        public string? Completion { get; set; }
 
         /// <summary>
         /// Content returned from the Assistants API.

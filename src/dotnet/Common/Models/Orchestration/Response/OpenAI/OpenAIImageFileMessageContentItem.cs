@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants.Orchestration;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Response.OpenAI
 {
     /// <summary>
     /// An OpenAI image file message content item.
