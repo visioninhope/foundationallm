@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Models.Chat;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Common.Constants.ResourceProviders
@@ -24,6 +25,9 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
+                        new ResourceTypeAction(AttachmentResourceProviderActions.Filter, false, true, [
+                            new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(AttachmentDetail)])
+                        ])
                     ]
                 }
             }

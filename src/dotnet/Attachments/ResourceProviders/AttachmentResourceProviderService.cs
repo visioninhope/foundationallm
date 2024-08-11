@@ -1,6 +1,5 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
-using FoundationaLLM.Attachment.Models;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -19,6 +18,9 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Models.Chat;
+using System.Linq;
+using FoundationaLLM.Attachment.Models;
 
 namespace FoundationaLLM.Attachment.ResourceProviders
 {
@@ -264,8 +266,46 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) => throw new NotImplementedException();
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
+            {
+                AttachmentResourceTypeNames.Attachments => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    AttachmentResourceProviderActions.Filter => Filter(serializedAction),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
+                },
+                _ => throw new ResourceProviderException()
+            };
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        #region Helpers for ExecuteActionAsync
+
+        private List<AttachmentDetail> Filter(string serializedAction)
+        {
+            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
+                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
+                                       StatusCodes.Status400BadRequest);
+            if (resourceFilter.ObjectIDs is {Count: > 0})
+            {
+                var filteredReferences = _attachmentReferences.Keys.Where(k => resourceFilter.ObjectIDs.Contains(k)).ToList();
+                return filteredReferences.Select(k => new AttachmentDetail
+                {
+                    ObjectId = k,
+                    DisplayName = _attachmentReferences[k].OriginalFilename,
+                    ContentType = _attachmentReferences[k].ContentType
+                }).ToList();
+
+            }
+            return _attachmentReferences.Select(k => new AttachmentDetail
+            {
+                ObjectId = k.Key,
+                DisplayName = k.Value.OriginalFilename,
+                ContentType = k.Value.ContentType
+            }).ToList();
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
