@@ -115,7 +115,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .ToAsyncEnumerable()
                 .SelectAwait(async x => await _attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
 
-            var fileUserContextName = $"{_callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? _callContext.CurrentUserIdentity!.UserId}-assistant-{instanceId.ToLower()}";
+            var fileUserContextName = $"{_callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? _callContext.CurrentUserIdentity!.UserId}-file-{instanceId.ToLower()}";
             var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
                 _callContext.CurrentUserIdentity!);

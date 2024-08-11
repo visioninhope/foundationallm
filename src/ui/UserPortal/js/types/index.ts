@@ -21,6 +21,11 @@ export interface Citation {
 	filepath: string;
 }
 
+export interface ResourceProviderUpsertResult {
+	objectId: string;
+	resourceExists: boolean;
+}
+
 export interface Message {
 	id: string;
 	type: string;

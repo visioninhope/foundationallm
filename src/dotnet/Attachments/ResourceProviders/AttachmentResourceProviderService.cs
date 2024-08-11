@@ -171,7 +171,8 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     OriginalFileName = attachmentReference.OriginalFilename,
                     Type = attachmentReference.Type,
                     Path = $"{_storageContainerName}{attachmentReference.Filename}",
-                    ContentType = attachmentReference.ContentType
+                    ContentType = attachmentReference.ContentType,
+                    SecondaryProvider = attachmentReference.SecondaryProvider
                 };
 
                 if (loadContent)
@@ -271,7 +272,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             {
                 AttachmentResourceTypeNames.Attachments => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AttachmentResourceProviderActions.Filter => Filter(serializedAction),
+                    ResourceProviderActions.Filter => Filter(serializedAction),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
@@ -359,13 +360,20 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         #region Resource provider strongly typed operations
 
         /// <inheritdoc/>
-        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class
+        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity, ResourceProviderOptions? options = null) where T : class
         {
             _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
             if (attachmentReference == null || attachmentReference.Deleted)
-                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            {
+                // Force a refresh of the references one time to make sure we don't have a stale copy.
+                await InitializeInternal();
+                _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out attachmentReference);
 
-            var attachment = await LoadAttachment(attachmentReference, loadContent: false);
+                if (attachmentReference == null || attachmentReference.Deleted)
+                    throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            }
+
+            var attachment = await LoadAttachment(attachmentReference, loadContent: options?.LoadContent ?? false);
             return attachment as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }

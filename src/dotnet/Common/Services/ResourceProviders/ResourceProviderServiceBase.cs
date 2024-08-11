@@ -329,7 +329,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IResourceProviderService
 
         /// <inheritdoc/>
-        public async Task<T> GetResource<T>(string resourcePath, UnifiedUserIdentity userIdentity) where T : class
+        public async Task<T> GetResource<T>(string resourcePath, UnifiedUserIdentity userIdentity, ResourceProviderOptions? options = null) where T : class
         {
             EnsureServiceInitialization();
             var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Get, false, typeof(T));
@@ -337,7 +337,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "read");
 
-            return await GetResourceInternal<T>(parsedResourcePath, userIdentity);
+            return await GetResourceInternal<T>(parsedResourcePath, userIdentity, options);
         }
 
         /// <inheritdoc/>
@@ -361,8 +361,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+        /// <param name="options">The <see cref="ResourceProviderOptions"/> which provides operation parameters.</param>
         /// <returns></returns>
-        protected virtual async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class
+        protected virtual async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity, ResourceProviderOptions? options = null) where T : class
         {
             await Task.CompletedTask;
             throw new NotImplementedException();

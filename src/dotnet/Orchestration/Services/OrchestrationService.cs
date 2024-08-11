@@ -154,14 +154,14 @@ public class OrchestrationService : IOrchestrationService
                 ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
                 : await orchestration.GetCompletion(instanceId, stepCompletionRequest);
 
-            var newConversationSteps = await GetAgentConversationSteps(
-                instanceId,
-                currentCompletionResponse.AgentName!,
-                currentCompletionResponse.Completion);
-            if (newConversationSteps.Count > 0
-                && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
-                currentCompletionResponse =
-                    await GetCompletionForAgentConversation(instanceId, completionRequest, newConversationSteps);
+            //var newConversationSteps = await GetAgentConversationSteps(
+            //    instanceId,
+            //    currentCompletionResponse.AgentName!,
+            //    currentCompletionResponse.Completion);
+            //if (newConversationSteps.Count > 0
+            //    && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
+            //    currentCompletionResponse =
+            //        await GetCompletionForAgentConversation(instanceId, completionRequest, newConversationSteps);
         }
 
         return currentCompletionResponse!;

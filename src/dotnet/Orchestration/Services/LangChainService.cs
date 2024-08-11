@@ -84,6 +84,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 return new LLMCompletionResponse
                 {
                     OperationId = request.OperationId,
+                    Content = completionResponse!.Content,
                     Completion = completionResponse!.Completion,
                     Citations = completionResponse.Citations,
                     UserPrompt = completionResponse.UserPrompt,
