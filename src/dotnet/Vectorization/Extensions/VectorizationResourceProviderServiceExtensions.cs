@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
@@ -30,10 +31,11 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <param name="vectorizationResourceProvider">An instance of the vectorization resource provider.</param>
         /// <param name="pipelineObjectId">The object id of the pipeline to deactivate</param>
         /// <param name="activate">true if the pipeline should be activated, false if it is to be deactivated.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns></returns>
-        public static async Task TogglePipelineActivation(this VectorizationResourceProviderService vectorizationResourceProvider, string pipelineObjectId, bool activate)
+        public static async Task TogglePipelineActivation(this VectorizationResourceProviderService vectorizationResourceProvider, string pipelineObjectId, bool activate, UnifiedUserIdentity userIdentity)
         {
-            var pipeline =  vectorizationResourceProvider.GetResource<VectorizationPipeline>(pipelineObjectId);                        
+            var pipeline =  await vectorizationResourceProvider.GetResource<VectorizationPipeline>(pipelineObjectId, userIdentity);                        
            
             if (pipeline == null || pipeline.Active == activate)
                 // nothing to update
@@ -49,9 +51,10 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// </summary>
         /// <param name="vectorizationResourceProvider">An instance of the vectorization resource provider.</param>
         /// <param name="requestName">The name of the request to retrieve.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>The vectorization request.</returns>
-        public static VectorizationRequest GetVectorizationRequestResource(this VectorizationResourceProviderService vectorizationResourceProvider, string requestName)
-            => vectorizationResourceProvider.GetResource<VectorizationRequest>($"/{VectorizationResourceTypeNames.VectorizationRequests}/{requestName}");
+        public static async Task<VectorizationRequest> GetVectorizationRequestResource(this VectorizationResourceProviderService vectorizationResourceProvider, string requestName, UnifiedUserIdentity userIdentity)
+            => await vectorizationResourceProvider.GetResource<VectorizationRequest>($"/{VectorizationResourceTypeNames.VectorizationRequests}/{requestName}", userIdentity);
 
     }
 }

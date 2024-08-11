@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.ResourceProviders;
@@ -17,13 +18,15 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <param name="vectorizationResourceProvider">The vectorization resource provider used to poll vectorization request statuses.</param>
         /// <param name="pipelineName">The name of the pipeline being executed.</param>
         /// <param name="pipelineExecutionId">The unique identifier of the pipeline execution.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>The current pipeline processing state.</returns>
         /// <exception cref="VectorizationException"></exception>
         public static async Task<VectorizationProcessingState> GetPipelineExecutionProcessingState(
             this IVectorizationStateService stateService,
             VectorizationResourceProviderService vectorizationResourceProvider,
             string pipelineName,
-            string pipelineExecutionId)
+            string pipelineExecutionId,
+            UnifiedUserIdentity userIdentity)
         {
             var pipelineProcessingState = VectorizationProcessingState.New;
             
@@ -44,7 +47,7 @@ namespace FoundationaLLM.Vectorization.Extensions
             var requestProcessingStates = new List<VectorizationProcessingState>();
             foreach (var vectorizationRequestObjectId in pipelineState.VectorizationRequestObjectIds)
             {
-                var vectorizationRequest = vectorizationResourceProvider.GetResource<VectorizationRequest>(vectorizationRequestObjectId);
+                var vectorizationRequest = await vectorizationResourceProvider.GetResource<VectorizationRequest>(vectorizationRequestObjectId, userIdentity);
 
                 if (vectorizationRequest == null)
                 {

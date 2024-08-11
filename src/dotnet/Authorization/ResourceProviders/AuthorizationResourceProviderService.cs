@@ -51,7 +51,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         protected override async Task InitializeInternal() =>
             await Task.CompletedTask;
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>

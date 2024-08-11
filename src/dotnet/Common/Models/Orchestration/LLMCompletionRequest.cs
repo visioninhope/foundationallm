@@ -6,7 +6,6 @@ using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
-using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -65,6 +64,12 @@ namespace FoundationaLLM.Common.Models.Orchestration
         /// </summary>
         [JsonPropertyName("objects")]
         public Dictionary<string, object> Objects { get; set; } = [];
+
+        /// <summary>
+        /// A list of <see cref="AttachmentProperties"/> objects with the properties of the attachments to include with the orchestration request.
+        /// </summary>
+        [JsonPropertyName("attachments")]
+        public List<AttachmentProperties> Attachments { get; init; } = [];
 
         /// <summary>
         /// Validates the content of this LLMCompletionRequest.

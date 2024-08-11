@@ -93,6 +93,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public Dictionary<string, ResourceTypeDescriptor> AllowedResourceTypes => _allowedResourceTypes;
 
+        /// <inheritdoc/>
+        public string StorageAccountName => _storageService.StorageAccountName;
+
         /// <summary>
         /// Creates a new instance of the resource provider.
         /// </summary>
@@ -186,15 +189,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-             var parsedResourcePath = new ResourcePath(
-                resourcePath,
-                _allowedResourceProviders,
-                _allowedResourceTypes,
-                allowAction: false);
+            EnsureServiceInitialization();
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false);
 
-            if(!parsedResourcePath.IsResourceTypePath)
+            if (!parsedResourcePath.IsResourceTypePath)
             {
                 // Authorize access to the resource path.
                 await Authorize(parsedResourcePath, userIdentity, "read");
@@ -206,12 +204,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(
-                resourcePath,
-                _allowedResourceProviders,
-                _allowedResourceTypes);
+            EnsureServiceInitialization();
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "write");
@@ -252,8 +246,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         /// <inheritdoc/>
         public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
-        {            
-            var parsedResourcePath = GetResourcePath(resourcePath);
+        {
+            EnsureServiceInitialization();
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
@@ -264,19 +259,15 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <summary>
         /// Gets a <see cref="ResourcePath"/> object for the specified string resource path.
         /// </summary>
-        /// <param name="resourcePath"></param>
-        /// <returns></returns>
-        /// <exception cref="ResourceProviderException"></exception>
-        public ResourcePath GetResourcePath(string resourcePath)
-        {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            return new ResourcePath(
+        /// <param name="resourcePath">The resource path.</param>
+        /// <param name="allowAction">Indicates whether actions are allowed in the resource path.</param>
+        /// <returns>A <see cref="ResourcePath"/> object.</returns>
+        public ResourcePath GetResourcePath(string resourcePath, bool allowAction = true) =>
+            new(
                 resourcePath,
                 _allowedResourceProviders,
                 _allowedResourceTypes,
-                allowAction: true);
-        }
+                allowAction: allowAction);
 
         #region Virtuals to override in derived classes
 
@@ -338,22 +329,26 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region IResourceProviderService
 
         /// <inheritdoc/>
-        public T GetResource<T>(string resourcePath) where T : class
+        public async Task<T> GetResource<T>(string resourcePath, UnifiedUserIdentity userIdentity) where T : class
         {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            return GetResourceInternal<T>(parsedResourcePath);
+            EnsureServiceInitialization();
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false, typeof(T), HttpMethod.Get);
+
+            // Authorize access to the resource path.
+            await Authorize(parsedResourcePath, userIdentity, "delete");
+
+            return await GetResourceInternal<T>(parsedResourcePath, userIdentity);
         }
 
         /// <inheritdoc/>
-        public async Task<string> UpsertResourceAsync<T>(string resourcePath, T resource) where T : class
+        public async Task<TResult> UpsertResourceAsync<T, TResult>(string resourcePath, T resource, UnifiedUserIdentity userIdentity)
+            where T : ResourceBase
+            where TResult : ResourceProviderUpsertResult
         {
-            if (!_isInitialized)
-                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
-            var parsedResourcePath = new ResourcePath(resourcePath, _allowedResourceProviders, _allowedResourceTypes);
-            await UpsertResourceAsync<T>(parsedResourcePath, resource);
-            return parsedResourcePath.GetObjectId(_instanceSettings.Id, _name);
+            EnsureServiceInitialization();
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false, typeof(T), HttpMethod.Post);
+
+            return await UpsertResourceAsyncInternal<T, TResult>(parsedResourcePath, resource, userIdentity);
         }
 
         #region Virtuals to override in derived classes
@@ -362,17 +357,26 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// The internal implementation of GetResource. Must be overridden in derived classes.
         /// </summary>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns></returns>
-        protected virtual T GetResourceInternal<T>(ResourcePath resourcePath) where T : class =>
+        protected virtual async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class
+        {
+            await Task.CompletedTask;
             throw new NotImplementedException();
+        }
 
         /// <summary>
         /// The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.
         /// </summary>
+        /// <typeparam name="T">The type of the resource being created or updated.</typeparam>
+        /// <typeparam name="TResult">The type of the result returned.</typeparam>
         /// <param name="resourcePath">A <see cref="ResourcePath"/> containing information about the resource path.</param>
         /// <param name="resource">The instance of the resource being created or updated.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns></returns>
-        protected virtual async Task UpsertResourceAsync<T>(ResourcePath resourcePath, T resource)
+        protected virtual async Task<TResult> UpsertResourceAsyncInternal<T, TResult>(ResourcePath resourcePath, T resource, UnifiedUserIdentity userIdentity)
+            where T : ResourceBase
+            where TResult : ResourceProviderUpsertResult
         {
             await Task.CompletedTask;
             throw new NotImplementedException();
@@ -403,7 +407,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 var rp = resourcePath.GetObjectId(_instanceSettings.Id, _name);
                 var result = await _authorizationService.ProcessAuthorizationRequest(
                     _instanceSettings.Id,
-                    $"{_name}/{resourcePath.MainResourceType}/{actionType}",
+                    $"{_name}/{resourcePath.MainResourceType!}/{actionType}",
                     [rp],
                     userIdentity);
 
@@ -439,12 +443,51 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         #endregion
 
+        #region Internal validation
+
+        private void EnsureServiceInitialization()
+        {
+            if (!_isInitialized)
+                throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
+        }
+
+        private ResourcePath EnsureValidResourcePath(string resourcePath, bool allowAction = true, Type? resourceType = null, HttpMethod? operationType = null)
+        {
+            var parsedResourcePath = new ResourcePath(
+                resourcePath,
+                _allowedResourceProviders,
+                _allowedResourceTypes,
+                allowAction: allowAction);
+
+            var mainResourceType = parsedResourcePath.MainResourceType
+                ?? throw new ResourceProviderException(
+                    $"The resource path {resourcePath} does not have a main resource type and cannot be handled by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+
+            if (!AllowedResourceTypes.TryGetValue(mainResourceType, out ResourceTypeDescriptor? resourceTypeDescriptor))
+                throw new ResourceProviderException(
+                    $"The resource type {mainResourceType} cannot be handled by the {_name} resource provider",
+                    StatusCodes.Status400BadRequest);
+
+            if (resourceType != null
+                && !resourceTypeDescriptor.AllowedTypes.Single(at => at.HttpMethod == operationType!.Method).AllowedBodyTypes.Contains(resourceType))
+                throw new ResourceProviderException(
+                    $"The type {nameof(resourceType)} is not supported by the {_name} resource provider.",
+                    StatusCodes.Status400BadRequest);
+
+            return parsedResourcePath;
+        }
+
+        #endregion
+
+        #region Utils
+
         /// <summary>
         /// Gets a resource provider service by name.
         /// </summary>
         /// <param name="name">The name of the resource provider.</param>
         /// <returns>The <see cref="IResourceProviderService"/> used to interact with the resource provider.</returns>
-        protected IResourceProviderService GetResourceProviderService(string name)
+        protected IResourceProviderService GetResourceProviderServiceByName(string name)
         {
             if (!_resourceProviders.ContainsKey(name))
                 _resourceProviders.Add(
@@ -453,5 +496,28 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                         .Single(rp => rp.Name == name));
             return _resourceProviders[name];
         }
+
+        /// <summary>
+        /// Updates the base properties of an object derived from <see cref="ResourceBase"/>.
+        /// </summary>
+        /// <param name="resource">The <see cref="ResourceBase"/> object to be updated.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing the information about the identity of the user that performed a create or update operation on the resource.</param>
+        protected void UpdateBaseProperties(ResourceBase resource, UnifiedUserIdentity userIdentity)
+        {
+            if (string.IsNullOrWhiteSpace(resource.CreatedBy))
+            {
+                // The resource was just created
+                resource.CreatedBy = userIdentity.UPN ?? userIdentity.UserId ?? "N/A";
+                resource.CreatedOn = DateTimeOffset.UtcNow;
+            }
+            else
+            {
+                // The resource was updated
+                resource.UpdatedBy = userIdentity.UPN ?? userIdentity.UserId ?? "N/A";
+                resource.UpdatedOn = DateTimeOffset.UtcNow;
+            }
+        }
+
+        #endregion
     }
 }

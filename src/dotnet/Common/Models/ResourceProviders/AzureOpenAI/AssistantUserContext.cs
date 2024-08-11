@@ -57,13 +57,13 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
         public DateTimeOffset? OpenAIAssistantCreatedOn { get; set; }
 
         /// <summary>
-        /// The dictionary of <see cref="AssistantConversation"/> objects providing information about the conversations driven by the OpenAI assistant. 
+        /// The dictionary of <see cref="ConversationMapping"/> objects providing information about the conversations driven by the OpenAI assistant. 
         /// </summary>
         /// <remarks>
         /// The keys of the dictionary are the FoundationaLLM session identifiers.
         /// </remarks>
         [JsonPropertyName("conversations")]
         [JsonPropertyOrder(106)]
-        public Dictionary<string, AssistantConversation> Conversations { get; set; } = [];
+        public Dictionary<string, ConversationMapping> Conversations { get; set; } = [];
     }
 }

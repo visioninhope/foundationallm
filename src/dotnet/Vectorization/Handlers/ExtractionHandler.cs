@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
@@ -38,13 +39,14 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
+            UnifiedUserIdentity userIdentity,
             CancellationToken cancellationToken)
         {
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IContentSourceService>>()
                 ?? throw new VectorizationException($"Could not retrieve the content source service factory instance.");
-            var contentSourceService = serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId);
+            var contentSourceService = await serviceFactory.GetService(request.ContentIdentifier.DataSourceObjectId, userIdentity);
 
-            var textContent = await contentSourceService.ExtractTextAsync(request.ContentIdentifier, cancellationToken);
+            var textContent = await contentSourceService.ExtractTextAsync(request.ContentIdentifier, userIdentity, cancellationToken);
 
             state.AddOrReplaceArtifact(new VectorizationArtifact
             {

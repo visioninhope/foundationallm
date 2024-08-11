@@ -11,7 +11,7 @@ namespace FoundationaLLM.Gateway.Client
     /// <summary>
     /// Provides methods to call the Gateway API service.
     /// </summary>
-    public class GatewayServiceClient : IGatewayServiceClient
+    public class GatewayServiceClient
     {
         private readonly HttpClient _gatewayAPIHttpClient;
         private readonly ILogger<GatewayServiceClient> _logger;
