@@ -261,3 +261,7 @@ output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = 'http://semantic-kernel
 output SERVICE_STATE_API_ENDPOINT_URL string = 'http://state-api/state'
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = 'http://vectorization-api/vectorization'
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = 'http://vectorization-job/vectorization'
+output SERVICE_CHAT_UI_ENDPOINT_URL string = 'https://${userPortalHostname}'
+output SERVICE_CORE_API_ENDPOINT_URL string = 'https://${coreApiHostname}'
+output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = 'https://${managementApiHostname}'
+output SERVICE_MANAGEMENT_UI_ENDPOINT_URL string = 'https://${managementPortalHostname}'
