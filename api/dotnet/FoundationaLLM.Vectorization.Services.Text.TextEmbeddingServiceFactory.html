@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory" class="text-break">
-Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L26"><i class="bi bi-code-slash"></i></a>
+Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
   TextEmbeddingServiceFactory(IEnumerable&lt;IResourceProviderService&gt;, IConfiguration, IServiceProvider, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates text splitter service instances.</p>
@@ -214,9 +214,9 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(System.String)">
-  GetService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetService(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetService(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name.</p>
@@ -224,7 +224,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ITextEmbeddingService GetService(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ITextEmbeddingService&gt; GetService(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -232,11 +232,14 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a>&gt;</dt>
     <dd><p>The service instance created by name.</p>
 </dd>
   </dl>
@@ -253,9 +256,9 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(System.String)">
-  GetServiceWithResource(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_TextEmbeddingServiceFactory_GetServiceWithResource_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Services.Text.TextEmbeddingServiceFactory.GetServiceWithResource(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetServiceWithResource(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
@@ -263,7 +266,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public (ITextEmbeddingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;(ITextEmbeddingService Service, ResourceBase Resource)&gt; GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -271,11 +274,14 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextembeddingservice,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextembeddingservice,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(<a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextembeddingservice,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.itextembeddingservice,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)&gt;</dt>
     <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
@@ -294,7 +300,7 @@ Class TextEmbeddingServiceFactory  <a class="header-action link-secondary" title
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L26" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/TextEmbeddingServiceFactory.cs/#L27" class="edit-link">Edit this page</a>
         </div>
 
 

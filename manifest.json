@@ -2152,16 +2152,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IGatewayServiceClient.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IGatewayServiceClient.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Interfaces.IHttpClientFactoryService.yml",
       "output": {
         ".html": {
@@ -3212,6 +3202,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.AttachmentProperties.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.AttachmentProperties.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.Orchestration.Citation.yml",
       "output": {
         ".html": {
@@ -3802,16 +3802,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantConversation.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantConversation.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContext.yml",
       "output": {
         ".html": {
@@ -3836,6 +3826,46 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AzureOpenAIResourceBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContextUpsertResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContextUpsertResult.html"
         }
       },
       "version": ""
@@ -3986,6 +4016,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.DataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.FileContent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.FileContent.html"
         }
       },
       "version": ""
@@ -5102,16 +5142,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.AttachmentsController.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.BrandingController.yml",
       "output": {
         ".html": {
@@ -5126,6 +5156,16 @@
       "output": {
         ".html": {
           "relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.CompletionsController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.FilesController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Core.API.Controllers.FilesController.html"
         }
       },
       "version": ""

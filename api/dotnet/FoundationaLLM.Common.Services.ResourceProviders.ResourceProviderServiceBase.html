@@ -209,7 +209,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__ctor_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings_FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IStorageService_FoundationaLLM_Common_Interfaces_IEventService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_System_IServiceProvider_Microsoft_Extensions_Logging_ILogger_System_Collections_Generic_List_System_String__" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.#ctor(FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings,FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IStorageService,FoundationaLLM.Common.Interfaces.IEventService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.List{System.String})">
   ResourceProviderServiceBase(InstanceSettings, IAuthorizationService, IStorageService, IEventService, IResourceValidatorFactory, IServiceProvider, ILogger, List&lt;string&gt;?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L110"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new instance of the resource provider.</p>
@@ -580,6 +580,38 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
 
 
+  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_StorageAccountName_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.StorageAccountName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_StorageAccountName" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.StorageAccountName">
+  StorageAccountName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The name of the storage account used by the resource provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StorageAccountName { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__name_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._name*"></a>
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__name" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase._name">
@@ -684,7 +716,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L328"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L319"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
@@ -725,7 +757,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L316"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L307"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -772,9 +804,9 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath)">
-  GetResourceInternal&lt;T&gt;(ResourcePath)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L366"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetResourceInternal&lt;T&gt;(ResourcePath, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L362"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResource. Must be overridden in derived classes.</p>
@@ -782,7 +814,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual T GetResourceInternal&lt;T&gt;(ResourcePath resourcePath) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;T&gt; GetResourceInternal&lt;T&gt;(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -790,11 +822,14 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
     <dt><code>resourcePath</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html">ResourcePath</a></dt>
     <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html">ResourcePath</a> containing information about the resource path.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -815,9 +850,9 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcePath*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_System_String_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcePath(System.String)">
-  GetResourcePath(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L270"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_System_String_System_Boolean_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcePath(System.String,System.Boolean)">
+  GetResourcePath(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L265"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html">ResourcePath</a> object for the specified string resource path.</p>
@@ -825,19 +860,24 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ResourcePath GetResourcePath(string resourcePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public ResourcePath GetResourcePath(string resourcePath, bool allowAction = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>The resource path.</p>
+</dd>
+    <dt><code>allowAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Indicates whether actions are allowed in the resource path.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html">ResourcePath</a></dt>
-    <dd></dd>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourcePath.html">ResourcePath</a> object.</p>
+</dd>
   </dl>
 
 
@@ -847,19 +887,14 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
 
 
-  <h4 class="section">Exceptions</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Exceptions.ResourceProviderException.html">ResourceProviderException</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
-  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceProviderService_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceProviderService*"></a>
+  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceProviderServiceByName_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceProviderServiceByName*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceProviderService_System_String_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceProviderService(System.String)">
-  GetResourceProviderService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L447"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceProviderServiceByName_System_String_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceProviderServiceByName(System.String)">
+  GetResourceProviderServiceByName(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L490"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource provider service by name.</p>
@@ -867,7 +902,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IResourceProviderService GetResourceProviderService(string name)</code></pre>
+    <pre><code class="lang-csharp hljs">protected IResourceProviderService GetResourceProviderServiceByName(string name)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -898,7 +933,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceTypes" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceTypes">
   GetResourceTypes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L181"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the details about the resource types managed by the resource provider.</p>
@@ -929,9 +964,9 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String)">
-  GetResource&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L341"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetResource&lt;T&gt;(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L332"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource based on its logical path.</p>
@@ -939,7 +974,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T GetResource&lt;T&gt;(string resourcePath) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;T&gt; GetResource&lt;T&gt;(string resourcePath, UnifiedUserIdentity userIdentity) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -947,11 +982,14 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
     <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The logical path of the resource.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> with details about the identity of the user.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
     <dd><p>The instance of the resource corresponding to the specified logical path.</p>
 </dd>
   </dl>
@@ -976,7 +1014,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L289"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L280"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -1017,7 +1055,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandleDeleteAsync(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   HandleDeleteAsync(string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L254"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L248"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles a HTTP DELETE request for a specified resource path.</p>
@@ -1058,7 +1096,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)">
   HandleEvents(EventSetEventArgs)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L437"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L441"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles events received from the <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> when they are dequeued locally.</p>
@@ -1096,7 +1134,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleGetAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandleGetAsync(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   HandleGetAsync(string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L190"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles a HTTP GET request for a specified resource path.</p>
@@ -1138,7 +1176,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandlePostAsync_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandlePostAsync(System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   HandlePostAsync(string, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L205"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles a HTTP POST request for a specified resource path.</p>
@@ -1182,7 +1220,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_InitializeInternal" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L171"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -1210,11 +1248,47 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
 
 
+  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpdateBaseProperties_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpdateBaseProperties*"></a>
+
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpdateBaseProperties_FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpdateBaseProperties(FoundationaLLM.Common.Models.ResourceProviders.ResourceBase,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  UpdateBaseProperties(ResourceBase, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L505"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates the base properties of an object derived from <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void UpdateBaseProperties(ResourceBase resource, UnifiedUserIdentity userIdentity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resource</code> <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> object to be updated.</p>
+</dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing the information about the identity of the user that performed a create or update operation on the resource.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync*"></a>
 
   <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L302"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L293"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -1254,11 +1328,11 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
 
 
-  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync*"></a>
+  <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsyncInternal_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsyncInternal*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0)">
-  UpsertResourceAsync&lt;T&gt;(ResourcePath, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L375"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsyncInternal__2_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsyncInternal``2(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  UpsertResourceAsyncInternal&lt;T, TResult&gt;(ResourcePath, T, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L377"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -1266,7 +1340,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual Task UpsertResourceAsync&lt;T&gt;(ResourcePath resourcePath, T resource)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;TResult&gt; UpsertResourceAsyncInternal&lt;T, TResult&gt;(ResourcePath resourcePath, T resource, UnifiedUserIdentity userIdentity) where T : ResourceBase where TResult : ResourceProviderUpsertResult</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1277,18 +1351,25 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
     <dt><code>resource</code> <span class="xref">T</span></dt>
     <dd><p>The instance of the resource being created or updated.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TResult&gt;</dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
     <dt><code>T</code></dt>
-    <dd></dd>
+    <dd><p>The type of the resource being created or updated.</p>
+</dd>
+    <dt><code>TResult</code></dt>
+    <dd><p>The type of the result returned.</p>
+</dd>
   </dl>
 
 
@@ -1302,9 +1383,9 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
 
   <a id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync*"></a>
 
-  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__1_System_String___0_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``1(System.String,``0)">
-  UpsertResourceAsync&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L350"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__2_System_String___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.UpsertResourceAsync``2(System.String,``0,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  UpsertResourceAsync&lt;T, TResult&gt;(string, T, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Services/ResourceProviders/ResourceProviderServiceBase.cs/#L344"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
@@ -1312,7 +1393,7 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; UpsertResourceAsync&lt;T&gt;(string resourcePath, T resource) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; UpsertResourceAsync&lt;T, TResult&gt;(string resourcePath, T resource, UnifiedUserIdentity userIdentity) where T : ResourceBase where TResult : ResourceProviderUpsertResult</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1323,11 +1404,14 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
     <dt><code>resource</code> <span class="xref">T</span></dt>
     <dd><p>The instance of the resource being created or updated.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> with details about the identity of the user.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TResult&gt;</dt>
     <dd><p>The object id of the resource.</p>
 </dd>
   </dl>
@@ -1336,6 +1420,9 @@ Class ResourceProviderServiceBase  <a class="header-action link-secondary" title
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd><p>The type of the resource.</p>
+</dd>
+    <dt><code>TResult</code></dt>
+    <dd><p>The type of the result returned</p>
 </dd>
   </dl>
 

@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController" class="text-break">
-Class EmbeddingsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+Class EmbeddingsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -165,9 +165,9 @@ public class EmbeddingsController</code></pre>
 
   <a id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController__ctor_" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController__ctor_FoundationaLLM_Gateway_Interfaces_IGatewayCore_" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController.#ctor(FoundationaLLM.Gateway.Interfaces.IGatewayCore)">
-  EmbeddingsController(IGatewayCore)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController__ctor_FoundationaLLM_Gateway_Interfaces_IGatewayCore_FoundationaLLM_Common_Interfaces_ICallContext_" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController.#ctor(FoundationaLLM.Gateway.Interfaces.IGatewayCore,FoundationaLLM.Common.Interfaces.ICallContext)">
+  EmbeddingsController(IGatewayCore, ICallContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Methods for managing embedding requests.</p>
@@ -175,13 +175,16 @@ public class EmbeddingsController</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EmbeddingsController(IGatewayCore gatewayCore)</code></pre>
+    <pre><code class="lang-csharp hljs">public EmbeddingsController(IGatewayCore gatewayCore, ICallContext callContext)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>gatewayCore</code> <a class="xref" href="FoundationaLLM.Gateway.Interfaces.IGatewayCore.html">IGatewayCore</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Gateway.Interfaces.IGatewayCore.html">IGatewayCore</a> that provides LLM gateway services.</p>
+</dd>
+    <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a> call context of the request being handled.</p>
 </dd>
   </dl>
 
@@ -204,7 +207,7 @@ public class EmbeddingsController</code></pre>
 
   <h3 id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController_GetEmbeddingOperationResult_System_String_System_String_" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController.GetEmbeddingOperationResult(System.String,System.String)">
   GetEmbeddingOperationResult(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves the outcome of a text embedding operation.</p>
@@ -247,7 +250,7 @@ public Task&lt;IActionResult&gt; GetEmbeddingOperationResult(string instanceId, 
 
   <h3 id="FoundationaLLM_Gateway_API_Controllers_EmbeddingsController_StartEmbeddingOperation_System_String_FoundationaLLM_Common_Models_Vectorization_TextEmbeddingRequest_" data-uid="FoundationaLLM.Gateway.API.Controllers.EmbeddingsController.StartEmbeddingOperation(System.String,FoundationaLLM.Common.Models.Vectorization.TextEmbeddingRequest)">
   StartEmbeddingOperation(string, TextEmbeddingRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles an incoming text embedding request by starting a new embedding operation.</p>
@@ -290,7 +293,7 @@ public Task&lt;IActionResult&gt; StartEmbeddingOperation(string instanceId, Text
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/EmbeddingsController.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
 

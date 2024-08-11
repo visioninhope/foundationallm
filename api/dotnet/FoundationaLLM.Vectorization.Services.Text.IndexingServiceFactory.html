@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory" class="text-break">
-Class IndexingServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L21"><i class="bi bi-code-slash"></i></a>
+Class IndexingServiceFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -170,7 +170,7 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
 
   <h3 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory__ctor_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_Extensions_Configuration_IConfiguration_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.#ctor(System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.Extensions.Configuration.IConfiguration,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
   IndexingServiceFactory(IEnumerable&lt;IResourceProviderService&gt;, IConfiguration, IServiceProvider, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates text splitter service instances.</p>
@@ -214,9 +214,9 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
 
   <a id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetService_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetService_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(System.String)">
-  GetService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetService(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetService(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name.</p>
@@ -224,7 +224,7 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IIndexingService GetService(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;IIndexingService&gt; GetService(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -232,11 +232,14 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="FoundationaLLM.Common.Interfaces.IIndexingService.html">IIndexingService</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Interfaces.IIndexingService.html">IIndexingService</a>&gt;</dt>
     <dd><p>The service instance created by name.</p>
 </dd>
   </dl>
@@ -253,9 +256,9 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
 
   <a id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(System.String)">
-  GetServiceWithResource(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Services_Text_IndexingServiceFactory_GetServiceWithResource_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Services.Text.IndexingServiceFactory.GetServiceWithResource(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetServiceWithResource(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
@@ -263,7 +266,7 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public (IIndexingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;(IIndexingService Service, ResourceBase Resource)&gt; GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -271,11 +274,14 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(<a class="xref" href="FoundationaLLM.Common.Interfaces.IIndexingService.html">IIndexingService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.iindexingservice,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.iindexingservice,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(<a class="xref" href="FoundationaLLM.Common.Interfaces.IIndexingService.html">IIndexingService</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.iindexingservice,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-foundationallm.common.interfaces.iindexingservice,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)&gt;</dt>
     <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
@@ -294,7 +300,7 @@ Class IndexingServiceFactory  <a class="header-action link-secondary" title="Vie
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L21" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Services/Text/IndexingServiceFactory.cs/#L22" class="edit-link">Edit this page</a>
         </div>
 
 

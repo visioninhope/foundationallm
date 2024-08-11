@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Interfaces_IResourceProviderService" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService" class="text-break">
-Interface IResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Interface IResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -169,7 +169,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_AllowedResourceTypes" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.AllowedResourceTypes">
   AllowedResourceTypes
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The metadata describing the resource types allowed by the resource provider.</p>
@@ -201,7 +201,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_IsInitialized" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.IsInitialized">
   IsInitialized
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the resource provider is initialized or not.</p>
@@ -233,7 +233,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_Name" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider.</p>
@@ -261,15 +261,47 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
 
 
+  <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_StorageAccountName_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.StorageAccountName*"></a>
+
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_StorageAccountName" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.StorageAccountName">
+  StorageAccountName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The name of the storage account used by the resource provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string StorageAccountName { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
 
   <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource*"></a>
 
-  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String)">
-  GetResource&lt;T&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetResource&lt;T&gt;(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a resource based on its logical path.</p>
@@ -277,7 +309,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T GetResource&lt;T&gt;(string resourcePath) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;T&gt; GetResource&lt;T&gt;(string resourcePath, UnifiedUserIdentity userIdentity) where T : class</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -285,11 +317,14 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
     <dt><code>resourcePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The logical path of the resource.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> with details about the identity of the user.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
     <dd><p>The instance of the resource corresponding to the specified logical path.</p>
 </dd>
   </dl>
@@ -312,9 +347,9 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 
   <a id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync*"></a>
 
-  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__1_System_String___0_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``1(System.String,``0)">
-  UpsertResourceAsync&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Interfaces_IResourceProviderService_UpsertResourceAsync__2_System_String___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Common.Interfaces.IResourceProviderService.UpsertResourceAsync``2(System.String,``0,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  UpsertResourceAsync&lt;T, TResult&gt;(string, T, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates or updates a resource based on its logical path.</p>
@@ -322,7 +357,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;string&gt; UpsertResourceAsync&lt;T&gt;(string resourcePath, T resource) where T : class</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;TResult&gt; UpsertResourceAsync&lt;T, TResult&gt;(string resourcePath, T resource, UnifiedUserIdentity userIdentity) where T : ResourceBase where TResult : ResourceProviderUpsertResult</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -333,11 +368,14 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
     <dt><code>resource</code> <span class="xref">T</span></dt>
     <dd><p>The instance of the resource being created or updated.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> with details about the identity of the user.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TResult&gt;</dt>
     <dd><p>The object id of the resource.</p>
 </dd>
   </dl>
@@ -346,6 +384,9 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
   <dl class="parameters">
     <dt><code>T</code></dt>
     <dd><p>The type of the resource.</p>
+</dd>
+    <dt><code>TResult</code></dt>
+    <dd><p>The type of the result returned</p>
 </dd>
   </dl>
 
@@ -362,7 +403,7 @@ Interface IResourceProviderService  <a class="header-action link-secondary" titl
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Interfaces/IResourceProviderService.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

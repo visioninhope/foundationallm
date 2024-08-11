@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gateway_API_Controllers_AgentCapabilitiesController" data-uid="FoundationaLLM.Gateway.API.Controllers.AgentCapabilitiesController" class="text-break">
-Class AgentCapabilitiesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class AgentCapabilitiesController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -165,9 +165,9 @@ public class AgentCapabilitiesController</code></pre>
 
   <a id="FoundationaLLM_Gateway_API_Controllers_AgentCapabilitiesController__ctor_" data-uid="FoundationaLLM.Gateway.API.Controllers.AgentCapabilitiesController.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_API_Controllers_AgentCapabilitiesController__ctor_FoundationaLLM_Gateway_Interfaces_IGatewayCore_" data-uid="FoundationaLLM.Gateway.API.Controllers.AgentCapabilitiesController.#ctor(FoundationaLLM.Gateway.Interfaces.IGatewayCore)">
-  AgentCapabilitiesController(IGatewayCore)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gateway_API_Controllers_AgentCapabilitiesController__ctor_FoundationaLLM_Gateway_Interfaces_IGatewayCore_FoundationaLLM_Common_Interfaces_ICallContext_" data-uid="FoundationaLLM.Gateway.API.Controllers.AgentCapabilitiesController.#ctor(FoundationaLLM.Gateway.Interfaces.IGatewayCore,FoundationaLLM.Common.Interfaces.ICallContext)">
+  AgentCapabilitiesController(IGatewayCore, ICallContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Methods for managing agent capabilities.</p>
@@ -175,13 +175,16 @@ public class AgentCapabilitiesController</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AgentCapabilitiesController(IGatewayCore gatewayCore)</code></pre>
+    <pre><code class="lang-csharp hljs">public AgentCapabilitiesController(IGatewayCore gatewayCore, ICallContext callContext)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>gatewayCore</code> <a class="xref" href="FoundationaLLM.Gateway.Interfaces.IGatewayCore.html">IGatewayCore</a></dt>
     <dd><p>The <a class="xref" href="FoundationaLLM.Gateway.Interfaces.IGatewayCore.html">IGatewayCore</a> that provides LLM gateway services.</p>
+</dd>
+    <dt><code>callContext</code> <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Interfaces.ICallContext.html">ICallContext</a> call context of the request being handled.</p>
 </dd>
   </dl>
 
@@ -204,7 +207,7 @@ public class AgentCapabilitiesController</code></pre>
 
   <h3 id="FoundationaLLM_Gateway_API_Controllers_AgentCapabilitiesController_CreateAgentCapability_System_String_FoundationaLLM_Gateway_Models_AgentCapabilityRequest_" data-uid="FoundationaLLM.Gateway.API.Controllers.AgentCapabilitiesController.CreateAgentCapability(System.String,FoundationaLLM.Gateway.Models.AgentCapabilityRequest)">
   CreateAgentCapability(string, AgentCapabilityRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates an agent capability.</p>
@@ -253,7 +256,7 @@ OpenAI.Assistants (the names of the keys for the output dictionary are defined i
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatewayAPI/Controllers/AgentCapabilitiesController.cs/#L15" class="edit-link">Edit this page</a>
         </div>
 
 

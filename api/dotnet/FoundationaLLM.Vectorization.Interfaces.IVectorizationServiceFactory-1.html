@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1" class="text-break">
-Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -135,9 +135,9 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
 
   <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetService_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetService*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetService_System_String_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetService(System.String)">
-  GetService(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetService(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetService(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name.</p>
@@ -145,7 +145,7 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T GetService(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;T&gt; GetService(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -153,11 +153,14 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
     <dd><p>The service instance created by name.</p>
 </dd>
   </dl>
@@ -174,9 +177,9 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
 
   <a id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource*"></a>
 
-  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_System_String_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource(System.String)">
-  GetServiceWithResource(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Vectorization_Interfaces_IVectorizationServiceFactory_1_GetServiceWithResource_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Vectorization.Interfaces.IVectorizationServiceFactory`1.GetServiceWithResource(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
+  GetServiceWithResource(string, UnifiedUserIdentity)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieves a service instance of type T specified by name and its associated resource object (if any).</p>
@@ -184,7 +187,7 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">(T Service, ResourceBase Resource) GetServiceWithResource(string serviceName)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;(T Service, ResourceBase Resource)&gt; GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -192,11 +195,14 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
     <dt><code>serviceName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the service instance to create.</p>
 </dd>
+    <dt><code>userIdentity</code> <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a></dt>
+    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity.html">UnifiedUserIdentity</a> providing information about the calling user identity.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt>(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(T <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceproviders.resourcebase-.service">Service</a>, <a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceBase.html">ResourceBase</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple--0,foundationallm.common.models.resourceproviders.resourcebase-.resource">Resource</a>)&gt;</dt>
     <dd><p>The service instance and its associated resource object (if any).</p>
 </dd>
   </dl>
@@ -215,7 +221,7 @@ Interface IVectorizationServiceFactory&lt;T&gt;  <a class="header-action link-se
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Vectorization/Interfaces/IVectorizationServiceFactory`1.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_AzureOpenAIResourceBase" data-uid="FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AzureOpenAIResourceBase" class="text-break">
-Class AzureOpenAIResourceBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Class AzureOpenAIResourceBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -104,6 +104,7 @@ Class AzureOpenAIResourceBase  <a class="header-action link-secondary" title="Vi
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonPolymorphic(TypeDiscriminatorPropertyName = &quot;type&quot;)]
 [JsonDerivedType(typeof(AssistantUserContext), &quot;assistant-user-context&quot;)]
+[JsonDerivedType(typeof(FileUserContext), &quot;file-user-context&quot;)]
 public class AzureOpenAIResourceBase : ResourceBase</code></pre>
   </div>
 
@@ -125,6 +126,7 @@ public class AzureOpenAIResourceBase : ResourceBase</code></pre>
     <dt>Derived</dt>
     <dd>
       <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContext.html">AssistantUserContext</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContext.html">FileUserContext</a></div>
     </dd>
   </dl>
 
@@ -207,7 +209,7 @@ public class AzureOpenAIResourceBase : ResourceBase</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_AzureOpenAIResourceBase_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AzureOpenAIResourceBase.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the resource.</p>
@@ -240,7 +242,7 @@ public override string? Type { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/AzureOpenAI/AzureOpenAIResourceBase.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 
