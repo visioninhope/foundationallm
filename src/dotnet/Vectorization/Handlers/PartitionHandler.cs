@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
+using FoundationaLLM.Common.Models.Authentication;
 
 namespace FoundationaLLM.Vectorization.Handlers
 {
@@ -39,6 +40,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
+            UnifiedUserIdentity userIdentity,
             CancellationToken cancellationToken)
         {
             await _stateService.LoadArtifacts(state, VectorizationArtifactType.ExtractedText);
@@ -62,7 +64,7 @@ namespace FoundationaLLM.Vectorization.Handlers
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<ITextSplitterService>>()
                 ?? throw new VectorizationException($"Could not retrieve the text splitter service factory instance.");
-            var textSplitter = serviceFactory.GetService(_parameters["text_partitioning_profile_name"]);
+            var textSplitter = await serviceFactory.GetService(_parameters["text_partitioning_profile_name"], userIdentity);
 
             var splitResult = textSplitter.SplitPlainText(extractedTextArtifact.Content!);
 

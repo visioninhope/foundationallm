@@ -6,8 +6,13 @@
     public static class AzureOpenAITypes
     {
         /// <summary>
-        /// User context associated resources related to OpenAI assistants.
+        /// OpenAI assistant resources associated with a FoundationaLLM user.
         /// </summary>
         public const string AssistantUserContext = "assistant-user-context";
+
+        /// <summary>
+        /// OpenAI assistant files associated with a FoundationaLLM user.
+        /// </summary>
+        public const string FileUserContext = "file-user-context";
     }
 }

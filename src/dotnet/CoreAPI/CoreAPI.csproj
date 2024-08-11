@@ -54,8 +54,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Agent\Agent.csproj" />
+    <ProjectReference Include="..\AIModel\AIModel.csproj" />
     <ProjectReference Include="..\Attachments\Attachment.csproj" />
     <ProjectReference Include="..\Authorization\Authorization.csproj" />
+    <ProjectReference Include="..\AzureOpenAI\AzureOpenAI.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />

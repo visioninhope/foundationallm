@@ -6,8 +6,18 @@
     public class AzureOpenAIResourceTypeNames
     {
         /// <summary>
-        /// Prompts.
+        /// OpenAI assistant user contexts.
         /// </summary>
-        public const string AssistantUserContext = "assistantUserContexts";
+        public const string AssistantUserContexts = "assistantUserContexts";
+
+        /// <summary>
+        /// OpenAI files.
+        /// </summary>
+        public const string FileUserContexts = "fileUserContexts";
+
+        /// <summary>
+        /// OpenAI files content.
+        /// </summary>
+        public const string FilesContent = "filesContent";
     }
 }

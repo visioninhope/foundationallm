@@ -1,6 +1,7 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -41,6 +42,7 @@ namespace FoundationaLLM.Vectorization.Handlers
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
+            UnifiedUserIdentity userIdentity,
             CancellationToken cancellationToken)
         {
             await _stateService.LoadArtifacts(state, VectorizationArtifactType.TextEmbeddingVector);
@@ -86,7 +88,7 @@ namespace FoundationaLLM.Vectorization.Handlers
 
             var serviceFactory = _serviceProvider.GetService<IVectorizationServiceFactory<IIndexingService>>()
                 ?? throw new VectorizationException($"Could not retrieve the indexing service factory instance.");
-            var (Service, VectorizationProfile) = serviceFactory.GetServiceWithResource(_parameters["indexing_profile_name"]);
+            var (Service, VectorizationProfile) = await serviceFactory.GetServiceWithResource(_parameters["indexing_profile_name"], userIdentity);
 
             var indexingResult = await Service.IndexEmbeddingsAsync(
                 embeddedContent,

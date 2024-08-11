@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models;
@@ -61,7 +62,7 @@ namespace FoundationaLLM.Vectorization.Handlers
         public string StepId => _stepId;
 
         /// <inheritdoc/>
-        public async Task<bool> Invoke(VectorizationRequest request, VectorizationState state, CancellationToken cancellationToken)
+        public async Task<bool> Invoke(VectorizationRequest request, VectorizationState state, UnifiedUserIdentity userIdentity, CancellationToken cancellationToken)
         {
             var success = true;           
             try
@@ -87,7 +88,7 @@ namespace FoundationaLLM.Vectorization.Handlers
                 }
 
                 ValidateRequest(request);
-                success = await ProcessRequest(request, state, stepConfiguration, cancellationToken).ConfigureAwait(false);
+                success = await ProcessRequest(request, state, stepConfiguration, userIdentity, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -122,12 +123,14 @@ namespace FoundationaLLM.Vectorization.Handlers
         /// <param name="request">The <see cref="VectorizationRequest"/> to be processed.</param>
         /// <param name="state">The <see cref="VectorizationState"/> associated with the vectorization request.</param>
         /// <param name="stepConfiguration">The <see cref="IConfigurationSection"/> providing the configuration required by the step.</param>
+        /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> that signals stopping the processing.</param>
         /// <returns></returns>
         protected virtual async Task<bool> ProcessRequest(
             VectorizationRequest request,
             VectorizationState state,
             IConfigurationSection? stepConfiguration,
+            UnifiedUserIdentity userIdentity,
             CancellationToken cancellationToken)
         {
             await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);

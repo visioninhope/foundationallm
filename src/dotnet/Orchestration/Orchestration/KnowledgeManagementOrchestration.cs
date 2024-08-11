@@ -1,11 +1,10 @@
-﻿using FoundationaLLM.Common.Constants;
-using FoundationaLLM.Common.Constants.ResourceProviders;
-using FoundationaLLM.Common.Exceptions;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -37,8 +36,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly Dictionary<string, object> _explodedObjects = explodedObjects;
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
-        private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices = resourceProviderServices;
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
+
+        private readonly IResourceProviderService _attachmentResourceProvider =
+            resourceProviderServices[ResourceProviderNames.FoundationaLLM_Attachment];
+        private readonly IResourceProviderService _azureOpenAIResourceProvider =
+            resourceProviderServices[ResourceProviderNames.FoundationaLLM_AzureOpenAI];
 
         /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
@@ -68,7 +71,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     OperationId = completionRequest.OperationId,
                     UserPrompt = completionRequest.UserPrompt!,
                     MessageHistory = completionRequest.MessageHistory,
-                    Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
+                    Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(instanceId, completionRequest.Attachments),
                     Agent = _agent,
                     Objects = _explodedObjects
                 });
@@ -95,18 +98,31 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             };
         }
 
-        private async Task<List<string>> GetAttachmentPaths(List<string> attachmentObjectIds)
+        private async Task<List<AttachmentProperties>> GetAttachmentPaths(string instanceId, List<string> attachmentObjectIds)
         {
-            if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Attachment, out var attachmentResourceProvider))
-                throw new OrchestrationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Attachment} was not loaded.");
-
             var attachments = attachmentObjectIds
                 .ToAsyncEnumerable()
-                .SelectAwait(async x => await attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
+                .SelectAwait(async x => await _attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
 
-            List<string> result = [];
+            var fileUserContextName = $"{_callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? _callContext.CurrentUserIdentity!.UserId}-assistant-{instanceId.ToLower()}";
+            var fileUserContex = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
+                _callContext.CurrentUserIdentity!);
+
+            List<AttachmentProperties> result = [];
             await foreach (var attachment in attachments)
-                result.Add(attachment.Path);
+                result.Add(new AttachmentProperties
+                {
+                    OriginalFileName = attachment.OriginalFileName,
+                    ContentType = attachment.ContentType!,
+                    Provider = attachment.SecondaryProvider ?? ResourceProviderNames.FoundationaLLM_Attachment,
+                    ProviderFileName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
+                        ? attachment.Path
+                        : fileUserContex.Files[attachment.ObjectId!].OpenAIFileId!,
+                    ProviderStorageAccountName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
+                        ? _attachmentResourceProvider.StorageAccountName
+                        : null
+                });
 
             return result;
         }

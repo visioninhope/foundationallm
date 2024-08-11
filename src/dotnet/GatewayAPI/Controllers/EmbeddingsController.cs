@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +10,16 @@ namespace FoundationaLLM.Gateway.API.Controllers
     /// Methods for managing embedding requests.
     /// </summary>
     /// <param name="gatewayCore">The <see cref="IGatewayCore"/> that provides LLM gateway services.</param>
+    /// <param name="callContext">The <see cref="ICallContext"/> call context of the request being handled.</param>
     [ApiController]
     [APIKeyAuthentication]
     [Route("instances/{instanceId}/[controller]")]
     public class EmbeddingsController(
-        IGatewayCore gatewayCore)
+        IGatewayCore gatewayCore,
+        ICallContext callContext)
     {
-        readonly IGatewayCore _gatewayCore = gatewayCore;
+        private readonly IGatewayCore _gatewayCore = gatewayCore;
+        private readonly ICallContext _callContext = callContext;
 
         /// <summary>
         /// Handles an incoming text embedding request by starting a new embedding operation.
@@ -27,7 +31,7 @@ namespace FoundationaLLM.Gateway.API.Controllers
         public async Task<IActionResult> StartEmbeddingOperation(
             string instanceId,
             [FromBody] TextEmbeddingRequest embeddingRequest) =>
-            new OkObjectResult(await _gatewayCore.StartEmbeddingOperation(instanceId, embeddingRequest));
+            new OkObjectResult(await _gatewayCore.StartEmbeddingOperation(instanceId, embeddingRequest, _callContext.CurrentUserIdentity!));
 
         /// <summary>
         /// Retrieves the outcome of a text embedding operation.
@@ -39,6 +43,6 @@ namespace FoundationaLLM.Gateway.API.Controllers
         public async Task<IActionResult> GetEmbeddingOperationResult(
             string instanceId,
             string operationId) =>
-            new OkObjectResult(await _gatewayCore.GetEmbeddingOperationResult(instanceId, operationId));
+            new OkObjectResult(await _gatewayCore.GetEmbeddingOperationResult(instanceId, operationId, _callContext.CurrentUserIdentity!));
     }
 }

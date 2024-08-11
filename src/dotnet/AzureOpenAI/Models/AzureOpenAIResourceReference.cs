@@ -19,6 +19,7 @@ namespace FoundationaLLM.AzureOpenAI.Models
             Type switch
             {
                 AzureOpenAITypes.AssistantUserContext => typeof(AssistantUserContext),
+                AzureOpenAITypes.FileUserContext => typeof(FileUserContext),
                 _ => throw new ResourceProviderException($"The resource type {Type} is not supported.")
             };
     }

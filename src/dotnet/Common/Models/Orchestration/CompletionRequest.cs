@@ -25,4 +25,11 @@ public class CompletionRequest : CompletionRequestBase
     /// </summary>
     [JsonPropertyName("settings")]
     public OrchestrationSettings? Settings { get; set; }
+
+    /// <summary>
+    /// One or more attachments to include with the orchestration request.
+    /// The values should be the ObjectID of the attachment(s).
+    /// </summary>
+    [JsonPropertyName("attachments")]
+    public List<string> Attachments { get; init; } = [];
 }
