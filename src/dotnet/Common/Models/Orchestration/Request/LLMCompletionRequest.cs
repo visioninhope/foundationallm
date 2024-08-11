@@ -9,7 +9,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Common.Models.Orchestration
+namespace FoundationaLLM.Common.Models.Orchestration.Request
 {
     /// <summary>
     /// The completion request sent by the Orchestration API to any of the downstream orchestrator APIs.

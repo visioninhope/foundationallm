@@ -1,5 +1,7 @@
 ﻿using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.SemanticKernel.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

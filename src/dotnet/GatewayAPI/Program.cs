@@ -5,10 +5,8 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Middleware;
-using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -50,7 +48,7 @@ builder.AddCorsPolicies();
 builder.AddGatewayGenericExceptionHandling();
 
 // Add Azure ARM services
-builder.Services.AddAzureResourceManager();
+builder.AddAzureResourceManager();
 
 // Core Gateway service
 builder.AddGatewayCore();

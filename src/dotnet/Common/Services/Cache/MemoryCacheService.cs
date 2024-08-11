@@ -1,14 +1,9 @@
 ﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Cache;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FoundationaLLM.Common.Services
+namespace FoundationaLLM.Common.Services.Cache
 {
     /// <summary>
     /// Provides an in-memory cache service.
@@ -24,8 +19,8 @@ namespace FoundationaLLM.Common.Services
         public T? Get<T>(CacheKey key)
         {
             if (_cache.TryGetValue(key, out var cacheItem))
-                    if (!cacheItem.IsExpired)
-                        return (T?)cacheItem.Value;
+                if (!cacheItem.IsExpired)
+                    return (T?)cacheItem.Value;
 
             return default;
         }
@@ -41,7 +36,7 @@ namespace FoundationaLLM.Common.Services
             try
             {
                 T item = await valueRetriever();
-                if ((item != null) || allowNull)
+                if (item != null || allowNull)
                 {
                     _cache[key] = new CacheItem
                     {

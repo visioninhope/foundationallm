@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Configuration.Services;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;

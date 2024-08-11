@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
