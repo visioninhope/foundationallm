@@ -451,6 +451,7 @@ $tokens.gatekeeperApiMiClientId = $services["gatekeeperapi"].miClientId
 $tokens.gatekeeperApiMiObjectId = $services["gatekeeperapi"].miObjectId
 $tokens.gatekeeperIntegrationApiMiClientId = $services["gatekeeperintegrationapi"].miClientId
 $tokens.gatewayApiMiClientId = $services["gatewayapi"].miClientId
+$tokens.gatewayApiMiObjectId = $services["gatewayapi"].miObjectId
 $tokens.gatewayAdapterApiMiClientId = $services["gatewayadapterapi"].miClientId
 $tokens.langChainApiMiClientId = $services["langchainapi"].miClientId
 $tokens.managementApiMiClientId = $services["managementapi"].miClientId

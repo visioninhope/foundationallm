@@ -256,12 +256,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
+                full_prompt = assistant_response.analysis,
                 content = assistant_response.content,
                 completion_tokens = assistant_response.completion_tokens,
                 prompt_tokens = assistant_response.prompt_tokens,
                 total_tokens = assistant_response.total_tokens,
                 user_prompt = request.user_prompt
-            )
+                )
 
         with get_openai_callback() as cb:
             try:
@@ -379,12 +380,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
+                full_prompt = assistant_response.analysis,
                 content = assistant_response.content,
                 completion_tokens = assistant_response.completion_tokens,
                 prompt_tokens = assistant_response.prompt_tokens,
                 total_tokens = assistant_response.total_tokens,
                 user_prompt = request.user_prompt
-            )          
+                )          
 
         with get_openai_callback() as cb:
             try:
