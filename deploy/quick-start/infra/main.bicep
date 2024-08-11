@@ -266,6 +266,10 @@ var openAiRoleTargets = [
   'langchain-api'
 ]
 
+var openAiContribRoleTargets = [
+  'gateway-api'
+]
+
 module searchReaderRoles './shared/roleAssignments.bicep' = [
   for target in searchReaderRoleTargets: {
     scope: rg
@@ -614,6 +618,19 @@ module openAiRoles './shared/roleAssignments.bicep' = [
       roleDefinitionNames: [
         'Cognitive Services OpenAI User'
         'Reader'
+      ]
+    }
+  }
+]
+
+module openAiContribRole './shared/roleAssignments.bicep' = [
+  for target in openAiContribRoleTargets: {
+    scope: rg
+    name: '${target}-openai-roles-${timestamp}'
+    params: {
+      principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
+      roleDefinitionNames: [
+        'Cognitive Services OpenAI Contributor'
       ]
     }
   }
