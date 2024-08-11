@@ -25,7 +25,7 @@ namespace FoundationaLLM.Common.Constants.ResourceProviders
                             new ResourceTypeAllowedTypes(HttpMethod.Delete.Method, [], [], []),
                     ],
                     Actions = [
-                        new ResourceTypeAction(AttachmentResourceProviderActions.Filter, false, true, [
+                        new ResourceTypeAction(ResourceProviderActions.Filter, false, true, [
                             new ResourceTypeAllowedTypes(HttpMethod.Post.Method, [], [typeof(ResourceFilter)], [typeof(AttachmentDetail)])
                         ])
                     ]

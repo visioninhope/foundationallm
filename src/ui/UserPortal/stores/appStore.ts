@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, ChatSessionProperties, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
+import type { 
+	Session,
+	ChatSessionProperties,
+	Message,
+	Agent,
+	ResourceProviderGetResult,
+	ResourceProviderUpsertResult,
+	Attachment
+} from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
 
@@ -317,13 +325,13 @@ export const useAppStore = defineStore('app', {
 				throw new Error('No agent selected.');
 			}
 
-			const id = await api.uploadAttachment(file, agent.name);
+			const upsertResult = await api.uploadAttachment(file, agent.name) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
-			const newAttachment = { id, fileName, sessionId };
+			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId };
 
 			this.attachments.push(newAttachment);
 
-			return id;
+			return upsertResult.objectId;
 		},
 
 		async deleteAttachment(attachment: Attachment) {

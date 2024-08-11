@@ -92,7 +92,7 @@ public partial class CoreService(
             };
             // Get the attachment details from the attachment resource provider.
             var result = await _attachmentResourceProvider!.HandlePostAsync(
-                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{AttachmentResourceProviderActions.Filter}",
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{ResourceProviderActions.Filter}",
                 JsonSerializer.Serialize(filter),
                 _callContext.CurrentUserIdentity!);
             // Cast the result to a list of AttachmentReference objects.
@@ -259,7 +259,7 @@ public partial class CoreService(
         var agentBase = await _agentResourceProvider.HandleGet<AgentBase>(
             $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
             userIdentity);
-        var aiModelBase = await _agentResourceProvider.HandleGet<AIModelBase>(
+        var aiModelBase = await _aiModelResourceProvider.HandleGet<AIModelBase>(
             agentBase.AIModelObjectId!,
             userIdentity);
         var apiEndpointConfiguration = await _configurationResourceProvider.HandleGet<APIEndpointConfiguration>(
@@ -272,7 +272,7 @@ public partial class CoreService(
             ? ResourceProviderNames.FoundationaLLM_AzureOpenAI
             : null;
         var result = await _attachmentResourceProvider.UpsertResourceAsync<AttachmentFile, ResourceProviderUpsertResult>(
-                $"/instance/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
                 attachmentFile,
                 _callContext.CurrentUserIdentity!);
 

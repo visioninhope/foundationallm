@@ -83,6 +83,27 @@ namespace FoundationaLLM.Authorization.Models
                         "AzureOpenAI")
                 },
                 {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read,
+                        "Read file user contexts.",
+                        "AzureOpenAI")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write,
+                        "Create or update file user contexts.",
+                        "AzureOpenAI")
+                },
+                {
+                    AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete,
+                    new AuthorizableAction(
+                        AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete,
+                        "Delete file user contexts.",
+                        "AzureOpenAI")
+                },
+                {
                     AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Read,
                     new AuthorizableAction(
                         AuthorizableActionNames.FoundationaLLM_Configuration_AppConfigurations_Read,

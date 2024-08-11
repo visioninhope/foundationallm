@@ -6,6 +6,7 @@ import type {
 	Agent,
 	CompletionRequest,
 	ResourceProviderGetResult,
+	ResourceProviderUpsertResult,
 } from '@/js/types';
 
 export default {
@@ -283,10 +284,10 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData, agentName: string) {
-		const response = await this.fetch(`/instances/${this.instanceId}/files?agentName=${agentName}`, {
+		const response: ResourceProviderUpsertResult = await this.fetch(`/instances/${this.instanceId}/files?agentName=${agentName}`, {
 			method: 'POST',
 			body: file,
-		});
+		}) as ResourceProviderUpsertResult;
 
 		return response;
 	},
