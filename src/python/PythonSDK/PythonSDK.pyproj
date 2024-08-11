@@ -27,12 +27,16 @@
     <Compile Include="foundationallm\config\user_identity.py" />
     <Compile Include="foundationallm\langchain\agents\langchain_audio_classifier_agent.py" />
     <Compile Include="foundationallm\langchain\agents\langchain_knowledge_management_agent.py" />
+    <Compile Include="foundationallm\models\attachments\attachment_properties.py" />
+    <Compile Include="foundationallm\models\attachments\attachment_providers.py" />
+    <Compile Include="foundationallm\models\attachments\__init__.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_base.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_types.py" />
     <Compile Include="foundationallm\models\orchestration\openai_file_path_message_content_item.py" />
     <Compile Include="foundationallm\models\orchestration\openai_image_file_message_content_item.py" />
     <Compile Include="foundationallm\models\orchestration\openai_text_message_content_item.py" />
     <Compile Include="foundationallm\models\services\openai_assistants_response.py" />
+    <Compile Include="foundationallm\services\image_analysis_service.py" />
     <Compile Include="foundationallm\services\openai_assistants_api_service.py" />
     <Compile Include="foundationallm\langchain\exceptions\langchain_exception.py" />
     <Compile Include="foundationallm\langchain\exceptions\__init__.py" />
@@ -148,6 +152,7 @@
     <Folder Include="foundationallm\langchain\language_models\" />
     <Folder Include="foundationallm\langchain\language_models\openai\" />
     <Folder Include="foundationallm\langchain\exceptions\" />
+    <Folder Include="foundationallm\models\attachments\" />
     <Folder Include="foundationallm\services\" />
     <Folder Include="foundationallm\langchain\retrievers\" />
     <Folder Include="foundationallm\langchain\orchestration\" />

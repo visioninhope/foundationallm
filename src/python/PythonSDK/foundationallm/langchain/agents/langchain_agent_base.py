@@ -244,7 +244,7 @@ class LangChainAgentBase():
                             azure_ad_token_provider=token_provider,
                             azure_deployment=self.ai_model.deployment_name
                         )
-                    elif op_type == OperationTypes.ASSISTANTS_API:
+                    elif op_type == OperationTypes.ASSISTANTS_API or op_type == OperationTypes.IMAGE_ANALYSIS:
                         # Assistants API clients can't have deployment as that is assigned at the assistant level.
                         if is_async:
                             # create async client
@@ -282,7 +282,7 @@ class LangChainAgentBase():
                         api_version=self.api_endpoint.api_version,
                         azure_deployment=self.ai_model.deployment_name
                     )
-                elif op_type == OperationTypes.ASSISTANTS_API:
+                elif op_type == OperationTypes.ASSISTANTS_API or op_type == OperationTypes.IMAGE_ANALYSIS:
                     # Assistants API clients can't have deployment as that is assigned at the assistant level.
                     if is_async:
                         # create async client
