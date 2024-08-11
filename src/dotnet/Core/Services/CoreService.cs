@@ -80,20 +80,16 @@ public partial class CoreService(
         var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
 
-        _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Attachment, out var attachmentResourceProviderService);
-
         // Get a list of all attachment IDs in the messages.
         var attachmentIds = messages.SelectMany(m => m.Attachments ?? Enumerable.Empty<string>()).Distinct().ToList();
         if (attachmentIds.Count > 0)
         {
-            // First, get just the last part of the object IDs after the last slash.
-            var ids = attachmentIds.Select(id => id.Split('/').Last()).ToList();
             var filter = new ResourceFilter
             {
-                ObjectIDs = ids
+                ObjectIDs = attachmentIds
             };
             // Get the attachment details from the attachment resource provider.
-            var result = await attachmentResourceProviderService!.HandlePostAsync(
+            var result = await _attachmentResourceProvider!.HandlePostAsync(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{AttachmentResourceProviderActions.Filter}",
                 JsonSerializer.Serialize(filter),
                 _callContext.CurrentUserIdentity!);
@@ -245,7 +241,7 @@ public partial class CoreService(
     {
         completionRequest = PrepareCompletionRequest(completionRequest);
         throw new NotImplementedException();
-    }        
+    }
 
     /// <inheritdoc/>
     public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
@@ -258,13 +254,13 @@ public partial class CoreService(
     /// <inheritdoc/>
     public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
     {
-        var agentBase = await _agentResourceProvider.GetResource<AgentBase>(
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>(
             $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
             userIdentity);
-        var aiModelBase = await _agentResourceProvider.GetResource<AIModelBase>(
+        var aiModelBase = await _agentResourceProvider.HandleGet<AIModelBase>(
             agentBase.AIModelObjectId!,
             userIdentity);
-        var apiEndpointConfiguration = await _configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+        var apiEndpointConfiguration = await _configurationResourceProvider.HandleGet<APIEndpointConfiguration>(
             aiModelBase.EndpointObjectId!,
             userIdentity);
 
@@ -352,7 +348,7 @@ public partial class CoreService(
 
     private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
-        var agentBase = await _agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.GatekeeperSettings?.UseSystemSetting == false)

@@ -54,7 +54,7 @@ namespace FoundationaLLM.Common.Extensions
         /// <param name="resourceTypeName">The name of the resource type.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>A resource object of type <typeparamref name="T"/>.</returns>
-        public static async Task<T> GetResource<T>(
+        public static async Task<T> HandleGet<T>(
             this IResourceProviderService resourceProviderService,
             string instanceId,
             string resourceName,
@@ -83,7 +83,7 @@ namespace FoundationaLLM.Common.Extensions
         /// <param name="objectId">The resource object identifier.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>A resource object of type <typeparamref name="T"/>.</returns>
-        public static async Task<T> GetResource<T>(
+        public static async Task<T> HandleGet<T>(
             this IResourceProviderService resourceProviderService,
             string objectId,
             UnifiedUserIdentity userIdentity)

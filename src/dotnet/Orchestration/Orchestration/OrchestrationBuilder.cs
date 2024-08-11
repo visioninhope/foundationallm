@@ -127,17 +127,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             var explodedObjects = new Dictionary<string, object>();
 
-            var agentBase = await agentResourceProvider.GetResource<AgentBase>(
+            var agentBase = await agentResourceProvider.HandleGet<AgentBase>(
                 $"/{AgentResourceTypeNames.Agents}/{agentName}",
                 currentUserIdentity);
 
-            var prompt = await promptResourceProvider.GetResource<PromptBase>(
+            var prompt = await promptResourceProvider.HandleGet<PromptBase>(
                 agentBase.PromptObjectId!,
                 currentUserIdentity);
-            var aiModel = await aiModelResourceProvider.GetResource<AIModelBase>(
+            var aiModel = await aiModelResourceProvider.HandleGet<AIModelBase>(
                 agentBase.AIModelObjectId!,
                 currentUserIdentity);
-            var apiEndpointConfiguration = await configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+            var apiEndpointConfiguration = await configurationResourceProvider.HandleGet<APIEndpointConfiguration>(
                 aiModel.EndpointObjectId!,
                 currentUserIdentity);
 
@@ -179,7 +179,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     {
                         try
                         {
-                            var dataSource = await dataSourceResourceProvider.GetResource<DataSourceBase>(
+                            var dataSource = await dataSourceResourceProvider.HandleGet<DataSourceBase>(
                                 kmAgent.Vectorization.DataSourceObjectId,
                                 currentUserIdentity);
 
@@ -200,7 +200,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                             continue;
                         }
 
-                        var indexingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                        var indexingProfile = await vectorizationResourceProvider.HandleGet<VectorizationProfileBase>(
                             indexingProfileName,
                             currentUserIdentity);
 
@@ -209,7 +209,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                     if (!string.IsNullOrWhiteSpace(kmAgent.Vectorization.TextEmbeddingProfileObjectId))
                     {
-                        var textEmbeddingProfile = await vectorizationResourceProvider.GetResource<VectorizationProfileBase>(
+                        var textEmbeddingProfile = await vectorizationResourceProvider.HandleGet<VectorizationProfileBase>(
                             kmAgent.Vectorization.TextEmbeddingProfileObjectId,
                             currentUserIdentity);
 
@@ -280,7 +280,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 }
                 else
                 {
-                    var assistantUserContext = await azureOpenAIResourceProvider.GetResource<AssistantUserContext>(
+                    var assistantUserContext = await azureOpenAIResourceProvider.HandleGet<AssistantUserContext>(
                         instanceId,
                         assistantUserContextName,
                         AzureOpenAIResourceTypeNames.AssistantUserContexts,
