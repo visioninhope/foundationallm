@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService" class="text-break">
-Interface IOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L9"><i class="bi bi-code-slash"></i></a>
+Interface IOrchestrationService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -130,9 +130,9 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <a id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)">
   GetCompletion(string, CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Retrieve a completion from the configured orchestration service.</p>
@@ -148,14 +148,14 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance id.</p>
 </dd>
-    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
+    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest.html">CompletionRequest</a></dt>
     <dd><p>The completion request.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
     <dd><p>The completion response.</p>
 </dd>
   </dl>
@@ -174,7 +174,7 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperationResult_System_String_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationResult(System.String,System.String)">
   GetCompletionOperationResult(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion operation from the Orchestration service.</p>
@@ -197,8 +197,8 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
-    <dd><p>Returns a <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html">CompletionResponse</a> object.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
+    <dd><p>Returns a <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponse.html">CompletionResponse</a> object.</p>
 </dd>
   </dl>
 
@@ -216,7 +216,7 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetCompletionOperationStatus_System_String_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetCompletionOperationStatus(System.String,System.String)">
   GetCompletionOperationStatus(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the status of a completion operation.</p>
@@ -258,7 +258,7 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.GetStatus(System.String)">
   GetStatus(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the aggredated status of all orchestration services.</p>
@@ -295,9 +295,9 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 
   <a id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_StartCompletionOperation_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  <h3 id="FoundationaLLM_Orchestration_Core_Interfaces_IOrchestrationService_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Interfaces.IOrchestrationService.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)">
   StartCompletionOperation(string, CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Begins a completion operation.</p>
@@ -313,7 +313,7 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance id.</p>
 </dd>
-    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
+    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest.html">CompletionRequest</a></dt>
     <dd><p>The completion request containing the user prompt and message history.</p>
 </dd>
   </dl>
@@ -339,7 +339,7 @@ Interface IOrchestrationService  <a class="header-action link-secondary" title="
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Interfaces/IOrchestrationService.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

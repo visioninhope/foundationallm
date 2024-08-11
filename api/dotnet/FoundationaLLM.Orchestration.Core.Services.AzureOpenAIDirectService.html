@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService" class="text-break">
-Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -171,7 +171,7 @@ Class AzureOpenAIDirectService  <a class="header-action link-secondary" title="V
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__ctor_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService__FoundationaLLM_Common_Interfaces_ICallContext_FoundationaLLM_Common_Interfaces_IHttpClientFactoryService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.#ctor(Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService},FoundationaLLM.Common.Interfaces.ICallContext,FoundationaLLM.Common.Interfaces.IHttpClientFactoryService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})">
   AzureOpenAIDirectService(ILogger&lt;AzureOpenAIDirectService&gt;, ICallContext, IHttpClientFactoryService, IEnumerable&lt;IResourceProviderService&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The Azure OpenAI direct orchestration service.</p>
@@ -218,7 +218,7 @@ is primarily used to inject HTTP headers into downstream HTTP calls.</p>
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_Name" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the LLM orchestration service.</p>
@@ -252,9 +252,9 @@ is primarily used to inject HTTP headers into downstream HTTP calls.</p>
 
   <a id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest)">
+  <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_Request_LLMCompletionRequest_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.LLMCompletionRequest)">
   GetCompletion(string, LLMCompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Method for retrieving a completion from the orchestration service.</p>
@@ -270,14 +270,14 @@ is primarily used to inject HTTP headers into downstream HTTP calls.</p>
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance ID.</p>
 </dd>
-    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
+    <dt><code>request</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.LLMCompletionRequest.html">LLMCompletionRequest</a></dt>
     <dd><p>Hub populated request object containing agent, prompt, language model, and data source information</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.LLMCompletionResponse.html">LLMCompletionResponse</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -295,7 +295,7 @@ is primarily used to inject HTTP headers into downstream HTTP calls.</p>
 
   <h3 id="FoundationaLLM_Orchestration_Core_Services_AzureOpenAIDirectService_GetStatus_System_String_" data-uid="FoundationaLLM.Orchestration.Core.Services.AzureOpenAIDirectService.GetStatus(System.String)">
   GetStatus(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the status of the orchestration service.</p>
@@ -333,7 +333,7 @@ is primarily used to inject HTTP headers into downstream HTTP calls.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L24" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Orchestration/Services/AzureOpenAIDirectService.cs/#L25" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController" class="text-break">
-Class CompletionsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L15"><i class="bi bi-code-slash"></i></a>
+Class CompletionsController  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -690,7 +690,7 @@ public class CompletionsController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController__ctor_FoundationaLLM_Gatekeeper_Core_Interfaces_IGatekeeperService_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.#ctor(FoundationaLLM.Gatekeeper.Core.Interfaces.IGatekeeperService)">
   CompletionsController(IGatekeeperService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Wrapper for Gatekeeper service.</p>
@@ -727,9 +727,9 @@ public class CompletionsController : ControllerBase</code></pre>
 
   <a id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletion_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)">
   GetCompletion(string, CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion from the Gatekeeper service.</p>
@@ -746,14 +746,14 @@ public Task&lt;CompletionResponse&gt; GetCompletion(string instanceId, Completio
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance id.</p>
 </dd>
-    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
+    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest.html">CompletionRequest</a></dt>
     <dd><p>The completion request containing the user prompt and message history.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
     <dd><p>The completion response.</p>
 </dd>
   </dl>
@@ -772,7 +772,7 @@ public Task&lt;CompletionResponse&gt; GetCompletion(string instanceId, Completio
 
   <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperationResult_System_String_System_String_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationResult(System.String,System.String)">
   GetCompletionOperationResult(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a completion operation from the Gatekeeper service.</p>
@@ -796,7 +796,7 @@ public Task&lt;CompletionResponse&gt; GetCompletionOperationResult(string instan
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponse.html">CompletionResponse</a>&gt;</dt>
     <dd><p>Returns a completion response</p>
 </dd>
   </dl>
@@ -815,7 +815,7 @@ public Task&lt;CompletionResponse&gt; GetCompletionOperationResult(string instan
 
   <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_GetCompletionOperationStatus_System_String_System_String_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.GetCompletionOperationStatus(System.String,System.String)">
   GetCompletionOperationStatus(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the status of a completion operation.</p>
@@ -856,9 +856,9 @@ public Task&lt;LongRunningOperation&gt; GetCompletionOperationStatus(string inst
 
   <a id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_StartCompletionOperation_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation*"></a>
 
-  <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_CompletionRequest_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.CompletionRequest)">
+  <h3 id="FoundationaLLM_Gatekeeper_API_Controllers_CompletionsController_StartCompletionOperation_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_" data-uid="FoundationaLLM.Gatekeeper.API.Controllers.CompletionsController.StartCompletionOperation(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)">
   StartCompletionOperation(string, CompletionRequest)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Begins a completion operation.</p>
@@ -875,7 +875,7 @@ public Task&lt;ActionResult&lt;LongRunningOperation&gt;&gt; StartCompletionOpera
     <dt><code>instanceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The FoundationaLLM instance id.</p>
 </dd>
-    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.CompletionRequest.html">CompletionRequest</a></dt>
+    <dt><code>completionRequest</code> <a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest.html">CompletionRequest</a></dt>
     <dd><p>The completion request containing the user prompt and message history.</p>
 </dd>
   </dl>
@@ -901,7 +901,7 @@ public Task&lt;ActionResult&lt;LongRunningOperation&gt;&gt; StartCompletionOpera
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L15" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/GatekeeperAPI/Controllers/CompletionsController.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 

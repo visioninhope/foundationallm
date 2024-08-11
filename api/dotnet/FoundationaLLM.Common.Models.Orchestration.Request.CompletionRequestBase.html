@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class OpenAITextMessageContentItem | FoundationaLLM </title>
+      <title>Class CompletionRequestBase | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class OpenAITextMessageContentItem | FoundationaLLM ">
+      <meta name="title" content="Class CompletionRequestBase | FoundationaLLM ">
       
-      <meta name="description" content="An OpenAI text message content item.">
+      <meta name="description" content="Base for completion requests">
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase.md&amp;value=---%0Auid%3A%20FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,25 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem">
+        <article data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase">
 
 
 
-  <h1 id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem" class="text-break">
-Class OpenAITextMessageContentItem  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase" class="text-break">
+Class CompletionRequestBase  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.html">Orchestration</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Common.html">Common</a>.<a class="xref" href="FoundationaLLM.Common.Models.html">Models</a>.<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.html">Orchestration</a>.<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.html">Request</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Common.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>An OpenAI text message content item.</p>
+  <div class="markdown summary"><p>Base for completion requests</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class OpenAITextMessageContentItem : MessageContentItemBase</code></pre>
+    <pre><code class="lang-csharp hljs">public class CompletionRequestBase</code></pre>
   </div>
 
 
@@ -112,12 +112,18 @@ Class OpenAITextMessageContentItem  <a class="header-action link-secondary" titl
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.MessageContentItemBase.html">MessageContentItemBase</a></div>
-      <div><span class="xref">OpenAITextMessageContentItem</span></div>
+      <div><span class="xref">CompletionRequestBase</span></div>
     </dd>
   </dl>
 
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest.html">CompletionRequest</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Request.LLMCompletionRequest.html">LLMCompletionRequest</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -157,55 +163,24 @@ Class OpenAITextMessageContentItem  <a class="header-action link-secondary" titl
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem__ctor_" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor*"></a>
-
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem__ctor" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.#ctor">
-  OpenAITextMessageContentItem()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L30"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Set default property values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpenAITextMessageContentItem()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Annotations_" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations*"></a>
+  <a id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_MessageHistory_" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.MessageHistory*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Annotations" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Annotations">
-  Annotations
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_MessageHistory" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.MessageHistory">
+  MessageHistory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>A list of file annotations used to generate the message content item.</p>
+  <div class="markdown level1 summary"><p>The message history associated with the completion request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;annotations&quot;)]
-public List&lt;OpenAIFilePathContentItem&gt; Annotations { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;message_history&quot;)]
+public List&lt;MessageHistoryItem&gt;? MessageHistory { get; set; }</code></pre>
   </div>
 
 
@@ -214,7 +189,7 @@ public List&lt;OpenAIFilePathContentItem&gt; Annotations { get; set; }</code></p
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.OpenAIFilePathContentItem.html">OpenAIFilePathContentItem</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.MessageHistoryItem.html">MessageHistoryItem</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -225,20 +200,20 @@ public List&lt;OpenAIFilePathContentItem&gt; Annotations { get; set; }</code></p
 
 
 
-  <a id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Type_" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type*"></a>
+  <a id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_OperationId_" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.OperationId*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Type" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Type">
-  Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_OperationId" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.OperationId">
+  OperationId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The type of the message content item.</p>
+  <div class="markdown level1 summary"><p>The Operation ID identifying the completion request.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonIgnore]
-public override string? Type { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;operation_id&quot;)]
+public string? OperationId { get; set; }</code></pre>
   </div>
 
 
@@ -258,20 +233,53 @@ public override string? Type { get; set; }</code></pre>
 
 
 
-  <a id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Value_" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value*"></a>
+  <a id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_SessionId_" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.SessionId*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Orchestration_OpenAITextMessageContentItem_Value" data-uid="FoundationaLLM.Common.Models.Orchestration.OpenAITextMessageContentItem.Value">
-  Value
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_SessionId" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.SessionId">
+  SessionId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The text value of the message content item.</p>
+  <div class="markdown level1 summary"><p>The session ID.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;value&quot;)]
-public string? Value { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;session_id&quot;)]
+public string? SessionId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_UserPrompt_" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.UserPrompt*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequestBase_UserPrompt" data-uid="FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequestBase.UserPrompt">
+  UserPrompt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Represent the input or user prompt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;user_prompt&quot;)]
+public required string UserPrompt { get; init; }</code></pre>
   </div>
 
 
@@ -295,7 +303,7 @@ public string? Value { get; set; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/OpenAITextMessageContentItem.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Orchestration/Request/CompletionRequestBase.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 
