@@ -166,6 +166,21 @@ namespace FoundationaLLM.Common.Services.API
             _configurationResourceProvider = resourceProviderServices
                 .SingleOrDefault(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration)
                 ?? throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} was not loaded.");
+
+
+            await _configurationResourceProvider.WaitForInitialization();
+        }
+
+        private async Task<APIEndpointConfiguration> GetEndpoint(string name, UnifiedUserIdentity userIdentity)
+        {
+            await EnsureConfigurationResourceProvider();
+
+            var endpointConfiguration = await _configurationResourceProvider!.HandleGet<APIEndpointConfiguration>(
+                $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{name}",
+                userIdentity)
+                ?? throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {name} endpoint configuration.");
+
+            return endpointConfiguration;
         }
     }
 }

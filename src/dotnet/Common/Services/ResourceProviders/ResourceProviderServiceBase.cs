@@ -190,7 +190,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         public async Task<object> HandleGetAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             EnsureServiceInitialization();
-            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false);
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Get, false);
 
             if (!parsedResourcePath.IsResourceTypePath)
             {
@@ -205,7 +205,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         public async Task<object> HandlePostAsync(string resourcePath, string serializedResource, UnifiedUserIdentity userIdentity)
         {
             EnsureServiceInitialization();
-            var parsedResourcePath = EnsureValidResourcePath(resourcePath);
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Post, true);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "write");
@@ -248,7 +248,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         public async Task HandleDeleteAsync(string resourcePath, UnifiedUserIdentity userIdentity)
         {
             EnsureServiceInitialization();
-            var parsedResourcePath = EnsureValidResourcePath(resourcePath);
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Delete, false);
 
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "delete");
@@ -332,10 +332,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         public async Task<T> GetResource<T>(string resourcePath, UnifiedUserIdentity userIdentity) where T : class
         {
             EnsureServiceInitialization();
-            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false, typeof(T), HttpMethod.Get);
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Get, false, typeof(T));
 
             // Authorize access to the resource path.
-            await Authorize(parsedResourcePath, userIdentity, "delete");
+            await Authorize(parsedResourcePath, userIdentity, "read");
 
             return await GetResourceInternal<T>(parsedResourcePath, userIdentity);
         }
@@ -346,7 +346,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             where TResult : ResourceProviderUpsertResult
         {
             EnsureServiceInitialization();
-            var parsedResourcePath = EnsureValidResourcePath(resourcePath, false, typeof(T), HttpMethod.Post);
+            var parsedResourcePath = EnsureValidResourcePath(resourcePath, HttpMethod.Post, false, typeof(T));
+
+            // Authorize access to the resource path.
+            await Authorize(parsedResourcePath, userIdentity, "write");
 
             return await UpsertResourceAsyncInternal<T, TResult>(parsedResourcePath, resource, userIdentity);
         }
@@ -451,7 +454,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 throw new ResourceProviderException($"The resource provider {_name} is not initialized.");
         }
 
-        private ResourcePath EnsureValidResourcePath(string resourcePath, bool allowAction = true, Type? resourceType = null, HttpMethod? operationType = null)
+        private ResourcePath EnsureValidResourcePath(string resourcePath, HttpMethod operationType, bool allowAction = true, Type? resourceType = null)
         {
             var parsedResourcePath = new ResourcePath(
                 resourcePath,
@@ -469,11 +472,14 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     $"The resource type {mainResourceType} cannot be handled by the {_name} resource provider",
                     StatusCodes.Status400BadRequest);
 
-            if (resourceType != null
-                && !resourceTypeDescriptor.AllowedTypes.Single(at => at.HttpMethod == operationType!.Method).AllowedBodyTypes.Contains(resourceType))
-                throw new ResourceProviderException(
-                    $"The type {nameof(resourceType)} is not supported by the {_name} resource provider.",
-                    StatusCodes.Status400BadRequest);
+            if (operationType.Method == HttpMethods.Post)
+            {
+                if (resourceType != null
+                    && !resourceTypeDescriptor.AllowedTypes.Single(at => at.HttpMethod == operationType.Method).AllowedBodyTypes.Contains(resourceType))
+                    throw new ResourceProviderException(
+                        $"The type {nameof(resourceType)} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest);
+            }
 
             return parsedResourcePath;
         }

@@ -286,10 +286,12 @@ export default {
 						});
 					}
 				} catch (error) {
+					this.showFileUploadDialog = false;
+					this.uploadProgress = 0;
 					this.$toast.add({
 						severity: 'error',
 						summary: 'Error',
-						detail: `File upload failed. ${error.message}`,
+						detail: `File upload failed. ${error.message ? error.message : error.title ? error.title : ''}`,
 						life: 5000,
 					});
 				}

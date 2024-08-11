@@ -311,7 +311,13 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async uploadAttachment(file: FormData, sessionId: string) {
-			const id = await api.uploadAttachment(file);
+			const agent = this.getSessionAgent(this.currentSession!).resource;
+			// If the agent is not found, do not upload the attachment and display an error message.
+			if (!agent) {
+				throw new Error('No agent selected.');
+			}
+
+			const id = await api.uploadAttachment(file, agent.name);
 			const fileName = file.get('file')?.name;
 			const newAttachment = { id, fileName, sessionId };
 

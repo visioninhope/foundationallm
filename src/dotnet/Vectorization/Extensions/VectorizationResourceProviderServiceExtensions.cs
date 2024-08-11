@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
@@ -35,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <returns></returns>
         public static async Task TogglePipelineActivation(this VectorizationResourceProviderService vectorizationResourceProvider, string pipelineObjectId, bool activate, UnifiedUserIdentity userIdentity)
         {
-            var pipeline =  await vectorizationResourceProvider.GetResource<VectorizationPipeline>(pipelineObjectId, userIdentity);                        
+            var pipeline =  await vectorizationResourceProvider.HandleGet<VectorizationPipeline>(pipelineObjectId, userIdentity);                        
            
             if (pipeline == null || pipeline.Active == activate)
                 // nothing to update
@@ -54,7 +55,7 @@ namespace FoundationaLLM.Vectorization.Extensions
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
         /// <returns>The vectorization request.</returns>
         public static async Task<VectorizationRequest> GetVectorizationRequestResource(this VectorizationResourceProviderService vectorizationResourceProvider, string requestName, UnifiedUserIdentity userIdentity)
-            => await vectorizationResourceProvider.GetResource<VectorizationRequest>($"/{VectorizationResourceTypeNames.VectorizationRequests}/{requestName}", userIdentity);
+            => await vectorizationResourceProvider.HandleGet<VectorizationRequest>($"/{VectorizationResourceTypeNames.VectorizationRequests}/{requestName}", userIdentity);
 
     }
 }

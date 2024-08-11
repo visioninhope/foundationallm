@@ -288,20 +288,22 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                                        StatusCodes.Status400BadRequest);
             if (resourceFilter.ObjectIDs is {Count: > 0})
             {
-                var filteredReferences = _attachmentReferences.Keys.Where(k => resourceFilter.ObjectIDs.Contains(k)).ToList();
-                return filteredReferences.Select(k => new AttachmentDetail
+                var filteredReferences =
+                    _attachmentReferences.Where(r => !string.IsNullOrWhiteSpace(r.Value.ObjectId) && resourceFilter.ObjectIDs.Contains(r.Value.ObjectId));
+
+                return filteredReferences.Select(r => new AttachmentDetail
                 {
-                    ObjectId = k,
-                    DisplayName = _attachmentReferences[k].OriginalFilename,
-                    ContentType = _attachmentReferences[k].ContentType
+                    ObjectId = r.Value.ObjectId,
+                    DisplayName = r.Value.OriginalFilename,
+                    ContentType = r.Value.ContentType
                 }).ToList();
 
             }
-            return _attachmentReferences.Select(k => new AttachmentDetail
+            return _attachmentReferences.Select(r => new AttachmentDetail
             {
-                ObjectId = k.Key,
-                DisplayName = k.Value.OriginalFilename,
-                ContentType = k.Value.ContentType
+                ObjectId = r.Value.ObjectId,
+                DisplayName = r.Value.OriginalFilename,
+                ContentType = r.Value.ContentType
             }).ToList();
         }
 

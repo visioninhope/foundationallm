@@ -282,8 +282,8 @@ export default {
 	 * @param file The file formData to upload.
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
-	async uploadAttachment(file: FormData) {
-		const response = await this.fetch(`/instances/${this.instanceId}/attachments/upload`, {
+	async uploadAttachment(file: FormData, agentName: string) {
+		const response = await this.fetch(`/instances/${this.instanceId}/files?agentName=${agentName}`, {
 			method: 'POST',
 			body: file,
 		});
