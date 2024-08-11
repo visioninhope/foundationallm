@@ -300,8 +300,9 @@ export default {
 			this.$refs.fileAttachmentPanel.toggle(event);
 		},
 
-		removeAttachment(file: any) {
-			this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
+		async removeAttachment(file: any) {
+			await this.$appStore.deleteAttachment(file);
+			//this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
 		},
 
 		browseFiles() {
