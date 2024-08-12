@@ -56,7 +56,7 @@ class ImageAnalysisService:
         str
             The formatted image analysis results.
         """
-        formatted_results = f"Analysis of the {len(image_analyses)} attached images are as follows:\n"
+        formatted_results = f"You have access to the following {len(image_analyses)} images and their analysis results:\n"
         for idx, key in enumerate(image_analyses):
             formatted_results += f"## Image {idx + 1}:\n"
             formatted_results += f"- Name : {key}\n"
