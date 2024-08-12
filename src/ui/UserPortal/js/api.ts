@@ -284,7 +284,7 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData, agentName: string) {
-		const response: ResourceProviderUpsertResult = await this.fetch(`/instances/${this.instanceId}/files?agentName=${agentName}`, {
+		const response: ResourceProviderUpsertResult = await this.fetch(`/instances/${this.instanceId}/files/upload?agentName=${agentName}`, {
 			method: 'POST',
 			body: file,
 		}) as ResourceProviderUpsertResult;
