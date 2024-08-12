@@ -40,7 +40,7 @@ namespace FoundationaLLM.Core.Examples
         private BlobStorageServiceSettings? _settings;
 
         public Example0004_SynchronousVectorizationOfPDFFromDataLake(ITestOutputHelper output, TestFixture fixture)
-            : base(output, fixture.ServiceProvider)
+            : base(output, [fixture.ServiceProvider])
         {
             _vectorizationTestService = GetService<IVectorizationTestService>();
             _instanceSettings = _vectorizationTestService.InstanceSettings;

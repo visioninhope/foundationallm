@@ -176,7 +176,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .ToList();
             var sandboxPlaceholders = openAITextMessage.Annotations.ToDictionary(
                 a => a.Text!,
-                a => a.FileUrl!);
+                a => $"{{{{fllm_base_url}}}}{a.FileUrl!}");
 
             var input = openAITextMessage.Value!;
             var regex = new Regex(@"\(sandbox:[^)]*\)");

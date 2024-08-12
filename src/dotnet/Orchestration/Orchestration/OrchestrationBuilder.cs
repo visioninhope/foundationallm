@@ -14,7 +14,6 @@ using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
 using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Orchestration.Core.Interfaces;
-using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Net;
