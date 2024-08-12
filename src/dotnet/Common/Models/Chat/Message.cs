@@ -1,6 +1,7 @@
 using Azure.Search.Documents.Indexes;
 using FoundationaLLM.Common.Models.Orchestration.Response;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace FoundationaLLM.Common.Models.Chat;
 
@@ -84,6 +85,19 @@ public record Message
     public Citation[]? Citations { get; set; }
 
     /// <summary>
+    /// One or more attachments included with the orchestration request.
+    /// The values should be the Object ID of the attachment(s).
+    /// </summary>
+    [JsonPropertyName("attachments")]
+    public List<string>? Attachments { get; init; }
+
+    /// <summary>
+    /// Contains the details of the attachments. This is not stored in the database.
+    /// </summary>
+    [Newtonsoft.Json.JsonIgnore]
+    public List<AttachmentDetail>? AttachmentDetails { get; set; }
+
+    /// <summary>
     /// The content of the message.
     /// </summary>
     [JsonPropertyName("content")]
@@ -94,7 +108,9 @@ public record Message
     /// </summary>
     public Message(string sessionId, string sender, int? tokens, string text,
         float[]? vector, bool? rating, string upn, string? senderDisplayName = null,
-        Citation[]? citations = null, string? expectedCompletion = null, List<MessageContent>? content = null)
+        Citation[]? citations = null, string? expectedCompletion = null,
+        List<MessageContent>? content = null, List<string>? attachments = null,
+        List<AttachmentDetail> attachmentDetails = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
@@ -109,6 +125,8 @@ public record Message
         UPN = upn;
         ExpectedCompletion = expectedCompletion;
         Citations = citations;
+        Attachments = attachments;
+        AttachmentDetails = attachmentDetails;
         Content = content;
     }
 }

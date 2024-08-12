@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia';
 import { useAppConfigStore } from './appConfigStore';
 import { useAuthStore } from './authStore';
-import type { Session, ChatSessionProperties, Message, Agent, ResourceProviderGetResult, Attachment } from '@/js/types';
+import type { 
+	Session,
+	ChatSessionProperties,
+	Message,
+	Agent,
+	ResourceProviderGetResult,
+	ResourceProviderUpsertResult,
+	Attachment
+} from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
 
@@ -311,13 +319,24 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async uploadAttachment(file: FormData, sessionId: string) {
-			const id = await api.uploadAttachment(file);
+			const agent = this.getSessionAgent(this.currentSession!).resource;
+			// If the agent is not found, do not upload the attachment and display an error message.
+			if (!agent) {
+				throw new Error('No agent selected.');
+			}
+
+			const upsertResult = await api.uploadAttachment(file, agent.name) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
-			const newAttachment = { id, fileName, sessionId };
+			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId };
 
 			this.attachments.push(newAttachment);
 
-			return id;
+			return upsertResult.objectId;
 		},
+
+		async deleteAttachment(attachment: Attachment) {
+			//await api.deleteAttachment(attachment.id);
+			this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
+		}
 	},
 });

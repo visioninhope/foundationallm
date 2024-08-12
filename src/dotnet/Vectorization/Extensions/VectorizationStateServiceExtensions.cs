@@ -1,4 +1,5 @@
 ﻿using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -47,7 +48,7 @@ namespace FoundationaLLM.Vectorization.Extensions
             var requestProcessingStates = new List<VectorizationProcessingState>();
             foreach (var vectorizationRequestObjectId in pipelineState.VectorizationRequestObjectIds)
             {
-                var vectorizationRequest = await vectorizationResourceProvider.GetResource<VectorizationRequest>(vectorizationRequestObjectId, userIdentity);
+                var vectorizationRequest = await vectorizationResourceProvider.HandleGet<VectorizationRequest>(vectorizationRequestObjectId, userIdentity);
 
                 if (vectorizationRequest == null)
                 {

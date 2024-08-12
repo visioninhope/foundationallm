@@ -37,6 +37,7 @@
 								<Button
 									icon="pi pi-images"
 									label="Choose"
+									:disabled="uploadProgress !== 0"
 									style="margin-right: 0.5rem"
 									@click="chooseCallback()"
 								></Button>
@@ -285,10 +286,12 @@ export default {
 						});
 					}
 				} catch (error) {
+					this.showFileUploadDialog = false;
+					this.uploadProgress = 0;
 					this.$toast.add({
 						severity: 'error',
 						summary: 'Error',
-						detail: `File upload failed. ${error.message}`,
+						detail: `File upload failed. ${error.message ? error.message : error.title ? error.title : ''}`,
 						life: 5000,
 					});
 				}
@@ -299,8 +302,9 @@ export default {
 			this.$refs.fileAttachmentPanel.toggle(event);
 		},
 
-		removeAttachment(file: any) {
-			this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
+		async removeAttachment(file: any) {
+			await this.$appStore.deleteAttachment(file);
+			//this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
 		},
 
 		browseFiles() {

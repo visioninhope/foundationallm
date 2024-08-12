@@ -1,6 +1,5 @@
 ﻿using Azure.Messaging;
 using FluentValidation;
-using FoundationaLLM.Attachment.Models;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -19,6 +18,9 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using FoundationaLLM.Common.Models.Chat;
+using System.Linq;
+using FoundationaLLM.Attachment.Models;
 
 namespace FoundationaLLM.Attachment.ResourceProviders
 {
@@ -169,7 +171,8 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     OriginalFileName = attachmentReference.OriginalFilename,
                     Type = attachmentReference.Type,
                     Path = $"{_storageContainerName}{attachmentReference.Filename}",
-                    ContentType = attachmentReference.ContentType
+                    ContentType = attachmentReference.ContentType,
+                    SecondaryProvider = attachmentReference.SecondaryProvider
                 };
 
                 if (loadContent)
@@ -264,8 +267,48 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) => throw new NotImplementedException();
+        protected override async Task<object> ExecuteActionAsync(ResourcePath resourcePath, string serializedAction, UnifiedUserIdentity userIdentity) =>
+            resourcePath.ResourceTypeInstances.Last().ResourceType switch
+            {
+                AttachmentResourceTypeNames.Attachments => resourcePath.ResourceTypeInstances.Last().Action switch
+                {
+                    ResourceProviderActions.Filter => Filter(serializedAction),
+                    _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
+                        StatusCodes.Status400BadRequest)
+                },
+                _ => throw new ResourceProviderException()
+            };
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        #region Helpers for ExecuteActionAsync
+
+        private List<AttachmentDetail> Filter(string serializedAction)
+        {
+            var resourceFilter = JsonSerializer.Deserialize<ResourceFilter>(serializedAction) ??
+                                 throw new ResourceProviderException("The object definition is invalid. Please provide a resource filter.",
+                                       StatusCodes.Status400BadRequest);
+            if (resourceFilter.ObjectIDs is {Count: > 0})
+            {
+                var filteredReferences =
+                    _attachmentReferences.Where(r => !string.IsNullOrWhiteSpace(r.Value.ObjectId) && resourceFilter.ObjectIDs.Contains(r.Value.ObjectId));
+
+                return filteredReferences.Select(r => new AttachmentDetail
+                {
+                    ObjectId = r.Value.ObjectId,
+                    DisplayName = r.Value.OriginalFilename,
+                    ContentType = r.Value.ContentType
+                }).ToList();
+
+            }
+            return _attachmentReferences.Select(r => new AttachmentDetail
+            {
+                ObjectId = r.Value.ObjectId,
+                DisplayName = r.Value.OriginalFilename,
+                ContentType = r.Value.ContentType
+            }).ToList();
+        }
+
+        #endregion
 
         /// <inheritdoc/>
         protected override async Task DeleteResourceAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity)
@@ -317,13 +360,20 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         #region Resource provider strongly typed operations
 
         /// <inheritdoc/>
-        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) where T : class
+        protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity, ResourceProviderOptions? options = null) where T : class
         {
             _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
             if (attachmentReference == null || attachmentReference.Deleted)
-                throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            {
+                // Force a refresh of the references one time to make sure we don't have a stale copy.
+                await InitializeInternal();
+                _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out attachmentReference);
 
-            var attachment = await LoadAttachment(attachmentReference, loadContent: false);
+                if (attachmentReference == null || attachmentReference.Deleted)
+                    throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+            }
+
+            var attachment = await LoadAttachment(attachmentReference, loadContent: options?.LoadContent ?? false);
             return attachment as T
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
         }
