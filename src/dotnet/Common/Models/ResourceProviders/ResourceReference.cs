@@ -10,6 +10,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         /// <summary>
         /// The unique identifier of the resource.
         /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? ObjectId { get; set; }
 
         /// <summary>

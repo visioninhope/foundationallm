@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text.Json;
+using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Gateway.Services
 {
@@ -262,12 +263,11 @@ namespace FoundationaLLM.Gateway.Services
             if (createAssistantFile)
             {
                 var attachmentObjectId = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AttachmentObjectId);
-                var attachmentFile = await _attachmentResourceProvider.GetResource<AttachmentFile>(attachmentObjectId, userIdentity);
+                var attachmentFile = await _attachmentResourceProvider.GetResource<AttachmentFile>(attachmentObjectId, userIdentity, new ResourceProviderOptions { LoadContent = true });
 
                 var response = await assistantsClient.UploadFileAsync(
                     attachmentFile.Content,
-                    OpenAIFilePurpose.Assistants,
-                    attachmentFile.OriginalFileName);
+                    OpenAIFilePurpose.Assistants);
                 var file = response.Value;
                 result[OpenAIAgentCapabilityParameterNames.AssistantFileId] = file.Id;
             }

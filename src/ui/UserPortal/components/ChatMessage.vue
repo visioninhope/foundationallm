@@ -36,6 +36,7 @@
 
 				<!-- Message text -->
 				<div class="message__body">
+					<AttachmentList v-if="message.sender === 'User'" :attachments="message.attachmentDetails" />
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
@@ -49,7 +50,7 @@
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
-							<div v-else-if="content.type === 'image'">
+							<div v-else-if="content.type === 'image_file'">
 								<img :src="content.value" :alt="content.file_name" />
 							</div>
 							<div v-else-if="content.type === 'html'">
@@ -159,6 +160,7 @@ import type { PropType } from 'vue';
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
+import AttachmentList from '@/components/AttachmentList.vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {
@@ -198,6 +200,10 @@ function addCodeHeaderComponents(htmlString) {
 export default {
 	name: 'ChatMessage',
 
+	components: {
+		AttachmentList
+	},
+
 	props: {
 		message: {
 			type: Object as PropType<Message>,
@@ -225,7 +231,7 @@ export default {
 
 	computed: {
 		compiledMarkdown() {
-			return DOMPurify.sanitize(marked(this.message.text));
+			return DOMPurify.sanitize(marked(this.message.text ?? ''));
 		},
 
 		compiledMarkdownComponent() {

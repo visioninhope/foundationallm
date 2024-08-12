@@ -1126,6 +1126,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
         /// </summary>
         public const string FoundationaLLM_Events_Profiles_GatekeeperAPI =
             "FoundationaLLM:Events:Profiles:GatekeeperAPI";
+        
+        /// <summary>
+        /// The app configuration key for the FoundationaLLM:Events:Profiles:GatewayAPI setting.
+        /// <para>Value description:<br/>The settings used by the Gateway API to process Azure Event Grid events.</para>
+        /// </summary>
+        public const string FoundationaLLM_Events_Profiles_GatewayAPI =
+            "FoundationaLLM:Events:Profiles:GatewayAPI";
 
         #endregion
 
@@ -1150,6 +1157,10 @@ namespace FoundationaLLM.Common.Constants.Configuration
         #endregion
 
         #region FoundationaLLM:Events:Profiles:GatekeeperAPI
+
+        #endregion
+
+        #region FoundationaLLM:Events:Profiles:GatewayAPI
 
         #endregion
     }

@@ -195,7 +195,7 @@ namespace FoundationaLLM.Common.Services.API
         {
             await EnsureConfigurationResourceProvider();
 
-            var endpointConfiguration = await _configurationResourceProvider!.GetResource<APIEndpointConfiguration>(
+            var endpointConfiguration = await _configurationResourceProvider!.HandleGet<APIEndpointConfiguration>(
                 $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{name}",
                 userIdentity)
                 ?? throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {name} endpoint configuration.");

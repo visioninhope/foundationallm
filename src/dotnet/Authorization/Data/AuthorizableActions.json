@@ -61,6 +61,21 @@
 				"name": "FoundationaLLM.AzureOpenAI/assistantUserContexts/delete",
 				"description": "Delete assistant user contexts.",
 				"field_name": "FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete"
+			},
+			{
+				"name": "FoundationaLLM.AzureOpenAI/fileUserContexts/read",
+				"description": "Read file user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_FileUserContexts_Read"
+			},
+			{
+				"name": "FoundationaLLM.AzureOpenAI/fileUserContexts/write",
+				"description": "Create or update file user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_FileUserContexts_Write"
+			},
+			{
+				"name": "FoundationaLLM.AzureOpenAI/fileUserContexts/delete",
+				"description": "Delete file user contexts.",
+				"field_name": "FoundationaLLM_AzureOpenAI_FileUserContexts_Delete"
 			}
 		]
 	},

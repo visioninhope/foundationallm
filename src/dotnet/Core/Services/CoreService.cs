@@ -1,3 +1,4 @@
+using System.Text.Json;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
@@ -22,6 +23,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Text.RegularExpressions;
+using FoundationaLLM.Common.Constants.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -77,8 +81,49 @@ public partial class CoreService(
     public async Task<List<Message>> GetChatSessionMessagesAsync(string instanceId, string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        return await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
+        var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
+
+        // Get a list of all attachment IDs in the messages.
+        var attachmentIds = messages.SelectMany(m => m.Attachments ?? Enumerable.Empty<string>()).Distinct().ToList();
+        if (attachmentIds.Count > 0)
+        {
+            var filter = new ResourceFilter
+            {
+                ObjectIDs = attachmentIds
+            };
+            // Get the attachment details from the attachment resource provider.
+            var result = await _attachmentResourceProvider!.HandlePostAsync(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{ResourceProviderActions.Filter}",
+                JsonSerializer.Serialize(filter),
+                _callContext.CurrentUserIdentity!);
+            // Cast the result to a list of AttachmentReference objects.
+            var attachmentReferences = result as List<AttachmentDetail> ?? [];
+
+            if (attachmentReferences.Count > 0)
+            {
+                
+                // Add the attachment details to the messages.
+                foreach (var message in messages)
+                {
+                    if (message.Attachments is { Count: > 0 })
+                    {
+                        var messageAttachmentDetails = new List<AttachmentDetail>();
+                        foreach (var attachment in message.Attachments)
+                        {
+                            var attachmentDetail = attachmentReferences.FirstOrDefault(ad => ad.ObjectId == attachment);
+                            if (attachmentDetail != null)
+                            {
+                                messageAttachmentDetails.Add(attachmentDetail);
+                            }
+                        }
+                        message.AttachmentDetails = messageAttachmentDetails;
+                    }
+                }
+            }
+        }
+
+        return messages.ToList();
     }
 
     /// <inheritdoc/>
@@ -132,7 +177,19 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
             // Create prompt message, then persist in Cosmos as transaction with the Session details.
-            var promptMessage = new Message(completionRequest.SessionId, nameof(Participants.User), null, completionRequest.UserPrompt, null, null, upn, _callContext.CurrentUserIdentity?.Name);
+            var promptMessage = new Message(
+                completionRequest.SessionId,
+                nameof(Participants.User),
+                null,
+                completionRequest.UserPrompt,
+                null,
+                null,
+                upn,
+                _callContext.CurrentUserIdentity?.Name,
+                null,
+                null,
+                null,
+                completionRequest.Attachments);
             await AddSessionMessageAsync(completionRequest.SessionId, promptMessage);
 
             var agentOption = await ProcessGatekeeperOptions(completionRequest);
@@ -144,7 +201,46 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             promptMessage.Tokens = result.PromptTokens;
             promptMessage.Vector = result.UserPromptEmbedding;
-            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations);
+
+            var newContent = new List<MessageContent>();
+
+            if (result.Content is {Count: > 0})
+            {
+                foreach (var content in result.Content)
+                {
+                    switch (content)
+                    {
+                        case OpenAITextMessageContentItem textMessageContent:
+                            if (textMessageContent.Annotations.Count > 0)
+                            {
+                                foreach (var annotation in textMessageContent.Annotations)
+                                {
+                                    newContent.Add(new MessageContent
+                                    {
+                                        Type = annotation.Type,
+                                        FileName = annotation.Text,
+                                        Value = annotation.FileUrl
+                                    });
+                                }
+                            }
+                            newContent.Add(new MessageContent
+                            {
+                                Type = textMessageContent.Type,
+                                Value = textMessageContent.Value
+                            });
+                            break;
+                        case OpenAIImageFileMessageContentItem imageFileMessageContent:
+                            newContent.Add(new MessageContent
+                            {
+                                Type = imageFileMessageContent.Type,
+                                Value = imageFileMessageContent.FileUrl
+                            });
+                            break;
+                    }
+                }
+            }
+
+            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations, null, newContent);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
             var completionPrompt = new CompletionPrompt(completionRequest.SessionId, completionMessage.Id, completionPromptText);
@@ -188,7 +284,7 @@ public partial class CoreService(
     {
         completionRequest = PrepareCompletionRequest(completionRequest);
         throw new NotImplementedException();
-    }        
+    }
 
     /// <inheritdoc/>
     public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
@@ -201,13 +297,13 @@ public partial class CoreService(
     /// <inheritdoc/>
     public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
     {
-        var agentBase = await _agentResourceProvider.GetResource<AgentBase>(
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>(
             $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
             userIdentity);
-        var aiModelBase = await _agentResourceProvider.GetResource<AIModelBase>(
+        var aiModelBase = await _aiModelResourceProvider.HandleGet<AIModelBase>(
             agentBase.AIModelObjectId!,
             userIdentity);
-        var apiEndpointConfiguration = await _configurationResourceProvider.GetResource<APIEndpointConfiguration>(
+        var apiEndpointConfiguration = await _configurationResourceProvider.HandleGet<APIEndpointConfiguration>(
             aiModelBase.EndpointObjectId!,
             userIdentity);
 
@@ -217,7 +313,7 @@ public partial class CoreService(
             ? ResourceProviderNames.FoundationaLLM_AzureOpenAI
             : null;
         var result = await _attachmentResourceProvider.UpsertResourceAsync<AttachmentFile, ResourceProviderUpsertResult>(
-                $"/instance/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
                 attachmentFile,
                 _callContext.CurrentUserIdentity!);
 
@@ -295,7 +391,7 @@ public partial class CoreService(
 
     private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
-        var agentBase = await _agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.GatekeeperSettings?.UseSystemSetting == false)
