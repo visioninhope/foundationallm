@@ -124,6 +124,8 @@ namespace FoundationaLLM.Management.API
                 allowACLAuthorization: isE2ETestEnvironment
             );
 
+            builder.AddLogging();
+
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(
                 AppConfigurationKeys.FoundationaLLM_APIEndpoints_ManagementAPI_Essentials_AppInsightsConnectionString,
