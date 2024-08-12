@@ -88,7 +88,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if self.prompt.suffix is not None:
             prompt_builder += f'\n\n{self.prompt.suffix}'
 
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if self.has_retriever or len(image_attachments) > 0:
             # Insert the user prompt into the template.
             prompt_builder += "\n\nQuestion: {question}"
@@ -216,7 +216,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         agent = request.agent
 
         image_analysis_results = None
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=False)
             image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
@@ -340,7 +340,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
         image_analysis_results = None
         # Get image attachments that are images with URL file paths.
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=True)
             image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
