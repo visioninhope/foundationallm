@@ -626,7 +626,7 @@ module openAiRoles './shared/roleAssignments.bicep' = [
 module openAiContribRole './shared/roleAssignments.bicep' = [
   for target in openAiContribRoleTargets: {
     scope: rg
-    name: '${target}-openai-roles-${timestamp}'
+    name: '${target}-openai-contrib-${timestamp}'
     params: {
       principalId: acaServices[indexOf(serviceNames, target)].outputs.miPrincipalId
       roleDefinitionNames: [
