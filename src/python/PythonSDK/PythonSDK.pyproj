@@ -127,8 +127,6 @@
     <Compile Include="foundationallm\config\__init__.py" />
     <Compile Include="foundationallm\operations\operations_manager.py" />
     <Compile Include="foundationallm\operations\__init__.py" />
-    <Compile Include="foundationallm\services\open_ai_async_event_handler.py" />
-    <Compile Include="foundationallm\services\open_ai_event_handler.py" />
     <Compile Include="foundationallm\services\__init__.py" />
     <Compile Include="foundationallm\storage\blob_storage_manager.py" />
     <Compile Include="foundationallm\storage\storage_manager_base.py" />
