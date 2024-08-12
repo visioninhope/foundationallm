@@ -50,5 +50,11 @@ namespace FoundationaLLM.Common.Interfaces
         Task<TResult> UpsertResourceAsync<T, TResult>(string resourcePath, T resource, UnifiedUserIdentity userIdentity)
             where T : ResourceBase
             where TResult : ResourceProviderUpsertResult;
+
+        /// <summary>
+        /// Initializes the resource provider.
+        /// </summary>
+        /// <returns></returns>
+        Task Initialize();
     }
 }

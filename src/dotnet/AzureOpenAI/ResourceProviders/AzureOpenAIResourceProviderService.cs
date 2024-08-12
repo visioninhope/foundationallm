@@ -1,5 +1,4 @@
 ﻿using Azure.AI.OpenAI.Assistants;
-using Azure.ResourceManager.Models;
 using FoundationaLLM.AzureOpenAI.Models;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants;
@@ -10,7 +9,6 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
-using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
@@ -20,9 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph.Models;
 using System.Collections.Concurrent;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 

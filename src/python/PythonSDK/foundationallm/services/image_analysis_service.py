@@ -1,16 +1,15 @@
 import base64
-import requests
 from foundationallm.models.attachments import AttachmentProperties
-from mimetypes import guess_type
+from foundationallm.config import Configuration
+from foundationallm.storage import BlobStorageManager
 from openai import AzureOpenAI, AsyncAzureOpenAI
 from typing import List, Union
-from urllib.parse import urlparse, unquote
 
 class ImageAnalysisService:
     """
     Performs image analysis via the Azure OpenAI SDK.
     """
-    def __init__(self, client: Union[AzureOpenAI, AsyncAzureOpenAI], deployment_model: str):
+    def __init__(self, config: Configuration, client: Union[AzureOpenAI, AsyncAzureOpenAI], deployment_model: str):
         """
         Initializes the ImageAnalysisService.
 
@@ -20,11 +19,14 @@ class ImageAnalysisService:
             Application configuration class for retrieving configuration settings.
         client : Union[AzureOpenAI, AsyncAzureOpenAI]
             The Azure OpenAI client to use for image analysis.
+        deployment_model : str
+            The deployment model to use for the Azure OpenAI client.
         """
+        self.config = config
         self.client = client
         self.deployment_model = deployment_model
 
-    def _get_as_base64(self, mime_type: str, image_url: str) -> str:
+    def _get_as_base64(self, mime_type: str, storage_account_name, file_path: str) -> str:
         """
         Retrieves an image from its URL and converts it to a base64 string.
 
@@ -40,7 +42,38 @@ class ImageAnalysisService:
         str
             The image as a base64 string.
         """
-        return f"data:{mime_type};base64,{base64.b64encode(requests.get(image_url).content).decode('utf-8')}"
+        try:
+            # Remove any leading slashes from the file path.
+            file_path = file_path.lstrip('/')
+            # Attempt to retrieve the image from blob storage.
+            container_name = file_path.split('/')[0]
+            # Get the file path without the container name.
+            file_name = file_path.removeprefix(container_name)
+
+            image_base64 = None
+
+            try:
+                storage_manager = BlobStorageManager(
+                    account_name=storage_account_name,
+                    container_name=container_name,
+                    authentication_type=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AuthenticationType')
+                )
+            except Exception as e:
+                raise Exception(f'Error connecting to the {storage_account_name} blob storage account and the container named {container_name}: {e}')
+            
+            if (storage_manager.file_exists(file_name)):
+                try:
+                    # Get the image file from blob storage.
+                    image_blob = storage_manager.read_file_content(file_name)
+                    image_base64 = base64.b64encode(image_blob).decode('utf-8')
+                    return f"data:{mime_type};base64,{image_base64}"
+                except Exception as e:
+                    raise Exception(f'The specified image {storage_account_name}/{file_path} does not exist.')
+            else:
+                raise Exception(f'The specified image {storage_account_name}/{file_path} does not exist.')
+        except Exception as e:
+            print(f'Error getting image as base64: {e}')
+            return None
 
     def format_results(self, image_analyses: dict) -> str:
         """
@@ -76,33 +109,37 @@ class ImageAnalysisService:
 
         for attachment in image_attachments:
             if attachment.content_type.startswith('image/'):
-                response = await self.client.chat.completions.create(
-                    model=self.deployment_model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": "You are a helpful assistant who provides information about the data found in images. Provide key insights and analysis about the data in the image. You should provide as many details as possible and be specific. Output the results in a markdown formatted table."
-                        },
-                        {
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "content": "Analyze the image:"
-                                },
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": self._get_as_base64(mime_type=attachment.content_type, image_url=f'https://{attachment.provider_storage_account_name}.blob.core.windows.net/{attachment.provider_file_name}')
+                image_as_data = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
+                if image_as_data is not None:
+                    response = await self.client.chat.completions.create(
+                        model=self.deployment_model,
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": "You are a helpful assistant who analyzes and describes images. Provide as many key insights and analysis about the data in the image as possible. Output the results in a markdown formatted table."
+                            },
+                            {
+                                "role": "user",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "Analyze the image:"
+                                    },
+                                    {
+                                        "type": "image_url",
+                                        "image_url": {
+                                            "url": image_as_data
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens=4000,
-                    temperature=0.5
-                )
-                image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                                ]
+                            }
+                        ],
+                        max_tokens=4000,
+                        temperature=0.5
+                    )
+                    image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                else:
+                    image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
     
         return image_analyses
 
@@ -119,32 +156,36 @@ class ImageAnalysisService:
     
         for attachment in image_attachments:
             if attachment.content_type.startswith('image/'):
-                response = self.client.chat.completions.create(
-                    model=self.deployment_model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": "You are a helpful assistant who provides information about the data found in images. Provide key insights and analysis about the data in the image. You should provide as many details as possible and be specific. Output the results in a markdown formatted table."
-                        },
-                        {
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "content": "Analyze the image:"
-                                },
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": self._get_as_base64(mime_type=attachment.content_type, image_url=f'https://{attachment.provider_storage_account_name}.blob.windows.net/{attachment.provider_file_name}')
+                image_as_data = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
+                if image_as_data is not None:
+                    response = self.client.chat.completions.create(
+                        model=self.deployment_model,
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": "You are a helpful assistant who analyzes and describes images. Provide as many key insights and analysis about the data in the image as possible. Output the results in a markdown formatted table."
+                            },
+                            {
+                                "role": "user",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "Analyze the image:"
+                                    },
+                                    {
+                                        "type": "image_url",
+                                        "image_url": {
+                                            "url": image_as_data
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    ],
-                    max_tokens=4000,
-                    temperature=0.5
-                )
-                image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                                ]
+                            }
+                        ],
+                        max_tokens=4000,
+                        temperature=0.5
+                    )
+                    image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                else:
+                    image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
     
         return image_analyses
