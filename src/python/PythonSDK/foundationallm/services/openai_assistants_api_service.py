@@ -8,6 +8,7 @@ from openai.pagination import AsyncCursorPage, SyncCursorPage
 from openai.types import FileObject
 from openai.types.beta.threads import FileCitationAnnotation, FilePathAnnotation, ImageFileContentBlock, ImageURLContentBlock, Message, TextContentBlock
 from openai.types.beta.threads.message import Attachment
+from openai.types.beta.threads.runs.code_interpreter_tool_call import CodeInterpreterOutputImage, CodeInterpreterToolCall
 from foundationallm.models.constants import AgentCapabilityCategories
 from foundationallm.models.orchestration import (
     OpenAIFilePathMessageContentItem,
@@ -15,7 +16,6 @@ from foundationallm.models.orchestration import (
     OpenAITextMessageContentItem
 )
 from foundationallm.models.services import OpenAIAssistantsAPIRequest, OpenAIAssistantsAPIResponse
-from foundationallm.services import OpenAIAsyncEventHandler, OpenAIEventHandler
 
 class OpenAIAssistantsApiService:
     """
@@ -72,26 +72,40 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        accumulatorHandler = OpenAIEventHandler()
-        with self.client.beta.threads.runs.stream(
-          thread_id=request.thread_id,
-          assistant_id=request.assistant_id,
-          event_handler=accumulatorHandler,
-        ) as stream:
-          stream.until_done()
-
-        run = stream.get_final_run()
+        run = self.client.beta.threads.runs.create_and_poll(
+            thread_id = request.thread_id,
+            assistant_id = request.assistant_id
+            )
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
-            thread_id=request.thread_id, order="asc", after=message.id
+            thread_id = request.thread_id, order="asc", after=message.id
         )
+
+        # Retrieve the steps from the run_steps for the analysis
+        run_steps = self.client.beta.threads.runs.steps.list(
+          thread_id = request.thread_id,
+          run_id = run.id
+        )
+        analysis = ""
+        for i in range(len(run_steps.data)):
+            sd = run_steps.data[i].step_details
+            if sd.type == "tool_calls":
+                tool_call_detail = sd.tool_calls
+                for details in tool_call_detail:
+                    if isinstance(details, CodeInterpreterToolCall):
+                        analysis += details.code_interpreter.input # Algorithm
+                        for output in details.code_interpreter.outputs:
+                            if isinstance(output, CodeInterpreterOutputImage):
+                                analysis += "# Generated image file: "+ output.image.file_id                            
+                            else: # Logs
+                                analysis += output.logs # Output
 
         content = self._parse_messages(messages)
         
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis = accumulatorHandler.get_buffer(),
+            analysis = "",
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
@@ -124,26 +138,40 @@ class OpenAIAssistantsApiService:
         )
         
         # Create and execute the run
-        accumulatorHandler = OpenAIAsyncEventHandler()
-        async with self.client.beta.threads.runs.stream(
-          thread_id=request.thread_id,
-          assistant_id=request.assistant_id,
-          event_handler=accumulatorHandler,
-        ) as stream:
-          await stream.until_done()
+        run = await self.client.beta.threads.runs.create_and_poll(
+            thread_id = request.thread_id,
+            assistant_id = request.assistant_id
+            )
 
-        run = await stream.get_final_run()
-        
+        # Retrieve the steps from the run_steps for the analysis
+        run_steps = await self.client.beta.threads.runs.steps.list(
+          thread_id = request.thread_id,
+          run_id = run.id
+        )
+        analysis = ""
+        for i in range(len(run_steps.data)):
+            sd = run_steps.data[i].step_details
+            if sd.type == "tool_calls":
+                tool_call_detail = sd.tool_calls
+                for details in tool_call_detail:
+                    if isinstance(details, CodeInterpreterToolCall):
+                        analysis += details.code_interpreter.input # Algorithm
+                        for output in details.code_interpreter.outputs:
+                            if isinstance(output, CodeInterpreterOutputImage):
+                                analysis += "# Generated image file: "+ output.image.file_id                            
+                            else: # Logs
+                                analysis += output.logs # Output
+     
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
             thread_id=request.thread_id, order="asc", after=message.id
         )
 
         content = await self._aparse_messages(messages)
-        
+
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis = await accumulatorHandler.get_buffer(),
+            analysis = analysis,
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
