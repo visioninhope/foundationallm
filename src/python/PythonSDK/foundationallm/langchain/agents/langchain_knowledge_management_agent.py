@@ -25,6 +25,7 @@ from foundationallm.models.resource_providers.vectorization import (
 )
 from foundationallm.models.services import OpenAIAssistantsAPIRequest
 from foundationallm.services import ImageAnalysisService, OpenAIAssistantsApiService
+from openai.types import CompletionUsage
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
@@ -214,13 +215,17 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
 
         agent = request.agent
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
         image_analysis_results = None
         image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=False)
             image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
-            image_analysis_results = image_analysis_svc.analyze_images(image_attachments)
+            image_analysis_results, usage = image_analysis_svc.analyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
@@ -261,9 +266,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 full_prompt = self.prompt.prefix,
                 content = assistant_response.content,
                 analysis_result = assistant_response.analysis_result,
-                completion_tokens = assistant_response.completion_tokens,
-                prompt_tokens = assistant_response.prompt_tokens,
-                total_tokens = assistant_response.total_tokens,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
                 )
 
@@ -311,9 +316,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:
@@ -338,6 +343,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
 
         agent = request.agent
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
         image_analysis_results = None
         # Get image attachments that are images with URL file paths.
@@ -345,7 +351,10 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=True)
             image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
-            image_analysis_results = await image_analysis_svc.aanalyze_images(image_attachments)
+            image_analysis_results, usage = await image_analysis_svc.aanalyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
@@ -387,9 +396,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 full_prompt = self.prompt.prefix,
                 analysis_result = assistant_response.analysis_result,
                 content = assistant_response.content,
-                completion_tokens = assistant_response.completion_tokens,
-                prompt_tokens = assistant_response.prompt_tokens,
-                total_tokens = assistant_response.total_tokens,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
                 )          
 
@@ -442,9 +451,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:
