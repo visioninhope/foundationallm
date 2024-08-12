@@ -1,7 +1,7 @@
-using System.Text.Json;
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
@@ -10,6 +10,7 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
 using FoundationaLLM.Common.Models.Orchestration.Request;
 using FoundationaLLM.Common.Models.Orchestration.Response;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
@@ -21,11 +22,8 @@ using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.IO;
+using System.Text.Json;
 using System.Text.RegularExpressions;
-using FoundationaLLM.Common.Constants.Orchestration;
-using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
-using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -74,7 +72,7 @@ public partial class CoreService(
 
     /// <inheritdoc/>
     public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
-        await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ?? 
+        await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ??
                                                               throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat sessions."));
 
     /// <inheritdoc/>
@@ -102,7 +100,7 @@ public partial class CoreService(
 
             if (attachmentReferences.Count > 0)
             {
-                
+
                 // Add the attachment details to the messages.
                 foreach (var message in messages)
                 {
@@ -383,6 +381,55 @@ public partial class CoreService(
         return null;
     }
 
+    /// <inheritdoc/>
+    public async Task<Dictionary<string, ResourceProviderDeleteResult?>> DeleteAttachments(
+        string instanceId, List<string> resourcePaths, UnifiedUserIdentity userIdentity)
+    {
+        var results = resourcePaths.ToDictionary(key => key, value => (ResourceProviderDeleteResult?)null);
+
+        foreach (var resourcePath in resourcePaths)
+        {
+            try
+            {
+                if (!ResourcePath.TryParseResourceProvider(resourcePath, out var resourceProviderName))
+                    throw new ResourceProviderException(
+                        $"Invalid resource provider for resource path [{resourcePath}].");
+
+                if (resourceProviderName != ResourceProviderNames.FoundationaLLM_Attachment)
+                    throw new ResourceProviderException(
+                        $"The resource provider [{resourceProviderName}] is not supported by the delete attachments endpoint.");
+
+                await _attachmentResourceProvider.HandleDeleteAsync(resourcePath, userIdentity);
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = true
+                };
+            }
+            catch (ResourceProviderException rpex)
+            {
+                _logger.LogError(rpex, "{Message}", rpex.Message);
+
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = false,
+                    Reason = rpex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was an error when handling the deletion for resource path [{ResourcePath}].", resourcePath);
+
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = false,
+                    Reason = $"There was an error when handling the deletion for resource path [{resourcePath}]."
+                };
+            }
+        }
+
+        return results;
+    }
+
     private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
         ((agentOption == AgentGatekeeperOverrideOption.UseSystemOption) && _settings.BypassGatekeeper)
         || (agentOption == AgentGatekeeperOverrideOption.MustBypass)
@@ -417,7 +464,7 @@ public partial class CoreService(
 
         // Update session cache with tokens used.
         session.TokensUsed += message.Tokens;
-       
+
         // Add the user's UPN to the messages.
         var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
         message.UPN = upn;

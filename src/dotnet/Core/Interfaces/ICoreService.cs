@@ -114,7 +114,8 @@ public interface ICoreService
     /// <param name="agentName">The name of the agent.</param>
     /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
     /// <returns>A <see cref="ResourceProviderUpsertResult"/> object with the FoundationaLLM.Attachment resource provider object id.</returns>
-    Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity);
+    Task<ResourceProviderUpsertResult> UploadAttachment(
+        string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity);
 
     /// <summary>
     /// Downloads an attachment.
@@ -131,5 +132,16 @@ public interface ICoreService
     /// <item>FoundationaLLM.AzureOpenAI</item>
     /// </list>
     /// </remarks>
-    Task<AttachmentFile?> DownloadAttachment(string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity); 
+    Task<AttachmentFile?> DownloadAttachment(
+        string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity);
+
+    /// <summary>
+    /// Deletes one or more attachments.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="resourcePaths">The list of resources to be deleted.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>A dictionary with the delete operation result for each resource path.</returns>
+    Task<Dictionary<string, ResourceProviderDeleteResult?>> DeleteAttachments(
+        string instanceId, List<string> resourcePaths, UnifiedUserIdentity userIdentity);
 }
