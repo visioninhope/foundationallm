@@ -59,18 +59,19 @@ export default {
 	 * @returns A promise that resolves to the fetched data.
 	 */
 	async fetch(url: string, opts: any = {}) {
+		const response = await this.fetchDirect(`${this.apiUrl}${url}`, opts);
+		return response;
+	},
+
+	async fetchDirect(url: string, opts: any = {}) {
 		const options = opts;
 		options.headers = opts.headers || {};
-
-		// if (options?.query) {
-		// 	url += '?' + (new URLSearchParams(options.query)).toString();
-		// }
 
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
 
 		try {
-			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			const response = await $fetch(url, options);
 			if (response.status >= 400) {
 				throw response;
 			}

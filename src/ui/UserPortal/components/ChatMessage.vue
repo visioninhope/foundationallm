@@ -51,13 +51,13 @@
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
 							<div v-else-if="content.type === 'image_file'">
-								<img :src="content.value" :alt="content.file_name" />
+								<img :src="content.blobUrl" :alt="content.file_name" />
 							</div>
 							<div v-else-if="content.type === 'html'">
-								<iframe :src="content.value" frameborder="0"></iframe>
+								<iframe :src="content.blobUrl" frameborder="0"></iframe>
 							</div>
 							<div v-else-if="content.type === 'file_path'">
-								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+								Download <a :href="content.blobUrl" target="_blank">{{ content.fileName ?? content.value }}</a>
 							</div>
 						</div>
 					</template>
@@ -316,6 +316,25 @@ export default {
 			this.prompt = prompt;
 			this.viewPrompt = true;
 		},
+
+		// Add this method to fetch content files securely
+		async fetchContentFiles() {
+			for (const content of this.message.content) {
+				if (['image_file', 'html', 'file_path'].includes(content.type)) {
+					try {
+						const response = await api.fetchDirect(content.value, { responseType: 'blob' });
+						const blobUrl = URL.createObjectURL(response);
+						content.blobUrl = blobUrl;
+					} catch (error) {
+						console.error(`Failed to fetch content from ${content.value}`, error);
+					}
+				}
+			}
+		},
+	},
+
+	mounted() {
+		this.fetchContentFiles();
 	},
 };
 </script>
