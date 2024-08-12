@@ -104,3 +104,12 @@ export interface Attachment {
 	fileName: string;
 	sessionId: string;
 }
+
+export interface ResourceProviderDeleteResult {
+    deleted: boolean;
+  	reason?: string;
+}
+
+export interface ResourceProviderDeleteResults {
+	[key: string]: ResourceProviderDeleteResult;
+}

@@ -7,6 +7,8 @@ import type {
 	CompletionRequest,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
+	ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults
 } from '@/js/types';
 
 export default {
@@ -291,6 +293,18 @@ export default {
 
 		return response;
 	},
+
+	/**
+	 * Deletes attachments from the server.
+	 * @param attachments - An array of attachment names to be deleted.
+	 * @returns A promise that resolves to the delete results.
+	 */
+	async deleteAttachments(attachments: string[]) {
+		return await this.fetch(`/instances/${this.instanceId}/files/delete`, {
+			method: 'POST',
+			body: JSON.stringify(attachments),
+		}) as ResourceProviderDeleteResults;
+	}
 };
 
 function formatError(error: any): string {
