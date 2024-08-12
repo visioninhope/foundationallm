@@ -8,6 +8,8 @@ import type {
 	Agent,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
+	ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults,
 	Attachment
 } from '@/js/types';
 import api from '@/js/api';
@@ -335,8 +337,16 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async deleteAttachment(attachment: Attachment) {
-			//await api.deleteAttachment(attachment.id);
-			this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
-		}
+			const deleteResults: ResourceProviderDeleteResults = await api.deleteAttachments([attachment.id]);
+			Object.entries(deleteResults).forEach(([key, value]) => {
+				if (key === attachment.id) {
+					if (value.deleted) {
+						this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
+					} else {
+						throw new Error(`Could not delete the attachment: ${value.reason}`);
+					}
+				}
+			});
+		},
 	},
 });
