@@ -123,18 +123,26 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             List<AttachmentProperties> result = [];
             await foreach (var attachment in attachments)
+            {
+                var useAttachmentPath =
+                    string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
+                    || (attachment.ContentType ?? string.Empty).StartsWith("image/", StringComparison.OrdinalIgnoreCase);
+
                 result.Add(new AttachmentProperties
                 {
                     OriginalFileName = attachment.OriginalFileName,
                     ContentType = attachment.ContentType!,
-                    Provider = attachment.SecondaryProvider ?? ResourceProviderNames.FoundationaLLM_Attachment,
-                    ProviderFileName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
+                    Provider = useAttachmentPath
+                        ? ResourceProviderNames.FoundationaLLM_Attachment
+                        : attachment.SecondaryProvider!,
+                    ProviderFileName = useAttachmentPath
                         ? attachment.Path
                         : fileUserContext.Files[attachment.ObjectId!].OpenAIFileId!,
-                    ProviderStorageAccountName = string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
+                    ProviderStorageAccountName = useAttachmentPath
                         ? _attachmentResourceProvider.StorageAccountName
                         : null
                 });
+            }
 
             return result;
         }
