@@ -860,6 +860,13 @@
             "label": null,
             "content_type": "application/json",
             "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Events:Profiles:GatewayAPI",
+            "value": "{{gatewayApiEventGridProfile}}",
+            "label": null,
+            "content_type": "application/json",
+            "tags": {}
         }
     ]
 }
