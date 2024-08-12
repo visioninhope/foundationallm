@@ -71,6 +71,11 @@ $envConfiguraitons = @{
         render       = './config/gatekeeper-api-event-profile.json'
         variableName = 'FOUNDATIONALLM_GATEKEEPER_API_EVENT_GRID_PROFILE'
     }
+    "gateway-api-event-profile"             = @{
+        template     = './config/gateway-api-event-profile.template.json'
+        render       = './config/gateway-api-event-profile.json'
+        variableName = 'FOUNDATIONALLM_GATEWAY_API_EVENT_GRID_PROFILE'
+    }
     "orchestration-api-event-profile"    = @{
         template     = './config/orchestration-api-event-profile.template.json'
         render       = './config/orchestration-api-event-profile.json'
@@ -203,6 +208,7 @@ else {
     $env:PATH = $env:PATH, "$(Split-Path -Path $pwd.Path -Parent)/common/tools/azcopy" -join $separator
 }
 
+$env:AZCOPY_AUTO_LOGIN_TYPE="AZCLI"
 $target = "https://$env:AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/resource-provider/"
 
 azcopy cp '../common/data/resource-provider/*' $target --exclude-pattern .git* --recursive=True
