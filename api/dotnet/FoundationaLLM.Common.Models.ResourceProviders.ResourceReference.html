@@ -176,7 +176,7 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Deleted" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Deleted">
   Deleted
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Indicates whether the resource has been logically deleted.</p>
@@ -208,7 +208,7 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Filename" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Filename">
   Filename
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The filename of the resource.</p>
@@ -240,7 +240,7 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Name" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource.</p>
@@ -280,7 +280,8 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? ObjectId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+public string? ObjectId { get; set; }</code></pre>
   </div>
 
 
@@ -304,7 +305,7 @@ Class ResourceReference  <a class="header-action link-secondary" title="View sou
 
   <h3 id="FoundationaLLM_Common_Models_ResourceProviders_ResourceReference_Type" data-uid="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.Type">
   Type
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/ResourceProviders/ResourceReference.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The type of the resource.</p>

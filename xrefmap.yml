@@ -102,15 +102,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal
   nameWithType: AIModelResourceProviderService.GetResourceInternal
-- uid: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.html#FoundationaLLM_AIModel_ResourceProviders_AIModelResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: AIModelResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: AIModelResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.html#FoundationaLLM_AIModel_ResourceProviders_AIModelResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: AIModelResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: AIModelResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.AIModel.ResourceProviders.AIModelResourceProviderService.html#FoundationaLLM_AIModel_ResourceProviders_AIModelResourceProviderService_GetResourceTypes
@@ -617,15 +617,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal
   nameWithType: AttachmentResourceProviderService.GetResourceInternal
-- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: AttachmentResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: AttachmentResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: AttachmentResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: AttachmentResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.html#FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceTypes
@@ -2300,15 +2300,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal
   nameWithType: AzureOpenAIResourceProviderService.GetResourceInternal
-- uid: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.html#FoundationaLLM_AzureOpenAI_ResourceProviders_AzureOpenAIResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: AzureOpenAIResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: AzureOpenAIResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.html#FoundationaLLM_AzureOpenAI_ResourceProviders_AzureOpenAIResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: AzureOpenAIResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: AzureOpenAIResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.AzureOpenAI.ResourceProviders.AzureOpenAIResourceProviderService.html#FoundationaLLM_AzureOpenAI_ResourceProviders_AzureOpenAIResourceProviderService_GetResourceTypes
@@ -5321,6 +5321,24 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write
   fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write
   nameWithType: AuthorizableActionNames.FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+  name: FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+  nameWithType: AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Delete
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+  name: FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+  nameWithType: AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Read
+- uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write
+  name: FoundationaLLM_AzureOpenAI_FileUserContexts_Write
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_AzureOpenAI_FileUserContexts_Write
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write
+  fullName: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write
+  nameWithType: AuthorizableActionNames.FoundationaLLM_AzureOpenAI_FileUserContexts_Write
 - uid: FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.FoundationaLLM_Completion_ChatSessions_Delete
   name: FoundationaLLM_Completion_ChatSessions_Delete
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.AuthorizableActionNames.html#FoundationaLLM_Common_Constants_Authorization_AuthorizableActionNames_FoundationaLLM_Completion_ChatSessions_Delete
@@ -5915,6 +5933,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
   nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatekeeperAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatewayAPI
+  name: FoundationaLLM_Events_Profiles_GatewayAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_GatewayAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatewayAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatewayAPI
+  nameWithType: AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_GatewayAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeyFilters.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeyFilters_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -6257,6 +6281,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
   nameWithType: AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatekeeperAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatewayAPI
+  name: FoundationaLLM_Events_Profiles_GatewayAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Events_Profiles_GatewayAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatewayAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatewayAPI
+  nameWithType: AppConfigurationKeySections.FoundationaLLM_Events_Profiles_GatewayAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeySections.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeySections_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -6863,6 +6893,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
   nameWithType: AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatekeeperAPI
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatewayAPI
+  name: FoundationaLLM_Events_Profiles_GatewayAPI
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Events_Profiles_GatewayAPI
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatewayAPI
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatewayAPI
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Events_Profiles_GatewayAPI
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Events_Profiles_ManagementAPI
   name: FoundationaLLM_Events_Profiles_ManagementAPI
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Events_Profiles_ManagementAPI
@@ -9601,31 +9637,6 @@ references:
   fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.CreateOrUpdateResource(Of T, TResult)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, T, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   nameWithType: ResourceProviderServiceExtensions.CreateOrUpdateResource<T, TResult>(IResourceProviderService, string, T, string, UnifiedUserIdentity)
   nameWithType.vb: ResourceProviderServiceExtensions.CreateOrUpdateResource(Of T, TResult)(IResourceProviderService, String, T, String, UnifiedUserIdentity)
-- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource*
-  name: GetResource
-  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource_
-  commentId: Overload:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource
-  isSpec: "True"
-  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource
-  nameWithType: ResourceProviderServiceExtensions.GetResource
-- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResource<T>(IResourceProviderService, string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResource(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ResourceProviderServiceExtensions.GetResource<T>(IResourceProviderService, string, UnifiedUserIdentity)
-  nameWithType.vb: ResourceProviderServiceExtensions.GetResource(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
-- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResource<T>(IResourceProviderService, string, string, string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResource__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResource(Of T)(IResourceProviderService, String, String, String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, string, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResource(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, String, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ResourceProviderServiceExtensions.GetResource<T>(IResourceProviderService, string, string, string, UnifiedUserIdentity)
-  nameWithType.vb: ResourceProviderServiceExtensions.GetResource(Of T)(IResourceProviderService, String, String, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources*
   name: GetResources
   href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_GetResources_
@@ -9658,6 +9669,31 @@ references:
   fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.GetResources(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   nameWithType: ResourceProviderServiceExtensions.GetResources<T>(IResourceProviderService, UnifiedUserIdentity)
   nameWithType.vb: ResourceProviderServiceExtensions.GetResources(Of T)(IResourceProviderService, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet*
+  name: HandleGet
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_HandleGet_
+  commentId: Overload:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet
+  nameWithType: ResourceProviderServiceExtensions.HandleGet
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: HandleGet<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_HandleGet__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: HandleGet(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ResourceProviderServiceExtensions.HandleGet<T>(IResourceProviderService, string, UnifiedUserIdentity)
+  nameWithType.vb: ResourceProviderServiceExtensions.HandleGet(Of T)(IResourceProviderService, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: HandleGet<T>(IResourceProviderService, string, string, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_HandleGet__1_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet``1(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: HandleGet(Of T)(IResourceProviderService, String, String, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet<T>(FoundationaLLM.Common.Interfaces.IResourceProviderService, string, string, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.HandleGet(Of T)(FoundationaLLM.Common.Interfaces.IResourceProviderService, String, String, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ResourceProviderServiceExtensions.HandleGet<T>(IResourceProviderService, string, string, string, UnifiedUserIdentity)
+  nameWithType.vb: ResourceProviderServiceExtensions.HandleGet(Of T)(IResourceProviderService, String, String, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.ResourceExists(FoundationaLLM.Common.Interfaces.IResourceProviderService,System.String,System.String,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name: ResourceExists(IResourceProviderService, string, string, string, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Extensions.ResourceProviderServiceExtensions.html#FoundationaLLM_Common_Extensions_ResourceProviderServiceExtensions_ResourceExists_FoundationaLLM_Common_Interfaces_IResourceProviderService_System_String_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
@@ -10597,15 +10633,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource
   nameWithType: IResourceProviderService.GetResource
-- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResource<T>(string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResource(Of T)(String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: IResourceProviderService.GetResource<T>(string, UnifiedUserIdentity)
-  nameWithType.vb: IResourceProviderService.GetResource(Of T)(String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResource<T>(string, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResource(Of T)(String, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: IResourceProviderService.GetResource<T>(string, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: IResourceProviderService.GetResource(Of T)(String, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.IsInitialized
   name: IsInitialized
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_IsInitialized
@@ -12827,6 +12863,51 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Chat
   fullName: FoundationaLLM.Common.Models.Chat
   nameWithType: FoundationaLLM.Common.Models.Chat
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail
+  name: AttachmentDetail
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html
+  commentId: T:FoundationaLLM.Common.Models.Chat.AttachmentDetail
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail
+  nameWithType: AttachmentDetail
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_ContentType
+  commentId: P:FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType
+  nameWithType: AttachmentDetail.ContentType
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType*
+  name: ContentType
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_ContentType_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ContentType
+  nameWithType: AttachmentDetail.ContentType
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName
+  name: DisplayName
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_DisplayName
+  commentId: P:FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName
+  nameWithType: AttachmentDetail.DisplayName
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName*
+  name: DisplayName
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_DisplayName_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.DisplayName
+  nameWithType: AttachmentDetail.DisplayName
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_ObjectId
+  commentId: P:FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId
+  nameWithType: AttachmentDetail.ObjectId
+- uid: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId*
+  name: ObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.AttachmentDetail.html#FoundationaLLM_Common_Models_Chat_AttachmentDetail_ObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.AttachmentDetail.ObjectId
+  nameWithType: AttachmentDetail.ObjectId
 - uid: FoundationaLLM.Common.Models.Chat.ChatSessionProperties
   name: ChatSessionProperties
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.ChatSessionProperties.html
@@ -13077,15 +13158,15 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.Message
   fullName: FoundationaLLM.Common.Models.Chat.Message
   nameWithType: Message
-- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent})
-  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?)
-  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__
-  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent})
-  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent))
-  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Response.Citation[]?, string?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.MessageContent>?)
-  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Response.Citation(), String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.MessageContent))
-  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?)
-  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent))
+- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail})
+  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>)
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__System_Collections_Generic_List_System_String__System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_AttachmentDetail__
+  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail})
+  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail))
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Response.Citation[]?, string?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.MessageContent>?, System.Collections.Generic.List<string>?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.AttachmentDetail>)
+  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Response.Citation(), String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.MessageContent), System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.AttachmentDetail))
+  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>)
+  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail))
 - uid: FoundationaLLM.Common.Models.Chat.Message.#ctor*
   name: Message
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_
@@ -13096,6 +13177,32 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New
   nameWithType: Message.Message
   nameWithType.vb: Message.New
+- uid: FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
+  name: AttachmentDetails
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_AttachmentDetails
+  commentId: P:FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
+  fullName: FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
+  nameWithType: Message.AttachmentDetails
+- uid: FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails*
+  name: AttachmentDetails
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_AttachmentDetails_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
+  nameWithType: Message.AttachmentDetails
+- uid: FoundationaLLM.Common.Models.Chat.Message.Attachments
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Attachments
+  commentId: P:FoundationaLLM.Common.Models.Chat.Message.Attachments
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Attachments
+  nameWithType: Message.Attachments
+- uid: FoundationaLLM.Common.Models.Chat.Message.Attachments*
+  name: Attachments
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Attachments_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.Message.Attachments
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Attachments
+  nameWithType: Message.Attachments
 - uid: FoundationaLLM.Common.Models.Chat.Message.Citations
   name: Citations
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_Citations
@@ -19984,6 +20091,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.Default
   nameWithType: ResourceFilter.Default
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs
+  name: ObjectIDs
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceFilter_ObjectIDs
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs
+  nameWithType: ResourceFilter.ObjectIDs
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs*
+  name: ObjectIDs
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceFilter_ObjectIDs_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceFilter.ObjectIDs
+  nameWithType: ResourceFilter.ObjectIDs
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceName
   name: ResourceName
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceName.html
@@ -20339,6 +20459,25 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderGetResult(Of T).Roles
   nameWithType: ResourceProviderGetResult<T>.Roles
   nameWithType.vb: ResourceProviderGetResult(Of T).Roles
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions
+  name: ResourceProviderOptions
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.html
+  commentId: T:FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions
+  nameWithType: ResourceProviderOptions
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent
+  name: LoadContent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_LoadContent
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent
+  nameWithType: ResourceProviderOptions.LoadContent
+- uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent*
+  name: LoadContent
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.html#FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_LoadContent_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions.LoadContent
+  nameWithType: ResourceProviderOptions.LoadContent
 - uid: FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderUpsertResult
   name: ResourceProviderUpsertResult
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderUpsertResult.html
@@ -23552,15 +23691,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal
   nameWithType: ResourceProviderServiceBase.GetResourceInternal
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ResourceProviderServiceBase.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: ResourceProviderServiceBase.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: ResourceProviderServiceBase.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: ResourceProviderServiceBase.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcePath(System.String,System.Boolean)
   name: GetResourcePath(string, bool)
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_System_String_System_Boolean_
@@ -23606,15 +23745,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourceTypes
   nameWithType: ResourceProviderServiceBase.GetResourceTypes
-- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResource<T>(string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResource(Of T)(String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ResourceProviderServiceBase.GetResource<T>(string, UnifiedUserIdentity)
-  nameWithType.vb: ResourceProviderServiceBase.GetResource(Of T)(String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResource<T>(string, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource``1(System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResource(Of T)(String, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource<T>(string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResource(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: ResourceProviderServiceBase.GetResource<T>(string, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: ResourceProviderServiceBase.GetResource(Of T)(String, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
   name: GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
@@ -27802,15 +27941,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal
   nameWithType: DataSourceResourceProviderService.GetResourceInternal
-- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: DataSourceResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: DataSourceResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: DataSourceResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: DataSourceResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.DataSource.ResourceProviders.DataSourceResourceProviderService.html#FoundationaLLM_DataSource_ResourceProviders_DataSourceResourceProviderService_GetResourceTypes
@@ -36670,15 +36809,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal
   nameWithType: VectorizationResourceProviderService.GetResourceInternal
-- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: VectorizationResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity)
-  nameWithType.vb: VectorizationResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity)
+- uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name: GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_
+  commentId: M:FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  name.vb: GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
+  fullName: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal<T>(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions?)
+  fullName.vb: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceInternal(Of T)(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
+  nameWithType: VectorizationResourceProviderService.GetResourceInternal<T>(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
+  nameWithType.vb: VectorizationResourceProviderService.GetResourceInternal(Of T)(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)
 - uid: FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.GetResourceTypes
   name: GetResourceTypes()
   href: api/dotnet/FoundationaLLM.Vectorization.ResourceProviders.VectorizationResourceProviderService.html#FoundationaLLM_Vectorization_ResourceProviders_VectorizationResourceProviderService_GetResourceTypes
