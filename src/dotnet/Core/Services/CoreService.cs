@@ -24,6 +24,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using FoundationaLLM.Common.Constants.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using FoundationaLLM.Core.Utils;
 
 namespace FoundationaLLM.Core.Services;
 
@@ -215,7 +219,7 @@ public partial class CoreService(
                                 {
                                     newContent.Add(new MessageContent
                                     {
-                                        Type = annotation.Type,
+                                        Type = FileMethods.GetMessageContentFileType(annotation.Text, annotation.Type),
                                         FileName = annotation.Text,
                                         Value = annotation.FileUrl
                                     });
