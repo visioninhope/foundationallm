@@ -22,7 +22,7 @@
 .EXAMPLE
 	Standard deployment:
 	from ./foundationallm/deploy/standard run:
-    ../common/scripts/Set-AzdEnvHubVnet.ps1 -hubResourceGroupName "rg-fllm-hub-eastus2-net" -HubSubscriptionId "12345678-1234-1234-1234-1234567890ab" -hubVnetName "vnet-fllm-hub-eastus2-net" -hubTenantId "12345678-1234-1234-1234-1234567890ab"
+    ../common/scripts/Set-AzdEnvHubVnet.ps1 -hubResourceGroupName "rg-fllm-hub-eastus2-net" -hubSubscriptionId "12345678-1234-1234-1234-1234567890ab" -hubVnetName "vnet-fllm-hub-eastus2-net" -hubTenantId "12345678-1234-1234-1234-1234567890ab"
 .NOTES
 	This script must be run from the ./deploy/standard directory after creating the azd environment using the azd env create command.
 	It will populate the .env file located in the hidden .azure directory in the root of the project.

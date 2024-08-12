@@ -15,7 +15,7 @@ Looks up the object IDs for 'core-api' and 'management-api' identities in "my-re
 
 .NOTES
 This script can be used to assign Microsoft Graph roles to managed identities in the FLLM environment.
-Ensure that the Azure CLI is installed and authenticated before running this script. You can 
+Ensure that the Azure CLI is installed and authenticated before running this script.
 #>
 
 Param(
