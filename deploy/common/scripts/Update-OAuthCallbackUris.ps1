@@ -44,7 +44,7 @@ $ErrorActionPreference = "Stop"
 # Import azd env variables
 (azd env get-values) | foreach {
     $name, $value = $_.split('=')
-    set-content env:\$name $value
+    set-content env:\$name $value.Trim('"')
 }
 
 # Set the environment values
