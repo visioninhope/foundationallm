@@ -2,18 +2,29 @@
 Class: OpenAIAssistantsApiService
 Description: Integration with the OpenAI Assistants API.
 """
-from typing import Union
+from typing import List, Union
 from openai import AsyncAzureOpenAI, AzureOpenAI
 from openai.pagination import AsyncCursorPage, SyncCursorPage
 from openai.types import FileObject
-from openai.types.beta.threads import FileCitationAnnotation, FilePathAnnotation, ImageFileContentBlock, ImageURLContentBlock, Message, TextContentBlock
+from openai.types.beta.threads import (
+    FileCitationAnnotation,
+    FilePathAnnotation,
+    ImageFileContentBlock,
+    ImageURLContentBlock,
+    Message,
+    TextContentBlock
+)
 from openai.types.beta.threads.message import Attachment
-from openai.types.beta.threads.runs.code_interpreter_tool_call import CodeInterpreterOutputImage, CodeInterpreterToolCall
+from openai.types.beta.threads.runs import (
+    CodeInterpreterToolCall,
+    RunStep
+)
 from foundationallm.models.constants import AgentCapabilityCategories
 from foundationallm.models.orchestration import (
     OpenAIFilePathMessageContentItem,
     OpenAIImageFileMessageContentItem,
-    OpenAITextMessageContentItem
+    OpenAITextMessageContentItem,
+    AnalysisResult
 )
 from foundationallm.models.services import OpenAIAssistantsAPIRequest, OpenAIAssistantsAPIResponse
 
@@ -87,25 +98,14 @@ class OpenAIAssistantsApiService:
           thread_id = request.thread_id,
           run_id = run.id
         )
-        analysis = ""
-        for i in range(len(run_steps.data)):
-            sd = run_steps.data[i].step_details
-            if sd.type == "tool_calls":
-                tool_call_detail = sd.tool_calls
-                for details in tool_call_detail:
-                    if isinstance(details, CodeInterpreterToolCall):
-                        analysis += details.code_interpreter.input # Algorithm
-                        for output in details.code_interpreter.outputs:
-                            if isinstance(output, CodeInterpreterOutputImage):
-                                analysis += "# Generated image file: "+ output.image.file_id                            
-                            else: # Logs
-                                analysis += output.logs # Output
+
+        analysis_result = self._parse_run_steps(run_steps.data)
 
         content = self._parse_messages(messages)
         
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis = "",
+            analysis_result= analysis_result,
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
@@ -148,20 +148,9 @@ class OpenAIAssistantsApiService:
           thread_id = request.thread_id,
           run_id = run.id
         )
-        analysis = ""
-        for i in range(len(run_steps.data)):
-            sd = run_steps.data[i].step_details
-            if sd.type == "tool_calls":
-                tool_call_detail = sd.tool_calls
-                for details in tool_call_detail:
-                    if isinstance(details, CodeInterpreterToolCall):
-                        analysis += details.code_interpreter.input # Algorithm
-                        for output in details.code_interpreter.outputs:
-                            if isinstance(output, CodeInterpreterOutputImage):
-                                analysis += "# Generated image file: "+ output.image.file_id                            
-                            else: # Logs
-                                analysis += output.logs # Output
-     
+
+        analysis_result = await self._aparse_run_steps(run_steps.data)
+
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
             thread_id=request.thread_id, order="asc", after=message.id
@@ -171,7 +160,7 @@ class OpenAIAssistantsApiService:
 
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis = analysis,
+            analysis_result= analysis_result,
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
@@ -308,7 +297,6 @@ class OpenAIAssistantsApiService:
                         ret_content.append(ci_img_url)
         return ret_content
        
-    
     def _parse_messages(self, messages: SyncCursorPage[Message]):
         """
         Parses the messages from the OpenAI API.
@@ -346,3 +334,81 @@ class OpenAIAssistantsApiService:
         for msg in messages.data:
             ret_content.extend(self._parse_single_message(msg))
         return ret_content
+
+    def _parse_run_steps(self, run_steps: SyncCursorPage[RunStep]):
+        """
+        Parses the run steps from the OpenAI API.
+
+        Parameters
+        ----------
+        run_steps : AsyncCursorPage[RunStep]
+            The run steps to parse.
+
+        Returns
+        -------
+        List[AnalysisResult]
+            The analysis results from the run steps.
+        """
+        analysis_results = []
+        for rs in run_steps:
+            analysis_result = self._parse_single_run_step(rs)
+            if analysis_result is not None:              
+                analysis_results.append(analysis_result)
+        return analysis_results
+    
+    async def _aparse_run_steps(self, run_steps: AsyncCursorPage[RunStep]):
+        """
+        Parses the run steps from the OpenAI API.
+
+        Parameters
+        ----------
+        run_steps : AsyncCursorPage[RunStep]
+            The run steps to parse.
+
+        Returns
+        -------
+        List[AnalysisResult]
+            The analysis results from the run steps.
+        """
+        analysis_results = []
+        for rs in run_steps:
+            analysis_result = self._parse_single_run_step(rs)
+            if analysis_result is not None:              
+                analysis_results.append(analysis_result)
+        return analysis_results
+
+    def _parse_single_run_step(self, run_step: RunStep):
+        """
+        Parses a single run step from the OpenAI API.
+
+        Parameters
+        ----------
+        run_step : RunStep
+            The run step to parse.
+
+        Returns
+        -------
+        AnalysisResult
+            The analysis result from the run step.
+        OR None
+            If the run step does not contain a tool call
+            to the code interpreter tool.
+        """        
+        sd = run_step.step_details
+        if sd.type == "tool_calls":
+            tool_call_detail = sd.tool_calls
+            for details in tool_call_detail:                
+                if isinstance(details, CodeInterpreterToolCall):
+                    result = AnalysisResult(
+                        tool_name= details.type,
+                        agent_capability_category= AgentCapabilityCategories.OPENAI_ASSISTANTS
+                    )                   
+                    result.tool_input += details.code_interpreter.input  # Source code
+                    for output in details.code_interpreter.outputs:  # Tool execution output
+                        if hasattr(output, 'image') and output.image:                      
+                            result.tool_output += "# Generated image file: " + output.image.file_id
+                        elif hasattr(output, 'logs') and output.logs:
+                            result.tool_output += output.logs
+                    return result
+        return None
+
