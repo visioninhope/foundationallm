@@ -710,6 +710,7 @@ output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = acaServices[indexOf(serviceN
 output SERVICE_GATEKEEPER_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'gatekeeper-api')].outputs.miPrincipalId
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gatekeeper-integration-api')].outputs.uri
 output SERVICE_GATEWAY_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-api')].outputs.uri
+output SERVICE_GATEWAY_API_MI_OBJECT_ID string = acaServices[indexOf(serviceNames, 'gateway-api')].outputs.miPrincipalId
 output SERVICE_GATEWAY_ADAPTER_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'gateway-adapter-api')].outputs.uri
 output SERVICE_LANGCHAIN_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'langchain-api')].outputs.uri
 output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = acaServices[indexOf(serviceNames, 'management-api')].outputs.uri
