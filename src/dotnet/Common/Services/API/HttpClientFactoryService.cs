@@ -157,7 +157,7 @@ namespace FoundationaLLM.Common.Services.API
             return httpClient;
         }
 
-        private void EnsureConfigurationResourceProvider()
+        private async Task EnsureConfigurationResourceProvider()
         {
             if (_configurationResourceProvider != null)
                 return;
