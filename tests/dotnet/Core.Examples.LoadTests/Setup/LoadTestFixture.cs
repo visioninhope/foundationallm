@@ -2,24 +2,25 @@
 using FoundationaLLM.Common.Constants.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Environment = FoundationaLLM.Core.Examples.Utils.Environment;
 
-namespace FoundationaLLM.Core.Examples.Setup
+namespace FoundationaLLM.Core.Examples.LoadTests.Setup
 {
-	/// <summary>
-	/// Test fixture to initialize services for the tests.
-	/// </summary>
-	public class TestFixture : IDisposable
+    /// <summary>
+    /// Test fixture to initialize services for the tests.
+    /// </summary>
+    public class LoadTestFixture : IDisposable
 	{
-		public ServiceProvider ServiceProvider { get; private set; }
+		public List<IServiceProvider> ServiceProviders { get; private set; }
 
-		public TestFixture()
+		public LoadTestFixture()
 		{
-			var serviceCollection = new ServiceCollection();
+			var builder = Host.CreateApplicationBuilder();
             DefaultAuthentication.Initialize(false, string.Empty);
 
-            var configRoot = new ConfigurationBuilder()
+            builder.Configuration.Sources.Clear();
+            builder.Configuration
 				.AddJsonFile("testsettings.json", true)
 				.AddJsonFile("testsettings.e2e.json", true)
 				.AddEnvironmentVariables()
@@ -41,17 +42,18 @@ namespace FoundationaLLM.Core.Examples.Setup
 				}))
 				.Build();
 
-			TestServicesInitializer.InitializeServices(serviceCollection, configRoot);
+			ServiceProviders = LoadTestServicesInitializer.InitializeServices(builder);
 
-			ServiceProvider = serviceCollection.BuildServiceProvider();
+			var app = builder.Build();
 		}
 
 		public void Dispose()
 		{
-			if (ServiceProvider is IDisposable disposable)
-			{
-				disposable.Dispose();
-			}
+			foreach (var serviceProvider in ServiceProviders)
+				if (serviceProvider is IDisposable disposable)
+				{
+					disposable.Dispose();
+				}
 		}
 	}
 }
