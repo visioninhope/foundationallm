@@ -3,6 +3,7 @@ from foundationallm.models.attachments import AttachmentProperties
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
 from openai import AzureOpenAI, AsyncAzureOpenAI
+from openai.types import CompletionUsage
 from typing import List, Union
 
 class ImageAnalysisService:
@@ -50,8 +51,6 @@ class ImageAnalysisService:
             # Get the file path without the container name.
             file_name = file_path.removeprefix(container_name)
 
-            image_base64 = None
-
             try:
                 storage_manager = BlobStorageManager(
                     account_name=storage_account_name,
@@ -65,8 +64,7 @@ class ImageAnalysisService:
                 try:
                     # Get the image file from blob storage.
                     image_blob = storage_manager.read_file_content(file_name)
-                    image_base64 = base64.b64encode(image_blob).decode('utf-8')
-                    return f"data:{mime_type};base64,{image_base64}"
+                    return base64.b64encode(image_blob).decode('utf-8')
                 except Exception as e:
                     raise Exception(f'The specified image {storage_account_name}/{file_path} does not exist.')
             else:
@@ -96,7 +94,7 @@ class ImageAnalysisService:
             formatted_results += f"- Analysis: {image_analyses[key]}\n\n"
         return formatted_results
 
-    async def aanalyze_images(self, image_attachments: List[AttachmentProperties]) -> dict:
+    async def aanalyze_images(self, image_attachments: List[AttachmentProperties]) -> tuple:
         """
         Get the image analysis results from Azure OpenAI.
 
@@ -106,11 +104,12 @@ class ImageAnalysisService:
             The list containing properties of the images to analyze.
         """
         image_analyses = {}
+        usage = CompletionUsage(completion_tokens=0, prompt_tokens=0, total_tokens=0)
 
         for attachment in image_attachments:
             if attachment.content_type.startswith('image/'):
-                image_as_data = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
-                if image_as_data is not None:
+                image_base64 = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
+                if image_base64 is not None and image_base64 != '':
                     response = await self.client.chat.completions.create(
                         model=self.deployment_model,
                         messages=[
@@ -128,7 +127,7 @@ class ImageAnalysisService:
                                     {
                                         "type": "image_url",
                                         "image_url": {
-                                            "url": image_as_data
+                                            "url": f"data:{attachment.content_type};base64,{image_base64}"
                                         }
                                     }
                                 ]
@@ -138,12 +137,15 @@ class ImageAnalysisService:
                         temperature=0.5
                     )
                     image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                    usage.prompt_tokens += response.usage.prompt_tokens
+                    usage.completion_tokens += response.usage.completion_tokens
+                    usage.total_tokens += response.usage.total_tokens
                 else:
                     image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
     
-        return image_analyses
+        return image_analyses, usage
 
-    def analyze_images(self, image_attachments: List[AttachmentProperties]) -> dict:
+    def analyze_images(self, image_attachments: List[AttachmentProperties]) -> tuple:
         """
         Get the image analysis results from Azure OpenAI.
 
@@ -153,11 +155,12 @@ class ImageAnalysisService:
             The list containing properties of the images to analyze.
         """
         image_analyses = {}
-    
+        usage = CompletionUsage(completion_tokens=0, prompt_tokens=0, total_tokens=0)
+
         for attachment in image_attachments:
             if attachment.content_type.startswith('image/'):
-                image_as_data = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
-                if image_as_data is not None:
+                image_base64 = self._get_as_base64(mime_type=attachment.content_type, storage_account_name=attachment.provider_storage_account_name, file_path=attachment.provider_file_name)
+                if image_base64 is not None and image_base64 != '':
                     response = self.client.chat.completions.create(
                         model=self.deployment_model,
                         messages=[
@@ -175,7 +178,7 @@ class ImageAnalysisService:
                                     {
                                         "type": "image_url",
                                         "image_url": {
-                                            "url": image_as_data
+                                            "url": f"data:{attachment.content_type};base64,{image_base64}"
                                         }
                                     }
                                 ]
@@ -185,7 +188,10 @@ class ImageAnalysisService:
                         temperature=0.5
                     )
                     image_analyses[attachment.original_file_name] = response.choices[0].message.content
+                    usage.prompt_tokens += response.usage.prompt_tokens
+                    usage.completion_tokens += response.usage.completion_tokens
+                    usage.total_tokens += response.usage.total_tokens
                 else:
                     image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
     
-        return image_analyses
+        return image_analyses, usage
