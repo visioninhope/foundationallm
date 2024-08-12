@@ -288,7 +288,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
                     explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantId] = assistantUserContext.OpenAIAssistantId!;
 
-                    if (!assistantUserContext.Conversations.TryGetValue(sessionId!, out ConversationMapping? assistantConversation))
+                    if (!assistantUserContext.Conversations.TryGetValue(sessionId!,
+                            out ConversationMapping? assistantConversation))
                     {
                         assistantUserContext.Conversations.Add(
                             sessionId!,
@@ -296,18 +297,26 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                             {
                                 FoundationaLLMSessionId = sessionId!
                             });
+                    }
 
-                        var result = await azureOpenAIResourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
-                            instanceId,
-                            assistantUserContext,
-                            AzureOpenAIResourceTypeNames.AssistantUserContexts,
-                            currentUserIdentity);
+                    if (assistantConversation == null ||
+                        string.IsNullOrWhiteSpace(assistantConversation.OpenAIThreadId))
+                    {
+                        var result = await azureOpenAIResourceProvider
+                            .CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
+                                instanceId,
+                                assistantUserContext,
+                                AzureOpenAIResourceTypeNames.AssistantUserContexts,
+                                currentUserIdentity);
 
                         if (!string.IsNullOrWhiteSpace(result.NewOpenAIAssistantThreadId))
-                            explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantThreadId] = result.NewOpenAIAssistantThreadId;
+                            explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantThreadId] =
+                                result.NewOpenAIAssistantThreadId;
                     }
-                    
-                    explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantThreadId] = assistantConversation!.OpenAIThreadId!;
+                    else
+                    {
+                        explodedObjects[CompletionRequestObjectsKeys.OpenAIAssistantThreadId] = assistantConversation.OpenAIThreadId;
+                    }
                 }
             }
         }

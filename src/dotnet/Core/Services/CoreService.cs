@@ -23,6 +23,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Text.RegularExpressions;
+using FoundationaLLM.Common.Constants.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Services;
@@ -199,7 +201,46 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             promptMessage.Tokens = result.PromptTokens;
             promptMessage.Vector = result.UserPromptEmbedding;
-            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations);
+
+            var newContent = new List<MessageContent>();
+
+            if (result.Content is {Count: > 0})
+            {
+                foreach (var content in result.Content)
+                {
+                    switch (content)
+                    {
+                        case OpenAITextMessageContentItem textMessageContent:
+                            if (textMessageContent.Annotations.Count > 0)
+                            {
+                                foreach (var annotation in textMessageContent.Annotations)
+                                {
+                                    newContent.Add(new MessageContent
+                                    {
+                                        Type = annotation.Type,
+                                        FileName = annotation.Text,
+                                        Value = annotation.FileUrl
+                                    });
+                                }
+                            }
+                            newContent.Add(new MessageContent
+                            {
+                                Type = textMessageContent.Type,
+                                Value = textMessageContent.Value
+                            });
+                            break;
+                        case OpenAIImageFileMessageContentItem imageFileMessageContent:
+                            newContent.Add(new MessageContent
+                            {
+                                Type = imageFileMessageContent.Type,
+                                Value = imageFileMessageContent.FileUrl
+                            });
+                            break;
+                    }
+                }
+            }
+
+            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations, null, newContent);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
             var completionPrompt = new CompletionPrompt(completionRequest.SessionId, completionMessage.Id, completionPromptText);

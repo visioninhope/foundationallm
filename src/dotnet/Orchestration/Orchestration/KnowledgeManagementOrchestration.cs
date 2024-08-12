@@ -11,6 +11,7 @@ using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
+using System.Text.RegularExpressions;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
@@ -95,7 +96,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 OperationId = completionRequest.OperationId,
                 Completion = result.Completion!,
-                Content = result.Content,
+                Content = result.Content.Select(c => TransformContentItem(c)!).ToList(),
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
                 FullPrompt = result.FullPrompt,
@@ -177,7 +178,32 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 a => a.Text!,
                 a => a.FileUrl!);
 
-            openAITextMessage.Value = openAITextMessage.Value;
+            var input = openAITextMessage.Value!;
+            var regex = new Regex(@"\(sandbox:[^)]*\)");
+            var matches = regex.Matches(input);
+
+            if (matches.Count == 0)
+                return openAITextMessage;
+
+            Match? previousMatch = null;
+            List<string> output = [];
+
+            foreach (Match match in matches)
+            {
+                var startIndex = previousMatch == null ? 0 : previousMatch.Index + previousMatch.Length;
+                output.Add(input.Substring(startIndex, match.Index - startIndex));
+                var token = input.Substring(match.Index, match.Length);
+                if (sandboxPlaceholders.TryGetValue(token, out var replacement))
+                    output.Add(replacement);
+                else
+                    output.Add(token);
+
+                previousMatch = match;
+            }
+
+            output.Add(input.Substring(previousMatch!.Index + previousMatch.Length));
+
+            openAITextMessage.Value = string.Join("", output);
             return openAITextMessage;
         }
 

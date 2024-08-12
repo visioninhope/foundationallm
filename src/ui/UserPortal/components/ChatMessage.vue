@@ -50,7 +50,7 @@
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
-							<div v-else-if="content.type === 'image'">
+							<div v-else-if="content.type === 'image_file'">
 								<img :src="content.value" :alt="content.file_name" />
 							</div>
 							<div v-else-if="content.type === 'html'">
@@ -231,7 +231,7 @@ export default {
 
 	computed: {
 		compiledMarkdown() {
-			return DOMPurify.sanitize(marked(this.message.text));
+			return DOMPurify.sanitize(marked(this.message.text ?? ''));
 		},
 
 		compiledMarkdownComponent() {
