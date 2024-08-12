@@ -137,7 +137,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         #region Initialization
 
         /// <inheritdoc/>
-        private async Task Initialize()
+        public async Task Initialize()
         {
             try
             {
