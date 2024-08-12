@@ -32,6 +32,7 @@
     <Compile Include="foundationallm\models\attachments\__init__.py" />
     <Compile Include="foundationallm\models\constants\agent_capability_categories.py" />
     <Compile Include="foundationallm\models\constants\__init__.py" />
+    <Compile Include="foundationallm\models\orchestration\analysis_result.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_base.py" />
     <Compile Include="foundationallm\models\orchestration\message_content_item_types.py" />
     <Compile Include="foundationallm\models\orchestration\openai_file_path_message_content_item.py" />
