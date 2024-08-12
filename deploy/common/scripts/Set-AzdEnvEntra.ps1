@@ -37,11 +37,11 @@
 .EXAMPLE
 QuickStart deployment:
 from the ./foundationallm/deploy/quickstart directory:
-    ../common/scripts/Set-AzdEnv.ps1 -tenantID "12345678-1234-1234-1234-1234567890ab"
+    ../common/scripts/Set-AzdEnvEntra.ps1 -tenantID "12345678-1234-1234-1234-1234567890ab"
 
 Standard deployment:
 from the ./foundationallm/deploy/standard directory:
-    ../common/scripts/Set-AzdEnv.ps1 -tenantID "12345678-1234-1234-1234-1234567890ab"
+    ../common/scripts/Set-AzdEnvEntra.ps1 -tenantID "12345678-1234-1234-1234-1234567890ab"
 
 .NOTES
     Set the Azure CLI context to the appropriate subscription before running this script.
