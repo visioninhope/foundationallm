@@ -17567,6 +17567,64 @@ references:
   commentId: N:FoundationaLLM.Common.Models.Orchestration.Response
   fullName: FoundationaLLM.Common.Models.Orchestration.Response
   nameWithType: FoundationaLLM.Common.Models.Orchestration.Response
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult
+  name: AnalysisResult
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html
+  commentId: T:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult
+  nameWithType: AnalysisResult
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory
+  name: AgentCapabilityCategory
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_AgentCapabilityCategory
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory
+  nameWithType: AnalysisResult.AgentCapabilityCategory
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory*
+  name: AgentCapabilityCategory
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_AgentCapabilityCategory_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.AgentCapabilityCategory
+  nameWithType: AnalysisResult.AgentCapabilityCategory
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput
+  name: ToolInput
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolInput
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput
+  nameWithType: AnalysisResult.ToolInput
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput*
+  name: ToolInput
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolInput_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolInput
+  nameWithType: AnalysisResult.ToolInput
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName
+  name: ToolName
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolName
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName
+  nameWithType: AnalysisResult.ToolName
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName*
+  name: ToolName
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolName_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolName
+  nameWithType: AnalysisResult.ToolName
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput
+  name: ToolOutput
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolOutput
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput
+  nameWithType: AnalysisResult.ToolOutput
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput*
+  name: ToolOutput
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html#FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult_ToolOutput_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.ToolOutput
+  nameWithType: AnalysisResult.ToolOutput
 - uid: FoundationaLLM.Common.Models.Orchestration.Response.Citation
   name: Citation
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.Citation.html
@@ -17691,6 +17749,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AgentName
   nameWithType: CompletionResponseBase.AgentName
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults
+  name: AnalysisResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_Response_CompletionResponseBase_AnalysisResults
+  commentId: P:FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults
+  nameWithType: CompletionResponseBase.AnalysisResults
+- uid: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults*
+  name: AnalysisResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_Response_CompletionResponseBase_AnalysisResults_
+  commentId: Overload:FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.AnalysisResults
+  nameWithType: CompletionResponseBase.AnalysisResults
 - uid: FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.Citations
   name: Citations
   href: api/dotnet/FoundationaLLM.Common.Models.Orchestration.Response.CompletionResponseBase.html#FoundationaLLM_Common_Models_Orchestration_Response_CompletionResponseBase_Citations
