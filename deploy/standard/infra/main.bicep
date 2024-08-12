@@ -5,6 +5,12 @@ param allowedExternalCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
+param backendSystemPoolMinCount int
+param backendSystemPoolMaxCount int
+param backendSystemPoolVmSize string
+param backendUserPoolMinCount int
+param backendUserPoolMaxCount int
+param backendUserPoolVmSize string
 param cidrVnet string
 param createDate string = utcNow('u')
 param environmentName string
@@ -12,6 +18,12 @@ param externalNetworkingResourceGroupName string = ''
 param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
 param existingOpenAiInstanceSub string = ''
+param frontendSystemPoolMinCount int
+param frontendSystemPoolMaxCount int
+param frontendSystemPoolVmSize string
+param frontendUserPoolMinCount int
+param frontendUserPoolMaxCount int
+param frontendUserPoolVmSize string
 param instanceId string
 param location string
 param networkName string = ''
@@ -94,7 +106,19 @@ module app 'app-rg.bicep' = {
   params: {
     actionGroupId: ops.outputs.actionGroupId
     administratorObjectId: administratorObjectId
+    backendSystemPoolMinCount: backendSystemPoolMinCount
+    backendSystemPoolMaxCount: backendSystemPoolMaxCount
+    backendSystemPoolVmSize: backendSystemPoolVmSize
+    backendUserPoolMinCount: backendUserPoolMinCount
+    backendUserPoolMaxCount: backendUserPoolMaxCount
+    backendUserPoolVmSize: backendUserPoolVmSize
     environmentName: environmentName
+    frontendSystemPoolMinCount: frontendSystemPoolMinCount
+    frontendSystemPoolMaxCount: frontendSystemPoolMaxCount
+    frontendSystemPoolVmSize: frontendSystemPoolVmSize
+    frontendUserPoolMinCount: frontendUserPoolMinCount
+    frontendUserPoolMaxCount: frontendUserPoolMaxCount
+    frontendUserPoolVmSize: frontendUserPoolVmSize    
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     k8sNamespace: k8sNamespace

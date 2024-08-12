@@ -5,8 +5,22 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
+param backendSystemPoolMinCount int
+param backendSystemPoolMaxCount int
+param backendSystemPoolVmSize string
+param backendUserPoolMinCount int
+param backendUserPoolMaxCount int
+param backendUserPoolVmSize string
+
 @description('The environment name token used in naming resources.')
 param environmentName string
+
+param frontendSystemPoolMinCount int
+param frontendSystemPoolMaxCount int
+param frontendSystemPoolVmSize string
+param frontendUserPoolMinCount int
+param frontendUserPoolMaxCount int
+param frontendUserPoolVmSize string
 
 param hubResourceGroup string
 param hubSubscriptionId string = subscription().subscriptionId
@@ -143,6 +157,12 @@ module aksBackend 'modules/aks.bicep' = {
     resourceSuffix: '${resourceSuffix}-backend'
     subnetId: subnets['aks-backend'].id
     subnetIdPrivateEndpoint: subnets.services.id
+    systemPoolMinCount: backendSystemPoolMinCount
+    systemPoolMaxCount: backendSystemPoolMaxCount
+    systemPoolVmSize: backendSystemPoolVmSize
+    userPoolMinCount: backendUserPoolMinCount
+    userPoolMaxCount: backendUserPoolMaxCount
+    userPoolVmSize: backendUserPoolVmSize
     tags: tags
   }
 }
@@ -163,6 +183,12 @@ module aksFrontend 'modules/aks.bicep' = {
     resourceSuffix: '${resourceSuffix}-frontend'
     subnetId: subnets['aks-frontend'].id
     subnetIdPrivateEndpoint: subnets.services.id
+    systemPoolMinCount: frontendSystemPoolMinCount
+    systemPoolMaxCount: frontendSystemPoolMaxCount
+    systemPoolVmSize: frontendSystemPoolVmSize
+    userPoolMinCount: frontendUserPoolMinCount
+    userPoolMaxCount: frontendUserPoolMaxCount
+    userPoolVmSize: frontendUserPoolVmSize
     tags: tags
   }
 }

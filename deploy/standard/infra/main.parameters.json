@@ -17,6 +17,24 @@
       "authAppRegistrationTenantId": {
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
+      "backendSystemPoolMinCount": {
+        "value": "${FLLM_BACKEND_SYSTEM_POOL_MIN_COUNT=1}"
+      },
+      "backendSystemPoolMaxCount": {
+        "value": "${FLLM_BACKEND_SYSTEM_POOL_MAX_COUNT=10}"
+      },
+      "backendSystemPoolVmSize": {
+        "value": "${FLLM_BACKEND_SYSTEM_POOL_VM_SIZE=Standard_D4s_v3}"
+      },
+      "backendUserPoolMinCount": {
+        "value": "${FLLM_BACKEND_USER_POOL_MIN_COUNT=1}"
+      },
+      "backendUserPoolMaxCount": {
+        "value": "${FLLM_BACKEND_USER_POOL_MAX_COUNT=10}"
+      },
+      "backendUserPoolVmSize": {
+        "value": "${FLLM_BACKEND_USER_POOL_VM_SIZE=Standard_D4s_v3}"
+      },
       "cidrVnet": {
         "value": "${FLLM_CIDR_VNET=10.220.128.0/20}"
       },
@@ -34,6 +52,24 @@
       },
       "externalNetworkingResourceGroupName": {
         "value": "${FOUNDATIONALLM_EXT_NET_RG}"
+      },
+      "frontendSystemPoolMinCount": {
+        "value": "${FLLM_FRONTEND_SYSTEM_POOL_MIN_COUNT=1}"
+      },
+      "frontendSystemPoolMaxCount": {
+        "value": "${FLLM_FRONTEND_SYSTEM_POOL_MAX_COUNT=10}"
+      },
+      "frontendSystemPoolVmSize": {
+        "value": "${FLLM_FRONTEND_SYSTEM_POOL_VM_SIZE=Standard_D4s_v3}"
+      },
+      "frontendUserPoolMinCount": {
+        "value": "${FLLM_FRONTEND_USER_POOL_MIN_COUNT=1}"
+      },
+      "frontendUserPoolMaxCount": {
+        "value": "${FLLM_FRONTEND_USER_POOL_MAX_COUNT=10}"
+      },
+      "frontendUserPoolVmSize": {
+        "value": "${FLLM_FRONTEND_USER_POOL_VM_SIZE=Standard_D4s_v3}"
       },
       "location": {
         "value": "${AZURE_LOCATION}"

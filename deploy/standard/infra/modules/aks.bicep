@@ -92,6 +92,13 @@ param tags object
 @description('Timestamp for nested deployments')
 param timestamp string = utcNow()
 
+param systemPoolMinCount int
+param systemPoolMaxCount int
+param systemPoolVmSize string
+
+param userPoolMinCount int
+param userPoolMaxCount int
+param userPoolVmSize string
 // @description('Managed Identity for the AKS Cluster Helm Deployments')
 // param uaiDeploymentid string
 
@@ -209,14 +216,14 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       {
         count: 1
         enableAutoScaling: true
-        maxCount: 10
-        minCount: 1
+        maxCount: systemPoolMaxCount
+        minCount: systemPoolMinCount
         mode: 'System'
         name: 'system'
         osDiskSizeGB: 1024
         tags: tags
         type: 'VirtualMachineScaleSets'
-        vmSize: 'Standard_D4s_v3'
+        vmSize: systemPoolVmSize
         vnetSubnetID: subnetId
 
         nodeTaints: [
@@ -230,14 +237,14 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
       {
         count: 1
         enableAutoScaling: true
-        maxCount: 10
-        minCount: 1
+        maxCount: userPoolMaxCount
+        minCount: userPoolMinCount
         mode: 'User'
         name: 'user'
         osDiskSizeGB: 1024
         tags: tags
         type: 'VirtualMachineScaleSets'
-        vmSize: 'Standard_D4s_v3'
+        vmSize: userPoolVmSize
         vnetSubnetID: subnetId
 
         upgradeSettings: {
