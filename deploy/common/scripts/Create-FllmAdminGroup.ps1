@@ -1,3 +1,4 @@
+#! /usr/bin/pwsh
 <#
 .SYNOPSIS 
     Creates an Entra ID group using the Azure CLI and adds the current user to the group. 
@@ -16,8 +17,13 @@
 #>
  
 Param( 
-    [parameter(Mandatory = $false)][string]$groupName = "FLLM-Admins" 
-) 
+    [parameter(Mandatory = $false)][string]$groupName = "FLLM-Admins"
+)
+
+# Set Debugging and Error Handling
+Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
  
 # Try block to handle potential errors during the execution 
 try { 
@@ -38,7 +44,7 @@ try {
         throw "Failed to create group ${message} (code: ${LASTEXITCODE})" 
     } 
  
-    Write-Host -ForegroundColor Yellow "Waiting for group creation to complete..." 
+    Write-Host -ForegroundColor Blue "Waiting for group creation to complete..." 
     Start-Sleep 10 
   
     # Get the ID of the of the user running the script & add the user to the group 
@@ -47,7 +53,7 @@ try {
     az ad group member add --group $groupName --member-id $currentUserId 
     
     # If the command executes successfully, output the result 
-    Write-Host -ForegroundColor Yellow "Entra ID group '$groupName' created successfully, and added current user with ID $currentUserId to the group." 
+    Write-Host -ForegroundColor Blue "Entra ID group '$groupName' created successfully, and added current user with ID $currentUserId to the group." 
 }  
 catch { 
     # Catch block to handle and report any errors that occur during the execution 
