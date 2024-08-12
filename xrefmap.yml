@@ -10642,6 +10642,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Interfaces.IResourceProviderService.GetResource(Of T)(String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity, FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)
   nameWithType: IResourceProviderService.GetResource<T>(string, UnifiedUserIdentity, ResourceProviderOptions?)
   nameWithType.vb: IResourceProviderService.GetResource(Of T)(String, UnifiedUserIdentity, ResourceProviderOptions)
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
+  name: Initialize()
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_Initialize
+  commentId: M:FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize()
+  nameWithType: IResourceProviderService.Initialize()
+- uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize*
+  name: Initialize
+  href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_Initialize_
+  commentId: Overload:FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Interfaces.IResourceProviderService.Initialize
+  nameWithType: IResourceProviderService.Initialize
 - uid: FoundationaLLM.Common.Interfaces.IResourceProviderService.IsInitialized
   name: IsInitialized
   href: api/dotnet/FoundationaLLM.Common.Interfaces.IResourceProviderService.html#FoundationaLLM_Common_Interfaces_IResourceProviderService_IsInitialized
@@ -23931,6 +23944,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.HandlePostAsync
   nameWithType: ResourceProviderServiceBase.HandlePostAsync
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
+  name: Initialize()
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize()
+  nameWithType: ResourceProviderServiceBase.Initialize()
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize*
+  name: Initialize
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize_
+  commentId: Overload:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.Initialize
+  nameWithType: ResourceProviderServiceBase.Initialize
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.InitializeInternal
   name: InitializeInternal()
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_InitializeInternal
@@ -28359,6 +28385,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAIModelResourceProvider
   nameWithType: DependencyInjection.AddAIModelResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAIModelResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAIModelResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAIModelResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAIModelResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAIModelResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAIModelResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAIModelResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAIModelResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAIModelResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28385,6 +28417,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProvider
   nameWithType: DependencyInjection.AddAgentResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAgentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAgentResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAgentResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAgentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAgentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAgentResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAgentResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAgentResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAgentResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28411,6 +28449,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAttachmentResourceProvider
   nameWithType: DependencyInjection.AddAttachmentResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAttachmentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAttachmentResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAttachmentResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAttachmentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAttachmentResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAttachmentResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAttachmentResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAttachmentResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAttachmentResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28466,6 +28510,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAuthorizationResourceProvider
   nameWithType: DependencyInjection.AddAuthorizationResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAuthorizationService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAuthorizationService(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthorizationService_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAuthorizationService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAuthorizationService(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAuthorizationService(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAuthorizationService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAuthorizationService(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAuthorizationService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28511,6 +28561,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAzureKeyVaultService
   nameWithType: DependencyInjection.AddAzureKeyVaultService
+- uid: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAzureOpenAIResourceProvider(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProvider_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAzureOpenAIResourceProvider(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAzureOpenAIResourceProvider(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProvider_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28524,6 +28580,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProvider
   nameWithType: DependencyInjection.AddAzureOpenAIResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddAzureOpenAIResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddAzureOpenAIResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAzureOpenAIResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureOpenAIResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28537,6 +28599,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddAzureOpenAIResourceProviderStorage
   nameWithType: DependencyInjection.AddAzureOpenAIResourceProviderStorage
+- uid: FoundationaLLM.DependencyInjection.AddAzureResourceManager(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name: AddAzureResourceManager(IServiceCollection)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureResourceManager_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  commentId: M:FoundationaLLM.DependencyInjection.AddAzureResourceManager(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  fullName: FoundationaLLM.DependencyInjection.AddAzureResourceManager(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  nameWithType: DependencyInjection.AddAzureResourceManager(IServiceCollection)
 - uid: FoundationaLLM.DependencyInjection.AddAzureResourceManager(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddAzureResourceManager(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddAzureResourceManager_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28563,6 +28631,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProvider
   nameWithType: DependencyInjection.AddConfigurationResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddConfigurationResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddConfigurationResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddConfigurationResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddConfigurationResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddConfigurationResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddConfigurationResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28618,6 +28692,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddDataSourceResourceProvider
   nameWithType: DependencyInjection.AddDataSourceResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddDataSourceResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddDataSourceResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddDataSourceResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddDataSourceResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddDataSourceResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddDataSourceResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddDataSourceResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddDataSourceResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddDataSourceResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28686,6 +28766,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddGroupMembership
   nameWithType: DependencyInjection.AddGroupMembership
+- uid: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name: AddHttpClientFactoryService(IServiceCollection)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddHttpClientFactoryService_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  commentId: M:FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  fullName: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  nameWithType: DependencyInjection.AddHttpClientFactoryService(IServiceCollection)
 - uid: FoundationaLLM.DependencyInjection.AddHttpClientFactoryService(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddHttpClientFactoryService(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddHttpClientFactoryService_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28796,6 +28882,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddPromptResourceProvider
   nameWithType: DependencyInjection.AddPromptResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddPromptResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddPromptResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPromptResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddPromptResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddPromptResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddPromptResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddPromptResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddPromptResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddPromptResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -28874,6 +28966,12 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.DependencyInjection.AddVectorizationResourceProvider
   nameWithType: DependencyInjection.AddVectorizationResourceProvider
+- uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  name: AddVectorizationResourceProviderStorage(IServiceCollection, IConfigurationManager)
+  href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProviderStorage_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfigurationManager_
+  commentId: M:FoundationaLLM.DependencyInjection.AddVectorizationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)
+  fullName: FoundationaLLM.DependencyInjection.AddVectorizationResourceProviderStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.Configuration.IConfigurationManager)
+  nameWithType: DependencyInjection.AddVectorizationResourceProviderStorage(IServiceCollection, IConfigurationManager)
 - uid: FoundationaLLM.DependencyInjection.AddVectorizationResourceProviderStorage(Microsoft.Extensions.Hosting.IHostApplicationBuilder)
   name: AddVectorizationResourceProviderStorage(IHostApplicationBuilder)
   href: api/dotnet/FoundationaLLM.DependencyInjection.html#FoundationaLLM_DependencyInjection_AddVectorizationResourceProviderStorage_Microsoft_Extensions_Hosting_IHostApplicationBuilder_
@@ -31095,6 +31193,56 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gateway.Services.GatewayCore.StopAsync
   nameWithType: GatewayCore.StopAsync
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService
+  name: GatewayTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html
+  commentId: T:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService
+  nameWithType: GatewayTextEmbeddingService
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService})
+  name: GatewayTextEmbeddingService(string, ILogger<GatewayTextEmbeddingService>)
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html#FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__ctor_System_String_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__
+  commentId: M:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService})
+  name.vb: New(String, ILogger(Of GatewayTextEmbeddingService))
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GatewayTextEmbeddingService(string, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService>)
+  fullName.vb: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.New(String, Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService))
+  nameWithType: GatewayTextEmbeddingService.GatewayTextEmbeddingService(string, ILogger<GatewayTextEmbeddingService>)
+  nameWithType.vb: GatewayTextEmbeddingService.New(String, ILogger(Of GatewayTextEmbeddingService))
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor*
+  name: GatewayTextEmbeddingService
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html#FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__ctor_
+  commentId: Overload:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GatewayTextEmbeddingService
+  fullName.vb: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.New
+  nameWithType: GatewayTextEmbeddingService.GatewayTextEmbeddingService
+  nameWithType.vb: GatewayTextEmbeddingService.New
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{FoundationaLLM.Common.Models.Vectorization.TextChunk},System.String)
+  name: GetEmbeddingsAsync(IList<TextChunk>, string)
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html#FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_System_Collections_Generic_IList_FoundationaLLM_Common_Models_Vectorization_TextChunk__System_String_
+  commentId: M:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{FoundationaLLM.Common.Models.Vectorization.TextChunk},System.String)
+  name.vb: GetEmbeddingsAsync(IList(Of TextChunk), String)
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList<FoundationaLLM.Common.Models.Vectorization.TextChunk>, string)
+  fullName.vb: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList(Of FoundationaLLM.Common.Models.Vectorization.TextChunk), String)
+  nameWithType: GatewayTextEmbeddingService.GetEmbeddingsAsync(IList<TextChunk>, string)
+  nameWithType.vb: GatewayTextEmbeddingService.GetEmbeddingsAsync(IList(Of TextChunk), String)
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.String)
+  name: GetEmbeddingsAsync(string)
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html#FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_System_String_
+  commentId: M:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.String)
+  name.vb: GetEmbeddingsAsync(String)
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(string)
+  fullName.vb: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(String)
+  nameWithType: GatewayTextEmbeddingService.GetEmbeddingsAsync(string)
+  nameWithType.vb: GatewayTextEmbeddingService.GetEmbeddingsAsync(String)
+- uid: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync*
+  name: GetEmbeddingsAsync
+  href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html#FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_
+  commentId: Overload:FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync
+  nameWithType: GatewayTextEmbeddingService.GetEmbeddingsAsync
 - uid: FoundationaLLM.Gateway.Services.GatewayWorker
   name: GatewayWorker
   href: api/dotnet/FoundationaLLM.Gateway.Services.GatewayWorker.html

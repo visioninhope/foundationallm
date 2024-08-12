@@ -6342,6 +6342,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/dotnet/FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/dotnet/FoundationaLLM.Gateway.Services.GatewayWorker.yml",
       "output": {
         ".html": {

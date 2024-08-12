@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-      <title>Class EmbeddingModelDeploymentContext | FoundationaLLM </title>
+      <title>Class GatewayTextEmbeddingService | FoundationaLLM </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class EmbeddingModelDeploymentContext | FoundationaLLM ">
+      <meta name="title" content="Class GatewayTextEmbeddingService | FoundationaLLM ">
       
-      <meta name="description" content="Provides context associated with an embedding model deployment.">
+      
       <link rel="icon" href="../../media/favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
       <link rel="stylesheet" href="../../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext.md&amp;value=---%0Auid%3A%20FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/solliancenet/foundationallm/new/main/apiSpec/new?filename=FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService.md&amp;value=---%0Auid%3A%20FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,25 +84,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext">
+        <article data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService">
 
 
 
-  <h1 id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext" class="text-break">
-Class EmbeddingModelDeploymentContext  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <h1 id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService" class="text-break">
+Class GatewayTextEmbeddingService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/GatewayTextEmbeddingService.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Gateway.html">Gateway</a>.<a class="xref" href="FoundationaLLM.Gateway.Models.html">Models</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="FoundationaLLM.html">FoundationaLLM</a>.<a class="xref" href="FoundationaLLM.Gateway.html">Gateway</a>.<a class="xref" href="FoundationaLLM.Gateway.Services.html">Services</a></dd></dl>
   <dl><dt>Assembly</dt><dd>FoundationaLLM.Gateway.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides context associated with an embedding model deployment.</p>
-</div>
+  <div class="markdown summary"></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EmbeddingModelDeploymentContext</code></pre>
+    <pre><code class="lang-csharp hljs">public class GatewayTextEmbeddingService : ITextEmbeddingService</code></pre>
   </div>
 
 
@@ -112,10 +111,16 @@ Class EmbeddingModelDeploymentContext  <a class="header-action link-secondary" t
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">EmbeddingModelDeploymentContext</span></div>
+      <div><span class="xref">GatewayTextEmbeddingService</span></div>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="FoundationaLLM.Common.Interfaces.ITextEmbeddingService.html">ITextEmbeddingService</a></div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -160,69 +165,31 @@ Class EmbeddingModelDeploymentContext  <a class="header-action link-secondary" t
 </h2>
 
 
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext__ctor_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor*"></a>
+  <a id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__ctor_" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext__ctor_FoundationaLLM_Common_Models_Azure_AzureOpenAIAccountDeployment_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.#ctor(FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment,Microsoft.Extensions.Logging.ILoggerFactory)">
-  EmbeddingModelDeploymentContext(AzureOpenAIAccountDeployment, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L16"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Provides context associated with an embedding model deployment.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EmbeddingModelDeploymentContext(AzureOpenAIAccountDeployment deployment, ILoggerFactory loggerFactory)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>deployment</code> <a class="xref" href="FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html">AzureOpenAIAccountDeployment</a></dt>
-    <dd><p>The <a class="xref" href="FoundationaLLM.Common.Models.Azure.AzureOpenAIAccountDeployment.html">AzureOpenAIAccountDeployment</a> object with the details of the model deployment.</p>
-</dd>
-    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
-    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a> used to create loggers for logging.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_HasInput_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput*"></a>
-
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_HasInput" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.HasInput">
-  HasInput
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__ctor_System_String_Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService__" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.#ctor(System.String,Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService})">
+  GatewayTextEmbeddingService(string, ILogger&lt;GatewayTextEmbeddingService&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/GatewayTextEmbeddingService.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HasInput { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public GatewayTextEmbeddingService(string accountEndpoint, ILogger&lt;GatewayTextEmbeddingService&gt; logger)</code></pre>
   </div>
 
-
-
-
-
-  <h4 class="section">Property Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><code>accountEndpoint</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger-1">ILogger</a>&lt;<a class="xref" href="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.html">GatewayTextEmbeddingService</a>&gt;</dt>
     <dd></dd>
   </dl>
+
+
+
+
 
 
 
@@ -235,61 +202,76 @@ Class EmbeddingModelDeploymentContext  <a class="header-action link-secondary" t
 </h2>
 
 
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_GetEmbeddingsForInputTextChunks_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks*"></a>
+  <a id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync*"></a>
 
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_GetEmbeddingsForInputTextChunks" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.GetEmbeddingsForInputTextChunks">
-  GetEmbeddingsForInputTextChunks()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_System_Collections_Generic_IList_FoundationaLLM_Common_Models_Vectorization_TextChunk__System_String_" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.Collections.Generic.IList{FoundationaLLM.Common.Models.Vectorization.TextChunk},System.String)">
+  GetEmbeddingsAsync(IList&lt;TextChunk&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/GatewayTextEmbeddingService.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes the text embedding operation.
+Depending on the implementation, this can be an atomic operation or a long-running one.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;TextEmbeddingResult&gt; GetEmbeddingsForInputTextChunks()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html">TextEmbeddingResult</a>&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TryAddInputTextChunk_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk*"></a>
-
-  <h3 id="FoundationaLLM_Gateway_Models_EmbeddingModelDeploymentContext_TryAddInputTextChunk_FoundationaLLM_Common_Models_Vectorization_TextChunk_" data-uid="FoundationaLLM.Gateway.Models.EmbeddingModelDeploymentContext.TryAddInputTextChunk(FoundationaLLM.Common.Models.Vectorization.TextChunk)">
-  TryAddInputTextChunk(TextChunk)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L55"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryAddInputTextChunk(TextChunk textChunk)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;TextEmbeddingResult&gt; GetEmbeddingsAsync(IList&lt;TextChunk&gt; textChunks, string modelName = &quot;text-embedding-ada-002&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>textChunk</code> <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a></dt>
-    <dd></dd>
+    <dt><code>textChunks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextChunk.html">TextChunk</a>&gt;</dt>
+    <dd><p>The list of text chunks which need to be embedded.</p>
+</dd>
+    <dt><code>modelName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the model to use for embedding.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html">TextEmbeddingResult</a>&gt;</dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html">TextEmbeddingResult</a> object containing the result of the text embedding operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync*"></a>
+
+  <h3 id="FoundationaLLM_Gateway_Services_GatewayTextEmbeddingService_GetEmbeddingsAsync_System_String_" data-uid="FoundationaLLM.Gateway.Services.GatewayTextEmbeddingService.GetEmbeddingsAsync(System.String)">
+  GetEmbeddingsAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/GatewayTextEmbeddingService.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves the result of a long-running text embedding operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TextEmbeddingResult&gt; GetEmbeddingsAsync(string operationId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>operationId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The unique identifier of the long-running operation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html">TextEmbeddingResult</a>&gt;</dt>
+    <dd><p>A <a class="xref" href="FoundationaLLM.Common.Models.Vectorization.TextEmbeddingResult.html">TextEmbeddingResult</a> object containing the result of the text embedding operation.</p>
+</dd>
   </dl>
 
 
@@ -306,7 +288,7 @@ Class EmbeddingModelDeploymentContext  <a class="header-action link-secondary" t
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Models/EmbeddingModelDeploymentContext.cs/#L16" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Gateway/Services/GatewayTextEmbeddingService.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 
