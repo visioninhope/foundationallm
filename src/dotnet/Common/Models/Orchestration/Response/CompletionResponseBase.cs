@@ -28,7 +28,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Response
         /// <summary>
         /// A list of results from the analysis.
         /// </summary>
-        [JsonPropertyName("analysis_result")]
+        [JsonPropertyName("analysis_results")]
         public List<AnalysisResult>? AnalysisResults { get; set; }
 
         /// <summary>
