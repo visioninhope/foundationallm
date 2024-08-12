@@ -29,7 +29,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Response
         /// A list of results from the analysis.
         /// </summary>
         [JsonPropertyName("analysis_result")]
-        public List<AnalysisResult>? AnalysisResult { get; set; }
+        public List<AnalysisResult>? AnalysisResults { get; set; }
 
         /// <summary>
         /// The citations used in building the completion response.
