@@ -51,9 +51,10 @@ $toolPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSP
 
 # Check if AzCopy already exists, download and extract if not
 if (Test-Path -Path "../tools/azcopy") {
-	Write-Host "azcopy already exists."
+	Write-Host -ForegroundColor Blue "AzCopy already exists."
 }
 else {
+	Write-Host -ForegroundColor Yellow "Downloading AzCopy version $AZCOPY_VERSION for $os..."
 	Invoke-WebRequest -Uri $url -OutFile $archivePath
 	
 	if ($IsLinux) {
@@ -69,5 +70,6 @@ else {
 		chmod +x $toolPath
 	}
 }
+Write-Host -ForegroundColor Green "AzCopy setup completed successfully."
 
 Exit 0
