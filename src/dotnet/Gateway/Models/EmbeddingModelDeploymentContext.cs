@@ -1,12 +1,9 @@
-﻿using FoundationaLLM.Common.Constants.Authentication;
-using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Azure;
 using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Vectorization;
-using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using FoundationaLLM.SemanticKernel.Core.Services;
+using FoundationaLLM.Gateway.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace FoundationaLLM.Gateway.Models
@@ -27,14 +24,9 @@ namespace FoundationaLLM.Gateway.Models
         private readonly ILogger<EmbeddingModelDeploymentContext> _logger = loggerFactory.CreateLogger<EmbeddingModelDeploymentContext>();
         private List<TextChunk> _inputTextChunks = [];
 
-        private readonly ITextEmbeddingService _textEmbeddingService = new SemanticKernelTextEmbeddingService(
-                Options.Create(new SemanticKernelTextEmbeddingServiceSettings
-                {
-                    AuthenticationType = AuthenticationTypes.AzureIdentity,
-                    Endpoint = deployment.AccountEndpoint,
-                    DeploymentName = deployment.Name
-                }),
-                loggerFactory);
+        private readonly ITextEmbeddingService _textEmbeddingService = new GatewayTextEmbeddingService(
+                deployment.AccountEndpoint,
+                loggerFactory.CreateLogger<GatewayTextEmbeddingService>());
 
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
 
