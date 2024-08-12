@@ -36,12 +36,12 @@
 
 				<!-- Message text -->
 				<div class="message__body">
-					<AttachmentList v-if="message.sender === 'User'" :attachments="message.attachmentDetails" />
+					<AttachmentList v-if="message.sender === 'User'" :attachments="message.attachmentDetails ?? []" />
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
 
-					<template v-if="!message.content">
+					<template v-if="!message.content || message.content.length === 0">
 						<div v-html="compiledVueTemplate"></div>
 					</template>
 					<template v-else>
@@ -56,7 +56,7 @@
 							<div v-else-if="content.type === 'html'">
 								<iframe :src="content.value" frameborder="0"></iframe>
 							</div>
-							<div v-else-if="content.type === 'file'">
+							<div v-else-if="content.type === 'file_path'">
 								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
 							</div>
 						</div>
