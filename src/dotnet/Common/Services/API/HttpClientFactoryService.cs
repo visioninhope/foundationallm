@@ -203,17 +203,5 @@ namespace FoundationaLLM.Common.Services.API
 
             return endpointConfiguration;
         }
-
-        private async Task<APIEndpointConfiguration> GetEndpoint(string name, UnifiedUserIdentity userIdentity)
-        {
-            await EnsureConfigurationResourceProvider();
-
-            var endpointConfiguration = await _configurationResourceProvider!.GetResource<APIEndpointConfiguration>(
-                $"/{ConfigurationResourceTypeNames.APIEndpointConfigurations}/{name}",
-                userIdentity)
-                ?? throw new Exception($"The resource provider {ResourceProviderNames.FoundationaLLM_Configuration} did not load the {name} endpoint configuration.");
-
-            return endpointConfiguration;
-        }
     }
 }
