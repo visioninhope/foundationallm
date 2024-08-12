@@ -35,7 +35,7 @@ namespace FoundationaLLM.Core.API.Controllers
             IOptions<InstanceSettings> instanceOptions,
             ICoreService coreService,
             ILogger<FilesController> logger)
-        {            
+        {
             _callContext = callContext;
             _instanceSettings = instanceOptions.Value;
             _coreService = coreService;
@@ -49,7 +49,7 @@ namespace FoundationaLLM.Core.API.Controllers
         /// <param name="agentName">The agent name.</param>
         /// <param name="file">The file sent with the HTTP request.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("upload")]
         public async Task<IActionResult> Upload(string instanceId, string agentName, IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -98,5 +98,15 @@ namespace FoundationaLLM.Core.API.Controllers
                 ? NotFound()
                 : File(attachment.Content!, attachment.ContentType!, attachment.OriginalFileName);
         }
+
+        /// <summary>
+        /// Deletes the specified file(s).
+        /// </summary>
+        /// <param name="instanceId">The instance ID.</param>
+        /// <param name="resourcePaths">The list of object identifiers to be deleted.</param>
+        /// <returns></returns>
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(string instanceId, [FromBody] List<string> resourcePaths) =>
+            new OkObjectResult(await _coreService.DeleteAttachments(instanceId, resourcePaths, _callContext.CurrentUserIdentity!));
     }
 }
