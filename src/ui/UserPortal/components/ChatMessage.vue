@@ -44,12 +44,12 @@
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
 
-					<template v-if="!message.content || message.content.length === 0">
+					<template v-if="!messageContent || messageContent.length === 0">
 						<div v-html="compiledVueTemplate"></div>
 					</template>
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
-						<div v-for="content in message.content" :key="content.fileName" class="message-content">
+						<div v-for="content in messageContent" :key="content.fileName" class="message-content">
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
@@ -258,6 +258,7 @@ export default {
 			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
+			messageContent: JSON.parse(JSON.stringify(this.message.content)),
 		};
 	},
 
@@ -351,8 +352,8 @@ export default {
 
 		// Add this method to fetch content files securely
 		async fetchContentFiles() {
-			if (!this.message.content || this.message.content.length === 0) return;
-			for (const content of this.message.content) {
+			if (!this.messageContent || this.messageContent.length === 0) return;
+			for (const content of this.messageContent) {
 				if (['image_file', 'html', 'file_path'].includes(content.type)) {
 					content.loading = true;
 					content.error = false;
