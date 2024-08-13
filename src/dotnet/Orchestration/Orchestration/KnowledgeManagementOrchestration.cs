@@ -82,7 +82,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     OperationId = completionRequest.OperationId,
                     UserPrompt = completionRequest.UserPrompt!,
                     MessageHistory = completionRequest.MessageHistory,
-                    Attachments = await GetAttachmentPaths(instanceId, completionRequest.Attachments),
+                    Attachments = await GetAttachmentPaths(completionRequest.Attachments),
                     Agent = _agent,
                     Objects = _explodedObjects
                 });
