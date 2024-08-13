@@ -570,13 +570,20 @@ public partial class CoreService(
 
     private string GetRootUrl()
     {
-        const string token = "{{fllm_base_url}}";
         var request = _httpContextAccessor.HttpContext?.Request;
+
+        if (request == null)
+        {
+            throw new InvalidOperationException("Request cannot be null.");
+        }
+
+        var scheme = request.Headers["X-Forwarded-Proto"].FirstOrDefault() ?? request.Scheme;
+
         var uriBuilder = new UriBuilder
         {
-            Scheme = request.Scheme,
+            Scheme = scheme,
             Host = request.Host.Host,
-            Port = request.Host.Port ?? (request.IsHttps ? 443 : 80)
+            Port = request.Host.Port ?? (scheme == "https" ? 443 : 80)
         };
 
         return uriBuilder.ToString();
