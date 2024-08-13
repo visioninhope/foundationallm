@@ -263,9 +263,12 @@ export default {
 		},
 
 		async handleUpload(event: any) {
-			const numberOfFiles = event.files.length;
+			const stallLoadPercentage = 70;
+			const totalFiles = event.files.length;
+			let filesUploaded = 0;
+
 			event.files.forEach(async (file: any, index) => {
-				this.uploadProgress = 70;
+				this.uploadProgress = stallLoadPercentage / totalFiles;
 				try {
 					const formData = new FormData();
 					formData.append('file', file);
@@ -274,14 +277,16 @@ export default {
 						formData,
 						this.$appStore.currentSession.sessionId,
 					);
+					filesUploaded += 1;
+					this.uploadProgress += stallLoadPercentage / totalFiles;
 
-					if (index === numberOfFiles - 1) {
+					if (totalFiles === filesUploaded) {
 						this.showFileUploadDialog = false;
 						this.uploadProgress = 0;
 						this.$toast.add({
 							severity: 'success',
 							summary: 'Success',
-							detail: `File${numberOfFiles > 1 ? 's' : ''} uploaded successfully.`,
+							detail: `File${totalFiles > 1 ? 's' : ''} uploaded successfully.`,
 							life: 5000,
 						});
 					}
