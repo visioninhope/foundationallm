@@ -2504,6 +2504,16 @@
     "title": "Namespace FoundationaLLM.Common.Tasks | FoundationaLLM",
     "keywords": "Namespace FoundationaLLM.Common.Tasks Classes ConcurrentTaskPool Represents a pool of active tasks with a predefined capacity. TaskInfo Provides the context for a task running in the task pool. TaskPool Represents a pool of active tasks with a predefined capacity. TaskPoolException Represents errors that occur in task pools."
   },
+  "api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html": {
+    "href": "api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html",
+    "title": "Class FileMethods | FoundationaLLM",
+    "keywords": "Class FileMethods Namespace FoundationaLLM.Common.Utils Assembly FoundationaLLM.Common.dll Contains methods for working with files. public class FileMethods Inheritance object FileMethods Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Extension Methods ObjectExtensions.GetPropertyValues(object, List<string>) Methods GetMessageContentFileType(string?, string?) Returns the type of the message content based on the file name. public static string GetMessageContentFileType(string? fileName, string? fallbackValue) Parameters fileName string The file name to evaluate. fallbackValue string If populated, defines the fallback type value if a mapping cannot be determined from the passed in file name. Otherwise, the default value is FilePath. Returns string GetMimeType(byte[]) Returns the mime type of the file data. public static string GetMimeType(byte[] fileData) Parameters fileData byte[] The byte array for the file to inspect. Returns string"
+  },
+  "api/dotnet/FoundationaLLM.Common.Utils.html": {
+    "href": "api/dotnet/FoundationaLLM.Common.Utils.html",
+    "title": "Namespace FoundationaLLM.Common.Utils | FoundationaLLM",
+    "keywords": "Namespace FoundationaLLM.Common.Utils Classes FileMethods Contains methods for working with files."
+  },
   "api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.html": {
     "href": "api/dotnet/FoundationaLLM.Common.Validation.ResourceProvider.ResourceBaseValidator.html",
     "title": "Class ResourceBaseValidator | FoundationaLLM",
@@ -2527,7 +2537,7 @@
   "api/dotnet/FoundationaLLM.Common.html": {
     "href": "api/dotnet/FoundationaLLM.Common.html",
     "title": "Namespace FoundationaLLM.Common | FoundationaLLM",
-    "keywords": "Namespace FoundationaLLM.Common Namespaces FoundationaLLM.Common.Authentication FoundationaLLM.Common.Clients FoundationaLLM.Common.Constants FoundationaLLM.Common.Exceptions FoundationaLLM.Common.Extensions FoundationaLLM.Common.Interfaces FoundationaLLM.Common.Middleware FoundationaLLM.Common.Models FoundationaLLM.Common.OpenAPI FoundationaLLM.Common.Services FoundationaLLM.Common.Settings FoundationaLLM.Common.Tasks FoundationaLLM.Common.Validation"
+    "keywords": "Namespace FoundationaLLM.Common Namespaces FoundationaLLM.Common.Authentication FoundationaLLM.Common.Clients FoundationaLLM.Common.Constants FoundationaLLM.Common.Exceptions FoundationaLLM.Common.Extensions FoundationaLLM.Common.Interfaces FoundationaLLM.Common.Middleware FoundationaLLM.Common.Models FoundationaLLM.Common.OpenAPI FoundationaLLM.Common.Services FoundationaLLM.Common.Settings FoundationaLLM.Common.Tasks FoundationaLLM.Common.Utils FoundationaLLM.Common.Validation"
   },
   "api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html": {
     "href": "api/dotnet/FoundationaLLM.Configuration.Catalog.AppConfigurationCatalog.html",

@@ -25447,6 +25447,50 @@ references:
   fullName.vb: FoundationaLLM.Common.Tasks.TaskPoolException.New
   nameWithType: TaskPoolException.TaskPoolException
   nameWithType.vb: TaskPoolException.New
+- uid: FoundationaLLM.Common.Utils
+  name: FoundationaLLM.Common.Utils
+  href: api/dotnet/FoundationaLLM.Common.Utils.html
+  commentId: N:FoundationaLLM.Common.Utils
+  fullName: FoundationaLLM.Common.Utils
+  nameWithType: FoundationaLLM.Common.Utils
+- uid: FoundationaLLM.Common.Utils.FileMethods
+  name: FileMethods
+  href: api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html
+  commentId: T:FoundationaLLM.Common.Utils.FileMethods
+  fullName: FoundationaLLM.Common.Utils.FileMethods
+  nameWithType: FileMethods
+- uid: FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType(System.String,System.String)
+  name: GetMessageContentFileType(string?, string?)
+  href: api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html#FoundationaLLM_Common_Utils_FileMethods_GetMessageContentFileType_System_String_System_String_
+  commentId: M:FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType(System.String,System.String)
+  name.vb: GetMessageContentFileType(String, String)
+  fullName: FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType(string?, string?)
+  fullName.vb: FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType(String, String)
+  nameWithType: FileMethods.GetMessageContentFileType(string?, string?)
+  nameWithType.vb: FileMethods.GetMessageContentFileType(String, String)
+- uid: FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType*
+  name: GetMessageContentFileType
+  href: api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html#FoundationaLLM_Common_Utils_FileMethods_GetMessageContentFileType_
+  commentId: Overload:FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Utils.FileMethods.GetMessageContentFileType
+  nameWithType: FileMethods.GetMessageContentFileType
+- uid: FoundationaLLM.Common.Utils.FileMethods.GetMimeType(System.Byte[])
+  name: GetMimeType(byte[])
+  href: api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html#FoundationaLLM_Common_Utils_FileMethods_GetMimeType_System_Byte___
+  commentId: M:FoundationaLLM.Common.Utils.FileMethods.GetMimeType(System.Byte[])
+  name.vb: GetMimeType(Byte())
+  fullName: FoundationaLLM.Common.Utils.FileMethods.GetMimeType(byte[])
+  fullName.vb: FoundationaLLM.Common.Utils.FileMethods.GetMimeType(Byte())
+  nameWithType: FileMethods.GetMimeType(byte[])
+  nameWithType.vb: FileMethods.GetMimeType(Byte())
+- uid: FoundationaLLM.Common.Utils.FileMethods.GetMimeType*
+  name: GetMimeType
+  href: api/dotnet/FoundationaLLM.Common.Utils.FileMethods.html#FoundationaLLM_Common_Utils_FileMethods_GetMimeType_
+  commentId: Overload:FoundationaLLM.Common.Utils.FileMethods.GetMimeType
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Utils.FileMethods.GetMimeType
+  nameWithType: FileMethods.GetMimeType
 - uid: FoundationaLLM.Common.Validation
   name: FoundationaLLM.Common.Validation
   href: api/dotnet/FoundationaLLM.Common.Validation.html
