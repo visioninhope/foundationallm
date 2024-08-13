@@ -196,7 +196,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIImageFile.FileId}",
                 OriginalFileName = openAIImageFile.FileId!,
-                ContentType = "image",
+                ContentType = "image/png",
                 OpenAIFileId = openAIImageFile.FileId!,
                 Generated = true,
                 OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
@@ -211,7 +211,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIFilePath.FileId}",
                 OriginalFileName = openAIFilePath.FileId!,
-                ContentType = "generic",
+                ContentType = "application/octet-stream",
                 OpenAIFileId = openAIFilePath.FileId!,
                 Generated = true,
                 OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
