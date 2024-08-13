@@ -457,7 +457,7 @@
         },
         {
             "key": "FoundationaLLM:APIEndpoints:GatewayAPI:Configuration:AzureOpenAIAccounts",
-            "value": "",
+            "value": "${env:AZURE_OPENAI_ID}",
             "label": null,
             "content_type": "",
             "tags": {}
