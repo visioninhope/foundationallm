@@ -76,7 +76,10 @@
 									style="display: block; max-width: 100%"
 								/>
 								<div v-if="content.error" class="loading-image-error">
-									<i class="pi pi-times-circle loading-image-error-icon" style="font-size: 2rem"></i>
+									<i
+										class="pi pi-times-circle loading-image-error-icon"
+										style="font-size: 2rem"
+									></i>
 									<span class="loading-image-error-text">Could not load image</span>
 								</div>
 							</div>
@@ -95,6 +98,17 @@
 								</a>
 							</div>
 						</div>
+
+						<Button
+							v-if="message.analysisResults && message.analysisResults.length > 0"	
+							class="message__button"
+							:disabled="message.type === 'LoadingMessage'"
+							size="small"
+							text
+							icon="pi pi-window-maximize"
+							label="Analysis"
+							@click.stop="showAnalysisModal"
+						/>
 					</template>
 				</div>
 
@@ -181,6 +195,12 @@
 		<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
 			{{ $filters.timeAgo(new Date(message.timeStamp)) }}
 		</Divider>
+
+		<AnalysisModal
+			:visible="isAnalysisModalVisible"
+			:analysisResults="message.analysisResults ?? []"
+			@update:visible="isAnalysisModalVisible = $event"
+		/>
 	</div>
 </template>
 
@@ -190,12 +210,13 @@ import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
-import type { PropType } from 'vue';
+import type { PropType, ref } from 'vue';
 
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import AttachmentList from '@/components/AttachmentList.vue';
+import AnalysisModal from '@/components/AnalysisModal.vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {
@@ -237,6 +258,7 @@ export default {
 
 	components: {
 		AttachmentList,
+		AnalysisModal,
 	},
 
 	props: {
@@ -251,6 +273,19 @@ export default {
 		},
 	},
 
+	setup() {
+		const isAnalysisModalVisible = ref(false);
+
+		function showAnalysisModal() {
+			isAnalysisModalVisible.value = true;
+		}
+
+		return {
+			isAnalysisModalVisible,
+			showAnalysisModal,
+		};
+	},
+
 	emits: ['rate', 'refresh'],
 
 	data() {
@@ -261,7 +296,9 @@ export default {
 			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
-			messageContent: this.message.content ? JSON.parse(JSON.stringify(this.message.content)) : null,
+			messageContent: this.message.content
+				? JSON.parse(JSON.stringify(this.message.content))
+				: null,
 		};
 	},
 
@@ -567,7 +604,7 @@ iframe {
 	align-items: center;
 	width: 200px;
 	padding: 8px 12px;
-	border-radius: .75rem;
+	border-radius: 0.75rem;
 	border-color: rgb(182, 2, 2);
 	color: rgb(182, 2, 2);
 	box-shadow: 0 1px 3px rgba(182, 2, 2, 0.664);
@@ -579,12 +616,11 @@ iframe {
 	}
 
 	.loading-image-error-text {
-		font-size: .85rem;
+		font-size: 0.85rem;
 		font-style: italic;
 		line-height: 1.5;
 	}
 }
-
 </style>
 
 <style lang="scss">
