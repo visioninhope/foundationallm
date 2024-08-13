@@ -104,7 +104,7 @@ Class StatusController  <a class="header-action link-secondary" title="View sour
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Authorize(Policy = &quot;RequiredClaims&quot;)]
 [ApiController]
-[Route(&quot;status&quot;)]
+[Route(&quot;&quot;)]
 [Consumes(&quot;application/json&quot;, new string[] { })]
 [Produces(&quot;application/json&quot;, new string[] { })]
 public class StatusController : ControllerBase</code></pre>
@@ -689,7 +689,7 @@ public class StatusController : ControllerBase</code></pre>
 
   <h3 id="FoundationaLLM_Authorization_API_Controllers_StatusController_GetAuthStatus" data-uid="FoundationaLLM.Authorization.API.Controllers.StatusController.GetAuthStatus">
   GetAuthStatus()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/StatusController.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/StatusController.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns OK if the requester is authenticated and allowed to execute
@@ -698,7 +698,8 @@ requests against this service.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[HttpGet(&quot;auth&quot;, Name = &quot;GetAuthStatus&quot;)]
+    <pre><code class="lang-csharp hljs">[Route(&quot;instances/{instanceId}/auth-status&quot;)]
+[HttpGet]
 public IActionResult GetAuthStatus()</code></pre>
   </div>
 
@@ -732,6 +733,7 @@ public IActionResult GetAuthStatus()</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[AllowAnonymous]
+[Route(&quot;status&quot;)]
 [HttpGet(Name = &quot;GetServiceStatus&quot;)]
 public IActionResult GetServiceStatus()</code></pre>
   </div>
@@ -757,7 +759,7 @@ public IActionResult GetServiceStatus()</code></pre>
 
   <h3 id="FoundationaLLM_Authorization_API_Controllers_StatusController_Options" data-uid="FoundationaLLM.Authorization.API.Controllers.StatusController.Options">
   Options()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/StatusController.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/AuthorizationAPI/Controllers/StatusController.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns the allowed HTTP methods for the Core API service.</p>
