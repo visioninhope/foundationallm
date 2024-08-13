@@ -287,7 +287,7 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData, agentName: string, progressCallback: Function) {
-		const response: ResourceProviderUpsertResult = await new Promise(async (resolve) => {
+		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
 			xhr.upload.onprogress = function (event) {
