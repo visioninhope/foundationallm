@@ -22,7 +22,7 @@ class CompletionResponse(BaseModel):
             ]
         ]
     ] = None
-    analysis_result: Optional[List[AnalysisResult]] = []
+    analysis_results: Optional[List[AnalysisResult]] = []
     citations: Optional[List[Citation]] = []
     user_prompt_embedding: Optional[List[float]] = []
     prompt_tokens: int = 0
