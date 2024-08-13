@@ -218,7 +218,7 @@ public partial class CoreService(
 
             var newContent = new List<MessageContent>();
 
-            if (result.Content is {Count: > 0})
+            if (result.Content is { Count: > 0 })
             {
                 foreach (var content in result.Content)
                 {
@@ -254,7 +254,21 @@ public partial class CoreService(
                 }
             }
 
-            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations, null, newContent);
+            var completionMessage = new Message(
+                completionRequest.SessionId,
+                nameof(Participants.Assistant),
+                result.CompletionTokens,
+                result.Completion,
+                null,
+                null,
+                upn,
+                result.AgentName,
+                result.Citations,
+                null,
+                newContent,
+                null,
+                null,
+                result.AnalysisResults);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
             var completionPrompt = new CompletionPrompt(completionRequest.SessionId, completionMessage.Id, completionPromptText);
@@ -546,6 +560,11 @@ public partial class CoreService(
             return text;
         }
         const string token = "{{fllm_base_url}}";
+        // If rootUrl ends with a slash, remove it.
+        if (rootUrl.EndsWith('/'))
+        {
+            rootUrl = rootUrl[..^1];
+        }
         return text.Replace(token, rootUrl);
     }
 
