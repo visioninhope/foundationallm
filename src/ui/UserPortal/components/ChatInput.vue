@@ -280,7 +280,7 @@ export default {
 
 							let totalUploadProgress = 0;
 							filesProgress.forEach((fileProgress) => {
-								totalUploadProgress += fileProgress / 3;
+								totalUploadProgress += fileProgress / totalFiles;
 							});
 
 							this.uploadProgress = totalUploadProgress;
