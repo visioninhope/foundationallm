@@ -8,7 +8,10 @@ import type {
 	Agent,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
-	Attachment
+	ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults,
+	Attachment,
+	MessageContent
 } from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
@@ -148,9 +151,22 @@ export const useAppStore = defineStore('app', {
 			);
 		},
 
+		initializeMessageContent(content: MessageContent) {
+			return reactive({
+			  ...content,
+			  blobUrl: '',
+			  loading: true,
+			  error: false
+			});
+		  },
+
 		async getMessages() {
 			const data = await api.getMessages(this.currentSession.id);
-			this.currentMessages = data;
+			this.currentMessages = data.map(message => ({
+				...message,
+				content: message.content ? message.content.map(this.initializeMessageContent) : [],
+			}));
+			await nextTick();
 		},
 
 		updateSessionAgentFromMessages(session: Session) {
@@ -335,8 +351,16 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async deleteAttachment(attachment: Attachment) {
-			//await api.deleteAttachment(attachment.id);
-			this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
-		}
+			const deleteResults: ResourceProviderDeleteResults = await api.deleteAttachments([attachment.id]);
+			Object.entries(deleteResults).forEach(([key, value]) => {
+				if (key === attachment.id) {
+					if (value.deleted) {
+						this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
+					} else {
+						throw new Error(`Could not delete the attachment: ${value.reason}`);
+					}
+				}
+			});
+		},
 	},
 });

@@ -36,28 +36,59 @@
 
 				<!-- Message text -->
 				<div class="message__body">
-					<AttachmentList v-if="message.sender === 'User'" :attachments="message.attachmentDetails" />
+					<AttachmentList
+						v-if="message.sender === 'User'"
+						:attachments="message.attachmentDetails ?? []"
+					/>
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
 
-					<template v-if="!message.content">
+					<template v-if="!messageContent || messageContent.length === 0">
 						<div v-html="compiledVueTemplate"></div>
 					</template>
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
-						<div v-for="content in message.content" :key="content.file_name" class="message-content">
+						<div v-for="content in messageContent" :key="content.fileName" class="message-content">
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
 							<div v-else-if="content.type === 'image_file'">
-								<img :src="content.value" :alt="content.file_name" />
+								<template v-if="content.loading || (!content.error && !content.blobUrl)">
+									<div class="loading-image-container">
+										<i class="pi pi-image loading-image-icon" style="font-size: 2rem"></i>
+										<i class="pi pi-spin pi-spinner loading-image-icon" style="font-size: 1rem"></i>
+										<span class="loading-image-text">Loading image...</span>
+									</div>
+								</template>
+
+								<img
+									v-if="content.blobUrl"
+									:src="content.blobUrl"
+									:alt="content.fileName"
+									@load="content.loading = false"
+									@error="
+										content.loading = false;
+										content.error = true;
+									"
+									style="display: block; max-width: 100%"
+								/>
+								<div v-if="content.error" class="loading-image-error">
+									<i class="pi pi-times-circle loading-image-error-icon" style="font-size: 2rem"></i>
+									<span class="loading-image-error-text">Could not load image</span>
+								</div>
 							</div>
 							<div v-else-if="content.type === 'html'">
-								<iframe :src="content.value" frameborder="0"></iframe>
+								<iframe :src="content.blobUrl" frameborder="0"></iframe>
 							</div>
-							<div v-else-if="content.type === 'file'">
-								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+							<div v-else-if="content.type === 'file_path'">
+								<a
+									:href="content.blobUrl"
+									:download="content.fileName ?? content.blobUrl ?? content.value"
+									target="_blank"
+								>
+									Download {{ content.fileName ?? content.blobUrl }}
+								</a>
 							</div>
 						</div>
 					</template>
@@ -201,7 +232,7 @@ export default {
 	name: 'ChatMessage',
 
 	components: {
-		AttachmentList
+		AttachmentList,
 	},
 
 	props: {
@@ -216,7 +247,7 @@ export default {
 		},
 	},
 
-	emits: ['rate'],
+	emits: ['rate', 'refresh'],
 
 	data() {
 		return {
@@ -226,6 +257,7 @@ export default {
 			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
+			messageContent: JSON.parse(JSON.stringify(this.message.content)),
 		};
 	},
 
@@ -252,13 +284,17 @@ export default {
 		}
 	},
 
+	mounted() {
+		this.fetchContentFiles();
+	},
+
 	methods: {
 		renderMarkdownComponent(contentValue: string) {
-      		const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
+			const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
 			return {
 				template: `<div>${sanitizedContent}</div>`,
 				components: {
-				CodeBlockHeader,
+					CodeBlockHeader,
 				},
 			};
 		},
@@ -315,6 +351,29 @@ export default {
 			const prompt = await api.getPrompt(this.message.sessionId, this.message.completionPromptId);
 			this.prompt = prompt;
 			this.viewPrompt = true;
+		},
+
+		// Add this method to fetch content files securely
+		async fetchContentFiles() {
+			if (!this.messageContent || this.messageContent.length === 0) return;
+
+			const fetchPromises = this.messageContent.map(async (content) => {
+				if (['image_file', 'html', 'file_path'].includes(content.type)) {
+					content.loading = true;
+					content.error = false;
+					try {
+						const response = await api.fetchDirect(content.value);
+						const blobUrl = URL.createObjectURL(response);
+						content.blobUrl = blobUrl;
+					} catch (error) {
+						console.error(`Failed to fetch content from ${content.value}`, error);
+						content.error = true;
+					}
+					content.loading = false;
+				}
+			});
+
+			await Promise.all(fetchPromises);
 		},
 	},
 };
@@ -466,21 +525,62 @@ export default {
 }
 
 .message-content {
-  margin-top: 5px;
-  margin-bottom: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
 }
 
 iframe {
-  width: 100%;
-  height: 600px;
-  border-radius: 8px;
+	width: 100%;
+	height: 600px;
+	border-radius: 8px;
 }
+
+.loading-image-container {
+	display: flex;
+	align-items: center;
+
+	.loading-image-icon {
+		margin-right: 8px;
+		vertical-align: middle;
+		line-height: 1;
+	}
+
+	.loading-image-text {
+		font-size: 0.75rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+}
+
+.loading-image-error {
+	display: flex;
+	align-items: center;
+	width: 200px;
+	padding: 8px 12px;
+	border-radius: .75rem;
+	border-color: rgb(182, 2, 2);
+	color: rgb(182, 2, 2);
+	box-shadow: 0 1px 3px rgba(182, 2, 2, 0.664);
+
+	.loading-image-error-icon {
+		margin-right: 8px;
+		vertical-align: middle;
+		line-height: 1;
+	}
+
+	.loading-image-error-text {
+		font-size: .85rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+}
+
 </style>
 
 <style lang="scss">

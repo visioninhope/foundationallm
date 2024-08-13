@@ -181,7 +181,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         _storageContainerName,
                         attachmentReference.Filename,
                         default);
-                    attachmentFile.Content = fileContent.ToStream();
+                    attachmentFile.Content = fileContent.ToArray();
                 }
 
                 return attachmentFile;
@@ -241,7 +241,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             await _storageService.WriteFileAsync(
                 _storageContainerName,
                 attachmentReference.Filename,
-                attachment.Content,
+                new MemoryStream(attachment.Content!),
                 attachment.ContentType ?? default,
                 default);
 

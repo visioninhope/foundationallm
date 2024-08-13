@@ -43,7 +43,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
                 .Returns(Task.FromResult(orchestrationResult));
 
             // Act
-            var completionResponse = await _knowledgeManagementOrchestration.GetCompletion(_instanceId, completionRequest);
+            var completionResponse = await _knowledgeManagementOrchestration.GetCompletion(completionRequest);
 
             // Assert
             Assert.Equal(orchestrationResult.Completion, completionResponse.Completion);

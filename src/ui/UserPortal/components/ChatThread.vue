@@ -1,7 +1,8 @@
 <template>
 	<div class="chat-thread">
 		<!-- Message list -->
-		<div class="chat-thread__messages" :class="messages.length === 0 && 'empty'">
+		<div class="chat-thread__messages"
+			:class="messages.length === 0 && 'empty'">
 			<template v-if="isLoading">
 				<div class="chat-thread__loading">
 					<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -13,10 +14,11 @@
 				<template v-if="messages.length !== 0">
 					<ChatMessage
 						v-for="(message, index) in messages.slice().reverse()"
-						:key="message.id"
+						:key="`${message.id}-${componentKey}`"
 						:message="message"
 						:show-word-animation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage($event.message, $event.isLiked)"
+						@refresh="handleRefresh()"
 					/>
 				</template>
 
@@ -57,6 +59,7 @@ export default {
 			isLoading: true,
 			userSentMessage: false,
 			isMessagePending: false,
+			componentKey: 0,
 			longRunningOperations: new Map<string, boolean>(), // sessionId -> isPending
 		};
 	},
@@ -92,6 +95,11 @@ export default {
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
+		},
+
+		async handleRefresh() {
+			this.componentKey += 1;
+			this.$nextTick();
 		},
 
 		async handleSend(text: string) {

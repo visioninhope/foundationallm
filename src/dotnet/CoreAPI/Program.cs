@@ -91,6 +91,8 @@ namespace FoundationaLLM.Core.API
             // Add Azure ARM services
             builder.AddAzureResourceManager();
 
+            builder.Services.AddHttpContextAccessor();
+
             // Add event services
             builder.Services.AddAzureEventGridEvents(
                 builder.Configuration,
