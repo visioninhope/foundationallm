@@ -125,5 +125,34 @@
 		"updated_on": "2024-03-07T00:00:00.0000000Z",
 		"created_by": null,
 		"updated_by": null
+	},
+	{
+		"type": "FoundationaLLM.Authorization/roleDefinitions",
+		"name": "8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+		"object_id": "/providers/FoundationaLLM.Authorization/roleDefinitions/8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+		"display_name": "Attachments Contributor",
+		"description": "Upload attachments including uploading to Azure OpenAI file store.",
+		"assignable_scopes": [
+			"/"
+		],
+		"permissions": [
+			{
+				"actions": [
+					"FoundationaLLM.Attachment/attachments/read",
+					"FoundationaLLM.Attachment/attachments/write",
+					"FoundationaLLM.AzureOpenAI/assistantUserContexts/read",
+					"FoundationaLLM.AzureOpenAI/assistantUserContexts/write",
+					"FoundationaLLM.AzureOpenAI/fileUserContexts/read",
+					"FoundationaLLM.AzureOpenAI/fileUserContexts/write"
+				],
+				"not_actions": [],
+				"data_actions": [],
+				"not_data_actions": []
+			}
+		],
+		"created_on": "2024-03-07T00:00:00.0000000Z",
+		"updated_on": "2024-03-07T00:00:00.0000000Z",
+		"created_by": null,
+		"updated_by": null
 	}
 ]
