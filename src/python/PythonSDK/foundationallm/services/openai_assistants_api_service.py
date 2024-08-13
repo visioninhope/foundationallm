@@ -86,7 +86,7 @@ class OpenAIAssistantsApiService:
         run = self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
-            )
+        )
         
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
@@ -99,13 +99,13 @@ class OpenAIAssistantsApiService:
           run_id = run.id
         )
 
-        analysis_result = self._parse_run_steps(run_steps.data)
+        analysis_results = self._parse_run_steps(run_steps.data)
 
         content = self._parse_messages(messages)
         
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis_result= analysis_result,
+            analysis_results = analysis_results,
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
@@ -149,7 +149,7 @@ class OpenAIAssistantsApiService:
           run_id = run.id
         )
 
-        analysis_result = await self._aparse_run_steps(run_steps.data)
+        analysis_results = await self._aparse_run_steps(run_steps.data)
 
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = await self.client.beta.threads.messages.list(
@@ -160,7 +160,7 @@ class OpenAIAssistantsApiService:
 
         return OpenAIAssistantsAPIResponse(
             content = content,
-            analysis_result= analysis_result,
+            analysis_results = analysis_results,
             completion_tokens = run.usage.completion_tokens,
             prompt_tokens = run.usage.prompt_tokens,
             total_tokens = run.usage.total_tokens
