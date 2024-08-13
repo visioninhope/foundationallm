@@ -64,7 +64,7 @@
 								</template>
 								
 								<img
-									v-if="content.blobUrl && !content.loading"
+									v-if="content.blobUrl"
 									:src="content.blobUrl"
 									:alt="content.fileName"
 									@load="content.loading = false"
@@ -357,7 +357,7 @@ export default {
 					content.loading = true;
 					content.error = false;
 					try {
-						const response = await api.fetchDirect(content.value, { responseType: 'blob' });
+						const response = await api.fetchDirect(content.value);
 						const blobUrl = URL.createObjectURL(response);
 						content.blobUrl = blobUrl;
 					} catch (error) {
