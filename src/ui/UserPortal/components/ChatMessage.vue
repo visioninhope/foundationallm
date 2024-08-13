@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<div class="message-row" :class="message.sender === 'User' ? 'message--out' : 'message--in'">
+		<div class="message-row"
+			:key="componentKey"
+			:class="message.sender === 'User' ? 'message--out' : 'message--in'">
 			<div class="message">
 				<div class="message__header">
 					<!-- Sender -->
@@ -49,12 +51,11 @@
 					</template>
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
-						<div v-for="content in message.content" :key="content.fileName" class="message-content">
+						<div v-for="(content, index) in message.content" :key="`${content.type}-${index}-${syntheticKey}`" class="message-content">
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
 							<div v-else-if="content.type === 'image_file'">
-								
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
 									<div class="loading-image-container">
 										<i class="pi pi-image loading-image-icon" style="font-size: 2rem"></i>
@@ -62,11 +63,12 @@
 										<span class="loading-image-text">Loading image...</span>
 									</div>
 								</template>
-								
+
 								<img
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
 									:alt="content.fileName"
+									:key="componentKey"
 									@load="content.loading = false"
 									@error="
 										content.loading = false;
@@ -248,7 +250,7 @@ export default {
 		},
 	},
 
-	emits: ['rate'],
+	emits: ['rate', 'refresh'],
 
 	data() {
 		return {
@@ -256,6 +258,8 @@ export default {
 			viewPrompt: false,
 			compiledVueTemplate: '',
 			currentWordIndex: 0,
+			syntheticKey: '123',
+			componentKey: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
 		};
@@ -359,7 +363,9 @@ export default {
 					try {
 						const response = await api.fetchDirect(content.value);
 						const blobUrl = URL.createObjectURL(response);
+						this.syntheticKey = `${Math.random().toString(12)}`;
 						content.blobUrl = blobUrl;
+						this.forceRerender();
 					} catch (error) {
 						console.error(`Failed to fetch content from ${content.value}`, error);
 						content.error = true;
@@ -368,7 +374,13 @@ export default {
 					}
 				}
 			}
-		}
+		},
+
+		forceRerender() {
+			this.componentKey += 1;
+			this.$nextTick();
+			//this.$emit('refresh');
+		},
 	},
 
 	mounted() {
