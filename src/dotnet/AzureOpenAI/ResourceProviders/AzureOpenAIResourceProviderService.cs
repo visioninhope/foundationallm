@@ -669,7 +669,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     {
                         { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
                         { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
-                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMAttachmentObjectId }
+                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
                     });
 
                     result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId, out var newOpenAIFileIdObject);
@@ -687,13 +687,13 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     ?? throw new ResourceProviderException(
                         $"Could not load the {fileUserContext.Name} file user context.");
 
-                if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMAttachmentObjectId))
+                if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMObjectId))
                     throw new ResourceProviderException(
-                        $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMAttachmentObjectId}.",
+                        $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMObjectId}.",
                         StatusCodes.Status400BadRequest);
 
                 existingFileUserContext.Files.Add(
-                    incompleteFiles[0].FoundationaLLMAttachmentObjectId,
+                    incompleteFiles[0].FoundationaLLMObjectId,
                     incompleteFiles[0]);
 
                 var result = await gatewayClient!.CreateAgentCapability(
@@ -704,7 +704,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     {
                         { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
                         { OpenAIAgentCapabilityParameterNames.Endpoint, existingFileUserContext.Endpoint },
-                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMAttachmentObjectId }
+                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
                     });
 
                 result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId, out var newOpenAIFileIdObject);

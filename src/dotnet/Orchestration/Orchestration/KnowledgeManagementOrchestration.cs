@@ -45,6 +45,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private readonly ICallContext _callContext = callContext;
         private readonly ILogger<OrchestrationBase> _logger = logger;
         private readonly bool _dataSourceAccessDenied = dataSourceAccessDenied;
+        private readonly string _fileUserContextName = $"{callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? callContext.CurrentUserIdentity!.UserId}-file-{instanceId.ToLower()}";
+        private readonly string _fileUserContextObjectId = $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/"
+            + $"{callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? callContext.CurrentUserIdentity!.UserId}-file-{instanceId.ToLower()}";
 
         private readonly IResourceProviderService _attachmentResourceProvider =
             resourceProviderServices[ResourceProviderNames.FoundationaLLM_Attachment];
@@ -52,12 +55,12 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             resourceProviderServices[ResourceProviderNames.FoundationaLLM_AzureOpenAI];
 
         /// <inheritdoc/>
-        public override async Task<CompletionResponse> GetCompletion(string instanceId, CompletionRequest completionRequest)
+        public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
                 {
-                    OperationId = completionRequest.OperationId,
+                    OperationId = completionRequest.OperationId!,
                     Completion = "I have no knowledge that can be used to answer this question.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -66,7 +69,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             if (_agent.ExpirationDate.HasValue && _agent.ExpirationDate.Value < DateTime.UtcNow)
                 return new CompletionResponse
                 {
-                    OperationId = completionRequest.OperationId,
+                    OperationId = completionRequest.OperationId!,
                     Completion = $"The requested agent, {_agent.Name}, has expired and is unable to respond.",
                     UserPrompt = completionRequest.UserPrompt!,
                     AgentName = _agent.Name
@@ -94,9 +97,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             return new CompletionResponse
             {
-                OperationId = completionRequest.OperationId,
+                OperationId = completionRequest.OperationId!,
                 Completion = result.Completion!,
-                Content = result.Content?.Select(c => TransformContentItem(c)!).ToList(),
+                Content = await TransformContentItems(result.Content!),
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
                 FullPrompt = result.FullPrompt,
@@ -107,7 +110,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             };
         }
 
-        private async Task<List<AttachmentProperties>> GetAttachmentPaths(string instanceId, List<string> attachmentObjectIds)
+        private async Task<List<AttachmentProperties>> GetAttachmentPaths(List<string> attachmentObjectIds)
         {
             if (attachmentObjectIds.Count == 0)
                 return [];
@@ -116,9 +119,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .ToAsyncEnumerable()
                 .SelectAwait(async x => await _attachmentResourceProvider.GetResource<AttachmentFile>(x, _callContext.CurrentUserIdentity!));
 
-            var fileUserContextName = $"{_callContext.CurrentUserIdentity!.UPN?.NormalizeUserPrincipalName() ?? _callContext.CurrentUserIdentity!.UserId}-file-{instanceId.ToLower()}";
             var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
-                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
+                _fileUserContextObjectId,
                 _callContext.CurrentUserIdentity!);
 
             List<AttachmentProperties> result = [];
@@ -147,40 +149,80 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return result;
         }
 
-        private MessageContentItemBase TransformContentItem(MessageContentItemBase contentItem) =>
+        private async Task<List<MessageContentItemBase>> TransformContentItems(List<MessageContentItemBase> contentItems)
+        {
+            List<FileMapping> newFileMappings = [];
+            var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
+
+            var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
+                _fileUserContextObjectId,
+                _callContext.CurrentUserIdentity!);
+
+            foreach (var fileMapping in newFileMappings)
+                fileUserContext.Files.Add(
+                    fileMapping.FoundationaLLMObjectId,
+                    fileMapping);
+
+            await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
+                _fileUserContextObjectId,
+                fileUserContext,
+                _callContext.CurrentUserIdentity!);
+
+            return result;
+        }
+
+        private MessageContentItemBase TransformContentItem(MessageContentItemBase contentItem, List<FileMapping> newFileMappings) =>
             contentItem.AgentCapabilityCategory switch
             {
-                AgentCapabilityCategoryNames.OpenAIAssistants => TransformOpenAIAssistantsContentItem(contentItem),
+                AgentCapabilityCategoryNames.OpenAIAssistants => TransformOpenAIAssistantsContentItem(contentItem, newFileMappings),
                 AgentCapabilityCategoryNames.FoundationaLLMKnowledgeManagement => TransformFoundationaLLMKnowledgeManagementContentItem(contentItem),
                 _ => throw new OrchestrationException($"The agent capability category {contentItem.AgentCapabilityCategory} is not supported.")
             };
 
         #region OpenAI Assistants content items
 
-        private MessageContentItemBase TransformOpenAIAssistantsContentItem(MessageContentItemBase contentItem) =>
+        private MessageContentItemBase TransformOpenAIAssistantsContentItem(MessageContentItemBase contentItem, List<FileMapping> newFileMappings) =>
             contentItem switch
             {
-                OpenAIImageFileMessageContentItem openAIImageFile => TransformOpenAIAssistantsImageFile(openAIImageFile),
-                OpenAITextMessageContentItem openAITextMessage => TransformOpenAIAssistantsTextMessage(openAITextMessage),
+                OpenAIImageFileMessageContentItem openAIImageFile => TransformOpenAIAssistantsImageFile(openAIImageFile, newFileMappings),
+                OpenAITextMessageContentItem openAITextMessage => TransformOpenAIAssistantsTextMessage(openAITextMessage, newFileMappings),
                 _ => throw new OrchestrationException($"The content item type {contentItem.GetType().Name} is not supported.")
             };
 
-        private OpenAIImageFileMessageContentItem TransformOpenAIAssistantsImageFile(OpenAIImageFileMessageContentItem openAIImageFile)
+        private OpenAIImageFileMessageContentItem TransformOpenAIAssistantsImageFile(OpenAIImageFileMessageContentItem openAIImageFile, List<FileMapping> newFileMappings)
         {
+            newFileMappings.Add(new FileMapping
+            {
+                FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIImageFile.FileId}",
+                OriginalFileName = openAIImageFile.FileId!,
+                ContentType = "image",
+                OpenAIFileId = openAIImageFile.FileId!,
+                Generated = true,
+                OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
+            });
             openAIImageFile.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIImageFile.FileId}";
             return openAIImageFile;
         }
 
-        private OpenAIFilePathContentItem TransformOpenAIAssistantsFilePath(OpenAIFilePathContentItem openAIFilePath)
+        private OpenAIFilePathContentItem TransformOpenAIAssistantsFilePath(OpenAIFilePathContentItem openAIFilePath, List<FileMapping> newFileMappings)
         {
+            newFileMappings.Add(new FileMapping
+            {
+                FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIFilePath.FileId}",
+                OriginalFileName = openAIFilePath.FileId!,
+                ContentType = "generic",
+                OpenAIFileId = openAIFilePath.FileId!,
+                Generated = true,
+                OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
+            });
             openAIFilePath.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
             return openAIFilePath;
         }
 
-        private OpenAITextMessageContentItem TransformOpenAIAssistantsTextMessage(OpenAITextMessageContentItem openAITextMessage)
+        private OpenAITextMessageContentItem TransformOpenAIAssistantsTextMessage(OpenAITextMessageContentItem openAITextMessage, List<FileMapping> newFileMappings)
         {
             openAITextMessage.Annotations = openAITextMessage.Annotations
-                .Select(a => TransformOpenAIAssistantsFilePath(a))
+                .Select(a => TransformOpenAIAssistantsFilePath(a, newFileMappings))
                 .ToList();
             var sandboxPlaceholders = openAITextMessage.Annotations.ToDictionary(
                 a => a.Text!,
