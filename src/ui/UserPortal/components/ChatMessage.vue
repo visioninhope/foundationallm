@@ -284,6 +284,10 @@ export default {
 		}
 	},
 
+	mounted() {
+		this.fetchContentFiles();
+	},
+
 	methods: {
 		renderMarkdownComponent(contentValue: string) {
 			const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
@@ -352,7 +356,8 @@ export default {
 		// Add this method to fetch content files securely
 		async fetchContentFiles() {
 			if (!this.messageContent || this.messageContent.length === 0) return;
-			for (const content of this.messageContent) {
+
+			const fetchPromises = this.messageContent.map(async (content) => {
 				if (['image_file', 'html', 'file_path'].includes(content.type)) {
 					content.loading = true;
 					content.error = false;
@@ -363,16 +368,13 @@ export default {
 					} catch (error) {
 						console.error(`Failed to fetch content from ${content.value}`, error);
 						content.error = true;
-					} finally {
-						content.loading = false;
 					}
+					content.loading = false;
 				}
-			}
-		}
-	},
+			});
 
-	mounted() {
-		this.fetchContentFiles();
+			await Promise.all(fetchPromises);
+		},
 	},
 };
 </script>
