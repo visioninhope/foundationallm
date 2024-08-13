@@ -5579,6 +5579,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames
   fullName: FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames
   nameWithType: RoleDefinitionNames
+- uid: FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.Attachments_Contributor
+  name: Attachments_Contributor
+  href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.html#FoundationaLLM_Common_Constants_Authorization_RoleDefinitionNames_Attachments_Contributor
+  commentId: F:FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.Attachments_Contributor
+  fullName: FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.Attachments_Contributor
+  nameWithType: RoleDefinitionNames.Attachments_Contributor
 - uid: FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.Contributor
   name: Contributor
   href: api/dotnet/FoundationaLLM.Common.Constants.Authorization.RoleDefinitionNames.html#FoundationaLLM_Common_Constants_Authorization_RoleDefinitionNames_Contributor
