@@ -59,14 +59,18 @@ namespace FoundationaLLM.Core.API.Controllers
             var name = $"a-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
             var contentType = file.ContentType;
 
-            var bytes = new byte[] { 1, 2, 3, 4, 5 };
+            await using var stream = file.OpenReadStream();
+            using var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            var content = memoryStream.ToArray();
+
             return new OkObjectResult(
                 await _coreService.UploadAttachment(
                     instanceId,
                     new AttachmentFile
                     {
                         Name = name,
-                        Content = bytes,
+                        Content = content,
                         DisplayName = fileName,
                         ContentType = contentType,
                         OriginalFileName = fileName

@@ -54,7 +54,6 @@
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
 							<div v-else-if="content.type === 'image_file'">
-								
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
 									<div class="loading-image-container">
 										<i class="pi pi-image loading-image-icon" style="font-size: 2rem"></i>
@@ -62,7 +61,7 @@
 										<span class="loading-image-text">Loading image...</span>
 									</div>
 								</template>
-								
+
 								<img
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
@@ -248,7 +247,7 @@ export default {
 		},
 	},
 
-	emits: ['rate'],
+	emits: ['rate', 'refresh'],
 
 	data() {
 		return {

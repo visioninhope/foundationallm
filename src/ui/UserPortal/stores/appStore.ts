@@ -10,7 +10,8 @@ import type {
 	ResourceProviderUpsertResult,
 	ResourceProviderDeleteResult,
 	ResourceProviderDeleteResults,
-	Attachment
+	Attachment,
+	MessageContent
 } from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
@@ -150,9 +151,22 @@ export const useAppStore = defineStore('app', {
 			);
 		},
 
+		initializeMessageContent(content: MessageContent) {
+			return reactive({
+			  ...content,
+			  blobUrl: '',
+			  loading: true,
+			  error: false
+			});
+		  },
+
 		async getMessages() {
 			const data = await api.getMessages(this.currentSession.id);
-			this.currentMessages = data;
+			this.currentMessages = data.map(message => ({
+				...message,
+				content: message.content ? message.content.map(this.initializeMessageContent) : [],
+			}));
+			await nextTick();
 		},
 
 		updateSessionAgentFromMessages(session: Session) {
