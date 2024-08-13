@@ -351,7 +351,33 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             // Authorize access to the resource path.
             await Authorize(parsedResourcePath, userIdentity, "write");
 
-            return await UpsertResourceAsyncInternal<T, TResult>(parsedResourcePath, resource, userIdentity);
+            var result = await UpsertResourceAsyncInternal<T, TResult>(parsedResourcePath, resource, userIdentity);
+
+            var upsertResult = result as ResourceProviderUpsertResult;
+
+            if (upsertResult!.ResourceExists == false && Name != ResourceProviderNames.FoundationaLLM_Authorization)
+            {
+                var roleAssignmentName = Guid.NewGuid().ToString();
+                var roleAssignmentDescription = $"Owner role for {userIdentity.Name}";
+                var roleAssignmentResult = await _authorizationService.ProcessRoleAssignmentRequest(
+                    _instanceSettings.Id,
+                    new RoleAssignmentRequest()
+                    {
+                        Name = roleAssignmentName,
+                        Description = roleAssignmentDescription,
+                        ObjectId = $"/instances/{_instanceSettings.Id}/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleAssignments}/{roleAssignmentName}",
+                        PrincipalId = userIdentity.UserId!,
+                        PrincipalType = PrincipalTypes.User,
+                        RoleDefinitionId = $"/providers/{ResourceProviderNames.FoundationaLLM_Authorization}/{AuthorizationResourceTypeNames.RoleDefinitions}/{RoleDefinitionNames.Owner}",
+                        Scope = upsertResult!.ObjectId ?? throw new ResourceProviderException($"The {roleAssignmentDescription} could not be assigned. Could not set the scope for the resource.")
+                    },
+                    userIdentity);
+
+                if (!roleAssignmentResult.Success)
+                    _logger.LogError("The {RoleAssignment} could not be assigned.", roleAssignmentDescription);
+            }
+
+            return result;
         }
 
         #region Virtuals to override in derived classes
