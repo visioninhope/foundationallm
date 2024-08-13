@@ -257,7 +257,7 @@ export default {
 			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
-			messageContent: JSON.parse(JSON.stringify(this.message.content)),
+			messageContent: this.message.content ? JSON.parse(JSON.stringify(this.message.content)) : null,
 		};
 	},
 
