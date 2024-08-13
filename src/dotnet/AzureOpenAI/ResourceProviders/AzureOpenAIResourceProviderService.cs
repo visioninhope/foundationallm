@@ -7,11 +7,13 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.OpenAI;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Gateway.Client;
 using Microsoft.AspNetCore.Http;
@@ -332,8 +334,10 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             if (incompleteConversations.Count != 1)
                 throw new ResourceProviderException($"The Assistant user context {assistantUserContext.Name} contains an incorrect number of incomplete conversations (must be 1). This indicates an inconsistent approach in the resource management flow.");
 
+            bool isNew = false;
             if (!resourceExists)
             {
+                isNew = true;
                 // Creating a new resource.
                 assistantUserContext.CreatedBy = userIdentity.UPN;
 
@@ -420,6 +424,21 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                 JsonSerializer.Serialize(ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary())),
                 default,
                 default);
+
+            // Create the file user context for new assistants, is dependent on the successful creation of the assistant user context.
+            if(isNew)
+            {
+                var fileUserContextName = $"{updatedAssistantUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-file-{_instanceSettings.Id.ToLower()}";
+                var fuc = new FileUserContext()
+                {
+                    UserPrincipalName = updatedAssistantUserContext.UserPrincipalName,
+                    Endpoint = updatedAssistantUserContext.Endpoint,
+                    Name = fileUserContextName,
+                    AssistantUserContextName = updatedAssistantUserContext.Name
+                };
+                await UpdateFileUserContext(fuc, userIdentity);
+            }
+            
 
             return new AssistantUserContextUpsertResult
             {
