@@ -399,7 +399,7 @@ public partial class CoreService(
                     Name = result.Name,
                     OriginalFileName = result.OriginalFileName,
                     ContentType = result.ContentType,
-                    Content = new MemoryStream(result.BinaryContent!.Value.ToArray())
+                    Content = result.BinaryContent!.Value.ToArray()
                 };
             }
         }

@@ -277,7 +277,7 @@ namespace FoundationaLLM.Gateway.Services
                 var attachmentFile = await _attachmentResourceProvider.GetResource<AttachmentFile>(attachmentObjectId, userIdentity, new ResourceProviderOptions { LoadContent = true });
 
                 var response = await fileClient.UploadFileAsync(
-                    attachmentFile.Content,
+                    new MemoryStream(attachmentFile.Content!),
                     attachmentFile.OriginalFileName,
                     FileUploadPurpose.Assistants);
                 var file = response.Value;
