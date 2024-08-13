@@ -107,6 +107,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 AgentName = result.AgentName,
                 PromptTokens = result.PromptTokens,
                 CompletionTokens = result.CompletionTokens,
+                AnalysisResults = result.AnalysisResults
             };
         }
 
@@ -200,7 +201,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 Generated = true,
                 OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
             });
-            openAIImageFile.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIImageFile.FileId}";
+            openAIImageFile.FileUrl = $"{{{{fllm_base_url}}}}/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIImageFile.FileId}";
             return openAIImageFile;
         }
 
@@ -215,7 +216,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 Generated = true,
                 OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
             });
-            openAIFilePath.FileUrl = $"/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
+            openAIFilePath.FileUrl = $"{{{{fllm_base_url}}}}/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
             return openAIFilePath;
         }
 

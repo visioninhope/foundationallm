@@ -49,6 +49,8 @@ export interface MessageContent {
 	fileName: string;
 	value: string;
 	blobUrl: string;
+	loading: boolean;
+	error: boolean;
 }
 
 export interface AttachmentDetail {
