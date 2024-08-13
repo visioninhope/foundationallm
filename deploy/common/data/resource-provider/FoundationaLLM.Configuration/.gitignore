@@ -1,5 +1,6 @@
 AuthorizationAPI.json
 AzureContentSafety.json
+AzureEventGrid.json
 GatekeeperAPI.json
 GatekeeperIntegrationAPI.json
 GatewayAPI.json

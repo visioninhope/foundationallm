@@ -1,4 +1,4 @@
-﻿from langchain_community.callbacks import get_openai_callback
+from langchain_community.callbacks import get_openai_callback
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
