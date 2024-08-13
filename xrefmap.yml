@@ -8093,6 +8093,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.FilePath
   fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.FilePath
   nameWithType: MessageContentItemTypes.FilePath
+- uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.HTML
+  name: HTML
+  href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html#FoundationaLLM_Common_Constants_Orchestration_MessageContentItemTypes_HTML
+  commentId: F:FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.HTML
+  fullName: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.HTML
+  nameWithType: MessageContentItemTypes.HTML
 - uid: FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.ImageFile
   name: ImageFile
   href: api/dotnet/FoundationaLLM.Common.Constants.Orchestration.MessageContentItemTypes.html#FoundationaLLM_Common_Constants_Orchestration_MessageContentItemTypes_ImageFile
@@ -13171,15 +13177,15 @@ references:
   commentId: T:FoundationaLLM.Common.Models.Chat.Message
   fullName: FoundationaLLM.Common.Models.Chat.Message
   nameWithType: Message
-- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail})
-  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>)
-  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__System_Collections_Generic_List_System_String__System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_AttachmentDetail__
-  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail})
-  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail))
-  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Response.Citation[]?, string?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.MessageContent>?, System.Collections.Generic.List<string>?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.AttachmentDetail>)
-  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Response.Citation(), String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.MessageContent), System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.AttachmentDetail))
-  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>)
-  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail))
+- uid: FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail},System.Collections.Generic.List{FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult})
+  name: Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>, List<AnalysisResult>?)
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__System_Collections_Generic_List_System_String__System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_AttachmentDetail__System_Collections_Generic_List_FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult__
+  commentId: M:FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail},System.Collections.Generic.List{FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult})
+  name.vb: New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail), List(Of AnalysisResult))
+  fullName: FoundationaLLM.Common.Models.Chat.Message.Message(string, string, int?, string, float[]?, bool?, string, string?, FoundationaLLM.Common.Models.Orchestration.Response.Citation[]?, string?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.MessageContent>?, System.Collections.Generic.List<string>?, System.Collections.Generic.List<FoundationaLLM.Common.Models.Chat.AttachmentDetail>, System.Collections.Generic.List<FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult>?)
+  fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, FoundationaLLM.Common.Models.Orchestration.Response.Citation(), String, System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.MessageContent), System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Chat.AttachmentDetail), System.Collections.Generic.List(Of FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult))
+  nameWithType: Message.Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List<MessageContent>?, List<string>?, List<AttachmentDetail>, List<AnalysisResult>?)
+  nameWithType.vb: Message.New(String, String, Integer?, String, Single(), Boolean?, String, String, Citation(), String, List(Of MessageContent), List(Of String), List(Of AttachmentDetail), List(Of AnalysisResult))
 - uid: FoundationaLLM.Common.Models.Chat.Message.#ctor*
   name: Message
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message__ctor_
@@ -13190,6 +13196,19 @@ references:
   fullName.vb: FoundationaLLM.Common.Models.Chat.Message.New
   nameWithType: Message.Message
   nameWithType.vb: Message.New
+- uid: FoundationaLLM.Common.Models.Chat.Message.AnalysisResults
+  name: AnalysisResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_AnalysisResults
+  commentId: P:FoundationaLLM.Common.Models.Chat.Message.AnalysisResults
+  fullName: FoundationaLLM.Common.Models.Chat.Message.AnalysisResults
+  nameWithType: Message.AnalysisResults
+- uid: FoundationaLLM.Common.Models.Chat.Message.AnalysisResults*
+  name: AnalysisResults
+  href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_AnalysisResults_
+  commentId: Overload:FoundationaLLM.Common.Models.Chat.Message.AnalysisResults
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Chat.Message.AnalysisResults
+  nameWithType: Message.AnalysisResults
 - uid: FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails
   name: AttachmentDetails
   href: api/dotnet/FoundationaLLM.Common.Models.Chat.Message.html#FoundationaLLM_Common_Models_Chat_Message_AttachmentDetails
@@ -19155,19 +19174,45 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.ContentType
   nameWithType: FileMapping.ContentType
-- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId
-  name: FoundationaLLMAttachmentObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_FoundationaLLMAttachmentObjectId
-  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId
-  nameWithType: FileMapping.FoundationaLLMAttachmentObjectId
-- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId*
-  name: FoundationaLLMAttachmentObjectId
-  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_FoundationaLLMAttachmentObjectId_
-  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId
+  name: FoundationaLLMObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_FoundationaLLMObjectId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId
+  nameWithType: FileMapping.FoundationaLLMObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId*
+  name: FoundationaLLMObjectId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_FoundationaLLMObjectId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId
   isSpec: "True"
-  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMAttachmentObjectId
-  nameWithType: FileMapping.FoundationaLLMAttachmentObjectId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.FoundationaLLMObjectId
+  nameWithType: FileMapping.FoundationaLLMObjectId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated
+  name: Generated
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_Generated
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated
+  nameWithType: FileMapping.Generated
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated*
+  name: Generated
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_Generated_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.Generated
+  nameWithType: FileMapping.Generated
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn
+  name: OpenAIFileGeneratedOn
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OpenAIFileGeneratedOn
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn
+  nameWithType: FileMapping.OpenAIFileGeneratedOn
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn*
+  name: OpenAIFileGeneratedOn
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OpenAIFileGeneratedOn_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileGeneratedOn
+  nameWithType: FileMapping.OpenAIFileGeneratedOn
 - uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileId
   name: OpenAIFileId
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OpenAIFileId
@@ -27158,15 +27203,15 @@ references:
   commentId: T:FoundationaLLM.Core.Services.CoreService
   fullName: FoundationaLLM.Core.Services.CoreService
   nameWithType: CoreService
-- uid: FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name: CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_FoundationaLLM_Core_Interfaces_ICosmosDbService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IDownstreamAPIService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CoreService__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CoreServiceSettings__FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__
-  commentId: M:FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService})
-  name.vb: New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService))
-  fullName: FoundationaLLM.Core.Services.CoreService.CoreService(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IDownstreamAPIService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CoreService>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CoreServiceSettings>, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.New(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IDownstreamAPIService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CoreService), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CoreServiceSettings), FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService))
-  nameWithType: CoreService.CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>)
-  nameWithType.vb: CoreService.New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService))
+- uid: FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.AspNetCore.Http.IHttpContextAccessor)
+  name: CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>, IHttpContextAccessor)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_FoundationaLLM_Core_Interfaces_ICosmosDbService_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IDownstreamAPIService__Microsoft_Extensions_Logging_ILogger_FoundationaLLM_Core_Services_CoreService__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration__Microsoft_Extensions_Options_IOptions_FoundationaLLM_Core_Models_Configuration_CoreServiceSettings__FoundationaLLM_Common_Interfaces_ICallContext_System_Collections_Generic_IEnumerable_FoundationaLLM_Common_Interfaces_IResourceProviderService__Microsoft_AspNetCore_Http_IHttpContextAccessor_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.#ctor(FoundationaLLM.Core.Interfaces.ICosmosDbService,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IDownstreamAPIService},Microsoft.Extensions.Logging.ILogger{FoundationaLLM.Core.Services.CoreService},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration},Microsoft.Extensions.Options.IOptions{FoundationaLLM.Core.Models.Configuration.CoreServiceSettings},FoundationaLLM.Common.Interfaces.ICallContext,System.Collections.Generic.IEnumerable{FoundationaLLM.Common.Interfaces.IResourceProviderService},Microsoft.AspNetCore.Http.IHttpContextAccessor)
+  name.vb: New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService), IHttpContextAccessor)
+  fullName: FoundationaLLM.Core.Services.CoreService.CoreService(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IDownstreamAPIService>, Microsoft.Extensions.Logging.ILogger<FoundationaLLM.Core.Services.CoreService>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration>, Microsoft.Extensions.Options.IOptions<FoundationaLLM.Core.Models.Configuration.CoreServiceSettings>, FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable<FoundationaLLM.Common.Interfaces.IResourceProviderService>, Microsoft.AspNetCore.Http.IHttpContextAccessor)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.New(FoundationaLLM.Core.Interfaces.ICosmosDbService, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IDownstreamAPIService), Microsoft.Extensions.Logging.ILogger(Of FoundationaLLM.Core.Services.CoreService), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration), Microsoft.Extensions.Options.IOptions(Of FoundationaLLM.Core.Models.Configuration.CoreServiceSettings), FoundationaLLM.Common.Interfaces.ICallContext, System.Collections.Generic.IEnumerable(Of FoundationaLLM.Common.Interfaces.IResourceProviderService), Microsoft.AspNetCore.Http.IHttpContextAccessor)
+  nameWithType: CoreService.CoreService(ICosmosDbService, IEnumerable<IDownstreamAPIService>, ILogger<CoreService>, IOptions<ClientBrandingConfiguration>, IOptions<CoreServiceSettings>, ICallContext, IEnumerable<IResourceProviderService>, IHttpContextAccessor)
+  nameWithType.vb: CoreService.New(ICosmosDbService, IEnumerable(Of IDownstreamAPIService), ILogger(Of CoreService), IOptions(Of ClientBrandingConfiguration), IOptions(Of CoreServiceSettings), ICallContext, IEnumerable(Of IResourceProviderService), IHttpContextAccessor)
 - uid: FoundationaLLM.Core.Services.CoreService.#ctor*
   name: CoreService
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService__ctor_
@@ -27896,6 +27941,28 @@ references:
   commentId: N:FoundationaLLM.Core.Utils
   fullName: FoundationaLLM.Core.Utils
   nameWithType: FoundationaLLM.Core.Utils
+- uid: FoundationaLLM.Core.Utils.FileMethods
+  name: FileMethods
+  href: api/dotnet/FoundationaLLM.Core.Utils.FileMethods.html
+  commentId: T:FoundationaLLM.Core.Utils.FileMethods
+  fullName: FoundationaLLM.Core.Utils.FileMethods
+  nameWithType: FileMethods
+- uid: FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType(System.String,System.String)
+  name: GetMessageContentFileType(string?, string?)
+  href: api/dotnet/FoundationaLLM.Core.Utils.FileMethods.html#FoundationaLLM_Core_Utils_FileMethods_GetMessageContentFileType_System_String_System_String_
+  commentId: M:FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType(System.String,System.String)
+  name.vb: GetMessageContentFileType(String, String)
+  fullName: FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType(string?, string?)
+  fullName.vb: FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType(String, String)
+  nameWithType: FileMethods.GetMessageContentFileType(string?, string?)
+  nameWithType.vb: FileMethods.GetMessageContentFileType(String, String)
+- uid: FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType*
+  name: GetMessageContentFileType
+  href: api/dotnet/FoundationaLLM.Core.Utils.FileMethods.html#FoundationaLLM_Core_Utils_FileMethods_GetMessageContentFileType_
+  commentId: Overload:FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Utils.FileMethods.GetMessageContentFileType
+  nameWithType: FileMethods.GetMessageContentFileType
 - uid: FoundationaLLM.Core.Utils.ObjectExtensions
   name: ObjectExtensions
   href: api/dotnet/FoundationaLLM.Core.Utils.ObjectExtensions.html
@@ -32186,15 +32253,12 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.New
   nameWithType: KnowledgeManagementOrchestration.KnowledgeManagementOrchestration
   nameWithType.vb: KnowledgeManagementOrchestration.New
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  name: GetCompletion(string, CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  name.vb: GetCompletion(String, CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  nameWithType: KnowledgeManagementOrchestration.GetCompletion(string, CompletionRequest)
-  nameWithType.vb: KnowledgeManagementOrchestration.GetCompletion(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  name: GetCompletion(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  nameWithType: KnowledgeManagementOrchestration.GetCompletion(CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.KnowledgeManagementOrchestration.html#FoundationaLLM_Orchestration_Core_Orchestration_KnowledgeManagementOrchestration_GetCompletion_
@@ -32227,15 +32291,12 @@ references:
   fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.New
   nameWithType: OrchestrationBase.OrchestrationBase
   nameWithType.vb: OrchestrationBase.New
-- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  name: GetCompletion(string, CompletionRequest)
-  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_System_String_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_
-  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(System.String,FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  name.vb: GetCompletion(String, CompletionRequest)
-  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(string, FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  fullName.vb: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(String, FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
-  nameWithType: OrchestrationBase.GetCompletion(string, CompletionRequest)
-  nameWithType.vb: OrchestrationBase.GetCompletion(String, CompletionRequest)
+- uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  name: GetCompletion(CompletionRequest)
+  href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_FoundationaLLM_Common_Models_Orchestration_Request_CompletionRequest_
+  commentId: M:FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  fullName: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion(FoundationaLLM.Common.Models.Orchestration.Request.CompletionRequest)
+  nameWithType: OrchestrationBase.GetCompletion(CompletionRequest)
 - uid: FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.GetCompletion*
   name: GetCompletion
   href: api/dotnet/FoundationaLLM.Orchestration.Core.Orchestration.OrchestrationBase.html#FoundationaLLM_Orchestration_Core_Orchestration_OrchestrationBase_GetCompletion_

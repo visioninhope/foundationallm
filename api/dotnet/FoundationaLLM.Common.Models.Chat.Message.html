@@ -168,9 +168,9 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 
   <a id="FoundationaLLM_Common_Models_Chat_Message__ctor_" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor*"></a>
 
-  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__System_Collections_Generic_List_System_String__System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_AttachmentDetail__" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail})">
-  Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List&lt;MessageContent&gt;?, List&lt;string&gt;?, List&lt;AttachmentDetail&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message__ctor_System_String_System_String_System_Nullable_System_Int32__System_String_System_Single___System_Nullable_System_Boolean__System_String_System_String_FoundationaLLM_Common_Models_Orchestration_Response_Citation___System_String_System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_MessageContent__System_Collections_Generic_List_System_String__System_Collections_Generic_List_FoundationaLLM_Common_Models_Chat_AttachmentDetail__System_Collections_Generic_List_FoundationaLLM_Common_Models_Orchestration_Response_AnalysisResult__" data-uid="FoundationaLLM.Common.Models.Chat.Message.#ctor(System.String,System.String,System.Nullable{System.Int32},System.String,System.Single[],System.Nullable{System.Boolean},System.String,System.String,FoundationaLLM.Common.Models.Orchestration.Response.Citation[],System.String,System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.MessageContent},System.Collections.Generic.List{System.String},System.Collections.Generic.List{FoundationaLLM.Common.Models.Chat.AttachmentDetail},System.Collections.Generic.List{FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult})">
+  Message(string, string, int?, string, float[]?, bool?, string, string?, Citation[]?, string?, List&lt;MessageContent&gt;?, List&lt;string&gt;?, List&lt;AttachmentDetail&gt;, List&lt;AnalysisResult&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L114"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Constructor for Message.</p>
@@ -178,7 +178,7 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null, Citation[]? citations = null, string? expectedCompletion = null, List&lt;MessageContent&gt;? content = null, List&lt;string&gt;? attachments = null, List&lt;AttachmentDetail&gt; attachmentDetails = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Message(string sessionId, string sender, int? tokens, string text, float[]? vector, bool? rating, string upn, string? senderDisplayName = null, Citation[]? citations = null, string? expectedCompletion = null, List&lt;MessageContent&gt;? content = null, List&lt;string&gt;? attachments = null, List&lt;AttachmentDetail&gt; attachmentDetails = null, List&lt;AnalysisResult&gt;? analysisResults = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -209,6 +209,8 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
     <dd></dd>
     <dt><code>attachmentDetails</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Chat.AttachmentDetail.html">AttachmentDetail</a>&gt;</dt>
     <dd></dd>
+    <dt><code>analysisResults</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html">AnalysisResult</a>&gt;</dt>
+    <dd></dd>
   </dl>
 
 
@@ -226,11 +228,43 @@ Class Message  <a class="header-action link-secondary" title="View source" href=
 </h2>
 
 
+  <a id="FoundationaLLM_Common_Models_Chat_Message_AnalysisResults_" data-uid="FoundationaLLM.Common.Models.Chat.Message.AnalysisResults*"></a>
+
+  <h3 id="FoundationaLLM_Common_Models_Chat_Message_AnalysisResults" data-uid="FoundationaLLM.Common.Models.Chat.Message.AnalysisResults">
+  AnalysisResults
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A list of results from the analysis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;AnalysisResult&gt;? AnalysisResults { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.Orchestration.Response.AnalysisResult.html">AnalysisResult</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="FoundationaLLM_Common_Models_Chat_Message_AttachmentDetails_" data-uid="FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails*"></a>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_AttachmentDetails" data-uid="FoundationaLLM.Common.Models.Chat.Message.AttachmentDetails">
   AttachmentDetails
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Contains the details of the attachments. This is not stored in the database.</p>
@@ -263,7 +297,7 @@ public List&lt;AttachmentDetail&gt;? AttachmentDetails { get; set; }</code></pre
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Attachments" data-uid="FoundationaLLM.Common.Models.Chat.Message.Attachments">
   Attachments
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L96"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>One or more attachments included with the orchestration request.
@@ -361,7 +395,7 @@ public List&lt;string&gt;? Attachments { get; init; }</code></pre>
 
   <h3 id="FoundationaLLM_Common_Models_Chat_Message_Content" data-uid="FoundationaLLM.Common.Models.Chat.Message.Content">
   Content
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Common/Models/Chat/Message.cs/#L108"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The content of the message.</p>
