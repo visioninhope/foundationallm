@@ -1,6 +1,8 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Core.Examples.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit.Abstractions;
 
 namespace Core.Examples.LoadTests.ResourceProviders
 {
@@ -11,20 +13,29 @@ namespace Core.Examples.LoadTests.ResourceProviders
     {
         private readonly IResourceProviderService _azureOpenAIResourceProvider;
 
+        private readonly ITestOutputHelper _output;
+        private readonly TimeProfiler _timeProfiler;
+
         public IResourceProviderService AzureOpenAIResourceProvider => _azureOpenAIResourceProvider;
 
         public LoadTestResourceProviders(
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ITestOutputHelper output)
         {
             var resourceProviderServices = serviceProvider.GetService<IEnumerable<IResourceProviderService>>();
 
             _azureOpenAIResourceProvider = resourceProviderServices!
                 .Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AzureOpenAI);
+
+            _output = output;
+            _timeProfiler = new TimeProfiler(output);
         }
 
         public async Task InitializeAll()
         {
-            await _azureOpenAIResourceProvider.Initialize();
+            await _timeProfiler.RunAsync(
+                async () => await _azureOpenAIResourceProvider.Initialize(),
+                "Initialize FoundationaLLM.AzureOpenAI resource provider.");
         }
     }
 }

@@ -170,7 +170,7 @@ namespace FoundationaLLM.Authorization.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "he authorization core failed to process the authorization request.");
+                _logger.LogError(ex, "The authorization core failed to process the authorization request.");
             }
 
             return new ActionAuthorizationResult
