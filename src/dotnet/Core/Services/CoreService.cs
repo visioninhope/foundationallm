@@ -262,7 +262,7 @@ public partial class CoreService(
                 null,
                 null,
                 upn,
-                result.AgentName,
+                result.AgentName ?? completionRequest.AgentName,
                 result.Citations,
                 null,
                 newContent,
