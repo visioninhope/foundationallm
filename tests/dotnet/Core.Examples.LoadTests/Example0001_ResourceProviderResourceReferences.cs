@@ -1,4 +1,6 @@
 using Core.Examples.LoadTests.ResourceProviders;
+using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Core.Examples.LoadTests.Setup;
 using Xunit.Abstractions;
 
@@ -17,13 +19,14 @@ namespace FoundationaLLM.Core.Examples.LoadTests
         [Fact]
         public async Task RunAsync()
         {
-            WriteLine("============ FoundationaLLM Resource Provider Resource References ============");
+            WriteLine("============ FoundationaLLM Resource Provider Load Test ============");
 
+            // Get resource providers in all DI containers.
             var resourceProviders = ServiceProviders
-                .Select(sp => new LoadTestResourceProviders(sp))
+                .Select(sp => new LoadTestResourceProviders(sp, Output))
                 .ToList();
 
-           
+            await Task.WhenAll(resourceProviders.Select(rp => rp.InitializeAll()));
         }
     }
 }

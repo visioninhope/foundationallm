@@ -862,7 +862,7 @@
 				"name": "AzureOpenAIAccounts",
 				"description": "The comma-separated list of Azure OpenAI account names used by the Gateway API.",
 				"secret": "",
-				"value": "",
+				"value": "${env:AZURE_OPENAI_ID}",
 				"content_type": "",
 				"first_version": "0.8.0"
 			}

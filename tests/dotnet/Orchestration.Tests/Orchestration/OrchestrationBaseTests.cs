@@ -26,7 +26,7 @@ namespace FoundationaLLM.Orchestration.Tests.Orchestration
             var completionRequest = new CompletionRequest(){OperationId = Guid.NewGuid().ToString(), UserPrompt = ""};
 
             // Act
-            var result = await _orchestrationBase.GetCompletion(_instanceId, completionRequest);
+            var result = await _orchestrationBase.GetCompletion(completionRequest);
 
             // Assert
             Assert.Null(result);

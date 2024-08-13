@@ -363,7 +363,7 @@ public partial class CoreService(
                         result.ObjectId!,
                         new FileMapping
                         {
-                            FoundationaLLMAttachmentObjectId = result.ObjectId!,
+                            FoundationaLLMObjectId = result.ObjectId!,
                             OriginalFileName = attachmentFile.OriginalFileName,
                             ContentType = attachmentFile.ContentType!
                         }
