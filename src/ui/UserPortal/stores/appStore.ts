@@ -334,14 +334,14 @@ export const useAppStore = defineStore('app', {
 			return this.agents;
 		},
 
-		async uploadAttachment(file: FormData, sessionId: string) {
+		async uploadAttachment(file: FormData, sessionId: string, progressCallback: Function) {
 			const agent = this.getSessionAgent(this.currentSession!).resource;
 			// If the agent is not found, do not upload the attachment and display an error message.
 			if (!agent) {
 				throw new Error('No agent selected.');
 			}
 
-			const upsertResult = await api.uploadAttachment(file, agent.name) as ResourceProviderUpsertResult;
+			const upsertResult = await api.uploadAttachment(file, agent.name, progressCallback) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
 			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId };
 
