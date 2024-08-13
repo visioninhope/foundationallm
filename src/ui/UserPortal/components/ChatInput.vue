@@ -57,10 +57,13 @@
 					</template>
 
 					<template #content="{ files, removeFileCallback }">
-						<div v-if="uploadProgress !== 0">
+						<!-- Progress bar -->
+						<div v-if="isUploading">
 							<ProgressBar :value="uploadProgress" :showValue="false" style="display: flex; width: 95%; margin: 10px 2.5%;" />
 							<p style="text-align: center">Uploading...</p>
 						</div>
+
+						<!-- File list -->
 						<div v-else>
 							<div
 								v-for="(file, index) of files"
@@ -193,10 +196,7 @@ export default {
 			agents: [],
 			agentListOpen: false,
 			showFileUploadDialog: false,
-			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
-			primaryButtonText: this.$appConfigStore.primaryButtonText,
-			secondaryButtonBg: this.$appConfigStore.secondaryButtonBg,
-			secondaryButtonText: this.$appConfigStore.secondaryButtonText,
+			isUploading: false,
 			uploadProgress: 0,
 		};
 	},
@@ -263,25 +263,45 @@ export default {
 		},
 
 		async handleUpload(event: any) {
-			const numberOfFiles = event.files.length;
+			this.isUploading = true;
+
+			const totalFiles = event.files.length;
+			let filesUploaded = 0;
+			const filesProgress = [];
+
 			event.files.forEach(async (file: any, index) => {
-				this.uploadProgress = 70;
 				try {
 					const formData = new FormData();
 					formData.append('file', file);
 
-					const objectId = await this.$appStore.uploadAttachment(
+					const onProgress = (event) => {
+						if (event.lengthComputable) {
+							filesProgress[index] = (event.loaded / event.total) * 100;
+
+							let totalUploadProgress = 0;
+							filesProgress.forEach((fileProgress) => {
+								totalUploadProgress += fileProgress / totalFiles;
+							});
+
+							this.uploadProgress = totalUploadProgress;
+						}
+					}
+
+					await this.$appStore.uploadAttachment(
 						formData,
 						this.$appStore.currentSession.sessionId,
+						onProgress,
 					);
+					filesUploaded += 1;
 
-					if (index === numberOfFiles - 1) {
+					if (totalFiles === filesUploaded) {
 						this.showFileUploadDialog = false;
+						this.isUploading = false;
 						this.uploadProgress = 0;
 						this.$toast.add({
 							severity: 'success',
 							summary: 'Success',
-							detail: `File${numberOfFiles > 1 ? 's' : ''} uploaded successfully.`,
+							detail: `File${totalFiles > 1 ? 's' : ''} uploaded successfully.`,
 							life: 5000,
 						});
 					}
