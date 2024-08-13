@@ -39,6 +39,7 @@
   <style scoped>
     .attachments {
         display: flex;
+        flex-wrap: wrap;
         gap: 10px;
         margin-top: 10px;
     }
