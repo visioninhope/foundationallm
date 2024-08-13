@@ -144,6 +144,37 @@ namespace FoundationaLLM.Authorization.Models
                         UpdatedBy = null
                     }
                 },
+                {
+                    "/providers/FoundationaLLM.Authorization/roleDefinitions/8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+                    new RoleDefinition
+                    {
+                        Name = "8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+                        Type = "FoundationaLLM.Authorization/roleDefinitions",
+                        ObjectId = "/providers/FoundationaLLM.Authorization/roleDefinitions/8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+                        DisplayName = "Attachments Contributor",
+                        Description = "Upload attachments including uploading to Azure OpenAI file store.",
+                        AssignableScopes = [
+                            "/",],
+                        Permissions = [                            
+                            new RoleDefinitionPermissions
+                            {
+                                Actions = [
+                                    "FoundationaLLM.Attachment/attachments/read",
+                                    "FoundationaLLM.Attachment/attachments/write",
+                                    "FoundationaLLM.AzureOpenAI/assistantUserContexts/read",
+                                    "FoundationaLLM.AzureOpenAI/assistantUserContexts/write",
+                                    "FoundationaLLM.AzureOpenAI/fileUserContexts/read",
+                                    "FoundationaLLM.AzureOpenAI/fileUserContexts/write",],
+                                NotActions = [],
+                                DataActions = [],
+                                NotDataActions = [],
+                            },],
+                        CreatedOn = DateTimeOffset.Parse("2024-03-07T00:00:00.0000000Z"),
+                        UpdatedOn = DateTimeOffset.Parse("2024-03-07T00:00:00.0000000Z"),
+                        CreatedBy = null,
+                        UpdatedBy = null
+                    }
+                },
             });
     }
 }
