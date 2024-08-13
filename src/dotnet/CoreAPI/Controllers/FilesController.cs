@@ -2,6 +2,7 @@
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using FoundationaLLM.Common.Utils;
 using FoundationaLLM.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -100,7 +101,7 @@ namespace FoundationaLLM.Core.API.Controllers
 
             return attachment == null
                 ? NotFound()
-                : File(attachment.Content!, attachment.ContentType!, attachment.OriginalFileName);
+                : File(attachment.Content!, FileMethods.GetMimeType(attachment.Content!), attachment.OriginalFileName);
         }
 
         /// <summary>
