@@ -304,7 +304,6 @@ export default {
 
 		async removeAttachment(file: any) {
 			await this.$appStore.deleteAttachment(file);
-			//this.$appStore.attachments = this.$appStore.attachments.filter((f) => f !== file);
 		},
 
 		browseFiles() {

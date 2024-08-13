@@ -48,6 +48,9 @@ export interface MessageContent {
 	type: string;
 	fileName: string;
 	value: string;
+	blobUrl?: string;
+	loading?: boolean;
+	error?: boolean;
 }
 
 export interface AttachmentDetail {
@@ -103,4 +106,13 @@ export interface Attachment {
 	id: string;
 	fileName: string;
 	sessionId: string;
+}
+
+export interface ResourceProviderDeleteResult {
+    deleted: boolean;
+  	reason?: string;
+}
+
+export interface ResourceProviderDeleteResults {
+	[key: string]: ResourceProviderDeleteResult;
 }

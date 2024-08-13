@@ -652,8 +652,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     .Where(c => string.IsNullOrWhiteSpace(c.OpenAIFileId))
                     .ToList();
 
-            if (incompleteFiles.Count != 1)
-                throw new ResourceProviderException($"The File user context {fileUserContext.Name} contains an incorrect number of incomplete files (must be 1). This indicates an inconsistent approach in the resource management flow.");
+            if (incompleteFiles.Count > 1)
+                throw new ResourceProviderException($"The File user context {fileUserContext.Name} contains an incorrect number of incomplete files (must be at most 1). This indicates an inconsistent approach in the resource management flow.");
 
             if (!resourceExists)
             {
@@ -669,7 +669,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     {
                         { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
                         { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
-                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMAttachmentObjectId }
+                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
                     });
 
                     result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId, out var newOpenAIFileIdObject);
@@ -687,31 +687,45 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     ?? throw new ResourceProviderException(
                         $"Could not load the {fileUserContext.Name} file user context.");
 
-                if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMAttachmentObjectId))
-                    throw new ResourceProviderException(
-                        $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMAttachmentObjectId}.",
-                        StatusCodes.Status400BadRequest);
+                if (incompleteFiles.Count == 1)
+                {
+                    if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMObjectId))
+                        throw new ResourceProviderException(
+                            $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMObjectId}.",
+                            StatusCodes.Status400BadRequest);
 
-                existingFileUserContext.Files.Add(
-                    incompleteFiles[0].FoundationaLLMAttachmentObjectId,
-                    incompleteFiles[0]);
+                    existingFileUserContext.Files.Add(
+                        incompleteFiles[0].FoundationaLLMObjectId,
+                        incompleteFiles[0]);
 
-                var result = await gatewayClient!.CreateAgentCapability(
-                    _instanceSettings.Id,
-                    AgentCapabilityCategoryNames.OpenAIAssistants,
-                    fileUserContext.AssistantUserContextName,
-                    new()
-                    {
-                        { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
-                        { OpenAIAgentCapabilityParameterNames.Endpoint, existingFileUserContext.Endpoint },
-                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMAttachmentObjectId }
-                    });
+                    var result = await gatewayClient!.CreateAgentCapability(
+                        _instanceSettings.Id,
+                        AgentCapabilityCategoryNames.OpenAIAssistants,
+                        fileUserContext.AssistantUserContextName,
+                        new()
+                        {
+                            {OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true},
+                            {OpenAIAgentCapabilityParameterNames.Endpoint, existingFileUserContext.Endpoint},
+                            {
+                                OpenAIAgentCapabilityParameterNames.AttachmentObjectId,
+                                incompleteFiles[0].FoundationaLLMObjectId
+                            }
+                        });
 
-                result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId, out var newOpenAIFileIdObject);
-                newOpenAIFileId = ((JsonElement)newOpenAIFileIdObject!).Deserialize<string>();
+                    result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId,
+                        out var newOpenAIFileIdObject);
+                    newOpenAIFileId = ((JsonElement) newOpenAIFileIdObject!).Deserialize<string>();
 
-                incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
-                incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
+                    incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
+                    incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
+                }
+
+                foreach (var mapping in fileUserContext.Files.Where(f =>
+                             !existingFileUserContext.Files.ContainsKey(f.Key)))
+                {
+                    existingFileUserContext.Files.Add(mapping.Key, mapping.Value);
+                }
+
                 existingFileUserContext.UpdatedBy = userIdentity.UPN;
                 updatedFileUserContext = existingFileUserContext;
             }

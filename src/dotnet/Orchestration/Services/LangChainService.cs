@@ -7,10 +7,8 @@ using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -92,7 +90,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     PromptTemplate = string.Empty,
                     AgentName = request.Agent.Name,
                     PromptTokens = completionResponse.PromptTokens,
-                    CompletionTokens = completionResponse.CompletionTokens
+                    CompletionTokens = completionResponse.CompletionTokens,
+                    AnalysisResults = completionResponse.AnalysisResults
                 };
             }
             catch(Exception ex)

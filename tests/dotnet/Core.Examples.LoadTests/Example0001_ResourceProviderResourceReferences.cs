@@ -1,4 +1,6 @@
 using Core.Examples.LoadTests.ResourceProviders;
+using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Core.Examples.LoadTests.Setup;
 using Xunit.Abstractions;
 
@@ -25,8 +27,6 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 .ToList();
 
             await Task.WhenAll(resourceProviders.Select(rp => rp.InitializeAll()));
-
-
         }
     }
 }

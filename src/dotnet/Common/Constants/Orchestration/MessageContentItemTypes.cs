@@ -19,5 +19,10 @@
         /// File path content.
         /// </summary>
         public const string FilePath = "file_path";
+
+        /// <summary>
+        /// HTML file content.
+        /// </summary>
+        public const string HTML = "html";
     }
 }
