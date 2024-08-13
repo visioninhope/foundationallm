@@ -24,7 +24,7 @@ class OpenAIAssistantsAPIResponse(BaseModel):
             ]
         ]
     ]
-    analysis_result: Optional[List[AnalysisResult]]
+    analysis_results: Optional[List[AnalysisResult]]
     completion_tokens: Optional[int]
     prompt_tokens: Optional[int]
     total_tokens: Optional[int]
