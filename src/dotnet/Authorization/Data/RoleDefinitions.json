@@ -143,7 +143,9 @@
 					"FoundationaLLM.AzureOpenAI/assistantUserContexts/read",
 					"FoundationaLLM.AzureOpenAI/assistantUserContexts/write",
 					"FoundationaLLM.AzureOpenAI/fileUserContexts/read",
-					"FoundationaLLM.AzureOpenAI/fileUserContexts/write"
+					"FoundationaLLM.AzureOpenAI/fileUserContexts/write",
+					"FoundationaLLM.Configuration/apiEndpointConfigurations/read",
+					"FoundationaLLM.AIModels/aiModels/read"
 				],
 				"not_actions": [],
 				"data_actions": [],
