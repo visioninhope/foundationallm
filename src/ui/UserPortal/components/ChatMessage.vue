@@ -40,6 +40,7 @@
 						v-if="message.sender === 'User'"
 						:attachments="message.attachmentDetails ?? []"
 					/>
+
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
@@ -47,12 +48,14 @@
 					<template v-if="!messageContent || messageContent.length === 0">
 						<div v-html="compiledVueTemplate"></div>
 					</template>
+
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
 						<div v-for="content in messageContent" :key="content.fileName" class="message-content">
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
+
 							<div v-else-if="content.type === 'image_file'">
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
 									<div class="loading-image-container">
@@ -61,7 +64,6 @@
 										<span class="loading-image-text">Loading image...</span>
 									</div>
 								</template>
-
 								<img
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
@@ -78,9 +80,11 @@
 									<span class="loading-image-error-text">Could not load image</span>
 								</div>
 							</div>
+
 							<div v-else-if="content.type === 'html'">
 								<iframe :src="content.blobUrl" frameborder="0"></iframe>
 							</div>
+
 							<div v-else-if="content.type === 'file_path'">
 								<a
 									:href="content.blobUrl"
