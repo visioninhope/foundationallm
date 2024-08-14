@@ -87,11 +87,11 @@ class ImageAnalysisService:
         str
             The formatted image analysis results.
         """
-        formatted_results = f"You have access to the following {len(image_analyses)} images and their analysis results:\n"
+        formatted_results = f"You have access to the following {len(image_analyses)} image attachments and their analysis results:\n"
         for idx, key in enumerate(image_analyses):
             formatted_results += f"## Image {idx + 1}:\n"
-            formatted_results += f"- Name : {key}\n"
-            formatted_results += f"- Analysis: {image_analyses[key]}\n\n"
+            formatted_results += f"- File name : {key}\n"
+            formatted_results += f"- Analysis result: {image_analyses[key]}\n\n"
         return formatted_results
 
     async def aanalyze_images(self, image_attachments: List[AttachmentProperties]) -> tuple:
@@ -122,7 +122,7 @@ class ImageAnalysisService:
                                 "content": [
                                     {
                                         "type": "text",
-                                        "content": "Analyze the image:"
+                                        "content": "Analyze and describe the image:"
                                     },
                                     {
                                         "type": "image_url",
@@ -173,7 +173,7 @@ class ImageAnalysisService:
                                 "content": [
                                     {
                                         "type": "text",
-                                        "content": "Analyze the image:"
+                                        "content": "Analyze and describe the image:"
                                     },
                                     {
                                         "type": "image_url",
