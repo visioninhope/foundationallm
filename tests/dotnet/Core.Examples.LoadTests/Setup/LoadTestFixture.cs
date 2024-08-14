@@ -42,7 +42,10 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
 				}))
 				.Build();
 
-			ServiceProviders = LoadTestServicesInitializer.InitializeServices(builder);
+			// The number of service hosts to create
+			int hostsCount = 1;
+
+			ServiceProviders = LoadTestServicesInitializer.InitializeServices(builder, hostsCount);
 
 			var app = builder.Build();
 		}

@@ -3,6 +3,7 @@ using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.ResourceProviders;
 using FoundationaLLM.Authorization.Validation;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

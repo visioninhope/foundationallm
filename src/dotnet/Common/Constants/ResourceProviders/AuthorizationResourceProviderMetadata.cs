@@ -1,9 +1,8 @@
-﻿using FoundationaLLM.Authorization.Models;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
 
-namespace FoundationaLLM.Authorization.ResourceProviders
+namespace FoundationaLLM.Common.Constants.ResourceProviders
 {
     /// <summary>
     /// Provides metadata for the FoundationaLLM.Authorization resource provider.

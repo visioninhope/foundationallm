@@ -42,7 +42,7 @@ namespace FoundationaLLM.DataSource.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<DataSourceReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
