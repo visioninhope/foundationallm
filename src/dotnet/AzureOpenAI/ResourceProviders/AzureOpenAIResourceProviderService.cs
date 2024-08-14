@@ -13,16 +13,12 @@ using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
-using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Services.ResourceProviders;
-using FoundationaLLM.Common.Utils;
 using FoundationaLLM.Gateway.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Graph.Models;
-using Microsoft.Identity.Client;
 using System.Text.Json;
 
 namespace FoundationaLLM.AzureOpenAI.ResourceProviders
