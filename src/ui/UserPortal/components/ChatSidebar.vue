@@ -102,6 +102,7 @@
 				type="text"
 				placeholder="New chat name"
 				:style="{ width: '100%' }"
+				@keydown="renameSessionInputKeydown"
 				autofocus
 			></InputText>
 			<template #footer>
@@ -190,6 +191,15 @@ export default {
 		async handleDeleteSession() {
 			await this.$appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
+		},
+
+		renameSessionInputKeydown(event: KeyboardEvent) {
+			if (event.key === 'Enter') {
+				this.handleRenameSession();
+			}
+			if (event.key === 'Escape') {
+				this.closeRenameModal();
+			}
 		},
 	},
 };
