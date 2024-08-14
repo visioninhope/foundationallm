@@ -613,7 +613,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <exception cref="ResourceProviderException"></exception>
         protected async Task<T?> LoadResource<T>(TResourceReference resourceReference) where T : ResourceBase
         {
-            if (resourceReference.ResourceType is not T)
+            if (resourceReference.ResourceType.Name != typeof(T).Name)
                 throw new ResourceProviderException(
                     $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
                     StatusCodes.Status400BadRequest);
@@ -689,12 +689,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 await _lock.WaitAsync();
 
-                if (resourceReference1.ResourceType is not T1)
+                if (resourceReference1.ResourceType.Name != typeof(T1).Name)
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference1.Name} is not of the expected type {typeof(T1).Name}.",
                         StatusCodes.Status400BadRequest);
 
-                if (resourceReference2.ResourceType is not T2)
+                if (resourceReference2.ResourceType.Name != typeof(T2).Name)
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference2.Name} is not of the expected type {typeof(T2).Name}.",
                         StatusCodes.Status400BadRequest);

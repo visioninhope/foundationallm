@@ -58,15 +58,21 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             var instanceId = instanceSettings.Id;
             var userIdentities = GetUserIdentities(hostId, simulatedUsersCount);
             var userContexts = userIdentities
-                .Select(userIdentity => new AssistantUserContext
+                .Select(userIdentity => {
+                    var newGuid = Guid.NewGuid().ToString();
+                    return new AssistantUserContext
                     {
                         Name = $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}",
                         UserPrincipalName = userIdentity.UPN!,
-                        Endpoint = "endpoint_placeholder",
-                        ModelDeploymentName = "model_placeholder",
-                        Prompt = "prompt_placeholder",
-                    }
-                )
+                        Endpoint = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_ENDPOINT")!,
+                        ModelDeploymentName = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_MODEL_NAME")!,
+                        Prompt = "Plot the equation y = x + 1",
+                        Conversations = new Dictionary<string, ConversationMapping>
+                        {
+                            { newGuid, new ConversationMapping { FoundationaLLMSessionId = newGuid } }
+                        }
+                    };
+                })
                 .ToList();
 
             var userContextCreationTasks = Enumerable.Range(0, userContexts.Count)
@@ -78,6 +84,12 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 .ToList();
 
             await Task.WhenAll(userContextCreationTasks);
+
+            // User creates a new chat session
+            userContexts.ForEach(context => { 
+                var newGuid = Guid.NewGuid().ToString();
+                context.Conversations.Add(newGuid, new ConversationMapping { FoundationaLLMSessionId = newGuid });
+            });
 
             await Task.WhenAll(
                 Enumerable.Range(0, userContextCreationTasks.Count)
