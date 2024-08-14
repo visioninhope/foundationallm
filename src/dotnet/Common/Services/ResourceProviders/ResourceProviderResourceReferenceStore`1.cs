@@ -91,7 +91,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     // The reference was not found which means it either does not exist or has been created by another instance of the resource provider.
 
                     // Wait for a second to ensure that potential reference creation processes happening in different instances of the resource provider have completed.
-                    await Task.Delay(1000, _cancellationToken);
+                    await Task.Delay(10, _cancellationToken);
 
                     await LoadAndMergeResourceReferences();
                 }
@@ -102,6 +102,24 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 // Return the result, regardless of whether it is null or not.
                 // If it is null, the caller will have to handle the situation.
                 return resourceReference;
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Filters the resource references in the store based on the predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate to filter the resource references.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetResourceReferences(Func<T, bool> predicate)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                return _resourceReferences.Values.Where(predicate);
             }
             finally
             {
@@ -205,6 +223,27 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 {
                     _resourceReferences[reference.Name] = reference;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Deletes a resource reference from the store.
+        /// </summary>
+        /// <param name="resourceReference">The name of the resource to delete.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        public async Task DeleteResourceReference(T resourceReference)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                resourceReference.Deleted = true;
+
+                await SaveResourceReferences();
+            }
+            finally
+            {
+                _lock.Release();
             }
         }
 
