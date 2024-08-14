@@ -47,7 +47,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Request
         public required string ProviderFileName { get; set; }
 
         /// <summary>
-        /// The name of thestorage account that is used by the provider.
+        /// The name of the storage account that is used by the provider.
         /// </summary>
         [JsonPropertyName("provider_storage_account_name")]
         public string? ProviderStorageAccountName { get; set; }

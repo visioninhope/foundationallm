@@ -91,7 +91,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     // The reference was not found which means it either does not exist or has been created by another instance of the resource provider.
 
                     // Wait for a second to ensure that potential reference creation processes happening in different instances of the resource provider have completed.
-                    await Task.Delay(1000, _cancellationToken);
+                    await Task.Delay(10, _cancellationToken);
 
                     await LoadAndMergeResourceReferences();
                 }

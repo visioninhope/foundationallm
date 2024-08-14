@@ -264,25 +264,35 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
                         // Always create the file user context associated with the assistant user context.
                         var newFileUserContextName = $"{assistantUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-file-{_instanceSettings.Id.ToLower()}";
-                        var newFileUserContext = new FileUserContext()
-                        {
-                            UserPrincipalName = assistantUserContext.UserPrincipalName,
-                            Endpoint = assistantUserContext.Endpoint,
-                            Name = newFileUserContextName,
-                            AssistantUserContextName = assistantUserContext.Name
-                        };
-                        var newUserFileContextResourceReference = new AzureOpenAIResourceReference
-                        {
-                            Name = newFileUserContextName,
-                            Type = AzureOpenAITypes.FileUserContext,
-                            Filename = $"/{_name}/{newFileUserContextName}.json",
-                            Deleted = false
-                        };
 
                         UpdateBaseProperties(assistantUserContext, userIdentity, isNew: true);
-                        await CreateResources<AssistantUserContext, FileUserContext>(
-                            assistantUserContextResourceReference, assistantUserContext,
-                            newUserFileContextResourceReference, newFileUserContext);
+
+                        var existingFileUserContextReference = await _resourceReferenceStore!.GetResourceReference(newFileUserContextName);
+                        if (existingFileUserContextReference == null)
+                        {
+                            var newFileUserContext = new FileUserContext()
+                            {
+                                UserPrincipalName = assistantUserContext.UserPrincipalName,
+                                Endpoint = assistantUserContext.Endpoint,
+                                Name = newFileUserContextName,
+                                AssistantUserContextName = assistantUserContext.Name
+                            };
+                            var newUserFileContextResourceReference = new AzureOpenAIResourceReference
+                            {
+                                Name = newFileUserContextName,
+                                Type = AzureOpenAITypes.FileUserContext,
+                                Filename = $"/{_name}/{newFileUserContextName}.json",
+                                Deleted = false
+                            };
+
+                            await CreateResources<AssistantUserContext, FileUserContext>(
+                                assistantUserContextResourceReference, assistantUserContext,
+                                newUserFileContextResourceReference, newFileUserContext);
+                        }
+                        else
+                        {
+                            await CreateResource<AssistantUserContext>(assistantUserContextResourceReference, assistantUserContext);
+                        }
                     }
                 }
                 finally
@@ -320,12 +330,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     var existingAssistantUserContext = await LoadResource<AssistantUserContext>(assistantUserContextResourceReference)
                         ?? throw new ResourceProviderException(
                             $"Could not load the {assistantUserContext.Name} assistant user context.");
-
-                    // Since the assistant user context might be initialized together with a file user context,
-                    // we need to update some properties that might have been initialized with placeholder values.
-                    existingAssistantUserContext.Endpoint = assistantUserContext.Endpoint;
-                    existingAssistantUserContext.ModelDeploymentName = assistantUserContext.ModelDeploymentName;
-                    existingAssistantUserContext.Prompt = assistantUserContext.Prompt;
 
                     existingAssistantUserContext.OpenAIAssistantId = newOpenAIAssistantId;
                     existingAssistantUserContext.OpenAIAssistantCreatedOn = DateTimeOffset.UtcNow;
@@ -383,12 +387,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         ?? throw new ResourceProviderException(
                             $"Could not load the {resourceReference.Name} assistant user context.");
 
-                    // Since the assistant user context might be initialized together with a file user context,
-                    // we need to update some properties that might have been initialized with placeholder values.
-                    existingAssistantUserContext.Endpoint = assistantUserContext.Endpoint;
-                    existingAssistantUserContext.ModelDeploymentName = assistantUserContext.ModelDeploymentName;
-                    existingAssistantUserContext.Prompt = assistantUserContext.Prompt;
-                    
                     if (existingAssistantUserContext.Conversations.ContainsKey(incompleteConversations[0].FoundationaLLMSessionId))
                         throw new ResourceProviderException(
                             $"An OpenAI thread was already created for the FoundationaLLM session {incompleteConversations[0].FoundationaLLMSessionId}.",
@@ -462,28 +460,29 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                             fileUserContext.Name);
 
                         // Always create the assistant user context associated with the file user context.
-                        var newAssistantUserContextName = $"{fileUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-assistant-{_instanceSettings.Id.ToLower()}";
-                        var newAssistantUserContext = new AssistantUserContext()
-                        {
-                            Name = newAssistantUserContextName,
-                            UserPrincipalName = fileUserContext.UserPrincipalName,
-                            Endpoint = "not_initialized",
-                            ModelDeploymentName = "not_initialized",
-                            Prompt = "not_initialized",
-                        };
+                        //var newAssistantUserContextName = $"{fileUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-assistant-{_instanceSettings.Id.ToLower()}";
+                        //var newAssistantUserContext = new AssistantUserContext()
+                        //{
+                        //    Name = newAssistantUserContextName,
+                        //    UserPrincipalName = fileUserContext.UserPrincipalName,
+                        //    Endpoint = "not_initialized",
+                        //    ModelDeploymentName = "not_initialized",
+                        //    Prompt = "not_initialized",
+                        //};
 
-                        var newAssistantContextResourceReference = new AzureOpenAIResourceReference
-                        {
-                            Name = newAssistantUserContextName,
-                            Type = AzureOpenAITypes.AssistantUserContext,
-                            Filename = $"/{_name}/{newAssistantUserContextName}.json",
-                            Deleted = false
-                        };
+                        //var newAssistantContextResourceReference = new AzureOpenAIResourceReference
+                        //{
+                        //    Name = newAssistantUserContextName,
+                        //    Type = AzureOpenAITypes.AssistantUserContext,
+                        //    Filename = $"/{_name}/{newAssistantUserContextName}.json",
+                        //    Deleted = false
+                        //};
 
                         UpdateBaseProperties(fileUserContext, userIdentity, isNew: true);
-                        await CreateResources<FileUserContext, AssistantUserContext>(
-                            fileUserContextResourceReference, fileUserContext,
-                            newAssistantContextResourceReference, newAssistantUserContext);
+                        //await CreateResources<FileUserContext, AssistantUserContext>(
+                        //    fileUserContextResourceReference, fileUserContext,
+                        //    newAssistantContextResourceReference, newAssistantUserContext);
+                        await CreateResource<FileUserContext>(fileUserContextResourceReference, fileUserContext);
                     }
                 }
                 finally
