@@ -89,7 +89,7 @@
 
 
   <h1 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService" class="text-break">
-Class AuthorizationResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+Class AuthorizationResourceProviderService  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -102,7 +102,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class AuthorizationResourceProviderService : ResourceProviderServiceBase, IResourceProviderService, IManagementProviderService</code></pre>
+    <pre><code class="lang-csharp hljs">public class AuthorizationResourceProviderService : ResourceProviderServiceBase&lt;ResourceReference&gt;, IResourceProviderService, IManagementProviderService</code></pre>
   </div>
 
 
@@ -112,7 +112,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html">ResourceProviderServiceBase</a></div>
+      <div><a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html">ResourceProviderServiceBase</a>&lt;<a class="xref" href="FoundationaLLM.Common.Models.ResourceProviders.ResourceReference.html">ResourceReference</a>&gt;</div>
       <div><span class="xref">AuthorizationResourceProviderService</span></div>
     </dd>
   </dl>
@@ -130,79 +130,100 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__serviceProvider">ResourceProviderServiceBase._serviceProvider</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__resourceReferenceStore">ResourceProviderServiceBase&lt;ResourceReference&gt;._resourceReferenceStore</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__authorizationService">ResourceProviderServiceBase._authorizationService</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__serviceProvider">ResourceProviderServiceBase&lt;ResourceReference&gt;._serviceProvider</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__storageService">ResourceProviderServiceBase._storageService</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__authorizationService">ResourceProviderServiceBase&lt;ResourceReference&gt;._authorizationService</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__eventService">ResourceProviderServiceBase._eventService</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__storageService">ResourceProviderServiceBase&lt;ResourceReference&gt;._storageService</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__resourceValidatorFactory">ResourceProviderServiceBase._resourceValidatorFactory</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__eventService">ResourceProviderServiceBase&lt;ResourceReference&gt;._eventService</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__logger">ResourceProviderServiceBase._logger</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__resourceValidatorFactory">ResourceProviderServiceBase&lt;ResourceReference&gt;._resourceValidatorFactory</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__instanceSettings">ResourceProviderServiceBase._instanceSettings</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__logger">ResourceProviderServiceBase&lt;ResourceReference&gt;._logger</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__storageContainerName">ResourceProviderServiceBase._storageContainerName</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__instanceSettings">ResourceProviderServiceBase&lt;ResourceReference&gt;._instanceSettings</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase__serializerSettings">ResourceProviderServiceBase._serializerSettings</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__storageContainerName">ResourceProviderServiceBase&lt;ResourceReference&gt;._storageContainerName</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Name">ResourceProviderServiceBase.Name</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1__serializerSettings">ResourceProviderServiceBase&lt;ResourceReference&gt;._serializerSettings</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_IsInitialized">ResourceProviderServiceBase.IsInitialized</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_Name">ResourceProviderServiceBase&lt;ResourceReference&gt;.Name</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_AllowedResourceTypes">ResourceProviderServiceBase.AllowedResourceTypes</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_IsInitialized">ResourceProviderServiceBase&lt;ResourceReference&gt;.IsInitialized</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_StorageAccountName">ResourceProviderServiceBase.StorageAccountName</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_AllowedResourceTypes">ResourceProviderServiceBase&lt;ResourceReference&gt;.AllowedResourceTypes</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_Initialize">ResourceProviderServiceBase.Initialize()</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_StorageAccountName">ResourceProviderServiceBase&lt;ResourceReference&gt;.StorageAccountName</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleGetAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandleGetAsync(string, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_StorageContainerName">ResourceProviderServiceBase&lt;ResourceReference&gt;.StorageContainerName</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandlePostAsync_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandlePostAsync(string, string, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_Initialize">ResourceProviderServiceBase&lt;ResourceReference&gt;.Initialize()</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.HandleDeleteAsync(string, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_HandleGetAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase&lt;ResourceReference&gt;.HandleGetAsync(string, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourcePath_System_String_System_Boolean_">ResourceProviderServiceBase.GetResourcePath(string, bool)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_HandlePostAsync_System_String_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase&lt;ResourceReference&gt;.HandlePostAsync(string, string, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_">ResourceProviderServiceBase.GetResource&lt;T&gt;(string, UnifiedUserIdentity, ResourceProviderOptions)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_HandleDeleteAsync_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase&lt;ResourceReference&gt;.HandleDeleteAsync(string, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsync__2_System_String___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.UpsertResourceAsync&lt;T, TResult&gt;(string, T, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_GetResourcePath_System_String_System_Boolean_">ResourceProviderServiceBase&lt;ResourceReference&gt;.GetResourcePath(string, bool)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_">ResourceProviderServiceBase.GetResourceInternal&lt;T&gt;(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_GetResource__1_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_">ResourceProviderServiceBase&lt;ResourceReference&gt;.GetResource&lt;T&gt;(string, UnifiedUserIdentity, ResourceProviderOptions)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpsertResourceAsyncInternal__2_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.UpsertResourceAsyncInternal&lt;T, TResult&gt;(ResourcePath, T, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_UpsertResourceAsync__2_System_String___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase&lt;ResourceReference&gt;.UpsertResourceAsync&lt;T, TResult&gt;(string, T, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_">ResourceProviderServiceBase.HandleEvents(EventSetEventArgs)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_">ResourceProviderServiceBase&lt;ResourceReference&gt;.GetResourceInternal&lt;T&gt;(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_GetResourceProviderServiceByName_System_String_">ResourceProviderServiceBase.GetResourceProviderServiceByName(string)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_UpsertResourceAsyncInternal__2_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase&lt;ResourceReference&gt;.UpsertResourceAsyncInternal&lt;T, TResult&gt;(ResourcePath, T, UnifiedUserIdentity)</a>
     </div>
     <div>
-      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_UpdateBaseProperties_FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_">ResourceProviderServiceBase.UpdateBaseProperties(ResourceBase, UnifiedUserIdentity)</a>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_">ResourceProviderServiceBase&lt;ResourceReference&gt;.HandleEvents(EventSetEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_LoadResources__1_FoundationaLLM_Common_Models_ResourceProviders_ResourceTypeInstance_">ResourceProviderServiceBase&lt;ResourceReference&gt;.LoadResources&lt;T&gt;(ResourceTypeInstance)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_LoadResource__1__0_">ResourceProviderServiceBase&lt;ResourceReference&gt;.LoadResource&lt;T&gt;(ResourceReference)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_CreateResource__1__0___0_">ResourceProviderServiceBase&lt;ResourceReference&gt;.CreateResource&lt;T&gt;(ResourceReference, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_CreateResources__2__0___0__0___1_">ResourceProviderServiceBase&lt;ResourceReference&gt;.CreateResources&lt;T1, T2&gt;(ResourceReference, T1, ResourceReference, T2)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_SaveResource__1__0___0_">ResourceProviderServiceBase&lt;ResourceReference&gt;.SaveResource&lt;T&gt;(ResourceReference, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_GetResourceProviderServiceByName_System_String_">ResourceProviderServiceBase&lt;ResourceReference&gt;.GetResourceProviderServiceByName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_UpdateBaseProperties_FoundationaLLM_Common_Models_ResourceProviders_ResourceBase_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_System_Boolean_">ResourceProviderServiceBase&lt;ResourceReference&gt;.UpdateBaseProperties(ResourceBase, UnifiedUserIdentity, bool)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -271,7 +292,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService__ctor_Microsoft_Extensions_Options_IOptions_FoundationaLLM_Common_Models_Configuration_Instance_InstanceSettings__FoundationaLLM_Common_Interfaces_IAuthorizationService_FoundationaLLM_Common_Interfaces_IResourceValidatorFactory_System_IServiceProvider_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.#ctor(Microsoft.Extensions.Options.IOptions{FoundationaLLM.Common.Models.Configuration.Instance.InstanceSettings},FoundationaLLM.Common.Interfaces.IAuthorizationService,FoundationaLLM.Common.Interfaces.IResourceValidatorFactory,System.IServiceProvider,Microsoft.Extensions.Logging.ILoggerFactory)">
   AuthorizationResourceProviderService(IOptions&lt;InstanceSettings&gt;, IAuthorizationService, IResourceValidatorFactory, IServiceProvider, ILoggerFactory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Implements the FoundationaLLM.Authorization resource provider.</p>
@@ -320,7 +341,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService__name" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService._name">
   _name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider. Must be overridden in derived classes.</p>
@@ -356,7 +377,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L142"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
@@ -397,7 +418,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L161"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -446,7 +467,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_GetResourceTypes" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourceTypes">
   GetResourceTypes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the details about the resource types managed by the resource provider.</p>
@@ -479,7 +500,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -520,7 +541,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_InitializeInternal" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -552,7 +573,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 
   <h3 id="FoundationaLLM_Authorization_ResourceProviders_AuthorizationResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Authorization.ResourceProviders.AuthorizationResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L84"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -596,7 +617,7 @@ Class AuthorizationResourceProviderService  <a class="header-action link-seconda
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L28" class="edit-link">Edit this page</a>
+          <a href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Authorization/ResourceProviders/AuthorizationResourceProviderService.cs/#L29" class="edit-link">Edit this page</a>
         </div>
 
 
