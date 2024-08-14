@@ -114,6 +114,7 @@ export interface Attachment {
 	id: string;
 	fileName: string;
 	sessionId: string;
+	contentType: string;
 }
 
 export interface ResourceProviderDeleteResult {
