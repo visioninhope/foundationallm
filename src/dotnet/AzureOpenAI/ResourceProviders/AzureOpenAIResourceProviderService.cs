@@ -13,7 +13,6 @@ using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
-using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Services.ResourceProviders;
 using FoundationaLLM.Gateway.Client;
 using Microsoft.AspNetCore.Http;
@@ -81,12 +80,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             }
             else
             {
-                await _storageService.WriteFileAsync(
-                    _storageContainerName,
-                    RESOURCE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<AzureOpenAIResourceReference> { ResourceReferences = [] }),
-                    default,
-                    default);
+                await WriteResourceReferencesFileAsync();
             }
 
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
@@ -237,7 +231,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         {
             if (resourceReference != null || !string.IsNullOrEmpty(resourceId))
             {
-                 resourceReference ??= new AzureOpenAIResourceReference
+                resourceReference ??= new AzureOpenAIResourceReference
                 {
                     Name = resourceId!,
                     Type = AzureOpenAITypes.FileUserContext,
@@ -334,10 +328,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             if (incompleteConversations.Count != 1)
                 throw new ResourceProviderException($"The Assistant user context {assistantUserContext.Name} contains an incorrect number of incomplete conversations (must be 1). This indicates an inconsistent approach in the resource management flow.");
 
-            bool isNew = false;
             if (!resourceExists)
             {
-                isNew = true;
                 // Creating a new resource.
                 assistantUserContext.CreatedBy = userIdentity.UPN;
 
@@ -418,27 +410,38 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
             _resourceReferences.AddOrUpdate(resourceReference.Name, resourceReference, (k, v) => v);
 
-            await _storageService.WriteFileAsync(
-                _storageContainerName,
-                RESOURCE_REFERENCES_FILE_PATH,
-                JsonSerializer.Serialize(ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary())),
-                default,
-                default);
+            await WriteResourceReferencesFileAsync();
 
-            // Create the file user context for new assistants, is dependent on the successful creation of the assistant user context.
-            if(isNew)
+            // Check if the file user context exists in the references
+            var fileUserContextName = $"{updatedAssistantUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-file-{_instanceSettings.Id.ToLower()}";
+            if (!_resourceReferences.ContainsKey(fileUserContextName))
             {
-                var fileUserContextName = $"{updatedAssistantUserContext.UserPrincipalName.NormalizeUserPrincipalName()}-file-{_instanceSettings.Id.ToLower()}";
-                var fuc = new FileUserContext()
+                // If the reference does not exist, check user file context file exists
+                if (!await _storageService.FileExistsAsync(_storageContainerName, $"/{_name}/{fileUserContextName}.json", default))
                 {
-                    UserPrincipalName = updatedAssistantUserContext.UserPrincipalName,
-                    Endpoint = updatedAssistantUserContext.Endpoint,
-                    Name = fileUserContextName,
-                    AssistantUserContextName = updatedAssistantUserContext.Name
-                };
-                await UpdateFileUserContext(fuc, userIdentity);
+                    var fuc = new FileUserContext()
+                    {
+                        UserPrincipalName = updatedAssistantUserContext.UserPrincipalName,
+                        Endpoint = updatedAssistantUserContext.Endpoint,
+                        Name = fileUserContextName,
+                        AssistantUserContextName = updatedAssistantUserContext.Name
+                    };
+                    await UpdateFileUserContext(fuc, userIdentity);
+                }
+                else
+                {
+                    // Add the reference to the existing references file.
+                    var userFileContextResourceReference = new AzureOpenAIResourceReference
+                    {
+                        Name = fileUserContextName,
+                        Type = AzureOpenAITypes.FileUserContext,
+                        Filename = $"/{_name}/{fileUserContextName}.json",
+                        Deleted = false
+                    };
+                    _resourceReferences.AddOrUpdate(fileUserContextName, userFileContextResourceReference, (k, v) => v);
+                    await WriteResourceReferencesFileAsync();
+                }
             }
-            
 
             return new AssistantUserContextUpsertResult
             {
@@ -507,12 +510,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     // Remove this resource reference from the store.
                     _resourceReferences.TryRemove(resourceName, out _);
 
-                    await _storageService.WriteFileAsync(
-                        _storageContainerName,
-                        RESOURCE_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary())),
-                        default,
-                        default);
+                    await WriteResourceReferencesFileAsync();
 
                     return new ResourceProviderActionResult(true);
                 }
@@ -555,12 +553,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             {
                 resourceReference.Deleted = true;
 
-                await _storageService.WriteFileAsync(
-                    _storageContainerName,
-                    RESOURCE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary())),
-                    default,
-                    default);
+                await WriteResourceReferencesFileAsync();
             }
             else
                 throw new ResourceProviderException($"Could not locate the {instances.Last().ResourceId} agent resource.",
@@ -760,12 +753,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
             _resourceReferences.AddOrUpdate(resourceReference.Name, resourceReference, (k, v) => v);
 
-            await _storageService.WriteFileAsync(
-                    _storageContainerName,
-                    RESOURCE_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary())),
-                    default,
-                    default);
+            await WriteResourceReferencesFileAsync();
 
             return new FileUserContextUpsertResult
             {
@@ -775,5 +763,23 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         }
 
         #endregion
+
+        /// <summary>
+        /// Helper method to centralize the writing of Azure OpenAI resource references to the storage.
+        /// </summary>
+        /// <returns></returns>
+        private async Task WriteResourceReferencesFileAsync()
+        {
+            var resourceReferences = _resourceReferences.Count == 0
+                ? new ResourceReferenceStore<AzureOpenAIResourceReference> { ResourceReferences = [] }
+                : ResourceReferenceStore<AzureOpenAIResourceReference>.FromDictionary(_resourceReferences.ToDictionary());
+
+            await _storageService.WriteFileAsync(
+                _storageContainerName,
+                RESOURCE_REFERENCES_FILE_PATH,
+                JsonSerializer.Serialize(resourceReferences),
+                default,
+                default);
+        }
     }
 }
