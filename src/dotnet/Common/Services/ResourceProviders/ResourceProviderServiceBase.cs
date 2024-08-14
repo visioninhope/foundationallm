@@ -622,16 +622,47 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 var fileContent =
                     await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
-                var assistanUserContext = JsonSerializer.Deserialize<T>(
+                var resourceObject = JsonSerializer.Deserialize<T>(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     _serializerSettings)
                         ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
                             StatusCodes.Status400BadRequest);
 
-                return assistanUserContext;
+                return resourceObject;
             }
 
             return null;
+        }
+
+        protected async Task<T?> LoadResource<T>(string resourceName) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName)
+                    ?? throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+
+                if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
+                {
+                    var fileContent =
+                        await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
+                    var resourceObject = JsonSerializer.Deserialize<T>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()),
+                        _serializerSettings)
+                            ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
+                                StatusCodes.Status400BadRequest);
+
+                    return resourceObject;
+                }
+
+                return null;
+            }
+            finally
+            {
+                _lock.Release();
+            }
         }
 
         /// <summary>
@@ -764,14 +795,14 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 await _lock.WaitAsync();
 
-                var attachmentReference = await _resourceReferenceStore!.GetResourceReference(resourceName);
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName);
 
-                if (attachmentReference != null)
+                if (resourceReference != null)
                 {
-                    await _resourceReferenceStore!.DeleteResourceReference(attachmentReference);
+                    await _resourceReferenceStore!.DeleteResourceReference(resourceReference);
                     await _storageService.DeleteFileAsync(
                         _storageContainerName,
-                        attachmentReference.Filename);
+                        resourceReference.Filename);
                 }
                 else
                 {
@@ -783,7 +814,6 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 _lock.Release();
             }
-            
         }
 
         #endregion
