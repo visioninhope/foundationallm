@@ -202,6 +202,9 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_LoadResource__1__0_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.LoadResource&lt;T&gt;(AttachmentReference)</a>
     </div>
     <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_LoadResource__1_System_String_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.LoadResource&lt;T&gt;(string)</a>
+    </div>
+    <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_CreateResource__1__0___0_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.CreateResource&lt;T&gt;(AttachmentReference, T)</a>
     </div>
     <div>
@@ -209,6 +212,9 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_SaveResource__1__0___0_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.SaveResource&lt;T&gt;(AttachmentReference, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_DeleteResource__1_System_String_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.DeleteResource&lt;T&gt;(string)</a>
     </div>
     <div>
       <a class="xref" href="FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_GetResourceProviderServiceByName_System_String_">ResourceProviderServiceBase&lt;AttachmentReference&gt;.GetResourceProviderServiceByName(string)</a>
@@ -338,7 +344,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService__name" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService._name">
   _name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L62"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The name of the resource provider. Must be overridden in derived classes.</p>
@@ -374,7 +380,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_DeleteResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.DeleteResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   DeleteResourceAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L314"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L188"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of DeleteResourceAsync. Must be overridden in derived classes.</p>
@@ -415,7 +421,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_ExecuteActionAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.ExecuteActionAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   ExecuteActionAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L270"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L142"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of ExecuteActionAsync. Must be overriden in derived classes.</p>
@@ -464,7 +470,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceInternal__1_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_FoundationaLLM_Common_Models_ResourceProviders_ResourceProviderOptions_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceInternal``1(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity,FoundationaLLM.Common.Models.ResourceProviders.ResourceProviderOptions)">
   GetResourceInternal&lt;T&gt;(ResourcePath, UnifiedUserIdentity, ResourceProviderOptions?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L363"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L206"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResource. Must be overridden in derived classes.</p>
@@ -513,7 +519,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourceTypes" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourceTypes">
   GetResourceTypes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the details about the resource types managed by the resource provider.</p>
@@ -546,7 +552,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_GetResourcesAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.GetResourcesAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   GetResourcesAsync(ResourcePath, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of GetResourcesAsync. Must be overridden in derived classes.</p>
@@ -587,7 +593,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_HandleEvents_FoundationaLLM_Common_Models_Events_EventSetEventArgs_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.HandleEvents(FoundationaLLM.Common.Models.Events.EventSetEventArgs)">
   HandleEvents(EventSetEventArgs)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L396"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Handles events received from the <a class="xref" href="FoundationaLLM.Common.Interfaces.IEventService.html">IEventService</a> when they are dequeued locally.</p>
@@ -625,7 +631,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_InitializeInternal" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.InitializeInternal">
   InitializeInternal()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of Initialize. Must be overridden in derived classes.</p>
@@ -657,7 +663,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_UpsertResourceAsync_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsync(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   UpsertResourceAsync(ResourcePath, string, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L197"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L138"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
@@ -701,7 +707,7 @@ Class AttachmentResourceProviderService  <a class="header-action link-secondary"
 
   <h3 id="FoundationaLLM_Attachment_ResourceProviders_AttachmentResourceProviderService_UpsertResourceAsyncInternal__2_FoundationaLLM_Common_Models_ResourceProviders_ResourcePath___0_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_" data-uid="FoundationaLLM.Attachment.ResourceProviders.AttachmentResourceProviderService.UpsertResourceAsyncInternal``2(FoundationaLLM.Common.Models.ResourceProviders.ResourcePath,``0,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)">
   UpsertResourceAsyncInternal&lt;T, TResult&gt;(ResourcePath, T, UnifiedUserIdentity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L382"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/solliancenet/foundationallm/blob/main/src/dotnet/Attachments/ResourceProviders/AttachmentResourceProviderService.cs/#L216"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The internal implementation of UpsertResourceAsync. Must be overridden in derived classes.</p>
