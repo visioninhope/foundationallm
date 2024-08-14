@@ -49,6 +49,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
             serviceCollection.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
             serviceCollection.AddAzureOpenAIResourceProvider(builder.Configuration);
+            serviceCollection.AddConfigurationResourceProvider(builder.Configuration);
 
             RegisterLogging(serviceCollection);
 

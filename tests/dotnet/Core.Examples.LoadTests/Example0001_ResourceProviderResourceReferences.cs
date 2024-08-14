@@ -39,7 +39,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 .Select(rps => rps.InitializeAll()));
 
             await Task.WhenAll(
-                Enumerable.Range(1, resourceProvidersHosts.Count)
+                Enumerable.Range(0, resourceProvidersHosts.Count)
                 .Select(i => SimulateServiceHostLoad(
                     i,
                     simulatedUsersCount,
@@ -57,35 +57,65 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             var instanceSettings = serviceProvider.GetRequiredService<IOptions<InstanceSettings>>().Value;
             var instanceId = instanceSettings.Id;
             var userIdentities = GetUserIdentities(hostId, simulatedUsersCount);
+            var userContexts = userIdentities
+                .Select(userIdentity => new AssistantUserContext
+                    {
+                        Name = $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}",
+                        UserPrincipalName = userIdentity.UPN!,
+                        Endpoint = "endpoint_placeholder",
+                        ModelDeploymentName = "model_placeholder",
+                        Prompt = "prompt_placeholder",
+                    }
+                )
+                .ToList();
+
+            var userContextCreationTasks = Enumerable.Range(0, userContexts.Count)
+                .Select(i => SimulateAssistantUserContextCreation(
+                    instanceId,
+                    userContexts[i],
+                    resourceProviders.AzureOpenAIResourceProvider,
+                    userIdentities[i]))
+                .ToList();
+
+            await Task.WhenAll(userContextCreationTasks);
 
             await Task.WhenAll(
-                userIdentities
-                .Select(userIdentity => SimulateAssistantUserContextCreation(
-                    instanceId,
-                    resourceProviders.AzureOpenAIResourceProvider,
-                    userIdentity)));
+                Enumerable.Range(0, userContextCreationTasks.Count)
+                    .Select(
+                        i => SimulateAssistantUserContextUpdate(
+                            resourceProviders.AzureOpenAIResourceProvider,
+                            userContextCreationTasks[i].Result.ObjectId!,
+                            userContexts[i],
+                            userIdentities[i]
+                        )
+                    )
+            );
         }
 
-        private async Task SimulateAssistantUserContextCreation(
+        private async Task<AssistantUserContextUpsertResult> SimulateAssistantUserContextCreation(
             string instanceId,
+            AssistantUserContext assistantUserContext,
             IResourceProviderService resourceProvider,
             UnifiedUserIdentity userIdentity)
         {
-            var assistantUserContextName = $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}";
-            var assistantUserContext = new AssistantUserContext
-            {
-                Name = assistantUserContextName,
-                UserPrincipalName = userIdentity.UPN!,
-                Endpoint = "endpoint_placeholder",
-                ModelDeploymentName = "model_placeholder",
-                Prompt = "prompt_placeholder",
-            };
-
-            await resourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
+            return await resourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
                 instanceId,
                 assistantUserContext,
                 AzureOpenAIResourceTypeNames.AssistantUserContexts,
                 userIdentity);
+        }
+
+        private async Task SimulateAssistantUserContextUpdate(
+            IResourceProviderService resourceProvider,
+            string resourcePath,
+            AssistantUserContext assistantUserContext,
+            UnifiedUserIdentity userIdentity)
+        {
+            await resourceProvider.UpsertResourceAsync<AssistantUserContext, AssistantUserContextUpsertResult>(
+                resourcePath,
+                assistantUserContext,
+                userIdentity
+            );
         }
 
         private List<UnifiedUserIdentity> GetUserIdentities(

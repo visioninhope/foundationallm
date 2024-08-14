@@ -1,10 +1,12 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Authentication;
+using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Services;
 using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Configuration.Services;
 using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -18,7 +20,7 @@ namespace FoundationaLLM
     public static partial class DependencyInjection
     {
         /// <summary>
-        /// Register the FoundatiionaLLM.Configuration resource provider with the dependency injection container.
+        /// Register the FoundationaLLM.Configuration resource provider with the dependency injection container.
         /// </summary>
         /// <param name="builder">Application builder.</param>
         public static void AddConfigurationResourceProvider(this IHostApplicationBuilder builder)
@@ -49,6 +51,42 @@ namespace FoundationaLLM
                     sp,
                     sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>()));
             builder.Services.ActivateSingleton<IResourceProviderService>();
+        }
+
+        /// <summary>
+        /// Register the FoundationaLLM.Configuration resource provider with the dependency injection container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> dependency injection container service collection.</param>
+        /// <param name="configuration">The <see cref="IConfigurationRoot"/> configuration manager.</param>
+        public static void AddConfigurationResourceProvider(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddAzureClients(clientBuilder =>
+            {
+                clientBuilder.AddConfigurationClient(
+                    configuration[EnvironmentVariables.FoundationaLLM_AppConfig_ConnectionString]);
+                clientBuilder.AddSecretClient(new Uri(configuration[AppConfigurationKeys.FoundationaLLM_Configuration_KeyVaultURI]!))
+                    .WithCredential(DefaultAuthentication.AzureCredential);
+            });
+
+            services.AddSingleton<IAzureAppConfigurationService, AzureAppConfigurationService>();
+
+            services.AddConfigurationResourceProviderStorage(configuration);
+
+            services.AddSingleton<IResourceProviderService, ConfigurationResourceProviderService>(sp =>
+                new ConfigurationResourceProviderService(
+                    sp.GetRequiredService<IOptions<InstanceSettings>>(),
+                    sp.GetRequiredService<IAuthorizationService>(),
+                    sp.GetRequiredService<IEnumerable<IStorageService>>()
+                        .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_Configuration),
+                    sp.GetRequiredService<IEventService>(),
+                    sp.GetRequiredService<IResourceValidatorFactory>(),
+                    sp.GetRequiredService<IAzureAppConfigurationService>(),
+                    sp.GetRequiredService<IAzureKeyVaultService>(),
+                    configuration,
+                    sp,
+                    sp.GetRequiredService<ILogger<ConfigurationResourceProviderService>>()));
+            services.ActivateSingleton<IResourceProviderService>();
+            services.AddSingleton<IAzureKeyVaultService, AzureKeyVaultService>();
         }
     }
 }

@@ -59,6 +59,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_AzureOpenAI;
 
+        /// <inheritdoc/>
+        protected override async Task InitializeInternal() => _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
 
         #region Resource provider support for Management API
 
