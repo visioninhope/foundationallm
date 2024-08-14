@@ -95,12 +95,14 @@
 			modal
 			:header="`Rename Chat ${sessionToRename?.name}`"
 			:closable="false"
+			v-focustrap
 		>
 			<InputText
 				v-model="newSessionName"
 				type="text"
 				placeholder="New chat name"
 				:style="{ width: '100%' }"
+				autofocus
 			></InputText>
 			<template #footer>
 				<Button label="Cancel" text @click="closeRenameModal" />
