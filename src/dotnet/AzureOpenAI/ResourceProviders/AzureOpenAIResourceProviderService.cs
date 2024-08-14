@@ -497,6 +497,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     existingFileUserContext.Files.Add(mapping.Key, mapping.Value);
                 }
 
+                await SaveResource<FileUserContext>(resourceReference, existingFileUserContext);
+
                 return new FileUserContextUpsertResult
                 {
                     ObjectId = existingFileUserContext.ObjectId,
