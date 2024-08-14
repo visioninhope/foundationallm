@@ -95,7 +95,8 @@ class OpenAIAssistantsApiService:
         """
         
         # Process file attachments and assign tools
-        attachments = self._get_request_attachments(request)        
+        attachments = self._get_request_attachments(request)
+        print("ATTACHMENTS: ", attachments)
     
         # Add User prompt to the thread
         message = self.add_thread_message(
@@ -104,13 +105,15 @@ class OpenAIAssistantsApiService:
             content = request.user_prompt,
             attachments = attachments
         )
+        print("MESSAGE: ", message)
         
         # Create and execute the run
         run = self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
         )
-        
+
+        print("RUN: ", run)
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
             thread_id = request.thread_id, order="asc", after=message.id
@@ -122,9 +125,14 @@ class OpenAIAssistantsApiService:
           run_id = run.id
         )
 
+        
+
         analysis_results = self._parse_run_steps(run_steps.data)
+        print("ANALYSIS RESULTS: ", analysis_results)
 
         content = self._parse_messages(messages)
+
+        print("CONTENT: ", content)
         
         return OpenAIAssistantsAPIResponse(
             content = content,
