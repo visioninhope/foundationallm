@@ -34,8 +34,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
 
-        private readonly SemaphoreSlim _lock = new(1, 1);
         private readonly bool _useInternalStore;
+
+        /// <summary>
+        /// Lock used to synchronize access to the resource provider.
+        /// </summary>
+        protected readonly SemaphoreSlim _lock = new(1, 1);
 
         /// <summary>
         /// The resource reference store used by the resource provider.

@@ -1,4 +1,8 @@
-﻿using FoundationaLLM.Common.Models.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
+using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using System.Text.Json.Serialization;
 
 namespace FoundationaLLM.Attachment.Models
 {
@@ -26,5 +30,16 @@ namespace FoundationaLLM.Attachment.Models
         /// The only secondary provider currently supported is the FoundationaLLM.AzureOpenAI provider.
         /// </remarks>
         public string? SecondaryProvider { get; set; }
+
+        /// <summary>
+        /// The object type of the resource.
+        /// </summary>
+        [JsonIgnore]
+        public override Type ResourceType =>
+            Type switch
+            {
+                AttachmentTypes.File => typeof(AttachmentFile),
+                _ => throw new ResourceProviderException($"The resource type {Type} is not supported.")
+            };
     }
 }
