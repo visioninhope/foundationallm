@@ -118,11 +118,13 @@
 			modal
 			header="Delete a Chat"
 			:closable="false"
+			@keydown="deleteSessionKeydown"
+			v-focustrap
 		>
 			<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
 			<template #footer>
 				<Button label="Cancel" text @click="sessionToDelete = null" />
-				<Button label="Delete" severity="danger" @click="handleDeleteSession" />
+				<Button label="Delete" severity="danger" @click="handleDeleteSession" autofocus />
 			</template>
 		</Dialog>
 	</div>
@@ -199,6 +201,12 @@ export default {
 			}
 			if (event.key === 'Escape') {
 				this.closeRenameModal();
+			}
+		},
+
+		deleteSessionKeydown(event: KeyboardEvent) {
+			if (event.key === 'Escape') {
+				this.sessionToDelete = null;
 			}
 		},
 	},
