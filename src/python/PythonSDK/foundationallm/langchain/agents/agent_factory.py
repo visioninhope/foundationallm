@@ -39,7 +39,6 @@ class AgentFactory:
 
         if agent_type is None:
             raise ValueError("Agent not constructed. Cannot access an object of 'NoneType'.")
-        print("AGENT FACTORY")
         match agent_type:
             case 'knowledge-management':
                 
