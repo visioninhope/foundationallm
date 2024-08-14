@@ -35,11 +35,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
 
         private readonly bool _useInternalStore;
-
-        /// <summary>
-        /// Lock used to synchronize access to the resource provider.
-        /// </summary>
-        protected readonly SemaphoreSlim _lock = new(1, 1);
+        private readonly SemaphoreSlim _lock = new(1, 1);
 
         /// <summary>
         /// The resource reference store used by the resource provider.
@@ -652,7 +648,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 await _lock.WaitAsync();
 
-                if (resourceReference.ResourceType is not T)
+                if (resourceReference.ResourceType != resource.GetType())
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
                         StatusCodes.Status400BadRequest);
@@ -753,6 +749,41 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 _lock.Release();
             }
+        }
+
+        /// <summary>
+        /// Deletes a resource and its reference.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to delete.</typeparam>
+        /// <param name="resourceName">The name of the resource.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task DeleteResource<T>(string resourceName)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var attachmentReference = await _resourceReferenceStore!.GetResourceReference(resourceName);
+
+                if (attachmentReference != null)
+                {
+                    await _resourceReferenceStore!.DeleteResourceReference(attachmentReference);
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        attachmentReference.Filename);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+                }
+            }
+            finally
+            {
+                _lock.Release();
+            }
+            
         }
 
         #endregion
