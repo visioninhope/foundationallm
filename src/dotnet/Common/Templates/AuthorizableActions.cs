@@ -2,7 +2,7 @@ using FoundationaLLM.Common.Constants.Authorization;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models.Authorization
 {
     /// <summary>
     /// Defines all authorizable actions managed by the FoundationaLLM.Authorization resource provider.

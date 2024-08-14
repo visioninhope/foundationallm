@@ -21,11 +21,12 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
         /// <param name="builder">The <see cref="IHostApplicationBuilder"/> that is used to build the application host.</param>
         /// <param name="configRoot">The <see cref="IConfigurationRoot"/> that provides configuration services.</param>
         public static List<IServiceProvider> InitializeServices(
-            IHostApplicationBuilder builder)
+            IHostApplicationBuilder builder,
+            int hostsCount)
         {
             LoadTestConfiguration.Initialize((IConfigurationRoot)builder.Configuration, builder.Services);
             
-            return Enumerable.Range(1, 2)
+            return Enumerable.Range(1, hostsCount)
                 .Select(_ => CreateDIContainer(builder))
                 .ToList();
         }

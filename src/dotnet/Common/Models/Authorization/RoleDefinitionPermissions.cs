@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoundationaLLM.Common.Models.Authorization;
+using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models
 {
     /// <summary>
     /// Manages the permissions associated with a security role definition.

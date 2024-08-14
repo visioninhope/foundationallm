@@ -1,7 +1,7 @@
 ﻿using FoundationaLLM.Common.Models.ResourceProviders;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models
 {
     /// <summary>
     /// Contains information about a security role definition.
