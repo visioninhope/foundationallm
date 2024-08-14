@@ -17,6 +17,9 @@
       "authAppRegistrationTenantId": {
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
+      "backendAksServiceCidr": {
+        "value": "${FLLM_BACKEND_AKS_SERVICE_CIDR=10.100.0.0/16}"
+      },
       "cidrVnet": {
         "value": "${FLLM_CIDR_VNET=10.220.128.0/20}"
       },
@@ -34,6 +37,9 @@
       },
       "externalNetworkingResourceGroupName": {
         "value": "${FOUNDATIONALLM_EXT_NET_RG}"
+      },
+      "frontendAksServiceCidr": {
+        "value": "${FLLM_FRONTEND_AKS_SERVICE_CIDR=10.100.0.0/16}"
       },
       "location": {
         "value": "${AZURE_LOCATION}"
