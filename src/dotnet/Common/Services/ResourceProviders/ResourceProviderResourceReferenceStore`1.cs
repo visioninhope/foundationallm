@@ -199,7 +199,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             var _persistedReferences = JsonSerializer.Deserialize<ResourceReferenceList<T>>(
                 Encoding.UTF8.GetString(fileContent.ToArray()))!.ResourceReferences;
 
-            foreach (var reference in _persistedReferences.Values)
+            foreach (var reference in _persistedReferences)
             {
                 if (!_resourceReferences.ContainsKey(reference.Name))
                 {
@@ -222,7 +222,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 ResourceReferencesFilePath,
                 JsonSerializer.Serialize(new ResourceReferenceList<T>
                 {
-                    ResourceReferences = _resourceReferences
+                    ResourceReferences = _resourceReferences.Values.ToList()
                 }),
                 default,
                 _cancellationToken);

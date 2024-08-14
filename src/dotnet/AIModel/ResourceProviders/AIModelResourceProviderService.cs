@@ -81,7 +81,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _aiModelReferences = new ConcurrentDictionary<string, AIModelReference>(
-                        resourceReferenceStore!.ResourceReferences);
+                        resourceReferenceStore!.ResourceReferences.ToDictionary(r => r.Name));
             }
             else
             {
@@ -263,7 +263,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     AIMODEL_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.ToDictionary() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.Values.ToList() }),
                     default,
                     default);
 
@@ -310,7 +310,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
                         AIMODEL_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.ToDictionary() }),
+                        JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.Values.ToList() }),
                         default,
                         default);
                 }

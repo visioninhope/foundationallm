@@ -96,7 +96,7 @@ namespace FoundationaLLM.Configuration.Services
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _apiEndpointReferences = new ConcurrentDictionary<string, APIEndpointReference>(
-                        resourceReferenceStore!.ResourceReferences);
+                        resourceReferenceStore!.ResourceReferences.ToDictionary(r => r.Name));
             }
             else
             {
@@ -326,7 +326,7 @@ namespace FoundationaLLM.Configuration.Services
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.ToDictionary() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
                     default,
                     default);
 
@@ -350,7 +350,7 @@ namespace FoundationaLLM.Configuration.Services
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.ToDictionary() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
                     default,
                     default);
             }

@@ -9,6 +9,6 @@
         /// <summary>
         /// The dictionary of resource references indexed by their unique names.
         /// </summary>
-        public required Dictionary<string, T> ResourceReferences { get; set; }
+        public required List<T> ResourceReferences { get; set; }
     }
 }

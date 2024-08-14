@@ -83,7 +83,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _attachmentReferences = new ConcurrentDictionary<string, AttachmentReference>(
-                        resourceReferenceStore!.ResourceReferences);
+                        resourceReferenceStore!.ResourceReferences.ToDictionary(r => r.Name));
             }
             else
             {
@@ -250,7 +250,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     ATTACHMENT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.ToDictionary() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.Values.ToList() }),
                     default,
                     default);
 
@@ -341,7 +341,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
                         ATTACHMENT_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.ToDictionary() }),
+                        JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.Values.ToList() }),
                         default,
                         default);
                 }
