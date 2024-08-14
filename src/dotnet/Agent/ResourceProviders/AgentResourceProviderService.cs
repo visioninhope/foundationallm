@@ -45,7 +45,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<AgentReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,

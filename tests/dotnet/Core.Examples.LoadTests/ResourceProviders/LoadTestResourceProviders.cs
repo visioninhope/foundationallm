@@ -34,7 +34,12 @@ namespace Core.Examples.LoadTests.ResourceProviders
         public async Task InitializeAll()
         {
             await _timeProfiler.RunAsync(
-                async () => await _azureOpenAIResourceProvider.Initialize(),
+                async () =>
+                {
+                    await _azureOpenAIResourceProvider.Initialize();
+
+                    // Add more resource providers here.
+                },
                 "Initialize FoundationaLLM.AzureOpenAI resource provider.");
         }
     }

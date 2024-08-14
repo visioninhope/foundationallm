@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models.Authorization
 {
     public static class RoleDefinitions
     {

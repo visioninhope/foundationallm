@@ -1,8 +1,9 @@
-﻿using FoundationaLLM.Authorization.Utils;
+﻿using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Utils;
 using System.Text.Json.Serialization;
 
-namespace FoundationaLLM.Authorization.Models
+namespace FoundationaLLM.Common.Models
 {
     /// <summary>
     /// Represents a security role assignment.

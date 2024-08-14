@@ -48,7 +48,7 @@ namespace FoundationaLLM.Configuration.Services
         IConfigurationManager configurationManager,
         IServiceProvider serviceProvider,
         ILogger<ConfigurationResourceProviderService> logger)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<APIEndpointReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
@@ -92,18 +92,18 @@ namespace FoundationaLLM.Configuration.Services
                     default);
 
                 var resourceReferenceStore =
-                    JsonSerializer.Deserialize<ResourceReferenceStore<APIEndpointReference>>(
+                    JsonSerializer.Deserialize<ResourceReferenceList<APIEndpointReference>>(
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _apiEndpointReferences = new ConcurrentDictionary<string, APIEndpointReference>(
-                        resourceReferenceStore!.ToDictionary());
+                        resourceReferenceStore!.ResourceReferences);
             }
             else
             {
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>
+                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>
                     {
                         ResourceReferences = []
                     }),
@@ -326,7 +326,7 @@ namespace FoundationaLLM.Configuration.Services
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.ToDictionary() }),
                     default,
                     default);
 
@@ -350,7 +350,7 @@ namespace FoundationaLLM.Configuration.Services
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     API_ENDPOINT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.Values.ToList() }),
+                    JsonSerializer.Serialize(new ResourceReferenceList<APIEndpointReference>() { ResourceReferences = _apiEndpointReferences.ToDictionary() }),
                     default,
                     default);
             }
