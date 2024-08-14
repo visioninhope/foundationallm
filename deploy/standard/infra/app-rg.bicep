@@ -5,6 +5,8 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
+param aksServiceCidr string
+
 @description('The environment name token used in naming resources.')
 param environmentName string
 
@@ -132,6 +134,7 @@ module aksBackend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
+    aksServiceCidr: aksServiceCidr
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
@@ -152,6 +155,7 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
+    aksServiceCidr: aksServiceCidr
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
