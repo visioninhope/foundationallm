@@ -35,11 +35,13 @@ class AgentFactory:
         AgentBase
             Returns an agent of the requested type.
         """
+
+
         if agent_type is None:
             raise ValueError("Agent not constructed. Cannot access an object of 'NoneType'.")
-
         match agent_type:
             case 'knowledge-management':
+                
                 return LangChainKnowledgeManagementAgent(config=self.config)
             case 'audio-classification':
                 return LangChainAudioClassifierAgent(config=self.config)

@@ -15,6 +15,5 @@ class OpenAIAssistantsAPIRequest(BaseModel):
     """
     assistant_id: str
     thread_id: str
-    #attachments: Optional[List[str]] = []
     attachments: Optional[List[AttachmentProperties]] = []
     user_prompt: str
