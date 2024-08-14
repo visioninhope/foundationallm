@@ -59,6 +59,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         /// <inheritdoc/>
         protected override string _name => ResourceProviderNames.FoundationaLLM_AzureOpenAI;
 
+        protected override async Task InitializeInternal() =>
+            await Task.CompletedTask;
 
         #region Resource provider support for Management API
 
@@ -103,7 +105,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             var resourceName = JsonSerializer.Deserialize<ResourceName>(serializedAction);
             var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName!.Name);
 
-            return resourceReference == null
+            return resourceReference != null
                 ? new ResourceNameCheckResult
                 {
                     Name = resourceName!.Name,
