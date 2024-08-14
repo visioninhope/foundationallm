@@ -1,7 +1,3 @@
-"""
-Class: OpenAIAssistantsApiService
-Description: Integration with the OpenAI Assistants API.
-"""
 from typing import List, Union
 from openai import AsyncAzureOpenAI, AzureOpenAI
 from openai.pagination import AsyncCursorPage, SyncCursorPage
@@ -33,19 +29,32 @@ class OpenAIAssistantsApiService:
     Integration with the OpenAI Assistants API.
     """
 
-    def __init__(self, azure_openai_client: Union[AzureOpenAI, AsyncAzureOpenAI]):
+    def __init__(self, client: Union[AzureOpenAI, AsyncAzureOpenAI]):
         """
         Initializes an OpenAI Assistants API service.
 
         Parameters
         ----------
-        azure_openai_client : AzureOpenAI
-            Azure OpenAI client for interacting with the OpenAI Assistants API.
-            TODO: AzureOpenAI extends OpenAI, test with OpenAI client as input at some point, for now just focus on Azure.
+        client : Union[AzureOpenAI, AsyncAzureOpenAI]
+            The client library for interacting with the OpenAI Assistants API.
         """
-        self.client = azure_openai_client
+        self.client = client
 
     async def aadd_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
+        """
+        Adds a message to a thread asynchronously.
+
+        Parameters
+        ----------
+        thread_id : str
+            The ID of the thread to add the message to.
+        role : str
+            The role of the message sender.
+        content : str
+            The content of the message.
+        attachments : list, optional
+            The attachments to include with the message.
+        """
         return await self.client.beta.threads.messages.create(
             thread_id = thread_id,
             role = role,
@@ -54,6 +63,20 @@ class OpenAIAssistantsApiService:
         )
 
     def add_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
+        """
+        Adds a message to a thread.
+
+        Parameters
+        ----------
+        thread_id : str
+            The ID of the thread to add the message to.
+        role : str
+            The role of the message sender.
+        content : str
+            The content of the message.
+        attachments : list, optional
+            The attachments to include with the message.
+        """
         return self.client.beta.threads.messages.create(
             thread_id = thread_id,
             role = role,
@@ -180,7 +203,7 @@ class OpenAIAssistantsApiService:
         Attachment
             The attachment created from the file object.
         """
-        #Get the filename extension if it exists
+        # Get the filename extension if it exists
         filename_extension = file.filename.split('.')[-1] if '.' in file.filename else None
         file_search_supported_extensions = ["c", "cpp", "cs", "css", "doc", "docx", "html", "java", "js", "json", "md", "pdf", "php", "pptx", "py", "rb", "sh", "tex", "ts", "txt"]
         tools = [{"type": "code_interpreter"}]
@@ -191,7 +214,7 @@ class OpenAIAssistantsApiService:
             tools = tools
         )
  
-    def _get_request_attachments(self, request: OpenAIAssistantsAPIRequest):
+    def _get_request_attachments(self, request: OpenAIAssistantsAPIRequest) -> List[Attachment]:
         """
         Retrieves the attachments from the request.
 
@@ -207,14 +230,16 @@ class OpenAIAssistantsApiService:
         """
         attachments = []
         if request.attachments:        
-            for file_id in request.attachments:
-                oai_file = self.client.files.retrieve(file_id)
+            for attachment in request.attachments:    
+                oai_file = self.client.files.retrieve(attachment.provider_file_name)
+                if attachment.content_type.startswith('image/'):
+                    oai_file.purpose = "vision"
                 attachments.append(
                      self._create_attachment_from_fileobject(oai_file)
                   )
         return attachments
 
-    async def _aget_request_attachments(self, request: OpenAIAssistantsAPIRequest):
+    async def _aget_request_attachments(self, request: OpenAIAssistantsAPIRequest) -> List[Attachment]:
         """
         Retrieves the attachments from the request asynchronously.
 
@@ -230,8 +255,10 @@ class OpenAIAssistantsApiService:
         """
         attachments = []
         if request.attachments:        
-            for file_id in request.attachments:
-                oai_file = await self.client.files.retrieve(file_id)
+            for attachment in request.attachments:
+                oai_file = await self.client.files.retrieve(attachment.provider_file_name)
+                if attachment.content_type.startswith('image/'):
+                    oai_file.purpose = "vision"
                 attachments.append(
                      self._create_attachment_from_fileobject(oai_file)
                 )
