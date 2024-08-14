@@ -42,13 +42,13 @@
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
-					<span v-tooltip="{ value: session.name, autoHide: false }" class="chat__name">{{ session.name }}</span>
+					<span v-tooltip.focus="{ value: session.name, autoHide: false }" class="chat__name">{{ session.name }}</span>
 
 					<!-- Chat icons -->
 					<span v-if="currentSession?.id === session.id" class="chat__icons">
 						<!-- Rename session -->
 						<Button
-							v-tooltip="{ value: 'Rename chat session', autoHide: false }"
+							v-tooltip.focus="{ value: 'Rename chat session', autoHide: false }"
 							icon="pi pi-pencil"
 							size="small"
 							severity="secondary"
@@ -59,7 +59,7 @@
 
 						<!-- Delete session -->
 						<Button
-							v-tooltip="{ value: 'Delete chat session', autoHide: false }"
+							v-tooltip.focus="{ value: 'Delete chat session', autoHide: false }"
 							icon="pi pi-trash"
 							size="small"
 							severity="danger"

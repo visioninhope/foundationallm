@@ -25,7 +25,7 @@
 						<span>{{ currentSession.name }}</span>
 						<Button
 							v-if="!$appConfigStore.isKioskMode"
-							v-tooltip.bottom="{ value: 'Copy link to chat session', autoHide: false }"
+							v-tooltip.focus.bottom="{ value: 'Copy link to chat session', autoHide: false }"
 							class="button--share"
 							icon="pi pi-copy"
 							text
@@ -46,7 +46,7 @@
 				<template v-if="currentSession">
 					<span class="header__dropdown">
 						<img
-							v-tooltip.bottom="{ value: 'Select an agent', autoHide: false }"
+							v-tooltip.focus.bottom="{ value: 'Select an agent', autoHide: false }"
 							alt="Select an agent"
 							class="avatar"
 							src="~/assets/FLLM-Agent-Light.svg"
