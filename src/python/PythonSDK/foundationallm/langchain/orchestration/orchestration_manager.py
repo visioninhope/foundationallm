@@ -45,8 +45,6 @@ class OrchestrationManager:
         CompletionResponse
             Object containing the completion response and token usage details.
         """
-        print("INVOKE ORCH MANAGER")
-        print(self.agent)
         return self.agent.invoke(request)
 
     async def ainvoke(self, request: CompletionRequestBase) -> CompletionResponse:

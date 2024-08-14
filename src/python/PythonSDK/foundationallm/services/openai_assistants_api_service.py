@@ -96,8 +96,7 @@ class OpenAIAssistantsApiService:
         
         # Process file attachments and assign tools
         attachments = self._get_request_attachments(request)
-        print("ATTACHMENTS: ", attachments)
-    
+            
         # Add User prompt to the thread
         message = self.add_thread_message(
             thread_id = request.thread_id,
@@ -105,15 +104,13 @@ class OpenAIAssistantsApiService:
             content = request.user_prompt,
             attachments = attachments
         )
-        print("MESSAGE: ", message)
-        
+               
         # Create and execute the run
         run = self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
         )
 
-        print("RUN: ", run)
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
             thread_id = request.thread_id, order="asc", after=message.id
@@ -124,16 +121,11 @@ class OpenAIAssistantsApiService:
           thread_id = request.thread_id,
           run_id = run.id
         )
-
         
-
         analysis_results = self._parse_run_steps(run_steps.data)
-        print("ANALYSIS RESULTS: ", analysis_results)
-
+        
         content = self._parse_messages(messages)
 
-        print("CONTENT: ", content)
-        
         return OpenAIAssistantsAPIResponse(
             content = content,
             analysis_results = analysis_results,
@@ -156,7 +148,6 @@ class OpenAIAssistantsApiService:
         OpenAIAssistantsAPIResponse
             The response parsed from the OpenAI Assistants API service response.
         """
-        
         # Process file attachments and assign tools
         attachments = await self._aget_request_attachments(request)        
 
@@ -167,7 +158,7 @@ class OpenAIAssistantsApiService:
             content = request.user_prompt,
             attachments = attachments
         )
-        
+
         # Create and execute the run
         run = await self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,

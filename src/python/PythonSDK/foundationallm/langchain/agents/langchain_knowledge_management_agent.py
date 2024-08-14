@@ -212,7 +212,6 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             Returns a CompletionResponse with the generated summary, the user_prompt,
             generated full prompt with context and token utilization and execution cost details.
         """
-        print("INVOKE EXECUTED")
         self._validate_request(request)
 
         agent = request.agent
@@ -227,8 +226,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
             image_analysis_token_usage.completion_tokens += usage.completion_tokens
             image_analysis_token_usage.total_tokens += usage.total_tokens
-
-        print("CHECK POINT 1")
+            
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
@@ -260,7 +258,6 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     attachments = []
                 )
             # invoke/run the service
-            print("GOT HERE")    
             assistant_response = assistant_svc.run(assistant_req)
             
             # create the CompletionResponse object
