@@ -110,6 +110,24 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
+        /// Filters the resource references in the store based on the predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate to filter the resource references.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetResourceReferences(Func<T, bool> predicate)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                return _resourceReferences.Values.Where(predicate);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
         /// Gets all resource references in the store.
         /// </summary>
         /// <returns>A <see cref="List{T}"/> contain</returns>
@@ -205,6 +223,27 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 {
                     _resourceReferences[reference.Name] = reference;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Deletes a resource reference from the store.
+        /// </summary>
+        /// <param name="resourceReference">The name of the resource to delete.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        public async Task DeleteResourceReference(T resourceReference)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                resourceReference.Deleted = true;
+
+                await SaveResourceReferences();
+            }
+            finally
+            {
+                _lock.Release();
             }
         }
 
