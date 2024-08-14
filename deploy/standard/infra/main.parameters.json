@@ -18,7 +18,7 @@
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
       "aksServiceCidr": {
-        "value": "${FLLM_BACKEND_AKS_SERVICE_CIDR=10.100.0.0/16}"
+        "value": "${FLLM_AKS_SERVICE_CIDR=10.100.0.0/16}"
       },
       "cidrVnet": {
         "value": "${FLLM_VNET_CIDR=10.220.128.0/20}"
