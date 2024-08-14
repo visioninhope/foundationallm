@@ -127,24 +127,33 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             List<AttachmentProperties> result = [];
             await foreach (var attachment in attachments)
             {
-                var useAttachmentPath =
-                    string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
-                    || (attachment.ContentType ?? string.Empty).StartsWith("image/", StringComparison.OrdinalIgnoreCase);
+                var useAttachmentPath = string.IsNullOrWhiteSpace(attachment.SecondaryProvider);
 
-                result.Add(new AttachmentProperties
+                // Add FountainaLLM attachment object if the attachment is an image.
+                if ((useAttachmentPath) && ((attachment.ContentType ?? string.Empty).StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
                 {
-                    OriginalFileName = attachment.OriginalFileName,
-                    ContentType = attachment.ContentType!,
-                    Provider = useAttachmentPath
-                        ? ResourceProviderNames.FoundationaLLM_Attachment
-                        : attachment.SecondaryProvider!,
-                    ProviderFileName = useAttachmentPath
-                        ? attachment.Path
-                        : fileUserContext.Files[attachment.ObjectId!].OpenAIFileId!,
-                    ProviderStorageAccountName = useAttachmentPath
-                        ? _attachmentResourceProvider.StorageAccountName
-                        : null
-                });
+                    result.Add(new AttachmentProperties
+                    {
+                        OriginalFileName = attachment.OriginalFileName,
+                        ContentType = attachment.ContentType!,
+                        Provider = ResourceProviderNames.FoundationaLLM_Attachment!,
+                        ProviderFileName = attachment.Path,
+                        ProviderStorageAccountName = _attachmentResourceProvider.StorageAccountName
+                    });
+                }
+
+                // Add attachment object for secondary provider, if one exists.
+                if (!useAttachmentPath)
+                {
+                    result.Add(new AttachmentProperties
+                    {
+                        OriginalFileName = attachment.OriginalFileName,
+                        ContentType = attachment.ContentType!,
+                        Provider = attachment.SecondaryProvider!,
+                        ProviderFileName = fileUserContext.Files[attachment.ObjectId!].OpenAIFileId!,
+                        ProviderStorageAccountName = null
+                    });
+                }
             }
 
             return result;
