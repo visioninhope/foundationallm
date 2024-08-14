@@ -210,21 +210,10 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
                 if (attachmentReference != null)
                 {
-                    if (!attachmentReference.Deleted)
-                    {
-                        attachmentReference.Deleted = true;
-
-                        await _storageService.DeleteFileAsync(
-                            _storageContainerName,
-                            attachmentReference.Filename);
-
-                        await _storageService.WriteFileAsync(
-                            _storageContainerName,
-                            ATTACHMENT_REFERENCES_FILE_PATH,
-                            JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.Values.ToList() }),
-                            default,
-                            default);
-                    }
+                    await _resourceReferenceStore!.DeleteResourceReference(attachmentReference);
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        attachmentReference.Filename);
                 }
                 else
                 {
@@ -247,20 +236,11 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         /// <inheritdoc/>
         protected override async Task<T> GetResourceInternal<T>(ResourcePath resourcePath, UnifiedUserIdentity userIdentity, ResourceProviderOptions? options = null) where T : class
         {
-            _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out var attachmentReference);
-            if (attachmentReference == null || attachmentReference.Deleted)
-            {
-                // Force a refresh of the references one time to make sure we don't have a stale copy.
-                await InitializeInternal();
-                _attachmentReferences.TryGetValue(resourcePath.ResourceTypeInstances[0].ResourceId!, out attachmentReference);
-
-                if (attachmentReference == null || attachmentReference.Deleted)
-                    throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
-            }
-
-            var attachment = await LoadAttachment(attachmentReference, loadContent: options?.LoadContent ?? false);
-            return attachment as T
+            var attachmentReference = await _resourceReferenceStore!.GetResourceReference(resourcePath.ResourceTypeInstances[0].ResourceId!)
                 ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} was not found.");
+
+            return (await LoadAttachment(attachmentReference, loadContent: options?.LoadContent ?? false)) as T
+                ?? throw new ResourceProviderException($"The resource {resourcePath.ResourceTypeInstances[0].ResourceId!} of type {resourcePath.ResourceTypeInstances[0].ResourceType} could not be loaded.");
         }
 
         /// <inheritdoc/>
@@ -297,36 +277,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             await Task.CompletedTask;
         }
 
-        private async Task HandleAttachmentResourceProviderEvent(CloudEvent e)
-        {
-            if (string.IsNullOrWhiteSpace(e.Subject))
-                return;
-
-            var fileName = e.Subject.Split("/").Last();
-
-            _logger.LogInformation("The file [{FileName}] managed by the [{ResourceProvider}] resource provider has changed and will be reloaded.",
-                fileName, _name);
-
-            var attachmentReference = new AttachmentReference
-            {
-                Name = Path.GetFileNameWithoutExtension(fileName),
-                Filename = $"/{_name}/{fileName}",
-                Type =nameof(AttachmentFile),
-                Deleted = false
-            };
-
-            var attachment = await LoadAttachment(attachmentReference);
-            attachmentReference.Name = attachment.Name;
-            attachmentReference.Type = attachment.Type!;
-
-            _attachmentReferences.AddOrUpdate(
-                attachmentReference.Name,
-                attachmentReference,
-                (k, v) => v);
-
-            _logger.LogInformation("The attachment reference for the [{AttachmentName}] agent or type [{AttachmentType}] was loaded.",
-                attachmentReference.Name, attachmentReference.Type);
-        }
+        private async Task HandleAttachmentResourceProviderEvent(CloudEvent e) => await Task.CompletedTask;
 
         #endregion
 
@@ -334,64 +285,57 @@ namespace FoundationaLLM.Attachment.ResourceProviders
 
         private async Task<ResourceProviderUpsertResult> UpdateAttachment(ResourcePath resourcePath, AttachmentFile attachment)
         {
+            try
+            {
+                await _lock.WaitAsync();
 
-            if (_attachmentReferences.TryGetValue(attachment.Name!, out var existingAttachmentReference)
-                && existingAttachmentReference!.Deleted)
-                throw new ResourceProviderException($"The attachment resource {existingAttachmentReference.Name} cannot be added or updated.",
+                var attachmentReferece = await _resourceReferenceStore!.GetResourceReference(attachment.Name);
+
+                if (resourcePath.ResourceTypeInstances[0].ResourceId != attachment.Name)
+                    throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
                         StatusCodes.Status400BadRequest);
 
-            if (resourcePath.ResourceTypeInstances[0].ResourceId != attachment.Name)
-                throw new ResourceProviderException("The resource path does not match the object definition (name mismatch).",
-                    StatusCodes.Status400BadRequest);
+                var extension = GetFileExtension(attachment.DisplayName!);
+                var fullName = $"{attachment.Name}{extension}";
 
-            var extension = GetFileExtension(attachment.DisplayName!);
-            var fullName = $"{attachment.Name}{extension}";
-
-            attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
-            var attachmentReference = new AttachmentReference
-            {
-                ObjectId = attachment.ObjectId,
-                OriginalFilename = attachment.DisplayName!,
-                ContentType = attachment.ContentType!,
-                Name = attachment.Name,
-                Type = nameof(AttachmentFile),
-                Filename = $"/{_name}/{fullName}",
-                SecondaryProvider = attachment.SecondaryProvider,
-                Deleted = false
-            };
-
-            var validator = _resourceValidatorFactory.GetValidator(typeof(AttachmentFile));
-            if (validator is IValidator attachmentValidator)
-            {
-                var context = new ValidationContext<object>(attachment);
-                var validationResult = await attachmentValidator.ValidateAsync(context);
-                if (!validationResult.IsValid)
+                attachment.ObjectId = resourcePath.GetObjectId(_instanceSettings.Id, _name);
+                var attachmentReference = new AttachmentReference
                 {
-                    throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
-                        StatusCodes.Status400BadRequest);
+                    ObjectId = attachment.ObjectId,
+                    OriginalFilename = attachment.DisplayName!,
+                    ContentType = attachment.ContentType!,
+                    Name = attachment.Name,
+                    Type = AttachmentTypes.File,
+                    Filename = $"/{_name}/{fullName}",
+                    SecondaryProvider = attachment.SecondaryProvider,
+                    Deleted = false
+                };
+
+                var validator = _resourceValidatorFactory.GetValidator(typeof(AttachmentFile));
+                if (validator is IValidator attachmentValidator)
+                {
+                    var context = new ValidationContext<object>(attachment);
+                    var validationResult = await attachmentValidator.ValidateAsync(context);
+                    if (!validationResult.IsValid)
+                    {
+                        throw new ResourceProviderException($"Validation failed: {string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))}",
+                            StatusCodes.Status400BadRequest);
+                    }
                 }
+
+                await CreateResource<AttachmentFile>(
+                    attachmentReference,
+                    attachment);
+
+                return new ResourceProviderUpsertResult
+                {
+                    ObjectId = (attachment as AttachmentFile)!.ObjectId
+                };
             }
-
-            await _storageService.WriteFileAsync(
-                _storageContainerName,
-                attachmentReference.Filename,
-                new MemoryStream(attachment.Content!),
-                attachment.ContentType ?? default,
-                default);
-
-            _attachmentReferences.AddOrUpdate(attachmentReference.Name, attachmentReference, (k, v) => attachmentReference);
-
-            await _storageService.WriteFileAsync(
-                    _storageContainerName,
-                    ATTACHMENT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.Values.ToList() }),
-                    default,
-                    default);
-
-            return new ResourceProviderUpsertResult
+            finally
             {
-                ObjectId = (attachment as AttachmentFile)!.ObjectId
-            };
+                _lock.Release();
+            }
         }
 
         private string GetFileExtension(string fileName) =>
