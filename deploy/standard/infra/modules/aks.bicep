@@ -52,6 +52,7 @@ param actionGroupId string
 
 @description('The Managed Identity for the AKS Cluster')
 param admnistratorObjectIds array
+param aksServiceCidr string = '10.100.0.0/16'
 
 param hubResourceGroup string
 param hubSubscriptionId string = subscription().subscriptionId
@@ -261,14 +262,14 @@ resource main 'Microsoft.ContainerService/managedClusters@2023-01-02-preview' = 
     }
 
     networkProfile: {
-      dnsServiceIP: '10.100.254.1'
+      dnsServiceIP: cidrHost(cidrSubnet(aksServiceCidr, 24, 254), 1)
       ipFamilies: [ 'IPv4' ]
       loadBalancerSku: 'Standard'
       networkPlugin: 'azure'
       networkPolicy: 'azure'
       outboundType: 'loadBalancer'
-      serviceCidr: '10.100.0.0/16'
-      serviceCidrs: [ '10.100.0.0/16' ]
+      serviceCidr: aksServiceCidr
+      serviceCidrs: [ aksServiceCidr ]
 
       loadBalancerProfile: {
         backendPoolType: 'nodeIPConfiguration'
