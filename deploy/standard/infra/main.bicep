@@ -2,7 +2,7 @@ targetScope = 'subscription'
 
 param administratorObjectId string
 param allowedExternalCidr string
-param backendAksServiceCidr string
+param aksServiceCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
@@ -13,7 +13,6 @@ param externalNetworkingResourceGroupName string = ''
 param existingOpenAiInstanceName string = ''
 param existingOpenAiInstanceRg string = ''
 param existingOpenAiInstanceSub string = ''
-param frontendAksServiceCidr string
 param instanceId string
 param location string
 param networkName string = ''
@@ -96,9 +95,8 @@ module app 'app-rg.bicep' = {
   params: {
     actionGroupId: ops.outputs.actionGroupId
     administratorObjectId: administratorObjectId
-    backendAksServiceCidr: backendAksServiceCidr
+    aksServiceCidr: aksServiceCidr
     environmentName: environmentName
-    frontendAksServiceCidr: frontendAksServiceCidr
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     k8sNamespace: k8sNamespace
