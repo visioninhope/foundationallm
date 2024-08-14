@@ -39,6 +39,8 @@
 				:key="session.id"
 				class="chat-sidebar__chat"
 				@click="handleSessionSelected(session)"
+				@keydown.enter="handleSessionSelected(session)"
+				tabindex="0"
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
