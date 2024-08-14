@@ -44,7 +44,7 @@ namespace FoundationaLLM.Vectorization.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,        
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<ResourceReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,

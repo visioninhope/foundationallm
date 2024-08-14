@@ -1,4 +1,4 @@
-﻿namespace FoundationaLLM.Authorization.Models
+﻿namespace FoundationaLLM.Common.Models
 {
     /// <summary>
     /// Defines the properties of an authorizable action managed by the FoundationaLLM.Authorization resource provider.

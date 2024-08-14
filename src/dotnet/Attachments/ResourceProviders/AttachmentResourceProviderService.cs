@@ -42,7 +42,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<AttachmentReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
@@ -79,18 +79,18 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     default);
 
                 var resourceReferenceStore =
-                    JsonSerializer.Deserialize<ResourceReferenceStore<AttachmentReference>>(
+                    JsonSerializer.Deserialize<ResourceReferenceList<AttachmentReference>>(
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _attachmentReferences = new ConcurrentDictionary<string, AttachmentReference>(
-                        resourceReferenceStore!.ToDictionary());
+                        resourceReferenceStore!.ResourceReferences);
             }
             else
             {
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     ATTACHMENT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<AttachmentReference>
+                    JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference>
                     {
                         ResourceReferences = []
                     }),
@@ -250,7 +250,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     ATTACHMENT_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(ResourceReferenceStore<AttachmentReference>.FromDictionary(_attachmentReferences.ToDictionary())),
+                    JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.ToDictionary() }),
                     default,
                     default);
 
@@ -341,7 +341,7 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
                         ATTACHMENT_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(ResourceReferenceStore<AttachmentReference>.FromDictionary(_attachmentReferences.ToDictionary())),
+                        JsonSerializer.Serialize(new ResourceReferenceList<AttachmentReference> { ResourceReferences = _attachmentReferences.ToDictionary() }),
                         default,
                         default);
                 }

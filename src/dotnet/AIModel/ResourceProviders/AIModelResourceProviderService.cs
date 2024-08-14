@@ -40,7 +40,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<AIModelReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
@@ -77,18 +77,18 @@ namespace FoundationaLLM.AIModel.ResourceProviders
                     default);
 
                 var resourceReferenceStore =
-                    JsonSerializer.Deserialize<ResourceReferenceStore<AIModelReference>>(
+                    JsonSerializer.Deserialize<ResourceReferenceList<AIModelReference>>(
                         Encoding.UTF8.GetString(fileContent.ToArray()));
 
                 _aiModelReferences = new ConcurrentDictionary<string, AIModelReference>(
-                        resourceReferenceStore!.ToDictionary());
+                        resourceReferenceStore!.ResourceReferences);
             }
             else
             {
                 await _storageService.WriteFileAsync(
                     _storageContainerName,
                     AIMODEL_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(new ResourceReferenceStore<AIModelReference>
+                    JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference>
                     {
                         ResourceReferences = []
                     }),
@@ -263,7 +263,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
             await _storageService.WriteFileAsync(
                     _storageContainerName,
                     AIMODEL_REFERENCES_FILE_PATH,
-                    JsonSerializer.Serialize(ResourceReferenceStore<AIModelReference>.FromDictionary(_aiModelReferences.ToDictionary())),
+                    JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.ToDictionary() }),
                     default,
                     default);
 
@@ -310,7 +310,7 @@ namespace FoundationaLLM.AIModel.ResourceProviders
                     await _storageService.WriteFileAsync(
                         _storageContainerName,
                         AIMODEL_REFERENCES_FILE_PATH,
-                        JsonSerializer.Serialize(ResourceReferenceStore<AIModelReference>.FromDictionary(_aiModelReferences.ToDictionary())),
+                        JsonSerializer.Serialize(new ResourceReferenceList<AIModelReference> { ResourceReferences = _aiModelReferences.ToDictionary() }),
                         default,
                         default);
                 }
