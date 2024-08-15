@@ -153,6 +153,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private async Task<List<MessageContentItemBase>> TransformContentItems(List<MessageContentItemBase> contentItems)
         {
             List<FileMapping> newFileMappings = [];
+            if (contentItems.Count == 0)
+                return [];
+
             var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
 
             var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
@@ -160,10 +163,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 _callContext.CurrentUserIdentity!);
 
             foreach (var fileMapping in newFileMappings)
-                fileUserContext.Files.Add(
-                    fileMapping.FoundationaLLMObjectId,
-                    fileMapping);
-
+            {
+                fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
+            }
+            
             await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
                 _fileUserContextObjectId,
                 fileUserContext,

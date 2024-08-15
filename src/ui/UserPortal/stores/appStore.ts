@@ -52,10 +52,10 @@ export const useAppStore = defineStore('app', {
 				await this.changeSession(existingSession || this.sessions[0]);
 			}
 
-			if (this.currentSession) {
-				await this.getMessages();
-				this.updateSessionAgentFromMessages(this.currentSession);
-			}
+			// if (this.currentSession) {
+			// 	await this.getMessages();
+			// 	this.updateSessionAgentFromMessages(this.currentSession);
+			// }
 		},
 
 		getDefaultChatSessionProperties(): ChatSessionProperties {
