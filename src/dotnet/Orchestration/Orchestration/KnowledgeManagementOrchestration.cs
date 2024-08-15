@@ -163,10 +163,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 _callContext.CurrentUserIdentity!);
 
             foreach (var fileMapping in newFileMappings)
-                fileUserContext.Files.Add(
-                    fileMapping.FoundationaLLMObjectId,
-                    fileMapping);
-
+            {
+                fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
+            }
+            
             await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
                 _fileUserContextObjectId,
                 fileUserContext,
