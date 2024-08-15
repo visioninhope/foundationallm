@@ -261,13 +261,13 @@ var searchWriterRoleTargets = [
 ]
 
 var openAiRoleTargets = [
+  'core-api'
   'gateway-api'
   'semantic-kernel-api'
   'langchain-api'
 ]
 
 var openAiContribRoleTargets = [
-  'core-api'
   'gateway-api'
   'management-api'
 ]
