@@ -267,7 +267,9 @@ var openAiRoleTargets = [
 ]
 
 var openAiContribRoleTargets = [
+  'core-api'
   'gateway-api'
+  'management-api'
 ]
 
 module searchReaderRoles './shared/roleAssignments.bicep' = [
