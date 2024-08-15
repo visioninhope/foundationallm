@@ -495,21 +495,18 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                 if (incompleteFiles.Count == 1)
                 {
                     var result = await gatewayClient!.CreateAgentCapability(
-                    _instanceSettings.Id,
-                    AgentCapabilityCategoryNames.OpenAIAssistants,
-                    fileUserContext.AssistantUserContextName,
-                    new()
-                    {
-                        { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
-                        { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
-                        { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
-                    });
+                        _instanceSettings.Id,
+                        AgentCapabilityCategoryNames.OpenAIAssistants,
+                        fileUserContext.AssistantUserContextName,
+                        new()
+                        {
+                            { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
+                            { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
+                            { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
+                        });
 
                     result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantFileId, out var newOpenAIFileIdObject);
                     newOpenAIFileId = ((JsonElement)newOpenAIFileIdObject!).Deserialize<string>();
-
-                    incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
-                    incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
                 }
 
                 #region Ensure that only one thread can update the Files collection at a time.
@@ -524,19 +521,23 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
                     if (incompleteFiles.Count == 1)
                     {
-                        if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMObjectId))
-                            throw new ResourceProviderException(
-                                $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMObjectId}.",
-                                StatusCodes.Status400BadRequest);
-
-                        existingFileUserContext.Files.Add(
-                            incompleteFiles[0].FoundationaLLMObjectId,
-                            incompleteFiles[0]);
+                        if (existingFileUserContext.Files.TryGetValue(incompleteFiles[0].FoundationaLLMObjectId,
+                                out var existingFileMapping))
+                        {
+                            existingFileMapping.OpenAIFileId = newOpenAIFileId;
+                            existingFileMapping.OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
+                        }
+                        else
+                        {
+                            incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
+                            incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
+                            existingFileUserContext.Files.Add(incompleteFiles[0].FoundationaLLMObjectId, incompleteFiles[0]);
+                        }
                     }
 
                     // Merge the new file mappings into the existing file user context.
                     foreach (var mapping in fileUserContext.Files.Where(f =>
-                                 !existingFileUserContext.Files.ContainsKey(f.Key)))
+                        !existingFileUserContext.Files.ContainsKey(f.Key)))
                     {
                         existingFileUserContext.Files.Add(mapping.Key, mapping.Value);
                     }
@@ -597,12 +598,12 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                                 $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMObjectId}.",
                                 StatusCodes.Status400BadRequest);
 
+                        incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
+                        incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
+
                         existingFileUserContext.Files.Add(
                             incompleteFiles[0].FoundationaLLMObjectId,
                             incompleteFiles[0]);
-
-                        incompleteFiles[0].OpenAIFileId = newOpenAIFileId;
-                        incompleteFiles[0].OpenAIFileUploadedOn = DateTimeOffset.UtcNow;
                     }
 
                     // Merge the new file mappings into the existing file user context.
