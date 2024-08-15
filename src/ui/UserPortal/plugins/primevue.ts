@@ -40,7 +40,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.directive('badge', BadgeDirective);
 	nuxtApp.vueApp.component('ConfirmDialog', ConfirmDialog);
 	nuxtApp.vueApp.component('ProgressBar', ProgressBar);
-	nuxtApp.vueApp.directive('focus-trap', FocusTrap);
+	nuxtApp.vueApp.directive('focustrap', FocusTrap);
 
 	nuxtApp.vueApp.use(ConfirmationService);
 
