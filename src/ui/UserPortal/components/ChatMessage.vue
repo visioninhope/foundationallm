@@ -64,7 +64,7 @@
 										<span class="loading-image-text">Loading image...</span>
 									</div>
 								</template>
-								<img
+								<Image
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
 									:alt="content.fileName"
@@ -73,7 +73,8 @@
 										content.loading = false;
 										content.error = true;
 									"
-									style="display: block; max-width: 100%"
+									width="45%"
+									preview
 								/>
 								<div v-if="content.error" class="loading-image-error">
 									<i
@@ -406,6 +407,7 @@ export default {
 						const response = await api.fetchDirect(content.value);
 						const blobUrl = URL.createObjectURL(response);
 						content.blobUrl = blobUrl;
+						content.fileName = content.fileName?.split('/').pop();
 					} catch (error) {
 						console.error(`Failed to fetch content from ${content.value}`, error);
 						content.error = true;
