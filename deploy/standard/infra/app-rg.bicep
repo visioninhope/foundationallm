@@ -462,6 +462,28 @@ module cognitiveServicesOpenAiUserGatewayRole 'modules/utility/roleAssignments.b
   }
 }
 
+module cognitiveServicesOpenAiUserCoreRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'cognitiveServicesOpenAiUserCoreRole-${timestamp}'
+  scope: resourceGroup(openAiResourceGroupName)
+  params: {
+    principalId: srBackend[indexOf(backendServiceNames, 'core-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
+    }
+  }
+}
+
+module cognitiveServicesOpenAiUserMgmtRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'cognitiveServicesOpenAiUserMgmtRole-${timestamp}'
+  scope: resourceGroup(openAiResourceGroupName)
+  params: {
+    principalId: srBackend[indexOf(backendServiceNames, 'management-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
+    }
+  }
+}
+
 module cognitiveServicesOpenAiUserLangChainRole 'modules/utility/roleAssignments.bicep' = {
   name: 'cognitiveServicesOpenAiUserLangChainRole-${timestamp}'
   scope: resourceGroup(openAiResourceGroupName)
