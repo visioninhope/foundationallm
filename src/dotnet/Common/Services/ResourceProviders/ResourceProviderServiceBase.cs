@@ -700,6 +700,36 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         }
 
         /// <summary>
+        /// Creates a resource based on a resource reference and the resource itself.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to create.</typeparam>
+        /// <param name="resourceReference">The resource reference used to identify the resource.</param>
+        /// <param name="content">The resource itself.</param>
+        /// <param name="contentType">The resource content type, if applicable.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task CreateResource(TResourceReference resourceReference, Stream content, string? contentType)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    resourceReference.Filename,
+                    content,
+                    contentType ?? default,
+                    default);
+
+                await _resourceReferenceStore!.AddResourceReference(resourceReference);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
         /// Creates two resources based on their resource references and the resources themselves.
         /// </summary>
         /// <typeparam name="T1">The type of the first resource to create.</typeparam>
