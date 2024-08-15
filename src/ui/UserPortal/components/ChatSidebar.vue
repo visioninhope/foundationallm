@@ -94,6 +94,7 @@
 		<Dialog
 			class="sidebar-dialog"
 			:visible="sessionToRename !== null"
+			v-if="sessionToRename !== null"
 			modal
 			:header="`Rename Chat ${sessionToRename?.name}`"
 			:closable="false"
@@ -117,6 +118,7 @@
 		<Dialog
 			class="sidebar-dialog"
 			:visible="sessionToDelete !== null"
+			v-if="sessionToDelete !== null"
 			modal
 			header="Delete a Chat"
 			:closable="false"

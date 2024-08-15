@@ -42,7 +42,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('ConfirmDialog', ConfirmDialog);
 	nuxtApp.vueApp.component('ProgressBar', ProgressBar);
 	nuxtApp.vueApp.component('Image', Image);
-	nuxtApp.vueApp.directive('focus-trap', FocusTrap);
+	nuxtApp.vueApp.directive('focustrap', FocusTrap);
 
 	nuxtApp.vueApp.use(ConfirmationService);
 
