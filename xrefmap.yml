@@ -23956,6 +23956,15 @@ references:
   fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase(Of TResourceReference).AllowedResourceTypes
   nameWithType: ResourceProviderServiceBase<TResourceReference>.AllowedResourceTypes
   nameWithType.vb: ResourceProviderServiceBase(Of TResourceReference).AllowedResourceTypes
+- uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase`1.CreateResource(`0,System.IO.Stream,System.String)
+  name: CreateResource(TResourceReference, Stream, string?)
+  href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_CreateResource__0_System_IO_Stream_System_String_
+  commentId: M:FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase`1.CreateResource(`0,System.IO.Stream,System.String)
+  name.vb: CreateResource(TResourceReference, Stream, String)
+  fullName: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase<TResourceReference>.CreateResource(TResourceReference, System.IO.Stream, string?)
+  fullName.vb: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase(Of TResourceReference).CreateResource(TResourceReference, System.IO.Stream, String)
+  nameWithType: ResourceProviderServiceBase<TResourceReference>.CreateResource(TResourceReference, Stream, string?)
+  nameWithType.vb: ResourceProviderServiceBase(Of TResourceReference).CreateResource(TResourceReference, Stream, String)
 - uid: FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase`1.CreateResource*
   name: CreateResource
   href: api/dotnet/FoundationaLLM.Common.Services.ResourceProviders.ResourceProviderServiceBase-1.html#FoundationaLLM_Common_Services_ResourceProviders_ResourceProviderServiceBase_1_CreateResource_
