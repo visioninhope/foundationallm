@@ -466,7 +466,7 @@ module cognitiveServicesOpenAiUserCoreRole 'modules/utility/roleAssignments.bice
   name: 'cognitiveServicesOpenAiUserCoreRole-${timestamp}'
   scope: resourceGroup(openAiResourceGroupName)
   params: {
-    principalId: srBackend[indexOf(backendServiceNames, 'core-api')].outputs.servicePrincipalId
+    principalId: srCoreApi[0].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cognitive Services OpenAI User': '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'
     }
@@ -477,7 +477,7 @@ module cognitiveServicesOpenAiUserMgmtRole 'modules/utility/roleAssignments.bice
   name: 'cognitiveServicesOpenAiUserMgmtRole-${timestamp}'
   scope: resourceGroup(openAiResourceGroupName)
   params: {
-    principalId: srBackend[indexOf(backendServiceNames, 'management-api')].outputs.servicePrincipalId
+    principalId: srManagementApi[0].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
     }
