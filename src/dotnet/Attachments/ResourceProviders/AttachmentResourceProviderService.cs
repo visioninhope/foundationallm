@@ -286,9 +286,14 @@ namespace FoundationaLLM.Attachment.ResourceProviders
                 }
             }
 
-            await CreateResource<AttachmentFile>(
-                attachmentReference,
-                attachment);
+            await _storageService.WriteFileAsync(
+                _storageContainerName,
+                attachmentReference.Filename,
+                new MemoryStream(attachment.Content!),
+                attachment.ContentType ?? default,
+                default);
+
+            await _resourceReferenceStore!.AddResourceReference(attachmentReference);
 
             return new ResourceProviderUpsertResult
             {
