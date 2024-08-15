@@ -153,6 +153,9 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         private async Task<List<MessageContentItemBase>> TransformContentItems(List<MessageContentItemBase> contentItems)
         {
             List<FileMapping> newFileMappings = [];
+            if (contentItems.Count == 0)
+                return [];
+
             var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
 
             var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(

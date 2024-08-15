@@ -522,9 +522,21 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         ?? throw new ResourceProviderException(
                             $"Could not load the {fileUserContext.Name} file user context.");
 
+                    if (incompleteFiles.Count == 1)
+                    {
+                        if (existingFileUserContext.Files.ContainsKey(incompleteFiles[0].FoundationaLLMObjectId))
+                            throw new ResourceProviderException(
+                                $"An OpenAI file was already created for the FoundationaLLM attachment {incompleteFiles[0].FoundationaLLMObjectId}.",
+                                StatusCodes.Status400BadRequest);
+
+                        existingFileUserContext.Files.Add(
+                            incompleteFiles[0].FoundationaLLMObjectId,
+                            incompleteFiles[0]);
+                    }
+
                     // Merge the new file mappings into the existing file user context.
                     foreach (var mapping in fileUserContext.Files.Where(f =>
-                        !existingFileUserContext.Files.ContainsKey(f.Key)))
+                                 !existingFileUserContext.Files.ContainsKey(f.Key)))
                     {
                         existingFileUserContext.Files.Add(mapping.Key, mapping.Value);
                     }
