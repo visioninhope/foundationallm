@@ -32,7 +32,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
     """
-    
+
     def _get_document_retriever(
         self,
         request: KnowledgeManagementCompletionRequest,
@@ -185,10 +185,10 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 self.has_indexing_profiles = True
 
-        
+
         # if the OpenAI.Assistants capability is present, validate the following required fields:
         #   AssistantId, AssistantThreadId
-          
+
         if "OpenAI.Assistants" in request.agent.capabilities:
             required_fields = ["OpenAI.AssistantId", "OpenAI.AssistantThreadId"]
             for field in required_fields:
@@ -227,13 +227,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
             image_analysis_token_usage.completion_tokens += usage.completion_tokens
             image_analysis_token_usage.total_tokens += usage.total_tokens
-            
+
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
-            assistant_svc = OpenAIAssistantsApiService(client=self._get_language_model(override_operation_type=operation_type_override, is_async=False))
-            
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=False))
+
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
@@ -260,13 +260,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 )
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
-            
+
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
                 full_prompt = self.prompt.prefix,
-                analysis_results = assistant_response.analysis_results,
                 content = assistant_response.content,
+                analysis_results = assistant_response.analysis_results,
                 completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
                 prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
                 total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
@@ -288,7 +288,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
                 elif image_analysis_results is not None:
-                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }    
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -306,7 +306,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     value = completion,
                     agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
                 )
-                
+
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
@@ -361,13 +361,13 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
-            assistant_svc = OpenAIAssistantsApiService(client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
 
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
                 thread_id=request.objects["OpenAI.AssistantThreadId"],
-                attachments= [attachment for attachment in request.attachments if attachment.provider == AttachmentProviders.FOUNDATIONALLM_AZURE_OPENAI], #[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.FOUNDATIONALLM_AZURE_OPENAI],
+                attachments=[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.FOUNDATIONALLM_AZURE_OPENAI],
                 user_prompt=request.user_prompt
             )
 
@@ -390,7 +390,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
             # invoke/run the service
             assistant_response = await assistant_svc.arun(assistant_req)
-            
+
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
@@ -401,7 +401,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
                 total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
-                )          
+                )
 
         with get_openai_callback() as cb:
             try:
