@@ -4,6 +4,8 @@ using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Instance;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Core.Examples.LoadTests.Setup;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +56,12 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             LoadTestResourceProviders resourceProviders,
             IServiceProvider serviceProvider)
         {
+            var endpoint = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_ENDPOINT")!;
+            var modelDeploymentName = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_MODEL_NAME")!;
+            var prompt = "What was the average population of Canada in the 1950s?";
+            var fileName = "world_demographics_cp.xlsx";
+            var mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
             var instanceSettings = serviceProvider.GetRequiredService<IOptions<InstanceSettings>>().Value;
             var instanceId = instanceSettings.Id;
             var userIdentities = GetUserIdentities(hostId, simulatedUsersCount);
@@ -64,9 +72,9 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                     {
                         Name = $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}",
                         UserPrincipalName = userIdentity.UPN!,
-                        Endpoint = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_ENDPOINT")!,
-                        ModelDeploymentName = Environment.GetEnvironmentVariable("FOUNDATIONALLM_OPENAI_ASSISTANT_MODEL_NAME")!,
-                        Prompt = "Plot the equation y = x + 1",
+                        Endpoint = endpoint,
+                        ModelDeploymentName = modelDeploymentName,
+                        Prompt = prompt,
                         Conversations = new Dictionary<string, ConversationMapping>
                         {
                             { newGuid, new ConversationMapping { FoundationaLLMSessionId = newGuid } }
@@ -74,6 +82,56 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                     };
                 })
                 .ToList();
+
+            byte[] fileData = File.ReadAllBytes(fileName);
+
+            var uploadedFiles = await Task.WhenAll(
+                userIdentities.Select(
+                    userIdentity => SimulateFoundationaLLMFileUploads(
+                        instanceId,
+                        new AttachmentFile
+                        {
+                            Name = $"a-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}",
+                            OriginalFileName = fileName,
+                            DisplayName = fileName,
+                            Content = fileData,
+                            ContentType = mimeType,
+                            SecondaryProvider = "FoundationaLLM.AzureOpenAI"
+                        },
+                        resourceProviders.AttachmentResourceProvider,
+                        userIdentity
+                    )
+                )
+            );
+
+            await Task.WhenAll(
+                uploadedFiles.Select(
+                    file => SimulateAzureOpenAIFileUploads(
+                        instanceId,
+                        new FileUserContext
+                        {
+                            Name = file.uploadedFileName,
+                            UserPrincipalName = file.userIdentity.UPN!,
+                            Endpoint = endpoint,
+                            AssistantUserContextName = file.assistantUserContextName,
+                            Files = new Dictionary<string, FileMapping>
+                            {
+                                {
+                                    file.uploadedFileName,
+                                    new FileMapping
+                                    {
+                                        FoundationaLLMObjectId = file.fileObjectId,
+                                        OriginalFileName = fileName,
+                                        ContentType = mimeType
+                                    }
+                                }
+                            }
+                        },
+                        resourceProviders.AzureOpenAIResourceProvider,
+                        file.userIdentity
+                    )
+                )
+            );
 
             var userContextCreationTasks = Enumerable.Range(0, userContexts.Count)
                 .Select(i => SimulateAssistantUserContextCreation(
@@ -85,7 +143,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             await Task.WhenAll(userContextCreationTasks);
 
-            // User creates a new chat session
+            // User creates a new chat session (update existing context)
             userContexts.ForEach(context => { 
                 var newGuid = Guid.NewGuid().ToString();
                 context.Conversations.Add(newGuid, new ConversationMapping { FoundationaLLMSessionId = newGuid });
@@ -126,6 +184,35 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             await resourceProvider.UpsertResourceAsync<AssistantUserContext, AssistantUserContextUpsertResult>(
                 resourcePath,
                 assistantUserContext,
+                userIdentity
+            );
+        }
+
+        private async Task<(string uploadedFileName, UnifiedUserIdentity userIdentity, string fileObjectId, string assistantUserContextName)> SimulateFoundationaLLMFileUploads(
+            string instanceId,
+            AttachmentFile attachmentFile,
+            IResourceProviderService resourceProvider,
+            UnifiedUserIdentity userIdentity)
+        {
+            var objectId = (await resourceProvider.CreateOrUpdateResource<AttachmentFile, ResourceProviderUpsertResult>(
+                instanceId,
+                attachmentFile,
+                AttachmentResourceTypeNames.Attachments,
+                userIdentity
+            )).ObjectId!;
+            return (attachmentFile.Name, userIdentity, objectId, $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}");
+        }
+
+        private async Task SimulateAzureOpenAIFileUploads(
+            string instanceId,
+            FileUserContext fileUserContext,
+            IResourceProviderService resourceProvider,
+            UnifiedUserIdentity userIdentity)
+        {
+            await resourceProvider.CreateOrUpdateResource<FileUserContext, FileUserContextUpsertResult>(
+                instanceId,
+                fileUserContext,
+                AzureOpenAIResourceTypeNames.FileUserContexts,
                 userIdentity
             );
         }

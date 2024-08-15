@@ -50,6 +50,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
 
             serviceCollection.AddAzureOpenAIResourceProvider(builder.Configuration);
             serviceCollection.AddConfigurationResourceProvider(builder.Configuration);
+            serviceCollection.AddAttachmentResourceProvider(builder.Configuration);
 
             RegisterLogging(serviceCollection);
 
