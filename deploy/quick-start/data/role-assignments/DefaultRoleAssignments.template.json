@@ -126,6 +126,20 @@
       "updated_on": "${env:DEPLOY_TIME}",
       "created_by": "SYSTEM",
       "updated_by": "SYSTEM"
+    },
+    {
+      "name": "${env:GUID10}",
+      "type": "FoundationaLLM.Authorization/roleAssignments",
+      "object_id": "/providers/FoundationaLLM.Authorization/roleAssignments/${env:GUID10}",
+      "description": "Attachment Contributor role for a user.",
+      "role_definition_id": "/providers/FoundationaLLM.Authorization/roleDefinitions/8e77fb6a-7a78-43e1-b628-d9e2285fe25a",
+      "principal_id": "${env:USER_GROUP_OBJECT_ID}",
+      "principal_type": "Group",
+      "scope": "/instances/${env:FOUNDATIONALLM_INSTANCE_ID}",
+      "created_on": "${env:DEPLOY_TIME}",
+      "updated_on": "${env:DEPLOY_TIME}",
+      "created_by": "SYSTEM",
+      "updated_by": "SYSTEM"
     }
   ]
 }

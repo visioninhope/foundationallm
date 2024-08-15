@@ -197,8 +197,8 @@
             "image": "${SERVICE_LANGCHAINAPI_IMAGE=cropseastus2svinternal.azurecr.io/langchain-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apiendpoints-langchainapi-apikey",
-            "cpu": "${SERVICE_LANGCHAINAPI_CPU=1.0}",
-            "memory": "${SERVICE_LANGCHAINAPI_MEMORY=2.0Gi}",
+            "cpu": "${SERVICE_LANGCHAINAPI_CPU=4.0}",
+            "memory": "${SERVICE_LANGCHAINAPI_MEMORY=8.0Gi}",
             "replicaCount": "${SERVICE_LANGCHAINAPI_REPLICAS=1}"
           },
           {
