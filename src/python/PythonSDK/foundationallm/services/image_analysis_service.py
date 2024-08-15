@@ -64,9 +64,8 @@ class ImageAnalysisService:
             if (storage_manager.file_exists(file_name)):
                 try:
                     # Get the image file from blob storage.
-                    image_blob = storage_manager.read_file_content(file_name)
-                    jData = json.loads(image_blob.decode('utf-8'))
-                    return jData['content']
+                   image_blob = storage_manager.read_file_content(file_name)
+                   return base64.b64encode(image_blob).decode('utf-8')
                 except Exception as e:
                     raise Exception(f'The specified image {storage_account_name}/{file_path} does not exist.')
             else:
