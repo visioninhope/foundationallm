@@ -64,7 +64,7 @@
 										<span class="loading-image-text">Loading image...</span>
 									</div>
 								</template>
-								<img
+								<Image
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
 									:alt="content.fileName"
@@ -73,7 +73,8 @@
 										content.loading = false;
 										content.error = true;
 									"
-									style="display: block; max-width: 100%"
+									width="75%"
+									preview
 								/>
 								<div v-if="content.error" class="loading-image-error">
 									<i
