@@ -1,8 +1,14 @@
 <template>
-    <div v-if="attachments && attachments.length" class="attachments">
+    <div v-if="attachments && attachments.length > 0" class="attachments">
       <div v-for="attachment in attachments" :key="attachment.objectId" class="attachment-item">
         <i :class="getFileIconClass(attachment)" class="attachment-icon"></i>
         <span class="attachment-name">{{ attachment.displayName }}</span>
+      </div>
+    </div>
+    <div v-else-if="attachmentIds && attachmentIds.length > 0" class="attachments">
+      <div v-for="attachmentId in attachmentIds" :key="attachmentId" class="attachment-item">
+        <i class="pi pi-exclamation-triangle attachment-icon"></i>
+        <span class="no-attachment-name">File no longer available</span>
       </div>
     </div>
   </template>
@@ -10,28 +16,28 @@
   <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
   import type { AttachmentDetail } from '@/js/types';
+  import { getClass, getClassWithColor } from 'file-icons-js';
+  import 'file-icons-js/css/style.css';
   
   export default defineComponent({
     name: 'AttachmentList',
     props: {
         attachments: {
-        type: Array as PropType<Array<AttachmentDetail>>,
-        required: true
+            type: Array as PropType<Array<AttachmentDetail>>,
+            required: true
+        },
+        attachmentIds: {
+            type: Array as PropType<Array<string>>,
+            required: false,
+            default: () => []
         }
     },
     methods: {
-        getFileIconClass(attachment: AttachmentDetail) {
-            const contentType = attachment.contentType.toLowerCase();
-            const fileName = attachment.displayName.toLowerCase();
-
-            if (contentType.includes('pdf') || fileName.endsWith('.pdf')) return 'pi pi-file-pdf';
-            if (contentType.includes('image') || fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) return 'pi pi-image';
-            if (contentType.includes('word') || fileName.endsWith('.doc') || fileName.endsWith('.docx')) return 'pi pi-file-word';
-            if (contentType.includes('excel') || fileName.endsWith('.xls') || fileName.endsWith('.xlsx')) return 'pi pi-file-excel';
-            if (contentType.includes('powerpoint') || fileName.endsWith('.ppt') || fileName.endsWith('.pptx')) return 'pi pi-file-powerpoint';
-
-            return 'pi pi-file'; // Default icon for unknown file types
-        }
+      getFileIconClass(attachment: AttachmentDetail) {
+        const fileName = attachment.displayName.toLowerCase();
+        const iconClass = getClass(fileName); //getClassWithColor(fileName);
+        return iconClass || 'pi pi-file';
+      }
     }
   });
   </script>
@@ -64,6 +70,12 @@
     .attachment-name {
         font-size: 14px;
         line-height: 1.5;
+    }
+
+    .no-attachment-name {
+        font-size: 14px;
+        line-height: 1.5;
+        font-style: italic;
     }
   </style>
   
