@@ -133,15 +133,15 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 )
             );
 
-            var userContextCreationTasks = Enumerable.Range(0, userContexts.Count)
-                .Select(i => SimulateAssistantUserContextCreation(
-                    instanceId,
-                    userContexts[i],
-                    resourceProviders.AzureOpenAIResourceProvider,
-                    userIdentities[i]))
-                .ToList();
-
-            await Task.WhenAll(userContextCreationTasks);
+            var assistantUserContexts = await Task.WhenAll(
+                Enumerable.Range(0, userContexts.Count)
+                    .Select(i => SimulateAssistantUserContextCreation(
+                        instanceId,
+                        userContexts[i],
+                        resourceProviders.AzureOpenAIResourceProvider,
+                        userIdentities[i]))
+                    .ToList()
+            );
 
             // User creates a new chat session (update existing context)
             userContexts.ForEach(context => { 
@@ -150,11 +150,11 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             });
 
             await Task.WhenAll(
-                Enumerable.Range(0, userContextCreationTasks.Count)
+                Enumerable.Range(0, assistantUserContexts.Count())
                     .Select(
                         i => SimulateAssistantUserContextUpdate(
                             resourceProviders.AzureOpenAIResourceProvider,
-                            userContextCreationTasks[i].Result.ObjectId!,
+                            assistantUserContexts[i].ObjectId!,
                             userContexts[i],
                             userIdentities[i]
                         )
@@ -194,10 +194,9 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             IResourceProviderService resourceProvider,
             UnifiedUserIdentity userIdentity)
         {
-            var objectId = (await resourceProvider.CreateOrUpdateResource<AttachmentFile, ResourceProviderUpsertResult>(
-                instanceId,
+            var objectId = (await resourceProvider.UpsertResourceAsync<AttachmentFile, ResourceProviderUpsertResult>(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
                 attachmentFile,
-                AttachmentResourceTypeNames.Attachments,
                 userIdentity
             )).ObjectId!;
             return (attachmentFile.Name, userIdentity, objectId, $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}");
