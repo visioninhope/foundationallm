@@ -125,10 +125,15 @@
 			@keydown="deleteSessionKeydown"
 			v-focustrap
 		>
-			<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
+			<div v-if="deleteProcessing" class="delete-dialog-content">
+				<i class="pi pi-spin pi-spinner" style="font-size: 2rem;"></i>
+			</div>
+			<div v-else>
+				<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
+			</div>
 			<template #footer>
-				<Button label="Cancel" text @click="sessionToDelete = null" />
-				<Button label="Delete" severity="danger" @click="handleDeleteSession" autofocus />
+				<Button label="Cancel" text @click="sessionToDelete = null" :disabled="deleteProcessing" />
+				<Button label="Delete" severity="danger" @click="handleDeleteSession" autofocus :disabled="deleteProcessing" />
 			</template>
 		</Dialog>
 	</div>
@@ -146,6 +151,7 @@ export default {
 			sessionToRename: null as Session | null,
 			newSessionName: '' as string,
 			sessionToDelete: null as Session | null,
+			deleteProcessing: false,
 		};
 	},
 
@@ -195,8 +201,10 @@ export default {
 		},
 
 		async handleDeleteSession() {
+			this.deleteProcessing = true;
 			await this.$appStore.deleteSession(this.sessionToDelete!);
 			this.sessionToDelete = null;
+			this.deleteProcessing = false;
 		},
 
 		renameSessionInputKeydown(event: KeyboardEvent) {
@@ -375,6 +383,12 @@ export default {
 
 .overlay-panel__option:hover {
 	color: var(--primary-color);
+}
+
+.delete-dialog-content {
+	display: flex; 
+	justify-content: 
+	center; padding: 20px 150px;
 }
 
 @media only screen and (max-width: 950px) {
