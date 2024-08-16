@@ -261,6 +261,7 @@ var searchWriterRoleTargets = [
 ]
 
 var openAiRoleTargets = [
+  'core-api'
   'gateway-api'
   'semantic-kernel-api'
   'langchain-api'
@@ -268,6 +269,7 @@ var openAiRoleTargets = [
 
 var openAiContribRoleTargets = [
   'gateway-api'
+  'management-api'
 ]
 
 module searchReaderRoles './shared/roleAssignments.bicep' = [

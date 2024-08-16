@@ -1,3 +1,7 @@
+"""
+Class: OpenAIAssistantsApiService
+Description: Integration with the OpenAI Assistants API.
+"""
 from typing import List, Union
 from openai import AsyncAzureOpenAI, AzureOpenAI
 from openai.pagination import AsyncCursorPage, SyncCursorPage
@@ -29,32 +33,19 @@ class OpenAIAssistantsApiService:
     Integration with the OpenAI Assistants API.
     """
 
-    def __init__(self, client: Union[AzureOpenAI, AsyncAzureOpenAI]):
+    def __init__(self, azure_openai_client: Union[AzureOpenAI, AsyncAzureOpenAI]):
         """
         Initializes an OpenAI Assistants API service.
 
         Parameters
         ----------
-        client : Union[AzureOpenAI, AsyncAzureOpenAI]
-            The client library for interacting with the OpenAI Assistants API.
+        azure_openai_client : AzureOpenAI
+            Azure OpenAI client for interacting with the OpenAI Assistants API.
+            TODO: AzureOpenAI extends OpenAI, test with OpenAI client as input at some point, for now just focus on Azure.
         """
-        self.client = client
+        self.client = azure_openai_client
 
     async def aadd_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
-        """
-        Adds a message to a thread asynchronously.
-
-        Parameters
-        ----------
-        thread_id : str
-            The ID of the thread to add the message to.
-        role : str
-            The role of the message sender.
-        content : str
-            The content of the message.
-        attachments : list, optional
-            The attachments to include with the message.
-        """
         return await self.client.beta.threads.messages.create(
             thread_id = thread_id,
             role = role,
@@ -63,27 +54,13 @@ class OpenAIAssistantsApiService:
         )
 
     def add_thread_message(self, thread_id: str, role: str, content: str, attachments: list = None):
-        """
-        Adds a message to a thread.
-
-        Parameters
-        ----------
-        thread_id : str
-            The ID of the thread to add the message to.
-        role : str
-            The role of the message sender.
-        content : str
-            The content of the message.
-        attachments : list, optional
-            The attachments to include with the message.
-        """
         return self.client.beta.threads.messages.create(
             thread_id = thread_id,
             role = role,
             content = content,
             attachments = attachments
         )
-        
+
     def run(self, request: OpenAIAssistantsAPIRequest) -> OpenAIAssistantsAPIResponse:
         """
         Creates an OpenAI Assistant Run and executes it.
@@ -93,10 +70,10 @@ class OpenAIAssistantsApiService:
         request : OpenAIAssistantsAPIRequest
             The request to run with the OpenAI Assistants API service.
         """
-        
+
         # Process file attachments and assign tools
-        attachments = self._get_request_attachments(request)        
-    
+        attachments = self._get_request_attachments(request)
+
         # Add User prompt to the thread
         message = self.add_thread_message(
             thread_id = request.thread_id,
@@ -104,13 +81,13 @@ class OpenAIAssistantsApiService:
             content = request.user_prompt,
             attachments = attachments
         )
-        
+
         # Create and execute the run
         run = self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
             assistant_id = request.assistant_id
         )
-        
+
         # Retrieve the messages in the thread after the prompt message was appended.
         messages = self.client.beta.threads.messages.list(
             thread_id = request.thread_id, order="asc", after=message.id
@@ -125,7 +102,7 @@ class OpenAIAssistantsApiService:
         analysis_results = self._parse_run_steps(run_steps.data)
 
         content = self._parse_messages(messages)
-        
+
         return OpenAIAssistantsAPIResponse(
             content = content,
             analysis_results = analysis_results,
@@ -148,9 +125,9 @@ class OpenAIAssistantsApiService:
         OpenAIAssistantsAPIResponse
             The response parsed from the OpenAI Assistants API service response.
         """
-        
+
         # Process file attachments and assign tools
-        attachments = await self._aget_request_attachments(request)        
+        attachments = await self._aget_request_attachments(request)
 
         # Add User prompt to the thread
         message = await self.aadd_thread_message(
@@ -159,7 +136,7 @@ class OpenAIAssistantsApiService:
             content = request.user_prompt,
             attachments = attachments
         )
-        
+
         # Create and execute the run
         run = await self.client.beta.threads.runs.create_and_poll(
             thread_id = request.thread_id,
@@ -203,7 +180,7 @@ class OpenAIAssistantsApiService:
         Attachment
             The attachment created from the file object.
         """
-        # Get the filename extension if it exists
+        #Get the filename extension if it exists
         filename_extension = file.filename.split('.')[-1] if '.' in file.filename else None
         file_search_supported_extensions = ["c", "cpp", "cs", "css", "doc", "docx", "html", "java", "js", "json", "md", "pdf", "php", "pptx", "py", "rb", "sh", "tex", "ts", "txt"]
         tools = [{"type": "code_interpreter"}]
@@ -213,8 +190,8 @@ class OpenAIAssistantsApiService:
             file_id=file.id,
             tools = tools
         )
- 
-    def _get_request_attachments(self, request: OpenAIAssistantsAPIRequest) -> List[Attachment]:
+
+    def _get_request_attachments(self, request: OpenAIAssistantsAPIRequest):
         """
         Retrieves the attachments from the request.
 
@@ -229,17 +206,15 @@ class OpenAIAssistantsApiService:
             The attachments retrieved from the request.
         """
         attachments = []
-        if request.attachments:        
-            for attachment in request.attachments:    
-                oai_file = self.client.files.retrieve(attachment.provider_file_name)
-                if attachment.content_type.startswith('image/'):
-                    oai_file.purpose = "vision"
+        if request.attachments:
+            for file_id in request.attachments:
+                oai_file = self.client.files.retrieve(file_id)
                 attachments.append(
                      self._create_attachment_from_fileobject(oai_file)
                   )
         return attachments
 
-    async def _aget_request_attachments(self, request: OpenAIAssistantsAPIRequest) -> List[Attachment]:
+    async def _aget_request_attachments(self, request: OpenAIAssistantsAPIRequest):
         """
         Retrieves the attachments from the request asynchronously.
 
@@ -254,11 +229,9 @@ class OpenAIAssistantsApiService:
             The attachments retrieved from the request.
         """
         attachments = []
-        if request.attachments:        
-            for attachment in request.attachments:
-                oai_file = await self.client.files.retrieve(attachment.provider_file_name)
-                if attachment.content_type.startswith('image/'):
-                    oai_file.purpose = "vision"
+        if request.attachments:
+            for file_id in request.attachments:
+                oai_file = await self.client.files.retrieve(file_id)
                 attachments.append(
                      self._create_attachment_from_fileobject(oai_file)
                 )
@@ -282,7 +255,7 @@ class OpenAIAssistantsApiService:
         """
         ret_content = []
         # for each content item in the message
-        for ci in message.content:                
+        for ci in message.content:
                 match ci:
                     case TextContentBlock():
                         text_ci = OpenAITextMessageContentItem(
@@ -323,7 +296,7 @@ class OpenAIAssistantsApiService:
                         )
                         ret_content.append(ci_img_url)
         return ret_content
-       
+
     def _parse_messages(self, messages: SyncCursorPage[Message]):
         """
         Parses the messages from the OpenAI API.
@@ -379,10 +352,10 @@ class OpenAIAssistantsApiService:
         analysis_results = []
         for rs in run_steps:
             analysis_result = self._parse_single_run_step(rs)
-            if analysis_result is not None:              
+            if analysis_result is not None:
                 analysis_results.append(analysis_result)
         return analysis_results
-    
+
     async def _aparse_run_steps(self, run_steps: AsyncCursorPage[RunStep]):
         """
         Parses the run steps from the OpenAI API.
@@ -400,7 +373,7 @@ class OpenAIAssistantsApiService:
         analysis_results = []
         for rs in run_steps:
             analysis_result = self._parse_single_run_step(rs)
-            if analysis_result is not None:              
+            if analysis_result is not None:
                 analysis_results.append(analysis_result)
         return analysis_results
 
@@ -420,19 +393,19 @@ class OpenAIAssistantsApiService:
         OR None
             If the run step does not contain a tool call
             to the code interpreter tool.
-        """        
+        """
         sd = run_step.step_details
         if sd.type == "tool_calls":
             tool_call_detail = sd.tool_calls
-            for details in tool_call_detail:                
+            for details in tool_call_detail:
                 if isinstance(details, CodeInterpreterToolCall):
                     result = AnalysisResult(
                         tool_name= details.type,
                         agent_capability_category= AgentCapabilityCategories.OPENAI_ASSISTANTS
-                    )                   
+                    )
                     result.tool_input += details.code_interpreter.input  # Source code
                     for output in details.code_interpreter.outputs:  # Tool execution output
-                        if hasattr(output, 'image') and output.image:                      
+                        if hasattr(output, 'image') and output.image:
                             result.tool_output += "# Generated image file: " + output.image.file_id
                         elif hasattr(output, 'logs') and output.logs:
                             result.tool_output += output.logs

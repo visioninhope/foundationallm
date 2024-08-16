@@ -36,9 +36,9 @@ namespace FoundationaLLM.Common.Extensions
             if (!resourceProviderService.IsInitialized)
                 throw new ResourceProviderException($"The resource provider {resourceProviderService.Name} is not initialized.");
 
-            var result = await resourceProviderService.HandlePostAsync(
+            var result = await resourceProviderService.UpsertResourceAsync<T, TResult>(
                 $"/instances/{instanceId}/providers/{resourceProviderService.Name}/{resourceTypeName}/{resource.Name}",
-                JsonSerializer.Serialize(resource),
+                resource,
                 userIdentity);
 
             return (result as TResult)!;

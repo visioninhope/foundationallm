@@ -32,5 +32,14 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         /// Indicates whether the resource has been logically deleted.
         /// </summary>
         public bool Deleted { get; set; } = false;
+
+        /// <summary>
+        /// The object type of the resource.
+        /// </summary>
+        /// <remarks>
+        /// Derived classes should override this property to provide the type of the resource reference.
+        /// </remarks>
+        [JsonIgnore]
+        public virtual Type ResourceType { get; } = typeof(ResourceBase);
     }
 }
