@@ -39,9 +39,9 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 .Select(rps => rps.InitializeAll()));
 
             await Task.WhenAll(
-                Enumerable.Range(1, resourceProvidersHosts.Count)
+                Enumerable.Range(0, resourceProvidersHosts.Count)
                 .Select(i => SimulateServiceHostLoad(
-                    i,
+                    i + 1,
                     simulatedUsersCount,
                     resourceProvidersHosts[i],
                     ServiceProviders[i]))
