@@ -44,7 +44,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             await Task.WhenAll(
                 Enumerable.Range(0, resourceProvidersHosts.Count)
                 .Select(i => SimulateServiceHostLoad(
-                    i+1,
+                    i + 1,
                     resourceProvidersHosts[i],
                     ServiceProviders[i]))
                 );

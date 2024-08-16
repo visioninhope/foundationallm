@@ -47,6 +47,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
                 AppConfigurationKeySections.FoundationaLLM_Events_Profiles_ManagementAPI);
             serviceCollection.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
+            serviceCollection.AddConfigurationResourceProvider(builder.Configuration, builder.Logging);
             serviceCollection.AddAzureOpenAIResourceProvider(builder.Configuration);
             serviceCollection.AddAttachmentResourceProvider(builder.Configuration);
 

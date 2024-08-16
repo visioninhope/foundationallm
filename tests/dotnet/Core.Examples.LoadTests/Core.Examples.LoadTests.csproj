@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\..\src\dotnet\Authorization\Authorization.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\AzureOpenAI\AzureOpenAI.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\Common\Common.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Core.Examples\Core.Examples.csproj" />
   </ItemGroup>
 
