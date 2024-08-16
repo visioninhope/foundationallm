@@ -58,13 +58,13 @@
 
 							<div v-else-if="content.type === 'image_file'">
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
-									<div class="loading-image-container">
-										<i class="pi pi-image loading-image-icon" style="font-size: 2rem"></i>
-										<i class="pi pi-spin pi-spinner loading-image-icon" style="font-size: 1rem"></i>
-										<span class="loading-image-text">Loading image...</span>
+									<div class="loading-content-container">
+										<i class="pi pi-image loading-content-icon" style="font-size: 2rem"></i>
+										<i class="pi pi-spin pi-spinner loading-content-icon" style="font-size: 1rem"></i>
+										<span class="loading-content-text">Loading image...</span>
 									</div>
 								</template>
-								<img
+								<Image
 									v-if="content.blobUrl"
 									:src="content.blobUrl"
 									:alt="content.fileName"
@@ -73,19 +73,31 @@
 										content.loading = false;
 										content.error = true;
 									"
-									style="display: block; max-width: 100%"
+									width="45%"
+									preview
 								/>
-								<div v-if="content.error" class="loading-image-error">
+								<div v-if="content.error" class="loading-content-error">
 									<i
-										class="pi pi-times-circle loading-image-error-icon"
+										class="pi pi-times-circle loading-content-error-icon"
 										style="font-size: 2rem"
 									></i>
-									<span class="loading-image-error-text">Could not load image</span>
+									<span class="loading-content-error-text">Could not load image</span>
 								</div>
 							</div>
 
 							<div v-else-if="content.type === 'html'">
-								<iframe :src="content.blobUrl" frameborder="0"></iframe>
+								<template v-if="content.loading || (!content.error && !content.blobUrl)">
+									<div class="loading-content-container">
+										<i class="pi pi-chart-line loading-content-icon" style="font-size: 2rem"></i>
+										<i class="pi pi-spin pi-spinner loading-content-icon" style="font-size: 1rem"></i>
+										<span class="loading-content-text">Loading visualization...</span>
+									</div>
+								</template>
+								<iframe
+									v-if="content.blobUrl"
+									:src="content.blobUrl"
+									frameborder="0">
+								</iframe>
 							</div>
 
 							<div v-else-if="content.type === 'file_path'">
@@ -404,8 +416,14 @@ export default {
 					content.error = false;
 					try {
 						const response = await api.fetchDirect(content.value);
-						const blobUrl = URL.createObjectURL(response);
-						content.blobUrl = blobUrl;
+						if (content.type === 'html') {
+							const blob = new Blob([response], { type: 'text/html' });
+							content.blobUrl = URL.createObjectURL(blob);
+						}
+						else {
+							content.blobUrl = URL.createObjectURL(response);
+						}
+						content.fileName = content.fileName?.split('/').pop();
 					} catch (error) {
 						console.error(`Failed to fetch content from ${content.value}`, error);
 						content.error = true;
@@ -582,24 +600,24 @@ iframe {
 	border-radius: 8px;
 }
 
-.loading-image-container {
+.loading-content-container {
 	display: flex;
 	align-items: center;
 
-	.loading-image-icon {
+	.loading-content-icon {
 		margin-right: 8px;
 		vertical-align: middle;
 		line-height: 1;
 	}
 
-	.loading-image-text {
+	.loading-content-text {
 		font-size: 0.75rem;
 		font-style: italic;
 		line-height: 1.5;
 	}
 }
 
-.loading-image-error {
+.loading-content-error {
 	display: flex;
 	align-items: center;
 	width: 200px;
@@ -609,13 +627,13 @@ iframe {
 	color: rgb(182, 2, 2);
 	box-shadow: 0 1px 3px rgba(182, 2, 2, 0.664);
 
-	.loading-image-error-icon {
+	.loading-content-error-icon {
 		margin-right: 8px;
 		vertical-align: middle;
 		line-height: 1;
 	}
 
-	.loading-image-error-text {
+	.loading-content-error-text {
 		font-size: 0.85rem;
 		font-style: italic;
 		line-height: 1.5;

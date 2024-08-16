@@ -34,8 +34,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
 
-        private readonly SemaphoreSlim _lock = new(1, 1);
         private readonly bool _useInternalStore;
+        private readonly SemaphoreSlim _lock = new(1, 1);
 
         /// <summary>
         /// The resource reference store used by the resource provider.
@@ -613,7 +613,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <exception cref="ResourceProviderException"></exception>
         protected async Task<T?> LoadResource<T>(TResourceReference resourceReference) where T : ResourceBase
         {
-            if (resourceReference.ResourceType.Name != typeof(T).Name)
+            if (resourceReference.ResourceType != typeof(T))
                 throw new ResourceProviderException(
                     $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
                     StatusCodes.Status400BadRequest);
@@ -622,16 +622,47 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 var fileContent =
                     await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
-                var assistanUserContext = JsonSerializer.Deserialize<T>(
+                var resourceObject = JsonSerializer.Deserialize<T>(
                     Encoding.UTF8.GetString(fileContent.ToArray()),
                     _serializerSettings)
                         ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
                             StatusCodes.Status400BadRequest);
 
-                return assistanUserContext;
+                return resourceObject;
             }
 
             return null;
+        }
+
+        protected async Task<T?> LoadResource<T>(string resourceName) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName)
+                    ?? throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+
+                if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
+                {
+                    var fileContent =
+                        await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
+                    var resourceObject = JsonSerializer.Deserialize<T>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()),
+                        _serializerSettings)
+                            ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
+                                StatusCodes.Status400BadRequest);
+
+                    return resourceObject;
+                }
+
+                return null;
+            }
+            finally
+            {
+                _lock.Release();
+            }
         }
 
         /// <summary>
@@ -648,7 +679,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 await _lock.WaitAsync();
 
-                if (resourceReference.ResourceType is not T)
+                if (resourceReference.ResourceType != resource.GetType())
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
                         StatusCodes.Status400BadRequest);
@@ -659,6 +690,36 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                    JsonSerializer.Serialize<T>(resource, _serializerSettings),
                    default,
                 default);
+
+                await _resourceReferenceStore!.AddResourceReference(resourceReference);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Creates a resource based on a resource reference and the resource itself.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to create.</typeparam>
+        /// <param name="resourceReference">The resource reference used to identify the resource.</param>
+        /// <param name="content">The resource itself.</param>
+        /// <param name="contentType">The resource content type, if applicable.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task CreateResource(TResourceReference resourceReference, Stream content, string? contentType)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    resourceReference.Filename,
+                    content,
+                    contentType ?? default,
+                    default);
 
                 await _resourceReferenceStore!.AddResourceReference(resourceReference);
             }
@@ -689,12 +750,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             {
                 await _lock.WaitAsync();
 
-                if (resourceReference1.ResourceType.Name != typeof(T1).Name)
+                if (resourceReference1.ResourceType != resource1.GetType())
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference1.Name} is not of the expected type {typeof(T1).Name}.",
                         StatusCodes.Status400BadRequest);
 
-                if (resourceReference2.ResourceType.Name != typeof(T2).Name)
+                if (resourceReference2.ResourceType != resource2.GetType())
                     throw new ResourceProviderException(
                         $"The resource reference {resourceReference2.Name} is not of the expected type {typeof(T2).Name}.",
                         StatusCodes.Status400BadRequest);
@@ -744,6 +805,40 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                    JsonSerializer.Serialize<T>(resource, _serializerSettings),
                    default,
                    default);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Deletes a resource and its reference.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to delete.</typeparam>
+        /// <param name="resourceName">The name of the resource.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task DeleteResource<T>(string resourceName)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName);
+
+                if (resourceReference != null)
+                {
+                    await _resourceReferenceStore!.DeleteResourceReference(resourceReference);
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        resourceReference.Filename);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+                }
             }
             finally
             {
