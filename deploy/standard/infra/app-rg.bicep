@@ -7,6 +7,9 @@ param administratorObjectId string
 
 param aksServiceCidr string
 
+param backendAksNodeSku string
+param frontendAksNodeSku string
+
 @description('The environment name token used in naming resources.')
 param environmentName string
 
@@ -135,6 +138,7 @@ module aksBackend 'modules/aks.bicep' = {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
     aksServiceCidr: aksServiceCidr
+    aksNodeSku: backendAksNodeSku
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
@@ -156,6 +160,7 @@ module aksFrontend 'modules/aks.bicep' = {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
     aksServiceCidr: aksServiceCidr
+    aksNodeSku: frontendAksNodeSku
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
