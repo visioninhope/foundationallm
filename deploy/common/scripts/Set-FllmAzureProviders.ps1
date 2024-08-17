@@ -28,7 +28,7 @@
 
 param (
     [parameter(Mandatory = $true)][string]$deploymentType,
-    [parameter(Mandatory = $true)][bool]$listOnly = $false
+    [parameter(Mandatory = $false)][bool]$listOnly = $false
 )
 
 # Set Debugging and Error Handling
