@@ -1,7 +1,7 @@
 <template>
     <div v-if="attachments && attachments.length > 0" class="attachments">
       <div v-for="attachment in attachments" :key="attachment.objectId" class="attachment-item">
-        <i :class="getFileIconClass(attachment)" class="attachment-icon"></i>
+        <i :class="$getFileIconClass(attachment.displayName, false)" class="attachment-icon"></i>
         <span class="attachment-name">{{ attachment.displayName }}</span>
       </div>
     </div>
@@ -16,8 +16,6 @@
   <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
   import type { AttachmentDetail } from '@/js/types';
-  import { getClass, getClassWithColor } from 'file-icons-js';
-  import 'file-icons-js/css/style.css';
   
   export default defineComponent({
     name: 'AttachmentList',
@@ -31,13 +29,6 @@
             required: false,
             default: () => []
         }
-    },
-    methods: {
-      getFileIconClass(attachment: AttachmentDetail) {
-        const fileName = attachment.displayName.toLowerCase();
-        const iconClass = getClass(fileName); //getClassWithColor(fileName);
-        return iconClass || 'pi pi-file';
-      }
     }
   });
   </script>
