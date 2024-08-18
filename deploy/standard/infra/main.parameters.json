@@ -18,11 +18,7 @@
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
       "backendAksNodeSku": {
-<<<<<<< Updated upstream
-        "value": "${FLLM_BACKEND_AKS_NODE_SKU=Standard_D4s_v3}"
-=======
         "value": "${FLLM_BACKEND_AKS_NODE_SKU=Standard_D8s_v3}"
->>>>>>> Stashed changes
       },
       "frontendAksNodeSku": {
         "value": "${FLLM_FRONTEND_AKS_NODE_SKU=Standard_D4s_v3}"
