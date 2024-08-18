@@ -474,6 +474,7 @@ module cognitiveServicesOpenAiUserCoreRole 'modules/utility/roleAssignments.bice
     principalId: srCoreApi[0].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cognitive Services OpenAI User': '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'
+      'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
     }
   }
 }
