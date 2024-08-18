@@ -48,6 +48,7 @@ var containers = [
         '/upn'
       ]
     }
+    maxThroughput: 4000
     defaultTtl: null
   }
   {
@@ -57,6 +58,7 @@ var containers = [
         '/sessionId'
       ]
     }
+    maxThroughput: 5000
     defaultTtl: null
   }
   {
@@ -66,6 +68,7 @@ var containers = [
         '/operation_id'
       ]
     }
+    maxThroughput: 2000
     defaultTtl: 604800
   }
   {
@@ -75,6 +78,7 @@ var containers = [
         '/id'
       ]
     }
+    maxThroughput: 1000
     defaultTtl: null
   }
 ]
@@ -147,7 +151,7 @@ resource main 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
     }
 
     capacity: {
-      totalThroughputLimit: 5000
+      totalThroughputLimit: 12000
     }
 
     consistencyPolicy: {
@@ -205,7 +209,7 @@ resource cosmosContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/con
     properties: {
       options: {
         autoscaleSettings: {
-          maxThroughput: 1000
+          maxThroughput: c.maxThroughput
         }
       }
       resource: {
@@ -254,7 +258,7 @@ resource cosmosContainerWithTtl 'Microsoft.DocumentDB/databaseAccounts/sqlDataba
     properties: {
       options: {
         autoscaleSettings: {
-          maxThroughput: 1000
+          maxThroughput: c.maxThroughput
         }
       }
       resource: {

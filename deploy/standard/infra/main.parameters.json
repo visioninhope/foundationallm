@@ -18,7 +18,7 @@
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
       "backendAksNodeSku": {
-        "value": "${FLLM_BACKEND_AKS_NODE_SKU=Standard_D4s_v3}"
+        "value": "${FLLM_BACKEND_AKS_NODE_SKU=Standard_D16ads_v5}"
       },
       "frontendAksNodeSku": {
         "value": "${FLLM_FRONTEND_AKS_NODE_SKU=Standard_D4s_v3}"
@@ -33,13 +33,13 @@
         "value": "${AZURE_ENV_NAME}"
       },
       "existingOpenAiInstanceSub": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_SUB}"
+        "value": "${OPENAI_SUBSCRIPTION_ID}"
       },
       "existingOpenAiInstanceRg": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_RG}"
+        "value": "${OPENAI_RESOURCE_GROUP}"
       },
       "existingOpenAiInstanceName": {
-        "value": "${FOUNDATIONALLM_EXT_OPENAI_NAME}"
+        "value": "${OPENAI_NAME}"
       },
       "externalNetworkingResourceGroupName": {
         "value": "${FOUNDATIONALLM_EXT_NET_RG}"

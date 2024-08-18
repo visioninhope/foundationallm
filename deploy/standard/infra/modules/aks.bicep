@@ -315,10 +315,10 @@ resource userPool 'Microsoft.ContainerService/managedClusters/agentPools@2024-04
   name: 'fllm'
   parent: main
   properties: {
-    count: 1
+    count: 3
     enableAutoScaling: true
-    maxCount: 5
-    minCount: 1
+    maxCount: 30
+    minCount: 3
     mode: 'User'
     osDiskSizeGB: 1024
     tags: tags
