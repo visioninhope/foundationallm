@@ -16,9 +16,9 @@ service:
 
 resources:
   requests:
-    ephemeral-storage: "1000G"
+    ephemeral-storage: "100G"
   limits:
-    ephemeral-storage: "1000G"
+    ephemeral-storage: "100G"
 
 nodeSelector: {}
 
