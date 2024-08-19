@@ -70,9 +70,9 @@ namespace FoundationaLLM.Common.Middleware
 
                 // Check if the conditions for identity substitution are met.
                 if (string.Compare(
-                    userIdentity!.UserId,
-                    instanceSettings.Value.IdentitySubstitutionSecurityPrincipalId,
-                    true) == 0
+                        userIdentity!.UserId,
+                        instanceSettings.Value.IdentitySubstitutionSecurityPrincipalId,
+                        StringComparison.OrdinalIgnoreCase) == 0
                     && !string.IsNullOrWhiteSpace(instanceSettings.Value.IdentitySubstitutionUserPrincipalNamePattern)
                     && context.Request.Headers.TryGetValue(Constants.HttpHeaders.UserIdentity, out var serializedIdentity))
                 {
@@ -87,7 +87,10 @@ namespace FoundationaLLM.Common.Middleware
                             callContext.CurrentUserIdentity = substitutedIdentity;
                         }
                     }
-                    catch {}
+                    catch
+                    {
+                        // Ignored.
+                    }
                 }
             }
             else
