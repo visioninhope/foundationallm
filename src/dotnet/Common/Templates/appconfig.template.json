@@ -15,6 +15,20 @@
             "tags": {}
         },
         {
+            "key": "FoundationaLLM:Instance:IdentitySubstitutionSecurityPrincipalId",
+            "value": "",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
+            "key": "FoundationaLLM:Instance:IdentitySubstitutionUserPrincipalNamePattern",
+            "value": "",
+            "label": null,
+            "content_type": "",
+            "tags": {}
+        },
+        {
             "key": "FoundationaLLM:Configuration:KeyVaultURI",
             "value": "${env:AZURE_KEY_VAULT_ENDPOINT}",
             "label": null,
