@@ -1,3 +1,4 @@
+using Core.Examples.LoadTests.Data;
 using Core.Examples.LoadTests.ResourceProviders;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Extensions;
@@ -56,13 +57,13 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             IServiceProvider serviceProvider)
         {
             var instanceSettings = serviceProvider.GetRequiredService<IOptions<InstanceSettings>>().Value;
-            var instanceId = instanceSettings.Id;
-            var userIdentities = GetUserIdentities(hostId);
+
+            var userIdentities = LoadTestData.GetUserIdentities(hostId);
 
             await Task.WhenAll(
                userIdentities
                .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
-                   instanceId,
+                   instanceSettings.Id,
                    resourceProviders.AttachmentResourceProvider,
                    resourceProviders.AzureOpenAIResourceProvider,
                    userIdentity)));
@@ -70,7 +71,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             await Task.WhenAll(
                 userIdentities
                 .Select(userIdentity => SimulateAssistantUserContextCreation(
-                    instanceId,
+                    instanceSettings.Id,
                     resourceProviders.AzureOpenAIResourceProvider,
                     userIdentity)));
         }
@@ -90,7 +91,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 Prompt = "prompt_placeholder",
             };
 
-            await resourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
+            _ = await resourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(
                 instanceId,
                 assistantUserContext,
                 AzureOpenAIResourceTypeNames.AssistantUserContexts,
@@ -103,8 +104,8 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             IResourceProviderService azureOpenAIResourceProvider,
             UnifiedUserIdentity userIdentity)
         {
+            var attachmentFiles = LoadTestData.GetAttachmentFiles(userIdentity.UserId!);
 
-            var attachmentFiles = GetAttachmentFiles(userIdentity.UserId!);
             await Task.WhenAll(
                attachmentFiles
                .Select(attachmentFile => UploadAttachmentFileAndUpsertFileUserContext(
@@ -113,7 +114,6 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                    azureOpenAIResourceProvider,
                    attachmentFile,
                    userIdentity)));
-
         }
 
         private async Task UploadAttachmentFileAndUpsertFileUserContext(string instanceId,
@@ -127,70 +127,14 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 attachmentFile,
                     userIdentity);
 
-            var fileUserContext = GetFileUserContext(userIdentity.Username!, instanceId, result.ObjectId!, attachmentFile);
+            var fileUserContext = LoadTestData.GetFileUserContext(userIdentity.Username!, instanceId, result.ObjectId!, attachmentFile);
+
             _ = await azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContext.Name}",
                 fileUserContext,
                 userIdentity);
 
             _ = await attachmentResourceProvider.GetResource<AttachmentFile>(result.ObjectId!, userIdentity);
-        }
-
-        private List<UnifiedUserIdentity> GetUserIdentities(
-            int hostId)
-        {
-            return Enumerable.Range(1, SimulatedUsersCount)
-                .Select(i => new UnifiedUserIdentity
-                {
-                    GroupIds = ["00000000-0000-0000-0000-000000000001"],
-                    UserId = $"00000000-0000-0000-{hostId:D4}-{i:D12}",
-                    Username = $"load_test_user_{hostId:D3}_{i:D3}@solliance.net",
-                    Name = $"Load Test User {hostId:D3}-{i:D3}",
-                    UPN = $"load_test_user_{hostId:D3}_{i:D3}@solliance.net"
-                })
-                .ToList();
-        }
-
-        private List<AttachmentFile> GetAttachmentFiles(
-            string userId)
-        {
-            return Enumerable.Range(1, SimulatedFileCount)
-                .Select(i => new AttachmentFile
-                {
-                    Name = $"a-{userId}-{i:D18}",
-                    Content = new byte[] { 0x20 },
-                    DisplayName = "test_original_file_name",
-                    ContentType = "application/octet-stream",
-                    OriginalFileName = "test_original_file_name.jpg"
-                })
-                .ToList();
-        }
-
-        private FileUserContext GetFileUserContext(
-           string userName,
-           string instanceId,
-           string objectId,
-           AttachmentFile attachmentFile)
-        {
-            return new FileUserContext
-            {
-                Name = $"{userName}-file-{instanceId.ToLower()}",
-                UserPrincipalName = userName!,
-                Endpoint = "https://fllm-01.openai.azure.com/",
-                AssistantUserContextName = $"{userName}-assistant-{instanceId.ToLower()}",
-                Files = new()
-                {
-                    {
-                        objectId,
-                        new FileMapping
-                        {
-                            FoundationaLLMObjectId = objectId!,
-                            OriginalFileName = attachmentFile.OriginalFileName,
-                            ContentType = attachmentFile.ContentType!
-                        }
-                    }
-                }
-            };
         }
     }
 }
