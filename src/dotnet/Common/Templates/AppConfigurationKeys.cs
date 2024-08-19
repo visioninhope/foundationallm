@@ -854,6 +854,13 @@ namespace FoundationaLLM.Common.Constants.Configuration
             "FoundationaLLM:Branding:FavIconUrl";
         
         /// <summary>
+        /// The app configuration key for the FoundationaLLM:Branding:AgentIconUrl setting.
+        /// <para>Value description:<br/>The agent icon that displays next to the agent select list and agent responses. Can be an absolute URL, relative path, or base64string value.</para>
+        /// </summary>
+        public const string FoundationaLLM_Branding_AgentIconUrl =
+            "FoundationaLLM:Branding:AgentIconUrl";
+        
+        /// <summary>
         /// The app configuration key for the FoundationaLLM:Branding:KioskMode setting.
         /// <para>Value description:<br/>Kiosk mode.</para>
         /// </summary>

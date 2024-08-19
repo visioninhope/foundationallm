@@ -5,10 +5,9 @@
 				<div class="message__header">
 					<!-- Sender -->
 					<span class="header__sender">
-						<img
+						<AgentIcon
 							v-if="message.sender !== 'User'"
-							class="avatar"
-							src="~/assets/FLLM-Agent-Light.svg"
+							:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
 							alt="Agent avatar"
 						/>
 						<span>{{ getDisplayName() }}</span>
@@ -234,6 +233,7 @@ import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import AttachmentList from '@/components/AttachmentList.vue';
 import AnalysisModal from '@/components/AnalysisModal.vue';
+import AgentIcon from '@/components/AgentIcon.vue';
 
 const renderer = new marked.Renderer();
 
