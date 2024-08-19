@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoundationaLLM.Common.Models.Configuration.Branding
+﻿namespace FoundationaLLM.Common.Models.Configuration.Branding
 {
     /// <summary>
     /// Provides configuration for client branding.
