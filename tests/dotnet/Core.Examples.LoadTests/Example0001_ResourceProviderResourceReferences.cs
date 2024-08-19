@@ -20,9 +20,6 @@ namespace FoundationaLLM.Core.Examples.LoadTests
     /// </summary>
     public class Example0001_ResourceProviderResourceReferences : BaseTest, IClassFixture<LoadTestFixture>
     {
-        private const int SimulatedUsersCount = 20;
-        private const int SimulatedFileCount = 10;
-
         public Example0001_ResourceProviderResourceReferences(ITestOutputHelper output, LoadTestFixture fixture)
 			: base(output, fixture.ServiceProviders)
         {
@@ -60,13 +57,13 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             var userIdentities = LoadTestData.GetUserIdentities(hostId);
 
-            await Task.WhenAll(
-               userIdentities
-               .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
-                   instanceSettings.Id,
-                   resourceProviders.AttachmentResourceProvider,
-                   resourceProviders.AzureOpenAIResourceProvider,
-                   userIdentity)));
+            //await Task.WhenAll(
+            //   userIdentities
+            //   .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
+            //       instanceSettings.Id,
+            //       resourceProviders.AttachmentResourceProvider,
+            //       resourceProviders.AzureOpenAIResourceProvider,
+            //       userIdentity)));
 
             await Task.WhenAll(
                 userIdentities
@@ -82,6 +79,9 @@ namespace FoundationaLLM.Core.Examples.LoadTests
             UnifiedUserIdentity userIdentity)
         {
             var assistantUserContextName = $"{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceId.ToLower()}";
+
+            var sessionId = Guid.NewGuid().ToString();
+
             var assistantUserContext = new AssistantUserContext
             {
                 Name = assistantUserContextName,
@@ -89,6 +89,16 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 Endpoint = "endpoint_placeholder",
                 ModelDeploymentName = "model_placeholder",
                 Prompt = "prompt_placeholder",
+                Conversations = new()
+                {
+                    {
+                        sessionId!,
+                        new ConversationMapping
+                        {
+                            FoundationaLLMSessionId = sessionId!
+                        }
+                    }
+                }
             };
 
             _ = await resourceProvider.CreateOrUpdateResource<AssistantUserContext, AssistantUserContextUpsertResult>(

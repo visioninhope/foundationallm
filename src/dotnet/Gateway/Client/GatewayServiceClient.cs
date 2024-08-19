@@ -110,12 +110,12 @@ namespace FoundationaLLM.Gateway.Client
                 var responseObject = JsonSerializer.Deserialize<Dictionary<string, object>>(responseContent);
 
                 if (responseObject == null || responseObject.Count == 0)
-                    throw new GatewayException("The Gatekeeper API returned an invalid response.");
+                    throw new GatewayException("The Gateway API returned an invalid response.");
 
                 return responseObject;
             }
 
-            throw new GatewayException($"The Gatekeeper API returned an error status code ({response.StatusCode}) while processing the agent capability request.");
+            throw new GatewayException($"The Gateway API returned an error status code ({response.StatusCode}) while processing the agent capability request.");
         }
 
         private async Task<HttpClient> GetGatewayAPIHttpClient(UnifiedUserIdentity userIdentity) =>
