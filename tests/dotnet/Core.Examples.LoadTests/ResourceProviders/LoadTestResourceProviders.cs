@@ -43,6 +43,8 @@ namespace Core.Examples.LoadTests.ResourceProviders
                 {
                     await _azureOpenAIResourceProvider.Initialize();
 
+                    await _attachmentResourceProvider.Initialize();
+
                     // Add more resource providers here.
                 },
                 "Initialize FoundationaLLM.AzureOpenAI resource provider.");
