@@ -1192,6 +1192,14 @@
 				"first_version": "0.8.0"
 			},
 			{
+				"name": "AgentIconUrl",
+				"description": "The agent icon that displays next to the agent select list and agent responses. Can be an absolute URL, relative path, or base64string value.",
+				"secret": "",
+				"value": "",
+				"content_type": "",
+				"first_version": "0.8.0"
+			},
+			{
 				"name": "KioskMode",
 				"description": "Kiosk mode.",
 				"secret": "",
