@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\dotnet\Attachments\Attachment.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\Authorization\Authorization.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\AzureOpenAI\AzureOpenAI.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\Common\Common.csproj" />

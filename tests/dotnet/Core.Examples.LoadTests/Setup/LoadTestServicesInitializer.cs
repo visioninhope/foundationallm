@@ -1,8 +1,6 @@
-﻿using FoundationaLLM;
-using FoundationaLLM.Common.Constants.Configuration;
+﻿using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Validation;
-using FoundationaLLM.Core.Examples.Setup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +40,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
             serviceCollection.AddAuthorizationService(builder.Configuration);
             serviceCollection.AddHttpClientFactoryService();
             serviceCollection.AddAzureResourceManager();
+            serviceCollection.AddGatewayServiceClient();
             // Using the Management API configuration section for the Event Grid profile
             // to make sure no events are being watched.
             serviceCollection.AddAzureEventGridEvents(builder.Configuration,
@@ -49,6 +48,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
             serviceCollection.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
 
             serviceCollection.AddAzureOpenAIResourceProvider(builder.Configuration);
+            serviceCollection.AddAttachmentResourceProvider(builder.Configuration);
 
             RegisterLogging(serviceCollection);
 

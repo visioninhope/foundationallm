@@ -12,11 +12,13 @@ namespace Core.Examples.LoadTests.ResourceProviders
     public class LoadTestResourceProviders
     {
         private readonly IResourceProviderService _azureOpenAIResourceProvider;
+        private readonly IResourceProviderService _attachmentResourceProvider;
 
         private readonly ITestOutputHelper _output;
         private readonly TimeProfiler _timeProfiler;
 
         public IResourceProviderService AzureOpenAIResourceProvider => _azureOpenAIResourceProvider;
+        public IResourceProviderService AttachmentResourceProvider => _attachmentResourceProvider;
 
         public LoadTestResourceProviders(
             IServiceProvider serviceProvider,
@@ -26,6 +28,9 @@ namespace Core.Examples.LoadTests.ResourceProviders
 
             _azureOpenAIResourceProvider = resourceProviderServices!
                 .Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AzureOpenAI);
+
+            _attachmentResourceProvider = resourceProviderServices!
+                .Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Attachment);
 
             _output = output;
             _timeProfiler = new TimeProfiler(output);
