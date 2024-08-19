@@ -26,5 +26,19 @@ namespace FoundationaLLM
             builder.Services.AddSingleton<IGatewayCore, GatewayCore>();
             builder.Services.AddHostedService<GatewayWorker>();
         }
+
+        /// <summary>
+        /// Adds the Gateway service client to the dependency injection container.
+        /// </summary>
+        /// <param name="builder">The host application builder.</param>
+        public static void AddGatewayServiceClient(this IHostApplicationBuilder builder) =>
+            builder.Services.AddHttpClient<IGatewayServiceClient, GatewayServiceClient>();
+
+        /// <summary>
+        /// Adds the Gateway service to the dependency injection container.
+        /// </summary>
+        /// <param name="services">The service collection of the DI container.</param>
+        public static void AddGatewayServiceClient(this IServiceCollection services) =>
+            services.AddHttpClient<IGatewayServiceClient, GatewayServiceClient>();
     }
 }

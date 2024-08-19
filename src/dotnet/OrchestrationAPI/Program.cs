@@ -51,6 +51,8 @@ namespace FoundationaLLM.Orchestration.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints);
 
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Essentials);
+
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Agent_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage);
@@ -117,9 +119,12 @@ namespace FoundationaLLM.Orchestration.API
             builder.AddGroupMembership();
             builder.AddAuthorizationService();
 
+            builder.AddGatewayServiceClient();
+
             //----------------------------
             // Resource providers
             //----------------------------
+            builder.AddGatewayServiceClient();
             builder.AddAgentResourceProvider();
             builder.AddPromptResourceProvider();
             builder.AddVectorizationResourceProvider();

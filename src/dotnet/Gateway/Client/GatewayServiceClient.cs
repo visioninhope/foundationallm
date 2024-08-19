@@ -1,4 +1,6 @@
-﻿using FoundationaLLM.Common.Interfaces;
+﻿using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Exceptions;
 using FoundationaLLM.Gateway.Models;
@@ -11,26 +13,26 @@ namespace FoundationaLLM.Gateway.Client
     /// <summary>
     /// Provides methods to call the Gateway API service.
     /// </summary>
-    public class GatewayServiceClient
+    public class GatewayServiceClient : IGatewayServiceClient
     {
-        private readonly HttpClient _gatewayAPIHttpClient;
+        private readonly IHttpClientFactoryService _httpClientFactory;
         private readonly ILogger<GatewayServiceClient> _logger;
 
         /// <summary>
         /// Creates a new instance of the Gateway API service.
         /// </summary>
-        /// <param name="gatewayAPIHttpClient">An <see cref="HttpClient"/> configured to call the Gateway API.</param>
+        /// <param name="httpClientFactory">An <see cref="IHttpClientFactoryService"/> used to build HTTP clients for the Gateway API.</param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public GatewayServiceClient(
-            HttpClient gatewayAPIHttpClient,
+            IHttpClientFactoryService httpClientFactory,
             ILogger<GatewayServiceClient> logger)
         {
-            _gatewayAPIHttpClient = gatewayAPIHttpClient;
+            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string instanceId, string operationId)
+        public async Task<TextEmbeddingResult> GetEmbeddingOperationResult(string instanceId, string operationId, UnifiedUserIdentity userIdentity)
         {
             var fallback = new TextEmbeddingResult
             {
@@ -38,7 +40,8 @@ namespace FoundationaLLM.Gateway.Client
                 OperationId = null
             };
 
-            var response = await _gatewayAPIHttpClient.GetAsync($"instances/{instanceId}/embeddings?operationId={operationId}");
+            var gatewayAPIHttpClient = await GetGatewayAPIHttpClient(userIdentity);
+            var response = await gatewayAPIHttpClient.GetAsync($"instances/{instanceId}/embeddings?operationId={operationId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -52,7 +55,7 @@ namespace FoundationaLLM.Gateway.Client
         }
 
         /// <inheritdoc/>
-        public async Task<TextEmbeddingResult> StartEmbeddingOperation(string instanceId, TextEmbeddingRequest embeddingRequest)
+        public async Task<TextEmbeddingResult> StartEmbeddingOperation(string instanceId, TextEmbeddingRequest embeddingRequest, UnifiedUserIdentity userIdentity)
         {
             var fallback = new TextEmbeddingResult
             {
@@ -61,7 +64,9 @@ namespace FoundationaLLM.Gateway.Client
             };
 
             var serializedRequest = JsonSerializer.Serialize(embeddingRequest);
-            var response = await _gatewayAPIHttpClient.PostAsync($"instances/{instanceId}/embeddings",
+
+            var gatewayAPIHttpClient = await GetGatewayAPIHttpClient(userIdentity);
+            var response = await gatewayAPIHttpClient.PostAsync($"instances/{instanceId}/embeddings",
                 new StringContent(
                     serializedRequest,
                     Encoding.UTF8,
@@ -79,7 +84,12 @@ namespace FoundationaLLM.Gateway.Client
         }
 
         /// <inheritdoc/>
-        public async Task<Dictionary<string, object>> CreateAgentCapability(string instanceId, string capabilityCategory, string capabilityName, Dictionary<string, object>? parameters = null)
+        public async Task<Dictionary<string, object>> CreateAgentCapability(
+            string instanceId,
+            string capabilityCategory,
+            string capabilityName,
+            UnifiedUserIdentity userIdentity,
+            Dictionary<string, object>? parameters = null)
         {
             var serializedRequest = JsonSerializer.Serialize(new AgentCapabilityRequest
             {
@@ -87,7 +97,8 @@ namespace FoundationaLLM.Gateway.Client
                 CapabilityName = capabilityName,
                 Parameters = parameters ?? []
             });
-            var response = await _gatewayAPIHttpClient.PostAsync($"instances/{instanceId}/agentcapabilities",
+            var gatewayAPIHttpClient = await GetGatewayAPIHttpClient(userIdentity);
+            var response = await gatewayAPIHttpClient.PostAsync($"instances/{instanceId}/agentcapabilities",
                 new StringContent(
                     serializedRequest,
                     Encoding.UTF8,
@@ -106,5 +117,10 @@ namespace FoundationaLLM.Gateway.Client
 
             throw new GatewayException($"The Gatekeeper API returned an error status code ({response.StatusCode}) while processing the agent capability request.");
         }
+
+        private async Task<HttpClient> GetGatewayAPIHttpClient(UnifiedUserIdentity userIdentity) =>
+            await _httpClientFactory.CreateClient(
+                HttpClientNames.GatewayAPI,
+                userIdentity);
     }
 }

@@ -30,6 +30,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
     /// <param name="authorizationService">The <see cref="IAuthorizationService"/> providing authorization services.</param>
     /// <param name="storageService">The <see cref="IStorageService"/> providing storage services.</param>
     /// <param name="eventService">The <see cref="IEventService"/> providing event services.</param>
+    /// <param name="gatewayServiceClient">The <see cref="IGatewayServiceClient"/> used to call the Gateway API.</param>
     /// <param name="resourceValidatorFactory">The <see cref="IResourceValidatorFactory"/> providing the factory to create resource validators.</param>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
     /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
@@ -38,6 +39,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         IAuthorizationService authorizationService,
         [FromKeyedServices(DependencyInjectionKeys.FoundationaLLM_ResourceProviders_AzureOpenAI)] IStorageService storageService,
         IEventService eventService,
+        IGatewayServiceClient gatewayServiceClient,
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILogger<AzureOpenAIResourceProviderService> logger)
@@ -53,6 +55,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             useInternalStore: true)
     {
         private readonly SemaphoreSlim _localLock = new(1, 1);
+        private readonly IGatewayServiceClient _gatewayClient = gatewayServiceClient;
 
         /// <inheritdoc/>
         protected override Dictionary<string, ResourceTypeDescriptor> GetResourceTypes() =>
@@ -220,11 +223,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
         private async Task<AssistantUserContextUpsertResult> UpdateAssistantUserContext(AssistantUserContext assistantUserContext, UnifiedUserIdentity userIdentity)
         {
-            var gatewayClient = new GatewayServiceClient(
-               await _serviceProvider.GetRequiredService<IHttpClientFactoryService>()
-                   .CreateClient(HttpClientNames.GatewayAPI, userIdentity),
-               _serviceProvider.GetRequiredService<ILogger<GatewayServiceClient>>());
-
             var newOpenAIAssistantId = default(string);
             var newOpenAIAssistantThreadId = default(string);
 
@@ -302,10 +300,11 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
                 #endregion
 
-                var result = await gatewayClient!.CreateAgentCapability(
+                var result = await _gatewayClient.CreateAgentCapability(
                     _instanceSettings.Id,
                     AgentCapabilityCategoryNames.OpenAIAssistants,
                     assistantUserContextResourceReference.Name,
+                    userIdentity,
                     new()
                     {
                     { OpenAIAgentCapabilityParameterNames.CreateAssistant, true },
@@ -360,10 +359,11 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             }
             else
             {
-                var result = await gatewayClient!.CreateAgentCapability(
+                var result = await _gatewayClient.CreateAgentCapability(
                     _instanceSettings.Id,
                     AgentCapabilityCategoryNames.OpenAIAssistants,
                     resourceReference.Name,
+                    userIdentity,
                     new()
                     {
                         { OpenAIAgentCapabilityParameterNames.AssistantId, assistantUserContext.OpenAIAssistantId! },
@@ -418,11 +418,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
         private async Task<FileUserContextUpsertResult> UpdateFileUserContext(FileUserContext fileUserContext, UnifiedUserIdentity userIdentity)
         {
-            var gatewayClient = new GatewayServiceClient(
-               await _serviceProvider.GetRequiredService<IHttpClientFactoryService>()
-                   .CreateClient(HttpClientNames.GatewayAPI, userIdentity),
-               _serviceProvider.GetRequiredService<ILogger<GatewayServiceClient>>());
-
             var newOpenAIFileId = default(string);
 
             var incompleteFiles = fileUserContext.Files.Values
@@ -494,10 +489,11 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
                 if (incompleteFiles.Count == 1)
                 {
-                    var result = await gatewayClient!.CreateAgentCapability(
+                    var result = await _gatewayClient.CreateAgentCapability(
                         _instanceSettings.Id,
                         AgentCapabilityCategoryNames.OpenAIAssistants,
                         fileUserContext.AssistantUserContextName,
+                        userIdentity,
                         new()
                         {
                             { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
@@ -562,10 +558,11 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
             {
                 if (incompleteFiles.Count == 1)
                 {
-                    var result = await gatewayClient!.CreateAgentCapability(
+                    var result = await _gatewayClient.CreateAgentCapability(
                         _instanceSettings.Id,
                         AgentCapabilityCategoryNames.OpenAIAssistants,
                         fileUserContext.AssistantUserContextName,
+                        userIdentity,
                         new()
                         {
                             {OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true},

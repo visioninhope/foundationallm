@@ -99,8 +99,12 @@ namespace FoundationaLLM.Core.API
                 builder.Configuration,
                 AppConfigurationKeySections.FoundationaLLM_Events_Profiles_CoreAPI);
 
-            // Add resource providers
             builder.Services.AddSingleton<IResourceValidatorFactory, ResourceValidatorFactory>();
+            builder.AddGatewayServiceClient();
+
+            //----------------------------
+            // Resource providers
+            //----------------------------
             builder.AddAgentResourceProvider();
             builder.AddAttachmentResourceProvider();
             builder.AddConfigurationResourceProvider();

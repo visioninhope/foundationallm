@@ -33,6 +33,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_AzureOpenAI),
                     sp.GetRequiredService<IEventService>(),
+                    sp.GetRequiredService<IGatewayServiceClient>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp,
                     sp.GetRequiredService<ILogger<AzureOpenAIResourceProviderService>>()));
@@ -59,6 +60,7 @@ namespace FoundationaLLM
                     sp.GetRequiredService<IEnumerable<IStorageService>>()
                         .Single(s => s.InstanceName == DependencyInjectionKeys.FoundationaLLM_ResourceProviders_AzureOpenAI),
                     sp.GetRequiredService<IEventService>(),
+                    sp.GetRequiredService<IGatewayServiceClient>(),
                     sp.GetRequiredService<IResourceValidatorFactory>(),
                     sp,
                     sp.GetRequiredService<ILogger<AzureOpenAIResourceProviderService>>()));
