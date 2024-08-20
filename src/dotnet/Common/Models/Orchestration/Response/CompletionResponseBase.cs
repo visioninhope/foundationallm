@@ -26,6 +26,12 @@ namespace FoundationaLLM.Common.Models.Orchestration.Response
         public List<MessageContentItemBase>? Content { get; set; }
 
         /// <summary>
+        /// A list of results from the analysis.
+        /// </summary>
+        [JsonPropertyName("analysis_results")]
+        public List<AnalysisResult>? AnalysisResults { get; set; }
+
+        /// <summary>
         /// The citations used in building the completion response.
         /// </summary>
         [JsonPropertyName("citations")]

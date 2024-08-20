@@ -25,12 +25,13 @@ from foundationallm.models.resource_providers.vectorization import (
 )
 from foundationallm.models.services import OpenAIAssistantsAPIRequest
 from foundationallm.services import ImageAnalysisService, OpenAIAssistantsApiService
+from openai.types import CompletionUsage
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
     """
-    
+
     def _get_document_retriever(
         self,
         request: KnowledgeManagementCompletionRequest,
@@ -88,7 +89,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         if self.prompt.suffix is not None:
             prompt_builder += f'\n\n{self.prompt.suffix}'
 
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if self.has_retriever or len(image_attachments) > 0:
             # Insert the user prompt into the template.
             prompt_builder += "\n\nQuestion: {question}"
@@ -183,10 +184,10 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 self.has_indexing_profiles = True
 
-        
+
         # if the OpenAI.Assistants capability is present, validate the following required fields:
         #   AssistantId, AssistantThreadId
-          
+
         if "OpenAI.Assistants" in request.agent.capabilities:
             required_fields = ["OpenAI.AssistantId", "OpenAI.AssistantThreadId"]
             for field in required_fields:
@@ -214,20 +215,24 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
 
         agent = request.agent
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
         image_analysis_results = None
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=False)
-            image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
-            image_analysis_results = image_analysis_svc.analyze_images(image_attachments)
+            image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results, usage = image_analysis_svc.analyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
             operation_type_override = OperationTypes.ASSISTANTS_API
             # create the service
             assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=False))
-            
+
             # populate service request object
             assistant_req = OpenAIAssistantsAPIRequest(
                 assistant_id=request.objects["OpenAI.AssistantId"],
@@ -254,15 +259,16 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 )
             # invoke/run the service
             assistant_response = assistant_svc.run(assistant_req)
-            
+
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
-                full_prompt = assistant_response.analysis,
+                full_prompt = self.prompt.prefix,
                 content = assistant_response.content,
-                completion_tokens = assistant_response.completion_tokens,
-                prompt_tokens = assistant_response.prompt_tokens,
-                total_tokens = assistant_response.total_tokens,
+                analysis_results = assistant_response.analysis_results,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
                 )
 
@@ -281,7 +287,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
                 elif image_analysis_results is not None:
-                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }    
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -299,7 +305,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     value = completion,
                     agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
                 )
-                
+
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
@@ -310,9 +316,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:
@@ -337,14 +343,18 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
 
         agent = request.agent
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
 
         image_analysis_results = None
         # Get image attachments that are images with URL file paths.
-        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENTS and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
         if len(image_attachments) > 0:
             image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=True)
-            image_analysis_svc = ImageAnalysisService(client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
-            image_analysis_results = await image_analysis_svc.aanalyze_images(image_attachments)
+            image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results, usage = await image_analysis_svc.aanalyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
 
         # Check for Assistants API capability
         if "OpenAI.Assistants" in agent.capabilities:
@@ -379,17 +389,18 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
             # invoke/run the service
             assistant_response = await assistant_svc.arun(assistant_req)
-            
+
             # create the CompletionResponse object
             return CompletionResponse(
                 operation_id = request.operation_id,
-                full_prompt = assistant_response.analysis,
+                full_prompt = self.prompt.prefix,
+                analysis_results = assistant_response.analysis_results,
                 content = assistant_response.content,
-                completion_tokens = assistant_response.completion_tokens,
-                prompt_tokens = assistant_response.prompt_tokens,
-                total_tokens = assistant_response.total_tokens,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
-                )          
+                )
 
         with get_openai_callback() as cb:
             try:
@@ -440,9 +451,9 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:

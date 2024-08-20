@@ -1,13 +1,11 @@
 ﻿using FoundationaLLM.Authorization.Models.Configuration;
 using FoundationaLLM.Common.Authentication;
-using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -66,8 +64,7 @@ namespace FoundationaLLM.Authorization.Services
                 return new ActionAuthorizationResult { AuthorizationResults = defaultResults };
             }
             catch (Exception ex)
-            {
-                _logger.LogError(ex, "There was an error calling the Authorization API");
+            { _logger.LogError(ex, "There was an error calling the Authorization API");
                 return new ActionAuthorizationResult { AuthorizationResults = defaultResults };
             }
         }

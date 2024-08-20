@@ -29,6 +29,11 @@ namespace FoundationaLLM.Common.Interfaces
         string StorageAccountName { get; }
 
         /// <summary>
+        /// The name of the storage account container used by the resource provider.
+        /// </summary>
+        string StorageContainerName { get; }
+
+        /// <summary>
         /// Gets a resource based on its logical path.
         /// </summary>
         /// <typeparam name="T">The type of the resource.</typeparam>
@@ -50,5 +55,11 @@ namespace FoundationaLLM.Common.Interfaces
         Task<TResult> UpsertResourceAsync<T, TResult>(string resourcePath, T resource, UnifiedUserIdentity userIdentity)
             where T : ResourceBase
             where TResult : ResourceProviderUpsertResult;
+
+        /// <summary>
+        /// Initializes the resource provider.
+        /// </summary>
+        /// <returns></returns>
+        Task Initialize();
     }
 }

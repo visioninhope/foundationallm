@@ -5,6 +5,11 @@ param actionGroupId string
 @description('Administrator Object Id')
 param administratorObjectId string
 
+param aksServiceCidr string
+
+param backendAksNodeSku string
+param frontendAksNodeSku string
+
 @description('The environment name token used in naming resources.')
 param environmentName string
 
@@ -132,6 +137,8 @@ module aksBackend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
+    aksServiceCidr: aksServiceCidr
+    aksNodeSku: backendAksNodeSku
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
@@ -152,6 +159,8 @@ module aksFrontend 'modules/aks.bicep' = {
   params: {
     actionGroupId: actionGroupId
     admnistratorObjectIds: [ administratorObjectId ]
+    aksServiceCidr: aksServiceCidr
+    aksNodeSku: frontendAksNodeSku
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
     location: location
@@ -452,6 +461,29 @@ module cognitiveServicesOpenAiUserGatewayRole 'modules/utility/roleAssignments.b
   scope: resourceGroup(openAiResourceGroupName)
   params: {
     principalId: srBackend[indexOf(backendServiceNames, 'gateway-api')].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
+    }
+  }
+}
+
+module cognitiveServicesOpenAiUserCoreRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'cognitiveServicesOpenAiUserCoreRole-${timestamp}'
+  scope: resourceGroup(openAiResourceGroupName)
+  params: {
+    principalId: srCoreApi[0].outputs.servicePrincipalId
+    roleDefinitionIds: {
+      'Cognitive Services OpenAI User': '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'
+      'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
+    }
+  }
+}
+
+module cognitiveServicesOpenAiUserMgmtRole 'modules/utility/roleAssignments.bicep' = {
+  name: 'cognitiveServicesOpenAiUserMgmtRole-${timestamp}'
+  scope: resourceGroup(openAiResourceGroupName)
+  params: {
+    principalId: srManagementApi[0].outputs.servicePrincipalId
     roleDefinitionIds: {
       'Cognitive Services OpenAI Contributor': 'a001fd3d-188f-4b5d-821b-7da978bf7442'
     }

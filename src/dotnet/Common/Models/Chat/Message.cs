@@ -1,7 +1,6 @@
 using Azure.Search.Documents.Indexes;
 using FoundationaLLM.Common.Models.Orchestration.Response;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace FoundationaLLM.Common.Models.Chat;
 
@@ -85,6 +84,11 @@ public record Message
     public Citation[]? Citations { get; set; }
 
     /// <summary>
+    /// A list of results from the analysis.
+    /// </summary>
+    public List<AnalysisResult>? AnalysisResults { get; set; }
+
+    /// <summary>
     /// One or more attachments included with the orchestration request.
     /// The values should be the Object ID of the attachment(s).
     /// </summary>
@@ -110,7 +114,7 @@ public record Message
         float[]? vector, bool? rating, string upn, string? senderDisplayName = null,
         Citation[]? citations = null, string? expectedCompletion = null,
         List<MessageContent>? content = null, List<string>? attachments = null,
-        List<AttachmentDetail> attachmentDetails = null)
+        List<AttachmentDetail> attachmentDetails = null, List<AnalysisResult>? analysisResults = null)
     {
         Id = Guid.NewGuid().ToString();
         Type = nameof(Message);
@@ -128,5 +132,6 @@ public record Message
         Attachments = attachments;
         AttachmentDetails = attachmentDetails;
         Content = content;
+        AnalysisResults = analysisResults;
     }
 }

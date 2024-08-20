@@ -2,17 +2,16 @@
 using FoundationaLLM.Authorization.Interfaces;
 using FoundationaLLM.Authorization.Models;
 using FoundationaLLM.Authorization.Models.Configuration;
-using FoundationaLLM.Authorization.ResourceProviders;
-using FoundationaLLM.Authorization.Utils;
 using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.Text;
 using System.Text.Json;
 
@@ -170,7 +169,7 @@ namespace FoundationaLLM.Authorization.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "he authorization core failed to process the authorization request.");
+                _logger.LogError(ex, "The authorization core failed to process the authorization request.");
             }
 
             return new ActionAuthorizationResult

@@ -13,6 +13,7 @@ using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Options;
@@ -90,6 +91,8 @@ namespace FoundationaLLM.Core.API
 
             // Add Azure ARM services
             builder.AddAzureResourceManager();
+
+            builder.Services.AddHttpContextAccessor();
 
             // Add event services
             builder.Services.AddAzureEventGridEvents(
@@ -248,6 +251,12 @@ namespace FoundationaLLM.Core.API
             app.UseExceptionHandler(exceptionHandlerApp
                     => exceptionHandlerApp.Run(async context
                         => await Results.Problem().ExecuteAsync(context)));
+
+            var forwardedHeadersOptions = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            };
+            app.UseForwardedHeaders(forwardedHeadersOptions);
 
             // Configure the HTTP request pipeline.
             app.UseSwagger();

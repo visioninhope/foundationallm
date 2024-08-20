@@ -17,8 +17,17 @@
       "authAppRegistrationTenantId": {
         "value": "${ENTRA_AUTH_API_TENANT_ID}"
       },
+      "backendAksNodeSku": {
+        "value": "${FLLM_BACKEND_AKS_NODE_SKU=Standard_D8s_v3}"
+      },
+      "frontendAksNodeSku": {
+        "value": "${FLLM_FRONTEND_AKS_NODE_SKU=Standard_D4s_v3}"
+      },
+      "aksServiceCidr": {
+        "value": "${FLLM_AKS_SERVICE_CIDR=10.100.0.0/16}"
+      },
       "cidrVnet": {
-        "value": "${FLLM_CIDR_VNET=10.220.128.0/20}"
+        "value": "${FLLM_VNET_CIDR=10.220.128.0/20}"
       },
       "environmentName": {
         "value": "${AZURE_ENV_NAME}"
@@ -194,8 +203,8 @@
             "image": "${SERVICE_LANGCHAINAPI_IMAGE=cropseastus2svinternal.azurecr.io/langchain-api:${FLLM_VERSION}}",
             "appConfigEnvironmentVarName": "FOUNDATIONALLM_APP_CONFIGURATION_URI",
             "apiKeySecretName": "foundationallm-apiendpoints-langchainapi-apikey",
-            "cpu": "${SERVICE_LANGCHAINAPI_CPU=1.0}",
-            "memory": "${SERVICE_LANGCHAINAPI_MEMORY=2.0Gi}",
+            "cpu": "${SERVICE_LANGCHAINAPI_CPU=4.0}",
+            "memory": "${SERVICE_LANGCHAINAPI_MEMORY=8.0Gi}",
             "replicaCount": "${SERVICE_LANGCHAINAPI_REPLICAS=1}"
           },
           {

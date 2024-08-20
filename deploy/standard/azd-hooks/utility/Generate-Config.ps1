@@ -228,6 +228,7 @@ $tokens.coreApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.orchestrationApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.gatekeeperApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.gatewayApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationJobRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.subscriptionId = $subscriptionId
 $tokens.storageResourceGroup = $resourceGroups.storage
@@ -469,6 +470,7 @@ $eventGridProfiles = @{}
 $eventGridProfileNames = @(
     "core-api-event-profile"
     "gatekeeper-api-event-profile"
+    "gateway-api-event-profile"
     "orchestration-api-event-profile"
     "management-api-event-profile"
     "vectorization-api-event-profile"
@@ -490,6 +492,7 @@ foreach ($profileName in $eventGridProfileNames) {
 
 $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
 $tokens.gatekeeperApiEventGridProfile = $eventGridProfiles["gatekeeper-api-event-profile"]
+$tokens.gatewayApiEventGridProfile = $eventGridProfiles["gateway-api-event-profile"]
 $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
 $tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]

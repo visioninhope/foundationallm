@@ -2,9 +2,12 @@ targetScope = 'subscription'
 
 param administratorObjectId string
 param allowedExternalCidr string
+param aksServiceCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
+param backendAksNodeSku string
+param frontendAksNodeSku string
 param cidrVnet string
 param createDate string = utcNow('u')
 param environmentName string
@@ -94,6 +97,9 @@ module app 'app-rg.bicep' = {
   params: {
     actionGroupId: ops.outputs.actionGroupId
     administratorObjectId: administratorObjectId
+    aksServiceCidr: aksServiceCidr
+    backendAksNodeSku: backendAksNodeSku
+    frontendAksNodeSku: frontendAksNodeSku
     environmentName: environmentName
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId

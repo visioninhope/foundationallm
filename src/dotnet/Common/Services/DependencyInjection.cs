@@ -223,6 +223,17 @@ namespace FoundationaLLM
         }
 
         /// <summary>
+        /// Register the <see cref="HttpClientFactoryService"/> with the dependency injection container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> dependency injection container service collection.</param>
+        public static void AddHttpClientFactoryService(this IServiceCollection services)
+        {
+            services.AddHttpClient();
+            services.AddSingleton<IHttpClientFactoryService, HttpClientFactoryService>();
+            services.ActivateSingleton<IHttpClientFactoryService>();
+        }
+
+        /// <summary>
         /// Register the <see cref="IDownstreamAPIService"/> implementation for a named API service with the dependency injection container.
         /// </summary>
         /// <param name="builder">The host application builder.</param>
@@ -243,5 +254,13 @@ namespace FoundationaLLM
         public static void AddAzureResourceManager(
             this IHostApplicationBuilder builder) =>
             builder.Services.AddSingleton<IAzureResourceManagerService, AzureResourceManagerService>();
+
+        /// <summary>
+        /// Register the <see cref="IAzureResourceManagerService"/> implementation with the dependency injection container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> dependency injection container service collection.</param>
+        public static void AddAzureResourceManager(
+            this IServiceCollection services) =>
+            services.AddSingleton<IAzureResourceManagerService, AzureResourceManagerService>();
     }
 }

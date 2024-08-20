@@ -15,7 +15,6 @@ using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
-using System.Text.Json;
 
 namespace FoundationaLLM.Orchestration.Core.Services;
 
@@ -152,7 +151,7 @@ public class OrchestrationService : IOrchestrationService
 
             currentCompletionResponse = orchestration == null
                 ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
-                : await orchestration.GetCompletion(instanceId, stepCompletionRequest);
+                : await orchestration.GetCompletion(stepCompletionRequest);
 
             //var newConversationSteps = await GetAgentConversationSteps(
             //    instanceId,

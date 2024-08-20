@@ -5,10 +5,9 @@
 				<div class="message__header">
 					<!-- Sender -->
 					<span class="header__sender">
-						<img
+						<AgentIcon
 							v-if="message.sender !== 'User'"
-							class="avatar"
-							src="~/assets/FLLM-Agent-Light.svg"
+							:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
 							alt="Agent avatar"
 						/>
 						<span>{{ getDisplayName() }}</span>
@@ -36,30 +35,95 @@
 
 				<!-- Message text -->
 				<div class="message__body">
-					<AttachmentList v-if="message.sender === 'User'" :attachments="message.attachmentDetails" />
+					<AttachmentList
+						v-if="message.sender === 'User'"
+						:attachments="message.attachmentDetails ?? []"
+						:attachmentIds="message.attachments"
+					/>
+
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
 						<i class="pi pi-spin pi-spinner"></i>
 					</template>
 
-					<template v-if="!message.content">
+					<template v-if="!messageContent || messageContent.length === 0">
 						<div v-html="compiledVueTemplate"></div>
 					</template>
+
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
-						<div v-for="content in message.content" :key="content.file_name" class="message-content">
+						<div v-for="content in messageContent" :key="content.fileName" class="message-content">
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
+
 							<div v-else-if="content.type === 'image_file'">
-								<img :src="content.value" :alt="content.file_name" />
+								<template v-if="content.loading || (!content.error && !content.blobUrl)">
+									<div class="loading-content-container">
+										<i class="pi pi-image loading-content-icon" style="font-size: 2rem"></i>
+										<i
+											class="pi pi-spin pi-spinner loading-content-icon"
+											style="font-size: 1rem"
+										></i>
+										<span class="loading-content-text">Loading image...</span>
+									</div>
+								</template>
+								<Image
+									v-if="content.blobUrl"
+									:src="content.blobUrl"
+									:alt="content.fileName"
+									@load="content.loading = false"
+									@error="
+										content.loading = false;
+										content.error = true;
+									"
+									width="45%"
+									preview
+								/>
+								<div v-if="content.error" class="loading-content-error">
+									<i
+										class="pi pi-times-circle loading-content-error-icon"
+										style="font-size: 2rem"
+									></i>
+									<span class="loading-content-error-text">Could not load image</span>
+								</div>
 							</div>
+
 							<div v-else-if="content.type === 'html'">
-								<iframe :src="content.value" frameborder="0"></iframe>
+								<template v-if="content.loading || (!content.error && !content.blobUrl)">
+									<div class="loading-content-container">
+										<i class="pi pi-chart-line loading-content-icon" style="font-size: 2rem"></i>
+										<i
+											class="pi pi-spin pi-spinner loading-content-icon"
+											style="font-size: 1rem"
+										></i>
+										<span class="loading-content-text">Loading visualization...</span>
+									</div>
+								</template>
+								<iframe v-if="content.blobUrl" :src="content.blobUrl" frameborder="0"> </iframe>
 							</div>
-							<div v-else-if="content.type === 'file'">
-								Download <a :href="content.value" target="_blank">{{ content.fileName ?? content.value }}</a>
+
+							<div v-else-if="content.type === 'file_path'">
+								Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i> 
+								<a
+									:href="content.blobUrl"
+									:download="content.fileName ?? content.blobUrl ?? content.value"
+									target="_blank"
+								>
+									{{ content.fileName ?? content.blobUrl }}
+								</a>
 							</div>
 						</div>
+
+						<Button
+							v-if="message.analysisResults && message.analysisResults.length > 0"
+							class="message__button"
+							:disabled="message.type === 'LoadingMessage'"
+							size="small"
+							text
+							icon="pi pi-window-maximize"
+							label="Analysis"
+							@click.stop="showAnalysisModal"
+						/>
 					</template>
 				</div>
 
@@ -146,6 +210,12 @@
 		<Divider v-if="message.sender == 'User'" align="center" type="solid" class="date-separator">
 			{{ $filters.timeAgo(new Date(message.timeStamp)) }}
 		</Divider>
+
+		<AnalysisModal
+			:visible="isAnalysisModalVisible"
+			:analysisResults="message.analysisResults ?? []"
+			@update:visible="isAnalysisModalVisible = $event"
+		/>
 	</div>
 </template>
 
@@ -153,23 +223,56 @@
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
+import katex from 'katex';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
-import type { PropType } from 'vue';
+import type { PropType, ref } from 'vue';
 
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import AttachmentList from '@/components/AttachmentList.vue';
+import AnalysisModal from '@/components/AnalysisModal.vue';
+import AgentIcon from '@/components/AgentIcon.vue';
 
 const renderer = new marked.Renderer();
+
 renderer.code = (code, language) => {
+	const sourceCode = code.raw || code;
 	const validLanguage = !!(language && hljs.getLanguage(language));
-	const highlighted = validLanguage ? hljs.highlight(code, { language }) : hljs.highlightAuto(code);
+	const highlighted = validLanguage
+		? hljs.highlight(sourceCode, { language })
+		: hljs.highlightAuto(sourceCode);
 	const languageClass = validLanguage ? `hljs language-${language}` : 'hljs';
-	const encodedCode = encodeURIComponent(code);
+	const encodedCode = encodeURIComponent(sourceCode);
 	return `<pre><code class="${languageClass}" data-code="${encodedCode}" data-language="${highlighted.language}">${highlighted.value}</code></pre>`;
 };
+function processLatex(html) {
+	const blockLatexPattern = /\\\[([^\]]+)\\\]/g;
+	const inlineLatexPattern = /\\\(([^\)]+)\\\)/g;
+
+	// Check if LaTeX syntax is detected in the content
+	const hasBlockLatex = blockLatexPattern.test(html);
+	const hasInlineLatex = inlineLatexPattern.test(html);
+
+	// Process block LaTeX: \[ ... \]
+	html = html.replace(blockLatexPattern, (_, math) => {
+		return katex.renderToString(math, { displayMode: true, throwOnError: false });
+	});
+
+	// Process inline LaTeX: \( ... \)
+	html = html.replace(inlineLatexPattern, (_, math) => {
+		return katex.renderToString(math, { throwOnError: false });
+	});
+
+	// If LaTeX was found, render the content again with marked
+	if (hasBlockLatex || hasInlineLatex) {
+		html = marked(html);
+	}
+
+	return html;
+}
+
 marked.use({ renderer });
 
 function addCodeHeaderComponents(htmlString) {
@@ -201,7 +304,8 @@ export default {
 	name: 'ChatMessage',
 
 	components: {
-		AttachmentList
+		AttachmentList,
+		AnalysisModal,
 	},
 
 	props: {
@@ -216,7 +320,20 @@ export default {
 		},
 	},
 
-	emits: ['rate'],
+	setup() {
+		const isAnalysisModalVisible = ref(false);
+
+		function showAnalysisModal() {
+			isAnalysisModalVisible.value = true;
+		}
+
+		return {
+			isAnalysisModalVisible,
+			showAnalysisModal,
+		};
+	},
+
+	emits: ['rate', 'refresh'],
 
 	data() {
 		return {
@@ -226,12 +343,17 @@ export default {
 			currentWordIndex: 0,
 			primaryButtonBg: this.$appConfigStore.primaryButtonBg,
 			primaryButtonText: this.$appConfigStore.primaryButtonText,
+			messageContent: this.message.content
+				? JSON.parse(JSON.stringify(this.message.content))
+				: null,
 		};
 	},
 
 	computed: {
 		compiledMarkdown() {
-			return DOMPurify.sanitize(marked(this.message.text ?? ''));
+			let htmlContent = processLatex(this.message.text ?? '');
+			htmlContent = marked(htmlContent);
+			return DOMPurify.sanitize(htmlContent);
 		},
 
 		compiledMarkdownComponent() {
@@ -252,13 +374,18 @@ export default {
 		}
 	},
 
+	mounted() {
+		this.fetchContentFiles();
+	},
+
 	methods: {
 		renderMarkdownComponent(contentValue: string) {
-      		const sanitizedContent = DOMPurify.sanitize(marked(contentValue));
+			let htmlContent = processLatex(contentValue ?? '');
+			htmlContent = DOMPurify.sanitize(marked(htmlContent));
 			return {
-				template: `<div>${sanitizedContent}</div>`,
+				template: `<div>${htmlContent}</div>`,
 				components: {
-				CodeBlockHeader,
+					CodeBlockHeader,
 				},
 			};
 		},
@@ -315,6 +442,34 @@ export default {
 			const prompt = await api.getPrompt(this.message.sessionId, this.message.completionPromptId);
 			this.prompt = prompt;
 			this.viewPrompt = true;
+		},
+
+		// Add this method to fetch content files securely
+		async fetchContentFiles() {
+			if (!this.messageContent || this.messageContent.length === 0) return;
+
+			const fetchPromises = this.messageContent.map(async (content) => {
+				if (['image_file', 'html', 'file_path'].includes(content.type)) {
+					content.loading = true;
+					content.error = false;
+					try {
+						const response = await api.fetchDirect(content.value);
+						if (content.type === 'html') {
+							const blob = new Blob([response], { type: 'text/html' });
+							content.blobUrl = URL.createObjectURL(blob);
+						} else {
+							content.blobUrl = URL.createObjectURL(response);
+						}
+						content.fileName = content.fileName?.split('/').pop();
+					} catch (error) {
+						console.error(`Failed to fetch content from ${content.value}`, error);
+						content.error = true;
+					}
+					content.loading = false;
+				}
+			});
+
+			await Promise.all(fetchPromises);
 		},
 	},
 };
@@ -466,21 +621,68 @@ export default {
 }
 
 .message-content {
-  margin-top: 5px;
-  margin-bottom: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
 }
 
 iframe {
-  width: 100%;
-  height: 600px;
-  border-radius: 8px;
+	width: 100%;
+	height: 600px;
+	border-radius: 8px;
 }
+
+.loading-content-container {
+	display: flex;
+	align-items: center;
+
+	.loading-content-icon {
+		margin-right: 8px;
+		vertical-align: middle;
+		line-height: 1;
+	}
+
+	.loading-content-text {
+		font-size: 0.75rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+}
+
+.loading-content-error {
+	display: flex;
+	align-items: center;
+	width: 200px;
+	padding: 8px 12px;
+	border-radius: 0.75rem;
+	border-color: rgb(182, 2, 2);
+	color: rgb(182, 2, 2);
+	box-shadow: 0 1px 3px rgba(182, 2, 2, 0.664);
+
+	.loading-content-error-icon {
+		margin-right: 8px;
+		vertical-align: middle;
+		line-height: 1;
+	}
+
+	.loading-content-error-text {
+		font-size: 0.85rem;
+		font-style: italic;
+		line-height: 1.5;
+	}
+}
+
+.attachment-icon {
+        width: 24px;
+        margin-right: 4px;
+        vertical-align: middle;
+        line-height: 1;
+    }
 </style>
 
 <style lang="scss">

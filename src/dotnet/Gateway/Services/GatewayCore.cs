@@ -1,4 +1,4 @@
-﻿using Azure.AI.OpenAI.Assistants;
+﻿using Azure.AI.OpenAI;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.OpenAI;
@@ -6,6 +6,7 @@ using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Azure;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Gateway.Exceptions;
@@ -15,9 +16,12 @@ using FoundationaLLM.Gateway.Models.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OpenAI.Assistants;
+using OpenAI.Files;
 using System.Collections.Concurrent;
 using System.Text.Json;
-using FoundationaLLM.Common.Models.ResourceProviders;
+
+#pragma warning disable OPENAI001
 
 namespace FoundationaLLM.Gateway.Services
 {
@@ -226,10 +230,12 @@ namespace FoundationaLLM.Gateway.Services
                     StringComparison.OrdinalIgnoreCase) == 0)
                 ?? throw new GatewayException($"The Gateway service is not configured to use the {endpoint} endpoint.");
 
-            var assistantsClient = new AssistantsClient(new Uri(azureOpenAIAccount.Endpoint), DefaultAuthentication.AzureCredential);
+            var azureOpenAIClient = new AzureOpenAIClient(new Uri(azureOpenAIAccount.Endpoint), DefaultAuthentication.AzureCredential);
 
             if (createAssistant)
             {
+                var assistantClient = azureOpenAIClient.GetAssistantClient();
+
                 var prompt = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AssistantPrompt);
                 var modelDeploymentName = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.ModelDeploymentName);
                 var azureOpenAIModel = azureOpenAIAccount.Deployments.FirstOrDefault(
@@ -239,13 +245,14 @@ namespace FoundationaLLM.Gateway.Services
                         true) == 0)
                     ?? throw new GatewayException($"The Gateway service cannot find the {modelDeploymentName} model deployment in the account with endpoint {endpoint}.");
 
-                var response = await assistantsClient.CreateAssistantAsync(new AssistantCreationOptions(modelDeploymentName)
+                var response = await assistantClient.CreateAssistantAsync(modelDeploymentName, new AssistantCreationOptions()
                 {
                     Name = capabilityName,
                     Instructions = prompt,
                     Tools =
                     {
-                        new CodeInterpreterToolDefinition()
+                        new CodeInterpreterToolDefinition(),
+                        new FileSearchToolDefinition()
                     }
                 });
 
@@ -255,19 +262,24 @@ namespace FoundationaLLM.Gateway.Services
 
             if (createAssistantThread)
             {
-                var response = await assistantsClient.CreateThreadAsync();
+                var assistantClient = azureOpenAIClient.GetAssistantClient();
+
+                var response = await assistantClient.CreateThreadAsync();
                 var thread = response.Value;
                 result[OpenAIAgentCapabilityParameterNames.AssistantThreadId] = thread.Id;
             }
 
             if (createAssistantFile)
             {
+                var fileClient = azureOpenAIClient.GetFileClient();
+
                 var attachmentObjectId = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AttachmentObjectId);
                 var attachmentFile = await _attachmentResourceProvider.GetResource<AttachmentFile>(attachmentObjectId, userIdentity, new ResourceProviderOptions { LoadContent = true });
 
-                var response = await assistantsClient.UploadFileAsync(
-                    attachmentFile.Content,
-                    OpenAIFilePurpose.Assistants);
+                var response = await fileClient.UploadFileAsync(
+                    new MemoryStream(attachmentFile.Content!),
+                    attachmentFile.OriginalFileName,
+                    FileUploadPurpose.Assistants);
                 var file = response.Value;
                 result[OpenAIAgentCapabilityParameterNames.AssistantFileId] = file.Id;
             }

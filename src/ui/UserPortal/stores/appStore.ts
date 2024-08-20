@@ -8,7 +8,10 @@ import type {
 	Agent,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
-	Attachment
+	ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults,
+	Attachment,
+	MessageContent
 } from '@/js/types';
 import api from '@/js/api';
 import eventBus from '@/js/eventBus';
@@ -49,10 +52,10 @@ export const useAppStore = defineStore('app', {
 				await this.changeSession(existingSession || this.sessions[0]);
 			}
 
-			if (this.currentSession) {
-				await this.getMessages();
-				this.updateSessionAgentFromMessages(this.currentSession);
-			}
+			// if (this.currentSession) {
+			// 	await this.getMessages();
+			// 	this.updateSessionAgentFromMessages(this.currentSession);
+			// }
 		},
 
 		getDefaultChatSessionProperties(): ChatSessionProperties {
@@ -148,9 +151,22 @@ export const useAppStore = defineStore('app', {
 			);
 		},
 
+		initializeMessageContent(content: MessageContent) {
+			return reactive({
+			  ...content,
+			  blobUrl: '',
+			  loading: true,
+			  error: false
+			});
+		  },
+
 		async getMessages() {
 			const data = await api.getMessages(this.currentSession.id);
-			this.currentMessages = data;
+			this.currentMessages = data.map(message => ({
+				...message,
+				content: message.content ? message.content.map(this.initializeMessageContent) : [],
+			}));
+			await nextTick();
 		},
 
 		updateSessionAgentFromMessages(session: Session) {
@@ -201,6 +217,12 @@ export const useAppStore = defineStore('app', {
 				(attachment) => attachment.sessionId === sessionId,
 			);
 
+			const attachmentDetails = relevantAttachments.map((attachment) => ({
+				objectId: attachment.id,
+				displayName: attachment.fileName,
+				contentType: attachment.contentType,
+			}));
+
 			const authStore = useAuthStore();
 			const tempUserMessage: Message = {
 				completionPromptId: null,
@@ -214,6 +236,7 @@ export const useAppStore = defineStore('app', {
 				tokens: 0,
 				type: 'Message',
 				vector: [],
+				attachmentDetails: attachmentDetails,
 			};
 			this.currentMessages.push(tempUserMessage);
 
@@ -318,16 +341,17 @@ export const useAppStore = defineStore('app', {
 			return this.agents;
 		},
 
-		async uploadAttachment(file: FormData, sessionId: string) {
+		async uploadAttachment(file: FormData, sessionId: string, progressCallback: Function) {
 			const agent = this.getSessionAgent(this.currentSession!).resource;
 			// If the agent is not found, do not upload the attachment and display an error message.
 			if (!agent) {
 				throw new Error('No agent selected.');
 			}
 
-			const upsertResult = await api.uploadAttachment(file, agent.name) as ResourceProviderUpsertResult;
+			const upsertResult = await api.uploadAttachment(file, agent.name, progressCallback) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
-			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId };
+			const contentType = file.get('file')?.type;
+			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId, contentType };
 
 			this.attachments.push(newAttachment);
 
@@ -335,8 +359,16 @@ export const useAppStore = defineStore('app', {
 		},
 
 		async deleteAttachment(attachment: Attachment) {
-			//await api.deleteAttachment(attachment.id);
-			this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
-		}
+			const deleteResults: ResourceProviderDeleteResults = await api.deleteAttachments([attachment.id]);
+			Object.entries(deleteResults).forEach(([key, value]) => {
+				if (key === attachment.id) {
+					if (value.deleted) {
+						this.attachments = this.attachments.filter((a) => a.id !== attachment.id);
+					} else {
+						throw new Error(`Could not delete the attachment: ${value.reason}`);
+					}
+				}
+			});
+		},
 	},
 });

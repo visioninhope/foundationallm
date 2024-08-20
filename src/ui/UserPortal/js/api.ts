@@ -7,6 +7,8 @@ import type {
 	CompletionRequest,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
+	ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults
 } from '@/js/types';
 
 export default {
@@ -57,18 +59,19 @@ export default {
 	 * @returns A promise that resolves to the fetched data.
 	 */
 	async fetch(url: string, opts: any = {}) {
+		const response = await this.fetchDirect(`${this.apiUrl}${url}`, opts);
+		return response;
+	},
+
+	async fetchDirect(url: string, opts: any = {}) {
 		const options = opts;
 		options.headers = opts.headers || {};
-
-		// if (options?.query) {
-		// 	url += '?' + (new URLSearchParams(options.query)).toString();
-		// }
 
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
 
 		try {
-			const response = await $fetch(`${this.apiUrl}${url}`, options);
+			const response = await $fetch(url, options);
 			if (response.status >= 400) {
 				throw response;
 			}
@@ -283,14 +286,50 @@ export default {
 	 * @param file The file formData to upload.
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
-	async uploadAttachment(file: FormData, agentName: string) {
-		const response: ResourceProviderUpsertResult = await this.fetch(`/instances/${this.instanceId}/files?agentName=${agentName}`, {
-			method: 'POST',
-			body: file,
+	async uploadAttachment(file: FormData, agentName: string, progressCallback: Function) {
+		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+
+			xhr.upload.onprogress = function (event) {
+				if (progressCallback) {
+					progressCallback(event);
+				}
+			};
+
+			xhr.onload = () => {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve(JSON.parse(xhr.response));
+				} else {
+					reject(xhr.statusText);
+				}
+			};
+
+			xhr.onerror = (error) => {
+				reject('Error during file upload.');
+			};
+
+			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?agentName=${agentName}`, true);
+
+			const bearerToken = await this.getBearerToken();
+			xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);
+
+			xhr.send(file);
 		}) as ResourceProviderUpsertResult;
 
 		return response;
 	},
+
+	/**
+	 * Deletes attachments from the server.
+	 * @param attachments - An array of attachment names to be deleted.
+	 * @returns A promise that resolves to the delete results.
+	 */
+	async deleteAttachments(attachments: string[]) {
+		return await this.fetch(`/instances/${this.instanceId}/files/delete`, {
+			method: 'POST',
+			body: JSON.stringify(attachments),
+		}) as ResourceProviderDeleteResults;
+	}
 };
 
 function formatError(error: any): string {

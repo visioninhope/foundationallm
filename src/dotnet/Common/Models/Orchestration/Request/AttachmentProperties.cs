@@ -25,7 +25,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Request
         /// <remarks>
         /// The following file providers are supported:
         /// <list type="bullet">
-        /// <item>FoundationaLLM.Attachments</item>
+        /// <item>FoundationaLLM.Attachment</item>
         /// <item>FoundationaLLM.AzureOpenAI</item>
         /// </list>
         /// </remarks>
@@ -37,7 +37,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Request
         /// </summary>
         /// <remarks>
         /// <para>
-        /// In the case of the FoundationaLLM.Attachments provider, this is the full path of the file in the storage account.
+        /// In the case of the FoundationaLLM.Attachment provider, this is the full path of the file in the storage account.
         /// </para>
         /// <para>
         /// In the case of the FoundationaLLM.AzureOpenAI provider, this is the OpenAI file ID.
@@ -47,7 +47,7 @@ namespace FoundationaLLM.Common.Models.Orchestration.Request
         public required string ProviderFileName { get; set; }
 
         /// <summary>
-        /// The name of thestorage account that is used by the provider.
+        /// The name of the storage account that is used by the provider.
         /// </summary>
         [JsonPropertyName("provider_storage_account_name")]
         public string? ProviderStorageAccountName { get; set; }
