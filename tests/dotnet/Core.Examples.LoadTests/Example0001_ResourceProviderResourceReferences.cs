@@ -131,11 +131,24 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                  .ToAsyncEnumerable()
                  .SelectAwait(async x => await attachmentResourceProvider.GetResource<AttachmentFile>(x, userIdentity!));
 
-            var fileUserContext = await azureOpenAIResourceProvider.GetResource<FileUserContext>(
-                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/"
-                + $"{userIdentity!.UPN?.NormalizeUserPrincipalName() ?? userIdentity!.UserId}-file-{instanceId.ToLower()}",
-             userIdentity!);
+            var fileUserContextObjectId = $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/"
+                + $"{userIdentity!.UPN?.NormalizeUserPrincipalName() ?? userIdentity!.UserId}-file-{instanceId.ToLower()}";
 
+            var fileUserContext = await azureOpenAIResourceProvider.GetResource<FileUserContext>(
+                fileUserContextObjectId,
+                userIdentity!);
+
+            // TODO: update fileUserContext.Files
+            //var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
+            //foreach (var fileMapping in newFileMappings)
+            //{
+            //    fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
+            //}
+
+            _ = await azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
+                fileUserContextObjectId,
+                fileUserContext,
+                userIdentity!);
         }
 
         private async Task<(string, List<string>)> SimulateAttachmentFileUploadAndFileUserContextCreation(
