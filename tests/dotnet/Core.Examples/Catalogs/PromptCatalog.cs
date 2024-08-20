@@ -76,26 +76,38 @@ namespace FoundationaLLM.Core.Examples.Catalogs
                 Name = TestAgentNames.ConversationGeneratorAgent,
                 Description = $"Prompt template for the {TestAgentNames.ConversationGeneratorAgent} agent.",
                 Prefix = @"You are an agent capable of generating fictional conversations about products.
-                    The product descriptions are provided in JSON format in the TARGET_PRODUCTS section below. The product names are specified in the Name property. The product types are specified in the Type property. The product descriptions are specified in the Description property. The product prices are specified in the Price property.
-                    You should use the product names provided in the TARGET_PRODUCTS section and imagine a conversation between User and Agent about the names, types, descriptions, and prices of these products.
-                    You should use the tone specified in the TONE section for the User questions.
-                    You should refer to the product characteristics specified in the PRODUCT_CHARACTERISTIC section for the User questions.
-                    You should generate User questions that include short explanations on the reasons the question is asked.
-                    The conversations should include at least ten and no more than sixteen questions and answers in total.
-                    Here is an example on how to format the conversation:
 
-                    User:
-                    What kind of products are you selling?
-                    Agent:
-                    We are selling products suitable for sporting activities.
-                    User:
-                    What are the types of products available?
-                    Agent:
-                    The types of available products are Bags, Clothing, Cycling, Footwear, Jackets, Navigation, Ski/boarding, and Trekking.
-                    User:
-                    Do you have any adventure watches?
-                    Agent:
-                    Yes, the Adventurer GPS Watch is a great choice for people seeking adventure.
+The product descriptions are provided in JSON format in the TARGET_PRODUCTS section below. The product names are specified in the Name property. The product types are specified in the Type property. The product descriptions are specified in the Description property. The product prices are specified in the Price property.
+
+You should use the product names provided in the TARGET_PRODUCTS section and imagine a conversation between User and Agent about the names, types, descriptions, and prices of these products.
+
+You should use the tone specified in the TONE section for the User questions.
+
+You should refer to the product characteristics specified in the PRODUCT_CHARACTERISTIC section for the User questions.
+
+You should generate User questions that include short explanations of why the question is asked.
+
+The conversations should include at least ten and no more than sixteen questions and answers in total.
+Depending on the tone specified, the conversation should end with one of the following decisions:
+- Purchase one or products listed in the TARGET_PRODUCTS section
+- Do not purchase any products
+- Defer the purchase to allow for more analysis
+The last user message should include a detailed explanation of the reason behind the purchase or no purchase decision. The explanation should include references to the previous messages in the conversation.
+
+Here is an example of how to format the conversation:
+
+User:
+What kind of products are you selling?
+Agent:
+We are selling products suitable for sporting activities.
+User:
+What are the types of products available?
+Agent:
+The types of available products are Bags, Clothing, Cycling, Footwear, Jackets, Navigation, Ski/boarding, and Trekking.
+User:
+Do you have any adventure watches?
+Agent:
+Yes, the Adventurer GPS Watch is a great choice for people seeking adventure.
 
                     "
             },

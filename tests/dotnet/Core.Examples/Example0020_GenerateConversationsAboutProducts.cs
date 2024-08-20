@@ -25,7 +25,7 @@ namespace FoundationaLLM.Core.Examples
 
         private record Conversation
         {
-            public required int Id { get; set; }
+            public required int ConversationId { get; set; }
             public required string Tone { get; set; }
             public required string ProductCharacteristic { get; set; }
             public required List<Product> TargetProducts { get; set; }
@@ -44,20 +44,20 @@ namespace FoundationaLLM.Core.Examples
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
         private readonly List<string> _questionTones = [
             "neutral",
-            "optimistic",
+            //"optimistic",
             "enthusiastic",
             "pessimistic",
-            "obstructionist",
-            "concise",
-            "verbose"
+            //"obstructionist",
+            //"concise",
+            //"verbose"
         ];
         private readonly List<string> __questionProductCharacteristics = [
-            "price",
-            "brand",
-            "type",
-            "description",
+            "design",
+            "usability",
             "color",
-            "usability"
+            "size",
+            "price",
+            "brand"
         ];
         private readonly object _syncRoot = new object();
         private readonly List<Conversation> _conversations = [];
@@ -86,7 +86,7 @@ namespace FoundationaLLM.Core.Examples
                 .Select(i => GetConversationStarter(i + 1))
                 .ToList();
 
-            var conversationStaterBuckets = conversationStarters.GroupBy(x => x.Conversation.Id % _settings.ConversationCount);
+            var conversationStaterBuckets = conversationStarters.GroupBy(x => x.Conversation.ConversationId % _settings.ConversationCount);
 
             await Task.WhenAll(conversationStaterBuckets
                 .Select(csb => Task.Run(() => CreateConversation(agentName, [.. csb]))).ToArray());
@@ -107,7 +107,7 @@ namespace FoundationaLLM.Core.Examples
 
             var conversation = new Conversation
             {
-                Id = id,
+                ConversationId = id,
                 Tone = _questionTones[Random.Shared.Next(_questionTones.Count)],
                 ProductCharacteristic = __questionProductCharacteristics[Random.Shared.Next(__questionProductCharacteristics.Count)],
                 TargetProducts = selectedProducts,
@@ -134,7 +134,7 @@ namespace FoundationaLLM.Core.Examples
                 try
                 {
                     var conversation = conversationStarter.Conversation;
-                    WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.Id}...");
+                    WriteLine($"Asking the agent {agentName} agent to create conversation # {conversation.ConversationId}...");
 
                     var startTime = DateTimeOffset.UtcNow;
 
@@ -144,7 +144,7 @@ namespace FoundationaLLM.Core.Examples
                     conversation.Messages = ParseConversation(response.Text!);
                     foreach (var message in conversation.Messages)
                         Assert.True(message.Answer != TestResponseMessages.FailedCompletionResponse, $"An invalid agent response was found.");
-                    WriteLine($"Conversation # {conversation.Id} was created successfully.");
+                    WriteLine($"Conversation # {conversation.ConversationId} was created successfully.");
                     conversation.TimeToGenerate = (DateTimeOffset.UtcNow - startTime).TotalSeconds;
 
                     SaveConversation(conversation);
@@ -211,7 +211,7 @@ namespace FoundationaLLM.Core.Examples
                 if (!string.IsNullOrWhiteSpace(_settings.ResultFolderPath))
                     File.WriteAllText(
                         $"{_settings.ResultFolderPath}//synthetic-conversations.json",
-                        JsonSerializer.Serialize(_conversations.OrderBy(x => x.Id).ToList(), _jsonSerializerOptions));
+                        JsonSerializer.Serialize(_conversations.OrderBy(x => x.ConversationId).ToList(), _jsonSerializerOptions));
             }
         }
     }
