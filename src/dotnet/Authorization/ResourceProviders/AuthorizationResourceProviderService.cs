@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
-using FoundationaLLM.Authorization.Models;
-using FoundationaLLM.Common.Constants.Authorization;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Authorization;
 using FoundationaLLM.Common.Models.Configuration.Instance;
@@ -31,7 +29,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<ResourceReference>(
             instanceOptions.Value,
             authorizationService,
             null,
@@ -51,7 +49,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
         protected override async Task InitializeInternal() =>
             await Task.CompletedTask;
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -162,7 +160,7 @@ namespace FoundationaLLM.Authorization.ResourceProviders
             {
                 AuthorizationResourceTypeNames.RoleAssignments => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AuthorizationResourceProviderActions.Filter => await FilterRoleAssignments(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
+                    ResourceProviderActions.Filter => await FilterRoleAssignments(resourcePath.ResourceTypeInstances[0], serializedAction, userIdentity),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },

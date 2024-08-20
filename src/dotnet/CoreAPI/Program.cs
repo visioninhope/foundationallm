@@ -8,12 +8,12 @@ using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Options;
@@ -55,12 +55,16 @@ namespace FoundationaLLM.Core.API
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_Entra);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration);
+
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_OrchestrationAPI_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AuthorizationAPI_Essentials);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_GatewayAPI_Essentials);
+
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Agent_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Attachment_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_AIModel_Storage);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_AzureOpenAI_Storage);
 
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Essentials);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration);
@@ -86,7 +90,9 @@ namespace FoundationaLLM.Core.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_CoreAPI_Configuration));
 
             // Add Azure ARM services
-            builder.Services.AddAzureResourceManager();
+            builder.AddAzureResourceManager();
+
+            builder.Services.AddHttpContextAccessor();
 
             // Add event services
             builder.Services.AddAzureEventGridEvents(
@@ -98,6 +104,8 @@ namespace FoundationaLLM.Core.API
             builder.AddAgentResourceProvider();
             builder.AddAttachmentResourceProvider();
             builder.AddConfigurationResourceProvider();
+            builder.AddAzureOpenAIResourceProvider();
+            builder.AddAIModelResourceProvider();
 
             // Register the downstream services and HTTP clients.
             builder.AddHttpClientFactoryService();
@@ -241,6 +249,12 @@ namespace FoundationaLLM.Core.API
             app.UseExceptionHandler(exceptionHandlerApp
                     => exceptionHandlerApp.Run(async context
                         => await Results.Problem().ExecuteAsync(context)));
+
+            var forwardedHeadersOptions = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            };
+            app.UseForwardedHeaders(forwardedHeadersOptions);
 
             // Configure the HTTP request pipeline.
             app.UseSwagger();

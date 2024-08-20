@@ -21,6 +21,11 @@ export interface Citation {
 	filepath: string;
 }
 
+export interface ResourceProviderUpsertResult {
+	objectId: string;
+	resourceExists: boolean;
+}
+
 export interface Message {
 	id: string;
 	type: string;
@@ -34,6 +39,32 @@ export interface Message {
 	vector: Array<Number>;
 	completionPromptId: string | null;
 	citations: Array<Citation>;
+	content: Array<MessageContent>;
+	attachments: Array<string>;
+	attachmentDetails: Array<AttachmentDetail>;
+	analysisResults: Array<AnalysisResult>;
+}
+
+export interface MessageContent {
+	type: string;
+	fileName: string;
+	value: string;
+	blobUrl?: string;
+	loading?: boolean;
+	error?: boolean;
+}
+
+export interface AttachmentDetail {
+	objectId: string;
+	displayName: string;
+	contentType: string;
+}
+
+export interface AnalysisResult {
+    tool_input: string;
+    tool_output: string;
+    agent_capability_category: string;
+    tool_name: string;
 }
 
 export interface Session {
@@ -43,6 +74,10 @@ export interface Session {
 	tokensUsed: Number;
 	name: string;
 	messages: Array<Message>;
+}
+
+export interface ChatSessionProperties {
+	name: string;
 }
 
 export interface CompletionPrompt {
@@ -79,4 +114,14 @@ export interface Attachment {
 	id: string;
 	fileName: string;
 	sessionId: string;
+	contentType: string;
+}
+
+export interface ResourceProviderDeleteResult {
+    deleted: boolean;
+  	reason?: string;
+}
+
+export interface ResourceProviderDeleteResults {
+	[key: string]: ResourceProviderDeleteResult;
 }

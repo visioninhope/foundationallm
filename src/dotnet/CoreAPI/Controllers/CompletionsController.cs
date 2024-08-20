@@ -3,6 +3,8 @@ using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
 using FoundationaLLM.Core.Interfaces;
@@ -24,9 +26,8 @@ namespace FoundationaLLM.Core.API.Controllers
     {
         private readonly ICoreService _coreService;
         private readonly IResourceProviderService _agentResourceProvider;
-#pragma warning disable IDE0052 // Remove unread private members.
         private readonly ILogger<CompletionsController> _logger;
-        ICallContext _callContext;
+        private readonly ICallContext _callContext;
 
         /// <summary>
         /// Methods for orchestration services exposed by the Gatekeeper API service.

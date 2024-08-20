@@ -44,7 +44,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILoggerFactory loggerFactory)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<AgentReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
@@ -95,7 +95,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -188,13 +188,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
                 }
             }
 
-            var agentName = "legacy";
-            if (agentReference!= null)
-            {
-                agentName = agentReference.Name;
-            }
-            throw new ResourceProviderException($"Could not locate the {agentName} agent resource.",
-                StatusCodes.Status404NotFound);
+            throw new ResourceProviderException($"The {_name} resource provider could not locate a resource because of invalid resource identification parameters.",
+                StatusCodes.Status400BadRequest);
         }
 
         #endregion
@@ -237,7 +232,7 @@ namespace FoundationaLLM.Agent.ResourceProviders
 
             if ((agent is KnowledgeManagementAgent {Vectorization.DedicatedPipeline: true, InlineContext: false} kmAgent))
             {
-                var result = await GetResourceProviderService(ResourceProviderNames.FoundationaLLM_Vectorization)
+                var result = await GetResourceProviderServiceByName(ResourceProviderNames.FoundationaLLM_Vectorization)
                     .HandlePostAsync(
                         $"/{VectorizationResourceTypeNames.VectorizationPipelines}/{kmAgent.Name}",
                         JsonSerializer.Serialize<VectorizationPipeline>(new VectorizationPipeline
@@ -311,8 +306,8 @@ namespace FoundationaLLM.Agent.ResourceProviders
             {
                 AgentResourceTypeNames.Agents => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    AgentResourceProviderActions.CheckName => CheckAgentName(serializedAction),
-                    AgentResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckAgentName(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },

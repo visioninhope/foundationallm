@@ -5,6 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from foundationallm.langchain.agents import LangChainAgentBase
 from foundationallm.langchain.exceptions import LangChainException
 from foundationallm.langchain.retrievers import RetrieverFactory, CitationRetrievalBase
+from foundationallm.models.constants import AgentCapabilityCategories
 from foundationallm.models.orchestration import (
     CompletionResponse
 )
@@ -16,95 +17,23 @@ from foundationallm.models.agents import (
     KnowledgeManagementCompletionRequest,
     KnowledgeManagementIndexConfiguration
 )
+from foundationallm.models.attachments import AttachmentProviders
 from foundationallm.models.authentication import AuthenticationTypes
 from foundationallm.models.language_models import LanguageModelProvider
+from foundationallm.models.orchestration.openai_text_message_content_item import OpenAITextMessageContentItem
+from foundationallm.models.orchestration.operation_types import OperationTypes
 from foundationallm.models.resource_providers.vectorization import (
     AzureAISearchIndexingProfile,
     AzureOpenAIEmbeddingProfile
 )
-from msclap import CLAP
-import requests
-from typing import List, Optional
-from foundationallm.storage import BlobStorageManager
-import uuid
-import os
-from pathlib import Path
+from foundationallm.models.services import OpenAIAssistantsAPIRequest
+from foundationallm.services import ImageAnalysisService, OpenAIAssistantsApiService
+from openai.types import CompletionUsage
 
 class LangChainKnowledgeManagementAgent(LangChainAgentBase):
     """
     The LangChain Knowledge Management agent.
-    """            
-    def get_prediction_from_audio_file(self, attachments: Optional[List[str]] = None) -> str:
-        """Generates embeddings from an audio file. Expects a file path as input. Outputs JSON containing the response from a REST API."""
-        if attachments is None:
-            return None
-
-        if len(attachments) == 0:
-            return None
-        
-        file = attachments[0].lstrip('/')
-        container_name = file.split('/')[0]
-        blob_path = file.replace(container_name, '').lstrip('/')
-        
-        # Load and initialize CLAP
-        clap_model = CLAP(version = '2023', use_cuda=True)
-        
-        try:
-            storage_manager = BlobStorageManager(
-                account_name=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AccountName'),
-                container_name=file.split('/')[0],
-                authentication_type=self.config.get_value('FoundationaLLM:ResourceProviders:Attachment:Storage:AuthenticationType')
-            )
-        except Exception as e:
-            raise e
-
-        try:
-            # Load the file from storage.
-            if (storage_manager.file_exists(blob_path) == False):
-                raise FileNotFoundError(f'The file {blob_path} was not found in blob storage.')
-            blob = storage_manager.read_file_content(blob_path)
-        except Exception as e:
-            raise e
-
-        output_dir = "/classify_tmp/audio_data"
-        Path(output_dir).mkdir(parents=True, exist_ok=True)
-        
-        local_file_path = output_dir + str(uuid.uuid4()) + ".wav"
-        try:
-            # Save the file locally, so it can be reference by CLAP
-            with open(local_file_path, "wb") as local_file:
-                local_file.write(bytearray(blob))
-        except Exception as e:
-            raise e
-
-        file_paths = [local_file_path]
-        
-        audio_embeddings = clap_model.get_audio_embeddings(file_paths, resample=True)
-        data = audio_embeddings.numpy().tolist()
-
-        base_url = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:APIUrl').rstrip('/')
-        endpoint = self.config.get_value('FoundationaLLM:APIEndpoints:AudioClassificationAPI:Classification:PredictionEndpoint')
-        api_endpoint = f'{base_url}{endpoint}'
-
-        # Create the embeddings payload.
-        payload = {"embeddings": data}
-        # TODO: Need to add in correct headers, including any auth headers.
-        headers = {"charset": "utf-8", "Content-Type": "application/json"}
-        # Make the REST API call.
-        r = requests.post(api_endpoint, json=payload, headers=headers)
-        # Check the response status code.
-        if r.status_code != 200:
-            raise Exception(f'Error: ({r.status_code}) {r.text}')
-        # Return the JSON response.
-        response = r.json()
-
-        # Clean up the local file
-        try:
-            os.remove(local_file_path)
-        except Exception as e:
-            raise e
-
-        return response['label']
+    """
 
     def _get_document_retriever(
         self,
@@ -114,7 +43,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         Get the vector document retriever, if it exists.
         """
         retriever = None
-        
+
         if agent.vectorization is not None and not agent.inline_context:
             text_embedding_profile = AzureOpenAIEmbeddingProfile.from_object(
                 request.objects[agent.vectorization.text_embedding_profile_object_id]
@@ -179,18 +108,15 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 request.message_history,
                 conversation_history.max_history)
 
-        classification_prediction = self.get_prediction_from_audio_file(request.attachments)
-        if classification_prediction is not None:
-            prompt_builder += f"\n\CONTEXT: {classification_prediction}"
-        else:
-            # Insert the context into the template.
-            prompt_builder += '{context}'
+        # Insert the context into the template.
+        prompt_builder += '{context}'
 
         # Add the suffix, if it exists.
         if self.prompt.suffix is not None:
             prompt_builder += f'\n\n{self.prompt.suffix}'
- 
-        if self.has_retriever:
+
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if self.has_retriever or len(image_attachments) > 0:
             # Insert the user prompt into the template.
             prompt_builder += "\n\nQuestion: {question}"
 
@@ -240,7 +166,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             raise LangChainException("The AI model object provided in the request's objects dictionary is invalid because it is missing a deployment_name value.", 400)
         if self.ai_model.model_parameters is None:
             raise LangChainException("The AI model object provided in the request's objects dictionary is invalid because the model_parameters value is None.", 400)
-        
+
         self.api_endpoint = self._get_api_endpoint_from_object_id(self.ai_model.endpoint_object_id, request.objects)
         if self.api_endpoint.provider is None or self.api_endpoint.provider == '':
             raise LangChainException("The API endpoint object provided in the request's objects dictionary is invalid because it is missing a provider value.", 400)
@@ -268,7 +194,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self.prompt = self._get_prompt_from_object_id(request.agent.prompt_object_id, request.objects)
         if self.prompt.prefix is None or self.prompt.prefix == '':
             raise LangChainException("The Prompt object provided in the request's objects dictionary is invalid because it is missing a prefix value.", 400)
- 
+
         if request.agent.vectorization is not None and not request.agent.inline_context:
             if request.agent.vectorization.text_embedding_profile_object_id is None or request.agent.vectorization.text_embedding_profile_object_id == '':
                 raise LangChainException("The TextEmbeddingProfileObjectId property of the agent's Vectorization property cannot be null or empty.", 400)
@@ -284,12 +210,22 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 self.has_indexing_profiles = True
 
+
+        # if the OpenAI.Assistants capability is present, validate the following required fields:
+        #   AssistantId, AssistantThreadId
+
+        if "OpenAI.Assistants" in request.agent.capabilities:
+            required_fields = ["OpenAI.AssistantId", "OpenAI.AssistantThreadId"]
+            for field in required_fields:
+                if not request.objects.get(field):
+                    raise LangChainException(f"The {field} property is required when the OpenAI.Assistants capability is present.", 400)
+
         self._validate_conversation_history(request.agent.conversation_history_settings)
 
     def invoke(self, request: KnowledgeManagementCompletionRequest) -> CompletionResponse:
         """
         Executes a synchronous completion request.
-        If a vector index exists, it will be queryied with the user prompt.
+        If a vector index exists, it will be queried with the user prompt.
 
         Parameters
         ----------
@@ -305,7 +241,63 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
         self._validate_request(request)
 
         agent = request.agent
-        
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
+
+        image_analysis_results = None
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if len(image_attachments) > 0:
+            image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=False)
+            image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results, usage = image_analysis_svc.analyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
+
+        # Check for Assistants API capability
+        if "OpenAI.Assistants" in agent.capabilities:
+            operation_type_override = OperationTypes.ASSISTANTS_API
+            # create the service
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=False))
+
+            # populate service request object
+            assistant_req = OpenAIAssistantsAPIRequest(
+                assistant_id=request.objects["OpenAI.AssistantId"],
+                thread_id=request.objects["OpenAI.AssistantThreadId"],
+                attachments=[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.FOUNDATIONALLM_AZURE_OPENAI],
+                user_prompt=request.user_prompt
+            )
+
+            # Add user and assistant messages related to image analysis to the Assistants API request.
+            if image_analysis_results is not None:
+                # Add user message
+                assistant_svc.add_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "user",
+                    content = "Analyze any attached images.",
+                    attachments = []
+                )
+                # Add assistant message
+                assistant_svc.add_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "assistant",
+                    content = image_analysis_svc.format_results(image_analysis_results),
+                    attachments = []
+                )
+            # invoke/run the service
+            assistant_response = assistant_svc.run(assistant_req)
+
+            # create the CompletionResponse object
+            return CompletionResponse(
+                operation_id = request.operation_id,
+                full_prompt = self.prompt.prefix,
+                content = assistant_response.content,
+                analysis_results = assistant_response.analysis_results,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
+                user_prompt = request.user_prompt
+                )
+
         with get_openai_callback() as cb:
             try:
                 # Get the vector document retriever, if it exists.
@@ -320,6 +312,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
+                elif image_analysis_results is not None:
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -331,21 +325,26 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | self._get_language_model()
                     | StrOutputParser()
                 )
-                
+
                 completion = chain.invoke(request.user_prompt)
+                response_content = OpenAITextMessageContentItem(
+                    value = completion,
+                    agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
+                )
+
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
 
                 return CompletionResponse(
                     operation_id = request.operation_id,
-                    completion = completion,
+                    content = [response_content],
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:
@@ -368,9 +367,67 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
             generated full prompt with context and token utilization and execution cost details.
         """
         self._validate_request(request)
-        
+
         agent = request.agent
-                
+        image_analysis_token_usage = CompletionUsage(prompt_tokens=0, completion_tokens=0, total_tokens=0)
+
+        image_analysis_results = None
+        # Get image attachments that are images with URL file paths.
+        image_attachments = [attachment for attachment in request.attachments if (attachment.provider == AttachmentProviders.FOUNDATIONALLM_ATTACHMENT and attachment.content_type.startswith('image/'))] if request.attachments is not None else []
+        if len(image_attachments) > 0:
+            image_analysis_client = self._get_language_model(override_operation_type=OperationTypes.IMAGE_ANALYSIS, is_async=True)
+            image_analysis_svc = ImageAnalysisService(config=self.config, client=image_analysis_client, deployment_model=self.ai_model.deployment_name)
+            image_analysis_results, usage = await image_analysis_svc.aanalyze_images(image_attachments)
+            image_analysis_token_usage.prompt_tokens += usage.prompt_tokens
+            image_analysis_token_usage.completion_tokens += usage.completion_tokens
+            image_analysis_token_usage.total_tokens += usage.total_tokens
+
+        # Check for Assistants API capability
+        if "OpenAI.Assistants" in agent.capabilities:
+            operation_type_override = OperationTypes.ASSISTANTS_API
+            # create the service
+            assistant_svc = OpenAIAssistantsApiService(azure_openai_client=self._get_language_model(override_operation_type=operation_type_override, is_async=True))
+
+            # populate service request object
+            assistant_req = OpenAIAssistantsAPIRequest(
+                assistant_id=request.objects["OpenAI.AssistantId"],
+                thread_id=request.objects["OpenAI.AssistantThreadId"],
+                attachments=[attachment.provider_file_name for attachment in request.attachments if attachment.provider == AttachmentProviders.FOUNDATIONALLM_AZURE_OPENAI],
+                user_prompt=request.user_prompt
+            )
+
+            # Add user and assistant messages related to image analysis to the Assistants API request.
+            if image_analysis_results is not None:
+                # Add user message
+                await assistant_svc.aadd_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "user",
+                    content = "Analyze any attached images.",
+                    attachments = []
+                )
+                # Add assistant message
+                await assistant_svc.aadd_thread_message(
+                    thread_id = assistant_req.thread_id,
+                    role = "assistant",
+                    content = image_analysis_svc.format_results(image_analysis_results),
+                    attachments = []
+                )
+
+            # invoke/run the service
+            assistant_response = await assistant_svc.arun(assistant_req)
+
+            # create the CompletionResponse object
+            return CompletionResponse(
+                operation_id = request.operation_id,
+                full_prompt = self.prompt.prefix,
+                analysis_results = assistant_response.analysis_results,
+                content = assistant_response.content,
+                completion_tokens = assistant_response.completion_tokens + image_analysis_token_usage.completion_tokens,
+                prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
+                user_prompt = request.user_prompt
+                )
+
         with get_openai_callback() as cb:
             try:
                 # Get the vector document retriever, if it exists.
@@ -385,6 +442,8 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
 
                 if retriever is not None:
                     chain_context = { "context": retriever | retriever.format_docs, "question": RunnablePassthrough() }
+                elif image_analysis_results is not None:
+                    chain_context = { "context": lambda x: image_analysis_svc.format_results(image_analysis_results), "question": RunnablePassthrough() }
                 else:
                     chain_context = { "context": RunnablePassthrough() }
 
@@ -397,23 +456,30 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                     | StrOutputParser()
                 )
 
-                # ainvoke isn't working because search is possibly involved in the completion request. Need to dive deeper into how to get this working.
-                # completion = await chain.ainvoke(request.user_prompt)
-                completion = chain.invoke(request.user_prompt)
-                
+                # ainvoke isn't working if search is involved in the completion request. Need to dive deeper into how to get this working.
+                if self.has_retriever:
+                    completion = chain.invoke(request.user_prompt)
+                else:
+                    completion = await chain.ainvoke(request.user_prompt)
+
+                response_content = OpenAITextMessageContentItem(
+                    value = completion,
+                    agent_capability_category = AgentCapabilityCategories.FOUNDATIONALLM_KNOWLEDGE_MANAGEMENT
+                )
+
                 citations = []
                 if isinstance(retriever, CitationRetrievalBase):
                     citations = retriever.get_document_citations()
 
                 return CompletionResponse(
                     operation_id = request.operation_id,
-                    completion = completion,
+                    content = [response_content],
                     citations = citations,
                     user_prompt = request.user_prompt,
                     full_prompt = self.full_prompt.text,
-                    completion_tokens = cb.completion_tokens,
-                    prompt_tokens = cb.prompt_tokens,
-                    total_tokens = cb.total_tokens,
+                    completion_tokens = cb.completion_tokens + image_analysis_token_usage.completion_tokens,
+                    prompt_tokens = cb.prompt_tokens + image_analysis_token_usage.prompt_tokens,
+                    total_tokens = cb.total_tokens + image_analysis_token_usage.total_tokens,
                     total_cost = cb.total_cost
                 )
             except Exception as e:

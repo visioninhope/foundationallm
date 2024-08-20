@@ -4,8 +4,8 @@ using HtmlAgilityPack;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Vectorization;
 using System.Text;
-using System.Web;
 using System.Net;
+using FoundationaLLM.Common.Models.Authentication;
 
 namespace FoundationaLLM.Vectorization.Services.ContentSources
 {
@@ -30,7 +30,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[1] = the web URL without the protocol
         /// contentId[2] = CSS classes to filter by
         /// </remarks>
-        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, UnifiedUserIdentity userIdentity, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
             string url = $"{contentId[0]}://{contentId[1]}";

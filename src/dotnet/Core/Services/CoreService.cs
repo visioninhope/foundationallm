@@ -1,18 +1,33 @@
-using Azure.Core;
 using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.Agents;
+using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.Orchestration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
+using FoundationaLLM.Common.Models.Orchestration.Response.OpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Agent;
+using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
+using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
+using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
+using FoundationaLLM.Core.Utils;
+using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace FoundationaLLM.Core.Services;
@@ -32,6 +47,7 @@ namespace FoundationaLLM.Core.Services;
 /// <param name="settings">The <see cref="CoreServiceSettings"/> settings for the service.</param>
 /// <param name="callContext">Contains contextual data for the calling service.</param>
 /// <param name="resourceProviderServices">A dictionary of <see cref="IResourceProviderService"/> resource providers hashed by resource provider name.</param>
+/// <param name="configuration">The <see cref="IConfiguration"/> service providing configuration settings.</param>
 public partial class CoreService(
     ICosmosDbService cosmosDbService,
     IEnumerable<IDownstreamAPIService> downstreamAPIServices,
@@ -39,7 +55,8 @@ public partial class CoreService(
     IOptions<ClientBrandingConfiguration> brandingSettings,
     IOptions<CoreServiceSettings> settings,
     ICallContext callContext,
-    IEnumerable<IResourceProviderService> resourceProviderServices) : ICoreService
+    IEnumerable<IResourceProviderService> resourceProviderServices,
+    IConfiguration configuration) : ICoreService
 {
     private readonly ICosmosDbService _cosmosDbService = cosmosDbService;
     private readonly IDownstreamAPIService _gatekeeperAPIService = downstreamAPIServices.Single(das => das.APIName == HttpClientNames.GatekeeperAPI);
@@ -48,28 +65,92 @@ public partial class CoreService(
     private readonly ICallContext _callContext = callContext;
     private readonly string _sessionType = brandingSettings.Value.KioskMode ? SessionTypes.KioskSession : SessionTypes.Session;
     private readonly CoreServiceSettings _settings = settings.Value;
-    private readonly Dictionary<string, IResourceProviderService> _resourceProviderServices =
-        resourceProviderServices.ToDictionary<IResourceProviderService, string>(
-            rps => rps.Name);
+    private readonly string _baseUrl = configuration[AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Essentials_APIUrl]!;
+
+    private readonly IResourceProviderService _attachmentResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Attachment);
+    private readonly IResourceProviderService _agentResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Agent);
+    private readonly IResourceProviderService _azureOpenAIResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AzureOpenAI);
+    private readonly IResourceProviderService _aiModelResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_AIModel);
+    private readonly IResourceProviderService _configurationResourceProvider =
+        resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration);
 
     /// <inheritdoc/>
     public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
-        await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ?? 
+        await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ??
                                                               throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat sessions."));
 
     /// <inheritdoc/>
     public async Task<List<Message>> GetChatSessionMessagesAsync(string instanceId, string sessionId)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        return await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
+        var messages = await _cosmosDbService.GetSessionMessagesAsync(sessionId, _callContext.CurrentUserIdentity?.UPN ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving chat messages."));
+
+        // Get a list of all attachment IDs in the messages.
+        var attachmentIds = messages.SelectMany(m => m.Attachments ?? Enumerable.Empty<string>()).Distinct().ToList();
+        if (attachmentIds.Count > 0)
+        {
+            var filter = new ResourceFilter
+            {
+                ObjectIDs = attachmentIds
+            };
+            // Get the attachment details from the attachment resource provider.
+            var result = await _attachmentResourceProvider!.HandlePostAsync(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/{AttachmentResourceTypeNames.Attachments}/{ResourceProviderActions.Filter}",
+                JsonSerializer.Serialize(filter),
+                _callContext.CurrentUserIdentity!);
+            // Cast the result to a list of AttachmentReference objects.
+            var attachmentReferences = result as List<AttachmentDetail> ?? [];
+
+            if (attachmentReferences.Count > 0)
+            {
+
+                // Add the attachment details to the messages.
+                foreach (var message in messages)
+                {
+                    if (message.Attachments is { Count: > 0 })
+                    {
+                        var messageAttachmentDetails = new List<AttachmentDetail>();
+                        foreach (var attachment in message.Attachments)
+                        {
+                            var attachmentDetail = attachmentReferences.FirstOrDefault(ad => ad.ObjectId == attachment);
+                            if (attachmentDetail != null)
+                            {
+                                messageAttachmentDetails.Add(attachmentDetail);
+                            }
+                        }
+                        message.AttachmentDetails = messageAttachmentDetails;
+                    }
+                }
+            }
+        }
+
+        foreach (var message in messages)
+        {
+            if (message.Content is { Count: > 0 })
+            {
+                foreach (var content in message.Content)
+                {
+                    content.Value = ResolveContentDeepLinks(content.Value, _baseUrl);
+                }
+            }
+        }
+
+        return messages.ToList();
     }
 
     /// <inheritdoc/>
-    public async Task<Session> CreateNewChatSessionAsync(string instanceId)
+    public async Task<Session> CreateNewChatSessionAsync(string instanceId, ChatSessionProperties chatSessionProperties)
     {
+        ArgumentException.ThrowIfNullOrEmpty(chatSessionProperties.Name);
+
         Session session = new()
         {
+            Name = chatSessionProperties.Name,
             Type = _sessionType,
             UPN = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when creating a new chat session.")
         };
@@ -77,12 +158,12 @@ public partial class CoreService(
     }
 
     /// <inheritdoc/>
-    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName)
+    public async Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, ChatSessionProperties chatSessionProperties)
     {
         ArgumentNullException.ThrowIfNull(sessionId);
-        ArgumentException.ThrowIfNullOrEmpty(newChatSessionName);
+        ArgumentException.ThrowIfNullOrEmpty(chatSessionProperties.Name);
 
-        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, newChatSessionName);
+        return await _cosmosDbService.UpdateSessionNameAsync(sessionId, chatSessionProperties.Name);
     }
 
     /// <inheritdoc/>
@@ -113,7 +194,19 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
             // Create prompt message, then persist in Cosmos as transaction with the Session details.
-            var promptMessage = new Message(completionRequest.SessionId, nameof(Participants.User), null, completionRequest.UserPrompt, null, null, upn, _callContext.CurrentUserIdentity?.Name);
+            var promptMessage = new Message(
+                completionRequest.SessionId,
+                nameof(Participants.User),
+                null,
+                completionRequest.UserPrompt,
+                null,
+                null,
+                upn,
+                _callContext.CurrentUserIdentity?.Name,
+                null,
+                null,
+                null,
+                completionRequest.Attachments);
             await AddSessionMessageAsync(completionRequest.SessionId, promptMessage);
 
             var agentOption = await ProcessGatekeeperOptions(completionRequest);
@@ -125,7 +218,60 @@ public partial class CoreService(
             // Add the user's UPN to the messages.
             promptMessage.Tokens = result.PromptTokens;
             promptMessage.Vector = result.UserPromptEmbedding;
-            var completionMessage = new Message(completionRequest.SessionId, nameof(Participants.Assistant), result.CompletionTokens, result.Completion, null, null, upn, result.AgentName, result.Citations);
+
+            var newContent = new List<MessageContent>();
+
+            if (result.Content is { Count: > 0 })
+            {
+                foreach (var content in result.Content)
+                {
+                    switch (content)
+                    {
+                        case OpenAITextMessageContentItem textMessageContent:
+                            if (textMessageContent.Annotations.Count > 0)
+                            {
+                                foreach (var annotation in textMessageContent.Annotations)
+                                {
+                                    newContent.Add(new MessageContent
+                                    {
+                                        Type = FileMethods.GetMessageContentFileType(annotation.Text, annotation.Type),
+                                        FileName = annotation.Text,
+                                        Value = annotation.FileUrl
+                                    });
+                                }
+                            }
+                            newContent.Add(new MessageContent
+                            {
+                                Type = textMessageContent.Type,
+                                Value = textMessageContent.Value
+                            });
+                            break;
+                        case OpenAIImageFileMessageContentItem imageFileMessageContent:
+                            newContent.Add(new MessageContent
+                            {
+                                Type = imageFileMessageContent.Type,
+                                Value = imageFileMessageContent.FileUrl
+                            });
+                            break;
+                    }
+                }
+            }
+
+            var completionMessage = new Message(
+                completionRequest.SessionId,
+                nameof(Participants.Assistant),
+                result.CompletionTokens,
+                result.Completion,
+                null,
+                null,
+                upn,
+                result.AgentName ?? completionRequest.AgentName,
+                result.Citations,
+                null,
+                newContent,
+                null,
+                null,
+                result.AnalysisResults);
             var completionPromptText =
                 $"User prompt: {result.UserPrompt}{Environment.NewLine}Agent: {result.AgentName}{Environment.NewLine}Prompt template: {(!string.IsNullOrWhiteSpace(result.FullPrompt) ? result.FullPrompt : result.PromptTemplate)}";
             var completionPrompt = new CompletionPrompt(completionRequest.SessionId, completionMessage.Id, completionPromptText);
@@ -155,7 +301,12 @@ public partial class CoreService(
             // Generate the completion to return to the user.
             var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, directCompletionRequest);
 
-            return new Completion { Text = result.Completion };
+            return new Completion
+            {
+                Text = result.Completion
+                    ?? (result.Content?.Where(c => c.Type == MessageContentItemTypes.Text).FirstOrDefault() as OpenAITextMessageContentItem)?.Value
+                        ?? "Could not generate a completion due to an internal error."
+            };
         }
         catch (Exception ex)
         {
@@ -169,7 +320,7 @@ public partial class CoreService(
     {
         completionRequest = PrepareCompletionRequest(completionRequest);
         throw new NotImplementedException();
-    }        
+    }
 
     /// <inheritdoc/>
     public Task<LongRunningOperation> GetCompletionOperationStatus(string instanceId, string operationId) =>
@@ -180,23 +331,141 @@ public partial class CoreService(
         throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public async Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text)
+    public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
+    {
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>(
+            $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
+            userIdentity);
+        var aiModelBase = await _aiModelResourceProvider.HandleGet<AIModelBase>(
+            agentBase.AIModelObjectId!,
+            userIdentity);
+        var apiEndpointConfiguration = await _configurationResourceProvider.HandleGet<APIEndpointConfiguration>(
+            aiModelBase.EndpointObjectId!,
+            userIdentity);
+
+        var agentRequiresOpenAIAssistants = agentBase.HasCapability(AgentCapabilityCategoryNames.OpenAIAssistants);
+
+        attachmentFile.SecondaryProvider = agentRequiresOpenAIAssistants
+            ? ResourceProviderNames.FoundationaLLM_AzureOpenAI
+            : null;
+        var result = await _attachmentResourceProvider.UpsertResourceAsync<AttachmentFile, ResourceProviderUpsertResult>(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Attachment}/attachments/{attachmentFile.Name}",
+                attachmentFile,
+                _callContext.CurrentUserIdentity!);
+
+        if (agentRequiresOpenAIAssistants)
+        {
+            var userName = userIdentity.UPN?.NormalizeUserPrincipalName() ?? userIdentity.UserId;
+            var assistantUserContextName = $"{userName}-assistant-{instanceId.ToLower()}";
+            var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
+
+            var fileUserContext = new FileUserContext
+            {
+                Name = fileUserContextName,
+                UserPrincipalName = userName!,
+                Endpoint = apiEndpointConfiguration.Url,
+                AssistantUserContextName = assistantUserContextName,
+                Files = new()
+                {
+                    {
+                        result.ObjectId!,
+                        new FileMapping
+                        {
+                            FoundationaLLMObjectId = result.ObjectId!,
+                            OriginalFileName = attachmentFile.OriginalFileName,
+                            ContentType = attachmentFile.ContentType!
+                        }
+                    }
+                }
+            };
+
+            _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
+                $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
+                fileUserContext,
+                userIdentity);
+        }
+
+        return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task<AttachmentFile?> DownloadAttachment(string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity)
     {
         try
         {
-            ArgumentNullException.ThrowIfNull(sessionId);
+            if (fileProvider == ResourceProviderNames.FoundationaLLM_AzureOpenAI)
+            {
+                var userName = userIdentity.UPN?.NormalizeUserPrincipalName() ?? userIdentity.UserId;
+                var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
 
-            var sessionName = string.Empty;            
-            sessionName = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm}";
-            await RenameChatSessionAsync(instanceId, sessionId, sessionName);
+                var result = await _azureOpenAIResourceProvider.GetResource<FileContent>(
+                    $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{fileId}",
+                    userIdentity);
 
-            return new Completion { Text = sessionName };
+                return new AttachmentFile
+                {
+                    Name = result.Name,
+                    OriginalFileName = result.OriginalFileName,
+                    ContentType = result.ContentType,
+                    Content = result.BinaryContent!.Value.ToArray()
+                };
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error generating session name for session {sessionId} for text [{text}].");
-            return new Completion { Text = "[No Name]" };
+            _logger.LogError(ex, "Error downloading attachment {FileId} from {FileProvider}.", fileId, fileProvider);
         }
+
+        return null;
+    }
+
+    /// <inheritdoc/>
+    public async Task<Dictionary<string, ResourceProviderDeleteResult?>> DeleteAttachments(
+        string instanceId, List<string> resourcePaths, UnifiedUserIdentity userIdentity)
+    {
+        var results = resourcePaths.ToDictionary(key => key, value => (ResourceProviderDeleteResult?)null);
+
+        foreach (var resourcePath in resourcePaths)
+        {
+            try
+            {
+                if (!ResourcePath.TryParseResourceProvider(resourcePath, out var resourceProviderName))
+                    throw new ResourceProviderException(
+                        $"Invalid resource provider for resource path [{resourcePath}].");
+
+                if (resourceProviderName != ResourceProviderNames.FoundationaLLM_Attachment)
+                    throw new ResourceProviderException(
+                        $"The resource provider [{resourceProviderName}] is not supported by the delete attachments endpoint.");
+
+                await _attachmentResourceProvider.HandleDeleteAsync(resourcePath, userIdentity);
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = true
+                };
+            }
+            catch (ResourceProviderException rpex)
+            {
+                _logger.LogError(rpex, "{Message}", rpex.Message);
+
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = false,
+                    Reason = rpex.Message
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was an error when handling the deletion for resource path [{ResourcePath}].", resourcePath);
+
+                results[resourcePath] = new ResourceProviderDeleteResult()
+                {
+                    Deleted = false,
+                    Reason = $"There was an error when handling the deletion for resource path [{resourcePath}]."
+                };
+            }
+        }
+
+        return results;
     }
 
     private IDownstreamAPIService GetDownstreamAPIService(AgentGatekeeperOverrideOption agentOption) =>
@@ -207,10 +476,7 @@ public partial class CoreService(
 
     private async Task<AgentGatekeeperOverrideOption> ProcessGatekeeperOptions(CompletionRequest completionRequest)
     {
-        if (!_resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Agent, out var agentResourceProvider))
-            throw new ResourceProviderException($"The resource provider {ResourceProviderNames.FoundationaLLM_Agent} was not loaded.");
-
-        var agentBase = await agentResourceProvider.GetResource<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
+        var agentBase = await _agentResourceProvider.HandleGet<AgentBase>($"/{AgentResourceTypeNames.Agents}/{completionRequest.AgentName}", _callContext.CurrentUserIdentity ??
             throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when retrieving the agent settings."));
 
         if (agentBase?.GatekeeperSettings?.UseSystemSetting == false)
@@ -236,7 +502,7 @@ public partial class CoreService(
 
         // Update session cache with tokens used.
         session.TokensUsed += message.Tokens;
-       
+
         // Add the user's UPN to the messages.
         var upn = _callContext.CurrentUserIdentity?.UPN ?? throw new InvalidOperationException("Failed to retrieve the identity of the signed in user when adding prompt and completion messages.");
         message.UPN = upn;
@@ -294,4 +560,19 @@ public partial class CoreService(
 
     [GeneratedRegex(@"[^\w\s]")]
     private static partial Regex ChatSessionNameReplacementRegex();
+
+    private string? ResolveContentDeepLinks(string? text, string rootUrl)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return text;
+        }
+        const string token = "{{fllm_base_url}}";
+        // If rootUrl ends with a slash, remove it.
+        if (rootUrl.EndsWith('/'))
+        {
+            rootUrl = rootUrl[..^1];
+        }
+        return text.Replace(token, rootUrl);
+    }
 }

@@ -1,5 +1,7 @@
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Common.Settings;
 using Microsoft.Extensions.Logging;
 using System.Text;
@@ -80,7 +82,8 @@ namespace FoundationaLLM.Common.Services.API
             var fallback = new LongRunningOperation
             {
                 OperationId = completionRequest.OperationId,
-                Status = OperationStatus.Failed
+                Status = OperationStatus.Failed,
+                StatusMessage = "An error occured while attempting to start the completion operation."
             };
 
             var client = await _httpClientFactoryService.CreateClient(_downstreamHttpClientName, _callContext.CurrentUserIdentity);
@@ -118,7 +121,8 @@ namespace FoundationaLLM.Common.Services.API
             var fallback = new LongRunningOperation
             {
                 OperationId = operationId,
-                Status = OperationStatus.Failed
+                Status = OperationStatus.Failed,
+                StatusMessage = "An error occured while attempting to get the completion operation status."
             };
 
             var client = await _httpClientFactoryService.CreateClient(_downstreamHttpClientName, _callContext.CurrentUserIdentity);
@@ -152,7 +156,7 @@ namespace FoundationaLLM.Common.Services.API
             var fallback = new CompletionResponse
             {
                 OperationId = operationId,
-                Completion = "A problem on my side prevented me from responding.",
+                Completion = "An error occured while attempting to get the completion operation result.",
                 UserPrompt = string.Empty,
                 PromptTokens = 0,
                 CompletionTokens = 0,

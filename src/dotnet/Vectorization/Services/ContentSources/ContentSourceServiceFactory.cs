@@ -3,10 +3,10 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.DataSource;
-using FoundationaLLM.DataSource.Models;
 using FoundationaLLM.Vectorization.Interfaces;
 using FoundationaLLM.Vectorization.Models.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -33,21 +33,21 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
         /// <inheritdoc/>
-        public IContentSourceService GetService(string serviceName)
+        public async Task<IContentSourceService> GetService(string serviceName, UnifiedUserIdentity userIdentity)
         {
-            var (service, _) = this.GetServiceWithResource(serviceName);
+            var (service, _) = await this.GetServiceWithResource(serviceName, userIdentity);
             return service;
         }
 
         /// <inheritdoc/>
-        public (IContentSourceService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public async Task<(IContentSourceService Service, ResourceBase Resource)> GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)
         {
             // serviceName is the data_source_object_id of the request
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_DataSource, out var dataSourceResourceProviderService);
             if (dataSourceResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var dataSource = dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName);
+            var dataSource = await dataSourceResourceProviderService.GetResource<DataSourceBase>(serviceName, userIdentity);
             return dataSource == null
                 ? throw new VectorizationException($"The data source {serviceName} was not found.")
                 : dataSource.Type switch

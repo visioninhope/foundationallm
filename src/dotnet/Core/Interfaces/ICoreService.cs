@@ -1,5 +1,10 @@
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
+using FoundationaLLM.Common.Models.ResourceProviders;
+using FoundationaLLM.Common.Models.ResourceProviders.Attachment;
 
 namespace FoundationaLLM.Core.Interfaces;
 
@@ -26,15 +31,16 @@ public interface ICoreService
     /// Creates a new chat session.
     /// </summary>
     /// <param name="instanceId">The instance Id.</param>
-    Task<Session> CreateNewChatSessionAsync(string instanceId);
+    /// <param name="chatSessionProperties">The session properties.</param>
+    Task<Session> CreateNewChatSessionAsync(string instanceId, ChatSessionProperties chatSessionProperties);
 
     /// <summary>
     /// Rename the chat session from its default (eg., "New Chat") to the summary provided by OpenAI.
     /// </summary>
     /// <param name="instanceId">The instance id.</param>
     /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="newChatSessionName">The new name for the chat session.</param>
-    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, string newChatSessionName);
+    /// <param name="chatSessionProperties">The session properties.</param>
+    Task<Session> RenameChatSessionAsync(string instanceId, string sessionId, ChatSessionProperties chatSessionProperties);
 
     /// <summary>
     /// Delete a chat session and related messages.
@@ -57,14 +63,6 @@ public interface ICoreService
     /// <param name="instanceId">The instance id.</param>
     /// <param name="directCompletionRequest">The completion request.</param>
     Task<Completion> GetCompletionAsync(string instanceId, CompletionRequest directCompletionRequest);
-
-    /// <summary>
-    /// Generate a name for a chat message, based on the passed in prompt.
-    /// </summary>
-    /// <param name="instanceId">The instance id.</param>
-    /// <param name="sessionId">The session id to rename.</param>
-    /// <param name="text">The text to use when generating the name.</param>
-    Task<Completion> GenerateChatSessionNameAsync(string instanceId, string? sessionId, string? text);
 
     /// <summary>
     /// Rate an assistant message. This can be used to discover useful AI responses for training, discoverability, and other benefits down the road.
@@ -107,4 +105,43 @@ public interface ICoreService
     /// <param name="operationId">The ID of the operation to retrieve.</param>
     /// <returns>Returns a <see cref="CompletionResponse" /> object.</returns>
     Task<CompletionResponse> GetCompletionOperationResult(string instanceId, string operationId);
+
+    /// <summary>
+    /// Uploads an attachment.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="attachmentFile">The <see cref="AttachmentFile"/> object containing the attachment file data.</param>
+    /// <param name="agentName">The name of the agent.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>A <see cref="ResourceProviderUpsertResult"/> object with the FoundationaLLM.Attachment resource provider object id.</returns>
+    Task<ResourceProviderUpsertResult> UploadAttachment(
+        string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity);
+
+    /// <summary>
+    /// Downloads an attachment.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="fileProvider">The name of the file provider.</param>
+    /// <param name="fileId">The identifier of the file.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>An <see cref="AttachmentFile"/> object with the properties and the content of the attachment.</returns>
+    /// <remarks>
+    /// The following file providers are supported:
+    /// <list type="bullet">
+    /// <item>FoundationaLLM.Attachments</item>
+    /// <item>FoundationaLLM.AzureOpenAI</item>
+    /// </list>
+    /// </remarks>
+    Task<AttachmentFile?> DownloadAttachment(
+        string instanceId, string fileProvider, string fileId, UnifiedUserIdentity userIdentity);
+
+    /// <summary>
+    /// Deletes one or more attachments.
+    /// </summary>
+    /// <param name="instanceId">The FoundationaLLM instance id.</param>
+    /// <param name="resourcePaths">The list of resources to be deleted.</param>
+    /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing information about the calling user identity.</param>
+    /// <returns>A dictionary with the delete operation result for each resource path.</returns>
+    Task<Dictionary<string, ResourceProviderDeleteResult?>> DeleteAttachments(
+        string instanceId, List<string> resourcePaths, UnifiedUserIdentity userIdentity);
 }

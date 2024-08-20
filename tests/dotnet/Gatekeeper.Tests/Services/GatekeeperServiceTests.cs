@@ -1,5 +1,6 @@
 ﻿using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
 using FoundationaLLM.Gatekeeper.Core.Models.ConfigurationOptions;
 using FoundationaLLM.Gatekeeper.Core.Models.ContentSafety;

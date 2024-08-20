@@ -3,16 +3,13 @@ using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Chat;
 using FoundationaLLM.Common.Models.Configuration.Branding;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Services.API;
+using FoundationaLLM.Common.Models.Orchestration.Request;
 using FoundationaLLM.Core.Interfaces;
-using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 //using Microsoft.Graph.Models.CallRecords;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
@@ -123,7 +120,8 @@ namespace FoundationaLLM.Core.Tests.Services
             // Arrange
             var currentUserUPN = "testuser@example.com";
             var sessionType = "Test_type";
-            var newSession = new Session { Type = sessionType, UPN = currentUserUPN };
+            var chatSessionProperties = new ChatSessionProperties() { Name = "Test_name" };
+            var newSession = new Session { Name = chatSessionProperties.Name, Type = sessionType, UPN = currentUserUPN };
 
             // Set up mock returns
             _callContext.CurrentUserIdentity.Returns(new UnifiedUserIdentity { UPN = currentUserUPN });
@@ -132,12 +130,13 @@ namespace FoundationaLLM.Core.Tests.Services
                 .Returns(Task.FromResult(newSession));
 
             // Act
-            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId);
+            var resultSession = await _testedService.CreateNewChatSessionAsync(_instanceId, chatSessionProperties);
 
             // Assert
             Assert.NotNull(resultSession);
             Assert.Equal(sessionType, resultSession.Type);
             Assert.Equal(currentUserUPN, resultSession.UPN);
+            Assert.Equal(chatSessionProperties.Name, resultSession.Name);
         }
 
         #endregion
@@ -149,37 +148,37 @@ namespace FoundationaLLM.Core.Tests.Services
         {
             // Arrange
             var session = new Session() { Name = "OldName" };
-            var expectedName = "NewName";
+            var chatSessionProperties = new ChatSessionProperties() { Name = "NewName" };
 
             var expectedSession = new Session()
             {
                 Id = session.Id,
                 Messages = session.Messages,
-                Name = expectedName,
+                Name = chatSessionProperties.Name,
                 SessionId = session.SessionId,
                 TokensUsed = session.TokensUsed,
                 Type = session.Type,
             };
-            _cosmosDbService.UpdateSessionNameAsync(session.Id, expectedName).Returns(expectedSession);
+            _cosmosDbService.UpdateSessionNameAsync(session.Id, chatSessionProperties.Name).Returns(expectedSession);
 
             // Act
-            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, expectedName);
+            var actualSession = await _testedService.RenameChatSessionAsync(_instanceId, session.Id, chatSessionProperties);
 
             // Assert
             Assert.Equivalent(expectedSession, actualSession);
-            Assert.Equal(expectedName, actualSession.Name);
+            Assert.Equal(chatSessionProperties.Name, actualSession.Name);
         }
 
         [Fact]
         public async Task RenameChatSessionAsync_ShouldThrowExceptionWhenSessionIdIsNull()
         {
             // Arrange
-            var newChatSessionName = "NewName";
+            var chatSessionProperties = new ChatSessionProperties() { Name = "NewName" };
 
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, null!, newChatSessionName);
+                await _testedService.RenameChatSessionAsync(_instanceId, null!, chatSessionProperties);
             });
         }
 
@@ -197,7 +196,7 @@ namespace FoundationaLLM.Core.Tests.Services
 
             await Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, string.Empty);
+                await _testedService.RenameChatSessionAsync(_instanceId, sessionId, new ChatSessionProperties() { Name = string.Empty });
             });
         }
 
@@ -302,76 +301,6 @@ namespace FoundationaLLM.Core.Tests.Services
 
             // Act
             var exception = await Record.ExceptionAsync(async () => await _testedService.GetChatCompletionAsync(_instanceId, orchestrationRequest));
-
-            // Assert
-            Assert.Null(exception);
-        }
-
-        #endregion
-
-        #region SetChatSessionNameAsync
-
-        [Fact]
-        public async Task SummarizeChatSessionNameAsync_ShouldReturnACompletion()
-        {
-            // Arrange
-            var sessionId = Guid.NewGuid().ToString();
-            var prompt = "Prompt";
-            var summary = "[No Summary]";
-            var summaryRequest = new SummaryRequest
-            {
-                SessionId = sessionId,
-                UserPrompt = prompt
-            };
-            var expectedCompletion = new Completion() { Text = summary };
-
-          
-            _cosmosDbService.UpdateSessionNameAsync(sessionId, summary).Returns(new Session());
-
-            // Act
-            var actualCompletion = await _testedService.GenerateChatSessionNameAsync(_instanceId, sessionId, prompt);
-
-            // Assert
-            Assert.Equal(expectedCompletion.Text, actualCompletion.Text);
-        }
-
-        [Fact]
-        public async Task SummarizeChatSessionNameAsync_ShouldReturnAnErrorMessageWhenSessionIdIsNull()
-        {
-            // Arrange
-            var prompt = "Prompt";
-            var expectedCompletion = new Completion { Text = "[No Summary]" };
-
-            // Act
-            var actualSummary = await _testedService.GenerateChatSessionNameAsync(_instanceId, null, prompt);
-
-            // Assert
-            Assert.Equal(expectedCompletion.Text, actualSummary.Text);
-
-            //_logger.Received(1).LogError($"Error getting a summary in session {sessionId} for user prompt [{prompt}].");
-        }
-
-        [Fact]
-        public async Task SummarizeChatSessionNameAsync_ShouldNotThrowExceptionWhenPromptIsNull()
-        {
-            // Arrange
-            var sessionId = Guid.NewGuid().ToString();
-
-            // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(_instanceId, sessionId, null!));
-
-            // Assert
-            Assert.Null(exception);
-        }
-
-        [Fact]
-        public async Task SummarizeChatSessionNameAsync_ShouldNotThrowExceptionWhenSessionIdIsNull()
-        {
-            // Arrange
-            var prompt = "Prompt";
-
-            // Act
-            var exception = await Record.ExceptionAsync(async () => await _testedService.GenerateChatSessionNameAsync(_instanceId, null, prompt));
 
             // Assert
             Assert.Null(exception);

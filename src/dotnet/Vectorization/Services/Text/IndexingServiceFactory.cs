@@ -2,6 +2,7 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
@@ -37,14 +38,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public IIndexingService GetService(string serviceName)
+        public async Task<IIndexingService> GetService(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var indexingProfile = vectorizationResourceProviderService.GetResource<IndexingProfile>(
-                $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");
+            var indexingProfile = await vectorizationResourceProviderService.GetResource<IndexingProfile>(
+                $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}", userIdentity);
 
             return indexingProfile.Indexer switch
             {
@@ -54,14 +55,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (IIndexingService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public async Task<(IIndexingService Service, ResourceBase Resource)> GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_Vectorization} was not loaded.");
 
-            var indexingProfile = vectorizationResourceProviderService.GetResource<IndexingProfile>(
-                $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}");
+            var indexingProfile = await vectorizationResourceProviderService.GetResource<IndexingProfile>(
+                $"/{VectorizationResourceTypeNames.IndexingProfiles}/{serviceName}", userIdentity);
 
             return indexingProfile.Indexer switch
             {

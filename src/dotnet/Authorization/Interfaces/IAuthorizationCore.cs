@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Authorization.Models;
+﻿using FoundationaLLM.Common.Models;
 using FoundationaLLM.Common.Models.Authorization;
 
 namespace FoundationaLLM.Authorization.Interfaces

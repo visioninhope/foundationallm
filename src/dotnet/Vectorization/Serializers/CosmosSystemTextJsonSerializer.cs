@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.Azure.Cosmos;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Azure.Cosmos;
 
 namespace FoundationaLLM.Vectorization.Serializers
 {

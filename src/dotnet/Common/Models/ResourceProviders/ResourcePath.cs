@@ -1,6 +1,5 @@
 ﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
-using FoundationaLLM.Common.Models.ResourceProviders;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Immutable;
 
@@ -50,9 +49,9 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         /// <summary>
         /// The main resource type of the path.
         /// </summary>
-        public string MainResourceType =>
+        public string? MainResourceType =>
             _resourceTypeInstances == null || _resourceTypeInstances.Count == 0
-            ? throw new ResourceProviderException()
+            ? null
             : _resourceTypeInstances[0].ResourceType;
 
         /// <summary>
@@ -170,9 +169,24 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
                         StatusCodes.Status400BadRequest);
                 else
                     return $"/instances/{_instanceId}/providers/{_resourceProvider}/{string.Join("/",
-                        _resourceTypeInstances.Select(i => $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
+                        _resourceTypeInstances.Select(i => i.ResourceId == null ? $"{i.ResourceType}" : $"{i.ResourceType}/{i.ResourceId}").ToArray())}";
             }
         }
+
+        /// <summary>
+        /// Computes the object id of the resource identifier.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
+        /// <param name="resourceProviderName">The name of the resource provider.</param>
+        /// <param name="resourceTypeName">The name of the resource type.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        /// <returns>The object id.</returns>
+        public static string GetObjectId(
+            string instanceId,
+            string resourceProviderName,
+            string resourceTypeName,
+            string resourceName) =>
+            $"/instances/{instanceId}/providers/{resourceProviderName}/{resourceTypeName}/{resourceName}";
 
         /// <summary>
         /// Determines whether the resource path includes another specified resource path.

@@ -48,6 +48,40 @@ namespace FoundationaLLM.Common.Constants.Authorization
 
         #endregion
 
+        #region AzureOpenAI
+
+        /// <summary>
+        /// Read assistant user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_AssistantUserContexts_Read = "FoundationaLLM.AzureOpenAI/assistantUserContexts/read";
+
+        /// <summary>
+        /// Create or update assistant user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_AssistantUserContexts_Write = "FoundationaLLM.AzureOpenAI/assistantUserContexts/write";
+
+        /// <summary>
+        /// Delete assistant user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_AssistantUserContexts_Delete = "FoundationaLLM.AzureOpenAI/assistantUserContexts/delete";
+
+        /// <summary>
+        /// Read file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Read = "FoundationaLLM.AzureOpenAI/fileUserContexts/read";
+
+        /// <summary>
+        /// Create or update file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Write = "FoundationaLLM.AzureOpenAI/fileUserContexts/write";
+
+        /// <summary>
+        /// Delete file user contexts.
+        /// </summary>
+        public const string FoundationaLLM_AzureOpenAI_FileUserContexts_Delete = "FoundationaLLM.AzureOpenAI/fileUserContexts/delete";
+
+        #endregion
+
         #region Configuration
 
         /// <summary>
@@ -81,19 +115,19 @@ namespace FoundationaLLM.Common.Constants.Authorization
         public const string FoundationaLLM_Configuration_KeyVaultSecrets_Delete = "FoundationaLLM.Configuration/keyVaultSecrets/delete";
 
         /// <summary>
-        /// Read API endpoints.
+        /// Read API endpoint configurations.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Read = "FoundationaLLM.Configuration/apiEndpointConfigurations/read";
+        public const string FoundationaLLM_Configuration_APIEndpointConfigurations_Read = "FoundationaLLM.Configuration/apiEndpointConfigurations/read";
 
         /// <summary>
-        /// Create or update API endpoints.
+        /// Create or update API endpoint configurations.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Write = "FoundationaLLM.Configuration/apiEndpointConfigurations/write";
+        public const string FoundationaLLM_Configuration_APIEndpointConfigurations_Write = "FoundationaLLM.Configuration/apiEndpointConfigurations/write";
 
         /// <summary>
-        /// Delete API endpoints.
+        /// Delete API endpoint configurations.
         /// </summary>
-        public const string FoundationaLLM_Configuration_APIEndpoints_Delete = "FoundationaLLM.Configuration/apiEndpointConfigurations/delete";
+        public const string FoundationaLLM_Configuration_APIEndpoinConfigurations_Delete = "FoundationaLLM.Configuration/apiEndpointConfigurations/delete";
 
         #endregion
 
@@ -285,17 +319,17 @@ namespace FoundationaLLM.Common.Constants.Authorization
         #region AIModel
 
         /// <summary>
-        /// Read aiModels models
+        /// Read AI models
         /// </summary>
         public const string FoundationaLLM_AIModel_AIModels_Read = "FoundationaLLM.AIModel/aiModels/read";
 
         /// <summary>
-        /// Create or update models.
+        /// Create or update AI models.
         /// </summary>
         public const string FoundationaLLM_AIModel_AIModels_Write = "FoundationaLLM.AIModel/aiModels/write";
 
         /// <summary>
-        /// Delete models.
+        /// Delete AI models.
         /// </summary>
         public const string FoundationaLLM_AIModel_AIModels_Delete = "FoundationaLLM.AIModel/aiModels/delete";
 

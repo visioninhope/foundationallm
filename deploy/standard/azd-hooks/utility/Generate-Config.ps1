@@ -228,6 +228,7 @@ $tokens.coreApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.orchestrationApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.gatekeeperApiRoleAssignmentGuid = $(New-Guid).Guid
+$tokens.gatewayApiRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.vectorizationJobRoleAssignmentGuid = $(New-Guid).Guid
 $tokens.subscriptionId = $subscriptionId
 $tokens.storageResourceGroup = $resourceGroups.storage
@@ -379,7 +380,7 @@ $vnetName = Invoke-AndRequireSuccess "Get VNet Name" {
 
 $subnetBackend = Invoke-AndRequireSuccess "Get Backend Subnet CIDR" {
     az network vnet subnet show `
-        --name "FLLMBackend" `
+        --name "aks-backend" `
         --query addressPrefix `
         --resource-group $resourceGroups.net `
         --vnet-name $vnetName `
@@ -389,7 +390,7 @@ $tokens.privateIpIngressBackend = Get-CIDRHost -baseCidr $subnetBackend -hostNum
 
 $subnetFrontend = Invoke-AndRequireSuccess "Get Frontend Subnet CIDR" {
     az network vnet subnet show `
-        --name "FLLMFrontend" `
+        --name "aks-frontend" `
         --query addressPrefix `
         --resource-group $resourceGroups.net `
         --vnet-name $vnetName `
@@ -451,6 +452,7 @@ $tokens.gatekeeperApiMiClientId = $services["gatekeeperapi"].miClientId
 $tokens.gatekeeperApiMiObjectId = $services["gatekeeperapi"].miObjectId
 $tokens.gatekeeperIntegrationApiMiClientId = $services["gatekeeperintegrationapi"].miClientId
 $tokens.gatewayApiMiClientId = $services["gatewayapi"].miClientId
+$tokens.gatewayApiMiObjectId = $services["gatewayapi"].miObjectId
 $tokens.gatewayAdapterApiMiClientId = $services["gatewayadapterapi"].miClientId
 $tokens.langChainApiMiClientId = $services["langchainapi"].miClientId
 $tokens.managementApiMiClientId = $services["managementapi"].miClientId
@@ -468,6 +470,7 @@ $eventGridProfiles = @{}
 $eventGridProfileNames = @(
     "core-api-event-profile"
     "gatekeeper-api-event-profile"
+    "gateway-api-event-profile"
     "orchestration-api-event-profile"
     "management-api-event-profile"
     "vectorization-api-event-profile"
@@ -489,6 +492,7 @@ foreach ($profileName in $eventGridProfileNames) {
 
 $tokens.coreApiEventGridProfile = $eventGridProfiles["core-api-event-profile"]
 $tokens.gatekeeperApiEventGridProfile = $eventGridProfiles["gatekeeper-api-event-profile"]
+$tokens.gatewayApiEventGridProfile = $eventGridProfiles["gateway-api-event-profile"]
 $tokens.managementApiEventGridProfile = $eventGridProfiles["management-api-event-profile"]
 $tokens.orchestrationApiEventGridProfile = $eventGridProfiles["orchestration-api-event-profile"]
 $tokens.vectorizationApiEventGridProfile = $eventGridProfiles["vectorization-api-event-profile"]

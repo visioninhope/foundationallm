@@ -2,9 +2,12 @@
 using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Extensions;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
 using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models;
@@ -12,7 +15,6 @@ using FoundationaLLM.Orchestration.Core.Orchestration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text;
-using System.Text.Json;
 
 namespace FoundationaLLM.Orchestration.Core.Services;
 
@@ -149,16 +151,16 @@ public class OrchestrationService : IOrchestrationService
 
             currentCompletionResponse = orchestration == null
                 ? throw new OrchestrationException($"The orchestration builder was not able to create an orchestration for agent [{completionRequest.AgentName ?? string.Empty}].")
-                : await orchestration.GetCompletion(instanceId, stepCompletionRequest);
+                : await orchestration.GetCompletion(stepCompletionRequest);
 
-            var newConversationSteps = await GetAgentConversationSteps(
-                instanceId,
-                currentCompletionResponse.AgentName!,
-                currentCompletionResponse.Completion);
-            if (newConversationSteps.Count > 0
-                && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
-                currentCompletionResponse =
-                    await GetCompletionForAgentConversation(instanceId, completionRequest, newConversationSteps);
+            //var newConversationSteps = await GetAgentConversationSteps(
+            //    instanceId,
+            //    currentCompletionResponse.AgentName!,
+            //    currentCompletionResponse.Completion);
+            //if (newConversationSteps.Count > 0
+            //    && newConversationSteps.First().AgentName != currentCompletionResponse.AgentName)
+            //    currentCompletionResponse =
+            //        await GetCompletionForAgentConversation(instanceId, completionRequest, newConversationSteps);
         }
 
         return currentCompletionResponse!;
@@ -218,11 +220,12 @@ public class OrchestrationService : IOrchestrationService
     {
         var agentResourceProvider = _resourceProviderServices[ResourceProviderNames.FoundationaLLM_Agent];
 
-        var result = await agentResourceProvider.HandlePostAsync(
-            $"/instances/{instanceId}/{AgentResourceTypeNames.Agents}/{AgentResourceProviderActions.CheckName}",
-            JsonSerializer.Serialize(new ResourceName { Name = agentName }),
+        var result = await agentResourceProvider.CheckResourceName(
+            instanceId,
+            agentName,
+            AgentResourceTypeNames.Agents,
             _callContext.CurrentUserIdentity!);
 
-        return true;
+        return result.Status == NameCheckResultType.Allowed;
     }
 }

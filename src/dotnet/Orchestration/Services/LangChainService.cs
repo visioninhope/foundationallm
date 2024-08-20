@@ -2,14 +2,13 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Infrastructure;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using FoundationaLLM.Orchestration.Core.Models.ConfigurationOptions;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -83,6 +82,7 @@ namespace FoundationaLLM.Orchestration.Core.Services
                 return new LLMCompletionResponse
                 {
                     OperationId = request.OperationId,
+                    Content = completionResponse!.Content,
                     Completion = completionResponse!.Completion,
                     Citations = completionResponse.Citations,
                     UserPrompt = completionResponse.UserPrompt,
@@ -90,7 +90,8 @@ namespace FoundationaLLM.Orchestration.Core.Services
                     PromptTemplate = string.Empty,
                     AgentName = request.Agent.Name,
                     PromptTokens = completionResponse.PromptTokens,
-                    CompletionTokens = completionResponse.CompletionTokens
+                    CompletionTokens = completionResponse.CompletionTokens,
+                    AnalysisResults = completionResponse.AnalysisResults
                 };
             }
             catch(Exception ex)

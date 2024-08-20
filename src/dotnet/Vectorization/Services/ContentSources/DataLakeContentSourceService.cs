@@ -1,4 +1,5 @@
-﻿using FoundationaLLM.Common.Models.Configuration.Storage;
+﻿using FoundationaLLM.Common.Models.Authentication;
+using FoundationaLLM.Common.Models.Configuration.Storage;
 using FoundationaLLM.Common.Models.Vectorization;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Vectorization.Interfaces;
@@ -35,7 +36,7 @@ namespace FoundationaLLM.Vectorization.Services.ContentSources
         /// contentId[1] = the container name.
         /// contentId[2] = path of the file relative to the container name.
         /// </remarks>
-        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, CancellationToken cancellationToken)
+        public async Task<string> ExtractTextAsync(ContentIdentifier contentId, UnifiedUserIdentity userIdentity, CancellationToken cancellationToken)
         {   
             contentId.ValidateMultipartId(3);
 

@@ -79,6 +79,8 @@ Param(
     [parameter(Mandatory = $false)][string]$mgmtClientAppName="FoundationaLLM-Management-Portal"
 )
 
+# Set Debugging and Error Handling
+Set-PSDebug -Trace 0 # Echo every command (0 to disable, 1 to enable)
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = "Stop"
 
@@ -119,7 +121,7 @@ function New-FllmEntraIdApps {
         # Update the API App Registration
         Write-Host -ForegroundColor Yellow "Laying down scaffolding for the API App Registration $($fllmAppRegMetaData.Api.Name)"
         az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Api.ObjectId)" --header "Content-Type=application/json" --body "@$fllmApiConfigPath"
-        Write-host -ForegroundColor Yellow "Sleeping for 10 seconds to allow the API App Registration to be created before updating it..."
+        Write-host -ForegroundColor Blue "Sleeping for 10 seconds to allow the API App Registration to be created before updating it..."
         Start-Sleep -Seconds 10
         ## Updates the API App Registration
         Write-Host -ForegroundColor Yellow "Preparing updates for the API App Registration $($fllmAppRegMetaData.Api.Name)"
@@ -148,7 +150,7 @@ function New-FllmEntraIdApps {
             Write-Host -ForegroundColor Yellow "Lay down scaffolding for the Client App Registration $($fllmAppRegMetaData.Client.Name)"
             az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Client.ObjectId)" --header "Content-Type=application/json" --body "@$fllmClientConfigPath"
             Start-Sleep -Seconds 10
-            Write-host -ForegroundColor Yellow "Sleeping for 10 seconds to allow the API App Registration to be created before updating it..."
+            Write-host -ForegroundColor Blue "Sleeping for 10 seconds to allow the API App Registration to be created before updating it..."
             ## Updates the Client App Registration
             Write-Host -ForegroundColor Yellow "Preparing updates for the Client App Registration $($fllmAppRegMetaData.Client.Name)"
             $($fllmAppRegMetaData.Client).Uri = @("api://$($fllmAppRegMetaData.Client.Name)")
@@ -157,7 +159,7 @@ function New-FllmEntraIdApps {
             $appConfig.identifierUris = @($($fllmAppRegMetaData.Client.Uri))
             $appConfig.requiredResourceAccess = $apiPermissions
             $appConfigUpdate = $appConfig | ConvertTo-Json -Depth 20
-            Write-Host -ForegroundColor Yellow "Final Update to Client App Registration $($fllmAppRegMetaData.Client.Name)"
+            Write-Host -ForegroundColor Yellow "Applying Final Update to Client App Registration $($fllmAppRegMetaData.Client.Name)..."
             Set-Content -Path "$($fllmAppRegMetaData.Client.Name)`.json" $appConfigUpdate
             az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($fllmAppRegMetaData.Client.ObjectId)" --header "Content-Type=application/json" --body "@$($fllmAppRegMetaData.Client.Name)`.json"
         }

@@ -1,10 +1,6 @@
-﻿using System.ComponentModel;
 using Azure.AI.OpenAI;
 using FoundationaLLM.Common.Authentication;
 using FoundationaLLM.Common.Interfaces;
-using FoundationaLLM.Common.Models.Orchestration;
-using FoundationaLLM.Common.Models.ResourceProviders.Agent;
-using FoundationaLLM.Common.Models.ResourceProviders.Prompt;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.SemanticKernel.Core.Exceptions;
 using FoundationaLLM.SemanticKernel.Core.Filters;
@@ -18,17 +14,15 @@ using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
 using System.Net;
-using System.Text.Json;
-using FoundationaLLM.Common.Settings;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
-using Microsoft.Azure.Cosmos;
 using Microsoft.SemanticKernel.Connectors.AzureCosmosDBNoSQL;
 using Microsoft.SemanticKernel.Connectors.Postgres;
-using System.Runtime;
 using FoundationaLLM.Common.Constants.Authentication;
 using FoundationaLLM.Common.Models.ResourceProviders.AIModel;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.ResourceProviders.Configuration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
+using FoundationaLLM.Common.Models.Orchestration.Response;
 
 #pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0050, SKEXP0060
 

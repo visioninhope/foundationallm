@@ -1,6 +1,6 @@
 ﻿using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Exceptions;
 using FoundationaLLM.Core.Examples.Interfaces;

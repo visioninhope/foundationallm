@@ -3,7 +3,7 @@ using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.AzureAIService;
 using FoundationaLLM.Common.Models.Chat;
-using FoundationaLLM.Common.Models.Orchestration;
+using FoundationaLLM.Common.Models.Orchestration.Request;
 using FoundationaLLM.Core.Examples.Interfaces;
 using FoundationaLLM.Core.Examples.Models;
 
@@ -36,7 +36,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 
@@ -74,7 +74,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 
@@ -148,7 +148,7 @@ namespace FoundationaLLM.Core.Examples.Services
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 // Create a new session since an existing ID was not provided.
-                sessionId = await coreClient.CreateChatSessionAsync((string?) null);
+                sessionId = await coreClient.CreateChatSessionAsync(new ChatSessionProperties() { Name = "Test" });
                 sessionCreated = true;
             }
 

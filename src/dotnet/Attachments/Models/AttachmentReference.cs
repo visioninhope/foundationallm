@@ -22,5 +22,24 @@ namespace FoundationaLLM.Attachment.Models
         /// The mime content type of the attachment.
         /// </summary>
         public string ContentType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Indicates an optional secondary provider for the attachment.
+        /// </summary>
+        /// <remarks>
+        /// The only secondary provider currently supported is the FoundationaLLM.AzureOpenAI provider.
+        /// </remarks>
+        public string? SecondaryProvider { get; set; }
+
+        /// <summary>
+        /// The object type of the resource.
+        /// </summary>
+        [JsonIgnore]
+        public override Type ResourceType =>
+            Type switch
+            {
+                AttachmentTypes.File => typeof(AttachmentFile),
+                _ => throw new ResourceProviderException($"The resource type {Type} is not supported.")
+            };
     }
 }

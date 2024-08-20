@@ -8,7 +8,6 @@ using FoundationaLLM.Common.Middleware;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Security;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.Gatekeeper.Core.Interfaces;
@@ -83,7 +82,7 @@ namespace FoundationaLLM.Gatekeeper.API
                 .Bind(builder.Configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_Instance));
 
             // Add Azure ARM services
-            builder.Services.AddAzureResourceManager();
+            builder.AddAzureResourceManager();
 
             // Add event services
             builder.Services.AddAzureEventGridEvents(

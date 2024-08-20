@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Models.Orchestration;
+﻿using FoundationaLLM.Common.Models.Orchestration.Response;
 
 namespace FoundationaLLM.Common.Models.Chat
 {
@@ -40,7 +40,8 @@ namespace FoundationaLLM.Common.Models.Chat
         /// <summary>
         /// Constructor for Completion Prompt.
         /// </summary>
-        public CompletionPrompt(string sessionId, string messageId, string prompt, Citation[]? citations = null)
+        public CompletionPrompt(string sessionId, string messageId, string prompt,
+            Citation[]? citations = null)
         {
             Id = Guid.NewGuid().ToString();
             Type = nameof(CompletionPrompt);

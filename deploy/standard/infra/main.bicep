@@ -2,9 +2,13 @@ targetScope = 'subscription'
 
 param administratorObjectId string
 param allowedExternalCidr string
+param aksServiceCidr string
 param authAppRegistrationClientId string
 param authAppRegistrationInstance string
 param authAppRegistrationTenantId string
+param backendAksNodeSku string
+param frontendAksNodeSku string
+param cidrVnet string
 param createDate string = utcNow('u')
 param environmentName string
 param externalNetworkingResourceGroupName string = ''
@@ -93,6 +97,9 @@ module app 'app-rg.bicep' = {
   params: {
     actionGroupId: ops.outputs.actionGroupId
     administratorObjectId: administratorObjectId
+    aksServiceCidr: aksServiceCidr
+    backendAksNodeSku: backendAksNodeSku
+    frontendAksNodeSku: frontendAksNodeSku
     environmentName: environmentName
     hubResourceGroup: hubResourceGroup
     hubSubscriptionId: hubSubscriptionId
@@ -140,6 +147,7 @@ module networking 'networking-rg.bicep' = {
   name: 'networking-${timestamp}'
   scope: resourceGroup(resourceGroups.net)
   params: {
+    cidrVnet: cidrVnet
     allowedExternalCidr: allowedExternalCidr
     environmentName: environmentName
     hubResourceGroup: hubResourceGroup
@@ -247,7 +255,7 @@ output FLLM_MGMT_API_HOSTNAME string = managementApiHostname
 
 output FOUNDATIONALLM_VNET_NAME string = networking.outputs.vnetName
 output FOUNDATIONALLM_VNET_ID string = networking.outputs.vnetId
-output FOUNDATIONALLM_HUB_VNET_NAME string = networking.outputs.hubVnetId
+output FOUNDATIONALLM_HUB_VNET_ID string = networking.outputs.hubVnetId
 
 output SERVICE_GATEKEEPER_API_ENDPOINT_URL string = 'http://gatekeeper-api/gatekeeper/'
 output SERVICE_GATEKEEPER_INTEGRATION_API_ENDPOINT_URL string = 'http://gatekeeper-integration-api/gatekeeperintegration'
@@ -259,3 +267,7 @@ output SERVICE_SEMANTIC_KERNEL_API_ENDPOINT_URL string = 'http://semantic-kernel
 output SERVICE_STATE_API_ENDPOINT_URL string = 'http://state-api/state'
 output SERVICE_VECTORIZATION_API_ENDPOINT_URL string = 'http://vectorization-api/vectorization'
 output SERVICE_VECTORIZATION_JOB_ENDPOINT_URL string = 'http://vectorization-job/vectorization'
+output SERVICE_CHAT_UI_ENDPOINT_URL string = 'https://${userPortalHostname}'
+output SERVICE_CORE_API_ENDPOINT_URL string = 'https://${coreApiHostname}'
+output SERVICE_MANAGEMENT_API_ENDPOINT_URL string = 'https://${managementApiHostname}'
+output SERVICE_MANAGEMENT_UI_ENDPOINT_URL string = 'https://${managementPortalHostname}'

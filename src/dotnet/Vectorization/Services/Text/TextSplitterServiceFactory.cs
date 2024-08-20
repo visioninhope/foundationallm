@@ -1,13 +1,12 @@
-﻿using FoundationaLLM.Common.Constants.Configuration;
-using FoundationaLLM.Common.Constants.ResourceProviders;
+﻿using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Interfaces;
+using FoundationaLLM.Common.Models.Authentication;
 using FoundationaLLM.Common.Models.Configuration.Text;
 using FoundationaLLM.Common.Models.ResourceProviders;
 using FoundationaLLM.Common.Models.ResourceProviders.Vectorization;
 using FoundationaLLM.Common.Services.TextSplitters;
 using FoundationaLLM.Vectorization.Interfaces;
-using FoundationaLLM.Vectorization.ResourceProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -37,14 +36,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
                 rps => rps.Name);
 
         /// <inheritdoc/>
-        public ITextSplitterService GetService(string serviceName)
+        public async Task<ITextSplitterService> GetService(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var textPartitionProfile = vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
-                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}");
+            var textPartitionProfile = await vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
+                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}", userIdentity);
 
             return textPartitionProfile.TextSplitter switch
             {
@@ -55,14 +54,14 @@ namespace FoundationaLLM.Vectorization.Services.Text
         }
 
         /// <inheritdoc/>
-        public (ITextSplitterService Service, ResourceBase Resource) GetServiceWithResource(string serviceName)
+        public async Task<(ITextSplitterService Service, ResourceBase Resource)> GetServiceWithResource(string serviceName, UnifiedUserIdentity userIdentity)
         {
             _resourceProviderServices.TryGetValue(ResourceProviderNames.FoundationaLLM_Vectorization, out var vectorizationResourceProviderService);
             if (vectorizationResourceProviderService == null)
                 throw new VectorizationException($"The resource provider {ResourceProviderNames.FoundationaLLM_DataSource} was not loaded.");
 
-            var textPartitionProfile = vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
-                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}");
+            var textPartitionProfile = await vectorizationResourceProviderService.GetResource<TextPartitioningProfile>(
+                $"/{VectorizationResourceTypeNames.TextPartitioningProfiles}/{serviceName}", userIdentity);
 
             return textPartitionProfile.TextSplitter switch
             {

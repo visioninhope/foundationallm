@@ -7,7 +7,6 @@ using FoundationaLLM.Common.Constants.Configuration;
 using FoundationaLLM.Common.Interfaces;
 using FoundationaLLM.Common.Models.Context;
 using FoundationaLLM.Common.OpenAPI;
-using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Tokenizers;
 using FoundationaLLM.Common.Validation;
 using FoundationaLLM.SemanticKernel.Core.Models.Configuration;
@@ -80,7 +79,7 @@ builder.AddCorsPolicies();
 builder.Services.AddInstanceProperties(builder.Configuration);
 
 // Add Azure ARM services
-builder.Services.AddAzureResourceManager();
+builder.AddAzureResourceManager();
 
 // Add event services
 builder.Services.AddAzureEventGridEvents(
@@ -154,7 +153,6 @@ builder.Services.ActivateKeyedSingleton<ITokenizerService>(TokenizerServiceNames
 // Gateway text embedding
 builder.Services.AddKeyedScoped<ITextEmbeddingService, GatewayTextEmbeddingService>(
     DependencyInjectionKeys.FoundationaLLM_Vectorization_TextEmbedding_Gateway);
-builder.AddGatewayService();
 
 builder.Services.AddScoped<ICallContext, CallContext>();
 builder.AddHttpClientFactoryService();

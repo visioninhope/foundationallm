@@ -1,7 +1,8 @@
 <template>
 	<div class="chat-thread">
 		<!-- Message list -->
-		<div class="chat-thread__messages" :class="messages.length === 0 && 'empty'">
+		<div class="chat-thread__messages"
+			:class="messages.length === 0 && 'empty'">
 			<template v-if="isLoading">
 				<div class="chat-thread__loading">
 					<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -13,21 +14,20 @@
 				<template v-if="messages.length !== 0">
 					<ChatMessage
 						v-for="(message, index) in messages.slice().reverse()"
-						:key="message.id"
+						:key="`${message.id}-${componentKey}`"
 						:message="message"
 						:show-word-animation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage($event.message, $event.isLiked)"
+						@refresh="handleRefresh()"
 					/>
 				</template>
 
 				<!-- New chat alert -->
 				<div v-else class="new-chat-alert">
-					<div class="alert-header">
-						<i class="pi pi-exclamation-circle"></i>
-						<span class="alert-header-text">Get Started</span>
-					</div>
 					<div class="alert-body">
-						<span class="alert-body-text">How can I help?</span>
+						<div class="alert-body-text">
+							Start the conversation using the text box below.
+						</div>
 					</div>
 				</div>
 			</template>
@@ -59,6 +59,7 @@ export default {
 			isLoading: true,
 			userSentMessage: false,
 			isMessagePending: false,
+			componentKey: 0,
 			longRunningOperations: new Map<string, boolean>(), // sessionId -> isPending
 		};
 	},
@@ -94,6 +95,11 @@ export default {
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
+		},
+
+		async handleRefresh() {
+			this.componentKey += 1;
+			this.$nextTick();
 		},
 
 		async handleSend(text: string) {
@@ -201,10 +207,14 @@ export default {
 	flex-direction: column;
 }
 .new-chat-alert {
-	background-color: #d9f0d1;
+	background-color: #FAFAFA;
 	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 5px 10px 0 rgba(27, 29, 33, 0.1);
 	padding: 10px;
 	border-radius: 6px;
+	width: 55%;
 }
 
 .alert-header,
@@ -220,8 +230,10 @@ export default {
 }
 
 .alert-body-text {
-	font-size: 1.2rem;
-	font-weight: 300;
+	color: #000;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 	font-style: italic;
 }
 

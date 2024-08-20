@@ -6,7 +6,7 @@ using FoundationaLLM.Common.Models.Configuration.AzureAI;
 using FoundationaLLM.Common.Models.Configuration.CosmosDB;
 using FoundationaLLM.Common.Models.Configuration.Instance;
 using FoundationaLLM.Common.Models.Configuration.Storage;
-using FoundationaLLM.Common.Services;
+using FoundationaLLM.Common.Services.Azure;
 using FoundationaLLM.Common.Services.Storage;
 using FoundationaLLM.Common.Settings;
 using FoundationaLLM.Core.Examples.Exceptions;

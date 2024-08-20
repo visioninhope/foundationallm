@@ -36,7 +36,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILogger<PromptResourceProviderService> logger)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<PromptReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,
@@ -84,7 +84,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
         }
 
-        #region Support for Management API
+        #region Resource provider support for Management API
 
         /// <inheritdoc/>
         protected override async Task<object> GetResourcesAsync(ResourcePath resourcePath, UnifiedUserIdentity userIdentity) =>
@@ -177,8 +177,9 @@ namespace FoundationaLLM.Prompt.ResourceProviders
                     return null;
                 }
             }
-            throw new ResourceProviderException($"Could not locate the {promptReference.Name} prompt resource.",
-                StatusCodes.Status404NotFound);
+
+            throw new ResourceProviderException($"The {_name} resource provider could not locate a resource because of invalid resource identification parameters.",
+                StatusCodes.Status400BadRequest);
         }
 
         #endregion
@@ -254,8 +255,8 @@ namespace FoundationaLLM.Prompt.ResourceProviders
             {
                 PromptResourceTypeNames.Prompts => resourcePath.ResourceTypeInstances.Last().Action switch
                 {
-                    PromptResourceProviderActions.CheckName => CheckPromptName(serializedAction),
-                    PromptResourceProviderActions.Purge => await PurgeResource(resourcePath),
+                    ResourceProviderActions.CheckName => CheckPromptName(serializedAction),
+                    ResourceProviderActions.Purge => await PurgeResource(resourcePath),
                     _ => throw new ResourceProviderException($"The action {resourcePath.ResourceTypeInstances.Last().Action} is not supported by the {_name} resource provider.",
                         StatusCodes.Status400BadRequest)
                 },
