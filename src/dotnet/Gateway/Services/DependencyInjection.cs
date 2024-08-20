@@ -54,6 +54,6 @@ namespace FoundationaLLM
         /// </summary>
         /// <param name="services">The service collection of the DI container.</param>
         public static void AddGatewayServiceClient(this IServiceCollection services) =>
-            services.AddSingleton<IGatewayServiceClient, GatewayCoreServiceClient>();
+            services.AddSingleton<IGatewayServiceClient, NoOpGatewayServiceClient>();
     }
 }

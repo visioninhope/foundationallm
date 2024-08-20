@@ -57,13 +57,13 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             var userIdentities = LoadTestData.GetUserIdentities(hostId);
 
-            //await Task.WhenAll(
-            //   userIdentities
-            //   .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
-            //       instanceSettings.Id,
-            //       resourceProviders.AttachmentResourceProvider,
-            //       resourceProviders.AzureOpenAIResourceProvider,
-            //       userIdentity)));
+            await Task.WhenAll(
+               userIdentities
+               .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
+                   instanceSettings.Id,
+                   resourceProviders.AttachmentResourceProvider,
+                   resourceProviders.AzureOpenAIResourceProvider,
+                   userIdentity)));
 
             await Task.WhenAll(
                 userIdentities
@@ -71,6 +71,15 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                     instanceSettings.Id,
                     resourceProviders.AzureOpenAIResourceProvider,
                     userIdentity)));
+
+            //await Task.WhenAll(
+            //    userIdentities
+            //    .Select(userIdentity =>
+            //        serviceProvider.GetRequiredService<IAuthorizationService>().ProcessAuthorizationRequest(
+            //        instanceSettings.Id,
+            //        "FoundationaLLM.AzureOpenAI/assistantUserContexts/write", 
+            //        [$"/instances/{instanceSettings.Id}/providers/FoundationaLLM.AzureOpenAI/assistantUserContexts/{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceSettings.Id.ToLower()}"], 
+            //        userIdentity)));
         }
 
         private async Task SimulateAssistantUserContextCreation(

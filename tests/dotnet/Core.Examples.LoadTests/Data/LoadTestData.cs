@@ -6,7 +6,7 @@ namespace Core.Examples.LoadTests.Data
 {
     public static class LoadTestData
     {
-        private const int SimulatedUsersCount = 10;
+        private const int SimulatedUsersCount = 20;
         private const int SimulatedFileCount = 10;
 
         public static List<UnifiedUserIdentity> GetUserIdentities(int hostId) =>

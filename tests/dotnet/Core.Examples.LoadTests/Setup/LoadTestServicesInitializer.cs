@@ -40,8 +40,6 @@ namespace FoundationaLLM.Core.Examples.LoadTests.Setup
             serviceCollection.AddAuthorizationService(builder.Configuration);
             serviceCollection.AddHttpClientFactoryService();
             serviceCollection.AddAzureResourceManager();
-
-            serviceCollection.AddGatewayCore(builder.Configuration);
             serviceCollection.AddGatewayServiceClient();
 
             // Using the Management API configuration section for the Event Grid profile
