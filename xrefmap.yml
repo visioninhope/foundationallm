@@ -6389,6 +6389,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
   nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_AccentTextColor
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_AgentIconUrl
+  name: FoundationaLLM_Branding_AgentIconUrl
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Branding_AgentIconUrl
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_AgentIconUrl
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_AgentIconUrl
+  nameWithType: AppConfigurationKeys.FoundationaLLM_Branding_AgentIconUrl
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_Branding_BackgroundColor
   name: FoundationaLLM_Branding_BackgroundColor
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_Branding_BackgroundColor
@@ -13965,6 +13971,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AccentTextColor
   nameWithType: ClientBrandingConfiguration.AccentTextColor
+- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl
+  name: AgentIconUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_AgentIconUrl
+  commentId: P:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl
+  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl
+  nameWithType: ClientBrandingConfiguration.AgentIconUrl
+- uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl*
+  name: AgentIconUrl
+  href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_AgentIconUrl_
+  commentId: Overload:FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.AgentIconUrl
+  nameWithType: ClientBrandingConfiguration.AgentIconUrl
 - uid: FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.BackgroundColor
   name: BackgroundColor
   href: api/dotnet/FoundationaLLM.Common.Models.Configuration.Branding.ClientBrandingConfiguration.html#FoundationaLLM_Common_Models_Configuration_Branding_ClientBrandingConfiguration_BackgroundColor
