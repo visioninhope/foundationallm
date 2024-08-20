@@ -4,6 +4,7 @@ using FoundationaLLM.Gateway.Client;
 using FoundationaLLM.Gateway.Interfaces;
 using FoundationaLLM.Gateway.Models.Configuration;
 using FoundationaLLM.Gateway.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -28,6 +29,20 @@ namespace FoundationaLLM
         }
 
         /// <summary>
+        /// Adds the core Gateway service the the dependency injection container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> dependency injection container service collection.</param>
+        /// <param name="configuration">The <see cref="IConfigurationManager"/> configuration manager.</param>
+        public static void AddGatewayCore(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddOptions<GatewayCoreSettings>()
+                .Bind(configuration.GetSection(AppConfigurationKeySections.FoundationaLLM_APIEndpoints_GatewayAPI_Configuration));
+
+            services.AddSingleton<IGatewayCore, GatewayCore>();
+            services.AddHostedService<GatewayWorker>();
+        }
+
+        /// <summary>
         /// Adds the Gateway service client to the dependency injection container.
         /// </summary>
         /// <param name="builder">The host application builder.</param>
@@ -39,6 +54,6 @@ namespace FoundationaLLM
         /// </summary>
         /// <param name="services">The service collection of the DI container.</param>
         public static void AddGatewayServiceClient(this IServiceCollection services) =>
-            services.AddSingleton<IGatewayServiceClient, GatewayServiceClient>();
+            services.AddSingleton<IGatewayServiceClient, GatewayCoreServiceClient>();
     }
 }

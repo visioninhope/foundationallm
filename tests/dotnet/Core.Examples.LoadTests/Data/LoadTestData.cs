@@ -6,7 +6,7 @@ namespace Core.Examples.LoadTests.Data
 {
     public static class LoadTestData
     {
-        private const int SimulatedUsersCount = 20;
+        private const int SimulatedUsersCount = 10;
         private const int SimulatedFileCount = 10;
 
         public static List<UnifiedUserIdentity> GetUserIdentities(int hostId) =>
@@ -25,8 +25,8 @@ namespace Core.Examples.LoadTests.Data
             Enumerable.Range(1, SimulatedFileCount)
                 .Select(i => new AttachmentFile
                 {
-                    Name = $"a-{userId}-{i:D18}",
-                    Content = new byte[] { 0x20 },
+                    Name = $"a-{userId}-{i:D3}-{DateTime.Now.Ticks}",
+                    Content = [ 0x20 ],
                     DisplayName = "test_original_file_name",
                     ContentType = "application/octet-stream",
                     OriginalFileName = "test_original_file_name.jpg"
