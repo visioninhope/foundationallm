@@ -1,6 +1,7 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.Orchestration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
@@ -22,6 +23,7 @@ using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Utils;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -299,7 +301,12 @@ public partial class CoreService(
             // Generate the completion to return to the user.
             var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, directCompletionRequest);
 
-            return new Completion { Text = result.Completion };
+            return new Completion
+            {
+                Text = result.Completion
+                    ?? (result.Content?.Where(c => c.Type == MessageContentItemTypes.Text).FirstOrDefault() as OpenAITextMessageContentItem)?.Value
+                        ?? "Could not generate a completion due to an internal error."
+            };
         }
         catch (Exception ex)
         {
