@@ -139,7 +139,7 @@ namespace FoundationaLLM.Core.Examples
                     var startTime = DateTimeOffset.UtcNow;
 
                     var response = await _agentConversationTestService.RunAgentCompletionWithNoSession(
-                        agentName, conversationStarter.UserPrompt, createAgent: true);
+                        agentName, conversationStarter.UserPrompt, createAgent: false);
 
                     conversation.Messages = ParseConversation(response.Text!);
                     foreach (var message in conversation.Messages)
