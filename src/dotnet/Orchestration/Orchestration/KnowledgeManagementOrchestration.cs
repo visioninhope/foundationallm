@@ -82,7 +82,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                     OperationId = completionRequest.OperationId,
                     UserPrompt = completionRequest.UserPrompt!,
                     MessageHistory = completionRequest.MessageHistory,
-                    Attachments = completionRequest.Attachments == null ? [] : await GetAttachmentPaths(completionRequest.Attachments),
+                    Attachments = await GetAttachmentPaths(completionRequest.Attachments),
                     Agent = _agent,
                     Objects = _explodedObjects
                 });
@@ -98,8 +98,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return new CompletionResponse
             {
                 OperationId = completionRequest.OperationId!,
-                Completion = result.Completion!,
-                Content = await TransformContentItems(result.Content!),
+                Completion = result.Completion,
+                Content = result.Content != null ? await TransformContentItems(result.Content) : null,
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
                 FullPrompt = result.FullPrompt,
