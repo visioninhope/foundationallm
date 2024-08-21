@@ -10,6 +10,7 @@ import type {
 	ResourceProviderDeleteResult,
 	ResourceProviderDeleteResults
 } from '@/js/types';
+import { useNuxtApp } from 'nuxt/app';
 
 export default {
 	apiUrl: null as string | null,
@@ -50,7 +51,6 @@ export default {
 			params: {
 				key,
 			},
-			headers: await this.getAuthHeader(),
 		});
 	},
 
