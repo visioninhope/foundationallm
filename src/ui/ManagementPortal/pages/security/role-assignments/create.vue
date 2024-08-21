@@ -249,10 +249,10 @@ export default {
 			},
 			dialogPrincipal: null,
 
-			principalOptions: [],
 			loadingPrincipals: false,
+			principalOptions: [],
 			principalSearchQuery: '',
-			principalsPage: 1,
+			principalsCurrentPage: 1,
 			hasNextPrincipalPage: false,
 		};
 	},
@@ -291,7 +291,7 @@ export default {
 
 		async handlePrincipalSearch(event) {
 			this.principalSearchQuery = event.query;
-			this.principalsPage = 1;
+			this.principalsCurrentPage = 1;
 			this.principalOptions = [];
 			await this.loadMorePrincipals();
 		},
@@ -302,7 +302,7 @@ export default {
 			if (dropdown.scrollHeight - dropdown.scrollTop - buffer <= dropdown.clientHeight) {
 				if (this.loadingPrincipals || !this.hasNextPrincipalPage) return;
 
-				this.principalsPage += 1;
+				this.principalsCurrentPage += 1;
 				await this.loadMorePrincipals();
 			}
 		},
@@ -313,7 +313,7 @@ export default {
 			this.loadingPrincipals = true;
 
 			const principalsCurrentPage = await apiMethod.call(api, {
-				page_number: this.principalsPage,
+				page_number: this.principalsCurrentPage,
 				name: this.principalSearchQuery,
 			});
 
