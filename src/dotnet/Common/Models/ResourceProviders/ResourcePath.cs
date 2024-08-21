@@ -175,6 +175,21 @@ namespace FoundationaLLM.Common.Models.ResourceProviders
         }
 
         /// <summary>
+        /// Computes the object id of the resource identifier.
+        /// </summary>
+        /// <param name="instanceId">The FoundationaLLM instance id.</param>
+        /// <param name="resourceProviderName">The name of the resource provider.</param>
+        /// <param name="resourceTypeName">The name of the resource type.</param>
+        /// <param name="resourceName">The name of the resource.</param>
+        /// <returns>The object id.</returns>
+        public static string GetObjectId(
+            string instanceId,
+            string resourceProviderName,
+            string resourceTypeName,
+            string resourceName) =>
+            $"/instances/{instanceId}/providers/{resourceProviderName}/{resourceTypeName}/{resourceName}";
+
+        /// <summary>
         /// Determines whether the resource path includes another specified resource path.
         /// </summary>
         /// <param name="other">The <see cref="ResourcePath"/> to check for inclusion.</param>

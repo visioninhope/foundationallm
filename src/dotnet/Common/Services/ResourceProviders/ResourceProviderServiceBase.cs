@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
+using System.Text;
 using System.Text.Json;
 
 namespace FoundationaLLM.Common.Services.ResourceProviders
@@ -21,7 +22,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
     /// <summary>
     /// Implements basic resource provider functionality
     /// </summary>
-    public class ResourceProviderServiceBase : IResourceProviderService
+    /// <typeparam name="TResourceReference">The type of the resource reference used by the resource provider.</typeparam>
+    public class ResourceProviderServiceBase<TResourceReference> : IResourceProviderService
+        where TResourceReference : ResourceReference
     {
         private bool _isInitialized = false;
 
@@ -30,6 +33,14 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         private readonly ImmutableList<string> _allowedResourceProviders;
         private readonly Dictionary<string, ResourceTypeDescriptor> _allowedResourceTypes;
         private readonly Dictionary<string, IResourceProviderService> _resourceProviders = [];
+
+        private readonly bool _useInternalStore;
+        private readonly SemaphoreSlim _lock = new(1, 1);
+
+        /// <summary>
+        /// The resource reference store used by the resource provider.
+        /// </summary>
+        protected ResourceProviderResourceReferenceStore<TResourceReference>? _resourceReferenceStore;
 
         /// <summary>
         /// The <see cref="IServiceProvider"/> tha provides dependency injection services.
@@ -96,6 +107,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <inheritdoc/>
         public string StorageAccountName => _storageService.StorageAccountName;
 
+        /// <inheritdoc/>
+        public string StorageContainerName => _storageContainerName;
+
         /// <summary>
         /// Creates a new instance of the resource provider.
         /// </summary>
@@ -107,6 +121,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// <param name="logger">The logger used for logging.</param>
         /// <param name="serviceProvider">The <see cref="IServiceProvider"/> of the main dependency injection container.</param>
         /// <param name="eventNamespacesToSubscribe">The list of Event Service event namespaces to subscribe to for local event processing.</param>
+        /// <param name="useInternalStore">Indicates whether the resource provider should use the internal resource store or provide one of its own.</param>
         public ResourceProviderServiceBase(
             InstanceSettings instanceSettings,
             IAuthorizationService authorizationService,
@@ -115,7 +130,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             IResourceValidatorFactory resourceValidatorFactory,
             IServiceProvider serviceProvider,
             ILogger logger,
-            List<string>? eventNamespacesToSubscribe = default)
+            List<string>? eventNamespacesToSubscribe = default,
+            bool useInternalStore = false)
         {
             _authorizationService = authorizationService;
             _storageService = storageService;
@@ -125,6 +141,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             _serviceProvider = serviceProvider;
             _instanceSettings = instanceSettings;
             _eventNamespacesToSubscribe = eventNamespacesToSubscribe;
+            _useInternalStore = useInternalStore;
 
             _allowedResourceProviders = [_name];
             _allowedResourceTypes = GetResourceTypes();
@@ -141,6 +158,19 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         {
             try
             {
+                _logger.LogInformation("Starting to initialize the {ResourceProvider} resource provider...", _name);
+
+                //TODO: Remove this check after all resource providers are updated to use the new resource reference store.
+                if (_useInternalStore)
+                {
+                    _resourceReferenceStore = new ResourceProviderResourceReferenceStore<TResourceReference>(
+                        this,
+                        _storageService,
+                        _logger);
+
+                    await _resourceReferenceStore.LoadResourceReferences();
+                }
+
                 await InitializeInternal();
 
                 if (_eventNamespacesToSubscribe != null
@@ -155,10 +185,12 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                 }
 
                 _isInitialized = true;
+
+                _logger.LogInformation("The {ResourceProvider} resource provider was successfully initialized.", _name);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "The resource provider {ResourceProviderName} failed to initialize.", _name);
+                _logger.LogError(ex, "The {ResourceProviderName} resource provider failed to initialize.", _name);
             }
         }
 
@@ -513,6 +545,309 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
 
         #endregion
 
+        #region Resource management
+
+        /// <summary>
+        /// Loads one or more resources of a specific type.
+        /// </summary>
+        /// <typeparam name="T">The type of resources to load.</typeparam>
+        /// <param name="instance">The <see cref="ResourceTypeInstance"/> that indicates a specific resource to load.</param>
+        /// <returns>A list of <see cref="ResourceProviderGetResult{T}"/> objects.</returns>
+        protected async Task<List<ResourceProviderGetResult<T>>> LoadResources<T>(ResourceTypeInstance instance) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                if (instance.ResourceId == null)
+                {
+                    var allResourceReferences =
+                        await _resourceReferenceStore!.GetAllResourceReferences();
+                    var resources = (await Task.WhenAll(
+                            allResourceReferences
+                                .Select(r => LoadResource<T>(r))))
+                      .Where(r => r != null)
+                      .ToList();
+
+                    return resources.Select(r => new ResourceProviderGetResult<T>()
+                    {
+                        Resource = r!,
+                        Actions = [],
+                        Roles = []
+                    }).ToList();
+                }
+                else
+                {
+                    var resourceReference = await _resourceReferenceStore!.GetResourceReference(instance.ResourceId);
+
+                    if (resourceReference != null)
+                    {
+                        var resource = await LoadResource<T>(resourceReference);
+                        return resource == null
+                            ? []
+                            : [
+                                new ResourceProviderGetResult<T>()
+                                {
+                                    Resource = resource,
+                                    Actions = [],
+                                    Roles = []
+                                }
+                            ];
+                    }
+                    else
+                        return [];
+                }
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Loads a resource based on its resource reference.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to load.</typeparam>
+        /// <param name="resourceReference">The type of resource reference used to indetify the resource to load.</param>
+        /// <returns>The loaded resource.</returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task<T?> LoadResource<T>(TResourceReference resourceReference) where T : ResourceBase
+        {
+            if (resourceReference.ResourceType != typeof(T))
+                throw new ResourceProviderException(
+                    $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
+                    StatusCodes.Status400BadRequest);
+
+            if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
+            {
+                var fileContent =
+                    await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
+                var resourceObject = JsonSerializer.Deserialize<T>(
+                    Encoding.UTF8.GetString(fileContent.ToArray()),
+                    _serializerSettings)
+                        ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
+                            StatusCodes.Status400BadRequest);
+
+                return resourceObject;
+            }
+
+            return null;
+        }
+
+        protected async Task<T?> LoadResource<T>(string resourceName) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName)
+                    ?? throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+
+                if (await _storageService.FileExistsAsync(_storageContainerName, resourceReference.Filename, default))
+                {
+                    var fileContent =
+                        await _storageService.ReadFileAsync(_storageContainerName, resourceReference.Filename, default);
+                    var resourceObject = JsonSerializer.Deserialize<T>(
+                        Encoding.UTF8.GetString(fileContent.ToArray()),
+                        _serializerSettings)
+                            ?? throw new ResourceProviderException($"Failed to load the resource {resourceReference.Name}. Its content file might be corrupt.",
+                                StatusCodes.Status400BadRequest);
+
+                    return resourceObject;
+                }
+
+                return null;
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Creates a resource based on a resource reference and the resource itself.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to create.</typeparam>
+        /// <param name="resourceReference">The resource reference used to identify the resource.</param>
+        /// <param name="resource">The resource itself.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task CreateResource<T>(TResourceReference resourceReference, T resource) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                if (resourceReference.ResourceType != resource.GetType())
+                    throw new ResourceProviderException(
+                        $"The resource reference {resourceReference.Name} is not of the expected type {typeof(T).Name}.",
+                        StatusCodes.Status400BadRequest);
+
+                await _storageService.WriteFileAsync(
+                   _storageContainerName,
+                   resourceReference.Filename,
+                   JsonSerializer.Serialize<T>(resource, _serializerSettings),
+                   default,
+                default);
+
+                await _resourceReferenceStore!.AddResourceReference(resourceReference);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Creates a resource based on a resource reference and the resource itself.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to create.</typeparam>
+        /// <param name="resourceReference">The resource reference used to identify the resource.</param>
+        /// <param name="content">The resource itself.</param>
+        /// <param name="contentType">The resource content type, if applicable.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task CreateResource(TResourceReference resourceReference, Stream content, string? contentType)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                await _storageService.WriteFileAsync(
+                    _storageContainerName,
+                    resourceReference.Filename,
+                    content,
+                    contentType ?? default,
+                    default);
+
+                await _resourceReferenceStore!.AddResourceReference(resourceReference);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Creates two resources based on their resource references and the resources themselves.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first resource to create.</typeparam>
+        /// <typeparam name="T2">The type of the second resource to create.</typeparam>
+        /// <param name="resourceReference1">The resource reference used to identify the first resource.</param>
+        /// <param name="resource1">The first resource to create.</param>
+        /// <param name="resourceReference2">The resource reference used to identify the second resource.</param>
+        /// <param name="resource2">The second resource to create.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task CreateResources<T1, T2>(
+            TResourceReference resourceReference1, T1 resource1,
+            TResourceReference resourceReference2, T2 resource2)
+            where T1 : ResourceBase
+            where T2 : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                if (resourceReference1.ResourceType != resource1.GetType())
+                    throw new ResourceProviderException(
+                        $"The resource reference {resourceReference1.Name} is not of the expected type {typeof(T1).Name}.",
+                        StatusCodes.Status400BadRequest);
+
+                if (resourceReference2.ResourceType != resource2.GetType())
+                    throw new ResourceProviderException(
+                        $"The resource reference {resourceReference2.Name} is not of the expected type {typeof(T2).Name}.",
+                        StatusCodes.Status400BadRequest);
+
+                await _storageService.WriteFileAsync(
+                   _storageContainerName,
+                   resourceReference1.Filename,
+                   JsonSerializer.Serialize<T1>(resource1, _serializerSettings),
+                   default,
+                   default);
+
+                await _storageService.WriteFileAsync(
+                   _storageContainerName,
+                   resourceReference2.Filename,
+                   JsonSerializer.Serialize<T2>(resource2, _serializerSettings),
+                   default,
+                default);
+
+                await _resourceReferenceStore!.AddResourceReferences(
+                    [
+                        resourceReference1,
+                        resourceReference2
+                    ]);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Saves a resource based on its resource reference and the resource itself.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to save.</typeparam>
+        /// <param name="resourceReference">The resource reference used to identify the resource.</param>
+        /// <param name="resource">The resource to be saved.</param>
+        /// <returns></returns>
+        protected async Task SaveResource<T>(TResourceReference resourceReference, T resource) where T : ResourceBase
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                await _storageService.WriteFileAsync(
+                   _storageContainerName,
+                   resourceReference.Filename,
+                   JsonSerializer.Serialize<T>(resource, _serializerSettings),
+                   default,
+                   default);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Deletes a resource and its reference.
+        /// </summary>
+        /// <typeparam name="T">The type of resource to delete.</typeparam>
+        /// <param name="resourceName">The name of the resource.</param>
+        /// <returns></returns>
+        /// <exception cref="ResourceProviderException"></exception>
+        protected async Task DeleteResource<T>(string resourceName)
+        {
+            try
+            {
+                await _lock.WaitAsync();
+
+                var resourceReference = await _resourceReferenceStore!.GetResourceReference(resourceName);
+
+                if (resourceReference != null)
+                {
+                    await _resourceReferenceStore!.DeleteResourceReference(resourceReference);
+                    await _storageService.DeleteFileAsync(
+                        _storageContainerName,
+                        resourceReference.Filename);
+                }
+                else
+                {
+                    throw new ResourceProviderException($"Could not locate the {resourceName} resource.",
+                        StatusCodes.Status404NotFound);
+                }
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        #endregion
+
         #region Utils
 
         /// <summary>
@@ -535,9 +870,10 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="resource">The <see cref="ResourceBase"/> object to be updated.</param>
         /// <param name="userIdentity">The <see cref="UnifiedUserIdentity"/> providing the information about the identity of the user that performed a create or update operation on the resource.</param>
-        protected void UpdateBaseProperties(ResourceBase resource, UnifiedUserIdentity userIdentity)
+        /// <param name="isNew">Indicates whether the resource is new or being updated.</param>
+        protected void UpdateBaseProperties(ResourceBase resource, UnifiedUserIdentity userIdentity, bool isNew = false)
         {
-            if (string.IsNullOrWhiteSpace(resource.CreatedBy))
+            if (isNew)
             {
                 // The resource was just created
                 resource.CreatedBy = userIdentity.UPN ?? userIdentity.UserId ?? "N/A";

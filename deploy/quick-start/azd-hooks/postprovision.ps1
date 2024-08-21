@@ -131,6 +131,14 @@ $configurations = @{
         template = './data/role-assignments/DefaultRoleAssignments.template.json'
         render   = "./data/role-assignments/${env:FOUNDATIONALLM_INSTANCE_ID}.json"
     }
+    "completion-4-model" = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/completion-4-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/completion-4-model.json'
+    }
+    "completion-4o-model" = @{
+        template = './data/resource-provider/FoundationaLLM.AIModel/completion-4o-model.template.json'
+        render   = '../common/data/resource-provider/FoundationaLLM.AIModel/completion-4o-model.json'
+    }
     "completion-model" = @{
         template = './data/resource-provider/FoundationaLLM.AIModel/completion-model.template.json'
         render   = '../common/data/resource-provider/FoundationaLLM.AIModel/completion-model.json'

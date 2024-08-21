@@ -15,7 +15,7 @@ namespace FoundationaLLM.AzureOpenAI.Models
         /// The object type of the resource.
         /// </summary>
         [JsonIgnore]
-        public Type ResourceType =>
+        public override Type ResourceType =>
             Type switch
             {
                 AzureOpenAITypes.AssistantUserContext => typeof(AssistantUserContext),

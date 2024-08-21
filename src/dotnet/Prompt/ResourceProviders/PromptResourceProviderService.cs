@@ -36,7 +36,7 @@ namespace FoundationaLLM.Prompt.ResourceProviders
         IResourceValidatorFactory resourceValidatorFactory,
         IServiceProvider serviceProvider,
         ILogger<PromptResourceProviderService> logger)
-        : ResourceProviderServiceBase(
+        : ResourceProviderServiceBase<PromptReference>(
             instanceOptions.Value,
             authorizationService,
             storageService,

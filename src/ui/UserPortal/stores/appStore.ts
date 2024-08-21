@@ -52,10 +52,10 @@ export const useAppStore = defineStore('app', {
 				await this.changeSession(existingSession || this.sessions[0]);
 			}
 
-			if (this.currentSession) {
-				await this.getMessages();
-				this.updateSessionAgentFromMessages(this.currentSession);
-			}
+			// if (this.currentSession) {
+			// 	await this.getMessages();
+			// 	this.updateSessionAgentFromMessages(this.currentSession);
+			// }
 		},
 
 		getDefaultChatSessionProperties(): ChatSessionProperties {
@@ -217,6 +217,12 @@ export const useAppStore = defineStore('app', {
 				(attachment) => attachment.sessionId === sessionId,
 			);
 
+			const attachmentDetails = relevantAttachments.map((attachment) => ({
+				objectId: attachment.id,
+				displayName: attachment.fileName,
+				contentType: attachment.contentType,
+			}));
+
 			const authStore = useAuthStore();
 			const tempUserMessage: Message = {
 				completionPromptId: null,
@@ -230,6 +236,7 @@ export const useAppStore = defineStore('app', {
 				tokens: 0,
 				type: 'Message',
 				vector: [],
+				attachmentDetails: attachmentDetails,
 			};
 			this.currentMessages.push(tempUserMessage);
 
@@ -343,7 +350,8 @@ export const useAppStore = defineStore('app', {
 
 			const upsertResult = await api.uploadAttachment(file, agent.name, progressCallback) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
-			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId };
+			const contentType = file.get('file')?.type;
+			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId, contentType };
 
 			this.attachments.push(newAttachment);
 

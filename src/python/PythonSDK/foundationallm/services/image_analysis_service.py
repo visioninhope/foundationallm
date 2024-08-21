@@ -1,4 +1,5 @@
 import base64
+import json
 from foundationallm.models.attachments import AttachmentProperties
 from foundationallm.config import Configuration
 from foundationallm.storage import BlobStorageManager
@@ -59,12 +60,12 @@ class ImageAnalysisService:
                 )
             except Exception as e:
                 raise Exception(f'Error connecting to the {storage_account_name} blob storage account and the container named {container_name}: {e}')
-            
+
             if (storage_manager.file_exists(file_name)):
                 try:
                     # Get the image file from blob storage.
-                    image_blob = storage_manager.read_file_content(file_name)
-                    return base64.b64encode(image_blob).decode('utf-8')
+                   image_blob = storage_manager.read_file_content(file_name)
+                   return base64.b64encode(image_blob).decode('utf-8')
                 except Exception as e:
                     raise Exception(f'The specified image {storage_account_name}/{file_path} does not exist.')
             else:
@@ -142,7 +143,7 @@ class ImageAnalysisService:
                     usage.total_tokens += response.usage.total_tokens
                 else:
                     image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
-    
+
         return image_analyses, usage
 
     def analyze_images(self, image_attachments: List[AttachmentProperties]) -> tuple:
@@ -193,5 +194,5 @@ class ImageAnalysisService:
                     usage.total_tokens += response.usage.total_tokens
                 else:
                     image_analyses[attachment.original_file_name] = f"The image {attachment.original_file_name} was either invalid or inaccessible and could not be analyzed."
-    
+
         return image_analyses, usage
