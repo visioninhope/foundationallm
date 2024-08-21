@@ -98,8 +98,8 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             return new CompletionResponse
             {
                 OperationId = completionRequest.OperationId!,
-                Completion = result.Completion!,
-                Content = await TransformContentItems(result.Content!),
+                Completion = result.Completion,
+                Content = result.Content != null ? await TransformContentItems(result.Content) : null,
                 UserPrompt = completionRequest.UserPrompt!,
                 Citations = result.Citations,
                 FullPrompt = result.FullPrompt,
