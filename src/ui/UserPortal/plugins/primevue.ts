@@ -7,7 +7,6 @@ import Toast from 'primevue/toast';
 import Chip from 'primevue/chip';
 import Textarea from 'primevue/textarea';
 import ToastService from 'primevue/toastservice';
-import Tooltip from 'primevue/tooltip';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import Avatar from 'primevue/avatar';
@@ -43,5 +42,4 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.use(ConfirmationService);
 
 	nuxtApp.vueApp.use(ToastService);
-	nuxtApp.vueApp.directive('tooltip', Tooltip);
 });
