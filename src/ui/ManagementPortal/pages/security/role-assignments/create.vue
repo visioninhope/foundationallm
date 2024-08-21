@@ -248,9 +248,6 @@ export default {
 				display_name: '',
 			},
 			dialogPrincipal: null,
-			users: [],
-			groups: [],
-			principalOptionsFiltered: [],
 
 			principalOptions: [],
 			loadingPrincipals: false,
