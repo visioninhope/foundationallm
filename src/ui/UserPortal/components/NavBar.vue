@@ -57,10 +57,9 @@
 								:popperTriggers="['hover']"
 						>
 							<AgentIcon
-                :src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
-                alt="Select an agent"
-                tooltip="Select an agent"
-              />
+								:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
+								alt="Select an agent"
+							/>
 							<template #popper>
 								Select an agent
 							</template>
