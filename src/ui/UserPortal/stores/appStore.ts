@@ -212,6 +212,7 @@ export const useAppStore = defineStore('app', {
 		async sendMessage(text: string) {
 			if (!text) return;
 
+			const agent = this.getSessionAgent(this.currentSession!).resource;
 			const sessionId = this.currentSession!.id;
 			const relevantAttachments = this.attachments.filter(
 				(attachment) => attachment.sessionId === sessionId,
@@ -245,7 +246,7 @@ export const useAppStore = defineStore('app', {
 				id: '',
 				rating: null,
 				sender: 'Assistant',
-				senderDisplayName: 'Assistant',
+				senderDisplayName: agent.name,
 				sessionId: this.currentSession!.id,
 				text: '',
 				timeStamp: new Date().toISOString(),
@@ -255,7 +256,6 @@ export const useAppStore = defineStore('app', {
 			};
 			this.currentMessages.push(tempAssistantMessage);
 
-			const agent = this.getSessionAgent(this.currentSession!).resource;
 			if (agent.long_running) {
 				// Handle long-running operations
 				const operationId = await api.startLongRunningProcess('/completions', {
