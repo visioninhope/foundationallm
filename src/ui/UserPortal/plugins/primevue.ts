@@ -17,6 +17,7 @@ import BadgeDirective from 'primevue/badgedirective';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import ProgressBar from 'primevue/progressbar';
+import FocusTrap from 'primevue/focustrap';
 import Image from 'primevue/image';
 
 import { defineNuxtPlugin } from '#app';
@@ -39,6 +40,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.directive('badge', BadgeDirective);
 	nuxtApp.vueApp.component('ConfirmDialog', ConfirmDialog);
 	nuxtApp.vueApp.component('ProgressBar', ProgressBar);
+	nuxtApp.vueApp.directive('focustrap', FocusTrap);
 	nuxtApp.vueApp.component('Image', Image);
 
 	nuxtApp.vueApp.use(ConfirmationService);

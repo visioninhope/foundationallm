@@ -56,11 +56,11 @@
 								:autoHide="false"
 								:popperTriggers="['hover']"
 						>
-							<img
-								alt="Select an agent"
-								class="avatar"
-								src="~/assets/FLLM-Agent-Light.svg"
-							/>
+							<AgentIcon
+                :src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
+                alt="Select an agent"
+                tooltip="Select an agent"
+              />
 							<template #popper>
 								Select an agent
 							</template>
@@ -86,6 +86,7 @@
 
 <script lang="ts">
 import type { Session } from '@/js/types';
+import AgentIcon from '@/components/AgentIcon.vue';
 
 interface AgentDropdownOption {
 	label: string;
