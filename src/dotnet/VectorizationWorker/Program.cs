@@ -42,12 +42,14 @@ builder.Configuration.AddAzureAppConfiguration(options =>
         options.SetCredential(DefaultAuthentication.AzureCredential);
     });
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_Logging);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Queues);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_Steps);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_Vectorization_StateService_Storage);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_VectorizationWorker_Essentials);
-    
+
+    options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Configuration_Storage); //resource provider settings
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_DataSource_Storage); //resource provider settings
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_ResourceProviders_Vectorization_Storage); //resource provider settings
 

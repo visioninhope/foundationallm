@@ -49,6 +49,7 @@ namespace FoundationaLLM.Core.API
                     options.SetCredential(DefaultAuthentication.AzureCredential);
                 });
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Instance);
+                options.Select(AppConfigurationKeyFilters.FoundationaLLM_Logging);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Configuration);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_Branding);
                 options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_CosmosDB);
@@ -142,8 +143,6 @@ namespace FoundationaLLM.Core.API
                 requireScopes: !isE2ETestEnvironment,
                 allowACLAuthorization: isE2ETestEnvironment
             );
-
-            builder.AddLogging();
 
             // Add OpenTelemetry.
             builder.AddOpenTelemetry(

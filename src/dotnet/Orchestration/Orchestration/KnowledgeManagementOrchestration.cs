@@ -169,7 +169,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             {
                 fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
             }
-            
+
             await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
                 _fileUserContextObjectId,
                 fileUserContext,

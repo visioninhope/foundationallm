@@ -28,6 +28,7 @@ from foundationallm.models.agents import KnowledgeManagementCompletionRequest
 from foundationallm.operations import OperationsManager
 from foundationallm.langchain.orchestration import OrchestrationManager
 from foundationallm.telemetry import Telemetry
+
 from app.dependencies import handle_exception, validate_api_key_header
 
 # Initialize telemetry logging
@@ -164,7 +165,7 @@ async def create_completion_response(
             )
         except Exception as e:
             # Send the completion response to the State API and mark the operation as failed.
-            print(f'Operation {operation_id} failed with error: {e}')
+            logger.info(f'Operation {operation_id} failed with error: {e}')
             completion = CompletionResponse(
                 operation_id = operation_id,
                 user_prompt=completion_request.user_prompt,

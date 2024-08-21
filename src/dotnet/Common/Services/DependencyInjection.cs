@@ -45,9 +45,16 @@ namespace FoundationaLLM
                 config.AddDebug();
                 config.AddEventSourceLogger();
 
-                if (builder.Configuration["ASPNETCORE_ENVIRONMENT"] == EnvironmentName.Development)
+                //get the log level
+                string logLevel = builder.Configuration["Logging:LogLevel:Default"];
+
+                //enable console for debug or trace
+                switch(logLevel)
                 {
-                    config.AddConsole();
+                    case "Trace":
+                    case "Debug":
+                        config.AddConsole();
+                        break;
                 }
             });
 
@@ -78,7 +85,7 @@ namespace FoundationaLLM
             string connectionStringConfigurationKey,
             string serviceName)
         { 
-            AzureMonitorOptions options = new AzureMonitorOptions { ConnectionString = connectionStringConfigurationKey };
+            AzureMonitorOptions options = new AzureMonitorOptions { ConnectionString = builder.Configuration[connectionStringConfigurationKey] };
 
             builder.Services.AddOpenTelemetry()
              .WithTracing(b =>
@@ -109,6 +116,25 @@ namespace FoundationaLLM
 
             builder.Services.AddLogging(logging =>
             {
+                // clear out default configuration
+                logging.ClearProviders();
+
+                logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+                logging.AddDebug();
+                logging.AddEventSourceLogger();
+
+                //get the log level
+                string logLevel = builder.Configuration["Logging:LogLevel:Default"];
+
+                //enable console for debug or trace
+                switch (logLevel)
+                {
+                    case "Trace":
+                    case "Debug":
+                        logging.AddConsole();
+                        break;
+                }
+
                 logging.AddOpenTelemetry(builderOptions =>
                 {
                     var resourceBuilder = ResourceBuilder.CreateDefault();
@@ -118,9 +144,7 @@ namespace FoundationaLLM
                     builderOptions.IncludeFormattedMessage = true;
                     builderOptions.IncludeScopes = false;
                     builderOptions.AddAzureMonitorLogExporter(options => { options.ConnectionString = builder.Configuration[connectionStringConfigurationKey]; });
-                })
-                .AddConfiguration(builder.Configuration);
-                
+                });
             });
 
             // Create a dictionary of resource attributes.
