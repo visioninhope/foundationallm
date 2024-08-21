@@ -45,7 +45,8 @@ export default {
 	 * @returns A promise that resolves to the configuration value.
 	 */
 	async getConfigValue(key: string) {
-		return await $fetch(`/api/config/`, {
+		return await $fetch(`/api/getConfigValue/`, {
+			method: 'GET',
 			params: {
 				key,
 			},
@@ -59,28 +60,21 @@ export default {
 	 * @returns A promise that resolves to the fetched data.
 	 */
 	async fetch(url: string, opts: any = {}) {
-		const response = await this.fetchDirect(`${this.apiUrl}${url}`, opts);
-		return response;
+		return await $fetch('/api/proxyRequest', {
+			body: {
+			  url,
+			  opts,
+			},
+		  });
 	},
 
 	async fetchDirect(url: string, opts: any = {}) {
-		const options = opts;
-		options.headers = opts.headers || {};
-
-		const bearerToken = await this.getBearerToken();
-		options.headers.Authorization = `Bearer ${bearerToken}`;
-
-		try {
-			const response = await $fetch(url, options);
-			if (response.status >= 400) {
-				throw response;
-			}
-			return response;
-		} catch (error) {
-			// If the error is an HTTP error, extract the message directly.
-			const errorMessage = formatError(error);
-			throw new Error(errorMessage);
-		}
+		return await $fetch('/api/proxyRequestDirect', {
+			body: {
+			  url,
+			  opts,
+			},
+		  });
 	},
 
 	/**
@@ -91,25 +85,19 @@ export default {
 	 * @throws An error if the process fails to start.
 	 */
 	async startLongRunningProcess(url: string, requestBody: any) {
-		const options = {
+		const response = await $fetch('/api/startLongRunningProcess', {
 			method: 'POST',
-			body: JSON.stringify(requestBody),
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${await this.getBearerToken()}`,
+			body: {
+			  url,
+			  requestBody,
 			},
-		};
-
-		try {
-			const response = await $fetch(`${this.apiUrl}${url}`, options);
-			if (response.status === 202) {
-				return response.operationId;
-			} else {
-				throw new Error('Failed to start process');
-			}
-		} catch (error) {
-			throw new Error(this.formatError(error));
-		}
+		  });
+	  
+		  if (response.operationId) {
+			return response.operationId;
+		  } else {
+			throw new Error('Failed to start process');
+		  }
 	},
 
 	/**
@@ -119,21 +107,10 @@ export default {
 	 * @throws If an error occurs during the API call.
 	 */
 	async checkProcessStatus(operationId: string) {
-		try {
-			const response = await $fetch(
-				`/instances/${this.instanceId}/async-completions/${operationId}/status`,
-				{
-					method: 'GET',
-					headers: {
-						Authorization: `Bearer ${await this.getBearerToken()}`,
-					},
-				},
-			);
-
-			return response;
-		} catch (error) {
-			throw new Error(this.formatError(error));
-		}
+		return await $fetch('/api/checkProcessStatus', {
+			method: 'GET',
+			params: { operationId }
+		});
 	},
 
 	/**
@@ -156,7 +133,7 @@ export default {
 	 * @returns {Promise<Array<Session>>} A promise that resolves to an array of sessions.
 	 */
 	async getSessions() {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions`)) as Array<Session>;
+		return await $fetch('/api/getSessions') as Array<Session>;
 	},
 
 	/**
@@ -164,10 +141,10 @@ export default {
 	 * @returns {Promise<Session>} A promise that resolves to the created session.
 	 */
 	async addSession(properties: ChatSessionProperties) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions`, {
+		return await $fetch('/api/addSession', {
 			method: 'POST',
 			body: properties,
-		})) as Session;
+		  }) as Session;
 	},
 
 	/**
@@ -177,11 +154,13 @@ export default {
 	 * @returns The renamed session.
 	 */
 	async renameSession(sessionId: string, newChatSessionName: string) {
-		const properties: ChatSessionProperties = { name: newChatSessionName };
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}/rename`, {
+		return await $fetch('/api/renameSession', {
 			method: 'POST',
-			body: properties,
-		})) as Session;
+			body: {
+			  sessionId,
+			  newChatSessionName,
+			},
+		  }) as Session;
 	},
 
 	/**
@@ -190,9 +169,10 @@ export default {
 	 * @returns A promise that resolves to the deleted session.
 	 */
 	async deleteSession(sessionId: string) {
-		return (await this.fetch(`/instances/${this.instanceId}/sessions/${sessionId}`, {
+		return await $fetch('/api/deleteSession', {
 			method: 'DELETE',
-		})) as Session;
+			params: { sessionId },
+		  }) as Session;
 	},
 
 	/**
@@ -201,9 +181,10 @@ export default {
 	 * @returns An array of messages.
 	 */
 	async getMessages(sessionId: string) {
-		return (await this.fetch(
-			`/instances/${this.instanceId}/sessions/${sessionId}/messages`,
-		)) as Array<Message>;
+		return await $fetch('/api/getMessages', {
+			method: 'GET',
+			params: { sessionId },
+		  }) as Array<Message>;
 	},
 
 	/**
@@ -213,9 +194,13 @@ export default {
 	 * @returns The completion prompt.
 	 */
 	async getPrompt(sessionId: string, promptId: string) {
-		return (await this.fetch(
-			`/instances/${this.instanceId}/sessions/${sessionId}/completionprompts/${promptId}`,
-		)) as CompletionPrompt;
+		return await $fetch('/api/getPrompt', {
+			method: 'GET',
+			params: {
+			  sessionId,
+			  promptId,
+			},
+		  }) as CompletionPrompt;
 	},
 
 	/**
@@ -225,18 +210,13 @@ export default {
 	 * @returns The rated message.
 	 */
 	async rateMessage(message: Message, rating: Message['rating']) {
-		const params: {
-			rating?: Message['rating'];
-		} = {};
-		if (rating !== null) params.rating = rating;
-
-		return (await this.fetch(
-			`/instances/${this.instanceId}/sessions/${message.sessionId}/message/${message.id}/rate`,
-			{
-				method: 'POST',
-				params,
+		return await $fetch('/api/rateMessage', {
+			method: 'POST',
+			body: {
+			  message,
+			  rating,
 			},
-		)) as Message;
+		  }) as Message;
 	},
 
 	/**
@@ -247,26 +227,15 @@ export default {
 	 * @returns A promise that resolves to a string representing the server response.
 	 */
 	async sendMessage(sessionId: string, text: string, agent: Agent, attachments: string[] = []) {
-		const orchestrationRequest: CompletionRequest = {
-			session_id: sessionId,
-			user_prompt: text,
-			agent_name: agent.name,
-			settings: null,
-			attachments,
-		};
-
-		if (agent.long_running) {
-			const operationId = await this.startLongRunningProcess(
-				`/instances/${this.instanceId}/async-completions`,
-				orchestrationRequest,
-			);
-			return this.pollForCompletion(operationId);
-		} else {
-			return (await this.fetch(`/instances/${this.instanceId}/completions`, {
-				method: 'POST',
-				body: orchestrationRequest,
-			})) as string;
-		}
+		return await $fetch('/api/sendMessage', {
+			method: 'POST',
+			body: {
+			  sessionId,
+			  text,
+			  agent,
+			  attachments,
+			},
+		  });
 	},
 
 	/**
@@ -274,11 +243,7 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		const agents = (await this.fetch(
-			`/instances/${this.instanceId}/completions/agents`,
-		)) as ResourceProviderGetResult<Agent>[];
-		agents.sort((a, b) => a.resource.name.localeCompare(b.resource.name));
-		return agents;
+		return await $fetch('/api/getAllowedAgents') as ResourceProviderGetResult<Agent>[];
 	},
 
 	/**
@@ -287,36 +252,14 @@ export default {
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
 	async uploadAttachment(file: FormData, agentName: string, progressCallback: Function) {
-		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
-			const xhr = new XMLHttpRequest();
-
-			xhr.upload.onprogress = function (event) {
-				if (progressCallback) {
-					progressCallback(event);
-				}
-			};
-
-			xhr.onload = () => {
-				if (xhr.status >= 200 && xhr.status < 300) {
-					resolve(JSON.parse(xhr.response));
-				} else {
-					reject(xhr.statusText);
-				}
-			};
-
-			xhr.onerror = (error) => {
-				reject('Error during file upload.');
-			};
-
-			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?agentName=${agentName}`, true);
-
-			const bearerToken = await this.getBearerToken();
-			xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);
-
-			xhr.send(file);
-		}) as ResourceProviderUpsertResult;
-
-		return response;
+		return await $fetch('/api/uploadAttachment', {
+			method: 'POST',
+			body: {
+			  file,
+			  agentName,
+			  progressCallback,
+			},
+		  }) as ResourceProviderUpsertResult;
 	},
 
 	/**
@@ -325,27 +268,9 @@ export default {
 	 * @returns A promise that resolves to the delete results.
 	 */
 	async deleteAttachments(attachments: string[]) {
-		return await this.fetch(`/instances/${this.instanceId}/files/delete`, {
+		return await $fetch('/api/deleteAttachments', {
 			method: 'POST',
-			body: JSON.stringify(attachments),
-		}) as ResourceProviderDeleteResults;
+			body: attachments,
+		  }) as ResourceProviderDeleteResults;
 	}
 };
-
-function formatError(error: any): string {
-	if (error.errors || error.data?.errors) {
-		const errors = error.errors || error.data.errors;
-		// Flatten the error messages and join them into a single string
-		return Object.values(errors).flat().join(' ');
-	}
-	if (error.data) {
-		return error.data.message || error.data || 'An unknown error occurred';
-	}
-	if (error.message) {
-		return error.message;
-	}
-	if (typeof error === 'string') {
-		return error;
-	}
-	return 'An unknown error occurred';
-}
