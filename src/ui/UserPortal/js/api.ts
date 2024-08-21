@@ -31,12 +31,12 @@ export default {
 	 * @returns The bearer token.
 	 */
 	bearerToken: null as string | null,
-	async getBearerToken() {
-		if (this.bearerToken) return this.bearerToken;
-
-		const token = await useNuxtApp().$authStore.getToken();
-		this.bearerToken = token.accessToken;
-		return this.bearerToken;
+	async getAuthHeader() {
+		if (!this.bearerToken) {
+			const token = await useNuxtApp().$authStore.getToken();
+			this.bearerToken = token.accessToken;
+		}
+		return { Authorization: `Bearer ${this.bearerToken}` };
 	},
 
 	/**
@@ -50,6 +50,7 @@ export default {
 			params: {
 				key,
 			},
+			headers: await this.getAuthHeader(),
 		});
 	},
 
@@ -65,6 +66,7 @@ export default {
 			  url,
 			  opts,
 			},
+			headers: await this.getAuthHeader(),
 		  });
 	},
 
@@ -74,6 +76,7 @@ export default {
 			  url,
 			  opts,
 			},
+			headers: await this.getAuthHeader(),
 		  });
 	},
 
@@ -91,6 +94,7 @@ export default {
 			  url,
 			  requestBody,
 			},
+			headers: await this.getAuthHeader(),
 		  });
 	  
 		  if (response.operationId) {
@@ -109,7 +113,8 @@ export default {
 	async checkProcessStatus(operationId: string) {
 		return await $fetch('/api/checkProcessStatus', {
 			method: 'GET',
-			params: { operationId }
+			params: { operationId },
+			headers: await this.getAuthHeader(),
 		});
 	},
 
@@ -133,7 +138,9 @@ export default {
 	 * @returns {Promise<Array<Session>>} A promise that resolves to an array of sessions.
 	 */
 	async getSessions() {
-		return await $fetch('/api/getSessions') as Array<Session>;
+		return await $fetch('/api/getSessions', {
+			headers: await this.getAuthHeader(),
+		}) as Array<Session>;
 	},
 
 	/**
@@ -144,6 +151,7 @@ export default {
 		return await $fetch('/api/addSession', {
 			method: 'POST',
 			body: properties,
+			headers: await this.getAuthHeader(),
 		  }) as Session;
 	},
 
@@ -160,6 +168,7 @@ export default {
 			  sessionId,
 			  newChatSessionName,
 			},
+			headers: await this.getAuthHeader(),
 		  }) as Session;
 	},
 
@@ -172,6 +181,7 @@ export default {
 		return await $fetch('/api/deleteSession', {
 			method: 'DELETE',
 			params: { sessionId },
+			headers: await this.getAuthHeader(),
 		  }) as Session;
 	},
 
@@ -184,6 +194,7 @@ export default {
 		return await $fetch('/api/getMessages', {
 			method: 'GET',
 			params: { sessionId },
+			headers: await this.getAuthHeader(),
 		  }) as Array<Message>;
 	},
 
@@ -200,6 +211,7 @@ export default {
 			  sessionId,
 			  promptId,
 			},
+			headers: await this.getAuthHeader(),
 		  }) as CompletionPrompt;
 	},
 
@@ -216,6 +228,7 @@ export default {
 			  message,
 			  rating,
 			},
+			headers: await this.getAuthHeader(),
 		  }) as Message;
 	},
 
@@ -235,6 +248,7 @@ export default {
 			  agent,
 			  attachments,
 			},
+			headers: await this.getAuthHeader(),
 		  });
 	},
 
@@ -243,7 +257,9 @@ export default {
 	 * @returns {Promise<Agent[]>} A promise that resolves to an array of Agent objects.
 	 */
 	async getAllowedAgents() {
-		return await $fetch('/api/getAllowedAgents') as ResourceProviderGetResult<Agent>[];
+		return await $fetch('/api/getAllowedAgents', {
+			headers: await this.getAuthHeader(),
+		}) as ResourceProviderGetResult<Agent>[];
 	},
 
 	/**
@@ -259,6 +275,7 @@ export default {
 			  agentName,
 			  progressCallback,
 			},
+			headers: await this.getAuthHeader(),
 		  }) as ResourceProviderUpsertResult;
 	},
 
@@ -271,6 +288,7 @@ export default {
 		return await $fetch('/api/deleteAttachments', {
 			method: 'POST',
 			body: attachments,
+			headers: await this.getAuthHeader(),
 		  }) as ResourceProviderDeleteResults;
 	}
 };

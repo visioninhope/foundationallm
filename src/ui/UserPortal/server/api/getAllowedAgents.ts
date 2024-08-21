@@ -1,5 +1,4 @@
 import { defineEventHandler } from 'h3';
-import { useNuxtApp } from 'nuxt/app';
 import api from '../api/core/api';
 import type {
 	ResourceProviderGetResult,
@@ -7,5 +6,10 @@ import type {
 } from '../../js/types';
 
 export default defineEventHandler(async (event) => {
-  return await api.getAllowedAgents(useNuxtApp().$authStore) as ResourceProviderGetResult<Agent>[];
+  const authHeader = event.node.req.headers.authorization;
+  if (!authHeader) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' });
+  }
+  const bearerToken = authHeader.split(' ')[1];
+  return await api.getAllowedAgents(bearerToken) as ResourceProviderGetResult<Agent>[];
 });

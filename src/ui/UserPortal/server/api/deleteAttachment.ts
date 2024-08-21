@@ -1,5 +1,4 @@
 import { defineEventHandler, readBody } from 'h3';
-import { useNuxtApp } from 'nuxt/app';
 import api from '../api/core/api';
 import type {
 	ResourceProviderDeleteResults,
@@ -7,5 +6,10 @@ import type {
 
 export default defineEventHandler(async (event) => {
   const attachments = await readBody(event);
-  return await api.deleteAttachments(attachments, useNuxtApp().$authStore) as ResourceProviderDeleteResults;
+  const authHeader = event.node.req.headers.authorization;
+  if (!authHeader) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' });
+  }
+  const bearerToken = authHeader.split(' ')[1];
+  return await api.deleteAttachments(attachments, bearerToken) as ResourceProviderDeleteResults;
 });
