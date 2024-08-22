@@ -158,19 +158,22 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
             var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
 
-            var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
-                _fileUserContextObjectId,
-                _callContext.CurrentUserIdentity!);
-
-            foreach (var fileMapping in newFileMappings)
+            if (newFileMappings.Count > 0)
             {
-                fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
+                var fileUserContext = await _azureOpenAIResourceProvider.GetResource<FileUserContext>(
+                    _fileUserContextObjectId,
+                    _callContext.CurrentUserIdentity!);
+
+                foreach (var fileMapping in newFileMappings)
+                {
+                    fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
+                }
+
+                await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
+                    _fileUserContextObjectId,
+                    fileUserContext,
+                    _callContext.CurrentUserIdentity!);
             }
-            
-            await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
-                _fileUserContextObjectId,
-                fileUserContext,
-                _callContext.CurrentUserIdentity!);
 
             return result;
         }
@@ -210,16 +213,25 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
 
         private OpenAIFilePathContentItem TransformOpenAIAssistantsFilePath(OpenAIFilePathContentItem openAIFilePath, List<FileMapping> newFileMappings)
         {
-            newFileMappings.Add(new FileMapping
+            if (!string.IsNullOrWhiteSpace(openAIFilePath.FileId))
             {
-                FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIFilePath.FileId}",
-                OriginalFileName = openAIFilePath.FileId!,
-                ContentType = "application/octet-stream",
-                OpenAIFileId = openAIFilePath.FileId!,
-                Generated = true,
-                OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
-            });
-            openAIFilePath.FileUrl = $"{{{{fllm_base_url}}}}/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
+                // Empty file ids occur when dealing with file search annotations.
+                // Looks like the assistant is providing "internal" RAG pattern references to vectorized text chunks that were included in the context.
+                // In this case, we should not generate a file mapping as it will result in invalid file urls.
+                newFileMappings.Add(new FileMapping
+                {
+                    FoundationaLLMObjectId = $"/instances/{_instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{_fileUserContextName}/{AzureOpenAIResourceTypeNames.FilesContent}/{openAIFilePath.FileId}",
+                    OriginalFileName = openAIFilePath.FileId!,
+                    ContentType = "application/octet-stream",
+                    OpenAIFileId = openAIFilePath.FileId!,
+                    Generated = true,
+                    OpenAIFileGeneratedOn = DateTimeOffset.UtcNow
+                });
+                openAIFilePath.FileUrl = $"{{{{fllm_base_url}}}}/instances/{_instanceId}/files/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{openAIFilePath.FileId}";
+            }
+            else
+                openAIFilePath.FileUrl = null;
+
             return openAIFilePath;
         }
 
@@ -228,9 +240,18 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             openAITextMessage.Annotations = openAITextMessage.Annotations
                 .Select(a => TransformOpenAIAssistantsFilePath(a, newFileMappings))
                 .ToList();
-            var sandboxPlaceholders = openAITextMessage.Annotations.ToDictionary(
-                a => a.Text!,
-                a => $"{{{{fllm_base_url}}}}{a.FileUrl!}");
+
+            #region Replace code interpreter placeholders with file urls
+
+            // Code interpreter placeholders are assumed to be in the form of (sandbox:file-id).
+            // They are expected to be unique and have a valid corresponding file url.
+            var codeInterpreterPlaceholders = openAITextMessage.Annotations
+                .Where(a => !string.IsNullOrWhiteSpace(a.FileUrl) && !string.IsNullOrWhiteSpace(a.Text))
+                .DistinctBy(a => a.Text)
+                .ToDictionary(
+                    a => a.Text!,
+                    a => $"{a.FileUrl}");
+            
 
             var input = openAITextMessage.Value!;
             var regex = new Regex(@"\(sandbox:[^)]*\)");
@@ -247,7 +268,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 var startIndex = previousMatch == null ? 0 : previousMatch.Index + previousMatch.Length;
                 output.Add(input.Substring(startIndex, match.Index - startIndex));
                 var token = input.Substring(match.Index, match.Length);
-                if (sandboxPlaceholders.TryGetValue(token, out var replacement))
+                if (codeInterpreterPlaceholders.TryGetValue(token, out var replacement))
                     output.Add(replacement);
                 else
                     output.Add(token);
@@ -258,6 +279,25 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             output.Add(input.Substring(previousMatch!.Index + previousMatch.Length));
 
             openAITextMessage.Value = string.Join("", output);
+
+            #endregion
+
+            #region Replace file search placeholders with empty strings
+
+            // File search placeholders are assumed to be unique and not have a corresponding file url.
+            var fileSearchPlaceholders = openAITextMessage.Annotations
+                .Where(a => string.IsNullOrWhiteSpace(a.FileUrl) && !string.IsNullOrWhiteSpace(a.Text))
+                .DistinctBy(a => a.Text)
+                .Select(a => a.Text!)
+                .ToList();
+
+            foreach (var fileSearchPlaceholder in fileSearchPlaceholders)
+            {
+                openAITextMessage.Value = openAITextMessage.Value.Replace(fileSearchPlaceholder, string.Empty);
+            }
+
+            #endregion
+
             return openAITextMessage;
         }
 
