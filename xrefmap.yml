@@ -6059,6 +6059,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureOpenAI_Essentials_APIKey
   fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureOpenAI_Essentials_APIKey
   nameWithType: AppConfigurationKeys.FoundationaLLM_APIEndpoints_AzureOpenAI_Essentials_APIKey
+- uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
+  name: FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
+  href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
+  commentId: F:FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
+  fullName: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
+  nameWithType: AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_AzureOpenAIAssistantsFileSearchFileExtensions
 - uid: FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper
   name: FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper
   href: api/dotnet/FoundationaLLM.Common.Constants.Configuration.AppConfigurationKeys.html#FoundationaLLM_Common_Constants_Configuration_AppConfigurationKeys_FoundationaLLM_APIEndpoints_CoreAPI_Configuration_BypassGatekeeper
@@ -7619,6 +7625,12 @@ references:
   commentId: T:FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames
   fullName: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames
   nameWithType: OpenAIAgentCapabilityParameterNames
+- uid: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore
+  name: AddAssistantFileToVectorStore
+  href: api/dotnet/FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.html#FoundationaLLM_Common_Constants_OpenAI_OpenAIAgentCapabilityParameterNames_AddAssistantFileToVectorStore
+  commentId: F:FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore
+  fullName: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore
+  nameWithType: OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore
 - uid: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantFileId
   name: AssistantFileId
   href: api/dotnet/FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.html#FoundationaLLM_Common_Constants_OpenAI_OpenAIAgentCapabilityParameterNames_AssistantFileId
@@ -7643,6 +7655,12 @@ references:
   commentId: F:FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantThreadId
   fullName: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantThreadId
   nameWithType: OpenAIAgentCapabilityParameterNames.AssistantThreadId
+- uid: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId
+  name: AssistantVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.html#FoundationaLLM_Common_Constants_OpenAI_OpenAIAgentCapabilityParameterNames_AssistantVectorStoreId
+  commentId: F:FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId
+  fullName: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId
+  nameWithType: OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId
 - uid: FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.AttachmentObjectId
   name: AttachmentObjectId
   href: api/dotnet/FoundationaLLM.Common.Constants.OpenAI.OpenAIAgentCapabilityParameterNames.html#FoundationaLLM_Common_Constants_OpenAI_OpenAIAgentCapabilityParameterNames_AttachmentObjectId
@@ -18909,6 +18927,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantThreadId
   nameWithType: AssistantUserContextUpsertResult.NewOpenAIAssistantThreadId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+  name: NewOpenAIAssistantVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_AssistantUserContextUpsertResult_NewOpenAIAssistantVectorStoreId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+  nameWithType: AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId*
+  name: NewOpenAIAssistantVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_AssistantUserContextUpsertResult_NewOpenAIAssistantVectorStoreId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
+  nameWithType: AssistantUserContextUpsertResult.NewOpenAIAssistantVectorStoreId
 - uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AzureOpenAIResourceBase
   name: AzureOpenAIResourceBase
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.AzureOpenAIResourceBase.html
@@ -18973,6 +19004,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIThreadId
   nameWithType: ConversationMapping.OpenAIThreadId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId
+  name: OpenAIVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_ConversationMapping_OpenAIVectorStoreId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId
+  nameWithType: ConversationMapping.OpenAIVectorStoreId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId*
+  name: OpenAIVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_ConversationMapping_OpenAIVectorStoreId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.ConversationMapping.OpenAIVectorStoreId
+  nameWithType: ConversationMapping.OpenAIVectorStoreId
 - uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping
   name: FileMapping
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html
@@ -19057,6 +19101,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIFileUploadedOn
   nameWithType: FileMapping.OpenAIFileUploadedOn
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId
+  name: OpenAIVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OpenAIVectorStoreId
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId
+  nameWithType: FileMapping.OpenAIVectorStoreId
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId*
+  name: OpenAIVectorStoreId
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OpenAIVectorStoreId_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OpenAIVectorStoreId
+  nameWithType: FileMapping.OpenAIVectorStoreId
 - uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OriginalFileName
   name: OriginalFileName
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_OriginalFileName
@@ -19070,6 +19127,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.OriginalFileName
   nameWithType: FileMapping.OriginalFileName
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization
+  name: RequiresVectorization
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_RequiresVectorization
+  commentId: P:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization
+  nameWithType: FileMapping.RequiresVectorization
+- uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization*
+  name: RequiresVectorization
+  href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.html#FoundationaLLM_Common_Models_ResourceProviders_AzureOpenAI_FileMapping_RequiresVectorization_
+  commentId: Overload:FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization
+  isSpec: "True"
+  fullName: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileMapping.RequiresVectorization
+  nameWithType: FileMapping.RequiresVectorization
 - uid: FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContext
   name: FileUserContext
   href: api/dotnet/FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI.FileUserContext.html
@@ -26704,15 +26774,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.API.Controllers.FilesController.Download
   nameWithType: FilesController.Download
-- uid: FoundationaLLM.Core.API.Controllers.FilesController.Upload(System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)
-  name: Upload(string, string, IFormFile)
-  href: api/dotnet/FoundationaLLM.Core.API.Controllers.FilesController.html#FoundationaLLM_Core_API_Controllers_FilesController_Upload_System_String_System_String_Microsoft_AspNetCore_Http_IFormFile_
-  commentId: M:FoundationaLLM.Core.API.Controllers.FilesController.Upload(System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)
-  name.vb: Upload(String, String, IFormFile)
-  fullName: FoundationaLLM.Core.API.Controllers.FilesController.Upload(string, string, Microsoft.AspNetCore.Http.IFormFile)
-  fullName.vb: FoundationaLLM.Core.API.Controllers.FilesController.Upload(String, String, Microsoft.AspNetCore.Http.IFormFile)
-  nameWithType: FilesController.Upload(string, string, IFormFile)
-  nameWithType.vb: FilesController.Upload(String, String, IFormFile)
+- uid: FoundationaLLM.Core.API.Controllers.FilesController.Upload(System.String,System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)
+  name: Upload(string, string, string, IFormFile)
+  href: api/dotnet/FoundationaLLM.Core.API.Controllers.FilesController.html#FoundationaLLM_Core_API_Controllers_FilesController_Upload_System_String_System_String_System_String_Microsoft_AspNetCore_Http_IFormFile_
+  commentId: M:FoundationaLLM.Core.API.Controllers.FilesController.Upload(System.String,System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)
+  name.vb: Upload(String, String, String, IFormFile)
+  fullName: FoundationaLLM.Core.API.Controllers.FilesController.Upload(string, string, string, Microsoft.AspNetCore.Http.IFormFile)
+  fullName.vb: FoundationaLLM.Core.API.Controllers.FilesController.Upload(String, String, String, Microsoft.AspNetCore.Http.IFormFile)
+  nameWithType: FilesController.Upload(string, string, string, IFormFile)
+  nameWithType.vb: FilesController.Upload(String, String, String, IFormFile)
 - uid: FoundationaLLM.Core.API.Controllers.FilesController.Upload*
   name: Upload
   href: api/dotnet/FoundationaLLM.Core.API.Controllers.FilesController.html#FoundationaLLM_Core_API_Controllers_FilesController_Upload_
@@ -27207,15 +27277,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Interfaces.ICoreService.StartCompletionOperation
   nameWithType: ICoreService.StartCompletionOperation
-- uid: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: UploadAttachment(string, AttachmentFile, string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_UploadAttachment_System_String_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: UploadAttachment(String, AttachmentFile, String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(string, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(String, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: ICoreService.UploadAttachment(string, AttachmentFile, string, UnifiedUserIdentity)
-  nameWithType.vb: ICoreService.UploadAttachment(String, AttachmentFile, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(System.String,System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: UploadAttachment(string, string, AttachmentFile, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_UploadAttachment_System_String_System_String_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(System.String,System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: UploadAttachment(String, String, AttachmentFile, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(string, string, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment(String, String, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: ICoreService.UploadAttachment(string, string, AttachmentFile, string, UnifiedUserIdentity)
+  nameWithType.vb: ICoreService.UploadAttachment(String, String, AttachmentFile, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Core.Interfaces.ICoreService.UploadAttachment*
   name: UploadAttachment
   href: api/dotnet/FoundationaLLM.Core.Interfaces.ICoreService.html#FoundationaLLM_Core_Interfaces_ICoreService_UploadAttachment_
@@ -27680,6 +27750,19 @@ references:
   commentId: T:FoundationaLLM.Core.Models.Configuration.CoreServiceSettings
   fullName: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings
   nameWithType: CoreServiceSettings
+- uid: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  name: AzureOpenAIAssistantsFileSearchFileExtensions
+  href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.html#FoundationaLLM_Core_Models_Configuration_CoreServiceSettings_AzureOpenAIAssistantsFileSearchFileExtensions
+  commentId: P:FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  fullName: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  nameWithType: CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+- uid: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions*
+  name: AzureOpenAIAssistantsFileSearchFileExtensions
+  href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.html#FoundationaLLM_Core_Models_Configuration_CoreServiceSettings_AzureOpenAIAssistantsFileSearchFileExtensions_
+  commentId: Overload:FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  isSpec: "True"
+  fullName: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  nameWithType: CoreServiceSettings.AzureOpenAIAssistantsFileSearchFileExtensions
 - uid: FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.BypassGatekeeper
   name: BypassGatekeeper
   href: api/dotnet/FoundationaLLM.Core.Models.Configuration.CoreServiceSettings.html#FoundationaLLM_Core_Models_Configuration_CoreServiceSettings_BypassGatekeeper
@@ -27979,15 +28062,15 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Core.Services.CoreService.StartCompletionOperation
   nameWithType: CoreService.StartCompletionOperation
-- uid: FoundationaLLM.Core.Services.CoreService.UploadAttachment(System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name: UploadAttachment(string, AttachmentFile, string, UnifiedUserIdentity)
-  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_UploadAttachment_System_String_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
-  commentId: M:FoundationaLLM.Core.Services.CoreService.UploadAttachment(System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  name.vb: UploadAttachment(String, AttachmentFile, String, UnifiedUserIdentity)
-  fullName: FoundationaLLM.Core.Services.CoreService.UploadAttachment(string, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  fullName.vb: FoundationaLLM.Core.Services.CoreService.UploadAttachment(String, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
-  nameWithType: CoreService.UploadAttachment(string, AttachmentFile, string, UnifiedUserIdentity)
-  nameWithType.vb: CoreService.UploadAttachment(String, AttachmentFile, String, UnifiedUserIdentity)
+- uid: FoundationaLLM.Core.Services.CoreService.UploadAttachment(System.String,System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name: UploadAttachment(string, string, AttachmentFile, string, UnifiedUserIdentity)
+  href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_UploadAttachment_System_String_System_String_FoundationaLLM_Common_Models_ResourceProviders_Attachment_AttachmentFile_System_String_FoundationaLLM_Common_Models_Authentication_UnifiedUserIdentity_
+  commentId: M:FoundationaLLM.Core.Services.CoreService.UploadAttachment(System.String,System.String,FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile,System.String,FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  name.vb: UploadAttachment(String, String, AttachmentFile, String, UnifiedUserIdentity)
+  fullName: FoundationaLLM.Core.Services.CoreService.UploadAttachment(string, string, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, string, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  fullName.vb: FoundationaLLM.Core.Services.CoreService.UploadAttachment(String, String, FoundationaLLM.Common.Models.ResourceProviders.Attachment.AttachmentFile, String, FoundationaLLM.Common.Models.Authentication.UnifiedUserIdentity)
+  nameWithType: CoreService.UploadAttachment(string, string, AttachmentFile, string, UnifiedUserIdentity)
+  nameWithType.vb: CoreService.UploadAttachment(String, String, AttachmentFile, String, UnifiedUserIdentity)
 - uid: FoundationaLLM.Core.Services.CoreService.UploadAttachment*
   name: UploadAttachment
   href: api/dotnet/FoundationaLLM.Core.Services.CoreService.html#FoundationaLLM_Core_Services_CoreService_UploadAttachment_
@@ -31457,6 +31540,19 @@ references:
   isSpec: "True"
   fullName: FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAccounts
   nameWithType: GatewayCoreSettings.AzureOpenAIAccounts
+- uid: FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  name: AzureOpenAIAssistantsFileSearchFileExtensions
+  href: api/dotnet/FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.html#FoundationaLLM_Gateway_Models_Configuration_GatewayCoreSettings_AzureOpenAIAssistantsFileSearchFileExtensions
+  commentId: P:FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  fullName: FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  nameWithType: GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+- uid: FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions*
+  name: AzureOpenAIAssistantsFileSearchFileExtensions
+  href: api/dotnet/FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.html#FoundationaLLM_Gateway_Models_Configuration_GatewayCoreSettings_AzureOpenAIAssistantsFileSearchFileExtensions_
+  commentId: Overload:FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  isSpec: "True"
+  fullName: FoundationaLLM.Gateway.Models.Configuration.GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
+  nameWithType: GatewayCoreSettings.AzureOpenAIAssistantsFileSearchFileExtensions
 - uid: FoundationaLLM.Gateway.Models.EmbeddingModelContext
   name: EmbeddingModelContext
   href: api/dotnet/FoundationaLLM.Gateway.Models.EmbeddingModelContext.html
