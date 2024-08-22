@@ -119,7 +119,32 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await _lock.WaitAsync();
             try
             {
-                return _resourceReferences.Values.Where(predicate);
+                return _resourceReferences.Values.Where(rr => predicate(rr) && !rr.Deleted);
+            }
+            finally
+            {
+                _lock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Gets the resource references for the specified resource names.
+        /// </summary>
+        /// <param name="resourceNames">The list of resource names for which the references should be retrieved.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetResourceReferences(IEnumerable<string> resourceNames)
+        {
+            await _lock.WaitAsync();
+            try
+            {
+                if (resourceNames.Except(_resourceReferences.Keys).Any())
+                {
+                    // Some of the resource references are missing, so we need to load them.
+                    await LoadAndMergeResourceReferences();
+                }
+                return resourceNames
+                    .Select(rn => _resourceReferences.GetValueOrDefault(rn))
+                    .Where(rr => rr is {Deleted: false});
             }
             finally
             {
@@ -136,7 +161,7 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
             await _lock.WaitAsync();
             try
             {
-                return [.. _resourceReferences.Values];
+                return [.. _resourceReferences.Values.Where(rr => !rr.Deleted)];
             }
             finally
             {

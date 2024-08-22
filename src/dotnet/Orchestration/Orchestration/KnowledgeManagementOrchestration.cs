@@ -12,6 +12,10 @@ using FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI;
 using FoundationaLLM.Orchestration.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
+using FoundationaLLM.Common.Constants;
+using FoundationaLLM.Common.Constants.OpenAI;
+using FoundationaLLM.Gateway.Client;
+using FoundationaLLM.Common.Models.Configuration.Instance;
 
 namespace FoundationaLLM.Orchestration.Core.Orchestration
 {
@@ -36,8 +40,10 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
         ICallContext callContext,
         ILLMOrchestrationService orchestrationService,
         ILogger<OrchestrationBase> logger,
+        IHttpClientFactoryService httpClientFactoryService,
         Dictionary<string, IResourceProviderService> resourceProviderServices,
-        bool dataSourceAccessDenied) : OrchestrationBase(orchestrationService)
+        bool dataSourceAccessDenied,
+        string? openAIVectorStoreId) : OrchestrationBase(orchestrationService)
     {
         private readonly string _instanceId = instanceId;
         private readonly KnowledgeManagementAgent _agent = agent;
@@ -53,10 +59,17 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
             resourceProviderServices[ResourceProviderNames.FoundationaLLM_Attachment];
         private readonly IResourceProviderService _azureOpenAIResourceProvider =
             resourceProviderServices[ResourceProviderNames.FoundationaLLM_AzureOpenAI];
+        private readonly string? _openAIVectorStoreId = openAIVectorStoreId;
+        private GatewayServiceClient _gatewayClient;
 
         /// <inheritdoc/>
         public override async Task<CompletionResponse> GetCompletion(CompletionRequest completionRequest)
         {
+            _gatewayClient = new GatewayServiceClient(
+                await httpClientFactoryService
+                    .CreateClient(HttpClientNames.GatewayAPI, callContext.CurrentUserIdentity!),
+                _logger);
+
             if (_dataSourceAccessDenied)
                 return new CompletionResponse
                 {
@@ -130,6 +143,23 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 var useAttachmentPath =
                     string.IsNullOrWhiteSpace(attachment.SecondaryProvider)
                     || (attachment.ContentType ?? string.Empty).StartsWith("image/", StringComparison.OrdinalIgnoreCase);
+
+                var fileMapping = fileUserContext.Files[attachment.ObjectId!];
+                if (fileMapping.RequiresVectorization)
+                {
+                    _ = await _gatewayClient!.CreateAgentCapability(
+                        _instanceId,
+                        AgentCapabilityCategoryNames.OpenAIAssistants,
+                        fileUserContext.AssistantUserContextName,
+                        new()
+                        {
+                            { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, false },
+                            { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
+                            { OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore, fileMapping.RequiresVectorization },
+                            { OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, _openAIVectorStoreId ?? string.Empty },
+                            { OpenAIAgentCapabilityParameterNames.AssistantFileId, fileMapping.OpenAIFileId! }
+                        });
+                }
 
                 result.Add(new AttachmentProperties
                 {

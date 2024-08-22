@@ -78,6 +78,12 @@ public partial class CoreService(
     private readonly IResourceProviderService _configurationResourceProvider =
         resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration);
 
+    private readonly HashSet<string> _azureOpenAIFileSearchFileExtensions =
+        settings.Value.AzureOpenAIAssistantsFileSearchFileExtensions
+            .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.ToLowerInvariant())
+            .ToHashSet();
+
     /// <inheritdoc/>
     public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
         await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ??
@@ -331,7 +337,7 @@ public partial class CoreService(
         throw new NotImplementedException();
 
     /// <inheritdoc/>
-    public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
+    public async Task<ResourceProviderUpsertResult> UploadAttachment(string instanceId, string sessionId, AttachmentFile attachmentFile, string agentName, UnifiedUserIdentity userIdentity)
     {
         var agentBase = await _agentResourceProvider.HandleGet<AgentBase>(
             $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_Agent}/{AgentResourceTypeNames.Agents}/{agentName}",
@@ -359,6 +365,13 @@ public partial class CoreService(
             var assistantUserContextName = $"{userName}-assistant-{instanceId.ToLower()}";
             var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
 
+            var fileMapping = new FileMapping
+            {
+                FoundationaLLMObjectId = result.ObjectId!,
+                OriginalFileName = attachmentFile.OriginalFileName,
+                ContentType = attachmentFile.ContentType!
+            };
+
             var fileUserContext = new FileUserContext
             {
                 Name = fileUserContextName,
@@ -369,15 +382,17 @@ public partial class CoreService(
                 {
                     {
                         result.ObjectId!,
-                        new FileMapping
-                        {
-                            FoundationaLLMObjectId = result.ObjectId!,
-                            OriginalFileName = attachmentFile.OriginalFileName,
-                            ContentType = attachmentFile.ContentType!
-                        }
+                        fileMapping
                     }
                 }
             };
+
+            var extension = Path.GetExtension(attachmentFile.OriginalFileName).ToLowerInvariant().Replace(".", string.Empty);
+            if (_azureOpenAIFileSearchFileExtensions.Contains(extension))
+            {
+                // The file also needs to be vectorized for the OpenAI assistant.
+                fileMapping.RequiresVectorization = true;
+            }
 
             _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
