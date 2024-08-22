@@ -77,6 +77,12 @@ public partial class CoreService(
     private readonly IResourceProviderService _configurationResourceProvider =
         resourceProviderServices.Single(rps => rps.Name == ResourceProviderNames.FoundationaLLM_Configuration);
 
+    private readonly HashSet<string> _azureOpenAIFileSearchFileExtensions =
+        settings.Value.AzureOpenAIAssistantsFileSearchFileExtensions
+            .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.ToLowerInvariant())
+            .ToHashSet();
+
     /// <inheritdoc/>
     public async Task<List<Session>> GetAllChatSessionsAsync(string instanceId) =>
         await _cosmosDbService.GetSessionsAsync(_sessionType, _callContext.CurrentUserIdentity?.UPN ??
@@ -358,6 +364,13 @@ public partial class CoreService(
             var assistantUserContextName = $"{userName}-assistant-{instanceId.ToLower()}";
             var fileUserContextName = $"{userName}-file-{instanceId.ToLower()}";
 
+            var fileMapping = new FileMapping
+            {
+                FoundationaLLMObjectId = result.ObjectId!,
+                OriginalFileName = attachmentFile.OriginalFileName,
+                ContentType = attachmentFile.ContentType!
+            };
+
             var fileUserContext = new FileUserContext
             {
                 Name = fileUserContextName,
@@ -368,15 +381,35 @@ public partial class CoreService(
                 {
                     {
                         result.ObjectId!,
-                        new FileMapping
-                        {
-                            FoundationaLLMObjectId = result.ObjectId!,
-                            OriginalFileName = attachmentFile.OriginalFileName,
-                            ContentType = attachmentFile.ContentType!
-                        }
+                        fileMapping
                     }
                 }
             };
+
+            if (_azureOpenAIFileSearchFileExtensions.Contains(Path.GetExtension(attachmentFile.OriginalFileName).ToLowerInvariant()))
+            {
+                // The file also needs to be vectorized for the OpenAI assistant.
+
+                var assistantUserContext = await _azureOpenAIResourceProvider.HandleGet<AssistantUserContext>(
+                    instanceId,
+                    assistantUserContextName,
+                    AzureOpenAIResourceTypeNames.AssistantUserContexts,
+                    userIdentity);
+
+                var vectorStoreId = assistantUserContext?.Conversations.TryGetValue(sessionId, out var conversation) ?? false
+                    ? conversation.OpenAIVectorStoreId
+                    : null;
+
+                if (string.IsNullOrWhiteSpace(vectorStoreId))
+                {
+                    _logger.LogWarning("No vector store ID found for session {SessionId} in assistant user context {AssistantUserContextName}.", sessionId, assistantUserContextName);
+                }
+                else
+                {
+                    fileMapping.RequiresVectorization = true;
+                    fileMapping.OpenAIVectorStoreId = vectorStoreId;
+                }
+            }
 
             _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
                 $"/instances/{instanceId}/providers/{ResourceProviderNames.FoundationaLLM_AzureOpenAI}/{AzureOpenAIResourceTypeNames.FileUserContexts}/{fileUserContextName}",
