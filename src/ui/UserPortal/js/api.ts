@@ -286,7 +286,11 @@ export default {
 	 * @param file The file formData to upload.
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
-	async uploadAttachment(file: FormData, agentName: string, progressCallback: Function) {
+	async uploadAttachment(
+		file: FormData,
+		sessionId: string,
+		agentName: string,
+		progressCallback: Function) {
 		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
@@ -308,7 +312,7 @@ export default {
 				reject('Error during file upload.');
 			};
 
-			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?agentName=${agentName}`, true);
+			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?sessionId=${sessionId}&agentName=${agentName}`, true);
 
 			const bearerToken = await this.getBearerToken();
 			xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);
