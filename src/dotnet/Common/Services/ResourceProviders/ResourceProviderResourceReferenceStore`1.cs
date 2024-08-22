@@ -114,6 +114,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// </summary>
         /// <param name="predicate">The predicate to filter the resource references.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method is not safe in scenarios where multiple instances of a resource provider are running at the same time.
+        /// </remarks>
         public async Task<IEnumerable<T>> GetResourceReferences(Func<T, bool> predicate)
         {
             await _lock.WaitAsync();
@@ -156,6 +159,9 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
         /// Gets all resource references in the store.
         /// </summary>
         /// <returns>A <see cref="List{T}"/> contain</returns>
+        /// <remarks>
+        /// This method is not safe in scenarios where multiple instances of a resource provider are running at the same time.
+        /// </remarks>
         public async Task<List<T>> GetAllResourceReferences()
         {
             await _lock.WaitAsync();
