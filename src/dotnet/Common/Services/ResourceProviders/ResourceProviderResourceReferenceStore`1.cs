@@ -146,8 +146,8 @@ namespace FoundationaLLM.Common.Services.ResourceProviders
                     await LoadAndMergeResourceReferences();
                 }
                 return resourceNames
-                    .Select(rn => _resourceReferences[rn])
-                    .Where(rr => !rr.Deleted);
+                    .Select(rn => _resourceReferences.GetValueOrDefault(rn))
+                    .Where(rr => rr is {Deleted: false});
             }
             finally
             {

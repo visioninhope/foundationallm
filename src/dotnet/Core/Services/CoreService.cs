@@ -1,6 +1,7 @@
 using FoundationaLLM.Common.Constants;
 using FoundationaLLM.Common.Constants.Agents;
 using FoundationaLLM.Common.Constants.Configuration;
+using FoundationaLLM.Common.Constants.Orchestration;
 using FoundationaLLM.Common.Constants.ResourceProviders;
 using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Extensions;
@@ -22,6 +23,7 @@ using FoundationaLLM.Core.Interfaces;
 using FoundationaLLM.Core.Models;
 using FoundationaLLM.Core.Models.Configuration;
 using FoundationaLLM.Core.Utils;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -305,7 +307,12 @@ public partial class CoreService(
             // Generate the completion to return to the user.
             var result = await GetDownstreamAPIService(agentOption).GetCompletion(instanceId, directCompletionRequest);
 
-            return new Completion { Text = result.Completion };
+            return new Completion
+            {
+                Text = result.Completion
+                    ?? (result.Content?.Where(c => c.Type == MessageContentItemTypes.Text).FirstOrDefault() as OpenAITextMessageContentItem)?.Value
+                        ?? "Could not generate a completion due to an internal error."
+            };
         }
         catch (Exception ex)
         {
@@ -384,26 +391,7 @@ public partial class CoreService(
             if (_azureOpenAIFileSearchFileExtensions.Contains(extension))
             {
                 // The file also needs to be vectorized for the OpenAI assistant.
-
-                var assistantUserContext = await _azureOpenAIResourceProvider.HandleGet<AssistantUserContext>(
-                    instanceId,
-                    assistantUserContextName,
-                    AzureOpenAIResourceTypeNames.AssistantUserContexts,
-                    userIdentity);
-
-                var vectorStoreId = assistantUserContext?.Conversations.TryGetValue(sessionId, out var conversation) ?? false
-                    ? conversation.OpenAIVectorStoreId
-                    : null;
-
-                if (string.IsNullOrWhiteSpace(vectorStoreId))
-                {
-                    _logger.LogWarning("No vector store ID found for session {SessionId} in assistant user context {AssistantUserContextName}.", sessionId, assistantUserContextName);
-                }
-                else
-                {
-                    fileMapping.RequiresVectorization = true;
-                    fileMapping.OpenAIVectorStoreId = vectorStoreId;
-                }
+                fileMapping.RequiresVectorization = true;
             }
 
             _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
