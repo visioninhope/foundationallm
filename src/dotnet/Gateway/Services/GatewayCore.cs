@@ -294,6 +294,8 @@ namespace FoundationaLLM.Gateway.Services
                 result[OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId] = vectorStore.Id;
             }
 
+            var fileId = GetParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AssistantFileId, string.Empty);
+
             if (createAssistantFile)
             {
                 var fileClient = azureOpenAIClient.GetFileClient();
@@ -307,37 +309,38 @@ namespace FoundationaLLM.Gateway.Services
                     FileUploadPurpose.Assistants);
                 var file = fileResult.Value;
                 result[OpenAIAgentCapabilityParameterNames.AssistantFileId] = file.Id;
+                fileId = file.Id;
+            }
 
-                if (addAssistantFileToVectorStore)
+            if (addAssistantFileToVectorStore)
+            {
+                var vectorStoreClient = azureOpenAIClient.GetVectorStoreClient();
+                var vectorStoreId = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId);
+
+                var vectorizationResult = await vectorStoreClient.AddFileToVectorStoreAsync(vectorStoreId, fileId);
+
+                var startTime = DateTimeOffset.UtcNow;
+                _logger.LogInformation("Started vectorization of file {FileId} in vector store {VectorStoreId}.", fileId, vectorStoreId);
+
+                var pollingCount = 0;
+                var maxPollingCountExceeded = false;
+                while (vectorizationResult.Value.Status == VectorStoreFileAssociationStatus.InProgress)
                 {
-                    var vectorStoreClient = azureOpenAIClient.GetVectorStoreClient();
-                    var vectorStoreId = GetRequiredParameterValue<string>(parameters, OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId);
-
-                    var vectorizationResult = await vectorStoreClient.AddFileToVectorStoreAsync(vectorStoreId, file.Id);
-
-                    var startTime = DateTimeOffset.UtcNow;
-                    _logger.LogInformation("Started vectorization of file {FileId} in vector store {VectorStoreId}.", file.Id, vectorStoreId);
-
-                    var pollingCount = 0;
-                    var maxPollingCountExceeded = false;
-                    while (vectorizationResult.Value.Status == VectorStoreFileAssociationStatus.InProgress)
+                    await Task.Delay(1000);
+                    if (pollingCount++ > 1800)
                     {
-                        await Task.Delay(1000);
-                        if (pollingCount++ > 1800)
-                        {
-                            // Will not wait more than 30 minutes for the vectorization to complete.
-                            maxPollingCountExceeded = true;
-                            break;
-                        }
-                        vectorizationResult = await vectorStoreClient.GetFileAssociationAsync(vectorStoreId, file.Id);
+                        // Will not wait more than 30 minutes for the vectorization to complete.
+                        maxPollingCountExceeded = true;
+                        break;
                     }
-
-                    if (maxPollingCountExceeded)
-                        _logger.LogWarning("The maximum polling count was exceeded during the vectorization of file {FileId} in vector store {VectorStoreId}.", file.Id, vectorStoreId);
-                    else
-                        _logger.LogInformation("Completed vectorization of file {FileId} in vector store {VectorStoreId} in {TotalSeconds}.",
-                            file.Id, vectorStoreId, (DateTimeOffset.UtcNow - startTime).TotalSeconds);
+                    vectorizationResult = await vectorStoreClient.GetFileAssociationAsync(vectorStoreId, fileId);
                 }
+
+                if (maxPollingCountExceeded)
+                    _logger.LogWarning("The maximum polling count was exceeded during the vectorization of file {FileId} in vector store {VectorStoreId}.", fileId, vectorStoreId);
+                else
+                    _logger.LogInformation("Completed vectorization of file {FileId} in vector store {VectorStoreId} in {TotalSeconds}.",
+                        fileId, vectorStoreId, (DateTimeOffset.UtcNow - startTime).TotalSeconds);
             }
 
             return result;
