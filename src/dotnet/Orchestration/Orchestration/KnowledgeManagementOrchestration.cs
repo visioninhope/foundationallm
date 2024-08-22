@@ -250,7 +250,7 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                 .DistinctBy(a => a.Text)
                 .ToDictionary(
                     a => a.Text!,
-                    a => $"{{{{fllm_base_url}}}}{a.FileUrl}");
+                    a => $"{a.FileUrl}");
             
 
             var input = openAITextMessage.Value!;
