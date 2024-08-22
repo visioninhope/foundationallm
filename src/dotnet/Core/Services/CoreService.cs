@@ -390,26 +390,7 @@ public partial class CoreService(
             if (_azureOpenAIFileSearchFileExtensions.Contains(extension))
             {
                 // The file also needs to be vectorized for the OpenAI assistant.
-
-                var assistantUserContext = await _azureOpenAIResourceProvider.HandleGet<AssistantUserContext>(
-                    instanceId,
-                    assistantUserContextName,
-                    AzureOpenAIResourceTypeNames.AssistantUserContexts,
-                    userIdentity);
-
-                var vectorStoreId = assistantUserContext?.Conversations.TryGetValue(sessionId, out var conversation) ?? false
-                    ? conversation.OpenAIVectorStoreId
-                    : null;
-
-                if (string.IsNullOrWhiteSpace(vectorStoreId))
-                {
-                    _logger.LogWarning("No vector store ID found for session {SessionId} in assistant user context {AssistantUserContextName}.", sessionId, assistantUserContextName);
-                }
-                else
-                {
-                    fileMapping.RequiresVectorization = true;
-                    fileMapping.OpenAIVectorStoreId = vectorStoreId;
-                }
+                fileMapping.RequiresVectorization = true;
             }
 
             _ = await _azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, ResourceProviderUpsertResult>(
