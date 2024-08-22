@@ -512,8 +512,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         new()
                         {
                             { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
-                            { OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore, incompleteFiles[0].RequiresVectorization },
-                            { OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, incompleteFiles[0].OpenAIVectorStoreId ?? string.Empty },
                             { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
                             { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
                         });
@@ -582,8 +580,6 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         new()
                         {
                             { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true},
-                            { OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore, incompleteFiles[0].RequiresVectorization },
-                            { OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, incompleteFiles[0].OpenAIVectorStoreId ?? string.Empty },
                             { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint},
                             {
                                 OpenAIAgentCapabilityParameterNames.AttachmentObjectId,
