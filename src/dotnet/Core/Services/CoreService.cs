@@ -380,7 +380,8 @@ public partial class CoreService(
                 }
             };
 
-            if (_azureOpenAIFileSearchFileExtensions.Contains(Path.GetExtension(attachmentFile.OriginalFileName).ToLowerInvariant()))
+            var extension = Path.GetExtension(attachmentFile.OriginalFileName).ToLowerInvariant().Replace(".", string.Empty);
+            if (_azureOpenAIFileSearchFileExtensions.Contains(extension))
             {
                 // The file also needs to be vectorized for the OpenAI assistant.
 
