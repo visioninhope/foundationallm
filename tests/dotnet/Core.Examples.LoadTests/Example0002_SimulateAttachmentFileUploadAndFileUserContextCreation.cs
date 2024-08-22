@@ -58,14 +58,14 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             await Task.WhenAll(
                userIdentities
-               .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
+               .Select(userIdentity => SimulateUploadAttachmentFlow(
                    instanceSettings.Id,
                    resourceProviders.AttachmentResourceProvider,
                    resourceProviders.AzureOpenAIResourceProvider,
                    userIdentity)));
         }
 
-        private async Task SimulateAttachmentFileUploadAndFileUserContextCreation(
+        private async Task SimulateUploadAttachmentFlow(
             string instanceId,
             IResourceProviderService attachmentResourceProvider,
             IResourceProviderService azureOpenAIResourceProvider,

@@ -59,7 +59,7 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             var results = await Task.WhenAll(
                userIdentities
-               .Select(userIdentity => SimulateAttachmentFileUploadAndFileUserContextCreation(
+               .Select(userIdentity => SimulateUploadAttachmentFlow(
                    instanceSettings.Id,
                    resourceProviders.AttachmentResourceProvider,
                    resourceProviders.AzureOpenAIResourceProvider,
@@ -67,24 +67,15 @@ namespace FoundationaLLM.Core.Examples.LoadTests
 
             await Task.WhenAll(
                 userIdentities
-                .Select(userIdentity => SimulateAssistantUserContextCreation(
+                .Select(userIdentity => SimulateCompletionFlow(
                     instanceSettings.Id,
                     resourceProviders.AttachmentResourceProvider,
                     resourceProviders.AzureOpenAIResourceProvider,
                     userIdentity,
                     results.Single(x => x.Item1 == userIdentity.UserId!).Item2)));
-
-            //await Task.WhenAll(
-            //    userIdentities
-            //    .Select(userIdentity =>
-            //        serviceProvider.GetRequiredService<IAuthorizationService>().ProcessAuthorizationRequest(
-            //        instanceSettings.Id,
-            //        "FoundationaLLM.AzureOpenAI/assistantUserContexts/write", 
-            //        [$"/instances/{instanceSettings.Id}/providers/FoundationaLLM.AzureOpenAI/assistantUserContexts/{userIdentity.UPN!.NormalizeUserPrincipalName()}-assistant-{instanceSettings.Id.ToLower()}"], 
-            //        userIdentity)));
         }
 
-        private async Task SimulateAssistantUserContextCreation(
+        private async Task SimulateCompletionFlow(
             string instanceId,
             IResourceProviderService attachmentResourceProvider,
             IResourceProviderService azureOpenAIResourceProvider,
@@ -138,20 +129,13 @@ namespace FoundationaLLM.Core.Examples.LoadTests
                 fileUserContextObjectId,
                 userIdentity!);
 
-            // TODO: update fileUserContext.Files
-            //var result = contentItems.Select(ci => TransformContentItem(ci, newFileMappings)).ToList();
-            //foreach (var fileMapping in newFileMappings)
-            //{
-            //    fileUserContext.Files.TryAdd(fileMapping.FoundationaLLMObjectId, fileMapping);
-            //}
-
             _ = await azureOpenAIResourceProvider.UpsertResourceAsync<FileUserContext, FileUserContextUpsertResult>(
                 fileUserContextObjectId,
                 fileUserContext,
                 userIdentity!);
         }
 
-        private async Task<(string, List<string>)> SimulateAttachmentFileUploadAndFileUserContextCreation(
+        private async Task<(string, List<string>)> SimulateUploadAttachmentFlow(
             string instanceId,
             IResourceProviderService attachmentResourceProvider,
             IResourceProviderService azureOpenAIResourceProvider,
