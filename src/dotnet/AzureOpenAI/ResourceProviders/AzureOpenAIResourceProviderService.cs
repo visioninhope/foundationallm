@@ -227,6 +227,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
             var newOpenAIAssistantId = default(string);
             var newOpenAIAssistantThreadId = default(string);
+            var newOpenAIAssistantVectorStoreId = default(string);
 
             var incompleteConversations = assistantUserContext.Conversations.Values
                     .Where(c => string.IsNullOrWhiteSpace(c.OpenAIThreadId))
@@ -321,6 +322,9 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                 result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantThreadId, out var newOpenAIAssistantThreadIdObject);
                 newOpenAIAssistantThreadId = ((JsonElement)newOpenAIAssistantThreadIdObject!).Deserialize<string>();
 
+                result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, out var newOpenAIAssistantVectorStoreIdObject);
+                newOpenAIAssistantVectorStoreId = ((JsonElement)newOpenAIAssistantVectorStoreIdObject!).Deserialize<string>();
+
                 #region Ensure that only one thread can update the assistant user context at a time.
 
                 try
@@ -340,6 +344,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
 
                     conversation.OpenAIThreadId = newOpenAIAssistantThreadId;
                     conversation.OpenAIThreadCreatedOn = assistantUserContext.OpenAIAssistantCreatedOn;
+                    conversation.OpenAIVectorStoreId = newOpenAIAssistantVectorStoreId;
 
                     UpdateBaseProperties(existingAssistantUserContext, userIdentity, isNew: false);
                     await SaveResource<AssistantUserContext>(assistantUserContextResourceReference, existingAssistantUserContext);
@@ -348,7 +353,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     {
                         ObjectId = assistantUserContext.ObjectId,
                         NewOpenAIAssistantId = newOpenAIAssistantId,
-                        NewOpenAIAssistantThreadId = newOpenAIAssistantThreadId
+                        NewOpenAIAssistantThreadId = newOpenAIAssistantThreadId,
+                        NewOpenAIAssistantVectorStoreId = newOpenAIAssistantVectorStoreId
                     };
                 }
                 finally
@@ -374,8 +380,12 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                 result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantThreadId, out var newOpenAIAssistantThreadIdObject);
                 newOpenAIAssistantThreadId = ((JsonElement)newOpenAIAssistantThreadIdObject!).Deserialize<string>();
 
+                result.TryGetValue(OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, out var newOpenAIAssistantVectorStoreIdObject);
+                newOpenAIAssistantVectorStoreId = ((JsonElement)newOpenAIAssistantVectorStoreIdObject!).Deserialize<string>();
+
                 incompleteConversations[0].OpenAIThreadId = newOpenAIAssistantThreadId;
                 incompleteConversations[0].OpenAIThreadCreatedOn = DateTimeOffset.UtcNow;
+                incompleteConversations[0].OpenAIVectorStoreId = newOpenAIAssistantVectorStoreId;
 
                 #region Ensure that only one thread can update the assistant user context at a time.
 
@@ -403,7 +413,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                     {
                         ObjectId = existingAssistantUserContext.ObjectId,
                         NewOpenAIAssistantId = newOpenAIAssistantId,
-                        NewOpenAIAssistantThreadId = newOpenAIAssistantThreadId
+                        NewOpenAIAssistantThreadId = newOpenAIAssistantThreadId,
+                        NewOpenAIAssistantVectorStoreId = newOpenAIAssistantVectorStoreId
                     };
 
                 }
@@ -501,6 +512,8 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         new()
                         {
                             { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true },
+                            { OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore, incompleteFiles[0].RequiresVectorization },
+                            { OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, incompleteFiles[0].OpenAIVectorStoreId ?? string.Empty },
                             { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint },
                             { OpenAIAgentCapabilityParameterNames.AttachmentObjectId,  incompleteFiles[0].FoundationaLLMObjectId }
                         });
@@ -568,8 +581,10 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
                         fileUserContext.AssistantUserContextName,
                         new()
                         {
-                            {OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true},
-                            {OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint},
+                            { OpenAIAgentCapabilityParameterNames.CreateAssistantFile, true},
+                            { OpenAIAgentCapabilityParameterNames.AddAssistantFileToVectorStore, incompleteFiles[0].RequiresVectorization },
+                            { OpenAIAgentCapabilityParameterNames.AssistantVectorStoreId, incompleteFiles[0].OpenAIVectorStoreId ?? string.Empty },
+                            { OpenAIAgentCapabilityParameterNames.Endpoint, fileUserContext.Endpoint},
                             {
                                 OpenAIAgentCapabilityParameterNames.AttachmentObjectId,
                                 incompleteFiles[0].FoundationaLLMObjectId
