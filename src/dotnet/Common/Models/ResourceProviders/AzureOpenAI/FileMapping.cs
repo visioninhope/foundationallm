@@ -10,7 +10,7 @@ namespace FoundationaLLM.Common.Models.ResourceProviders.AzureOpenAI
         /// <summary>
         /// The FoundationaLLM.Attachment resource object id.
         /// </summary>
-        [JsonPropertyName("foundationallm_attachment_object_id")]
+        [JsonPropertyName("foundationallm_object_id")]
         public required string FoundationaLLMObjectId { get; set; }
 
         /// <summary>
