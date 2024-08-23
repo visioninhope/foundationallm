@@ -196,7 +196,7 @@ namespace FoundationaLLM.AzureOpenAI.ResourceProviders
         {
             var fileUserContext = await LoadFileUserContext(fileUserContextName);
             var fileMapping = fileUserContext.Files.Values
-                .SingleOrDefault(f => !f.Generated && f.OpenAIFileId == openAIFileId)
+                .SingleOrDefault(f => f.Generated && f.OpenAIFileId == openAIFileId)
                     ?? throw new ResourceProviderException(
                         $"Could not find the file {openAIFileId} in the {fileUserContextName} file user context.",
                         StatusCodes.Status404NotFound);
