@@ -370,5 +370,9 @@ export const useAppStore = defineStore('app', {
 				}
 			});
 		},
+
+		async getVirtualUser() {
+			return await api.getVirtualUser();
+		}
 	},
 });
