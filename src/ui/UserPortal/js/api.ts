@@ -93,11 +93,11 @@ export default {
 		}
 		if (this.virtualUser && this.isValidEmail(this.virtualUser)) {
 			options.headers['X-USER-IDENTITY'] = JSON.stringify({
-				name: 'fllm_user_001@soliance.net',
-				user_name: 'fllm_user_001@soliance.net',
+				name: this.virtualUser,
+				user_name: this.virtualUser,
 				upn: this.virtualUser,
 				user_id: '00000000-0000-0000-0001-000000000001',
-				group_ids: ['00000000-0000-0000-0001-000000000001'],
+				group_ids: ['00000000-0000-0000-0000-000000000001'],
 			});
 		}
 
