@@ -45,6 +45,9 @@
 					<template v-else>
 						<span>Please select a session</span>
 					</template>
+					<template v-if="virtualUser">
+						<span style="margin-left: 10px;">{{ virtualUser }}</span>
+					</template>
 				</div>
 			</div>
 
@@ -110,6 +113,7 @@ export default {
 			agentSelection: null as AgentDropdownOption | null,
 			agentOptions: [] as AgentDropdownOption[],
 			agentOptionsGroup: [] as AgentDropdownOptionsGroup[],
+			virtualUser: null as string | null,
 		};
 	},
 
@@ -148,6 +152,7 @@ export default {
 		const publicAgentOptions = this.agentOptions;
 		const privateAgentOptions = this.agentOptions.filter((agent) => agent.my_agent);
 		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
+		this.virtualUser = await this.$appStore.getVirtualUser();
 
 		this.agentOptionsGroup.push({
 			label: '',
@@ -170,17 +175,6 @@ export default {
 	},
 
 	methods: {
-		handleCopySession() {
-			const chatLink = `${window.location.origin}?chat=${this.currentSession!.id}`;
-			navigator.clipboard.writeText(chatLink);
-
-			this.$toast.add({
-				severity: 'success',
-				detail: 'Chat link copied!',
-				life: 5000,
-			});
-		},
-
 		handleAgentChange() {
 			this.$appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
 			const message = this.agentSelection!.value
