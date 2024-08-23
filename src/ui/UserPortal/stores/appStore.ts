@@ -348,7 +348,7 @@ export const useAppStore = defineStore('app', {
 				throw new Error('No agent selected.');
 			}
 
-			const upsertResult = await api.uploadAttachment(file, agent.name, progressCallback) as ResourceProviderUpsertResult;
+			const upsertResult = await api.uploadAttachment(file, sessionId, agent.name, progressCallback) as ResourceProviderUpsertResult;
 			const fileName = file.get('file')?.name;
 			const contentType = file.get('file')?.type;
 			const newAttachment: Attachment = { id: upsertResult.objectId, fileName, sessionId, contentType };
