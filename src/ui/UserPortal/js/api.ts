@@ -374,7 +374,7 @@ function formatError(error: any): string {
 		return Object.values(errors).flat().join(' ');
 	}
 	if (error.data) {
-		return error.data.message || error.data || 'An unknown error occurred';
+		return error.data.message || error.data.title || error.data || 'An unknown error occurred';
 	}
 	if (error.message) {
 		return error.message;
