@@ -678,11 +678,11 @@ iframe {
 }
 
 .attachment-icon {
-        width: 24px;
-        margin-right: 4px;
-        vertical-align: middle;
-        line-height: 1;
-    }
+	width: 24px;
+	margin-right: 4px;
+	vertical-align: middle;
+	line-height: 1;
+}
 </style>
 
 <style lang="scss">
