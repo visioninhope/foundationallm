@@ -1,3 +1,4 @@
+﻿namespace FoundationaLLM.Agent.Models.Resources
 ﻿using FoundationaLLM.Common.Models.ResourceProviders;
 
 namespace FoundationaLLM.Agent.Models.Resources

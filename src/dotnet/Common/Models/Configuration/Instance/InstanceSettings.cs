@@ -19,6 +19,14 @@
         /// <summary>
         /// The FoundationaLLM Version.
         /// </summary>
+        public string? IdentitySubstitutionSecurityPrincipalId { get; set; }
+
+        /// <summary>
+        /// The Regex pattern used to validate the values allowed as User Principal Name (UPN) substitutes in the X-USER-IDENTITY header.
+        /// </summary>
+        public string? IdentitySubstitutionUserPrincipalNamePattern { get; set; }
+        /// The FoundationaLLM Version.
+        /// </summary>
         public required string Version { get; set; }
     }
 }

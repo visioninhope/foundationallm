@@ -356,24 +356,24 @@ namespace FoundationaLLM.Authorization.Models
                         "Attachment")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
+                    AuthorizableActionNames.FoundationaLLM_AIModel_Models_Read,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Read,
-                        "Read AIModels.",
+                        AuthorizableActionNames.FoundationaLLM_AIModel_Models_Read,
+                        "Read aiModels models",
                         "AIModel")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
+                    AuthorizableActionNames.FoundationaLLM_AIModel_Models_Write,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Write,
-                        "Create or update AIModels.",
+                        AuthorizableActionNames.FoundationaLLM_AIModel_Models_Write,
+                        "Create or update models.",
                         "AIModel")
                 },
                 {
-                    AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
+                    AuthorizableActionNames.FoundationaLLM_AIModel_Models_Delete,
                     new AuthorizableAction(
-                        AuthorizableActionNames.FoundationaLLM_AIModel_AIModels_Delete,
-                        "Delete AIModel.",
+                        AuthorizableActionNames.FoundationaLLM_AIModel_Models_Delete,
+                        "Delete models.",
                         "AIModel")
                 },
             });
