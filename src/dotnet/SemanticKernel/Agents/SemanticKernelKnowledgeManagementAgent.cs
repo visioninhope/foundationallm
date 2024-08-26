@@ -216,7 +216,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                 var result = await kernel.InvokePromptAsync(_prompt, arguments);
 
                 var completion = result.GetValue<string>()!;
-                var completionUsage = (result.Metadata!["Usage"] as CompletionsUsage)!;
+                //var completionUsage = (result.Metadata!["Usage"] as CompletionsUsage)!;
 
                 return new LLMCompletionResponse
                 {
@@ -225,8 +225,8 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                     UserPrompt = _request.UserPrompt!,
                     FullPrompt = promptFilter.RenderedPrompt,
                     AgentName = _request.Agent.Name,
-                    PromptTokens = completionUsage!.PromptTokens,
-                    CompletionTokens = completionUsage.CompletionTokens,
+                    //PromptTokens = completionUsage!.PromptTokens,
+                    //CompletionTokens = completionUsage.CompletionTokens,
                 };
             }
             catch (Exception ex)
@@ -289,7 +289,7 @@ namespace FoundationaLLM.SemanticKernel.Core.Agents
                                 _azureCosmosDBNoSQLIndexingServiceSettings.ConnectionString,
                                 _azureCosmosDBNoSQLIndexingServiceSettings.VectorDatabase!,
                                 _azureCosmosDBNoSQLIndexingServiceSettings.VectorEmbeddingPolicy,
-                                _azureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy))
+                                _azureCosmosDBNoSQLIndexingServiceSettings.IndexingPolicy))                            
                             .WithAzureOpenAITextEmbeddingGeneration(_textEmbeddingDeploymentName, _textEmbeddingEndpoint, credential)
                             .Build();
 

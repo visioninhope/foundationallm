@@ -60,6 +60,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Essentials);
     options.Select(AppConfigurationKeyFilters.FoundationaLLM_APIEndpoints_AzureEventGrid_Configuration);
     options.Select(AppConfigurationKeys.FoundationaLLM_Events_Profiles_VectorizationWorker);
+    options.Select(AppConfigurationKeys.FoundationaLLM_Vectorization_Worker); // vectorization worker settings
 });
 
 if (builder.Environment.IsDevelopment())
