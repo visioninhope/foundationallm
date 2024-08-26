@@ -19,6 +19,7 @@
 						:show-word-animation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage($event.message, $event.isLiked)"
 						@refresh="handleRefresh()"
+						role="log"
 					/>
 				</template>
 
