@@ -123,7 +123,7 @@ If you are upgrading from a previous version, like <code>0.5.0</code>, please re
 <li><p>From a PowerShell prompt, execute the following to clone the repository:</p>
 <pre><code class="lang-cmd">git clone https://github.com/solliancenet/foundationallm.git
 cd foundationallm/deploy/quick-start
-git checkout release/0.7.0
+git checkout release/0.8.0
 </code></pre>
 </li>
 <li><p><strong>For release 0.7.0+:</strong> Run the following script to install the deployment utilities, including <code>AzCopy</code>, locally.</p>
@@ -211,8 +211,8 @@ This script will need to be executed twice for the principal IDs of the followin
 <li>Management API Managed Identity</li>
 </ul>
 <p>These can be found in the Azure portal in the main resource group for the deployment.</p>
-<div class="TIP">
-<h5>Tip</h5>
+<div class="IMPORTANT">
+<h5>Important</h5>
 <p>The user running the script will need to have the appropriate permissions to assign roles to the managed identities. The user will need to be a <code>Global Administrator</code> or have the <code>Privileged Role Administrator</code> role in the Entra ID tenant.</p>
 </div>
 <p>The syntax for running the script from the <code>deploy\common\scripts</code> folder is:</p>

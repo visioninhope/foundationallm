@@ -9295,6 +9295,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "deployment/azure-resource-providers-requirements.md",
+      "output": {
+        ".html": {
+          "relative_path": "deployment/azure-resource-providers-requirements.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "deployment/configure-access-control-for-services.md",
       "output": {
         ".html": {
@@ -9349,6 +9359,26 @@
       "output": {
         ".html": {
           "relative_path": "deployment/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/EntraIDAppsCreation.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/EntraIDAppsCreation.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "deployment/media/EntraIDRegisteredAppsPortal.png",
+      "output": {
+        "resource": {
+          "relative_path": "deployment/media/EntraIDRegisteredAppsPortal.png"
         }
       },
       "version": ""
