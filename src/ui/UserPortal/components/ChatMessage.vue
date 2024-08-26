@@ -52,10 +52,12 @@
 					<template v-else>
 						<!-- Render the html content and any vue components within -->
 						<div v-for="content in messageContent" :key="content.fileName" class="message-content">
+							<!-- Text -->
 							<div v-if="content.type === 'text'">
 								<component :is="renderMarkdownComponent(content.value)"></component>
 							</div>
 
+							<!-- Image -->
 							<div v-else-if="content.type === 'image_file'">
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
 									<div class="loading-content-container">
@@ -88,6 +90,7 @@
 								</div>
 							</div>
 
+							<!-- HTML -->
 							<div v-else-if="content.type === 'html'">
 								<template v-if="content.loading || (!content.error && !content.blobUrl)">
 									<div class="loading-content-container">
@@ -102,6 +105,7 @@
 								<iframe v-if="content.blobUrl" :src="content.blobUrl" frameborder="0"> </iframe>
 							</div>
 
+							<!-- File -->
 							<div v-else-if="content.type === 'file_path'">
 								Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i> 
 								<a
@@ -127,7 +131,9 @@
 					</template>
 				</div>
 
+				<!-- Assistant message footer -->
 				<div v-if="message.sender !== 'User'" class="message__footer">
+					<!-- Citations -->
 					<div v-if="message.citations?.length" class="citations">
 						<span><b>Citations: </b></span>
 						<span
@@ -140,6 +146,8 @@
 							{{ citation.title.split('/').pop() }}
 						</span>
 					</div>
+
+					<!-- Rating -->
 					<span class="ratings">
 						<!-- Like -->
 						<span>
@@ -211,6 +219,7 @@
 			{{ $filters.timeAgo(new Date(message.timeStamp)) }}
 		</Divider>
 
+		<!-- Analysis Modal -->
 		<AnalysisModal
 			:visible="isAnalysisModalVisible"
 			:analysisResults="message.analysisResults ?? []"
@@ -247,6 +256,7 @@ renderer.code = (code, language) => {
 	const encodedCode = encodeURIComponent(sourceCode);
 	return `<pre><code class="${languageClass}" data-code="${encodedCode}" data-language="${highlighted.language}">${highlighted.value}</code></pre>`;
 };
+
 function processLatex(html) {
 	const blockLatexPattern = /\\\[([^\]]+)\\\]/g;
 	const inlineLatexPattern = /\\\(([^\)]+)\\\)/g;
@@ -367,15 +377,13 @@ export default {
 	},
 
 	created() {
+		this.fetchContentFiles();
+
 		if (this.showWordAnimation) {
 			this.displayWordByWord();
 		} else {
 			this.compiledVueTemplate = addCodeHeaderComponents(this.compiledMarkdown);
 		}
-	},
-
-	mounted() {
-		this.fetchContentFiles();
 	},
 
 	methods: {
