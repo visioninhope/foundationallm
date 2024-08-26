@@ -26,8 +26,8 @@ Deletes the resource groups and their associated resources in Azure for the spec
 
 #>
 param (
-	[string]$azdEnvName,
-	[string]$subscriptionId
+	[parameter(Mandatory = $true)][string]$azdEnvName,
+	[parameter(Mandatory = $true)][string]$subscriptionId
 )
 
 $TranscriptName = $($MyInvocation.MyCommand.Name) -replace ".ps1", ".transcript.txt"
