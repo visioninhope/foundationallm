@@ -5,10 +5,7 @@
 			<template v-if="loading || (!error && !content.blobUrl)">
 				<div class="loading-content-container">
 					<i class="pi pi-image loading-content-icon" style="font-size: 2rem"></i>
-					<i
-						class="pi pi-spin pi-spinner loading-content-icon"
-						style="font-size: 1rem"
-					></i>
+					<i class="pi pi-spin pi-spinner loading-content-icon" style="font-size: 1rem"></i>
 					<span class="loading-content-text">Loading image...</span>
 				</div>
 			</template>
@@ -25,23 +22,17 @@
 				preview
 			/>
 			<div v-if="error" class="loading-content-error">
-				<i
-					class="pi pi-times-circle loading-content-error-icon"
-					style="font-size: 2rem"
-				></i>
+				<i class="pi pi-times-circle loading-content-error-icon" style="font-size: 2rem"></i>
 				<span class="loading-content-error-text">Could not load image</span>
 			</div>
 		</div>
 
 		<!-- HTML -->
 		<div v-else-if="content.type === 'html'">
-			<template v-if="loading || (!content.blobUrl)">
+			<template v-if="loading || !content.blobUrl">
 				<div class="loading-content-container">
 					<i class="pi pi-chart-line loading-content-icon" style="font-size: 2rem"></i>
-					<i
-						class="pi pi-spin pi-spinner loading-content-icon"
-						style="font-size: 1rem"
-					></i>
+					<i class="pi pi-spin pi-spinner loading-content-icon" style="font-size: 1rem"></i>
 					<span class="loading-content-text">Loading visualization...</span>
 				</div>
 			</template>
@@ -50,13 +41,14 @@
 
 		<!-- File -->
 		<div v-else-if="content.type === 'file_path'">
-			Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i> 
+			Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i>
 			<a
-				:href="content.blobUrl"
+				@click.prevent="fetchBlobUrl(content)"
+				href="#"
 				:download="content.fileName ?? content.blobUrl ?? content.value"
 				target="_blank"
 			>
-				{{ content.fileName ?? content.blobUrl }}
+				{{ content.fileName ?? content.blobUrl ?? content.value }}
 			</a>
 		</div>
 	</div>
@@ -86,21 +78,55 @@ export default {
 	// 		return JSON.parse(decodeURIComponent(this.contentencoded));
 	// 	},
 	// },
+	methods: {
+		async fetchBlobUrl(content) {
+			if (!content.blobUrl) {
+				content.loading = true;
+				try {
+					const response = await api.fetchDirect(content.value);
+					const blob = new Blob([response], { type: response.type });
+					content.blobUrl = URL.createObjectURL(blob);
+				} catch (error) {
+					console.error(`Failed to fetch content from ${content.value}`, error ? error.message : error);
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error downloading file',
+						detail: `Failed to download "${content.fileName}". ${error ? error.message ? error.message : error.title ? error.title : error : error}`,
+						life: 5000,
+					});
+					content.error = true;
+				} finally {
+					content.loading = false;
+				}
+			}
+
+			if (content.blobUrl) {
+				const link = document.createElement('a');
+				link.href = content.blobUrl;
+				link.download = content.fileName; // Set the correct filename here
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+			}
+		},
+	},
 
 	async created() {
 		this.content = JSON.parse(decodeURIComponent(this.contentencoded));
 
 		if (['image_file', 'html', 'file_path'].includes(this.content.type)) {
 			this.loading = true;
+			this.content.fileName = this.content.fileName?.split('/').pop();
 			try {
-				const response = await api.fetchDirect(this.content.value);
-				if (this.content.type === 'html') {
-					const blob = new Blob([response], { type: 'text/html' });
-					this.content.blobUrl = URL.createObjectURL(blob);
-				} else {
-					this.content.blobUrl = URL.createObjectURL(response);
+				if (this.content.type !== 'file_path') {
+					const response = await api.fetchDirect(this.content.value);
+					if (this.content.type === 'html') {
+						const blob = new Blob([response], { type: 'text/html' });
+						this.content.blobUrl = URL.createObjectURL(blob);
+					} else if (this.content.type === 'image_file') {
+						this.content.blobUrl = URL.createObjectURL(response);
+					}
 				}
-				this.content.fileName = this.content.fileName?.split('/').pop();
 			} catch (error) {
 				console.error(`Failed to fetch content from ${this.content.value}`, error);
 				this.error = true;
