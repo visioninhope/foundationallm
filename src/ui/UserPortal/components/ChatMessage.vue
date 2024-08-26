@@ -390,6 +390,7 @@ export default {
 		renderMarkdownComponent(contentValue: string) {
 			let htmlContent = processLatex(contentValue ?? '');
 			htmlContent = DOMPurify.sanitize(marked(htmlContent));
+			htmlContent = addCodeHeaderComponents(htmlContent);
 			return {
 				template: `<div>${htmlContent}</div>`,
 				components: {
