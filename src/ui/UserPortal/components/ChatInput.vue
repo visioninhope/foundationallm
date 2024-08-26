@@ -100,6 +100,7 @@
 										icon="pi pi-times"
 										text
 										severity="danger"
+										aria-label="Remove attachment"
 										@click="removeAttachment(file)"
 									/>
 								</div>
