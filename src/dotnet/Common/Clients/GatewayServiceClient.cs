@@ -1,4 +1,4 @@
-﻿using FoundationaLLM.Common.Exceptions;
+using FoundationaLLM.Common.Exceptions;
 using FoundationaLLM.Common.Models.Gateway;
 using FoundationaLLM.Common.Models.Vectorization;
 using Microsoft.Extensions.Logging;
@@ -13,7 +13,7 @@ namespace FoundationaLLM.Common.Clients
     public class GatewayServiceClient
     {
         private readonly HttpClient _gatewayAPIHttpClient;
-        private readonly ILogger<GatewayServiceClient> _logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Creates a new instance of the Gateway API service.
@@ -22,7 +22,7 @@ namespace FoundationaLLM.Common.Clients
         /// <param name="logger">The <see cref="ILogger"/> used for logging.</param>
         public GatewayServiceClient(
             HttpClient gatewayAPIHttpClient,
-            ILogger<GatewayServiceClient> logger)
+            ILogger logger)
         {
             _gatewayAPIHttpClient = gatewayAPIHttpClient;
             _logger = logger;

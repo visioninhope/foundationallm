@@ -13,6 +13,22 @@ import type {
 
 export default {
 	apiUrl: null as string | null,
+	bearerToken: null as string | null,
+	virtualUser: null as string | null,
+
+	getVirtualUser() {
+		return this.virtualUser;
+	},
+
+	/**
+	 * Checks if the given email is valid.
+	 * @param email - The email to validate.
+	 * @returns True if the email is valid, false otherwise.
+	 */
+	isValidEmail(email: string): boolean {
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailPattern.test(email);
+	},
 
 	setApiUrl(url: string) {
 		// Set the api url and remove a trailing slash if there is one.
@@ -30,7 +46,6 @@ export default {
 	 * Otherwise, it will acquire a new bearer token using the MSAL instance.
 	 * @returns The bearer token.
 	 */
-	bearerToken: null as string | null,
 	async getBearerToken() {
 		if (this.bearerToken) return this.bearerToken;
 
@@ -69,6 +84,22 @@ export default {
 
 		const bearerToken = await this.getBearerToken();
 		options.headers.Authorization = `Bearer ${bearerToken}`;
+
+		// Add X-USER-IDENTITY header if virtualUser is set.
+		if (!this.virtualUser) {
+			const urlParams = new URLSearchParams(window.location.search);
+			const virtualUser = urlParams.get('virtual_user');
+			this.virtualUser = virtualUser;
+		}
+		if (this.virtualUser && this.isValidEmail(this.virtualUser)) {
+			options.headers['X-USER-IDENTITY'] = JSON.stringify({
+				name: this.virtualUser,
+				user_name: this.virtualUser,
+				upn: this.virtualUser,
+				user_id: '00000000-0000-0000-0001-000000000001',
+				group_ids: ['00000000-0000-0000-0000-000000000001'],
+			});
+		}
 
 		try {
 			const response = await $fetch(url, options);
@@ -286,7 +317,11 @@ export default {
 	 * @param file The file formData to upload.
 	 * @returns The ObjectID of the uploaded attachment.
 	 */
-	async uploadAttachment(file: FormData, agentName: string, progressCallback: Function) {
+	async uploadAttachment(
+		file: FormData,
+		sessionId: string,
+		agentName: string,
+		progressCallback: Function) {
 		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
@@ -308,7 +343,7 @@ export default {
 				reject('Error during file upload.');
 			};
 
-			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?agentName=${agentName}`, true);
+			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?sessionId=${sessionId}&agentName=${agentName}`, true);
 
 			const bearerToken = await this.getBearerToken();
 			xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);

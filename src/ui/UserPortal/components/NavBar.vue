@@ -23,20 +23,30 @@
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
-						<Button
-							v-if="!$appConfigStore.isKioskMode"
-							v-tooltip.bottom="'Copy link to chat session'"
-							class="button--share"
-							icon="pi pi-copy"
-							text
-							severity="secondary"
-							aria-label="Copy link to chat session"
-							@click="handleCopySession"
-						/>
+						<VTooltip
+								:autoHide="false"
+								:popperTriggers="['hover']"
+						>
+							<Button
+								v-if="!$appConfigStore.isKioskMode"
+								class="button--share"
+								icon="pi pi-copy"
+								text
+								severity="secondary"
+								aria-label="Copy link to chat session"
+								@click="handleCopySession"
+							/>
+							<template #popper>
+								Copy link to chat session
+							</template>
+						</VTooltip>
 						<Toast position="top-center" />
 					</template>
 					<template v-else>
 						<span>Please select a session</span>
+					</template>
+					<template v-if="virtualUser">
+						<span style="margin-left: 10px;">{{ virtualUser }}</span>
 					</template>
 				</div>
 			</div>
@@ -45,11 +55,18 @@
 			<div class="navbar__content__right">
 				<template v-if="currentSession">
 					<span class="header__dropdown">
-						<AgentIcon
-							:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
-							alt="Select an agent"
-							tooltip="Select an agent"
-						/>
+						<VTooltip
+								:autoHide="false"
+								:popperTriggers="['hover']"
+						>
+							<AgentIcon
+								:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
+								alt="Select an agent"
+							/>
+							<template #popper>
+								Select an agent
+							</template>
+						</VTooltip>
 						<Dropdown
 							v-model="agentSelection"
 							:options="agentOptionsGroup"
@@ -96,6 +113,7 @@ export default {
 			agentSelection: null as AgentDropdownOption | null,
 			agentOptions: [] as AgentDropdownOption[],
 			agentOptionsGroup: [] as AgentDropdownOptionsGroup[],
+			virtualUser: null as string | null,
 		};
 	},
 
@@ -134,6 +152,7 @@ export default {
 		const publicAgentOptions = this.agentOptions;
 		const privateAgentOptions = this.agentOptions.filter((agent) => agent.my_agent);
 		const noAgentOptions = [{ label: 'None', value: null, disabled: true }];
+		this.virtualUser = await this.$appStore.getVirtualUser();
 
 		this.agentOptionsGroup.push({
 			label: '',
@@ -156,17 +175,6 @@ export default {
 	},
 
 	methods: {
-		handleCopySession() {
-			const chatLink = `${window.location.origin}?chat=${this.currentSession!.id}`;
-			navigator.clipboard.writeText(chatLink);
-
-			this.$toast.add({
-				severity: 'success',
-				detail: 'Chat link copied!',
-				life: 5000,
-			});
-		},
-
 		handleAgentChange() {
 			this.$appStore.setSessionAgent(this.currentSession, this.agentSelection!.value);
 			const message = this.agentSelection!.value
