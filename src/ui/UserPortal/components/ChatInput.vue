@@ -143,6 +143,7 @@
 					:disabled="disabled"
 					placeholder="What would you like to ask?"
 					autofocus
+					aria-label="Chat input"
 					@keydown="handleKeydown"
 				/>
 				<template #no-result>
