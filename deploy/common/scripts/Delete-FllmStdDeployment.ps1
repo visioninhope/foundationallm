@@ -14,17 +14,21 @@ resources, and App Configurations within each resource group. After deleting the
 resources, the script deletes the resource group itself. It then checks the
 status of the deletion until all resource groups are confirmed to be deleted.
 
+.PARAMETER azdEnvName
+The name of the AZD environment.
+
 .PARAMETER SubscriptionId
 The ID of the Azure subscription.
 
-.PARAMETER EnvironmentName
-The name of the AZD environment.
-
 .EXAMPLE
-PS> .\Delete-FllmStdDeployment.ps1 -SubscriptionId "12345678-1234-1234-1234-1234567890AB" -EnvironmentName "TestEnvironment"
+PS> .\Delete-FllmStdDeployment.ps1 -SubscriptionId "12345678-1234-1234-1234-1234567890AB" -azdEnvName "TestEnvironment"
 Deletes the resource groups and their associated resources in Azure for the specified subscription ID and AZD environment name.
 
 #>
+param (
+	[string]$azdEnvName,
+	[string]$subscriptionId
+)
 
 $TranscriptName = $($MyInvocation.MyCommand.Name) -replace ".ps1", ".transcript.txt"
 Start-Transcript -path .\$TranscriptName -Force
