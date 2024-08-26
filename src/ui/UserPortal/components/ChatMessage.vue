@@ -256,6 +256,7 @@ renderer.code = (code, language) => {
 	const encodedCode = encodeURIComponent(sourceCode);
 	return `<pre><code class="${languageClass}" data-code="${encodedCode}" data-language="${highlighted.language}">${highlighted.value}</code></pre>`;
 };
+marked.use({ renderer });
 
 function processLatex(html) {
 	const blockLatexPattern = /\\\[([^\]]+)\\\]/g;
@@ -282,8 +283,6 @@ function processLatex(html) {
 
 	return html;
 }
-
-marked.use({ renderer });
 
 function addCodeHeaderComponents(htmlString) {
 	const parser = new DOMParser();
