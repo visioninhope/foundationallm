@@ -553,7 +553,7 @@ export default {
 
 .ratings {
 	display: flex;
-	gap: 16px;
+	// gap: 16px;
 }
 
 .icon {
