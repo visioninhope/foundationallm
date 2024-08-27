@@ -33,6 +33,17 @@
 								{{ formatTimeStamp(message.timeStamp) }}
 							</template>
 						</VTooltip>
+
+						<!-- Copy user message button -->
+						<Button
+							v-if="message.sender === 'User'"
+							class="message__copy"
+							size="small"
+							text
+							icon="pi pi-copy"
+							aria-label="Copy Message"
+							@click.stop="handleCopyMessageContent"
+						/>
 					</span>
 				</div>
 
@@ -491,6 +502,11 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+
+.message__copy {
+	color: var(--primary-text);
+	margin-left: 4px;
 }
 
 .header__sender {
