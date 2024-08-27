@@ -1,22 +1,28 @@
 <template>
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
-			<i
-				v-tooltip.top="'Use Shift+Enter to add a new line'"
-				class="pi pi-info-circle tooltip-component"
-			></i>
-			<Button
-				v-tooltip.top="
-					`Attach files (${fileArrayFiltered.length === 1 ? '1 file' : fileArrayFiltered.length + ' files'})`
-				"
-				:badge="fileArrayFiltered.length.toString() || null"
-				:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
-				icon="pi pi-paperclip"
-				label=""
-				class="file-upload-button secondary-button"
-				style="height: 100%"
-				@click="showFileUploadDialog = true"
-			/>
+			<div class="tooltip-component">
+				<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+					<i class="pi pi-info-circle"></i>
+					<template #popper> Use Shift+Enter to add a new line </template>
+				</VTooltip>
+			</div>
+			<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+				<Button
+					:badge="fileArrayFiltered.length.toString() || null"
+					:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
+					icon="pi pi-paperclip"
+					label=""
+					class="file-upload-button secondary-button"
+					style="height: 100%"
+					@click="showFileUploadDialog = true"
+				/>
+				<template #popper>
+					Attach files ({{
+						fileArrayFiltered.length === 1 ? '1 file' : fileArrayFiltered.length + ' files'
+					}})
+				</template>
+			</VTooltip>
 			<Dialog
 				v-model:visible="showFileUploadDialog"
 				header="Upload File(s)"
@@ -59,7 +65,11 @@
 					<template #content="{ files, removeFileCallback }">
 						<!-- Progress bar -->
 						<div v-if="isUploading">
-							<ProgressBar :value="uploadProgress" :showValue="false" style="display: flex; width: 95%; margin: 10px 2.5%;" />
+							<ProgressBar
+								:value="uploadProgress"
+								:show-value="false"
+								style="display: flex; width: 95%; margin: 10px 2.5%"
+							/>
 							<p style="text-align: center">Uploading...</p>
 						</div>
 
@@ -75,7 +85,7 @@
 									<span style="font-weight: 600">{{ file.name }}</span>
 									<div>{{ formatSize(file.size) }}</div>
 								</div>
-								<div style="display: flex; align-items: center; margin-left: 10px;">
+								<div style="display: flex; align-items: center; margin-left: 10px">
 									<Badge value="Pending" />
 									<Button
 										icon="pi pi-times"
@@ -85,16 +95,12 @@
 									/>
 								</div>
 							</div>
-							<div
-								v-for="file in fileArrayFiltered"
-								:key="file.fileName"
-								class="file-upload-file"
-							>
+							<div v-for="file in fileArrayFiltered" :key="file.fileName" class="file-upload-file">
 								<div class="file-upload-file_info">
 									<i class="pi pi-file" style="font-size: 2rem; margin-right: 1rem"></i>
 									<span style="font-weight: 600">{{ file.fileName }}</span>
 								</div>
-								<div style="display: flex; align-items: center; margin-left: 10px;">
+								<div style="display: flex; align-items: center; margin-left: 10px">
 									<Badge value="Uploaded" severity="success" />
 									<Button
 										icon="pi pi-times"
@@ -115,7 +121,9 @@
 											or
 											<br />
 										</span>
-										<a style="color: blue; cursor: pointer" @click="browseFiles">Browse for files</a>
+										<a style="color: blue; cursor: pointer" @click="browseFiles">
+											<span>Browse for files</span>
+										</a>
 									</p>
 								</div>
 							</div>
@@ -264,7 +272,7 @@ export default {
 			this.text = '';
 		},
 
-		async handleUpload(event: any) {
+		handleUpload(event: any) {
 			this.isUploading = true;
 
 			const totalFiles = event.files.length;
@@ -288,7 +296,7 @@ export default {
 
 							this.uploadProgress = totalUploadProgress;
 						}
-					}
+					};
 
 					await this.$appStore.uploadAttachment(
 						formData,
@@ -304,8 +312,7 @@ export default {
 						detail: `File upload failed for "${file.name}". ${error.message ? error.message : error.title ? error.title : ''}`,
 						life: 5000,
 					});
-				}
-				finally {
+				} finally {
 					if (totalFiles === filesUploaded + filesFailed) {
 						this.showFileUploadDialog = false;
 						this.isUploading = false;
@@ -398,6 +405,7 @@ export default {
 }
 
 .tooltip-component {
+	height: 100%;
 	margin-right: 0.5rem;
 	display: flex;
 	align-items: center;

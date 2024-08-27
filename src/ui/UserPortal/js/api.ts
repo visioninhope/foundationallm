@@ -7,8 +7,8 @@ import type {
 	CompletionRequest,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
-	ResourceProviderDeleteResult,
-	ResourceProviderDeleteResults
+	// ResourceProviderDeleteResult,
+	ResourceProviderDeleteResults,
 } from '@/js/types';
 
 export default {
@@ -321,8 +321,11 @@ export default {
 		file: FormData,
 		sessionId: string,
 		agentName: string,
-		progressCallback: Function) {
-		const response: ResourceProviderUpsertResult = await new Promise(async (resolve, reject) => {
+		progressCallback: Function,
+	) {
+		const bearerToken = await this.getBearerToken();
+
+		const response: ResourceProviderUpsertResult = (await new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
 			xhr.upload.onprogress = function (event) {
@@ -339,17 +342,20 @@ export default {
 				}
 			};
 
-			xhr.onerror = (error) => {
+			xhr.onerror = () => {
+				// eslint-disable-next-line prefer-promise-reject-errors
 				reject('Error during file upload.');
 			};
 
-			xhr.open('POST', `${this.apiUrl}/instances/${this.instanceId}/files/upload?sessionId=${sessionId}&agentName=${agentName}`, true);
+			xhr.open(
+				'POST',
+				`${this.apiUrl}/instances/${this.instanceId}/files/upload?sessionId=${sessionId}&agentName=${agentName}`,
+				true,
+			);
 
-			const bearerToken = await this.getBearerToken();
-			xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);
-
+			xhr.setRequestHeader('Authorization', `Bearer ${bearerToken}`);
 			xhr.send(file);
-		}) as ResourceProviderUpsertResult;
+		})) as ResourceProviderUpsertResult;
 
 		return response;
 	},
@@ -360,11 +366,11 @@ export default {
 	 * @returns A promise that resolves to the delete results.
 	 */
 	async deleteAttachments(attachments: string[]) {
-		return await this.fetch(`/instances/${this.instanceId}/files/delete`, {
+		return (await this.fetch(`/instances/${this.instanceId}/files/delete`, {
 			method: 'POST',
 			body: JSON.stringify(attachments),
-		}) as ResourceProviderDeleteResults;
-	}
+		})) as ResourceProviderDeleteResults;
+	},
 };
 
 function formatError(error: any): string {
@@ -374,7 +380,7 @@ function formatError(error: any): string {
 		return Object.values(errors).flat().join(' ');
 	}
 	if (error.data) {
-		return error.data.message || error.data || 'An unknown error occurred';
+		return error.data.message || error.data.title || error.data || 'An unknown error occurred';
 	}
 	if (error.message) {
 		return error.message;
