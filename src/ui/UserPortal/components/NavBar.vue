@@ -23,10 +23,7 @@
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
-						<VTooltip
-								:autoHide="false"
-								:popperTriggers="['hover']"
-						>
+						<VTooltip :autoHide="false" :popperTriggers="['hover']">
 							<Button
 								v-if="!$appConfigStore.isKioskMode"
 								class="button--share"
@@ -36,9 +33,7 @@
 								aria-label="Copy link to chat session"
 								@click="handleCopySession"
 							/>
-							<template #popper>
-								Copy link to chat session
-							</template>
+							<template #popper> Copy link to chat session </template>
 						</VTooltip>
 						<Toast position="top-center" />
 					</template>
@@ -46,7 +41,7 @@
 						<span>Please select a session</span>
 					</template>
 					<template v-if="virtualUser">
-						<span style="margin-left: 10px;">{{ virtualUser }}</span>
+						<span style="margin-left: 10px">{{ virtualUser }}</span>
 					</template>
 				</div>
 			</div>
@@ -55,17 +50,12 @@
 			<div class="navbar__content__right">
 				<template v-if="currentSession">
 					<span class="header__dropdown">
-						<VTooltip
-								:autoHide="false"
-								:popperTriggers="['hover']"
-						>
+						<VTooltip :autoHide="false" :popperTriggers="['hover']">
 							<AgentIcon
 								:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
 								alt="Select an agent"
 							/>
-							<template #popper>
-								Select an agent
-							</template>
+							<template #popper> Select an agent </template>
 						</VTooltip>
 						<Dropdown
 							v-model="agentSelection"

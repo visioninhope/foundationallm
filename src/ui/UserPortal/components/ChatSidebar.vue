@@ -44,24 +44,18 @@
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
-					
-					<VTooltip
-							:autoHide="false"
-							:popperTriggers="['hover']"
-					>
+
+					<VTooltip :autoHide="false" :popperTriggers="['hover']">
 						<span class="chat__name">{{ session.name }}</span>
 						<template #popper>
-							{{session.name}}
+							{{ session.name }}
 						</template>
 					</VTooltip>
 
 					<!-- Chat icons -->
 					<span v-if="currentSession?.id === session.id" class="chat__icons">
 						<!-- Rename session -->
-						<VTooltip
-								:autoHide="false"
-								:popperTriggers="['hover']"
-						>
+						<VTooltip :autoHide="false" :popperTriggers="['hover']">
 							<Button
 								icon="pi pi-pencil"
 								size="small"
@@ -70,16 +64,11 @@
 								aria-label="Rename chat session"
 								@click.stop="openRenameModal(session)"
 							/>
-							<template #popper>
-								Rename chat session
-							</template>
+							<template #popper> Rename chat session </template>
 						</VTooltip>
 
 						<!-- Delete session -->
-						<VTooltip
-								:autoHide="false"
-								:popperTriggers="['hover']"
-						>
+						<VTooltip :autoHide="false" :popperTriggers="['hover']">
 							<Button
 								icon="pi pi-trash"
 								size="small"
@@ -88,9 +77,7 @@
 								aria-label="Delete chat session"
 								@click.stop="sessionToDelete = session"
 							/>
-							<template #popper>
-								Delete chat session
-							</template>
+							<template #popper> Delete chat session </template>
 						</VTooltip>
 					</span>
 				</div>
@@ -149,14 +136,20 @@
 			v-focustrap
 		>
 			<div v-if="deleteProcessing" class="delete-dialog-content">
-				<i class="pi pi-spin pi-spinner" style="font-size: 2rem;"></i>
+				<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
 			</div>
 			<div v-else>
 				<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
 			</div>
 			<template #footer>
 				<Button label="Cancel" text @click="sessionToDelete = null" :disabled="deleteProcessing" />
-				<Button label="Delete" severity="danger" @click="handleDeleteSession" autofocus :disabled="deleteProcessing" />
+				<Button
+					label="Delete"
+					severity="danger"
+					@click="handleDeleteSession"
+					autofocus
+					:disabled="deleteProcessing"
+				/>
 			</template>
 		</Dialog>
 	</div>
@@ -409,9 +402,9 @@ export default {
 }
 
 .delete-dialog-content {
-	display: flex; 
-	justify-content: 
-	center; padding: 20px 150px;
+	display: flex;
+	justify-content: center;
+	padding: 20px 150px;
 }
 
 @media only screen and (max-width: 950px) {

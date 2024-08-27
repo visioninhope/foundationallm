@@ -1,8 +1,7 @@
 <template>
 	<div class="chat-thread">
 		<!-- Message list -->
-		<div class="chat-thread__messages"
-			:class="messages.length === 0 && 'empty'">
+		<div class="chat-thread__messages" :class="messages.length === 0 && 'empty'">
 			<template v-if="isLoading">
 				<div class="chat-thread__loading">
 					<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -25,9 +24,7 @@
 				<!-- New chat alert -->
 				<div v-else class="new-chat-alert">
 					<div class="alert-body">
-						<div class="alert-body-text">
-							Start the conversation using the text box below.
-						</div>
+						<div class="alert-body-text">Start the conversation using the text box below.</div>
 					</div>
 				</div>
 			</template>
@@ -115,7 +112,8 @@ export default {
 				this.$toast.add({
 					severity: 'info',
 					summary: 'Could not send message',
-					detail: 'Please select an agent and try again. If no agents are available, refresh the page.',
+					detail:
+						'Please select an agent and try again. If no agents are available, refresh the page.',
 					life: 8000,
 				});
 				this.isMessagePending = false;
@@ -207,7 +205,7 @@ export default {
 	flex-direction: column;
 }
 .new-chat-alert {
-	background-color: #FAFAFA;
+	background-color: #fafafa;
 	margin: 10px;
 	margin-left: auto;
 	margin-right: auto;

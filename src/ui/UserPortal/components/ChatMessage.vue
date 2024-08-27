@@ -27,15 +27,10 @@
 								},
 							}"
 						/>
-						<VTooltip
-							:autoHide="false"
-							:popperTriggers="['hover']"
-						>
-							<span class="time-stamp">{{
-								$filters.timeAgo(new Date(message.timeStamp))
-							}}</span>
+						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+							<span class="time-stamp">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
 							<template #popper>
-								{{formatTimeStamp(message.timeStamp)}}
+								{{ formatTimeStamp(message.timeStamp) }}
 							</template>
 						</VTooltip>
 					</span>
@@ -304,7 +299,7 @@ export default {
 				let htmlContent = processLatex(contentToProcess ?? '');
 				htmlContent = marked(htmlContent);
 				return DOMPurify.sanitize(htmlContent);
-			};
+			}
 
 			let content = '';
 			if (this.messageContent && this.messageContent?.length > 0) {
