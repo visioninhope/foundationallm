@@ -14,7 +14,9 @@ module.exports = {
 	rules: {
 		'prettier/prettier': ['error'],
 		'vue/html-indent': ['error', 'tab'],
-		'vue/script-indent': ['error', 'tab',
+		'vue/script-indent': [
+			'error',
+			'tab',
 			{
 				switchCase: 1,
 			},
@@ -22,5 +24,7 @@ module.exports = {
 		'vue/singleline-html-element-content-newline': 0,
 		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 		'no-console': 'off',
+		'vue/no-multiple-template-root': 'off',
+		'vue/multi-word-component-names': 'off',
 	},
 };
