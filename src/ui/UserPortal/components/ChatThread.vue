@@ -17,7 +17,6 @@
 						:message="message"
 						:show-word-animation="index === 0 && userSentMessage && message.sender === 'Assistant'"
 						@rate="handleRateMessage($event.message, $event.isLiked)"
-						@refresh="handleRefresh()"
 					/>
 				</template>
 
@@ -92,11 +91,6 @@ export default {
 	methods: {
 		async handleRateMessage(message: Message, isLiked: Message['rating']) {
 			await this.$appStore.rateMessage(message, isLiked);
-		},
-
-		async handleRefresh() {
-			this.componentKey += 1;
-			this.$nextTick();
 		},
 
 		async handleSend(text: string) {

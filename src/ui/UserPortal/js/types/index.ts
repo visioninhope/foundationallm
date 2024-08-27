@@ -26,25 +26,6 @@ export interface ResourceProviderUpsertResult {
 	resourceExists: boolean;
 }
 
-export interface Message {
-	id: string;
-	type: string;
-	sessionId: string;
-	timeStamp: string;
-	sender: 'User' | 'Assistant';
-	senderDisplayName: string | null;
-	tokens: number;
-	text: string;
-	rating: boolean | null;
-	vector: Array<Number>;
-	completionPromptId: string | null;
-	citations: Array<Citation>;
-	content: Array<MessageContent>;
-	attachments: Array<string>;
-	attachmentDetails: Array<AttachmentDetail>;
-	analysisResults: Array<AnalysisResult>;
-}
-
 export interface MessageContent {
 	type: string;
 	fileName: string;
@@ -65,6 +46,25 @@ export interface AnalysisResult {
 	tool_output: string;
 	agent_capability_category: string;
 	tool_name: string;
+}
+
+export interface Message {
+	id: string;
+	type: string;
+	sessionId: string;
+	timeStamp: string;
+	sender: 'User' | 'Assistant';
+	senderDisplayName: string | null;
+	tokens: number;
+	text: string;
+	rating: boolean | null;
+	vector: Array<Number>;
+	completionPromptId: string | null;
+	citations: Array<Citation>;
+	content: Array<MessageContent>;
+	attachments: Array<string>;
+	attachmentDetails: Array<AttachmentDetail>;
+	analysisResults: Array<AnalysisResult>;
 }
 
 export interface Session {

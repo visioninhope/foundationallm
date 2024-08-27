@@ -13,13 +13,13 @@
 				v-if="content.blobUrl"
 				:src="content.blobUrl"
 				:alt="content.fileName"
+				width="45%"
+				preview
 				@load="loading = false"
 				@error="
 					loading = false;
 					error = true;
 				"
-				width="45%"
-				preview
 			/>
 			<div v-if="error" class="loading-content-error">
 				<i class="pi pi-times-circle loading-content-error-icon" style="font-size: 2rem"></i>
@@ -43,10 +43,10 @@
 		<div v-else-if="content.type === 'file_path'">
 			Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i>
 			<a
-				@click.prevent="fetchBlobUrl(content)"
-				href="#"
 				:download="content.fileName ?? content.blobUrl ?? content.value"
+				href="#"
 				target="_blank"
+				@click.prevent="fetchBlobUrl(content)"
 			>
 				{{ content.fileName ?? content.blobUrl ?? content.value }}
 			</a>
@@ -78,6 +78,31 @@ export default {
 	// 		return JSON.parse(decodeURIComponent(this.contentencoded));
 	// 	},
 	// },
+
+	async created() {
+		this.content = JSON.parse(decodeURIComponent(this.contentencoded));
+
+		if (['image_file', 'html', 'file_path'].includes(this.content.type)) {
+			this.loading = true;
+			this.content.fileName = this.content.fileName?.split('/').pop();
+			try {
+				if (this.content.type !== 'file_path') {
+					const response = await api.fetchDirect(this.content.value);
+					if (this.content.type === 'html') {
+						const blob = new Blob([response], { type: 'text/html' });
+						this.content.blobUrl = URL.createObjectURL(blob);
+					} else if (this.content.type === 'image_file') {
+						this.content.blobUrl = URL.createObjectURL(response);
+					}
+				}
+			} catch (error) {
+				console.error(`Failed to fetch content from ${this.content.value}`, error);
+				this.error = true;
+			}
+			this.loading = false;
+		}
+	},
+
 	methods: {
 		async fetchBlobUrl(content) {
 			if (!content.blobUrl) {
@@ -112,30 +137,6 @@ export default {
 				document.body.removeChild(link);
 			}
 		},
-	},
-
-	async created() {
-		this.content = JSON.parse(decodeURIComponent(this.contentencoded));
-
-		if (['image_file', 'html', 'file_path'].includes(this.content.type)) {
-			this.loading = true;
-			this.content.fileName = this.content.fileName?.split('/').pop();
-			try {
-				if (this.content.type !== 'file_path') {
-					const response = await api.fetchDirect(this.content.value);
-					if (this.content.type === 'html') {
-						const blob = new Blob([response], { type: 'text/html' });
-						this.content.blobUrl = URL.createObjectURL(blob);
-					} else if (this.content.type === 'image_file') {
-						this.content.blobUrl = URL.createObjectURL(response);
-					}
-				}
-			} catch (error) {
-				console.error(`Failed to fetch content from ${this.content.value}`, error);
-				this.error = true;
-			}
-			this.loading = false;
-		}
 	},
 };
 </script>

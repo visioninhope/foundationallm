@@ -64,7 +64,6 @@
 
 <script lang="ts">
 import type { Session } from '@/js/types';
-import AgentIcon from '@/components/AgentIcon.vue';
 
 interface AgentDropdownOption {
 	label: string;

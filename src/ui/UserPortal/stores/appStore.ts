@@ -8,7 +8,7 @@ import type {
 	Agent,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
-	ResourceProviderDeleteResult,
+	// ResourceProviderDeleteResult,
 	ResourceProviderDeleteResults,
 	Attachment,
 	MessageContent,
@@ -238,7 +238,7 @@ export const useAppStore = defineStore('app', {
 				tokens: 0,
 				type: 'Message',
 				vector: [],
-				attachmentDetails: attachmentDetails,
+				attachmentDetails,
 			};
 			this.currentMessages.push(tempUserMessage);
 
