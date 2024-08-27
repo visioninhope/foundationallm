@@ -122,7 +122,6 @@
 						</span>
 					</span>
 
-
 					<!-- Right side buttons -->
 					<span>
 						<!-- Copy message button -->
