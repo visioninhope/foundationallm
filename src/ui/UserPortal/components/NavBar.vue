@@ -29,7 +29,7 @@
 						<span>Please select a session</span>
 					</template>
 					<template v-if="virtualUser">
-						<span style="margin-left: 10px;">{{ virtualUser }}</span>
+						<span style="margin-left: 10px">{{ virtualUser }}</span>
 					</template>
 				</div>
 			</div>
@@ -64,7 +64,6 @@
 
 <script lang="ts">
 import type { Session } from '@/js/types';
-import AgentIcon from '@/components/AgentIcon.vue';
 
 interface AgentDropdownOption {
 	label: string;

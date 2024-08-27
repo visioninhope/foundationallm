@@ -13,13 +13,13 @@
 				v-if="content.blobUrl"
 				:src="content.blobUrl"
 				:alt="content.fileName"
+				width="45%"
+				preview
 				@load="loading = false"
 				@error="
 					loading = false;
 					error = true;
 				"
-				width="45%"
-				preview
 			/>
 			<div v-if="error" class="loading-content-error">
 				<i class="pi pi-times-circle loading-content-error-icon" style="font-size: 2rem"></i>
@@ -43,10 +43,10 @@
 		<div v-else-if="content.type === 'file_path'">
 			Download <i :class="$getFileIconClass(content.fileName, true)" class="attachment-icon"></i>
 			<a
-				@click.prevent="fetchBlobUrl(content)"
-				href="#"
 				:download="content.fileName ?? content.blobUrl ?? content.value"
+				href="#"
 				target="_blank"
+				@click.prevent="fetchBlobUrl(content)"
 			>
 				{{ content.fileName ?? content.blobUrl ?? content.value }}
 			</a>
@@ -78,38 +78,6 @@ export default {
 	// 		return JSON.parse(decodeURIComponent(this.contentencoded));
 	// 	},
 	// },
-	methods: {
-		async fetchBlobUrl(content) {
-			if (!content.blobUrl) {
-				content.loading = true;
-				try {
-					const response = await api.fetchDirect(content.value);
-					const blob = new Blob([response], { type: response.type });
-					content.blobUrl = URL.createObjectURL(blob);
-				} catch (error) {
-					console.error(`Failed to fetch content from ${content.value}`, error ? error.message : error);
-					this.$toast.add({
-						severity: 'error',
-						summary: 'Error downloading file',
-						detail: `Failed to download "${content.fileName}". ${error ? error.message ? error.message : error.title ? error.title : error : error}`,
-						life: 5000,
-					});
-					content.error = true;
-				} finally {
-					content.loading = false;
-				}
-			}
-
-			if (content.blobUrl) {
-				const link = document.createElement('a');
-				link.href = content.blobUrl;
-				link.download = content.fileName; // Set the correct filename here
-				document.body.appendChild(link);
-				link.click();
-				document.body.removeChild(link);
-			}
-		},
-	},
 
 	async created() {
 		this.content = JSON.parse(decodeURIComponent(this.contentencoded));
@@ -133,6 +101,42 @@ export default {
 			}
 			this.loading = false;
 		}
+	},
+
+	methods: {
+		async fetchBlobUrl(content) {
+			if (!content.blobUrl) {
+				content.loading = true;
+				try {
+					const response = await api.fetchDirect(content.value);
+					const blob = new Blob([response], { type: response.type });
+					content.blobUrl = URL.createObjectURL(blob);
+				} catch (error) {
+					console.error(
+						`Failed to fetch content from ${content.value}`,
+						error ? error.message : error,
+					);
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Error downloading file',
+						detail: `Failed to download "${content.fileName}". ${error ? (error.message ? error.message : error.title ? error.title : error) : error}`,
+						life: 5000,
+					});
+					content.error = true;
+				} finally {
+					content.loading = false;
+				}
+			}
+
+			if (content.blobUrl) {
+				const link = document.createElement('a');
+				link.href = content.blobUrl;
+				link.download = content.fileName; // Set the correct filename here
+				document.body.appendChild(link);
+				link.click();
+				document.body.removeChild(link);
+			}
+		},
 	},
 };
 </script>
