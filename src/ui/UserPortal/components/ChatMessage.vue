@@ -176,8 +176,9 @@ import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import ChatMessageContentBlock from '@/components/ChatMessageContentBlock.vue';
 
 const renderer = new marked.Renderer();
-renderer.code = (code, language) => {
-	const sourceCode = code.raw || code;
+renderer.code = (code) => {
+	const language = code.lang;
+	const sourceCode = code.text || code;
 	const validLanguage = !!(language && hljs.getLanguage(language));
 	const highlighted = validLanguage
 		? hljs.highlight(sourceCode, { language })
