@@ -38,7 +38,6 @@
 				v-for="session in sessions"
 				:key="session.id"
 				class="chat-sidebar__chat"
-				tabindex="0"
 				@click="handleSessionSelected(session)"
 				@keydown.enter="handleSessionSelected(session)"
 			>
@@ -46,7 +45,7 @@
 					<!-- Chat name -->
 
 					<VTooltip :auto-hide="false" :popper-triggers="['hover']">
-						<span class="chat__name">{{ session.name }}</span>
+						<span class="chat__name" tabindex="0">{{ session.name }}</span>
 						<template #popper>
 							{{ session.name }}
 						</template>
