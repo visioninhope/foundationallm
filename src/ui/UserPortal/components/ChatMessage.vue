@@ -168,6 +168,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
 import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
 import type { PropType } from 'vue';
