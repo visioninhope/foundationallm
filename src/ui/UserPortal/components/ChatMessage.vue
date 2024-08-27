@@ -196,12 +196,12 @@ function processLatex(content) {
 	const inlineLatexPattern = /\\\(([\s\S]+?)\\\)/g;
 
 	// Process block LaTeX: \[ ... \]
-	content = content.replace(blockLatexPattern, (match, math) => {
+	content = content.replace(blockLatexPattern, (_, math) => {
 		return katex.renderToString(math, { displayMode: true, throwOnError: false });
 	});
 
 	// Process inline LaTeX: \( ... \)
-	content = content.replace(inlineLatexPattern, (match, math) => {
+	content = content.replace(inlineLatexPattern, (_, math) => {
 		return katex.renderToString(math, { throwOnError: false });
 	});
 
