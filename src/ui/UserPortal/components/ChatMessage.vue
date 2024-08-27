@@ -561,15 +561,6 @@ export default {
 	cursor: pointer;
 }
 
-.dislike {
-	margin-left: 12px;
-	cursor: pointer;
-}
-
-.like {
-	cursor: pointer;
-}
-
 .prompt-text {
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
