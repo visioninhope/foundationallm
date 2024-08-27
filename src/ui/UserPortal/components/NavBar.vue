@@ -23,7 +23,7 @@
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
-					<!-- 	<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+						<!-- <VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<Button
 								v-if="!$appConfigStore.isKioskMode"
 								class="button--share"
