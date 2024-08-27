@@ -67,6 +67,7 @@
 							option-disabled="disabled"
 							option-label="label"
 							placeholder="--Select--"
+							aria-label="Select an agent"
 							@change="handleAgentChange"
 						/>
 					</span>
