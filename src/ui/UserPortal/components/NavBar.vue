@@ -23,7 +23,7 @@
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
-						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+					<!-- 	<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<Button
 								v-if="!$appConfigStore.isKioskMode"
 								class="button--share"
@@ -33,8 +33,8 @@
 								aria-label="Copy link to chat session"
 								@click="handleCopySession"
 							/>
-							<template #popper> Copy link to chat session </template>
-						</VTooltip>
+							<template #popper>Copy link to chat session</template>
+						</VTooltip> -->
 						<Toast position="top-center" />
 					</template>
 					<template v-else>
@@ -180,6 +180,17 @@ export default {
 		async handleLogout() {
 			await this.$authStore.logout();
 		},
+
+		// handleCopySession() {
+		// 	const chatLink = `${window.location.origin}?chat=${this.currentSession!.id}`;
+		// 	navigator.clipboard.writeText(chatLink);
+
+		// 	this.$toast.add({
+		// 		severity: 'success',
+		// 		detail: 'Chat link copied!',
+		// 		life: 5000,
+		// 	});
+		// },
 
 		updateAgentSelection() {
 			const agent = this.$appStore.getSessionAgent(this.currentSession);
