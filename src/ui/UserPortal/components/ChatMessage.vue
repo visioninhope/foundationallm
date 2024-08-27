@@ -296,7 +296,7 @@ export default {
 				let htmlContent = processLatex(contentToProcess ?? '');
 				htmlContent = marked(htmlContent);
 				return DOMPurify.sanitize(htmlContent);
-			};
+			}
 
 			let content = '';
 			if (this.messageContent && this.messageContent?.length > 0) {

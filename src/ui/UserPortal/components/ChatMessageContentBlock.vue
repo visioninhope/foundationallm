@@ -87,11 +87,14 @@ export default {
 					const blob = new Blob([response], { type: response.type });
 					content.blobUrl = URL.createObjectURL(blob);
 				} catch (error) {
-					console.error(`Failed to fetch content from ${content.value}`, error ? error.message : error);
+					console.error(
+						`Failed to fetch content from ${content.value}`,
+						error ? error.message : error,
+					);
 					this.$toast.add({
 						severity: 'error',
 						summary: 'Error downloading file',
-						detail: `Failed to download "${content.fileName}". ${error ? error.message ? error.message : error.title ? error.title : error : error}`,
+						detail: `Failed to download "${content.fileName}". ${error ? (error.message ? error.message : error.title ? error.title : error) : error}`,
 						life: 5000,
 					});
 					content.error = true;

@@ -61,10 +61,10 @@ export interface AttachmentDetail {
 }
 
 export interface AnalysisResult {
-    tool_input: string;
-    tool_output: string;
-    agent_capability_category: string;
-    tool_name: string;
+	tool_input: string;
+	tool_output: string;
+	agent_capability_category: string;
+	tool_name: string;
 }
 
 export interface Session {
@@ -118,8 +118,8 @@ export interface Attachment {
 }
 
 export interface ResourceProviderDeleteResult {
-    deleted: boolean;
-  	reason?: string;
+	deleted: boolean;
+	reason?: string;
 }
 
 export interface ResourceProviderDeleteResults {
