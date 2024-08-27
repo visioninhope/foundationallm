@@ -24,25 +24,24 @@ function Connect-AksCluster {
     }
 }
 
-function Invoke-CLICommand {
-    <#
-    .SYNOPSIS
-    Invoke a CLI Command and allow all output to print to the terminal.  Does not check for return values or pass the output to the caller.
-    #>
-    param (
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$Message,
-
-        [Parameter(Mandatory = $true, Position = 1)]
-        [ScriptBlock]$ScriptBlock
+function Format-Template {
+    param(
+        [parameter(Mandatory = $true, Position = 0)][hashtable]$tokens,
+        [parameter(Mandatory = $true, Position = 1)][string]$template
     )
 
-    Write-Host "${message}..." -ForegroundColor Blue
-    & $ScriptBlock
+    $templatePath = $template | Resolve-Path
+    Write-Host "Template: $templatePath" -ForegroundColor Blue
 
-    if ($LASTEXITCODE -ne 0) {
-        throw "Failed ${message} (code: ${LASTEXITCODE})"
+    $content = Get-Content -Raw $templatePath
+
+    Write-Host "Replacing tokens..." -ForegroundColor Yellow
+    foreach ($token in $tokens.Keys) {
+        Write-Host "Replacing $($token) ..." -ForegroundColor Yellow
+        $content = $content -replace "{{$($token)}}", $tokens[$token]
     }
+
+    return $content
 }
 
 function Get-AbsolutePath {
@@ -72,6 +71,24 @@ function Get-AppRegistrationObjectId {
     }
 
     return $script:objectId
+}
+
+function Get-OAuthCallbackUris {
+    param(
+        [parameter(Mandatory = $true)][string]$applicationUri
+    )
+
+    $script:redirects = $null
+    Invoke-CLICommand "Get the redirect URIs for the application" {
+        $script:redirects = az rest `
+            --method "get" `
+            --uri $applicationUri `
+            --headers "{'Content-Type': 'application/json'}" `
+            --query "spa.redirectUris" `
+            -o json | ConvertFrom-Json -AsHashtable
+    }
+
+    return $script:redirects
 }
 
 function Get-ResourceGroups {
@@ -128,24 +145,49 @@ function Import-AzdEnvironment {
     }
 }
 
-function Format-Template {
-    param(
-        [parameter(Mandatory = $true, Position = 0)][hashtable]$tokens,
-        [parameter(Mandatory = $true, Position = 1)][string]$template
+function Invoke-CLICommand {
+    <#
+    .SYNOPSIS
+    Invoke a CLI Command and allow all output to print to the terminal.  Does not check for return values or pass the output to the caller.
+    #>
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$Message,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ScriptBlock]$ScriptBlock
     )
 
-    $templatePath = $template | Resolve-Path
-    Write-Host "Template: $templatePath" -ForegroundColor Blue
+    Write-Host "${message}..." -ForegroundColor Blue
+    & $ScriptBlock
 
-    $content = Get-Content -Raw $templatePath
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed ${message} (code: ${LASTEXITCODE})"
+    }
+}
 
-    Write-Host "Replacing tokens..." -ForegroundColor Yellow
-    foreach ($token in $tokens.Keys) {
-        Write-Host "Replacing $($token) ..." -ForegroundColor Yellow
-        $content = $content -replace "{{$($token)}}", $tokens[$token]
+function Remove-OAuthCallbackUri {
+    param(
+        [parameter(Mandatory = $true)][string]$applicationId,
+        [parameter(Mandatory = $true)][string]$redirectUri
+    )
+
+    $applicationUri = "https://graph.microsoft.com/v1.0/applications/$applicationId"
+    $script:redirects = Get-OAuthCallbackUris -applicationUri $applicationUri
+    if ($null -eq $script:redirects) {
+        $script:redirects = @()
     }
 
-    return $content
+    if (-not $script:redirects.Contains($redirectUri)) {
+        Write-Host "The redirect URI does not exist. Skipping removal." -ForegroundColor Yellow
+        return
+    }
+
+    $script:redirects = $script:redirects | Where-Object { $_ -ne $redirectUri }
+
+    Update-RedirectUris `
+        -applicationUri $applicationUri `
+        -redirectUris $script:redirects
 }
 
 function Show-AzdEnvironments {
@@ -162,6 +204,22 @@ default environment displayed below
     }
 }
 
+function Test-EnvironmentVariables {
+    param(
+        [parameter(Mandatory = $true)][hashtable]$envVariables
+    )
+
+    foreach ($envVariable in $envVariables.GetEnumerator()) {
+        $name = $envVariable.Key
+        $message = $envVariable.Value
+
+        $value = Get-ChildItem env:$name -ErrorAction SilentlyContinue
+        if (-not $value) {
+            throw "$message. The '$name' environment variable is not set."
+        }
+    }
+}
+
 function Update-OAuthCallbackUri {
     param(
         [parameter(Mandatory = $true)][string]$applicationId,
@@ -169,16 +227,7 @@ function Update-OAuthCallbackUri {
     )
 
     $applicationUri = "https://graph.microsoft.com/v1.0/applications/$applicationId"
-    $script:redirects = $null
-    Invoke-CLICommand "Get the redirect URIs for the application" {
-        $script:redirects = az rest `
-            --method "get" `
-            --uri $applicationUri `
-            --headers "{'Content-Type': 'application/json'}" `
-            --query "spa.redirectUris" `
-            -o json | ConvertFrom-Json -AsHashtable
-    }
-
+    $script:redirects = Get-OAuthCallbackUris -applicationUri $applicationUri
     if ($null -eq $script:redirects) {
         $script:redirects = @()
     }
@@ -187,9 +236,19 @@ function Update-OAuthCallbackUri {
         $script:redirects += $redirectUri
     }
 
+    Update-RedirectUris `
+        -applicationUri $applicationUri `
+        -redirectUris $script:redirects
+}
+
+function Update-RedirectUris {
+    param(
+        [parameter(Mandatory = $true)][string]$applicationUri,
+        [parameter(Mandatory = $true)][string[]]$redirectUris
+    )
     $body = @{
         spa = @{
-            redirectUris = $script:redirects
+            redirectUris = $redirectUris
         }
     }
     $body = $body | ConvertTo-Json -Compress

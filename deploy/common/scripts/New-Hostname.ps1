@@ -83,15 +83,7 @@ $requiredEnvVariables = @{
     "FLLM_OPS_KV" = "Unable to determine the Key Vault for certificate upload"
     "FLLM_APP_RG" = "Unable to determine the resource group for the AKS cluster"
 }
-foreach ($envVariable in $requiredEnvVariables.GetEnumerator()) {
-    $name = $envVariable.Key
-    $message = $envVariable.Value
-
-    $value = Get-ChildItem env:$name -ErrorAction SilentlyContinue
-    if (-not $value) {
-        throw "$message. The '$name' environment variable is not set."
-    }
-}
+Test-EnvironmentVariables -envVariables $requiredEnvVariables
 
 # Check if the certificate file is empty
 if (-not (Test-Path $certificatePath) -or (Get-Item $certificatePath).length -eq 0) {
@@ -102,6 +94,27 @@ if (-not (Test-Path $certificatePath) -or (Get-Item $certificatePath).length -eq
 $backupFolder = "./backup" | Get-AbsolutePath
 if (-not (Test-Path $backupFolder)) {
     New-Item -ItemType Directory -Path $backupFolder
+}
+
+$deletedCertificate = $null
+Invoke-CliCommand "Check for Deleted Certificate" {
+    $script:deletedCertificate = az keyvault certificate list-deleted `
+        --vault-name $env:FLLM_OPS_KV `
+        --query "[?name == '$id'].name | [0]" `
+        --output tsv
+}
+
+if ($null -ne $deletedCertificate) {
+    Invoke-CliCommand "Recover Deleted Certificate" {
+        az keyvault certificate recover `
+            --name $id `
+            --query "id" `
+            --vault-name $env:FLLM_OPS_KV `
+            --output tsv
+    }
+
+    Write-Host "Waiting for the certificate to be recovered..." -ForegroundColor Yellow
+    Start-Sleep -Seconds 15
 }
 
 Invoke-CliCommand "Load Certificate" {
