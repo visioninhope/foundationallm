@@ -2,12 +2,12 @@
 	<div class="chat-input p-inputgroup">
 		<div class="input-wrapper">
 			<div class="tooltip-component">
-				<VTooltip :autoHide="false" :popperTriggers="['hover']">
+				<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 					<i class="pi pi-info-circle"></i>
 					<template #popper> Use Shift+Enter to add a new line </template>
 				</VTooltip>
 			</div>
-			<VTooltip :autoHide="false" :popperTriggers="['hover']">
+			<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 				<Button
 					:badge="fileArrayFiltered.length.toString() || null"
 					:aria-label="'Upload file (' + fileArrayFiltered.length.toString() + ' files attached)'"
@@ -67,7 +67,7 @@
 						<div v-if="isUploading">
 							<ProgressBar
 								:value="uploadProgress"
-								:showValue="false"
+								:show-value="false"
 								style="display: flex; width: 95%; margin: 10px 2.5%"
 							/>
 							<p style="text-align: center">Uploading...</p>
@@ -120,9 +120,9 @@
 											or
 											<br />
 										</span>
-										<a style="color: blue; cursor: pointer" @click="browseFiles"
-											>Browse for files</a
-										>
+										<a style="color: blue; cursor: pointer" @click="browseFiles">
+											<span>Browse for files</span>
+										</a>
 									</p>
 								</div>
 							</div>
@@ -270,7 +270,7 @@ export default {
 			this.text = '';
 		},
 
-		async handleUpload(event: any) {
+		handleUpload(event: any) {
 			this.isUploading = true;
 
 			const totalFiles = event.files.length;

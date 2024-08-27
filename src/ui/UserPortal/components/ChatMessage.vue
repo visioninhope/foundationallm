@@ -27,7 +27,7 @@
 								},
 							}"
 						/>
-						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<span class="time-stamp">{{ $filters.timeAgo(new Date(message.timeStamp)) }}</span>
 							<template #popper>
 								{{ formatTimeStamp(message.timeStamp) }}
@@ -42,7 +42,7 @@
 					<AttachmentList
 						v-if="message.sender === 'User'"
 						:attachments="message.attachmentDetails ?? []"
-						:attachmentIds="message.attachments"
+						:attachment-ids="message.attachments"
 					/>
 
 					<!-- Message loading -->
@@ -51,7 +51,7 @@
 					</template>
 
 					<!-- Render the html content and any vue components within -->
-					<component v-else :is="compiledMarkdownComponent" />
+					<component :is="compiledMarkdownComponent" v-else />
 
 					<!-- Analysis button -->
 					<Button
@@ -62,7 +62,7 @@
 						text
 						icon="pi pi-window-maximize"
 						label="Analysis"
-						@click.stop="showAnalysisModal"
+						@click.stop="isAnalysisModalVisible = true"
 					/>
 				</div>
 
@@ -157,7 +157,7 @@
 		<!-- Analysis Modal -->
 		<AnalysisModal
 			:visible="isAnalysisModalVisible"
-			:analysisResults="message.analysisResults ?? []"
+			:analysis-results="message.analysisResults ?? []"
 			@update:visible="isAnalysisModalVisible = $event"
 		/>
 	</div>
@@ -170,15 +170,12 @@ import { marked } from 'marked';
 import katex from 'katex';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
-import type { PropType, ref } from 'vue';
+import type { PropType } from 'vue';
 
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import ChatMessageContentBlock from '@/components/ChatMessageContentBlock.vue';
-import AttachmentList from '@/components/AttachmentList.vue';
-import AnalysisModal from '@/components/AnalysisModal.vue';
-import AgentIcon from '@/components/AgentIcon.vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code, language) => {
@@ -195,11 +192,11 @@ marked.use({ renderer });
 
 function processLatex(html) {
 	const blockLatexPattern = /\\\[([^\]]+)\\\]/g;
-	const inlineLatexPattern = /\\\(([^\)]+)\\\)/g;
+	const inlineLatexPattern = /\\\(([^)]+)\\\)/g;
 
 	// Check if LaTeX syntax is detected in the content
-	const hasBlockLatex = blockLatexPattern.test(html);
-	const hasInlineLatex = inlineLatexPattern.test(html);
+	// const hasBlockLatex = blockLatexPattern.test(html);
+	// const hasInlineLatex = inlineLatexPattern.test(html);
 
 	// Process block LaTeX: \[ ... \]
 	html = html.replace(blockLatexPattern, (_, math) => {
@@ -247,11 +244,6 @@ function addCodeHeaderComponents(htmlString) {
 export default {
 	name: 'ChatMessage',
 
-	components: {
-		AttachmentList,
-		AnalysisModal,
-	},
-
 	props: {
 		message: {
 			type: Object as PropType<Message>,
@@ -264,20 +256,7 @@ export default {
 		},
 	},
 
-	setup() {
-		const isAnalysisModalVisible = ref(false);
-
-		function showAnalysisModal() {
-			isAnalysisModalVisible.value = true;
-		}
-
-		return {
-			isAnalysisModalVisible,
-			showAnalysisModal,
-		};
-	},
-
-	emits: ['rate', 'refresh'],
+	emits: ['rate'],
 
 	data() {
 		return {
@@ -290,6 +269,7 @@ export default {
 			messageContent: this.message.content
 				? JSON.parse(JSON.stringify(this.message.content))
 				: null,
+			isAnalysisModalVisible: false,
 		};
 	},
 
@@ -305,20 +285,22 @@ export default {
 			if (this.messageContent && this.messageContent?.length > 0) {
 				this.messageContent.forEach((contentBlock) => {
 					switch (contentBlock.type) {
-						case 'text':
+						case 'text': {
 							content += processContentBlock(contentBlock.value);
 							break;
+						}
 						// case 'image_file':
 						// 	break;
 						// case 'html':
 						// 	break;
 						// case 'file_path':
 						// 	break;
-						default:
+						default: {
 							// Maybe just pass invidual values directly as primitives instead of full object
 							const contentBlockEncoded = encodeURIComponent(JSON.stringify(contentBlock));
 							content += `<chat-message-content-block contentencoded="${contentBlockEncoded}"></chat-message-content-block>`;
 							break;
+						}
 					}
 				});
 			} else {

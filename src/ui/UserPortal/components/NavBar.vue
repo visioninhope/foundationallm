@@ -23,7 +23,7 @@
 				<div class="navbar__content__left__item">
 					<template v-if="currentSession">
 						<span>{{ currentSession.name }}</span>
-						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<Button
 								v-if="!$appConfigStore.isKioskMode"
 								class="button--share"
@@ -50,7 +50,7 @@
 			<div class="navbar__content__right">
 				<template v-if="currentSession">
 					<span class="header__dropdown">
-						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+						<VTooltip :auto-hide="false" :popper-riggers="['hover']">
 							<AgentIcon
 								:src="$appConfigStore.agentIconUrl || '~/assets/FLLM-Agent-Light.svg'"
 								alt="Select an agent"
@@ -78,7 +78,6 @@
 
 <script lang="ts">
 import type { Session } from '@/js/types';
-import AgentIcon from '@/components/AgentIcon.vue';
 
 interface AgentDropdownOption {
 	label: string;

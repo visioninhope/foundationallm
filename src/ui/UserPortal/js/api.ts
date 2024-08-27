@@ -7,7 +7,7 @@ import type {
 	CompletionRequest,
 	ResourceProviderGetResult,
 	ResourceProviderUpsertResult,
-	ResourceProviderDeleteResult,
+	// ResourceProviderDeleteResult,
 	ResourceProviderDeleteResults,
 } from '@/js/types';
 
@@ -323,7 +323,9 @@ export default {
 		agentName: string,
 		progressCallback: Function,
 	) {
-		const response: ResourceProviderUpsertResult = (await new Promise(async (resolve, reject) => {
+		const bearerToken = await this.getBearerToken();
+
+		const response: ResourceProviderUpsertResult = (await new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
 			xhr.upload.onprogress = function (event) {
@@ -340,7 +342,8 @@ export default {
 				}
 			};
 
-			xhr.onerror = (error) => {
+			xhr.onerror = () => {
+				// eslint-disable-next-line prefer-promise-reject-errors
 				reject('Error during file upload.');
 			};
 
@@ -350,9 +353,7 @@ export default {
 				true,
 			);
 
-			const bearerToken = await this.getBearerToken();
 			xhr.setRequestHeader('Authorization', `Bearer ${bearerToken}`);
-
 			xhr.send(file);
 		})) as ResourceProviderUpsertResult;
 

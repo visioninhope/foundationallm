@@ -38,14 +38,14 @@
 				v-for="session in sessions"
 				:key="session.id"
 				class="chat-sidebar__chat"
+				tabindex="0"
 				@click="handleSessionSelected(session)"
 				@keydown.enter="handleSessionSelected(session)"
-				tabindex="0"
 			>
 				<div class="chat" :class="{ 'chat--selected': currentSession?.id === session.id }">
 					<!-- Chat name -->
 
-					<VTooltip :autoHide="false" :popperTriggers="['hover']">
+					<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 						<span class="chat__name">{{ session.name }}</span>
 						<template #popper>
 							{{ session.name }}
@@ -55,7 +55,7 @@
 					<!-- Chat icons -->
 					<span v-if="currentSession?.id === session.id" class="chat__icons">
 						<!-- Rename session -->
-						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<Button
 								icon="pi pi-pencil"
 								size="small"
@@ -68,7 +68,7 @@
 						</VTooltip>
 
 						<!-- Delete session -->
-						<VTooltip :autoHide="false" :popperTriggers="['hover']">
+						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
 							<Button
 								icon="pi pi-trash"
 								size="small"
@@ -102,21 +102,21 @@
 
 		<!-- Rename session dialog -->
 		<Dialog
-			class="sidebar-dialog"
-			:visible="sessionToRename !== null"
 			v-if="sessionToRename !== null"
-			modal
+			v-focustrap
+			:visible="sessionToRename !== null"
 			:header="`Rename Chat ${sessionToRename?.name}`"
 			:closable="false"
-			v-focustrap
+			class="sidebar-dialog"
+			modal
 		>
 			<InputText
 				v-model="newSessionName"
+				:style="{ width: '100%' }"
 				type="text"
 				placeholder="New chat name"
-				:style="{ width: '100%' }"
-				@keydown="renameSessionInputKeydown"
 				autofocus
+				@keydown="renameSessionInputKeydown"
 			></InputText>
 			<template #footer>
 				<Button label="Cancel" text @click="closeRenameModal" />
@@ -126,14 +126,14 @@
 
 		<!-- Delete session dialog -->
 		<Dialog
-			class="sidebar-dialog"
-			:visible="sessionToDelete !== null"
 			v-if="sessionToDelete !== null"
+			v-focustrap
+			:visible="sessionToDelete !== null"
+			:closable="false"
+			class="sidebar-dialog"
 			modal
 			header="Delete a Chat"
-			:closable="false"
 			@keydown="deleteSessionKeydown"
-			v-focustrap
 		>
 			<div v-if="deleteProcessing" class="delete-dialog-content">
 				<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -142,13 +142,13 @@
 				<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
 			</div>
 			<template #footer>
-				<Button label="Cancel" text @click="sessionToDelete = null" :disabled="deleteProcessing" />
+				<Button label="Cancel" text :disabled="deleteProcessing" @click="sessionToDelete = null" />
 				<Button
 					label="Delete"
 					severity="danger"
-					@click="handleDeleteSession"
 					autofocus
 					:disabled="deleteProcessing"
+					@click="handleDeleteSession"
 				/>
 			</template>
 		</Dialog>
