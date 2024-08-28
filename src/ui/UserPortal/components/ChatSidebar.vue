@@ -5,30 +5,36 @@
 			<img
 				v-if="$appConfigStore.logoUrl !== ''"
 				:src="$filters.enforceLeadingSlash($appConfigStore.logoUrl)"
-				alt="Logo"
+				:alt="$appConfigStore.logoText"
 			/>
 			<span v-else>{{ $appConfigStore.logoText }}</span>
-			<Button
-				:icon="$appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
-				size="small"
-				severity="secondary"
-				class="secondary-button"
-				aria-label="Toggle sidebar"
-				@click="$appStore.toggleSidebar"
-			/>
+			<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+				<Button
+					:icon="$appStore.isSidebarClosed ? 'pi pi-arrow-right' : 'pi pi-arrow-left'"
+					size="small"
+					severity="secondary"
+					class="secondary-button"
+					aria-label="Toggle sidebar"
+					@click="$appStore.toggleSidebar"
+				/>
+				<template #popper>Toggle sidebar</template>
+			</VTooltip>
 		</div>
 		<div class="chat-sidebar__section-header">
-			<span>Chats</span>
+			<h2 class="chat-sidebar__section-header__text">Chats</h2>
 			<!-- <button @click="handleAddSession">
 				<span class="text">+</span>
 			</button> -->
-			<Button
-				icon="pi pi-plus"
-				text
-				severity="secondary"
-				aria-label="Add new chat"
-				@click="handleAddSession"
-			/>
+			<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+				<Button
+					icon="pi pi-plus"
+					text
+					severity="secondary"
+					aria-label="Add new chat"
+					@click="handleAddSession"
+				/>
+				<template #popper>Add new chat</template>
+			</VTooltip>
 		</div>
 
 		<!-- Chats -->
@@ -38,7 +44,6 @@
 				v-for="session in sessions"
 				:key="session.id"
 				class="chat-sidebar__chat"
-				tabindex="0"
 				@click="handleSessionSelected(session)"
 				@keydown.enter="handleSessionSelected(session)"
 			>
@@ -46,7 +51,7 @@
 					<!-- Chat name -->
 
 					<VTooltip :auto-hide="false" :popper-triggers="['hover']">
-						<span class="chat__name">{{ session.name }}</span>
+						<span class="chat__name" tabindex="0">{{ session.name }}</span>
 						<template #popper>
 							{{ session.name }}
 						</template>
@@ -136,7 +141,14 @@
 			@keydown="deleteSessionKeydown"
 		>
 			<div v-if="deleteProcessing" class="delete-dialog-content">
-				<i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+				<div role="status">
+					<i
+						class="pi pi-spin pi-spinner"
+						style="font-size: 2rem"
+						role="img"
+						aria-label="Loading"
+					></i>
+				</div>
 			</div>
 			<div v-else>
 				<p>Do you want to delete the chat "{{ sessionToDelete.name }}" ?</p>
@@ -285,6 +297,11 @@ export default {
 	font-weight: 600;
 }
 
+.chat-sidebar__section-header__text {
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
 .chat-sidebar__section-header--mobile {
 	display: none;
 }
@@ -310,6 +327,8 @@ export default {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	font-size: 0.8125rem;
+	font-weight: 400;
 }
 
 .chat__icons {
