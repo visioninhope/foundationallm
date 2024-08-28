@@ -3,7 +3,7 @@
 		<div class="input-wrapper">
 			<div class="tooltip-component">
 				<VTooltip :auto-hide="false" :popper-triggers="['hover']">
-					<i class="pi pi-info-circle"></i>
+					<i class="pi pi-info-circle" tabindex="0"></i>
 					<template #popper> Use Shift+Enter to add a new line </template>
 				</VTooltip>
 			</div>
@@ -106,6 +106,7 @@
 										icon="pi pi-times"
 										text
 										severity="danger"
+										aria-label="Remove attachment"
 										@click="removeAttachment(file)"
 									/>
 								</div>
@@ -150,6 +151,7 @@
 					:disabled="disabled"
 					placeholder="What would you like to ask?"
 					autofocus
+					aria-label="Chat input"
 					@keydown="handleKeydown"
 				/>
 				<template #no-result>
@@ -511,6 +513,10 @@ export default {
 	.upload-files-header button {
 		padding: 0.25rem 0.5rem;
 		margin-right: 0.25rem !important;
+	}
+
+	.tooltip-component {
+		display: none;
 	}
 }
 
