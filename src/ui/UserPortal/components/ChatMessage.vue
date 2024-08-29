@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="message-row" :class="message.sender === 'User' ? 'message--out' : 'message--in'">
-			<div class="message">
+			<div class="message" tabindex="0">
 				<div class="message__header">
 					<!-- Sender -->
 					<span class="header__sender">
@@ -27,16 +27,27 @@
 								},
 							}"
 						/>
-						<VTooltip
-							:autoHide="false"
-							:popperTriggers="['hover']"
-						>
-							<span class="time-stamp">{{
+						<VTooltip :auto-hide="false" :popper-triggers="['hover']">
+							<span class="time-stamp" tabindex="0">{{
 								$filters.timeAgo(new Date(message.timeStamp))
 							}}</span>
 							<template #popper>
-								{{formatTimeStamp(message.timeStamp)}}
+								{{ formatTimeStamp(message.timeStamp) }}
 							</template>
+						</VTooltip>
+
+						<!-- Copy user message button -->
+						<VTooltip :auto-hide="false" :popper-riggers="['hover']">
+							<Button
+								v-if="message.sender === 'User'"
+								class="message__copy"
+								size="small"
+								text
+								icon="pi pi-copy"
+								aria-label="Copy Message"
+								@click.stop="handleCopyMessageContent"
+							/>
+							<template #popper>Copy Message</template>
 						</VTooltip>
 					</span>
 				</div>
@@ -47,16 +58,18 @@
 					<AttachmentList
 						v-if="message.sender === 'User'"
 						:attachments="message.attachmentDetails ?? []"
-						:attachmentIds="message.attachments"
+						:attachment-ids="message.attachments"
 					/>
 
 					<!-- Message loading -->
 					<template v-if="message.sender === 'Assistant' && message.type === 'LoadingMessage'">
-						<i class="pi pi-spin pi-spinner"></i>
+						<div role="status">
+							<i class="pi pi-spin pi-spinner" role="img" aria-label="Loading message"></i>
+						</div>
 					</template>
 
 					<!-- Render the html content and any vue components within -->
-					<component v-else :is="compiledMarkdownComponent" />
+					<component :is="compiledMarkdownComponent" v-else />
 
 					<!-- Analysis button -->
 					<Button
@@ -67,7 +80,7 @@
 						text
 						icon="pi pi-window-maximize"
 						label="Analysis"
-						@click.stop="showAnalysisModal"
+						@click.stop="isAnalysisModalVisible = true"
 					/>
 				</div>
 
@@ -116,8 +129,20 @@
 						</span>
 					</span>
 
-					<!-- View prompt -->
-					<span class="view-prompt">
+					<!-- Right side buttons -->
+					<span>
+						<!-- Copy message button -->
+						<Button
+							:disabled="message.type === 'LoadingMessage'"
+							class="message__button"
+							size="small"
+							text
+							icon="pi pi-copy"
+							label="Copy"
+							@click.stop="handleCopyMessageContent"
+						/>
+
+						<!-- View prompt buttom -->
 						<Button
 							class="message__button"
 							:disabled="message.type === 'LoadingMessage'"
@@ -130,11 +155,10 @@
 
 						<!-- Prompt dialog -->
 						<Dialog
+							v-model:visible="viewPrompt"
 							class="prompt-dialog"
-							:visible="viewPrompt"
 							modal
 							header="Completion Prompt"
-							:closable="false"
 						>
 							<p class="prompt-text">{{ prompt.prompt }}</p>
 							<template #footer>
@@ -162,7 +186,7 @@
 		<!-- Analysis Modal -->
 		<AnalysisModal
 			:visible="isAnalysisModalVisible"
-			:analysisResults="message.analysisResults ?? []"
+			:analysis-results="message.analysisResults ?? []"
 			@update:visible="isAnalysisModalVisible = $event"
 		/>
 	</div>
@@ -173,21 +197,20 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.css';
 import { marked } from 'marked';
 import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import truncate from 'truncate-html';
 import DOMPurify from 'dompurify';
-import type { PropType, ref } from 'vue';
+import type { PropType } from 'vue';
 
 import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import ChatMessageContentBlock from '@/components/ChatMessageContentBlock.vue';
-import AttachmentList from '@/components/AttachmentList.vue';
-import AnalysisModal from '@/components/AnalysisModal.vue';
-import AgentIcon from '@/components/AgentIcon.vue';
 
 const renderer = new marked.Renderer();
-renderer.code = (code, language) => {
-	const sourceCode = code.raw || code;
+renderer.code = (code) => {
+	const language = code.lang;
+	const sourceCode = code.text || code;
 	const validLanguage = !!(language && hljs.getLanguage(language));
 	const highlighted = validLanguage
 		? hljs.highlight(sourceCode, { language })
@@ -198,30 +221,21 @@ renderer.code = (code, language) => {
 };
 marked.use({ renderer });
 
-function processLatex(html) {
-	const blockLatexPattern = /\\\[([^\]]+)\\\]/g;
-	const inlineLatexPattern = /\\\(([^\)]+)\\\)/g;
-
-	// Check if LaTeX syntax is detected in the content
-	const hasBlockLatex = blockLatexPattern.test(html);
-	const hasInlineLatex = inlineLatexPattern.test(html);
+function processLatex(content) {
+	const blockLatexPattern = /\\\[\s*([\s\S]+?)\s*\\\]/g;
+	const inlineLatexPattern = /\\\(([\s\S]+?)\\\)/g;
 
 	// Process block LaTeX: \[ ... \]
-	html = html.replace(blockLatexPattern, (_, math) => {
+	content = content.replace(blockLatexPattern, (_, math) => {
 		return katex.renderToString(math, { displayMode: true, throwOnError: false });
 	});
 
 	// Process inline LaTeX: \( ... \)
-	html = html.replace(inlineLatexPattern, (_, math) => {
+	content = content.replace(inlineLatexPattern, (_, math) => {
 		return katex.renderToString(math, { throwOnError: false });
 	});
 
-	// If LaTeX was found, render the content again with marked
-	// if (hasBlockLatex || hasInlineLatex) {
-	// 	html = marked(html);
-	// }
-
-	return html;
+	return content;
 }
 
 function addCodeHeaderComponents(htmlString) {
@@ -252,11 +266,6 @@ function addCodeHeaderComponents(htmlString) {
 export default {
 	name: 'ChatMessage',
 
-	components: {
-		AttachmentList,
-		AnalysisModal,
-	},
-
 	props: {
 		message: {
 			type: Object as PropType<Message>,
@@ -269,20 +278,7 @@ export default {
 		},
 	},
 
-	setup() {
-		const isAnalysisModalVisible = ref(false);
-
-		function showAnalysisModal() {
-			isAnalysisModalVisible.value = true;
-		}
-
-		return {
-			isAnalysisModalVisible,
-			showAnalysisModal,
-		};
-	},
-
-	emits: ['rate', 'refresh'],
+	emits: ['rate'],
 
 	data() {
 		return {
@@ -295,6 +291,7 @@ export default {
 			messageContent: this.message.content
 				? JSON.parse(JSON.stringify(this.message.content))
 				: null,
+			isAnalysisModalVisible: false,
 		};
 	},
 
@@ -304,26 +301,28 @@ export default {
 				let htmlContent = processLatex(contentToProcess ?? '');
 				htmlContent = marked(htmlContent);
 				return DOMPurify.sanitize(htmlContent);
-			};
+			}
 
 			let content = '';
 			if (this.messageContent && this.messageContent?.length > 0) {
 				this.messageContent.forEach((contentBlock) => {
 					switch (contentBlock.type) {
-						case 'text':
+						case 'text': {
 							content += processContentBlock(contentBlock.value);
 							break;
+						}
 						// case 'image_file':
 						// 	break;
 						// case 'html':
 						// 	break;
 						// case 'file_path':
 						// 	break;
-						default:
+						default: {
 							// Maybe just pass invidual values directly as primitives instead of full object
 							const contentBlockEncoded = encodeURIComponent(JSON.stringify(contentBlock));
 							content += `<chat-message-content-block contentencoded="${contentBlockEncoded}"></chat-message-content-block>`;
 							break;
+						}
 					}
 				});
 			} else {
@@ -395,6 +394,37 @@ export default {
 			return this.message.sender === 'User'
 				? this.message.senderDisplayName
 				: this.message.senderDisplayName || 'Agent';
+		},
+
+		handleCopyMessageContent() {
+			let contentToCopy = '';
+			if (this.messageContent && this.messageContent?.length > 0) {
+				this.messageContent.forEach((contentBlock) => {
+					switch (contentBlock.type) {
+						case 'text':
+							contentToCopy += contentBlock.value;
+							break;
+						// default:
+						// 	contentToCopy += `![${contentBlock.fileName || 'image'}](${contentBlock.value})`;
+						// 	break;
+					}
+				});
+			} else {
+				contentToCopy = this.message.text;
+			}
+
+			const textarea = document.createElement('textarea');
+			textarea.value = decodeURIComponent(contentToCopy);
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand('copy');
+			document.body.removeChild(textarea);
+
+			this.$toast.add({
+				severity: 'success',
+				detail: 'Message copied to clipboard!',
+				life: 5000,
+			});
 		},
 
 		handleRate(message: Message, isLiked: boolean) {
@@ -473,6 +503,11 @@ export default {
 	flex-wrap: wrap;
 }
 
+.message__copy {
+	color: var(--primary-text);
+	margin-left: 4px;
+}
+
 .header__sender {
 	display: flex;
 	align-items: center;
@@ -517,24 +552,11 @@ export default {
 
 .ratings {
 	display: flex;
-	gap: 16px;
+	// gap: 16px;
 }
 
 .icon {
 	margin-right: 4px;
-	cursor: pointer;
-}
-
-.view-prompt {
-	cursor: pointer;
-}
-
-.dislike {
-	margin-left: 12px;
-	cursor: pointer;
-}
-
-.like {
 	cursor: pointer;
 }
 
@@ -553,6 +575,10 @@ export default {
 	background-color: var(--primary-button-bg) !important;
 	border-color: var(--primary-button-bg) !important;
 	color: var(--primary-button-text) !important;
+}
+
+.message__button {
+	color: #00356b;
 }
 </style>
 
