@@ -270,7 +270,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
                 total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
-                )
+            )
 
         with get_openai_callback() as cb:
             try:
@@ -400,7 +400,7 @@ class LangChainKnowledgeManagementAgent(LangChainAgentBase):
                 prompt_tokens = assistant_response.prompt_tokens + image_analysis_token_usage.prompt_tokens,
                 total_tokens = assistant_response.total_tokens + image_analysis_token_usage.total_tokens,
                 user_prompt = request.user_prompt
-                )
+            )
 
         with get_openai_callback() as cb:
             try:
