@@ -238,7 +238,11 @@ namespace FoundationaLLM.Orchestration.Core.Orchestration
                         if (textEmbeddingProfile == null)
                             throw new OrchestrationException($"The text embedding profile {kmAgent.Vectorization.TextEmbeddingProfileObjectId} is not a valid text embedding profile.");
 
-                        explodedObjects[kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfile;
+                        var textEmbeddingProfileCasted = textEmbeddingProfile as TextEmbeddingProfile;
+                        if (textEmbeddingProfileCasted == null)
+                            throw new OrchestrationException($"The text embedding profile {kmAgent.Vectorization.TextEmbeddingProfileObjectId} is not a valid text embedding profile.");
+
+                        explodedObjects[kmAgent.Vectorization.TextEmbeddingProfileObjectId!] = textEmbeddingProfileCasted;
                     }
                 }
             }

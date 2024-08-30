@@ -23,6 +23,6 @@ namespace FoundationaLLM.Core.Examples.Constants
         /// <summary>
         /// The name of the default completions AI model deployed in new FoundationaLLM environments.
         /// </summary>
-        public const string Completions_Deployed_Default = "DefaultCompletionAIModel";
+        public const string Completions_Deployed_Default = "DefaultCompletionAIModel";        
     }
 }
