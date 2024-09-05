@@ -160,7 +160,9 @@
 							modal
 							header="Completion Prompt"
 						>
-							<p class="prompt-text">{{ prompt.prompt }}</p>
+							<p class="prompt-text" tabindex="0">
+								{{ prompt.prompt }}
+							</p>
 							<template #footer>
 								<Button
 									:style="{
@@ -415,7 +417,7 @@ export default {
 			}
 
 			const textarea = document.createElement('textarea');
-			textarea.value = decodeURIComponent(contentToCopy);
+			textarea.value = contentToCopy;
 			document.body.appendChild(textarea);
 			textarea.select();
 			document.execCommand('copy');
