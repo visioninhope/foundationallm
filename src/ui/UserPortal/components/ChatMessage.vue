@@ -28,7 +28,7 @@
 							}"
 						/>
 						<VTooltip :auto-hide="isMobile" :popper-triggers="isMobile ? [] : ['hover']">
-							<span class="time-stamp" tabindex="0">{{
+							<span class="time-stamp" tabindex="0" @keydown.esc="hideAllPoppers">{{
 								$filters.timeAgo(new Date(message.timeStamp))
 							}}</span>
 							<template #popper>
@@ -46,6 +46,7 @@
 								icon="pi pi-copy"
 								aria-label="Copy Message"
 								@click.stop="handleCopyMessageContent"
+								@keydown.esc="hideAllPoppers"
 							/>
 							<template #popper>Copy Message</template>
 						</VTooltip>
@@ -208,6 +209,8 @@ import type { Message, CompletionPrompt } from '@/js/types';
 import api from '@/js/api';
 import CodeBlockHeader from '@/components/CodeBlockHeader.vue';
 import ChatMessageContentBlock from '@/components/ChatMessageContentBlock.vue';
+
+import { hideAllPoppers } from 'floating-vue';
 
 const renderer = new marked.Renderer();
 renderer.code = (code) => {
@@ -438,6 +441,10 @@ export default {
 			const prompt = await api.getPrompt(this.message.sessionId, this.message.completionPromptId);
 			this.prompt = prompt;
 			this.viewPrompt = true;
+		},
+
+		hideAllPoppers() {
+			hideAllPoppers();
 		},
 	},
 };
